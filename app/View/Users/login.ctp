@@ -9,7 +9,7 @@
 <?php echo $this->Session->flash('auth'); ?>
 <?php echo $this->Form->create('User');?>
     
-    <img src="/img/login-title.png" alt="LifeCare" class="loginTitle">
+    <img src="/lifecare/app/webroot/img/login-title.png" alt="LifeCare" class="loginTitle">
     
 	<fieldset>
 		
@@ -26,3 +26,5 @@
     
 	</fieldset>
 </div>
+
+<!--teste-->
