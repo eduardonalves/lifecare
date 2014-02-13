@@ -31,4 +31,9 @@
 =======
 
 <!-- Teste de Novo, Novamente, Repetindo! -->
+<<<<<<< HEAD
+>>>>>>> origin/Francisco
+=======
+
+<!-- Novo envio (Francisco) -->
 >>>>>>> origin/Francisco
