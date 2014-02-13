@@ -9,12 +9,10 @@
 <?php echo $this->Session->flash('auth'); ?>
 <?php echo $this->Form->create('User');?>
     
-    <img src="/img/login-title.png" alt="LifeCare" class="loginTitle">
+    <img src="/lifecare/app/webroot/img/login-title.png" alt="LifeCare" class="loginTitle">
     
 	<fieldset>
-		
-		
-
+	
 		<?php
 			echo $this->Form->input('username',array('label' => 'Login: ','required'=>'false'));
 			echo $this->Form->input('password',array('label' => 'Senha: ','required'=>'false'));
@@ -26,4 +24,4 @@
     
 	</fieldset>
 </div>
-<!-- comentario !!-->
+<!-- comentario do henrique, comentando novamente!!-->
