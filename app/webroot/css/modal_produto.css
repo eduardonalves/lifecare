@@ -1,0 +1,348 @@
+@charset "utf-8";
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+
+
+/* ID *****************************************************************/
+#validaNome{
+	left:300px;
+	top:3px;
+	width:105px;
+}
+
+#validaUnid{
+	left:265px;
+	top:-7px;
+	width: 95px;
+}
+
+#validaNcm{
+	left:245px;
+	top:-8px;
+    width:125px;
+}
+
+#validaCfop{
+	left:250px;
+	top:-8px;
+    width:110px;
+}
+
+#spanEstoqueMinimo{
+	left:235px;
+	top:18px;
+	width:160px;
+}
+
+#validaEstoqueIdeal{
+	left:240px;
+	top:18px;
+	width:160px;
+}
+
+#myModal_add-produtos #validaNome{
+	left:317px;
+	top:-8px;
+	width:105px;
+}
+
+#myModal_add-produtos #validaUnid{
+	left: 277px;
+	top:-7px;
+	width: 75px;
+}
+
+#myModal_add-produtos #validaNcm{
+	left:245px;
+	top:-8px;
+    width:125px;
+}
+
+#myModal_add-produtos #validaCfop{
+	left:250px;
+	top:-8px;
+    width:110px;
+}
+
+#myModal_add-produtos #spanEstoqueMinimo{
+	left:247px;
+	top:18px;
+	width:160px;
+}
+
+#myModal_add-produtos #validaEstoqueIdeal{
+	left:245px;
+	top:18px;
+	width:160px;
+}
+
+
+
+/* HERANÇA ************************************************************/
+
+
+/* HACK ***************************************************************/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#validaNome{top:-5px;}
+}
+
+
+
+/*.......TAGS........*/
+#myModal_add-produtos.modal{
+	/*width: 1200px;
+	margin-left:-600px; */
+	height: 590px;
+    margin-left: -550px;
+    top: 5px;
+    width: 1111px;
+	
+}
+
+#myModal_add-produtos .modal-body{
+
+	height: 610px;
+	width: 1100px;
+
+}
+
+#myModal_add-produtos input{
+	margin-bottom: 4px !important;
+	
+}
+
+
+/*___CLASSES____ */
+
+#myModal_add-produtos .cadastrar-icone{
+
+	float:left;
+	margin-top:10px;
+	margin-left:5px;
+	width:10px;
+	opacity:0.5;
+
+	cursor:pointer;
+	
+} 
+
+
+#myModal_add-produtos .select-multiple{
+	width:150px;
+	height: 83px;  
+	float: right;
+	margin-right:-10px;
+}
+
+#myModal_add-produtos .textarea{
+	width:155px;
+	float: left;
+	margin-right: 49px;	
+}
+
+#myModal_add-produtos #ProdutoDescricao{
+	margin-left: 152px;
+    margin-top: -26px;
+    width: 155px;	
+}
+
+
+
+ 
+#myModal_add-produtos .tamanho-status{
+	width: 140px !important;
+	margin-left: 0px;
+	
+}
+
+#myModal_add-produtos .status{
+	width: 300px;
+
+	margin-left: -7px;
+
+}
+
+#myModal_add-produtos .status label{ 
+	width: 145px;
+}
+
+
+#myModal_add-produtos .periodo{
+
+	margin-left: 0px;
+
+}
+
+
+#myModal_add-produtos .tamanho-medi{
+	width: 140px !important;
+}
+
+#myModal_add-produtos .coluna-modal{
+margin-top: 10px;
+width: 450px !important;
+}
+
+#myModal_add-produtos .produto{
+	left: 50% !important;
+	width: 1200px !important;
+	margin-left: -600px !important;
+	
+}
+
+#myModal_add-produtos .corpo{
+	height: 600px !important;
+	overflow: hidden;
+	border-radius: 0px;
+}
+
+#myModal_add-produtos .topo{
+	border-bottom: 0px !important;
+}
+
+#myModal_add-produtos .modal.fade.in {
+    top: 4% !important;
+}
+
+#myModal_add-produtos .campo-obrigatorio{color:red;}
+
+/*-----ID'S----*/
+
+#myModal_add-produtos #input-codigo{
+	background-color: transparent;
+	width: 150px !important;
+	border: 0px;	
+}
+
+
+#myModal_add-produtos #categoria-nome{
+	margin-top: -3px !important;
+}
+
+
+
+/*---- PICK LIST ---*/
+
+#myModal_add-produtos .titulo{
+	text-align: center;
+	display: inline-block;
+	margin-left: 4px;
+	font-size: 13px;
+	background-color: #E6E6E6;
+	padding: 2px;
+	width: 93px;
+}
+#myModal_add-produtos .todas{
+	margin-left: 40px;
+}
+
+#myModal_add-produtos .picklist{
+
+  margin-left: 95px;
+    width: 259px;
+}
+
+#myModal_add-produtos .picklist SECTION > DIV{
+	    float: left;
+    padding: 4px;
+}
+
+#myModal_add-produtos .pick-bt{
+	width: 30px;
+    text-align: center;
+}
+
+#myModal_add-produtos .picklist select{
+	width: 96px;
+}
+
+#myModal_add-produtos .pick-categoria{
+	margin-left: 102px;
+	display: inline-block;
+	float: none;
+}
+
+#myModal_add-produtos .modal-estoque{
+	margin-left: -0px;
+}
+
+#myModal_add-produtos textarea{
+	width: 195px;
+}
+
+#myModal_add-produtos footer{
+	margin-top: -2px;
+	margin-bottom: 5px;
+}
+
+#myModal_add-produtos .head{
+	margin-top: 5px;
+	
+}
+
+#validaCodi{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:320px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:-5px;
+}
+
+#validaCodi:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+/*
+#validaEstoqueIdeal{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:124px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:-52px;
+}
+
+#validaEstoqueIdeal:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+	top: 36px;
+	left: 46px;
+}
+*/
+
+#LoadAjaxProduto{
+	left: 450px;
+    position: absolute;
+    top: -525px;
+}
+
+

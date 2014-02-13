@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+
+input{
+	border: 0px solid !important;
+	background-color: transparent;
+	border: 1px solid #CCCCCC;
+    float: left;
+    margin-top: 0px !important;
+    max-width: 220px;
+	
+}
+
+label{
+	margin-top: 0px !important;
+}
+
+
+table{
+	font-size: 13px;
+	 margin-top: 40px;
+	 border-spacing: 29px 5px; 
+	 column-width: auto;
+}
+
+.sction{
+	
+    margin-top: 35px;
+	
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+
+input{
+	border: 1px solid #CCCCCC;
+    float: left;
+    margin-top: 0px !important;
+    max-width: 150px;
+	
+}
+
+label{
+	margin-top: 0px !important;
+}
+
+
+table{
+	 font-size: 13px;
+	 margin-top: 40px;
+	 border-spacing: 0px 5px; 
+	 column-width: 1px;
+	 
+}
+
+table label{
+	
+	min-width: 10px !important;
+	
+}
+
+#tx{
+	text-align: center;
+	
+}
+
+
+
+
+
+

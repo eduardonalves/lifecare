@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+#myModal_add-config_entrasaida .modal-body{
+	height: 370px;
+    width: 720px;
+}
+
+#myModal_add-config_entrasaida.modal{
+	margin-left:-350px;
+}
+
+#myModal_add-config_entrasaida .coluna-modal{
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+}
+
+#myModal_add-config_entrasaida .coluna-modal .input{
+	float:left;
+	clear:none;
+	margin-left: 55px;
+	margin-top:5px;
+}
+
+#myModal_add-config_entrasaida div label{
+	line-height:20px;
+	margin-left: 5px;
+    margin-right: -2px;
+	float: left;
+	text-align: left;
+}
+

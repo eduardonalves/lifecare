@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+
+
+/* ID *****************************************************************/
+#LoadAjaxQuickLink{
+	left:161px;
+	position:absolute;
+	top:-110px;
+}
+
+#QuicklinkNome{
+	margin-top:15px;
+}
+
+/* HERANÇA ************************************************************/
+.ui-widget .error-message-quicklink{
+	display:none;
+}
+
+#myModal_add-quicklink .modal-body{
+	height:265px !important;
+}
+
+#myModal_add-quicklink #spanQuicklink{
+	background-color:#FFD5D5;
+    border:1px solid #AAAAAA;
+    border-radius:5px;
+    color:#D40000;
+    display:block;
+    font-size:13px;
+    left:345px;
+    padding:3px;
+    position:absolute;
+    text-align:center;
+    top:110px;
+    width:108px;
+}
+
+#myModal_add-quicklink #spanQuicklink:after {
+	border-color:rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style:solid;
+    border-width:10px;
+    content:"";
+    height:0;
+    left:-20px;
+    position:absolute;
+    top:8px;
+    width:0;
+}

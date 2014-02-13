@@ -1,0 +1,93 @@
+
+#myModal_add-fabricante label[for=FabricanteNome]{
+	display: block;
+	font-size: 15px;
+	margin-left: 70px;
+	margin-top: 18px;
+	line-height: 10px;
+	width: 87px;
+}
+
+#myModal_add-fabricante input[id=FabricanteNome]{
+	display: block;
+	margin-left: 0px;
+	margin-top: 13px;
+	height: 20px;
+}
+
+#myModal_add-fabricante .modal-body{
+	height: 240px !important;
+}
+
+#myModal_add-fabricante #spanValidaFabricanteNome{
+	background-color: #FFD5D5;
+	border: 1px solid #AAAAAA;
+	border-radius: 5px;
+	color: #D40000;
+	display: block;
+	font-size: 13px;
+	left: 358px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	top: 116px;
+	width: 119px;
+}
+
+#myModal_add-fabricante #spanValidaFabricanteNome:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+
+
+#myModal_add-fabricante #spanFabricanteCadastrado{
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 396px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 137px;
+    width: 119px;
+}
+
+#myModal_add-fabricante #spanFabricanteCadastrado:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+#myModal_add-fabricante .loaderAjax{
+	margin-left: 177px;
+	margin-top: -57px;
+
+}
+
+#myModal_add-fabricante footer{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}	
+
+#myModal_add-fabricante .bt-salvar{
+	margin-top: 75px;
+}	
+
+

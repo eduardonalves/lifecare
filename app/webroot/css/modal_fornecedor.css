@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+
+
+/* ID *****************************************************************/
+
+
+/* HERANÇA ************************************************************/
+#myModal_add-fornecedor label[for=FornecedoreNome]{
+	display:block;
+	font-size:15px;
+	line-height:10px;
+	margin-left:17px;
+	margin-top:20px;
+}
+
+#myModal_add-fornecedor input[id=FornecedoreNome]{
+	display:block;
+	height:20px;
+	margin-left:-6px;
+	margin-top:15px;
+}
+
+#myModal_add-fornecedor label[for=FornecedoreCpfCnpj]{
+	display: none;
+}
+
+#myModal_add-fornecedor input[id=FornecedoreCpfCnpj]{
+	display:block;
+	height:20px;
+	margin-left:165px;
+	margin-top:0px;
+}
+
+#myModal_add-fornecedor .modal-body{
+	height: 284px !important;
+}
+
+#myModal_add-fornecedor .label-cpf{
+	float:right;
+	font-size:14px;
+	margin-top:-10px;
+	width:39px;
+}
+
+#myModal_add-fornecedor .label-cnpj{
+	float:right;
+	font-size:14px;
+	margin-top:-13px;
+	width:50px;
+}
+
+#myModal_add-fornecedor .bt-salvar{
+	display:block;
+	float:right;
+	margin-top:25px;
+	position:absolute;
+	right:0px;
+	width:72px;
+}
+
+#myModal_add-fornecedor .loaderAjax{
+	left:200px;
+	position:absolute;
+	top:-150px;
+}
+
+#myModal_add-fornecedor #spanFornecedorNome{
+    left:365px;
+    top:120px;
+    width:110px;
+}
+
+#myModal_add-fornecedor #spanFornecedorCPF{
+    left:365px;
+    top:155px;
+    width:150px;
+}
+
+#myModal_add-fornecedor #spanFornecedorCPFExistente{
+    left:365px;
+    top:155px;
+    width:110px;
+}
+
+#myModal_add-fornecedor #spanFornecedorCPFEerrado{
+    left:365px;
+    top:140px;
+    width:150px;
+}
+
+#myModal_add-fornecedor #spanFornecedorCPFEerrado:after{
+	top:22px;
+}
+
+
+
+#myModal_add-fornecedor #spanFornecedorDoc{
+    background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 37px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 198px;
+    width: 110px;
+}
+
+#myModal_add-fornecedor #spanFornecedorDoc:after {
+	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5;
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: 37px;
+    position: absolute;
+    top: -18px;
+    width: 0;
+}
+
+#myModal_add-fornecedor #idcpf{
+	float: left;
+	margin-left:32px;
+	margin-top:15px;
+	position:absolute;
+	width:69px;
+}
+
+#myModal_add-fornecedor #idcnpj{
+	float: left;
+	margin-left:92px;
+	margin-top:17px;
+	position:absolute;
+	width:77px;
+}
+
+#myModal_add-fornecedor #inputcpf{
+	margin-top:-6px;
+	position:absolute;
+	
+}
+
+#myModal_add-fornecedor #inputcnpj{
+	margin-top:-9px;
+	position:absolute;   
+}
+
+#myModal_add-fornecedor footer{
+
+	position: relative;
+	float: left;
+	display: block;
+	width: 100%;
+	margin-top: 4px;
+}

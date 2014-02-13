@@ -1,0 +1,337 @@
+@charset "utf-8";
+
+
+/* ----- TAGS ---- */
+
+label{
+	
+	margin-bottom: 5px !important;
+	
+
+}
+
+
+
+/* ----- .Classes ---- */
+
+.resultado-total{
+	float: right;
+    font-size: 13px;
+    margin-right: 54px;
+    margin-top: 4px;
+}
+
+.colunaLoteIten{
+	background: #fffae7; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #fffae7 0%, #fffae7 45%, #c9f0e8 50%, #c9f0e8 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#fffae7), color-stop(45%,#fffae7), color-stop(50%,#c9f0e8), color-stop(100%,#c9f0e8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* IE10+ */
+	background: linear-gradient(135deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffae7', endColorstr='#c9f0e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.colunaProdutoIten{
+	background: #f0f5db; /* Old browsers */
+	background: -moz-linear-gradient(-45deg, #f0f5db 0%, #f0f5db 44%, #c9f0e8 50%, #c9f0e8 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#f0f5db), color-stop(44%,#f0f5db), color-stop(50%,#c9f0e8), color-stop(100%,#c9f0e8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* IE10+ */
+	background: linear-gradient(135deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f5db', endColorstr='#c9f0e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.espacoTabela{
+	
+}
+
+.areaTabela {
+	overflow: visible;
+	width: 1090px;
+}
+
+.dados-produto{
+	margin-top: -11px;
+}
+
+.a-data{/*Dados do Lote*/
+	   display: block;
+    font-size: 15px;
+    height: 18px;
+    margin-left: 238px;
+    margin-top: 4px;
+    position: absolute;
+    width: 10px;
+}
+
+.a-data-ES{ /*ENTRA E SAIDA*/	
+	   display: block;
+    font-size: 15px;
+    height: 18px;
+    margin-left: 238px;
+    margin-top: 51px;
+    position: absolute;
+    width: 10px;
+    
+}
+
+.produtos-alinhamento {
+	margin-top: 3px;
+	
+}
+
+.forma-data {
+	width: 70px !important;
+	margin-top: 3px;
+	
+}
+
+.forma-data1 {
+	width: 70px !important;
+	float: right;
+	margin-top: 3px;
+}
+/*
+.forma-data2 {
+	width: 5px !important;
+	display: absolute;
+	margin-left: 0px;
+	margin-top: 0px;
+}
+*/
+
+.operacao label{
+	
+	width: 57px !important;
+	margin-top: 0px;
+	font-size: 12px !important;
+	text-align: left !important;
+	line-height: 20px !important;
+	margin-left: 4px;
+}
+
+.filtros{
+	background-color:white;
+	display:block;
+	position:relative;
+	float:left;
+	margin-top:-15px;
+	padding:10px;
+	width:1067px;
+	height:230px;
+}
+
+.filtros label{
+	line-height:24px;
+}
+
+
+.content-filtros{
+	width:100%;
+	display:block;
+	position:relative;
+	float:left;
+	padding:0;
+	margin:0;
+}
+
+.content-filtros img{
+	position:absolute;
+	right:10px;
+	top:5px
+}
+
+.titulo-filtro{
+	font-size:15px;
+	color:#333;
+}
+
+.paging{
+	clear:both;
+	float:left;
+	width:100%;
+	margin-top:15px;
+}
+
+.paging-direito{
+	position:relative;
+	display: inline-flex;
+	clear:both;
+	float:right;
+	margin-bottom: 2px;
+	width: 436px;
+}
+
+.paging-direito img{
+	display:block;
+	float: right;
+}
+
+.paging-direito label{
+	line-height:20px;
+}
+
+.separador{
+	font-size:13px;
+	line-height:13px;
+	position: relative;
+    top: -3px;
+}
+
+
+.prev a{
+	background-image:url(/cakephp/img/botao-tabela-voltar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
+
+.next a{
+	background-image:url(/cakephp/img/botao-tabela-adiantar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
+
+.msgFiltro{
+	background-color: #FFD5D5;
+    border-radius: 4px;
+    bottom: 13px;
+    color: #D40000;
+    font-size: 13px;
+    left: -110px;
+    margin-left: 50%;
+    padding: 4px 11px;
+    position: absolute;
+    display:none;
+}
+
+.msgModal{
+	background-color: #FFD5D5;
+    border-radius: 4px;
+    color: #D40000;
+    font-size: 13px;
+    top:295px;
+	left:-65px; 
+	margin-left: 50%;
+    padding: 4px 11px;
+    position: absolute;
+    height:20px;
+    display:none;
+    width:115px;
+}
+
+/* ----- .ID's ---- */
+#quick-select{
+	width: 225px;
+}
+
+#quick-salvar{
+	margin-left: -670px;
+	margin-top: -46px;
+	border: 0px !important;
+}
+
+#quick-editar{
+	-webkit-margin-start: 0px !important;	
+	margin-left: -580px;
+	margin-top: -46px;
+	border: 0px !important;
+}
+
+#filtro-protuto{
+	background-color: #F0F5DB;
+	border: 1px solid rgb(171, 200, 55);
+	padding:5px;
+	margin-top:5px;
+	width:334px;
+	height:145px;
+	border-radius: 8px;
+}
+
+#titulo-produto{
+	font-size:15px;
+	color:#333;
+	width:160px;
+	margin-left:10px;
+	text-align:left;
+	display:block;
+	margin-bottom:15px;
+}
+
+#filtro-lote{
+	background-color: #FFFAE7;
+	border: 1px solid rgb(255, 212, 42);
+	padding:5px;
+	margin-top:5px;
+	width:335px;
+	margin-left:13px;
+	height:145px;
+	border-radius: 8px;
+}
+
+#titulo-lote{
+	font-size:15px;
+	color:#333;
+	width:160px;
+	margin-left:10px;
+	text-align:left;
+	display:block;
+	margin-bottom:15px;
+}
+
+#filtro-es{
+	background-color: #c9f0e8;
+	border: 1px solid #37c8ab;
+	padding:5px;
+	margin-top:5px;
+	width:333px;
+	height:145px;
+	border-radius: 8px;
+}
+
+#titulo-es{
+	font-size:15px;
+	color:#333;
+	width:200px;
+	margin-left:10px;
+	text-align:left;
+	display:block;
+	margin-bottom:15px;
+}
+
+#quick-filtrar{
+	position:absolute;
+	border:none;
+	bottom:-200px;
+}
+
+#paginatorFirst{
+	background-image:url(/cakephp/img/botao-tabela-primeiro.png);
+	display:inline-block;
+	width:16px;
+	height:15px;
+	margin-right:3px;
+}
+
+#paginatorLast{
+	background-image:url(/cakephp/img/botao-tabela-ultimo.png);
+	display:inline-block;
+	width:16px;
+	height:15px;
+}
+
+#filtro-lote .error-message-quicklink{
+	display:none;
+}
+
+#filtro-es .error-message-quicklink{
+	display:none;
+}
+
+
+

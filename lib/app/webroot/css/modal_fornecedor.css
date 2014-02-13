@@ -1,0 +1,24 @@
+#myModal_add-fornecedor header{
+	margin-left: 0px !important;
+
+}
+
+#myModal_add-fornecedor .tamanho-fornecedor{
+	height:500px;
+}
+
+#myModal_add-fornecedor #cabecalho{
+	border:none !important;
+}
+
+#myModal_add-fornecedor #categoria-nome{
+	margin-top: -3px !important;
+}
+
+#myModal_add-fornecedor #lote-modal{
+	margin-left:110px;
+}
+
+#myModal_add-fornecedor #lote-modal label{
+	margin-top:5px;
+}

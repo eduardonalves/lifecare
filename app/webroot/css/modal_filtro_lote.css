@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+#myModal_add-config_lote .modal-body{
+	width: 620px;
+	height: 291px;
+}
+
+#myModal_add-config_lote.modal{
+	margin-left:-350px;
+}
+
+#myModal_add-config_lote .coluna-modal{
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+}
+
+#myModal_add-config_lote .coluna-modal .input{
+	clear: none;
+    float: left;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+#myModal_add-config_lote div label{
+	line-height:20px;
+	margin-left: 5px;
+    margin-right: -2px;
+	float: left;
+	text-align: left;
+}
+

@@ -1,0 +1,141 @@
+table{
+	font-size: 11px;
+	text-align:left;
+}
+
+table th{
+	font-weight:normal;
+	border-bottom:1px solid #ccc;
+}
+
+table tr{
+	height:25px !important;
+}
+
+.tributoVale{
+	top: -34px !important;
+	font-size:11px !important;
+}
+
+.coluna-direita{
+}
+
+
+.viewEntrada{
+	display:block;
+	clear:both;
+}
+
+.label{
+	clear:none;
+	line-height: 20px;
+	font-size: 11px;
+	margin-top: -2px;
+}
+
+.absoluteTel{
+	
+	width: 300px;
+	top: 27px;
+	left: 400px;
+}
+
+.absoluteTel label{
+	margin-top: 2px;
+}
+
+.absoluteEmissao{
+	position: absolute;
+	width: 377px;
+	top: 60px;
+	left: 225px;
+}
+
+
+.absoluteEmissao label{
+	margin-top: 2px;
+}
+
+.absoluteEmissao span{
+	margin-top:2px;
+}
+
+
+#EntradaValorIpi{
+	font-size:11px;
+	width:190px;
+	margin-top:-1px;
+	margin-bottom:5px;
+	margin-left:-1px;
+	
+}
+
+/*******************************************/
+
+#impressao{
+	min-height:100%;
+}
+
+#impressao section {
+	position: relative;
+	display: block;
+}
+
+#impressao section header{
+	position: relative;
+	float: left;
+	border-bottom: 3px #CCCCCC solid;
+	width: 100%;
+	text-align: right;
+	margin: 20px 0px;
+	font-family: arial;
+	color: #008000;
+	font-size: 20px;
+}
+
+#impressao section label{
+	float:left;
+	text-align:right;
+	margin-right:15px;
+	margin-bottom:0px;
+	width:138px;
+	font-size:11px;
+	height:18px;
+	line-height: 20px;
+}
+
+#impressao th{
+	background-color: initial;
+}
+
+/*******************************************/
+
+.PrintArea {
+    margin: 20px 5px;
+    padding: 10px;
+    width: 400px;
+}
+.button {
+    background: none repeat scroll 0 0 #999999;
+    border: 1px solid blue;
+    color: #EEEEEE;
+    cursor: pointer;
+    padding: 3px 5px;
+    text-align: center;
+    width: 80px;
+}
+span.test {
+    color: red;
+}
+
+#Retain.PrintArea.area1 {
+    border: 1px solid #999;
+}
+
+.PrintArea.area1 {
+    border: solid 1px #ffb40f;
+}
+
+.PrintArea.area2 {
+    border: solid 1px #20ff58;
+}

@@ -1,0 +1,150 @@
+
+@charset "utf-8";
+
+/*.......TAGS........*/
+.textarea{
+	width: 175px;
+	resize: none;
+	margin-top:4px;
+	display:inline;
+}
+
+
+/*.......classes........*/
+.coluna-esquerda fieldset{
+	border:none;
+}
+
+.coluna-content{
+	padding:15px 0px 15px 10px;
+}
+
+
+/*.......IDS........*/
+#coluna-esquerda label{
+	width:90px;
+}
+
+#coluna-direita label{
+	width:138px;
+}
+
+#ProdutoCodigo{
+	border: none;
+	line-height: 0px;
+}
+
+
+#spanEstoqueMinimo{
+	left: 257px;
+	top: 20px;
+
+}
+
+#validaNome{
+	left: 277px;
+	width: 78px;
+}
+
+#validaNome:after {
+	top:2px;
+}
+#validaNcm{
+	left: 258px;
+	width: 78px;
+}
+
+#validaNcm:after {
+	top:2px;
+}
+
+
+#validaCfop{
+	left: 258px;
+	width: 78px;
+}
+
+#validaCfop:after {
+	top:2px;
+}
+
+#valiEstoqueIdeal{
+	left: 258px;
+	width: 78px;
+	
+}
+
+#valiEstoqueIdeal:after {
+	top:2px;
+}
+
+
+#validaUnidade{
+	left: 232px;
+	width: 71px;
+	top: 148px;
+}
+
+#validaUnidade:after {
+	top:6px;
+}
+
+#SpanEstoqueMinimo{
+	left: 258px;
+	width: 78px;
+}
+
+#SpanEstoqueMinimo:after{
+	top:2px;
+}
+
+
+/* PICK LIST ************************************/
+.titulo{
+	text-align: center;
+	display: inline-block;
+	font-size: 13px;
+	background-color: #E6E6E6;
+	padding: 2px;
+	width: 142px;
+}
+
+.todas{
+	margin-left: 33px;
+}
+
+.picklist{
+	float: left;
+	position:relative;
+}
+
+.picklist SECTION > DIV{
+	float: left;
+	padding: 4px 4px 4px 0;
+}
+
+.pick-bt{
+	width: 30px;
+    text-align: center;
+}
+
+.picklist select{
+	width: 145px;
+}
+
+.picklist input{
+	padding-bottom:7px;
+	margin-bottom:3px;
+}
+
+.pick-label{
+	margin-left: 100px !important;
+    margin-top: 15px;
+}
+
+.input:after #TributoAlIcms:parent{
+	content: "918273";
+}
+
+
+

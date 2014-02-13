@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+legend{
+	display:none;
+}
+
+fieldset{
+	background-color:white;
+	border:2px solid #ccc;
+	border-radius:20px;
+	height:322px;
+	left:-225px;
+	margin-left:50%;
+	position:relative;
+	vertical-align:middle;
+	width:450px;
+	margin-top:10%;
+}
+
+/* CLASS **************************************************************/
+.loginEntrar{
+	bottom:90px;
+	position:absolute;
+	right:60px;
+}
+
+.loginTitle{
+	left:44%;
+	position:absolute;
+	top:85px;
+	z-index:2;
+}
+
+/* ID *****************************************************************/
+#top{
+	display:none;
+}
+
+#flashMessage{
+	font-size:13px;
+	left: 69%;
+	position:absolute;
+	top: 205px;
+	width: 190px;
+	z-index:3;
+}
+
+#authMessage{
+	display:none;
+}
+
+#UserUsername{
+	border-radius:3px;
+	display:inline-block;
+	margin-bottom:10px;
+	margin-top: 30%;
+	padding-left:10px;
+}
+
+#UserPassword{
+	border-radius:3px;
+	display:inline-block;
+	padding-left:10px;
+}
+
+/* HERANÇA ************************************************************/
+label[for=UserUsername]{
+	display:inline-block;
+	float:left;
+	line-height:20px;
+	margin-right:10px;
+	margin-top: 30%;
+	text-align:right;
+	width:130px;
+}
+
+label[for=UserPassword]{
+	display:inline-block;
+	float:left;
+	line-height:20px;
+	margin-right:10px;
+	text-align:right;
+	width:130px;
+}
+
+input[type=submit]{
+	display:none;
+}

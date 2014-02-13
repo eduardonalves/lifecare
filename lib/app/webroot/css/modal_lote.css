@@ -1,0 +1,25 @@
+#myModal_add-lote header{
+	margin-left: 0px !important;
+
+}
+
+#myModal_add-lote #cabecalho{
+	border:none !important;
+}
+
+#myModal_add-lote #categoria-nome{
+	margin-top: -3px !important;
+}
+
+#myModal_add-lote #lote-modal{
+	margin-left:110px;
+}
+
+#myModal_add-lote #lote-modal label{
+	margin-top:5px;
+}
+
+#btn-addLote {
+	display:none;
+	cursor: pointer;
+}

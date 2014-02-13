@@ -1,0 +1,1052 @@
+@charset "utf-8";
+
+#NotaIndexForm label{
+	width:126px;
+}
+
+
+#fase1{
+	position:absolute;
+
+}
+
+#fase2{
+	position:relative;
+	display:none;
+
+}
+
+#fase3{
+	position:absolute;
+	display:none;
+
+}
+
+#fase0{
+	position:absolute;
+	display:none;
+
+}
+
+.cake-debug-output{
+	display:none;
+}
+
+
+#passos-bar {
+
+	position:relative;
+
+	clear:both;
+	display:block;
+
+	width:100%;
+
+	top:20px;
+
+	margin-bottom:100px;
+
+}
+
+#passos-bar .linha-verde {
+
+	position:relative;
+
+	float:left;
+	margin-bottom:70px;
+	width:239px;
+
+	background-color:#7DBD7D;
+
+	height:6px;
+
+}
+
+#passos-bar .linha-verde.complete {
+	background-color: #008000;
+}
+
+#passos-bar-total{
+	margin-left:170px;
+}
+
+#passos-bar .circle.complete{
+
+	background-color: #008000;
+    border: 4px solid #008000;
+	color:#CECECE;
+
+}
+
+#passos-bar .circle {
+
+	position:relative;
+
+	float:left;
+
+	width:8px;
+
+	border: 4px solid #7DBD7D;
+
+	background-color:#F9F9F9;
+
+	height:8px;
+	border-radius:50%;
+
+	top:-6px;
+	overflow:visible;
+
+}
+
+#passos-bar .circle span{
+
+	position:relative;
+	display:block;
+
+	width:50px;
+
+
+	top:16px;
+	left:-21px;
+
+	font-size:10px;
+
+	text-align:center;
+
+}
+
+.campo-importar-xml{
+	float:left;
+	display: inline-flex;
+	margin-left: 57px;
+}
+
+
+.campo-superior-total{
+	display:inline-flex;
+	float:right;
+}
+
+.campo-superior-direito{
+	float:left;
+}
+
+.campo-superior-direito label{
+
+	 width:170px !important;
+}
+
+.campo-superior-esquerdo{
+	 float:right;
+	 margin-right: 25px;
+}
+
+
+
+.campo-superior-produto{
+	margin-bottom:10px;
+	display:table-cell;
+
+}
+
+.direita-infeior{
+	margin-top:29px;
+
+}
+
+.dados-lote{
+	float: right;
+	margin-bottom: 5px;
+	margin-right:10px;
+    margin-top: -40px;
+    min-height:271px;
+    width: 330px;
+}
+
+
+table{
+	margin-top:20px;
+	margin-bottom:30px;
+}
+
+
+.tabela-lote{
+	border: 0 !important;
+	background: none !important;
+	font-weight:normal;
+}
+
+.tabela-lote th{
+	border: 0 !important;
+	background: none !important;
+	font-weight:normal;
+	text-align:center;
+	width:90px;
+}
+
+.tabela-lote tr {
+	border: 0 !important;
+	background: none !important;
+	font-weight:normal;
+}
+
+
+.tabela-lote td{
+	border: 0 !important;
+	background: none !important;
+	font-weight:normal;
+}
+
+
+
+.field-total{
+	border:none !important ;
+	 clear: both;
+
+}
+
+
+#ProdutoCodigo{
+	/*border: 0px !important;*/
+	cursor: pointer;
+	font-size:13px;
+}
+
+#ProdutoNome{
+	/*border: 0px !important;*/
+	cursor: pointer;
+	font-size:13px;
+}
+
+.borderZero{border: 0px !important;}
+
+#ProdutoUnidade{
+	/*border: 0px !important;*/
+	cursor: pointer;
+	font-size:13px;
+}
+
+.bt-preencher{
+	margin-left: 370px;
+    margin-top: -52px;
+    cursor:pointer;
+
+}
+
+.bt-adicionar{
+	clear: both;
+    float: right;
+    margin: 10px;
+    position: relative;
+	cursor:pointer;
+	/*
+	float:right;
+	margin-bottom: 10px;
+    margin-right: -362px;
+    margin-top: 100px;
+	cursor:pointer;
+	position: relative;
+	*/
+}
+
+.bt-add{
+	cursor: pointer;
+    float: left;
+    margin-left: 7px;
+    margin-top: 7px;
+}
+
+.bt-confirmar{
+	cursor:pointer;
+}
+
+.bt-saida-importar-xml{
+	margin-left:420px;
+	margin-top:70px;
+	cursor:pointer;
+
+}
+
+
+.bt-saida-manual{
+	cursor: pointer;
+    margin-left: -260px;
+    margin-top: 124px;
+    position: absolute;
+}
+
+#bt-buscar{
+	padding-left:10px;
+	cursor:pointer;
+}
+
+.bt-upload{
+	float:right;
+	opacity:0;
+}
+
+.bt-upload-costumizado{
+	background-image: url('/cakephp/img/botao-buscar.png') ;
+	background-repeat: no-repeat;
+	background-position:580px top;
+	float:right;
+	width:700px;
+}
+
+
+.bt-upload{
+	width:86;
+	height:22;
+}
+
+#bt-submit{
+
+	border:none;
+	cursor:pointer;
+}
+
+#bt-salvar-saida-manual{
+    margin: 0px 0px 0px 0px;
+    display:none;
+    border:none;
+}
+
+#valor{
+	width:300px;
+}
+
+#doc_file{
+	display:none;
+}
+
+/*
+a.ui-corner-right{
+	display:none;
+}
+
+input.custom-combobox-input{
+	border-radius:4px;
+}
+*/
+
+fieldset{
+	margin: 0 0 10px;
+    padding: 5px 0;
+}
+
+#ModelLote{
+	margin-bottom:5px	;
+}
+
+.tamanho-qtde{
+	width:80px;
+	text-align:center;
+	border:none !important;
+	background:none;
+	font-size:13px !important;
+	color:black;
+}
+
+.inputNomeHidden{
+	display:none;
+}
+
+.inputDescHidden{
+	display:none;
+}
+
+.dadosSaida{
+	font-size:13px;
+/*	color:#555555;*/
+	display: inline-block;
+    width: 180px;
+    margin-bottom: 8px;
+}
+
+.spanlotes{
+	float: left;
+	margin-left: 24px;
+	margin-top: 10px;
+	font-size:13px;
+}
+
+#avancar{
+	display:block;
+	border:none;
+	margin-left: -7px;
+    margin-top: -113px;
+}
+
+#qtdTotalProduto{
+	border:none;
+}
+
+#ProdutoitenValorTotal{
+	border:none;
+}
+
+#SaidaValorTotalProdutos{
+	border:none;
+}
+
+#SaidaValorTotal{
+	border:none;
+}
+
+#SaidaValorIpi{
+	border:none;
+}
+#SaidaValorIcms{
+	border:none;
+}
+#SaidaCpfCnpj{
+	border:none;
+}
+.lote-message{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:215px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:32px
+}
+
+.lote-message:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 3px;
+}
+
+#spanSaidaData{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	left: 250px;
+	top: -6px;
+}
+
+#spanSaidaData:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#spanDataFuturo{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:-6px;
+	left:249px;
+}
+
+
+
+#spanDataFuturo:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+
+
+
+
+#spanNumeroLote{
+	color:#000000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:206px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#93CA93;
+	text-align:center;
+	top:34px;
+}
+
+
+#spanNumeroLote:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #93CA93 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#spanLoteDataFabricacao{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:403px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:202px;
+}
+
+
+#spanLoteDataFabricacao:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#validaModLoteValidade{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:206px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:34px;
+}
+
+
+#validaModLoteValidade:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#validaModLoteFabricante{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:206px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:34px;
+}
+
+
+#validaModLoteFabricante:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#validaModLoteNumLote{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:404px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:147px;
+}
+
+
+#validaModLoteNumLote:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#validaModLoteDataFabric{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:206px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:34px;
+}
+
+
+#validaModLoteDataFabric:after{
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+#spanSaidaNotaFiscal{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:-49px;
+	left:167px;
+}
+
+#spanSaidaNotaFiscal:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: #ffd5d5 transparent transparent transparent;
+	left: 48px;
+	top: 36px;
+}
+
+#spanSaidaCpfCnpj{
+	 background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 167px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 123px;
+    width: 110px;
+}
+
+#spanSaidaCpfCnpj:after {
+	  border-color: #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: 48px;
+    position: absolute;
+    top: 51px;
+    width: 0;
+}
+
+#spanSaidaValorTotalProdutos{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:125px;
+	left:255px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:245px;
+}
+
+#spanSaidaValorTotalProdutos:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#spanSaidaValorTotal{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:617px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:249px;
+}
+
+#spanSaidaValorTotal:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#spanValProduto{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:485px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:367px;
+}
+
+#spanValProduto:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+#spanProdutoitenValorUnitario{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:246px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:25px;
+}
+
+#spanProdutoitenValorUnitario:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 3px;
+}
+
+#spanAdicionarLote{
+	background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 895px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 444px;
+    width: 110px;
+}
+
+#spanAdicionarLote:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -19px;
+	top: 1px;
+}
+
+#spanVaBtConf{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:195px;
+	left:485px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	margin-top:-54px;
+	z-index:1;
+}
+
+#spanVaBtConf:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 7px;
+}
+
+
+#validaModLoteDataFabric{
+	background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 405px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 172px;
+    width: 126px;
+}
+
+#validaModLoteDataFabric:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+
+#validaModLoteDataFabricFutu{
+	background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 405px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 172px;
+    width: 126px;
+}
+
+#validaModLoteDataFabricFutu:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+
+
+#validaModLoteValidade{
+	background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+	left: 405px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 201px;
+    width: 126px;
+}
+
+#validaModLoteValidade:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+
+#validaModLoteFabricante{
+	background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 405px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 229px;
+    width: 126px;
+}
+
+#validaModLoteFabricante:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+#validaModLoteQTDE{
+    background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 405px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 257px;
+    width: 126px;
+}
+
+#validaModLoteQTDE:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+
+#spanAutocompleteDesabilitado{
+	color:#d40000;
+	position:absolute;
+	display:block;
+	font-size:13px;
+	width:110px;
+	left:98px;
+	padding:3px;
+	border:1px solid #aaa;
+	border-radius: 5px;
+	background-color:#ffd5d5;
+	text-align:center;
+	top:-66px;
+}
+
+#spanAutocompleteDesabilitado:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: #ffd5d5 transparent transparent transparent;
+	left: 48px;
+	top: 51px;
+}
+
+
+#LoteParceirodenegocioId{
+	height:21px;
+}
+
+#fieldFornecedor .custom-combobox-input{
+	width:153px;
+}
+.custom-combobox-toggle {
+	display:none !important;
+}
+
+

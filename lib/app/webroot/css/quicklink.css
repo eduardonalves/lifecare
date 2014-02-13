@@ -1,0 +1,7 @@
+.ui-widget .error-message-quicklink{
+		display:none;
+}
+
+#myModal_add-quicklink .modal-body{
+	height:230px !important;
+}

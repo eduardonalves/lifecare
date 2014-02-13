@@ -1,0 +1,179 @@
+@charset "utf-8";
+
+
+table {
+
+	position:relative;
+	float:left;
+	
+	width:100%;
+	
+	border: #CCCCCC 1px solid;
+	
+	font-size:13px;
+	text-align:center;
+
+}
+
+table a, a:hover, a:visited {
+
+	text-decoration:none;
+	color:inherit;
+
+}
+
+table tr {
+
+	height:35px;
+	
+
+}
+
+table tr:first-child {
+
+background: #e8e8e8; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U4ZThlOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkMGQwZDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #e8e8e8 0%, #d0d0d0 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e8e8), color-stop(100%,#d0d0d0)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #e8e8e8 0%,#d0d0d0 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#d0d0d0',GradientType=0 ); /* IE6-8 */
+
+
+}
+
+table tr:nth-child(odd) {
+
+	background-color:#EEF4D7;
+
+}
+
+table tr th:first-child {
+
+	padding:8px;
+
+}
+
+table tr:nth-child(even) td:first-child {
+
+	background-color:#EDEDED;
+
+}
+
+table tr:nth-child(odd) td:first-child {
+
+	background-color:#DDE2C9;
+
+}
+
+
+table tr:last-child td {
+
+	border-bottom:0px;
+
+}
+
+
+table tr th, td {
+
+	border-right: #CCCCCC 1px solid;
+	border-bottom: #CCCCCC 1px solid;
+
+}
+
+table tr th:last-child, td:last-child {
+
+	border-right: 0px;
+
+}
+
+p.table-counter {
+
+	font-size:13px;
+	padding-top:10px;
+	
+	line-height:30px;
+
+
+}
+
+img[class^="semaforo"] {
+
+	display:block;
+	position:relative;
+	
+	margin-left:auto;
+	margin-right:auto;
+	
+	width:15px;
+	height:15px;
+
+}
+
+img.semaforo-vermelho {
+
+	background-image: url('../img/semaforo-vermelho-12x12.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-amarelo {
+
+	background-image: url('../img/semaforo-amarelo-12x12.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-verde {
+
+	background-image: url('../img/semaforo-verde-12x12.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-bomba {
+
+	background-image: url('../img/semaforo-bomba-16x16.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-exclamacao {
+
+	background-image: url('../img/semaforo-exclamacao-16x16.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-ok {
+
+	background-image: url('../img/semaforo-ok-16x16.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+img.semaforo-nulo {
+
+	background-image: url('../img/semaforo-nulo-16x16.png');
+	background-repeat:none;
+	
+	background-size: cover;
+
+}
+
+

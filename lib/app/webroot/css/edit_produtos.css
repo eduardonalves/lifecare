@@ -1,0 +1,82 @@
+
+@charset "utf-8";
+
+/*.......TAGS........*/
+.textarea{
+	width: 175px;
+	resize: none;
+	margin-top:4px;
+	display:block;
+}
+
+
+/*.......classes........*/
+.coluna-esquerda fieldset{
+	border:none;
+}
+
+.coluna-content{
+	padding:15px 0px 15px 10px;
+}
+
+
+/*.......IDS........*/
+#coluna-esquerda label{
+	width:90px;
+}
+
+#coluna-direita label{
+	width:138px;
+}
+
+
+
+/* PICK LIST ************************************/
+.titulo{
+	text-align: center;
+	display: inline-block;
+	font-size: 13px;
+	background-color: #E6E6E6;
+	padding: 2px;
+	width: 142px;
+}
+
+.todas{
+	margin-left: 33px;
+}
+
+.picklist{
+	float: left;
+	position:relative;
+}
+
+.picklist SECTION > DIV{
+	float: left;
+	padding: 4px 4px 4px 0;
+}
+
+.pick-bt{
+	width: 30px;
+    text-align: center;
+}
+
+.picklist select{
+	width: 145px;
+}
+
+.picklist input{
+	padding-bottom:7px;
+	margin-bottom:3px;
+}
+
+.pick-label{
+	margin-left: 100px !important;
+    margin-top: 15px;
+}
+
+.input:after #TributoAlIcms:parent{
+	content: "918273";
+}
+
+
+

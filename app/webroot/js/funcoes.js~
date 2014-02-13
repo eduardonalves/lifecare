@@ -1,0 +1,589 @@
+$(document).ready(function() {
+	var total=0;
+	var i=0;
+	var total=0;
+	
+	$('.modal').css("display", "none");	
+	$(".addItem").bind('click', function(e){
+		
+		 e.preventDefault();
+		 //atribuimos os valores nas variaveis
+		 
+		 nomeProduto=$('#datalistInput').val();
+		 valorUn= $('#valorUnitario').val();
+		 qtde=$('#itemQtde').val();
+		 valorTotal=valorUn * qtde;
+		 total=total + valorTotal;
+		 icms=$('#icms').val();
+		 ipi=$('#ipi').val();
+		 cst=$('#cst').val();
+		 $('#EntradaValorTotal').val(total);
+		 var codigo;
+		 
+		 //percorro todas as options do data list para buscar o id que corresponde ao código do produto selecionado no input
+		$('#datalistnome option').each(function(index) {
+			
+		    var name = $(this).val();
+		    var id = $(this).text();
+		  
+			if(nomeProduto == name){
+				codigo= id;
+				//alert(codigo);
+			}
+
+		});
+		//apaga todos os campos relativos ao item de produto
+	 	$('#tableItensEntradas').append('<tr class="clonado'+i+'"><td>'+codigo+'</td><td>'+nomeProduto+'</td><td>'+valorUn+'</td><td>'+qtde+'</td><td id="vlTotal'+i+'">'+valorTotal+'</td><td>'+icms+'</td> <td>'+ipi+'</td><td>'+cst+'</td><td><a href="#" id="clonado'+i+'" class="btnRemItem">remover</a></td></tr>');
+		$('#datalistInput').val("");
+		$('#valorUnitario').val("");
+		$('#itemQtde').val("");
+		$('#itemQtde').val("");
+		$('#icms').val("");
+		$('#ipi').val("");
+		$('#cst').val("");
+		$("#valorTotal").val(total);
+		
+		//criação de campos dinamicos dentro do form de cadastro de entradas
+		
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][produto_id]" step="any"  id="Itensentrada'+i+'produto_id" value="'+codigo+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][valor_unitario]" step="any"  id="Itensentrada'+i+'ValorUnitario" value="'+valorUn+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][qtde]" step="any"  id="Itensentrada'+i+'qtde" value="'+qtde+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][valor_total]" step="any"  id="Itensentrada'+i+'ValorTotal" value="'+valorTotal+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][valor_icms]" step="any"  id="Itensentrada'+i+'ValorIcms" value="'+icms+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][valor_ipi]" step="any"  id="Itensentrada'+i+'ValorIpi" value="'+ipi+'" type="hidden"></div>');
+		$('fieldset').append('<div class="input number clonado'+i+'" style="position:absolute"><input name="data[Itensentrada]['+i+'][valor_st]" step="any"  id="Itensentrada'+i+'ValorSt" value="'+cst+'" type="hidden"></div>');
+		i=i+1;
+	});
+
+/********************* Campos Dinâmicos Entrada Manual **************************/	
+	
+	$('body').on('click','.btnRemItem', function(e){
+		 e.preventDefault();
+		 clone=$(this).attr('id');
+		 numero=clone.substr(7);
+		 valTot=$('#vlTotal'+numero).text();
+		 flvalTot=parseFloat(valTot);
+		 total=total-flvalTot;
+		 $('#valorTotal').val(total);
+		 $('#EntradaValorTotal').val(total);
+		 $('.'+clone).remove();
+
+	});
+	
+
+	$('#vale').change(function(){
+		tipoOperacao=$(this).val();
+		if(tipoOperacao == 1){
+			$('#tributos').fadeOut('fast');
+			$('.imposto').fadeOut('fast');
+			$('.imposto').attr('disabled','disabeld');
+			$('.imposto').css('display', 'none');
+		}else{
+			$('#tributos').fadeIn('fast');
+			$('.imposto').fadeIn('fast');
+						
+		}
+	});
+	
+	$('#vale').val(0);
+	
+	$('.avancar').bind('click', function(e){
+		e.preventDefault();
+		
+		id= $(this).attr('id');
+		var atual = id.substr(7);
+		atualInt=parseInt(atual);
+		proximo = atualInt + 1;
+		if(proximo <= 3){
+			$('.fase').fadeOut('slow');
+			$('#fase'+proximo).fadeIn('slow');
+		}
+
+	});
+	
+	$('.voltar').bind('click', function(e){
+		e.preventDefault();
+		
+		id= $(this).attr('id');
+		var atual = id.substr(7);
+		atualInt=parseInt(atual);
+		anterior = atualInt - 1;
+		
+		if(anterior >= 0){
+			$('.fase').fadeOut('slow');
+			$('#fase'+anterior).fadeIn('slow');
+		}
+
+	});
+
+
+/**************************** Modal Mutiplo *******************************/
+
+	var ultimo_modal = '';
+	var modal_atual = '';
+
+	function showModal(modal)
+	{
+			
+		var valor = modal;
+		
+		if(ultimo_modal!='' && modal_atual=='')
+		{
+			
+			modal_atual = 1;
+			$('#'+ultimo_modal).modal("hide");
+			modal_atual = modal;
+		}else{
+		
+		ultimo_modal = modal;
+		
+		}
+		
+		
+		
+		$('#'+String(modal)).modal('show');
+		
+		
+	}
+
+
+	$('.select-multiple').bind('click',function(){
+		
+
+			valor = $(this).val();
+
+			if(String(valor).substring(0,3)=='add')
+			{
+
+				showModal('myModal_' + String(valor));
+
+
+			}
+			
+	});
+
+/************************ Modal Select *********************************/
+
+	
+	$('.select').bind('change',function(){
+		
+		
+			valor = $(this).val();
+
+			if(String(valor).substring(0,3)=='add')
+			{
+				showModal('myModal_' + String(valor));	
+			}
+
+		
+	});
+
+
+	$('.modal').bind('hide.bs.modal', function() {
+
+		$(this).css("display", "none");	
+		
+		if(modal_atual!='')
+		{
+			modal_atual = '';
+			$('#'+String(ultimo_modal)).modal('show');
+
+		}else{
+		
+			ultimo_modal = '';
+		}
+
+	});
+	
+
+/************************ Modal Form submit *********************************/
+
+	$('.modal-form').bind('submit', function(event) {
+		
+		event.preventDefault();
+		
+		var dadosForm = $(this).serialize();
+		var urlAction = $(this).attr("action");
+
+		$('.modal-body').css("cursor","wait");
+		$('#categoria-nome').attr('disabled', true);
+		$('.bt-salvar').css('display','none');
+		$('.close').css('display','none');
+		$('.modal-backdrop').off('click');
+
+
+		$.ajax({
+			type: "POST",
+			url: urlAction,
+			data:  dadosForm,
+			dataType: 'json',
+			success: function(data) {
+				
+				//alert("#"+data.Categoria.nome);
+				//alert("<option value=\""+data.Categoria.id+"\">"+data.Categoria.nome+"</option>");
+				alert(data.Flashm);
+				$('.modal-body').css("cursor","default");
+				$('#categoria-nome').attr('disabled',false);
+				$('.bt-salvar').css('display','inherit');
+				$('.close').css('display','inherit');
+				$('#'+ultimo_modal).modal("hide");
+				$('.modal-backdrop').on('click');
+
+				$("#"+data.Controller+data.Controller).append("<option value=\""+data.Categoria.id+"\" selected=\"selected\">"+data.Categoria.nome+"</option>");
+				
+				$.each( data.Lista, function( key, value ) {
+				alert( key + ": " + value );
+				});
+				
+				var $s = $("#"+data.Controller+data.Controller);
+
+				var optionTop = $s.find('[value="'+data.Categoria.id+'"]').offset().top;
+				var selectTop = $s.offset().top;
+
+				$s.scrollTop($s.scrollTop() + (optionTop - selectTop));
+			}
+		});
+		
+		//alert(dadosForm);
+	
+	});
+
+/******** Tabela dinâmica dados lote ***********************/
+	
+	var lote_cont = 0;
+	
+	$(".bt-add").bind('click', function(e){
+		
+		 e.preventDefault();
+		 //atribuimos os valores nas variaveis
+		 
+		 lista_de_lotes=$('#Lote').val();
+		 qtde=$('#LoteQtde').val();
+		 data_validade=$('#data_validade').val();
+		
+		$('.tabela-lote').append('<tr><td>'+lista_de_lotes+'</td><td>'+qtde+'</td><td>'+data_validade+'</td><td><a href="#" id="clonado'+i+'" class="btnExcluir">remover</a></td></tr> ');
+	
+		$('fieldset').append('<div class="input number clonado'+lote_cont+'" style="position:absolute"><input name="data[Lote]['+lote_cont+'][numero_lote]" step="any"  id="Lote'+lote_cont+'numero_lote" value="'+lista_de_lotes+'" type="hidden"></div> ');
+		
+		//alert('<div class="input number clonado'+lote_cont+'" style="position:absolute"><input name="data[Lote]['+lote_cont+'][numero_lote]" step="any"  id="Lote'+lote_cont+'numero_lote" value="'+lista_de_lotes+'" type="hidden"></div>');
+		
+		lote_cont++;
+		
+		$(".btnExcluir").bind("click", Excluir);			 
+	 });	 	
+	 
+/**************** Tabela dinâmica principal ******/        
+
+var princ_cont = 0;
+    
+    $(".bt-adicionar").bind('click', function(e){
+        
+         e.preventDefault();
+         //atribuimos os valores nas variaveis
+        
+        codigo=$('#ProdutoCodigo').val();
+        nome=$('#ProdutoNome').val();
+        qtde=$('#LoteQtde').val();
+        unidade=$('#ProdutoitenValorUnitario').val();
+        dosagem=$('#ProdutoDosagem').val();
+        lote=$('#Lote').val();
+        data_validade=$('#data_validade').val();
+        valor_unitario=$('#ProdutoUnidade').val();
+        valor_total=$('#NotaValorTotal').val();
+        valor_frete=$('#NotaValorFrete').val();
+        valor_desconto=$('#NotaValorDesconto').val();
+        valor_ipi=$('#ProdutoitenValorIpi').val();
+        
+                
+        $('#tabela-principal').append('<tr><td></td><td>'+codigo+'</td><td>'+nome+'</td><td>'+qtde+'</td><td>'+unidade+'</td><td>'+dosagem+'</td><td>'+lote+'</td><td>'+data_validade+'</td><td>'+valor_unitario+'</td><td>'+valor_total+'</td><td>'+valor_frete+'</td><td>'+valor_desconto+'</td><td>'+valor_ipi+'</td><td><a href="#" id="clonado'+i+'" class="btnExcluir">remover</a></td></tr>');
+        
+        $('fieldset').append('<div class="input number clonado'+princ_cont+'" style="position:absolute"><input name="data[Produto][codigo]['+princ_cont+'][codigo] step="any"  id="ProdutoCodigo'+princ_cont+'codigo" value="'+codigo+'" type="hidden"></div> ');
+        
+		//alert('<div class="input number clonado'+princ_cont+'" style="position:absolute"><input name="data[Produto][codigo]['+princ_cont+'][codigo]" step="any"  id="ProdutoCodigo'+princ_cont+'codigo" value="'+codigo+'" type="hidden"></div> '    );
+    
+    princ_cont++;
+    
+		$(".btnExcluir").bind("click", Excluir);	
+    
+    });	 
+	 
+/********* Função Excluir da tabela dinâmica ***********************/
+	function Excluir(){
+		var par = $(this).parent().parent(); 
+		par.remove();
+	};
+	
+	
+/********************* Barra de Progresso *****************************/
+   
+   /**** Avançar Entrada/Saida Manual ***/
+   
+	$('.avancar').click(function(){ 
+		
+		var atual = id.substr(7);
+	
+	//	alert(atual);
+	
+		id= $(this).attr('id');		
+		atualInt=parseInt(atual);
+		
+		if(atual <= 2){
+			$('#fase'+atual).fadeOut('fast',function(){				
+				$('.DivRecurso').fadeIn('slow',function(){ 
+						$('none').fadeIn("slow"); 
+						$('.bt-voltar').attr('id', 'voltar2');
+						
+				});
+			});
+			
+		}			 
+	});	
+	
+	
+  /*** Avançar Importar XML ***/	
+	$('.importar').bind('click', function(e){
+		e.preventDefault();
+
+		id= $(this).attr('id');
+		var atua = id.substr(8);
+		
+		prox=parseInt(atua);
+		anter = prox - 1;
+		
+		 alert(prox);
+		 alert(anter);
+
+		if(anter <= 0){
+			$('.fase').fadeOut('slow');
+			$('#fase'+anter).fadeIn('slow'); 
+			$('html, body').animate({scrollTop:0}, 'slow');
+			$("html,body").trigger('reset');
+			
+		}
+
+	});	
+
+
+  /*** Avançar Tela resultado ***/
+	$('.resultado').bind('click', function(e){
+		e.preventDefault();
+			
+		id= $(this).attr('id');
+		var atual_saida = id.substr(7);
+		
+		proximo_saida=parseInt(atual_saida);
+		
+		
+		
+  //		alert(proximo_saida);
+
+		$('.tela-resultado').css('display','none');
+		$('input').attr('disabled','disabled');
+		$('.dados-produto').css('display','none');
+		$('select').attr('disabled','disabled');
+		$('#titulo-header').html('Visualizar e Salvar');
+		$('.bt-confirmar').attr('src', '/cakephp/img/botao-salvar.png'); 
+		$('.bt-confirmar').attr('alt', 'Salvar');
+		$('.bt-confirmar').attr('title', 'Salvar');
+		$('.bt-voltar').attr('id', 'voltar3');  
+		$('html, body').animate({scrollTop:0}, 'slow');
+		
+	});	
+	 
+	
+  /*** Voltar Importar XML ***/	
+	$('.importar_voltar').bind('click', function(e){
+		e.preventDefault();
+
+		id= $(this).attr('id');
+		var esse = id.substr(6);
+		
+		adiante=parseInt(esse);
+		passado = adiante + 1;
+		
+		 alert(adiante);
+		 alert(passado);
+
+		if(passado <= 1){
+			$('.bt-voltar').attr('id','voltar0');
+			$('.fase').fadeOut('fast');
+			$('#fase'+passado).fadeIn('slow');
+			$('html, body').animate({scrollTop:0}, 'slow');
+		}
+
+	});	
+	
+	
+	/*** Voltar Entrada/Saída Manual ***/	
+		$('.voltar').bind('click', function(e){
+			e.preventDefault();
+			
+			id= $(this).attr('id');
+			
+			var atual_saida = id.substr(6);
+			
+			proximo_saida=parseInt(atual_saida);
+
+		//	alert(proximo_saida);
+			
+			nova_saida=proximo_saida - 1;
+			
+		//	alert(nova_saida);	
+									
+			if(proximo_saida==3){
+				alert('aqui');
+				$('.bt-voltar').removeAttr('id', 'voltar3');
+				$('.bt-voltar').attr('id', 'voltar2');  
+				$('.tela-resultado').css('display','inline-flex');
+				$('input').removeAttr('disabled','enabled');
+				$('select').removeAttr('disabled','disabled');
+				$('.dados-produto').css('display','block');
+				$('#titulo-header').html('Saida Manual');
+				$('.bt-confirmar').attr('src', '/cakephp/img/botao-confirmar.png'); 
+				$('.bt-confirmar').attr('alt', 'confirmar');
+				$('.bt-confirmar').attr('title', 'confirmar');
+				$('html, body').animate({scrollTop:0}, 'slow');
+					
+
+			}else{				
+			//	alert(nova_saida);			
+			
+				$('.fase').fadeOut('fast');		
+				$('#fase'+nova_saida).fadeIn('slow');
+				$('.bt-voltar').attr('id', 'voltar0');	
+				$('html, body').animate({scrollTop:0}, 'slow');
+			}
+					
+		});	
+		
+	
+/*********** FUNÇÃO PARA CHECK BOX DO FILTRO *************/	
+	var valorAux=$('#filterNotaTipoEntrada').val();
+	if(valorAux  != undefined){
+		
+		var valorEntrada=valorAux.substr(0,7);
+		var valorSaida1=valorAux.substr(0,5);
+		var valorSaida2 =valorAux.substr(8,5);	
+	}
+
+	
+	var statusEntrada = '';
+	var statusSaida= '';
+	var statusEntradaSaida='';
+	
+	if(valorEntrada =='ENTRADA'){
+		$('#NotaTipoEntradaENTRADA').attr('checked', true);
+	}
+	if(valorSaida1 == 'SAIDA'){
+		$('#NotaTipoEntradaSAIDA').attr('checked', true);
+	}
+	if(valorSaida2 == 'SAIDA'){
+		$('#NotaTipoEntradaSAIDA').attr('checked', true);
+	}
+	$("#NotaTipoEntradaENTRADA, #NotaTipoEntradaSAIDA").bind('click', function(){
+		if($('#NotaTipoEntradaENTRADA').is(':checked')){
+			if($('#NotaTipoEntradaSAIDA').is(':checked')){
+				$('#filterNotaTipoEntrada').val('ENTRADA SAIDA');
+			}else{
+				$('#filterNotaTipoEntrada').val('ENTRADA');
+			}
+		}else{
+			if($('#NotaTipoEntradaSAIDA').is(':checked')){
+				$('#filterNotaTipoEntrada').val('SAIDA');
+			}else{
+				$('#filterNotaTipoEntrada').val(' ');
+			}
+		}
+
+	});
+	
+//Funções para cadastro de produtos
+	$('#ProdutoEstoqueMinimo, #estoqueIdeal').change(function(){
+		
+		estoqueMinimo= $('#ProdutoEstoqueMinimo').val();
+		estoqueDesejado= $('#estoqueIdeal').val();
+
+			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
+				if(estoqueDesejado < estoqueMinimo){
+					alert('Estoque Mínimo não pode ser maior do que o Estoque Ideal');
+					$('#estoqueIdeal').val('');
+						$( '#estoqueIdeal' ).addClass('shadow-vermelho');
+					$('#ProdutoEstoqueMinimo').val('');
+						$( '#ProdutoEstoqueMinimo' ).addClass('shadow-vermelho');
+						
+				} 
+				else{
+					$( '#estoqueIdeal' ).removeClass('shadow-vermelho');
+					$( '#ProdutoEstoqueMinimo' ).removeClass('shadow-vermelho');
+					
+				}
+			
+			}
+
+	});
+
+
+/**************** PICK LIST ************************/
+	$("#btnLeft").bind('click', function () {
+			
+			
+			var selectedItem = $("#rightValues option:selected");
+			var valor = selectedItem.val();
+			
+			if(String(valor).substring(0,3)!='add')
+			{
+				$("#leftValues").append(selectedItem);
+			}
+			
+			});
+
+	$("#btnRight").bind('click', function () {
+			var selectedItem = $("#leftValues option:selected");
+			$("#rightValues").append(selectedItem);
+			});
+
+	$("#rightValues").bind('click', function () {
+			var selectedItem = $("#rightValues option:selected");
+			$("#txtRight").val(selectedItem.text());
+			});
+
+
+
+
+
+/**************************** Função Menu *******************************/
+
+		var titleNumber = $('h1').attr('class');
+	
+		var option = titleNumber[titleNumber.length - 1];
+		
+		$(".item").removeClass("selected" );
+		
+		$("ul li:nth-child(" + option + ")").addClass("selected");
+
+
+/******************** Botão Upload *********************************/
+
+	$(document).ready(function() {
+	    /*
+	    $('#teste').bind("click" , function () {
+		var arquivo = $('input[type=file]').val();
+		alert(arquivo);
+	    });
+	    */
+	    
+	    $('#teste').bind("click" , function () {
+		$('#doc_file').click();
+	    });
+	    
+	    $('input[type=file]').change(function(e){
+	      var arquivo = $('#doc_file').val();
+		$('#valor').attr('value',arquivo);
+	    });
+	    
+	});
+
+});
+
+
+

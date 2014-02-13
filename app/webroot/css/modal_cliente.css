@@ -1,0 +1,342 @@
+
+#myModal_add-cliente header h1 {
+    color: #008000;
+    float: left;
+    font-size: 30px;
+    left: 10px;
+    margin-top: -6px;
+    position: relative;
+}
+
+#myModal_add-cliente header img {
+    float: left;
+    /*height: 24px;*/
+    position: relative;
+}
+
+#myModal_add-cliente section .header {
+    border-bottom: 3px solid #CCCCCC;
+    color: #008000;
+    float: left;
+    font-family: arial;
+    font-size: 20px;
+    margin: 20px 0;
+    margin-bottom: 40px;
+    position: relative;
+    text-align: right;
+    width: 100%;
+}
+
+#myModal_add-cliente label[for=ClienteNome]{
+	 display: block;
+    font-size: 15px;
+    line-height: 10px;
+    margin-left: 17px;
+    margin-top: -7px;
+}
+
+#myModal_add-cliente input[id=ClienteNome]{
+	display: block;
+    height: 20px;
+    margin-left: -5px;
+    margin-top: -13px;
+}
+
+#myModal_add-cliente label[for=ClienteCpfCnpj]{
+	display: none;
+}
+
+#myModal_add-cliente input[id=ClienteCpfCnpj]{
+	display: block;
+    margin-left: 165px;
+    margin-top: 10px;
+    height: 20px;
+}
+#myModal_add-cliente .modal-body{
+	margin-top: -45px;
+	height: 595px !important;
+}
+#myModal_add-cliente .loaderAjax{
+	position: absolute;
+	left: 190px;
+	top: -415px;
+	display:none;
+}
+
+#myModal_add-cliente #spanClienteNome{
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 398px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 108px;
+    width: 110px;
+}
+
+#myModal_add-cliente #spanClienteNome:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+#myModal_add-cliente #spanClienteCPF{
+	background-color: #FFD5D5;
+	border: 1px solid #AAAAAA;
+	border-radius: 5px;
+	color: #D40000;
+	display: block;
+	font-size: 13px;
+	left: 401px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	top: 159px;
+	width: 110px;
+}
+
+#myModal_add-cliente #spanClienteCPF:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+	border-style: solid;
+	border-width: 10px;
+	content: "";
+	height: 0;
+	left: -20px;
+	position: absolute;
+	top: 3px;
+	width: 0;
+}
+
+#myModal_add-cliente #spanCpfErro{
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 395px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 188px;
+    width: 110px;
+}
+
+#myModal_add-cliente #spanCpfErro:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+#myModal_add-cliente #idcpf{
+	  float: left;
+    margin-left: 37px;
+    margin-top: 23px;
+    position: absolute;
+    width: 67px;
+}
+
+#myModal_add-cliente #idcnpj{
+	float: left;
+    margin-left: 93px;
+    margin-top: 26px;
+    position: absolute;
+    width: 77px;
+}
+
+
+
+#myModal_add-cliente .label-cpf{
+	font-size: 14px;
+	margin-top: -10px;
+	float: right;
+	width: 39px;
+}
+
+
+#myModal_add-cliente #inputcpf{
+	margin-top: -9px;
+	position: absolute;
+	
+}
+
+#myModal_add-cliente .label-cnpj{
+	font-size: 14px;
+	margin-top: -13px;
+	float: right;
+	width: 50px;
+}
+
+
+#myModal_add-cliente #inputcnpj{
+	margin-top: -12px;
+	position: absolute;
+	
+   
+}
+
+
+
+
+#myModal_add-cliente #spanClienteTipoDoc{
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 26px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 199px;
+    width: 110px;
+}
+
+#myModal_add-cliente #spanClienteTipoDoc:after {
+	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: 48px;
+    position: absolute;
+    top: -20px;
+    width: 0;
+}
+
+#myModal_add-cliente #spanClienteCPFExistente{
+	background-color: #FFD5D5;
+	border: 1px solid #AAAAAA;
+	border-radius: 5px;
+	color: #D40000;
+	display: block;
+	font-size: 13px;
+	left: 399px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	top: 156px;
+	width: 110px;
+}
+
+#myModal_add-cliente #spanClienteCPFExistente:after {
+	border-color: rgba(0, 0, 0, 0) #FFD5D5  rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 7px;
+    width: 0;
+}
+
+#myModal_add-cliente #spanClienteCPFEerrado{
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 177px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 228px;
+    width: 204px;
+}
+
+#myModal_add-cliente #spanClienteCPFEerrado:after {
+	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: 48px;
+    position: absolute;
+    top: -20px;
+    width: 0;
+}
+
+#myModal_add-cliente .bt-salvar{
+	margin-top: 70px;
+	margin-left: -22px;
+
+}
+
+#myModal_add-cliente footer{
+
+	position: relative;
+	float: left;
+	display: block;
+	width: 100%;
+	margin-top: 4px;
+}
+
+#myModal_add-cliente #spanEndereco0Logradouro{
+	width: 115px;
+	margin-left: 400px;
+	margin-top: -18px;
+}
+
+#myModal_add-cliente #spanEndereco0Bairro{
+	width: 115px;
+	margin-left: 400px;
+	margin-top: -18px;
+}
+
+#myModal_add-cliente #spanEndereco0Uf{
+	width: 65px;
+	margin-left: 325px;
+	margin-top: -22px;
+
+}
+
+#myModal_add-cliente #spanEndereco0Cidade{
+	width: 85px;
+	margin-left: 366px;
+	margin-top: -20px;
+}
+
+#myModal_add-cliente #spanContato0Telefone1{
+	width: 115px;
+	margin-left: 400px;
+	margin-top: -18px;
+}	
+
+
+
+
+
+
+#myModal_add-cliente .modal-body  .inputCliente input{width: 220px;}
+#myModal_add-cliente .modal-body .divNomeCli input {width: 220px;}
+#myModal_add-cliente .modal-body .divCpfCnpj input {width: 220px;}
+#myModal_add-cliente .modal-body .divUf input {width: 64px;}
+#myModal_add-cliente .modal-body .divRef textarea {width: 220px; height: 85px;}
+.inputCliente{
+	margin-top: 30px;
+	margin-left: 13px;
+	height: 15px;
+}
+
+.divLogradouro{
+	margin-top: 57px;
+}

@@ -1,0 +1,301 @@
+@charset "utf-8";
+
+/* TESTE ************************************************************/
+
+
+/* TAG ****************************************************************/
+label{
+	margin-bottom:5px !important;
+}
+
+/* CLASS **************************************************************/
+.filtros{
+	background-color:white;
+	display:block;
+	float:left;
+	height:230px;
+	margin-top:-15px;
+	padding:10px;
+	position:relative;
+	width:1067px;
+}
+
+.content-filtros{
+	display:block;
+	float:left;
+	margin:0;
+	padding:0;
+	position:relative;
+	width:100%;
+}
+
+.dados-produto{
+	margin-top:-11px;
+}
+
+.produtos-alinhamento{
+	height:25px;
+	margin-top:3px;	
+}
+
+.a-data{
+	display:block;
+	font-size:15px;
+	height:18px;
+	margin:4px 0px 0px 238px;
+	position:absolute;
+	width:10px;
+}
+
+.msgFiltro{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	bottom:13px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	left:-110px;
+	margin-left:50%;
+	padding:4px 11px;
+	position:absolute;
+}
+
+.forma-data{
+	height:16px;
+	margin-top:3px;
+	width:70px !important;
+}
+
+.a-data-ES{
+	display:block;
+	font-size:15px;
+	height:18px;
+	margin:51px 0px 0px 238px;
+	position:absolute;
+	width:10px;
+}
+
+.msgModal{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	height:20px;
+	left:-65px;
+	margin-left: 50%;
+	padding:4px 11px;
+	position:absolute;
+	top:295px;
+	width:115px;
+}
+
+.areaTabela{
+	overflow:visible;
+	width:1090px;
+}
+
+.paging{
+	clear:both;
+	float:left;
+	width:100%;
+	margin-top:15px;
+}
+
+.separador{
+	font-size:13px;
+	line-height:13px;
+	position:relative;
+	top:-3px;
+}
+
+.paging-direito{
+	clear:both;
+	display:inline-flex;
+	float:right;
+	margin-bottom:2px;
+	position:relative;
+	width:436px;
+}
+
+.resultado-total{
+	float:right;
+	font-size:13px;
+	margin:4px 54px 0px 0px;
+}
+
+.colunaLoteIten{
+	background:#fffae7; /* Old browsers */
+	background:-moz-linear-gradient(-45deg, #fffae7 0%, #fffae7 45%, #c9f0e8 50%, #c9f0e8 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, right bottom, color-stop(0%,#fffae7), color-stop(45%,#fffae7), color-stop(50%,#c9f0e8), color-stop(100%,#c9f0e8)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(-45deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* IE10+ */
+	background:linear-gradient(135deg, #fffae7 0%,#fffae7 45%,#c9f0e8 50%,#c9f0e8 100%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffae7', endColorstr='#c9f0e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.colunaProdutoIten{
+	background:#f0f5db; /* Old browsers */
+	background:-moz-linear-gradient(-45deg, #f0f5db 0%, #f0f5db 44%, #c9f0e8 50%, #c9f0e8 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, right bottom, color-stop(0%,#f0f5db), color-stop(44%,#f0f5db), color-stop(50%,#c9f0e8), color-stop(100%,#c9f0e8)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(-45deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* IE10+ */
+	background:linear-gradient(135deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f5db', endColorstr='#c9f0e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+/* ID *****************************************************************/
+#quick-select{
+	float:left;
+	width:225px;
+}
+
+#quick-salvar{
+	border:0px !important;
+	float:left;
+	margin-left:8px;
+}
+
+#quick-editar{
+	border:0px !important;
+	margin-left:5px;
+}
+
+#filtro-protuto{
+	background-color:#F0F5DB;
+	border:1px solid rgb(171, 200, 55);
+	border-radius:8px;
+	height:145px;
+	margin-top:5px;
+	padding:5px;
+	width:334px;
+}
+
+#titulo-produto{
+	color:#333;
+	display:block;
+	font-size:15px;
+	margin:0px 0px 15px 10px;
+	text-align:left;
+	width:160px;
+}
+
+#filtro-lote{
+	background-color:#FFFAE7;
+	border:1px solid rgb(255, 212, 42);
+	border-radius:8px;
+	height:145px;
+	margin:5px 0px 0px 13px;
+	padding:5px;
+	width:335px;
+}
+
+#titulo-lote{
+	color:#333;
+	display:block;
+	font-size:15px;
+	margin:0px 0px 15px 10px;
+	text-align:left;
+	width:160px;
+}
+
+#filtro-es{
+	background-color:#c9f0e8;
+	border:1px solid #37c8ab;
+	border-radius: 8px;
+	height:145px;
+	margin-top:5px;
+	padding:5px;
+	width:333px;	
+}
+
+#titulo-es{
+	color:#333;
+	display:block;
+	font-size:15px;
+	margin:0px 0px 15px 10px;
+	text-align:left;
+	width:200px;
+}
+
+#quick-filtrar{
+	border:none;
+	bottom:-200px;
+	position:absolute;
+}
+
+#paginatorFirst{
+	background-image:url(../img/botao-tabela-primeiro.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:16px;
+}
+
+#paginatorLast{
+	background-image:url(../img/botao-tabela-ultimo.png);
+	display:inline-block;
+	height:15px;
+	width:16px;
+}
+
+/* HERANÇA ************************************************************/
+.content-filtros img{
+	position:absolute;
+	right:10px;
+	top:5px
+}
+
+.filtros label{
+	line-height:24px;
+}
+
+.operacao label{
+	font-size:12px !important;
+	line-height:20px !important;
+	margin:0px 0px 0px 4px ;
+	text-align:left !important;
+	width:57px !important;
+}
+
+.paging-direito img{
+	display:block;
+	float: right;
+}
+
+.paging-direito label{
+	line-height:20px;
+}
+
+.prev a{
+	background-image:url(../img/botao-tabela-voltar.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:9px;
+}
+
+.next a{
+	background-image:url(../img/botao-tabela-adiantar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
+
+#filtro-lote .error-message-quicklink{
+	display:none;
+}
+
+#filtro-es .error-message-quicklink{
+	display:none;
+}
+
+input[id*="between"]{
+	float:right;
+	height:16px;
+	margin-top:3px;
+	width:70px !important;
+}

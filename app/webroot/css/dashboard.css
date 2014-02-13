@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+.conteudo-dashboard{
+	background-color:#F9F9F9;
+	border:2px solid #CCC;
+	margin:55px 0px 30px -9px;
+	min-width:1087px;
+	min-height:768px;
+	overflow:auto;
+	padding:30px;
+	position:relative;
+}
+
+.section-superior{
+	margin:60px 5px 0px 5px;
+	width:1170pxpx;
+}
+
+.section-inferior{
+	margin:390px 5px 0px 5px;
+	width:1170pxpx;
+}
+
+.dashboard-esquerda{
+	float:left;
+	width:345px;
+}
+
+.dashboard-central{
+	float:left;
+	margin-left:50px;
+	width:345px;
+}
+
+.dashboard-direita{
+	float:right;
+	margin-right:40px;
+	width:345px;
+}
+
+.div-board{
+	border-radius:6px;
+	box-shadow:-5px 5px 7px #BABABA;
+	height:300px;
+	width:380px;
+}
+
+.div-titulo{
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+	margin-top:0px;
+	height:50px;
+	width:380px;
+
+	background:#eaeaea; /* Old browsers */
+	background:-moz-linear-gradient(top, #eaeaea 9%, #bababa 70%, #bababa 96%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(9%,#eaeaea), color-stop(70%,#bababa), color-stop(96%,#bababa)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* IE10+ */
+	background:linear-gradient(to bottom, #eaeaea 9%,#bababa 70%,#bababa 96%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#bababa',GradientType=0 ); /* IE6-9 */
+}
+
+.bt-icon{
+	float:left;
+	margin:15px 0px 0px 20px;
+}
+
+.span-titulo{
+	line-height:48px;
+}
+
+.bt-config{
+	float:right;
+	margin:15px 20px 0px 0px;
+}
+
+.grafico-ajuste{
+	margin-top:5px;
+}
+
+.tb-dataValidade{
+	
+}
+
+.div-tabela-rolagem{
+	height: 242px;
+	margin-top: 5px;
+	overflow: auto;
+	position: absolute;
+	width: 376px;
+	margin-left: 3px;
+}
+
+
+/* ID *****************************************************************/
+
+
+/* HERANÇA ************************************************************/
+.conteudo-dashboard header h1{
+	color:rgb(0, 128, 0);
+	float:left;
+	font-size:30px;
+	margin-top:-6px;
+	position:relative;
+	left:10px;
+}

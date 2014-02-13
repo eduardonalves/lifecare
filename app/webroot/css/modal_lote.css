@@ -1,0 +1,147 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+.colunaLote{
+	margin-left:99px;
+	background-color:#F9F9F9;
+}
+
+.head{
+	margin-top: -18px;
+}
+
+/* ID *****************************************************************/
+#lote-modal{
+	margin-left:70px;
+	position:relative;
+	width:400px;
+}
+
+#validaModLoteNumLote{
+	left:325px;
+	top:105px;
+	width:110px;
+}
+
+#validaModLoteDataFabric{
+	left:325px;
+	top:130px;
+	width:110px;
+}
+
+#validaModLoteValidade{
+	left:325px;
+	top:160px;
+	width:110px;
+}
+
+#spanLoteDataFabricacao{
+	left:325px;
+	top:155px;
+	width:135px;
+}
+
+#validaModLoteFabricante{
+	left:325px;
+	top:190px;
+	width:110px;
+}
+
+#validaModLoteQTDE{
+    left: 325px;
+    top: 215px;
+    width: 126px;
+}
+
+/* HERANÇA ************************************************************/
+#myModal_add-lote .modal-body{
+	height: 310px !important;
+}
+
+#myModal_add-lote footer{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+.colunaLote label{
+	float: right;
+	line-height: 23px;
+	margin-right: 313px;
+}
+
+.colunaLote input{
+	float: left;
+	margin:-25px 0px 0px 123px;
+	/*
+	margin-left: 123px;
+	margin-top: -25px;
+	*/
+}
+
+.colunaLote select{
+	float: left;
+	margin:-25px 0px 0px 123px;
+	/*
+	margin-left: 123px;
+	margin-top: -25px;
+	*/
+}
+
+
+
+
+#btn-addLote {
+	display:none;
+	cursor: pointer;
+	margin-top: 1px;
+	float: right;
+}
+
+#respostaAjax{
+	position: absolute;
+	margin-top: 94px;
+	margin-left: 77px;
+	display:none;
+
+}
+
+#loaderAjax{
+	display: none;
+    margin-left: 145px;
+    margin-top: 90px;
+    position: absolute;
+}
+
+#spanNumeroLiberado{
+	background-color: #D9EDF2;
+    border: 1px solid #317396;
+    border-radius: 5px;
+    display: block;
+    font-size: 13px;
+    left: 245px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    width: 99px;
+    color:#317396;
+}
+
+#spanNumeroLiberado:after {
+	border-color: rgba(0, 0, 0, 0) #D9EDF2 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    left: -20px;
+    position: absolute;
+    top: 6px;
+    width: 0;
+}
+
+
+
