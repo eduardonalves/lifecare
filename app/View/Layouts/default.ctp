@@ -73,8 +73,8 @@
 
 			<nav id="menu">
 				<ul>
-					<li><a href='http://dev.lifecare.vento-consulting.com/dashboard'><span>Home</span></a></li>
-					<li class='active'><a href='http://dev.lifecare.vento-consulting.com/Notas/?parametro=produtos'><span>Estoque</span></a></li>
+					<li><a href='http://localhost/lifecare/dashboard'><span>Home</span></a></li>
+					<li class='active'><a href='http://localhost/lifecare/Notas/?parametro=produtos'><span>Estoque</span></a></li>
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
 						<li><a href='#'><span>Comercial</span></a></li>
