@@ -53,12 +53,13 @@
 			<?php 
 				echo $this->Html->image('logo.png', array('id' => 'logo', 'alt' => 'LifeCare', 'title' => 'LifeCare', 'border' => '0'));
 				echo $this->Html->image('usuario.png', array('id' => 'img-usuario', 'alt' => 'Usuario', 'title' => 'Usuario', 'border' => '0')); 
+				echo $this->Html->image('logout.png', array('id'=>'img-logout','alt' => 'Sair','url' => array('controller' => 'users', 'action' => 'logout'))); 
 			?>
 
 			<nav id="menu">
 				<ul>
-					<li class='active'><a href='http://dev.lifecare.vento-consulting.com/dashboard'><span>Home</span></a></li>
-					<li><a href='http://dev.lifecare.vento-consulting.com/Notas/?parametro=produtos'><span>Estoque</span></a></li>
+					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"dashboard","action"=>"index"),true);?>'><span>Home</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
 						<li><a href='#'><span>Comercial</span></a></li>

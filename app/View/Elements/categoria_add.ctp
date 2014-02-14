@@ -33,7 +33,7 @@
 		}else{			
 					
 					
-					var urlAction = "http://dev.lifecare.vento-consulting.com/categorias/add";
+					var urlAction = "<?php echo $this->Html->url(array("controller"=>"categorias","action"=>"add"),true);?>";
 					var dadosForm = $("#CategoriaIndexForm").serialize();
 					if(dadosForm==""){
 						dadosForm = $("#CategoriaAddForm").serialize();

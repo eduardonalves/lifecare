@@ -46,7 +46,7 @@
 		$('.bt-salvarFabricante').click(function(event){
 		
 				event.preventDefault();
-				var urlAction = "http://dev.lifecare.vento-consulting.com/fabricantes/add";
+				var urlAction = "<?php echo $this->Html->url(array("controller"=>"fabricantes","action"=>"add"),true);?>";
 				var dadosForm = $("#FabricanteIndexForm").serialize();
 				$(".loaderAjax").show();
 				$(".bt-salvarFabricante").hide();

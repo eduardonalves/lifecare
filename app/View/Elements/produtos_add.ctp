@@ -51,7 +51,7 @@
 				$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 				$('#validaEstoqueIdeal').css('display','block');
 			}else{
-				var urlAction = "http://dev.lifecare.vento-consulting.com/produtos/add";
+				var urlAction = "<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"add"),true);?>";
 				var dadosForm = $("#ProdutoAddForm").serialize();
 
 				$(".loaderAjax").show();

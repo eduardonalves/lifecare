@@ -49,7 +49,7 @@ return get;
 	var get = get();
 	var parametro = get.parametro;
 
-	var urlPadrao = "/notas/index/?";
+	var urlPadrao = urlInicio+"notas/index/?";
 	var limit = get.limit;
 
 	if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }

@@ -310,7 +310,7 @@ window.onload = function() {
 			$('#spanContato0Telefone1').css('display','block');
 			
 		}else{	
-			var urlAction = "http://dev.lifecare.vento-consulting.com/clientes/add";
+			var urlAction = "<?php echo $this->Html->url(array("controller"=>"clientes","action"=>"add"),true);?>";
 			var dadosForm = $("#ClienteIndexForm").serialize();
 			$(".loaderAjax").show();
 			$(".bt-salvar-Cliente").hide();
