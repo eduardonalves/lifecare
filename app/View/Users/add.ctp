@@ -39,3 +39,14 @@
 		<li><?php echo $this->Html->link(__('New Nota'), array('controller' => 'notas', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
+
+
+
+
+
+
+
+
+
+<!-- teste wagner-->
