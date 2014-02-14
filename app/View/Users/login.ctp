@@ -12,9 +12,7 @@
     <img src="/lifecare/app/webroot/img/login-title.png" alt="LifeCare" class="loginTitle">
     
 	<fieldset>
-		
-		
-
+	
 		<?php
 			echo $this->Form->input('username',array('label' => 'Login: ','required'=>'false'));
 			echo $this->Form->input('password',array('label' => 'Senha: ','required'=>'false'));
@@ -26,5 +24,9 @@
     
 	</fieldset>
 </div>
+<<<<<<< HEAD
 
 <!--teste-->
+=======
+<!-- comentario do henrique, comentando novamente!!-->
+>>>>>>> Henrique
