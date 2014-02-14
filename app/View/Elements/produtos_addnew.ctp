@@ -10,7 +10,7 @@
 		
 			$('#ProdutoAddForm').submit(function(event){
 					event.preventDefault();
-					var urlAction = "http://dev.lifecare.vento-consulting.com/produtos/add";
+					var urlAction = "<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"add"),true);?>";
 					var dadosForm = $("#ProdutoAddForm").serialize();
 					$(".loaderAjax").show();
 					$(".btn-salvarProduto").hide();

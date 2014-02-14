@@ -188,7 +188,7 @@ $(document).ready(function() {
 
 		var numeroLote = $("#LoteNumeroLote").val();
 		var produtoId= $(".selectProduto option:selected").val();
-		var urlAction = "/Lotes/add";
+		var urlAction = urlInicio+"Lotes/add";
 		var dadosForm = $("#LoteIndexForm").serialize();
 
 		//alert(numeroLote);
@@ -271,7 +271,7 @@ $(document).ready(function() {
 		
 		var numeroLote = $("#LoteNumeroLote").val();
 		var produtoId= $("#LoteProdutoId").val();
-		var urlAction = "/Lotes/add";
+		var urlAction = urlInicio+"Lotes/add";
 		var dadosForm = $("#LoteIndexForm").serialize();
 		$("#bt-salvarLote").hide();
 		$("#respostaAjax").hide();
@@ -1606,7 +1606,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		
 			produto_id=$('#LoteProdutoId').val();
 			$("#LoteEstoque").val("");	
-			$("#carregaSelect").load('http://dev.lifecare.vento-consulting.com/lotes/carregalote?numero='+produto_id+'', function(){
+			$("#carregaSelect").load(urlInicio+'lotes/carregalote?numero='+produto_id+'', function(){
 				$('.loaderAjaxCarregarLoteDIV').hide();
 				$('#myModal_add-lote_saida').modal('show');
 			});

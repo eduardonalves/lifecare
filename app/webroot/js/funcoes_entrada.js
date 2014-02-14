@@ -197,7 +197,7 @@ $(document).ready(function() {
 
 		var numeroLote = $("#LoteNumeroLote").val();
 		var produtoId= $(".selectProduto option:selected").val();
-		var urlAction = "/Lotes/add";
+		var urlAction = urlInicio+"/Lotes/add";
 		var dadosForm = $("#LoteIndexForm").serialize();
 
 		//alert(numeroLote);
@@ -278,7 +278,7 @@ $(document).ready(function() {
 
 		var numeroLote = $("#LoteNumeroLote").val();
 		var produtoId= $("#LoteProdutoId").val();
-		var urlAction = "/Lotes/add";
+		var urlAction = urlInicio+"/Lotes/add";
 		var dadosForm = $("#LoteIndexForm").serialize();
 		$("#bt-salvarLote").hide();
 		$("#respostaAjax").hide();

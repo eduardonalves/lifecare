@@ -25,6 +25,12 @@
 <html>
 <head>
 	
+<script>
+	var urlInicio = '<?php echo Router::url("/", true)?>';
+</script>	
+
+	
+	
 	<?php echo $this->Html->charset(); ?>
 	
 	<title>
@@ -73,8 +79,8 @@
 
 			<nav id="menu">
 				<ul>
-					<li><a href='http://dev.lifecare.vento-consulting.com/dashboard'><span>Home</span></a></li>
-					<li class='active'><a href='http://dev.lifecare.vento-consulting.com/Notas/?parametro=produtos'><span>Estoque</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"dashboard","action"=>"index"),true);?>'><span>Home</span></a></li>
+					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
 						<li><a href='#'><span>Comercial</span></a></li>
@@ -90,7 +96,7 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='http://dev.lifecare.vento-consulting.com/Notas/?parametro=produtos'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'>
 						
 						<?php 
 							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
@@ -101,7 +107,7 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='http://dev.lifecare.vento-consulting.com/Produtos/add'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Produtos","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
@@ -112,7 +118,7 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='http://dev.lifecare.vento-consulting.com/entradas'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"entradas","action"=>"index"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
@@ -123,7 +129,7 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='http://dev.lifecare.vento-consulting.com/saidas'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"saidas","action"=>"index"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('saida.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
