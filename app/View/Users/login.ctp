@@ -24,9 +24,11 @@
     
 	</fieldset>
 </div>
-<<<<<<< HEAD
+<!-- HEAD-->
 
 <!--teste-->
 =======
 <!-- comentario do henrique, comentando novamente!!-->
->>>>>>> Henrique
+<!-- Henrique -->
+
+<!-- Alterações Eduardo -->
