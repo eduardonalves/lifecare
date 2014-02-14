@@ -15,10 +15,14 @@
 	
 		<?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 			echo $this->Form->input('username',array('label' => 'Login: ','required'=>'false'));
 			echo $this->Form->input('password',array('class'=>'passwordTeste','label' => 'Senha: ','required'=>'false'));
 =======
 			echo $this->Form->input('username',array('class'=>'wagner','label' => 'Login: ','required'=>'false'));
+=======
+			echo $this->Form->input('username',array('label' => 'Login: ','required'=>'false'));
+>>>>>>> wagner
 			echo $this->Form->input('password',array('label' => 'Senha: ','required'=>'false'));
 >>>>>>> wagner
 			
