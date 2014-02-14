@@ -1,0 +1,111 @@
+[1mdiff --git a/.editorconfig b/.editorconfig[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/.project b/.project[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/.travis.yml b/.travis.yml[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/CONTRIBUTING.md b/CONTRIBUTING.md[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/README (2).md b/README (2).md[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/README.md b/README.md[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/.htaccess b/app/.htaccess[m
+[1mindex 8cfc1ea..09a496c 100755[m
+[1m--- a/app/.htaccess[m
+[1m+++ b/app/.htaccess[m
+[36m@@ -1,5 +1,6 @@[m
+ <IfModule mod_rewrite.c>[m
+     RewriteEngine on[m
+[32m+[m
+     RewriteRule    ^$    webroot/    [L][m
+     RewriteRule    (.*) webroot/$1    [L][m
+ </IfModule>[m
+[1mdiff --git a/app/.htaccess2 b/app/.htaccess2[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f030185[m
+[1m--- /dev/null[m
+[1m+++ b/app/.htaccess2[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32m<IfModule mod_rewrite.c>[m
+[32m+[m[32m    RewriteEngine on[m
+[32m+[m[32m<<<<<<< HEAD:app/.htaccess[m
+[32m+[m[32m=======[m
+[32m+[m
+[32m+[m[32m>>>>>>> origin/Henrique:app/.htaccess2[m
+[32m+[m[32m    RewriteRule    ^$    webroot/    [L][m
+[32m+[m[32m    RewriteRule    (.*) webroot/$1    [L][m
+[32m+[m[32m</IfModule>[m
+[1mdiff --git a/app/Config/Schema/db_acl.php b/app/Config/Schema/db_acl.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/Schema/db_acl.sql b/app/Config/Schema/db_acl.sql[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/Schema/i18n.php b/app/Config/Schema/i18n.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/Schema/i18n.sql b/app/Config/Schema/i18n.sql[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/Schema/sessions.php b/app/Config/Schema/sessions.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/Schema/sessions.sql b/app/Config/Schema/sessions.sql[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/acl.ini.php b/app/Config/acl.ini.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/acl.php b/app/Config/acl.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/bootstrap.php b/app/Config/bootstrap.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/core.php b/app/Config/core.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/email.php.default b/app/Config/email.php.default[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/html5_tags.php b/app/Config/html5_tags.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Config/routes.php b/app/Config/routes.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/Command/AppShell.php b/app/Console/Command/AppShell.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/Command/Task/empty b/app/Console/Command/Task/empty[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/Templates/empty b/app/Console/Templates/empty[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/cake b/app/Console/cake[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/cake.bat b/app/Console/cake.bat[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Console/cake.php b/app/Console/cake.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Controller/AppController.php b/app/Controller/AppController.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a/app/Controller/CategoriasController.php b/app/Controller/CategoriasController.php[m
+[1mold mode 100755[m
+[1mnew mode 100644[m
+[1mdiff --git a
