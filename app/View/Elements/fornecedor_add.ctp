@@ -189,9 +189,8 @@
 			$('#FornecedoreCpfCnpj').addClass('shadow-vermelho');
 			$('#spanFornecedorCPF').css('display','block');
 		}else{	
-			var urlAction = "<?php echo $this->Html->url(array('controller'=>'fornecedores', 'action'=>'add'), true); ?>";
+			var urlAction = "http://dev.lifecare.vento-consulting.com/fornecedores/add";
 			var dadosForm = $("#FornecedoreIndexForm").serialize();
-			
 			$(".loaderAjax").show();
 			$(".bt-salvar-Fornecedor").hide();
 		
