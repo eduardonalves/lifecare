@@ -1,4 +1,5 @@
 <div class="users form">
+<!--comentario wagner-->
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
 		<legend><?php echo __('Add User'); ?></legend>
