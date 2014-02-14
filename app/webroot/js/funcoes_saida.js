@@ -1075,7 +1075,14 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			    $('#spanSaidaCpfCnpj').css('display','none');
 			}
 		});
-
+		
+		$('body').on('focusin, click','#ProdutoitenValorUnitario', function(){
+			if( $('#ProdutoitenValorUnitario').val() == ''){
+			    $('#ProdutoitenValorUnitario').attr('required','required');
+			}else{
+			    $('#ProdutoitenValorUnitario').removeAttr('required','required');
+			}	
+		    });  
 
 /******************** Excluir tabela principal *******************/
 	$("body").on("click",'.btnRemove', function(e){
