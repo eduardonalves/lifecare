@@ -14,8 +14,13 @@
 	<fieldset>
 	
 		<?php
+<<<<<<< HEAD
 			echo $this->Form->input('username',array('label' => 'Login: ','required'=>'false'));
 			echo $this->Form->input('password',array('class'=>'passwordTeste','label' => 'Senha: ','required'=>'false'));
+=======
+			echo $this->Form->input('username',array('class'=>'wagner','label' => 'Login: ','required'=>'false'));
+			echo $this->Form->input('password',array('label' => 'Senha: ','required'=>'false'));
+>>>>>>> wagner
 			
 			echo $this->html->image( 'entrar.png',array('alt'=>'Entrar','title'=>'Entrar','class'=>'loginEntrar bt-loginEntrar')); 
 		?>
