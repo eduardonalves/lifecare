@@ -206,47 +206,43 @@ window.onload = function() {
 	
 	$('#ClienteNome').removeAttr('required','required');
 	
-        function ordenarSelectCliente(){   
-	    
-			
-			//var options = $('#add-cliente option');
-			//var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
-			//arr.sort(function(o1, o2) { return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0; });
-			//options.each(function(i, o) {
-			  //o.value = arr[i].v;
-			  //$(o).text(arr[i].t);
-			//});
-			 var cl = document.getElementById('add-cliente');
-			 var clTexts = new Array();
+	function ordenarSelectCliente(){
+		//var options = $('#add-cliente option');
+		//var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
+		//arr.sort(function(o1, o2) { return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0; });
+		//options.each(function(i, o) {
+			//o.value = arr[i].v;
+			//$(o).text(arr[i].t);
+		//});
+		
+		var cl = document.getElementById('add-cliente');
+		var clTexts = new Array();
 
-			 for(i = 2; i < cl.length; i++){
-				clTexts[i-2] =
-					cl.options[i].text.toUpperCase() + "," +
-					cl.options[i].text + "," +
-					cl.options[i].value;
-			 }
+		for(i = 2; i < cl.length; i++){
+			clTexts[i-2] =
+				cl.options[i].text.toUpperCase() + "," +
+				cl.options[i].text + "," +
+				cl.options[i].value;
+		}
 
-			 clTexts.sort();
+		clTexts.sort();
 
-			 for(i = 2; i < cl.length; i++){
-				var parts = clTexts[i-2].split(',');
+		for(i = 2; i < cl.length; i++){
+		var parts = clTexts[i-2].split(',');
 
-				cl.options[i].text = parts[1];
-				cl.options[i].value = parts[2];
-			 }
+		cl.options[i].text = parts[1];
+		cl.options[i].value = parts[2];
+		}		
+	}	
 
-			
-        }	
-        
     var tamanho_cpf_cnpj = 0;
 	var total_cpf_cnpj = 0;
     var ok = 0;
-    
+
     $('input:radio[name=CPFCNPJ]').click(function(){
 		$("#spanClienteTipoDoc").hide();
-	});   
-         
-        
+	});
+
 	$('.bt-salvar-Cliente').click(function(event){
 
 		event.preventDefault();
@@ -260,7 +256,6 @@ window.onload = function() {
        });
 		
 
-	
 		t =  $("#ClienteCpfCnpj").val();
 		tamanho_cpf_cnpj = t.length;
 		
