@@ -171,7 +171,8 @@ window.onload = function() {
 			echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";	
 			
 			echo $this->Form->input('Contato.0.telefone1', array('label'=>'Telefone<span class="campo-obrigatorio">*</span>:','class'=>'tel','length'=>'11','div' => array('class' => 'inputCliente input text divTelefone1')));
-			echo "<span id='spanContato0Telefone1' class='Msg tooltipMensagemErroDireta' style='display:none'>Preencha o campo Telefone</span>";	
+			echo "<span id='spanContato0Telefone1' class='Msg tooltipMensagemErroDireta' style='display:none'>Preencha o campo Telefone</span>";
+			echo "<span id='spanContato0Telefone2' class='Msg tooltipMensagemErroDireta' style='display:none'>Preencha corretamente o campo Telefone</span>";	
 			
 			echo $this->Form->input('Endereco.0. ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea','div' => array('class' => 'inputCliente input text divRef')));
 			
@@ -187,7 +188,6 @@ window.onload = function() {
 <footer>
 	<div class="loaderAjax">
 		<?php
-			
 			echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
 														 'title'=>'Carregando',
 														 'class'=>'ajaxLoader',
@@ -248,7 +248,7 @@ window.onload = function() {
          
         
 	$('.bt-salvar-Cliente').click(function(event){
-			
+
 		event.preventDefault();
 		
 		$('input:radio[name=CPFCNPJ]').each(function() {	                
@@ -309,6 +309,9 @@ window.onload = function() {
 			$('#Contato0Telefone1').addClass('shadow-vermelho');
 			$('#spanContato0Telefone1').css('display','block');
 			
+		}else if(($('#Contato0Telefone1').val().length != 15) && ($('#Contato0Telefone1').val().length != 14)){
+			$('#Contato0Telefone1').addClass('shadow-vermelho');
+			$('#spanContato0Telefone2').css('display','block');
 		}else{	
 			var urlAction = "<?php echo $this->Html->url(array("controller"=>"clientes","action"=>"add"),true);?>";
 			var dadosForm = $("#ClienteIndexForm").serialize();

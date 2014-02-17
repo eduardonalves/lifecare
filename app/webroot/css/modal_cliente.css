@@ -63,6 +63,12 @@
 	display:none;
 }
 
+#myModal_add-cliente #spanContato0Telefone2{
+	left:400px;
+	top:430px;
+	width:125px;
+}
+
 #myModal_add-cliente #spanClienteNome{
 	background-color: #FFD5D5;
     border: 1px solid #AAAAAA;
