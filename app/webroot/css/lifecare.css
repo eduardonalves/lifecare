@@ -28,7 +28,7 @@
 	width:0;
 }
 
-.Msg-tooltipDireita{
+[class*=Msg-tooltipDireita]{
 	background-color:#ffd5d5;
 	border:1px solid #aaa;
 	border-radius:5px;
@@ -40,7 +40,7 @@
 	text-align:center;
 }
 
-.Msg-tooltipDireita:after{
+[class*=Msg-tooltipDireita]:after{
 	border-width:10px;
 	border-style:solid;
 	border-color:transparent #ffd5d5 transparent transparent;
