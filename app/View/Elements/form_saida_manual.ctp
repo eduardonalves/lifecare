@@ -361,14 +361,14 @@
 		<div class="lado-esquerdo">
 			<section class="coluna-esquerda">
 				<?php
-					echo $this->Form->input('Produto.codigo', array('type'=>'text','label'=>'Código:','class'=>'borderZero tamanho-pequeno ','disabled'=>'disabled'));
+					echo $this->Form->input('Produto.codigo', array('type'=>'text','label'=>'Código:','class'=>'borderZero tamanho-pequeno limpa','disabled'=>'disabled'));
 					echo $this->Form->input('Produto.nome', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-pequeno inputNomeHidden','disabled'=>'disabled'));
 				?>
 
 				<div id="divNomeProduto"></div>
 
 				<?php
-					echo $this->Form->input('Produto.unidade', array('type'=>'text','label'=>'Unidade Comercial:','class'=>'borderZero tamanho-pequeno desativados','disabled'=>'disabled'));
+					echo $this->Form->input('Produto.unidade', array('type'=>'text','label'=>'Unidade Comercial:','class'=>'borderZero tamanho-pequeno desativados limpa','disabled'=>'disabled'));
 					echo $this->Form->input('Produto.descricao', array('type'=>'text','label'=>'Descrição:','class'=>'tamanho-pequeno desativados inputDescHidden','disabled'=>'disabled'));
 				//	echo $this->Form->input('Produto.dosagem', array('type'=>'text','label'=>'Dosagem:','class'=>'tamanho-pequeno desativados','disabled'=>'disabled'));
 
@@ -403,7 +403,7 @@
 					<div class="imposto">
 
 							<?php
-								echo $this->Form->input('cfo', array('type'=>'text','id'=>'ProdutoitenCfop','label'=>'CFOP:', 'onfocus'=>'this.blur()', 'class'=>'borderZero tamanho-pequeno ativos','readonly'=>'readonly'));
+								echo $this->Form->input('cfo', array('type'=>'text','id'=>'ProdutoitenCfop','label'=>'CFOP:', 'onfocus'=>'this.blur()', 'class'=>'borderZero tamanho-pequeno ativos limpa','readonly'=>'readonly'));
 								echo $this->Form->input('vicm', array('type'=>'text','id'=>'ProdutoitenValorIcms','label'=>'Valor ICMS:','class'=>'dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 								echo $this->Form->input('vip', array('type'=>'text','id'=>'ProdutoitenValorIpi', 'label'=>'Valor IPI:','class'=>'dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 							?>

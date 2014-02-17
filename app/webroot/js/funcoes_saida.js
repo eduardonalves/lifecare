@@ -139,6 +139,7 @@ $(document).ready(function() {
 			$('span[class*="Msg"]').remove();
 			$('span[class*="Msg"]').css('display','none');
 			$('.validacao-entrada').removeClass('shadow-vermelho');
+			$('.limpa').val('');
 		}
 
 		
