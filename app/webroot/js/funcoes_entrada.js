@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 	$("#EntradaData").change(function(){
 		
-		var dfuturoSaida = $("#EntradaData").val();
+	    var dfuturoSaida = $("#EntradaData").val();
 	    var dataFutura = new Date();
 	   	    
 	    dataFutura.setYear(dfuturoSaida.split("/")[2]);
@@ -61,17 +61,19 @@ $(document).ready(function() {
 	    var dataAtual = new Date();
 	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
 		
-
+	
 	    if(dataFutura.getTime() > dataAtual.getTime()){
-		    
-		    $("#dataEmi").css("display","block");
-		    $("#EntradaData").addClass('shadow-vermelho');
-		    $("#EntradaData").val("");
-		    
-		}else{		    
-		    $("#EntradaData").removeClass('shadow-vermelho');
-		    $("#dataEmi").css("display","none");
-		}
+		$("#dataEmi").css("display","block");
+		$("#EntradaData").addClass('shadow-vermelho');
+		$("#EntradaData").val("");
+	    }else if(dfuturoSaida.length != 8){ 
+		$("#spanDataInvalida").css("display","block");   
+		$("#EntradaData").addClass('shadow-vermelho');
+		$("#EntradaData").val("");
+	    }else{		    
+		$("#EntradaData").removeClass('shadow-vermelho');
+		$("#dataEmi").css("display","none");
+	    }
 	});
 	
 
