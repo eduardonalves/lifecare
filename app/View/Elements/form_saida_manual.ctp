@@ -127,19 +127,23 @@
 	<div class="fieldset">
 		<h2 class="legendEffect"><span class="dadosVale">Dados da Nota</span></h2>
 
-		<section class="coluna-esquerda">
+		<section id="ajusteCampoObs" class="coluna-esquerda">
 			<div class="imposto">
-			<?php
-				echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'tamanho-medio desabilita','label'=>'Chave de Acesso:','maxlength' => '50'));
-				//echo $this->Form->input('Clientee.nome', array('type'=>'select','class'=>'tamanho-medio select desabilita','options'=>array('','add-cliente'=>'cadastrar',1,2,3),'label'=>'Cliente:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao'));
-				echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsSaida'));
-			?>
-			<div class="texto-obs"></div>
+				<?php
+					echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'tamanho-medio desabilita','label'=>'Chave de Acesso:','maxlength' => '50'));
+					//echo $this->Form->input('Clientee.nome', array('type'=>'select','class'=>'tamanho-medio select desabilita','options'=>array('','add-cliente'=>'cadastrar',1,2,3),'label'=>'Cliente:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				?>
 			</div>
+			<div>
+				<?php 
+					echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao'));
+					echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsSaida'));
+				?>
+			</div>
+			<div class="texto-obs"></div>
 		</section>
 
-		<section class="coluna-central">
+		<section id="ajusteNumeroVale" class="coluna-central">
 			<?php
 				echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'nfiscal nvale tamanho-medio desabilita validacao-saida','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 				//echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno desabilita' ,'required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));

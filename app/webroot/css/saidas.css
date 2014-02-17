@@ -234,13 +234,12 @@
 }
 
 .campo-observacao{
-float: right;
-margin-right: -1px;
--moz-margin-end: 2px;
-height: 46px;
-margin-bottom: 4px;
-width: 187px;
-resize: none;
+	margin-right:-1px;
+	-moz-margin-end:2px;
+	height:46px;
+	margin-bottom:4px;
+	width:180px;
+	resize:none;
 }
 
 table{

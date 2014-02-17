@@ -108,7 +108,6 @@
 				<?php
 					echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'retiraBorda tamanho-medio desabilita limpa','label'=>'Chave de Acesso:','maxlength' => '50'));
 					//echo $this->Form->input('Fornecedore.nome', array('type'=>'select','class'=>'tamanho-medio select desabilita','options'=>array('','add-fornecedor'=>'cadastrar',1,2,3),'label'=>'Fornecedor:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					
 				?>
 			</div>
 			
