@@ -227,9 +227,10 @@ $(document).ready(function() {
 	$('#LoteNumeroLote').on('change', function(){
 
 	    $('input').removeAttr('required','required');
-	    $("#LoteDataFabricacao").removeAttr("disabled","disabled");
-	    $("#LoteDataValidade").removeAttr("disabled","dissabled");
-	    $("#LoteParceirodenegocioId").removeAttr("disabled","dissabled");
+	    $("#LoteDataFabricacao").removeAttr("disabled","disabled").hide();
+	    $("#LoteDataValidade").removeAttr("disabled","dissabled").hide();
+	    $("#LoteParceirodenegocioId").removeAttr("disabled","dissabled").hide();
+	    $("#LoteQuantidade").removeAttr("disabled","dissabled").hide();	    
 
 		var numeroLote = $("#LoteNumeroLote").val();
 		var produtoId= $(".selectProduto option:selected").val();
@@ -253,14 +254,16 @@ $(document).ready(function() {
 
 				$("#loaderAjax").hide();
 				if(data=="liberado"){
-					$("#respostaAjax").show();
-					$("#bt-salvarLote").show();
+				    $('[id^="Lote"]').show();
+				    $("#respostaAjax").show();
+				    $("#bt-salvarLote").show();
 				//	console.log(data);
 
 				}else if(data=="cadastrado"){
 
 				}else{
 					if(data != "vazio"){
+					    $('[id^="Lote"]').show();
 						var dayFabricacao = data.Lote.data_fabricacao.slice(8,10);
 						var monthFabricacao = data.Lote.data_fabricacao.slice(5,7);
 						var yearFabricacao = data.Lote.data_fabricacao.slice(0,4);
