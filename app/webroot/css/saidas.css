@@ -60,6 +60,33 @@
 	top: 51px;
 }
 
+#spanDataInvalidaSaida{
+	color: #d40000;
+	position: absolute;
+	font-size: 13px;
+	width: 110px;
+	padding: 3px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #ffd5d5;
+	text-align: center;
+	top: -47px;
+	left: 154px;
+
+}
+
+#spanDataInvalidaSaida:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: #ffd5d5 transparent transparent transparent;
+	left: 9px;
+	top: 36px;
+}
+
 
 /* HERANÇA ************************************************************/
 
