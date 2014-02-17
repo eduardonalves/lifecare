@@ -168,8 +168,8 @@
 			echo $this->Form->create('Categoria', array('url'=>array('controller'=>'Categorias', 'action'=>'add'), 'class'=>'modal-form'));
 			echo "<div class=\"ui-widget\">";
 			echo $this->Form->input('Categoria.nome', array('required'=>'false','class'=>'nome-categoria validacao-cadastrar','type'=>'text', 'label'=>'Categoria<span class="campo-obrigatorio">*</span>:', 'div'=>false , 'maxlength' => '20' ));
-			echo "<span id='spanMsgCategoria' class='Msg' style='display:none'>Preencha o campo categoria</span>";
-			echo "<span id='spanMsgCateNomeInvalido' class='Msg' style='display:none'>Está Categoria já está cadastrada</span>";
+			echo "<span id='spanMsgCategoria' class='Msg-tooltipDireita' style='display:none'>Preencha o campo categoria</span>";
+			echo "<span id='spanMsgCateNomeInvalido' class='Msg-tooltipDireita' style='display:none'>Está Categoria já está cadastrada</span>";
 			echo "</div>";
 			
 			?>

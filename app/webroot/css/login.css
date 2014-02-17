@@ -2,6 +2,10 @@
 
 
 /* TAG ****************************************************************/
+html, body{
+	height:85% !important;
+}
+
 legend{
 	display:none;
 }
@@ -40,10 +44,10 @@ fieldset{
 
 #flashMessage{
 	font-size:13px;
-	left: 69%;
+	left:835px;
 	position:absolute;
-	top: 205px;
-	width: 190px;
+	top:205px;
+	width:190px;
 	z-index:3;
 }
 
