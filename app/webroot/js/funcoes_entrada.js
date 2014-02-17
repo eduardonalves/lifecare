@@ -84,7 +84,11 @@ $(document).ready(function() {
 			$('#campo-direita').css('float','left');
 			$("#spanValProduto").css("top","311px");
 			$("#spanVaBtConf").css("margin-top","-51px");
-			$("label[for=EntradaNotaFiscal]").css("margin-left","-26px");
+			//$("label[for=EntradaNotaFiscal]").css("margin-left","-26px");
+			$("#ajusteCampoObs.coluna-esquerda").removeClass("coluna-esquerda").addClass("coluna-direita");
+			$("#ajusteNumeroVale").css("margin-left","0px");
+			$("#campo-direita").css("margin-left","25px");
+			$("#campo-direita").css("margin-right","0px");
 			
 			
 			$("label[for=EntradaValorTotal]").text('Valor Total do Vale:');
@@ -117,6 +121,12 @@ $(document).ready(function() {
 			$('#tributos').fadeIn('fast');
 			$('.imposto').fadeIn('fast');			
 			$('.table-none').css('display', 'block');
+			$("#ajusteCampoObs.coluna-direita").removeClass("coluna-direita").addClass("coluna-esquerda");
+			$("#ajusteNumeroVale").css("margin-left","25px");
+			$("#campo-direita").css("margin-left","0px");
+			$("#campo-direita").css("margin-right","2px");
+			
+			
 			
 			$("label[for=EntradaNotaFiscal]").html('Número NF<span class="campo-obrigatorio">*</span>:');
 			$(".dadosVale").text('Dados da Nota');
