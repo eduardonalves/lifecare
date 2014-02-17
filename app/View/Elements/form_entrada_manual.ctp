@@ -145,7 +145,7 @@
 			//print_r($allFornecedores);
 			?>
 			<div class="input autocompleteFornecedor tela-resultado">
-				<label>Pesquisar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+				<label id="SpanPesquisarFornecedor">Pesquisar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 				<select class="tamanho-medio limpa" id="add-fornecedor">
 					<option id="optvazioForn"></option>
 					<option value="add-Fornecedor">Cadastrar</option>

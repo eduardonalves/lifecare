@@ -51,17 +51,13 @@
     margin-left: 165px;
     margin-top: 10px;
     height: 20px;
+    background: #EBEAFC;
 }
 #myModal_add-cliente .modal-body{
 	margin-top: -45px;
 	height: 595px !important;
 }
-#myModal_add-cliente .loaderAjax{
-	position: absolute;
-	left: 190px;
-	top: -415px;
-	display:none;
-}
+
 
 #myModal_add-cliente #spanClienteNome{
 	background-color: #FFD5D5;
@@ -322,7 +318,12 @@
 }	
 
 
-
+#myModal_add-cliente .loaderAjax{
+	position: absolute;
+	left: 190px;
+	top: -415px;
+	display:none;
+}
 
 
 

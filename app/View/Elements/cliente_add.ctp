@@ -44,47 +44,32 @@ $(document).ready(function(){
 
 		if(valorCpfCnpj == 'inputcpf'){
 			$("#ClienteCpfCnpj").removeAttr("disabled","disabled");
-			$("#ClienteCpfCnpj").removeAttr("style","background:#EBEAFC;");
+			$("#ClienteCpfCnpj").css("background-color","#FFFFFF;");
 			$("#ClienteCpfCnpj").mask("999.999.999-99");//cpf
 		}else{
 			$("#ClienteCpfCnpj").removeAttr("disabled","disabled");
-			$("#ClienteCpfCnpj").removeAttr("style","background:#EBEAFC;");
+			$("#ClienteCpfCnpj").css("background-color","#FFFFFF;");
 			$("#ClienteCpfCnpj").mask("99.999.999/9999-99");//cnpj
 		}
 	});
 	
 	$(".close").click(function(){
-			$("#ClienteNome").val('');
-			$("#ClienteCpfCnpj").val('');
+						
 			$("input[type=radio]").removeAttr("checked","checked");
+						
 			$("#ClienteCpfCnpj").attr("disabled","disabled");
 			$("#ClienteCpfCnpj").attr("style","background:#EBEAFC;");
+			
+			$('#myModal_add-cliente input, select, textarea').val('');
+			
+			$('#myModal_add-cliente input, select, textarea').removeClass('shadow-vermelho');
+			
 			$('#spanClienteNome').css('display','none');
 			$('#spanClienteCPFExistente').css('display','none');
-			
-			$('#Endereco0Complemento').val('');
-			$('#Endereco0PontoReferencia').val('');
-					
-			$('#Endereco0Logradouro').val('');
-			$('#Endereco0Logradouro').removeClass('shadow-vermelho');
 			$('#spanEndereco0Logradouro').css('display','none');
-			
-			
-			
-			$('#Endereco0Bairro').val('');
-			$('#Endereco0Bairro').removeClass('shadow-vermelho');
 			$('#spanEndereco0Bairro').css('display','none');
-			
-			$('#Endereco0Uf').val('');
-			$('#Endereco0Uf').removeClass('shadow-vermelho');
 			$('#spanEndereco0Uf').css('display','none');
-			
-			$('#Endereco0Cidade').val('');
-			$('#Endereco0Cidade').removeClass('shadow-vermelho');
 			$('#spanEndereco0Cidade').css('display','none');
-			
-			$('#Contato0Telefone1').val('');
-			$('#Contato0Telefone1').removeClass('shadow-vermelho');
 			$('#spanContato0Telefone1').css('display','none');
 			
 	});
@@ -254,9 +239,7 @@ window.onload = function() {
 		$('input:radio[name=CPFCNPJ]').each(function() {	                
                 if ($(this).is(':checked')){
 					ok = $(this).val();
-					
 				}
-
        });
 		
 

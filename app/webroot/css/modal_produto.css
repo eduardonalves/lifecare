@@ -7,41 +7,46 @@
 
 
 /* ID *****************************************************************/
-#validaNome{
+#myModal_add-produtos #validaNome{
 	left:300px;
 	top:3px;
 	width:105px;
 }
 
-#validaUnid{
-	left:265px;
-	top:-7px;
+#myModal_add-produtos #validaUnid{
+	left: 262px;
+	top: -13px;
 	width: 95px;
+	-moz-margin-start: -7px;
 }
 
-#validaNcm{
-	left:245px;
-	top:-8px;
-    width:125px;
+#myModal_add-produtos #validaNcm{
+	left: 232px;
+    top: -13px;
+    width: 125px;
 }
 
-#validaCfop{
-	left:250px;
-	top:-8px;
-    width:110px;
+#myModal_add-produtos #validaCfop{
+	left: 234px;
+	top: -9px;
+	width: 110px;
 }
 
-#spanEstoqueMinimo{
+#myModal_add-produtos #spanEstoqueMinimo{
 	left:235px;
 	top:18px;
-	width:160px;
+	width:146px;
 }
 
 #validaEstoqueIdeal{
-	left:240px;
-	top:18px;
-	width:160px;
+	left: 233px;
+    top: 30px;
+    width: 160px;
 }
+#myModal_add-produtos #validaEstoqueIdeal:after{
+	 top: 1px;   
+}
+
 
 #myModal_add-produtos #validaNome{
 	left:317px;
@@ -50,9 +55,9 @@
 }
 
 #myModal_add-produtos #validaUnid{
-	left: 277px;
-	top:-7px;
-	width: 75px;
+	left: 282px;
+	top: -12px;
+	width: 70px;
 }
 
 #myModal_add-produtos #validaNcm{
@@ -86,7 +91,7 @@
 
 /* HACK ***************************************************************/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	#validaNome{top:-5px;}
+	#myModal_add-produtos #validaNome{top:-6px;}
 }
 
 
@@ -283,7 +288,7 @@ width: 450px !important;
 	
 }
 
-#validaCodi{
+#myModal_add-produtos #validaCodi{
 	color:#d40000;
 	position:absolute;
 	display:block;
@@ -298,7 +303,7 @@ width: 450px !important;
 	top:-5px;
 }
 
-#validaCodi:after {
+#myModal_add-produtos #validaCodi:after {
 	content: "";
 	position: absolute;
 	width: 0;
@@ -310,34 +315,6 @@ width: 450px !important;
 	top: 7px;
 }
 
-/*
-#validaEstoqueIdeal{
-	color:#d40000;
-	position:absolute;
-	display:block;
-	font-size:13px;
-	width:110px;
-	left:124px;
-	padding:3px;
-	border:1px solid #aaa;
-	border-radius: 5px;
-	background-color:#ffd5d5;
-	text-align:center;
-	top:-52px;
-}
-
-#validaEstoqueIdeal:after {
-	content: "";
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-width: 10px;
-	border-style: solid;
-	border-color: #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-	top: 36px;
-	left: 46px;
-}
-*/
 
 #LoadAjaxProduto{
 	left: 450px;

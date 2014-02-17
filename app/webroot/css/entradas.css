@@ -268,7 +268,7 @@ table{
 
 .campo-observacao{
 float: right;
-margin-right: -1px;
+margin-right: -2px;
 -moz-margin-end: 2px;
 height: 46px;
 margin-bottom: 4px;
@@ -286,6 +286,10 @@ resize: none;
 	/*border: 0px !important;*/
 	cursor: pointer;
 	font-size:13px;
+}
+
+#fieldFornecedor{
+	height: 40px;
 }
 
 .borderZero{border: none !important;}

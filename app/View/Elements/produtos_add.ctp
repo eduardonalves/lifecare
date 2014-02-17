@@ -276,8 +276,8 @@ $(document).ready(function(){
 		
 		<div class="estoque-minimo">
 		
-			<?php echo $this->Form->input('Produto.estoque_minimo', array('label'=>'Estoque Mínimo<span class="campo-obrigatorio">*</span>:','id'=>'ProdutoEstoqueMinimo','type'=>'text','class'=>'tamanho-pequeno validacao-cadastrar numberMask', 'maxlength' => '10' )); ?>
-		
+			<?php echo $this->Form->input('Produto.estoque_minimo', array('label'=>'Estoque Mínimo<span class="campo-obrigatorio">*</span>:','id'=>'ProdutoEstoqueMinimo','type'=>'text','class'=>'tamanho-pequeno validacao-cadastrar numberMask', 'maxlength' => '10' )); 
+				  echo '<span id="spanEstoqueMinimo" class="Msg-tooltipDireita" style="display:none">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>'; ?>
 		</div>
 	</section>
 	
