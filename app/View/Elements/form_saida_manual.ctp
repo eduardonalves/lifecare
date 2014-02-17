@@ -141,7 +141,7 @@
 
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'nfiscal nvale tamanho-medio desabilita validacao-saida','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'nfiscal nvale tamanho-medio desabilita validacao-saida','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 				//echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno desabilita' ,'required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 				//echo $this->Form->input('Nota.valor_frete', array('type'=>'text','label'=>'Valor de Frete:','class'=>'tamanho-pequeno desabilita','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 			?>
@@ -151,10 +151,11 @@
 
 		<section class="coluna-direita" id="campo-direita">
 			<?php
-				echo $this->Form->input('data', array('type'=>'text','required'=>'true','class'=>'tamanho-pequeno forma-data desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:'));
+				echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'tamanho-pequeno forma-data desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:'));
 			
 			?>
 			<span id="spanDataFuturoSaida" style="display:none" class="MsgData">Data Emissão Não Pode ser um Dia Futuro</span>
+			<span id="spanDataInvalidaSaida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>
 		</section>
 
 	</div>
@@ -256,7 +257,7 @@
 		<section class="coluna-direita" id="campo-SaidaCnpj">
 			<?php
 			    //echo $this->Form->input('parceirodenegocio.regime_tributario', array('type'=>'text','class'=>'tamanho-pequeno desabilita','label'=>'Regime Tributário:'));
-			    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'true','class'=>'tamanho-medio desabilita validacao-saida','label'=>'CPF/CNPJ:','disabled'=>'disabled'));
+			    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'tamanho-medio desabilita validacao-saida','label'=>'CPF/CNPJ:','disabled'=>'disabled'));
 			    echo   $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			?>
 		</section>
