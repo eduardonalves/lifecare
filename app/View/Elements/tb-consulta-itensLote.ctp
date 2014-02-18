@@ -20,7 +20,7 @@
 						 
 							foreach($configprod as $campo=>$campoLabel){
 							
-								echo "<th id=\"$campo\" class=\"colunaProduto $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+								echo "<th id=\"$campo\" class=\"colunaProduto comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}
 				//.................................................................................................
 						?>
