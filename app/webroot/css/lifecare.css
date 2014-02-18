@@ -1,7 +1,13 @@
 @charset "utf-8";
 
 /* TAG ****************************************************************/
+textarea{
+	border: 1px solid #ccc !important;
+}
 
+select{
+	border: 1px solid #ccc !important;
+}
 
 /* CLASS **************************************************************/
 .tooltipMensagemErroDireta{
@@ -210,7 +216,7 @@ legend{
 }
 
 .conteudo-principal section form input:not([type="submit"]){
-	border: 1px solid #CCCCCC;
+	/*border: 1px solid #CCCCCC;*/
 	max-width:220px;
 	padding-top: 4px;
 }

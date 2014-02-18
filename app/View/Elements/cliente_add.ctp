@@ -250,7 +250,6 @@ window.onload = function() {
 		$('input:radio[name=CPFCNPJ]').each(function() {	                
                 if ($(this).is(':checked')){
 					ok = $(this).val();
-					
 				}
 
        });
