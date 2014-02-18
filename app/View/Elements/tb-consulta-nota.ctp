@@ -22,7 +22,7 @@
 					
 					foreach($confignot as $campo=>$campoLabel)
 					{
-						echo "<th class='colunaLote'>". $this->Paginator->sort($campo, $campoLabel) ."</th>";
+						echo "<th id=\"$campo\" class=\"colunaLote setaOrdena $campo\">". $this->Paginator->sort($campo, $campoLabel) ."<div id='indica-ordem' class='posicao-seta'></div></th>";
 						
 					}
 						

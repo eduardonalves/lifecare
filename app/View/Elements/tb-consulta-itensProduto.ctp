@@ -23,15 +23,15 @@
 							foreach($configprod as $campo=>$campoLabel)
 						 {
 							 
-							 echo "<th class=\"colunaProduto $campo\">" . $this->Paginator->sort('Produto.'.$campo, $campoLabel) . "</th>";
+							 echo "<th id=\"$campo\" class=\"colunaProduto $campo\">" . $this->Paginator->sort('Produto.'.$campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							 
 						 }
 
 				 ?>
 				<?php //###### ATENCAO PRA PRODUTO ITEN ?>							 
-						<th  class="colunaProdutoIten"><?php echo $this->Paginator->sort('Produtoiten.qtde','Qtd. Item');?></th>
-						<th  class="colunaProdutoIten"><?php echo $this->Paginator->sort('Produtoiten.valor_unitario','Valor Unitário(R$)');?></th>
-						<th  class="colunaProdutoIten"><?php echo $this->Paginator->sort('Produtoiten.valor_total','Valor Total(R$)');?></th>
+						<th id="qtde" class="colunaProdutoIten setaOrdena qtde"><?php echo $this->Paginator->sort('Produtoiten.qtde','Qtd. Item');?><div id="indica-ordem" class="posicao-seta"></div></th>
+						<th id="valor_unitario" class="colunaProdutoIten setaOrdena valor_unitario"><?php echo $this->Paginator->sort('Produtoiten.valor_unitario','Valor Unitário(R$)');?><div id="indica-ordem" class="posicao-seta"></div></th>
+						<th id="valor_total" class="colunaProdutoIten setaOrdena valor_total"><?php echo $this->Paginator->sort('Produtoiten.valor_total','Valor Total(R$)');?><div id="indica-ordem" class="posicao-seta"></div></th>
 				<?php //###### ATENCAO PRA PRODUTO ITEN ?>
 				
 				<?php // ##### TH NOTA
@@ -40,9 +40,9 @@
 					{
 						
 						if($campo=='parceirodenegocio_id'){
-							echo "<th class=\"colunaES parceiro\">". $this->Paginator->sort('parceiro') ."</th>";
+							echo "<th id=\"$campo\" class=\"colunaES setaOrdena parceiro\">". $this->Paginator->sort('parceiro') ."<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}else{
-							echo "<th class='colunaES $campo'>". $this->Paginator->sort('Nota.'.$campo, $campoLabel) ."</th>";
+							echo "<th id=\"$campo\" class='colunaES setaOrdena $campo'>". $this->Paginator->sort('Nota.'.$campo, $campoLabel) ."<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}
 						
 						
