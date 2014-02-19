@@ -248,9 +248,6 @@ window.onload = function() {
 		});
 
        });
-		
-
-
 	
 		t =  $("#ClienteCpfCnpj").val();
 		tamanho_cpf_cnpj = t.length;
@@ -278,7 +275,7 @@ window.onload = function() {
 			$('#spanClienteNome').css('display','block');
 							
 		}else if(ok == 0){
-		    alert(ok);
+		   
 		    $("#spanClienteTipoDoc").show();
 		
 		}else if($('#ClienteCpfCnpj').val() == '' || tamanho_cpf_cnpj < total_cpf_cnpj ){	
@@ -364,14 +361,9 @@ window.onload = function() {
 						ok=0;
 						
 					}					
-				}
-				
-				
-			});
-		}
-
-	});
-	    
+				}		
+			}); /***FIm AJAX***/
+		}/***Fim validaçcao***/
 });
     
 </script>

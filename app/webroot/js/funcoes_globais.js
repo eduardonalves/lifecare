@@ -324,12 +324,12 @@ $(document).ready(function() {
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-<<<<<<< HEAD
+
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="spanEstoqueMinimo"  class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-=======
+
 			$('<span id="spanEstoqueMinimoZero"  class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
->>>>>>> Henrique
+
 	    }else if($('.validaEstoqueIdeal').val() ==''){	    
 			$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 			$('#validaEstoqueIdeal').css('display','block');
@@ -344,7 +344,7 @@ $(document).ready(function() {
 		estoqueDesejado= $('#estoqueIdeal').val();
 
 			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
-<<<<<<< HEAD
+
 				if((estoqueMinimo - estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').remove();
 				    $('#spanEstoqueMinimo').css('display:block');
@@ -355,19 +355,20 @@ $(document).ready(function() {
 				    $('#estoqueIdeal').addClass('shadow-vermelho');
 				    $('#ProdutoEstoqueMinimo').val('');
 				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-=======
+
 				if((estoqueMinimo > estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').css("display","block");
 				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
 				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho');
 				  
->>>>>>> Henrique
+
 				}
 				else{
 					$('span[id="spanEstoqueMinimo"]').css("display","none");
 					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
 				}
 			}
+		}
 	});
 /******************** Botão Upload *********************************/
 	$(document).ready(function() {
