@@ -3,6 +3,7 @@ $(document).ready(function() {
 	var i=0;
 	var total=0;
 
+
 	
 /********************* Campos Dinâmicos Entrada Manual **************************/
 
