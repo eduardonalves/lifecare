@@ -64,20 +64,20 @@ textarea{
 	width:150px !important;
 }
 
-#spanEstoqueMinimo{
-	left:236px;
-	width:110px;
-}
+#spanEstoqueMinimoZero{	left: 231px; top: 20px; width: 110px; }
+#spanEstoqueMinimo{	left: 231px; top: 20px; width: 110px; }
 
-#btnLeft,#btnRight{
-	padding:4px;
-	line-height:15px;
-}
+#btnLeft,#btnRight{	padding:4px; line-height:15px;}
 
-#validaNome{
-	left:300px;
-	top:3px;
-}
+#validaNome{ left: 293px; top: -5px; width: 100px; }
+#validaNome, x:-moz-any-link, x:default{ top: 3px; }
+
+#validaUnid{ left: 260px; top: -13px; }
+#validaUnid, x:-moz-any-link, x:default{ top: -13px; left: 253px;}
+
+#validaNcm{	left: 232px; top: -13px;  width: 125px; }
+
+#validaCfop{ left: 234px; top: -9px; width: 110px; }
 
 /* HERANÇA ************************************************************/
 

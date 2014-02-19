@@ -255,8 +255,10 @@ $(document).ready(function() {
 			$('.validaUnidade').removeClass('shadow-vermelho');
 			$('#validaUnidade').css('display','none');
 			
-			$('span[id="spanEstoqueMinimo"]').remove();
+			$('span[id="spanEstoqueMinimo"]').css('display','none');
+			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
+			$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
 			
 			$('.validaNcm').removeClass('shadow-vermelho');
 			$('#validaNcm').css('display','none');
@@ -266,9 +268,7 @@ $(document).ready(function() {
 			
 			$('.validaEstoqueIdeal').removeClass('shadow-vermelho');
 			$('#validaEstoqueIdeal').css('display','none');
-			
-			$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
-			$('#SpanEstoqueMinimo').css('display','none');
+						
 						
 	});
 	
@@ -289,10 +289,11 @@ $(document).ready(function() {
 			$('.validaCfop').addClass('shadow-vermelho');
 			$('#validaCfop').css('display','block');
 	    }else if($('.SpanEstoqueMinimo').val() == 0){
-			$('span[id="SpanEstoqueMinimo"]').remove();
+			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('.SpanEstoqueMinimo').addClass('shadow-vermelho');
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="SpanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+
 	    }else if($('.valiEstoqueIdeal').val() ==''){	    
 			$('.valiEstoqueIdeal').addClass('shadow-vermelho');
 			$('#valiEstoqueIdeal').css('display','block');
@@ -321,10 +322,14 @@ $(document).ready(function() {
 			$('.validaCfop').addClass('shadow-vermelho');
 			$('#validaCfop').css('display','block');
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
-			$('span[id="spanEstoqueMinimo"]').remove();
+			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+<<<<<<< HEAD
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="spanEstoqueMinimo"  class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+=======
+			$('<span id="spanEstoqueMinimoZero"  class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+>>>>>>> Henrique
 	    }else if($('.validaEstoqueIdeal').val() ==''){	    
 			$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 			$('#validaEstoqueIdeal').css('display','block');
@@ -333,12 +338,13 @@ $(document).ready(function() {
 	    }
 	});	
 /**---------------Verificação Estoque Minimo > ideal-----------------------------------**/
-	$('#ProdutoEstoqueMinimo, #estoqueIdeal').change(function(e){
+	$('#ProdutoEstoqueMinimo, #estoqueIdeal').on("change, focusin, focusout",function(){
 
 		estoqueMinimo= $('#ProdutoEstoqueMinimo').val();
 		estoqueDesejado= $('#estoqueIdeal').val();
 
 			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
+<<<<<<< HEAD
 				if((estoqueMinimo - estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').remove();
 				    $('#spanEstoqueMinimo').css('display:block');
@@ -349,11 +355,17 @@ $(document).ready(function() {
 				    $('#estoqueIdeal').addClass('shadow-vermelho');
 				    $('#ProdutoEstoqueMinimo').val('');
 				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+=======
+				if((estoqueMinimo > estoqueDesejado) > 0){
+				    $('span[id="spanEstoqueMinimo"]').css("display","block");
+				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
+				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+				  
+>>>>>>> Henrique
 				}
 				else{
-					$('span[id="spanEstoqueMinimo"]').remove();
-					$('#estoqueIdeal').removeClass('shadow-vermelho');
-					$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
+					$('span[id="spanEstoqueMinimo"]').css("display","none");
+					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
 				}
 			}
 	});

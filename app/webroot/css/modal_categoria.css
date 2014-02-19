@@ -61,9 +61,19 @@
 
 
 #myModal_add-categoria #spanMsgCategoria{
-    left:390px;
-    top:125px;
-    width:110px;
+
+	background-color: #FFD5D5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #D40000;
+    display: block;
+    font-size: 13px;
+    left: 375px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 119px;
+    width: 110px;
 }
 
 #myModal_add-categoria #spanMsgCateNomeInvalido{

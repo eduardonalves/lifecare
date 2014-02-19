@@ -294,12 +294,15 @@ table{
 }
 
 .campo-observacao{
+
 	margin-right: -1px;
 	-moz-margin-end: 2px;
 	height: 46px;
 	margin-bottom: 4px;
 	width: 180px;
 	resize: none;
+	float: right;
+
 }
 
 #ProdutoCodigo{
@@ -312,6 +315,10 @@ table{
 	/*border: 0px !important;*/
 	cursor: pointer;
 	font-size:13px;
+}
+
+#fieldFornecedor{
+	height: 40px;
 }
 
 .borderZero{border: none !important;}

@@ -28,7 +28,7 @@ class NotasController extends AppController {
 	
 		public function beforeRender(){
 			
-			//Verificamos a data para setarmos o cemáfaro do lote
+			//Verificamos a data para setarmos o semáfaro do lote
 			
 			//Inicio Cemáfaro
 			parent::beforeRender();
