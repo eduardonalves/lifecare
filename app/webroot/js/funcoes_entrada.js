@@ -1100,6 +1100,20 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 			$('#ProdutoitenValorUnitario').removeAttr('required','required');
 		    }	
 		});  
+		
+		
+		$('#FornecedoreNome').focusin(function(){
+		    $('#FornecedoreNome').attr('required','required');
+		}).focusout(function(){
+		    $('#FornecedoreNome').removeAttr('required','required');
+		});
+	
+		$('#FornecedoreCpfCnpj').focusin(function(){
+		    $('#FornecedoreCpfCnpj').attr('required','required');
+		}).focusout(function(){
+		    $('#FornecedoreCpfCnpj').removeAttr('required','required');
+		});
+		
 
 /******************** Excluir tabela principal *******************/
 	$("body").on("click",'.btnRemove', function(e){

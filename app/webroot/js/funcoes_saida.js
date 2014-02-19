@@ -1141,7 +1141,9 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			    $('#ProdutoitenValorUnitario').removeAttr('required','required');
 			}	
 		    });  
-	    /**marcação modal cliente **/   
+
+		
+	/**** marcação dos campos modal cliente ***/	    
 
 		$('#ClienteNome').focusin(function(){
 		    $('#ClienteNome').attr('required','required');
@@ -1184,6 +1186,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		}).focusout(function(){
 		    $('#Contato0Telefone1').removeAttr('required','required');
 		});   
+
 
 /******************** Excluir tabela principal *******************/
 	$("body").on("click",'.btnRemove', function(e){
