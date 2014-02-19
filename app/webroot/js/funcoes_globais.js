@@ -216,12 +216,12 @@ $(document).ready(function() {
 	    $('#ProdutoUnidade').attr('required','required');
 	});
 	
-	$('#Tributo0Ncm').focusin(function(){
-	    $('#Tributo0Ncm').attr('required','required');
+	$('[id*=Ncm]').focusin(function(){
+	    $('[id*=Ncm]').attr('required','required');
 	});
 	
-	$('#Tributo0Cfop').focusin(function(){
-	    $('#Tributo0Cfop').attr('required','required');
+	$('[id*=Cfop]').focusin(function(){
+	    $('[id*=Cfop]').attr('required','required');
 	});
 	
 	$('#ProdutoEstoqueMinimo').focusin(function(){
@@ -236,8 +236,8 @@ $(document).ready(function() {
 	$('input[class*="valida"]').focusout(function(){
 	    $('#ProdutoNome').removeAttr('required','required');
 	    $('#ProdutoUnidade').removeAttr('required','required');
-	    $('#Tributo0Ncm').removeAttr('required','required');
-	    $('#Tributo0Cfop').removeAttr('required','required');
+	    $('[id*=Ncm]').removeAttr('required','required');
+	    $('[id*=Cfop]').removeAttr('required','required');
 	    $('#ProdutoEstoqueMinimo').removeAttr('required','required');
 	    $('#estoqueIdeal').removeAttr('required','required');
 	});
@@ -459,6 +459,7 @@ jQuery(function($){
 /************* Sumir com mensagem de validação *****************/
     $('input, select, div').on('focusin', function(){
 	$('span[class^="Msg"]').css('display','none');
+	$('span[class^="DinamicaMsg"]').remove();
     });
     
     
