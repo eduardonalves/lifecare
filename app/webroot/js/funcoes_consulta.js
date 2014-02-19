@@ -357,6 +357,12 @@ return get;
 	$(".colunaProduto a.desc + div").addClass("seta-baixo");
 	
 	var idcol = $(".colunaProduto a.asc ,  .colunaProduto a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
 	$("td."+idcol).addClass("highlight");	
 	
 /************* Data validação dados da nota *****************/

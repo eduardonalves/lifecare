@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 	var total=0;
 	var i=0;
@@ -23,17 +24,58 @@ $(document).ready(function() {
 /****************Valida Data******************************************/
 	$("#LoteDataFabricacao").change(function(){
 
-	  
-	    var dfuturo = $("#LoteDataFabricacao").val();
+	    var dfuturoSaida = $("#LoteDataFabricacao").val();
+	    var dataFutura = new Date();
+	   	    
+	    dataFutura.setYear(dfuturoSaida.split("/")[2]);
+	    dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
+	    dataFutura.setDate(dfuturoSaida.split("/")[0]);
+	    
+	    var anoDigitado = dfuturoSaida.split("/")[2];
+	    var mesDigitado = dfuturoSaida.split("/")[1];
+	    var diaDigitado = dfuturoSaida.split("/")[0];
+	    
 	    var dataAtual = new Date();
-	    var dataFormat = ( (dataAtual.getDate()) + '/' + dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
+	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
+		
 
-		if(dfuturo > dataFormat){
-		    $('#validaModLoteDataFabricFutu').css("display","block");
-		    $("#LoteDataFabricacao").val("");
-		}else{
-		   $('#validaModLoteDataFabricFutu').css("display","none");
-		}
+	    if(dataFutura.getTime() > dataAtual.getTime()){
+		$("#validaModLoteDataFabricFutu").css("display","block");
+		$("#LoteDataFabricacao").addClass('shadow-vermelho');
+		$("#LoteDataFabricacao").val("");
+	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+		$("#validaModLoteDataFabricInvalida").css("display","block");   
+		$("#LoteDataFabricacao").addClass('shadow-vermelho');
+		$("#LoteDataFabricacao").val("");    
+	    }else{		    
+		$("#LoteDataFabricacao").removeClass('shadow-vermelho');
+		$("#validaModLoteDataFabricFutu").css("display","none");
+		$("#validaModLoteDataFabricInvalida").css("display","none"); 
+	    }
+	    
+	 });
+	 	 
+/****************Valida Data******************************************/
+	$("#LoteDataValidade").change(function(){
+
+	    var dfuturoSaida = $("#LoteDataValidade").val();
+	    var dataFutura = new Date();
+
+	    var anoDigitado = dfuturoSaida.split("/")[2];
+	    var mesDigitado = dfuturoSaida.split("/")[1];
+	    var diaDigitado = dfuturoSaida.split("/")[0];
+
+
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+		$("#validaModLoteDataValInvalida").css("display","block");   
+		$("#LoteDataValidade").addClass('shadow-vermelho');
+		$("#LoteDataValidade").val("");    
+	    }else{		    
+		$("#LoteDataValidade").removeClass('shadow-vermelho');
+		$("#validaModLoteDataValInvalida").css("display","none");  
+		
+	    }
+	    
 	 });
 
 /***************Valida Data*******************************************/
@@ -47,20 +89,27 @@ $(document).ready(function() {
 	    dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
 	    dataFutura.setDate(dfuturoSaida.split("/")[0]);
 	    
+	    var anoDigitado = dfuturoSaida.split("/")[2];
+	    var mesDigitado = dfuturoSaida.split("/")[1];
+	    var diaDigitado = dfuturoSaida.split("/")[0];
+	    
 	    var dataAtual = new Date();
 	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
 					
 	    if(dataFutura.getTime() > dataAtual.getTime()){
-		    
-		    $('#spanDataFuturoSaida').css("display","block");
-		    $("#SaidaData").addClass('shadow-vermelho');
-		    $("#SaidaData").val("");
-		    
-		}else{
-		    
-		    $("#SaidaData").removeClass('shadow-vermelho');
-		    $("#spanDataFuturoSaida").hide();
-		}
+		$('#spanDataFuturoSaida').css("display","block");
+		$("#SaidaData").addClass('shadow-vermelho');
+		$("#SaidaData").val("");
+	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+		$("#spanDataInvalidaSaida").css("display","block");   
+		$("#SaidaData").addClass('shadow-vermelho');
+		$("#SaidaData").val("");   
+		
+	    }else{
+		
+		$("#SaidaData").removeClass('shadow-vermelho');
+		$("#spanDataFuturoSaida").hide();
+	    }
 	});
 	
 /***************Troca Vale ~ Nota*******************************************/	
@@ -334,7 +383,7 @@ $(document).ready(function() {
 				$("#loaderAjax").hide();
 
 				if(numeroLoteAdd !=undefined){
-					$('.tabela-lote').append('<tr class="apargarLotes" id="linha"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
+					$('.tabela-lote').append('<tr class="apargarLotes" id="linha"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
 
 					$('fieldset').append('<div class="input number clonado'+lote_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][lote_id]" step="any"  id="LoteId'+lote_cont+'lote_id" value="'+LoteId+'" type="hidden"/></div> ');
 					$('fieldset').append('<div class="input number clonado'+lote_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][qtde]" step="any" id="LoteQuantidade'+lote_cont+'qtde" value="'+quantidadeLoteAdd+'" type="hidden"/></div>');
@@ -441,7 +490,7 @@ $(document).ready(function() {
 			$( "input[id='LoteQuantidade']" ).addClass('shadow-vermelho');
 			numeroLoteAdd = $("#LoteNumeroLote").val();
 		    }else{ 			
-			$('.tabela-lote').append('<tr class="apargarLotes  clonadoProduto'+princ_cont+'" id="linha1"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
+			$('.tabela-lote').append('<tr class="apargarLotes  clonadoProduto'+princ_cont+'" id="linha1"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
 
 			$('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][lote_id]" step="any"  id="LoteId'+lote_cont+'lote_id" value="'+LoteId+'" type="hidden"/></div> ');
 			$('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][qtde]" step="any" id="LoteQuantidade'+lote_cont+'qtde" value="'+quantidadeLoteAdd+'" type="hidden"/></div>');
@@ -662,9 +711,9 @@ $(document).ready(function() {
 		
 		if(auxtipodoc=="Nota"){
 			
-			$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td>'+nome+'</td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td><td class="table-none">'+cfop+'</td><td class="table-none icms_clonado'+princ_cont+' ">'+valor_icms+'</td><td class="table-none ipi_clonado'+princ_cont+'">'+valor_ipi+'</td> <td><img rel="tooltip" title="'+lotes+'" src="img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
+			$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td>'+nome+'</td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td><td class="table-none">'+cfop+'</td><td class="table-none icms_clonado'+princ_cont+' ">'+valor_icms+'</td><td class="table-none ipi_clonado'+princ_cont+'">'+valor_ipi+'</td> <td><img rel="tooltip" title="'+lotes+'" src="../app/webroot/img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
 		}else{
-			$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td>'+nome+'</td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td> <td><img rel="tooltip" title="'+lotes+'" src="img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
+			$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td>'+nome+'</td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td> <td><img rel="tooltip" title="'+lotes+'" src="../app/webroot/img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
 		}
 		
 		
@@ -1084,7 +1133,14 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			    $('#spanSaidaCpfCnpj').css('display','none');
 			}
 		});
-
+		
+		$('body').on('focusin, click','#ProdutoitenValorUnitario', function(){
+			if( $('#ProdutoitenValorUnitario').val() == ''){
+			    $('#ProdutoitenValorUnitario').attr('required','required');
+			}else{
+			    $('#ProdutoitenValorUnitario').removeAttr('required','required');
+			}	
+		    });  
 
 /******************** Excluir tabela principal *******************/
 	$("body").on("click",'.btnRemove', function(e){
@@ -1325,6 +1381,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		$('html, body').animate({scrollTop:0}, 'slow');
 		$('input').addClass("border-none");
 		$('#SaidaData').attr('disabled','disabled');
+		$('input').attr('onfocus','this.blur()');
 		
 		var obsConteudo = $("#SaidaObs").val();
 		$("#hideObsSaida").val(obsConteudo);
@@ -1376,6 +1433,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 				$("#SaidaObs").css("display","block");
 				$("#SaidaObs").removeAttr("disabled","disabled");
 				$("span[class='spanTextoObs']").remove();
+				$('input').removeAttr('onfocus','this.blur()');
 
 			}else{
 			//	alert(nova_saida);
@@ -1571,6 +1629,8 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			thousandsSeparator: '',
 			centsLimit: 5
 		});
+		
+		$('#SaidaData, #LoteDataFabricacao, #LoteDataValidade').mask('99/99/9999');
 	 
 	});
 	

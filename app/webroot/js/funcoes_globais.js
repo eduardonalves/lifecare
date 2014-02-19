@@ -291,7 +291,8 @@ $(document).ready(function() {
 	    }else if($('.SpanEstoqueMinimo').val() == 0){
 			$('span[id="SpanEstoqueMinimo"]').remove();
 			$('.SpanEstoqueMinimo').addClass('shadow-vermelho');
-			$('<span id="SpanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+			$('#spanEstoqueMinimo').css('display:block');
+			$('<span id="SpanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 	    }else if($('.valiEstoqueIdeal').val() ==''){	    
 			$('.valiEstoqueIdeal').addClass('shadow-vermelho');
 			$('#valiEstoqueIdeal').css('display','block');
@@ -322,7 +323,8 @@ $(document).ready(function() {
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimo"]').remove();
 			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-			$('<span id="spanEstoqueMinimo"  class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+			$('#spanEstoqueMinimo').css('display:block');
+			$('<span id="spanEstoqueMinimo"  class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 	    }else if($('.validaEstoqueIdeal').val() ==''){	    
 			$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 			$('#validaEstoqueIdeal').css('display','block');
@@ -339,7 +341,8 @@ $(document).ready(function() {
 			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
 				if((estoqueMinimo - estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').remove();
-				    $('<span id="spanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+				    $('#spanEstoqueMinimo').css('display:block');
+				    $('<span id="spanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 				  //$('input[id="ProdutoEstoqueMinimo"]').after("<span id='ProdutoEstoqueMinimo'").text('Estoque Mínimo não pode ser maior do que o Estoque Ideal');
 				    //alert('Estoque Mínimo não pode ser maior do que o Estoque Ideal');
 				    $('#estoqueIdeal').val('');
@@ -441,9 +444,11 @@ jQuery(function($){
 	});
 	
 /************* Sumir com mensagem de validação *****************/
-    $('input, select, div').on('focusin, focusout', function(){
-	$('span[class*="Msg"]').css('display','none');
+    $('input, select, div').on('focusin', function(){
+	$('span[class^="Msg"]').css('display','none');
     });
+    
+    
 	
 /************* Sumir com mensagem  do controller *****************/
     $('#flashMessage').fadeOut(6000);

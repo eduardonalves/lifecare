@@ -102,12 +102,12 @@
 						?>
 						</div>
 				</div>	
-				
+				<!--
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Fabricante:',array('class'=>'titulo')); ?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['fabricante'],array('class'=>'valor')); ?></div>
 				</div>
-				
+				-->
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Descrição:',array('class'=>'titulo')); ?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['descricao'],array('class'=>'valor-descricao')); ?></div>

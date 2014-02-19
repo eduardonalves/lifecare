@@ -20,7 +20,7 @@
 						 
 							foreach($configprod as $campo=>$campoLabel){
 							
-								echo "<th class=\"colunaProduto $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "</th>";
+								echo "<th id=\"$campo\" class=\"colunaProduto comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}
 				//.................................................................................................
 						?>
@@ -31,15 +31,15 @@
 					
 					foreach($configlot as $campo=>$campoLabel)
 					{
-						echo "<th class=\"colunaLote $campo\">". $this->Paginator->sort($campo, $campoLabel) ."</th>";
+						echo "<th id=\"$campo\" class=\"colunaLote setaOrdena $campo\">". $this->Paginator->sort($campo, $campoLabel) ."<div id='indica-ordem' class='posicao-seta'></div></th></th>";
 					}
 				//.................................................................................................		
 				?>
 				
 				<?php //###### ATENCAO PRA PRODUTO ITEN ?>							 
-						<th  class="colunaLoteIten"><?php echo $this->Paginator->sort('Loteiten.qtde','Qtd. Movimentação');?></th>
-						<th  class="colunaLoteIten"><?php echo $this->Paginator->sort('Loteiten.valor_unitario','Unitário(R$)');?></th>
-						<th  class="colunaLoteIten"><?php echo $this->Paginator->sort('Loteiten.valor_total','Total(R$)');?></th>
+						<th id="qtde" class="colunaLoteIten setaOrdena qtde"><?php echo $this->Paginator->sort('Loteiten.qtde','Qtd. Movimentação');?><div id='indica-ordem' class='posicao-seta'></div></th>
+						<th id="valor_unitario" class="colunaLoteIten setaOrdena valor_unitario"><?php echo $this->Paginator->sort('Loteiten.valor_unitario','Unitário(R$)');?><div id='indica-ordem' class='posicao-seta'></div></th>
+						<th id="valor_total" class="colunaLoteIten setaOrdena valor_total"><?php echo $this->Paginator->sort('Loteiten.valor_total','Total(R$)');?><div id='indica-ordem' class='posicao-seta'></div></th>
 				<?php //###### ATENCAO PRA PRODUTO ITEN ?>
 			
 				<?php
@@ -47,9 +47,9 @@
 					foreach($confignot as $campo=>$campoLabel)
 					{
 						if($campo=='parceirodenegocio_id'){
-							echo "<th class=\"colunaES parceiro\">". $this->Paginator->sort('parceiro') ."</th>";
+							echo "<th id=\"$campo\" class=\"colunaES setaOrdena parceiro\">". $this->Paginator->sort('parceiro') ."<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}else{
-							echo "<th class=\"colunaES $campo\">". $this->Paginator->sort($campo, $campoLabel) ."</th>";
+							echo "<th id=\"$campo\" class=\"colunaES setaOrdena $campo\">". $this->Paginator->sort($campo, $campoLabel) ."<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}
 						
 					}

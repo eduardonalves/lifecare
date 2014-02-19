@@ -46,22 +46,24 @@
 				echo $this->Form->input('Lote.id', array('type'=>'hidden'));
 				//echo $this->Form->input('Loteiten.tipo',array('value'=>'ENTRADA','type'=>'hidden'));
 				echo $this->Form->input('Lote.numero_lote',array('class'=>'tamanho-medio validacao-entrada','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','label'=>'Número do Lote<span class="campo-obrigatorio">*</span>:'));
-				echo '<span id="validaModLoteNumLote" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo lote</span>';
+				echo '<span id="validaModLoteNumLote" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo lote</span>';
 
-				echo $this->Form->input('Lote.data_fabricacao', array('type'=>'text','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Fabricação<span class="campo-obrigatorio">*</span>:'));
-				echo '<span id="validaModLoteDataFabric" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo fabricação</span>';
-				echo '<span id="validaModLoteDataFabricFutu" class="tooltipMensagemErroDireta" style="display:none">A data de Fabricação não pode ser um dia futuro</span>';
+				echo $this->Form->input('Lote.data_fabricacao', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Fabricação<span class="campo-obrigatorio">*</span>:'));
+				echo '<span id="validaModLoteDataFabric" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo fabricação</span>';
+				echo '<span id="validaModLoteDataFabricFutu" class="tooltipMensagemErroDireta Msg" style="display:none">A data de Fabricação não pode ser um dia futuro</span>';
+				echo '<span id="validaModLoteDataFabricInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha a data corretamente</span>';
 				
 				
-				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Validade<span class="campo-obrigatorio">*</span>:'));
+				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Validade<span class="campo-obrigatorio">*</span>:'));
 				echo '<span id="validaModLoteValidade" class="tooltipMensagemErroDireta" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo validade</span>';
+				echo '<span id="validaModLoteDataValInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha a data corretamente</span>';
 
 				echo $this->Form->input('Lote.parceirodenegocio_id', array('type'=>'select','class'=>'select tamanho-medio validacao-entrada','label'=>'Fabricante<span class="campo-obrigatorio">*</span>:','options'=> $fabricantes));
-				echo '<span id="validaModLoteFabricante" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo fabricante</span>';
+				echo '<span id="validaModLoteFabricante" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo fabricante</span>';
 
 				//echo $this->Form->input('Lote.fabricante', array('type'=>'select','class'=>'select tamanho-medio','label'=>'Fabricante:','options'=>array('','add-fabricante'=>'cadastrar')+$optLote));
 				echo $this->Form->input('Lote.Quantidade',array('class'=>'tamanho-medio validacao-entrada numeroQtde','label'=>'Qtde<span class="campo-obrigatorio">*</span>:'));
-				echo '<span id="validaModLoteQTDE" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo Qtde</span>';
+				echo '<span id="validaModLoteQTDE" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo Qtde</span>';
 				//echo $this->Form->input('Lote.status',array('class'=>'tamanho-medio'));
 				//echo $this->Form->input('Lote.estoque', array('type'=>'select','class'=>'tamanho-medio'));
 

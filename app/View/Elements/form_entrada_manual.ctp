@@ -132,9 +132,10 @@
 
 		<section class="coluna-direita" id="campo-direita">
 			<?php
-				echo $this->Form->input('data', array('type'=>'text','required'=>'true','class'=>'retiraBorda tamanho-pequeno limpa forma-data desabilita validacao-entrada','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:'));
+				echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'retiraBorda tamanho-pequeno limpa forma-data desabilita validacao-entrada','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:'));
 			?>
-			<span id="dataEmi" style="display:none">Data Emissão Não Pode ser um Dia Futuro</span>
+			<span id="dataEmi" class="Msg-tooltipDireita" style="display:none">Data Emissão Não Pode ser um Dia Futuro</span>
+			<span id="spanDataInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>
 		</section>
 
 	</div>
@@ -235,7 +236,7 @@
 		<section class="coluna-direita" id="campo-EntradaCnpj">
 			<?php
 			//	echo $this->Form->input('parceirodenegocio.regime_tributario', array('type'=>'text','class'=>'tamanho-pequeno desabilita','label'=>'Regime Tributário:'));
-			echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'true','class'=>'retiraBorda tamanho-medio limpa desabilita validacao-entrada','label'=>'CPF/CNPJ:','disabled'=>'disabled'));
+			echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'retiraBorda tamanho-medio limpa desabilita validacao-entrada','label'=>'CPF/CNPJ:','disabled'=>'disabled'));
 			echo   $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			?>
 		</section>
@@ -364,7 +365,7 @@
 					<div id="divQtdProduto"></div>
 
 					<?php
-						echo $this->Form->input('vunitario', array('type'=>'text','maxlength'=>'20','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+						echo $this->Form->input('vunitario', array('type'=>'text','maxlength'=>'20','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 					?>
 
 				<!--	<input id='valor-qtde' type='hidden'/>

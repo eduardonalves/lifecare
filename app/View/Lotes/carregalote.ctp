@@ -15,12 +15,13 @@ $(document).ready(function() {
 
 
 
-						$("#LoteDataFabricacao").val(dayFabricacao + '/' + monthFabricacao + '/' + yearFabricacao);
-						$("#LoteDataValidade").val(dayValidade + '/' + monthValidadeo + '/' + yearValidade);
-		idFabricante = $('option:selected', this).attr('data-fabricanteid');
+		$("#LoteDataFabricacao").val(dayFabricacao + '/' + monthFabricacao + '/' + yearFabricacao);
+		$("#LoteDataValidade").val(dayValidade + '/' + monthValidadeo + '/' + yearValidade);
+		
+		nomeFabricante = $('option:selected', this).attr('data-fabricante');
 		estoque= $('option:selected', this).attr('data-estoque');
 		
-		$("#LoteParceirodenegocioId").val(idFabricante);
+		$("#LoteParceirodenegocioId").val(nomeFabricante);
 		
 		$("#LoteEstoque").val(estoque);
 		$(".btn-addLoteSaida").show();
