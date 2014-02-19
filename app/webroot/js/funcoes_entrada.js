@@ -1301,7 +1301,10 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 
   /*** Avançar Tela resultado ***/
 	$('.bt-confirmar').bind('click',function(e){
-
+		
+		$('.campo-obrigatorio').hide();
+		$( "#EntradaNotaFiscal, #EntradaData" ).removeAttr( "title" );
+		
 		//alert(ValidaCamposBtConfirmar());
 		if(!ValidaCamposBtConfirmar()){
 		    ValidaCamposBtConfirmar();
@@ -1343,7 +1346,9 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 	/*** Voltar Entrada/Saída Manual ***/
 		$('.voltar').bind('click', function(e){
 			e.preventDefault();
-
+			
+			$('.campo-obrigatorio').show();
+			$( "#EntradaNotaFiscal, #EntradaData" ).attr( "title","Campo Obrigatório" );
 			id= $(this).attr('id');
 			
 			$('.retiraBorda').removeClass("borderZero");
@@ -1377,7 +1382,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 				$('.bt-salvar').hide();
 				$('.bt-voltar').attr('id', 'voltar2');
 				$('html, body').animate({scrollTop:0}, 'slow');
-				
+				$('#EntradaData').removeAttr('disabled','disabled');
 				$("#EntradaObs").css("display","block");
 				$("#EntradaObs").removeAttr("disabled","disabled");
 				$("span[class='spanTextoObs']").remove();

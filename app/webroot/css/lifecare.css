@@ -213,6 +213,7 @@ legend{
 	font-size:13px;
 	height:18px;
 	line-height: 20px;
+	cursor: no-drop;
 }
 
 .conteudo-principal section form input:not([type="submit"]){

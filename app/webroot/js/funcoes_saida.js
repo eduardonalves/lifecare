@@ -1353,7 +1353,9 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 
   /*** Avançar Tela resultado ***/
 	$('.bt-confirmar').bind('click',function(e){
-
+		
+		$('.campo-obrigatorio').hide();
+		$( "#SaidaNotaFiscal, #SaidaData" ).removeAttr( "title" );
 	    //alert(ValidaCamposBtConfirmar());
 	    if(!ValidaCamposBtConfirmar()){
 		ValidaCamposBtConfirmar();
@@ -1396,6 +1398,9 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		$('.voltar').bind('click', function(e){
 			e.preventDefault();
 
+			$('.campo-obrigatorio').show();
+			$( "#SaidaNotaFiscal, #SaidaData" ).attr( "title","Campo Obrigatório" );
+			
 			id= $(this).attr('id');
 
 			var atual_saida = id.substr(6);
@@ -1432,6 +1437,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 				
 				$("#SaidaObs").css("display","block");
 				$("#SaidaObs").removeAttr("disabled","disabled");
+				$('#SaidaData').removeAttr('disabled','disabled');
 				$("span[class='spanTextoObs']").remove();
 				$('input').removeAttr('onfocus','this.blur()');
 

@@ -10,7 +10,7 @@
 /* ID *****************************************************************/
 #spanValProduto{
 	left: 481px;
-	top: 416px;
+	top: 429px;
 	width: 110px;
 }
 
@@ -201,12 +201,12 @@
 
 .texto-obs{
 	float: left;
-	min-height: 1px;
-	margin-left: 83px;
-	display: block;
-	margin-top: -27px;
+	margin-left: -131px;
+	display: block ;
+	margin-top: -25px;
 	margin-left: 132px;
 	font-size: 13px;
+	min-width: 100px;
 }
 
 .campo-importar-xml{
@@ -294,15 +294,12 @@ table{
 }
 
 .campo-observacao{
-
 	margin-right: -1px;
 	-moz-margin-end: 2px;
 	height: 46px;
 	margin-bottom: 4px;
 	width: 180px;
 	resize: none;
-	float: right;
-
 }
 
 #ProdutoCodigo{
