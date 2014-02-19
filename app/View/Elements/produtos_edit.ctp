@@ -55,7 +55,7 @@
 
 					echo $this->Form->input('Produto.codigoEan', array('type'=>'text','label'=>'Código EAN:','value'=>h($produto['Produto']['codigoEan']),'class'=>'tamanho-medio codigoean', 'maxlength' => '20'));
 
-					echo $this->Form->input('Produto.nome', array('required'=>'true','label'=>'Nome<span class="campo-obrigatorio">*</span>:','allowEmpty' => 'false','type'=>'text','value'=>h($produto['Produto']['nome']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
+					echo $this->Form->input('Produto.nome', array('required'=>'false','label'=>'Nome<span class="campo-obrigatorio">*</span>:','allowEmpty' => 'false','type'=>'text','value'=>h($produto['Produto']['nome']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
 					echo '<span id="validaNome" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo Nome</span>';
 					echo $this->Form->input('Produto.composicao', array('type'=>'text','label'=>'Composição:','value'=>h($produto['Produto']['composicao']),'class'=>'tamanho-medio', 'maxlength' => '100'));
 
@@ -148,9 +148,9 @@
 
 			<div class="estoque coluna-content">
 				<?php
-					echo $this->Form->input('Produto.estoque_minimo', array('label'=>'Estoque Mínimo<span class="campo-obrigatorio">*</span>:','type'=>'text','value'=>h($produto['Produto']['estoque_minimo']),'class'=>'Nao-Letras SpanEstoqueMinimo tamanho-pequeno numberMask', 'id' => 'ProdutoEstoqueMinimo', 'maxlength' => '10'));
+					echo $this->Form->input('Produto.estoque_minimo', array('label'=>'Estoque Mínimo<span class="campo-obrigatorio">*</span>:','type'=>'text','value'=>h($produto['Produto']['estoque_minimo']),'class'=>'Nao-Letras SpanEstoqueMinimo valida tamanho-pequeno numberMask', 'id' => 'ProdutoEstoqueMinimo', 'maxlength' => '10'));
 
-					echo $this->Form->input('Produto.estoque_desejado', array('type'=>'text','label'=>'Estoque Ideal<span class="campo-obrigatorio">*</span>:','value'=>h($produto['Produto']['estoque_desejado']),'class'=>'Nao-Letras valiEstoqueIdeal tamanho-pequeno numberMask','id'=>'estoqueIdeal', 'maxlength' => '10'));
+					echo $this->Form->input('Produto.estoque_desejado', array('type'=>'text','label'=>'Estoque Ideal<span class="campo-obrigatorio">*</span>:','value'=>h($produto['Produto']['estoque_desejado']),'class'=>'Nao-Letras valiEstoqueIdeal valida tamanho-pequeno numberMask','id'=>'estoqueIdeal', 'maxlength' => '10'));
 					echo '<span id="valiEstoqueIdeal" class="Msg-tooltipDireita tooltipMensagemErroDireta" style="display:none">Preencha o campo Estoque Ideal</span>'; 
 					echo $this->Form->input('Produto.bloqueado', array('type'=>'select', 'label'=>'Produto Bloqueado:','value'=>h($produto['Produto']['bloqueado']), 'class'=>'tamanho-pequeno','options'=>array(array(0=>'Não', 1=>'Sim'))));
 
