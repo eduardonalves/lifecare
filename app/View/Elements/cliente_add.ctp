@@ -1,4 +1,3 @@
-
 <?php 
 	if(isset($modal))
 	{
@@ -241,14 +240,6 @@ window.onload = function() {
 		});   
          
         
-		$('#inputcnpj, #inputcpf').each(function() {	                
-		    if ($(this).is(':checked')){
-			ok = $(this).val();
-		    }
-		});
-
-       });
-	
 		t =  $("#ClienteCpfCnpj").val();
 		tamanho_cpf_cnpj = t.length;
 		
@@ -364,6 +355,7 @@ window.onload = function() {
 				}		
 			}); /***FIm AJAX***/
 		}/***Fim validaçcao***/
+	});
 });
     
 </script>

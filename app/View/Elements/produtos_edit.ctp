@@ -56,7 +56,7 @@
 					echo $this->Form->input('Produto.codigoEan', array('type'=>'text','label'=>'Código EAN:','value'=>h($produto['Produto']['codigoEan']),'class'=>'tamanho-medio codigoean', 'maxlength' => '20'));
 
 					echo $this->Form->input('Produto.nome', array('required'=>'true','label'=>'Nome<span class="campo-obrigatorio">*</span>:','allowEmpty' => 'false','type'=>'text','value'=>h($produto['Produto']['nome']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
-					echo '<span id="validaNome" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo Nome</span>';
+					echo '<span id="validaNome" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo Nome</span>';
 					echo $this->Form->input('Produto.composicao', array('type'=>'text','label'=>'Composição:','value'=>h($produto['Produto']['composicao']),'class'=>'tamanho-medio', 'maxlength' => '100'));
 
 					echo $this->Form->input('Produto.dosagem', array('type'=>'text','label'=>'Dosagem:','value'=>h($produto['Produto']['dosagem']),'class'=>'tamanho-pequeno', 'maxlength' => '100'));
@@ -119,9 +119,9 @@
 						echo $this->Form->input('Tributo.id', array('value'=>$tributo['id']));
 
 						echo $this->Form->input('Tributo.ncm', array('type'=>'text','label'=>'NCM<span class="campo-obrigatorio">*</span>:','value'=>h($tributo['ncm']),'class'=>'tamanho-pequeno validaNcm ncm', 'maxlength' => '6'));
-						echo '<span id="validaNcm" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo NCM</span>';
+						echo '<span id="validaNcm" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo NCM</span>';
 						echo $this->Form->input('Tributo.cfop', array('type'=>'text','label'=>'CFOP<span class="campo-obrigatorio">*</span>:','value'=>h($tributo['cfop']),'class'=>'tamanho-pequeno validaCfop cfop', 'maxlength' => '6'));
-						echo '<span id="validaCfop" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo CFOP</span>';
+						echo '<span id="validaCfop" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo CFOP</span>';
 						echo $this->Form->input('Tributo.al_icms', array('type'=>'text','label'=>'ICMS:','value'=>h($tributo['al_icms']),'class'=>'tamanho-pequeno icms', 'maxlength' => '6','after' => '&nbsp;%'));
 
 						echo $this->Form->input('Tributo.codigo_selo_ipi', array('type'=>'text','label'=>'Cód Selo IPI:','value'=>h($tributo['codigo_selo_ipi']),'class'=>'tamanho-pequeno s-ipi','id'=>'', 'maxlength' => '10'));

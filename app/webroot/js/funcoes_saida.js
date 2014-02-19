@@ -1354,8 +1354,7 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
   /*** Avançar Tela resultado ***/
 	$('.bt-confirmar').bind('click',function(e){
 		
-		$('.campo-obrigatorio').hide();
-		$( "#SaidaNotaFiscal, #SaidaData" ).removeAttr( "title" );
+		
 	    //alert(ValidaCamposBtConfirmar());
 	    if(!ValidaCamposBtConfirmar()){
 		ValidaCamposBtConfirmar();
@@ -1365,6 +1364,8 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		var atual_saida = id.substr(7);
 
 		proximo_saida=parseInt(atual_saida);
+		$('.campo-obrigatorio').hide();
+		$( "#SaidaNotaFiscal, #SaidaData" ).removeAttr( "title" );
 		$('.desabilita').attr('readonly', 'readonly');
 		$('.ui-widget').attr('readonly','readonly');
 		$("[class*='ui-button']").css('display','none');
@@ -1398,8 +1399,6 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		$('.voltar').bind('click', function(e){
 			e.preventDefault();
 
-			$('.campo-obrigatorio').show();
-			$( "#SaidaNotaFiscal, #SaidaData" ).attr( "title","Campo Obrigatório" );
 			
 			id= $(this).attr('id');
 
@@ -1440,6 +1439,10 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 				$('#SaidaData').removeAttr('disabled','disabled');
 				$("span[class='spanTextoObs']").remove();
 				$('input').removeAttr('onfocus','this.blur()');
+				
+				$('.campo-obrigatorio').show();
+				$( "#SaidaNotaFiscal, #SaidaData" ).attr( "title","Campo Obrigatório" );
+			
 
 			}else{
 			//	alert(nova_saida);
