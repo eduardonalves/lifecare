@@ -1081,6 +1081,18 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 			}
 		});
 		
+		$('#FornecedoreNome').focusin(function(){
+		    $('#FornecedoreNome').attr('required','required');
+		}).focusout(function(){
+		    $('#FornecedoreNome').removeAttr('required','required');
+		});
+	
+		$('#FornecedoreCpfCnpj').focusin(function(){
+		    $('#FornecedoreCpfCnpj').attr('required','required');
+		}).focusout(function(){
+		    $('#FornecedoreCpfCnpj').removeAttr('required','required');
+		});
+	
 		$('body').on('focusin, click','#ProdutoitenValorUnitario', function(){
 		    if( $('#ProdutoitenValorUnitario').val() == ''){
 			$('#ProdutoitenValorUnitario').attr('required','required');

@@ -1141,6 +1141,49 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			    $('#ProdutoitenValorUnitario').removeAttr('required','required');
 			}	
 		    });  
+	    /**marcação modal cliente **/   
+
+		$('#ClienteNome').focusin(function(){
+		    $('#ClienteNome').attr('required','required');
+		}).focusout(function(){
+		    $('#ClienteNome').removeAttr('required','required');
+		});   
+		
+		$('#ClienteCpfCnpj').focusin(function(){
+		    $('#ClienteCpfCnpj').attr('required','required');
+		}).focusout(function(){
+		    $('#ClienteCpfCnpj').removeAttr('required','required');
+		});   
+		
+		$('#Endereco0Logradouro').focusin(function(){
+		    $('#Endereco0Logradouro').attr('required','required');
+		}).focusout(function(){
+		    $('#Endereco0Logradouro').removeAttr('required','required');
+		});   
+		
+		$('#Endereco0Bairro').focusin(function(){
+		    $('#Endereco0Bairro').attr('required','required');
+		}).focusout(function(){
+		    $('#Endereco0Bairro').removeAttr('required','required');
+		});   
+		
+		$('#Endereco0Uf').focusin(function(){
+		    $('#Endereco0Uf').attr('required','required');
+		}).focusout(function(){
+		    $('#Endereco0Uf').removeAttr('required','required');
+		});   
+		
+		$('#Endereco0Cidade').focusin(function(){
+		    $('#Endereco0Cidade').attr('required','required');
+		}).focusout(function(){
+		    $('#Endereco0Cidade').removeAttr('required','required');
+		});   
+		
+		$('#Contato0Telefone1').focusin(function(){
+		    $('#Contato0Telefone1').attr('required','required');
+		}).focusout(function(){
+		    $('#Contato0Telefone1').removeAttr('required','required');
+		});   
 
 /******************** Excluir tabela principal *******************/
 	$("body").on("click",'.btnRemove', function(e){
