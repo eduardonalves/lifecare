@@ -119,6 +119,12 @@
 						echo $this->Form->input('descricao', array('label' => 'Descrição'));
 				}
 				
+				if($confignota['Confignota']['obs']==1){
+						echo $this->Form->input('obs', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>'Observação'));
+					} else{
+						echo $this->Form->input('obs', array('type'=>'checkbox','label' => 'Observação'));
+				}
+				
 				if($confignota['Confignota']['valor_ipi']==1){
 						echo $this->Form->input('valor_ipi', array('value' => 1, 'checked' =>'checked', 'label'=>'Valor IPI'));
 					} else{

@@ -396,6 +396,7 @@ class NotasController extends AppController {
 					'tipo' => 'Tipo',
 					'data' => 'Data Movimentação',
 					'descricao' => 'Descrição Nota',
+					'obs' => 'Obs',
 					'parceirodenegocio_id' => 'Parceiro de Negócio',
 					'vb_cst' => 'Valor Base CST',
 					'valor_st' => 'Valor CST',
