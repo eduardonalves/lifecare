@@ -129,12 +129,12 @@ window.onload = function() {
 		<?php
 			echo $this->Form->create('Cliente'); 
 			echo $this->Form->input('Cliente.nome',array('type'=>'text','label'=>'Nome<span class="campo-obrigatorio">*</span>:', 'div' => array('class' => 'input text divNomeCli')));
-			echo "<span id='spanClienteNome' class='' style='display:none'>Preencha o campo Nome</span>";
+			echo "<span id='spanClienteNome' class='Msg' style='display:none'>Preencha o campo Nome</span>";
 			echo $this->Form->input('Cliente.cpf_cnpj',array('type'=>'text','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'CPF / CPNJ:', 'div' => array('class' => 'input text divCpfCnpj')));
-			echo "<span id='spanClienteCPF' class='' style='display:none'>Preencha o campo CPF / CNPJ corretamente</span>";
+			echo "<span id='spanClienteCPF' class='Msg' style='display:none'>Preencha o campo CPF / CNPJ corretamente</span>";
 			
-			echo "<span id='spanClienteCPFExistente' class='' style='display:none'>CPF/CNPJ já está Cadastrado</span>";
-			echo "<span id='spanClienteTipoDoc' class='' style='display:none'>Selecione o tipo de documento</span>";	
+			echo "<span id='spanClienteCPFExistente' class='Msg' style='display:none'>CPF/CNPJ já está Cadastrado</span>";
+			echo "<span id='spanClienteTipoDoc' class='Msg' style='display:none'>Selecione o tipo de documento</span>";	
 							
 			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";	
