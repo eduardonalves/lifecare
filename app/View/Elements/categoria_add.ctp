@@ -12,80 +12,72 @@
 	
 	$('#CategoriaNome').focusin(function(){
 	    $('#CategoriaNome').attr('required','required');
-	});  
-	
-	$('#CategoriaNome').focusout(function(){
+	}).focusout(function(){
 	    $('#CategoriaNome').removeAttr('required','required');
 	});  
-	   
-	 $('.bt-salvarCategoria').click(function(event){
-	     $('#CategoriaNome').removeAttr('required','required');
+    
+	$('.bt-salvarCategoria').click(function(event){
+	    $('#CategoriaNome').removeAttr('required','required');
 					
-		event.preventDefault();
-		$(".loaderAjaxCategoriaDIV").show();
-		$(".bt-salvarCategoria").hide();
-					
-		 if($('.nome-categoria').val() == ''){
-			 $(".loaderAjaxCategoriaDIV").hide();
-			 $(".bt-salvarCategoria").show();
-		    $('.nome-categoria').addClass('shadow-vermelho');
-		    $('#spanMsgCategoria').css('display','block');
-		}else{			
-					
-					
-					var urlAction = "<?php echo $this->Html->url(array("controller"=>"categorias","action"=>"add"),true);?>";
-					var dadosForm = $("#CategoriaIndexForm").serialize();
-					if(dadosForm==""){
-						dadosForm = $("#CategoriaAddForm").serialize();
-					}
-					
-					
-					
-					
-				$.ajax({
-					type: "POST",
-					url: urlAction,
-					data:  dadosForm,
-					dataType: 'json',
-					success: function(data) {
-						console.debug(data);
-						if(data.Categoria.id == 0){
-								$(".loaderAjaxCategoriaDIV").hide();
-								$(".bt-salvarCategoria").show();
-								$("#spanMsgCateNomeInvalido").css("display","block");
-						}else{
-							$("#myModal_add-categoria").modal('hide');
-							$("#myModal_add-produtos").modal('show');
-							$("#CategoriaNome").val("");
-							$(".loaderAjax").hide();
-							$(".bt-salvarCategoria").show();
-							$("#leftValues").append("<option value='"+data.Categoria.id+"'>"+data.Categoria.nome+"</option>");						
-							$("#spanMsgCateNomeInvalido").css("display","none");
-							 $(".loaderAjaxCategoriaDIV").hide();
-						}
-						
+	    event.preventDefault();
+	    $(".loaderAjaxCategoriaDIV").show();
+	    $(".bt-salvarCategoria").hide();
+	
+	    if($('.nome-categoria').val() == ''){
+		$(".loaderAjaxCategoriaDIV").hide();
+		$(".bt-salvarCategoria").show();
+		$('.nome-categoria').addClass('shadow-vermelho');
+		$('#spanMsgCategoria').css('display','block');
+	    }else{				    
 
-						
-						
-					}
-				});
+		var urlAction = "<?php echo $this->Html->url(array("controller"=>"categorias","action"=>"add"),true);?>";
+		var dadosForm = $("#CategoriaIndexForm").serialize();
+		
+		if(dadosForm==""){
+		    dadosForm = $("#CategoriaAddForm, #CategoriaEditForm").serialize();
 		}
-			});
+    
+		$.ajax({
+		    type: "POST",
+		    url: urlAction,
+		    data:  dadosForm,
+		    dataType: 'json',
+		    success: function(data) {
+			console.debug(data);
 			
-			$("#rightValues").on('change', function(){
-				valorCategoria=$(this).val();
-				if(valorCategoria=="add-categoria"){
-					$("#myModal_add-produtos").modal('hide');
-				}
-				
-			});
-			
-			
-			$("#myModal_add-categoria .close").click(function(){
-				$("#myModal_add-produtos").modal('show');
-			});
-		    
-			
+			if(data.Categoria.id == 0){
+			    $(".loaderAjaxCategoriaDIV").hide();
+			    $(".bt-salvarCategoria").show();
+			    $("#spanMsgCateNomeInvalido").css("display","block");
+			}else{
+			    $("#myModal_add-categoria").modal('hide');
+			    $("#myModal_add-produtos").modal('show');
+			    $("#CategoriaNome").val("");
+			    $(".loaderAjax").hide();
+			    $(".bt-salvarCategoria").show();
+			    $("#leftValues").append("<option value='"+data.Categoria.id+"'>"+data.Categoria.nome+"</option>");						
+			    $("#spanMsgCateNomeInvalido").css("display","none");
+			    $(".loaderAjaxCategoriaDIV").hide();
+			}
+
+		    }
+		});
+	    }
+	});
+
+	$("#rightValues").on('change', function(){
+		valorCategoria=$(this).val();
+		if(valorCategoria=="add-categoria"){
+			$("#myModal_add-produtos").modal('hide');
+		}
+		
+	});
+	
+	
+	$("#myModal_add-categoria .close").click(function(){
+		$("#myModal_add-produtos").modal('show');
+	});
+	    		
     });
 	</script>
 <?php
