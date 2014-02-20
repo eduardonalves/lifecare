@@ -1,4 +1,19 @@
 $(document).ready(function() {
+	
+/**************************** Mascara de dinheiro *******************************/
+$('.dinheiro').priceFormat({
+		    prefix: '',
+		    centsSeparator: ',',
+			thousandsSeparator: '',
+			centsLimit: 5
+		});
+		
+/**************************** Preco Venda *******************************/
+$('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
+			precoVenda = $('#ProdutoPrecoVenda').val();	    	    
+			$('input[id="ProdutoPrecoVenda"]').val(precoVenda.replace(',','.'));
+	});
+
 
 	//Esconde todos os modais
 	$('.modal').css("display", "none"); 

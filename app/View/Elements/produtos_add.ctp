@@ -24,10 +24,11 @@
 	    $('.validaUnidade').removeAttr('required','required');
 	});  
 
-
+	
 		$('.formAddProdutoModal').submit(function(event){
 			event.preventDefault();
-
+	
+									
 			if($('.validaCodigo').val() ==''){
 				$('.validaCodigo').addClass('shadow-vermelho');
 				$('#validaCodi').css('display','block');
@@ -228,10 +229,11 @@ $(document).ready(function(){
 		<div>
 			
 			<?php
-				echo $this->Form->input('Tributo.0.ncm',array('class'=>'tamanho-pequeno ncm validaNcm','type'=>'text', 'label'=>'NCM<span class="campo-obrigatorio">*</span>:', 'maxlength' => '7'));
-				echo '<span id="validaNcm" class="Msg-tooltipDireita" style="display:none">Preencha o campo NCM</span>';
+				echo $this->Form->input('Produto.preco_venda',array('class'=>'tamanho-pequeno dinheiro','type'=>'text', 'label'=>'Preço de Venda:'));
 				echo $this->Form->input('Tributo.0.codigo_selo_ipi',array('class'=>'tamanho-medio s-ipi','type'=>'text', 'label'=>'Código selo IPI:', 'maxlength' => '20'));
-				echo $this->Form->input('Tributo.0.al_cst',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'type'=>'text','label'=>'CST:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));	
+				echo $this->Form->input('Tributo.0.qtde_selo_ipi',array('class'=>'tamanho-pequeno q-ip','type'=>'text', 'label'=>'Quantidade Selo IPI:', 'maxlength' => '20'));
+				echo $this->Form->input('Tributo.0.al_ipi',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'label'=>'IPI:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));	
+				
 			?>
 			
 		</div>
@@ -243,7 +245,8 @@ $(document).ready(function(){
 			<?php
 				echo $this->Form->input('Tributo.0.cfop',array('class'=>'tamanho-pequeno cfop validaCfop','type'=>'text', 'label'=>'CFOP<span class="campo-obrigatorio">*</span>:', 'maxlength' => '7'));
 				echo '<span id="validaCfop" class="Msg-tooltipDireita" style="display:none">Preencha o campo CFOP</span>';
-				echo $this->Form->input('Tributo.0.qtde_selo_ipi',array('class'=>'tamanho-pequeno q-ip','type'=>'text', 'label'=>'Quantidade Selo IPI:', 'maxlength' => '20'));
+				echo $this->Form->input('Tributo.0.ncm',array('class'=>'tamanho-pequeno ncm validaNcm','type'=>'text', 'label'=>'NCM<span class="campo-obrigatorio">*</span>:', 'maxlength' => '7'));
+				echo '<span id="validaNcm" class="Msg-tooltipDireita" style="display:none">Preencha o campo NCM</span>';
 				echo $this->Form->input('Tributo.0.al_confins',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'label'=>'COFINS:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));
 			?>
 			
@@ -255,7 +258,7 @@ $(document).ready(function(){
 			
 			<?php
 				echo $this->Form->input('Tributo.0.al_icms',array('class'=>'tamanho-pequeno icms','type'=>'text', 'label'=>'ICMS:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));
-				echo $this->Form->input('Tributo.0.al_ipi',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'label'=>'IPI:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));	
+				echo $this->Form->input('Tributo.0.al_cst',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'type'=>'text','label'=>'CST:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));	
 				echo $this->Form->input('Tributo.0.al_pis',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'label'=>'PIS:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>'));
 			?>
 			

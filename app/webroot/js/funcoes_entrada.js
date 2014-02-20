@@ -3,7 +3,6 @@ $(document).ready(function() {
 	var i=0;
 	var total=0;
 
-
 	
 /********************* Campos Dinâmicos Entrada Manual **************************/
 
@@ -121,11 +120,7 @@ $(document).ready(function() {
 			$('#campo-direita').css('float','left');
 			$("#spanValProduto").css("top","311px");
 			$("#spanVaBtConf").css("margin-top","-51px");
-			//$("label[for=EntradaNotaFiscal]").css("margin-left","-26px");
-			$("#ajusteCampoObs.coluna-esquerda").removeClass("coluna-esquerda").addClass("coluna-direita");
-			$("#ajusteNumeroVale").css("margin-left","0px");
-			$("#campo-direita").css("margin-left","25px");
-			$("#campo-direita").css("margin-right","0px");
+			$("label[for=EntradaNotaFiscal]").css("margin-left","-26px");
 			
 			
 			$("label[for=EntradaValorTotal]").text('Valor Total do Vale:');
@@ -158,12 +153,6 @@ $(document).ready(function() {
 			$('#tributos').fadeIn('fast');
 			$('.imposto').fadeIn('fast');			
 			$('.table-none').css('display', 'block');
-			$("#ajusteCampoObs.coluna-direita").removeClass("coluna-direita").addClass("coluna-esquerda");
-			$("#ajusteNumeroVale").css("margin-left","25px");
-			$("#campo-direita").css("margin-left","0px");
-			$("#campo-direita").css("margin-right","2px");
-			
-			
 			
 			$("label[for=EntradaNotaFiscal]").html('Número NF<span class="campo-obrigatorio">*</span>:');
 			$(".dadosVale").text('Dados da Nota');
@@ -186,7 +175,6 @@ $(document).ready(function() {
 			$('span[class*="Msg"]').remove();
 			$('span[class*="Msg"]').css('display','none');
 			$('.validacao-entrada').removeClass('shadow-vermelho');
-			$('.limpa').val('');
 	
 		}
 
@@ -351,11 +339,6 @@ $(document).ready(function() {
 		    $( "input[id='LoteDataFabricacao']" ).addClass('shadow-vermelho');
 		    $("#loaderAjax").hide();
 		    $("#bt-salvarLote").show();
-		}else if(validade == ''){
-		    $('#validaModLoteValidade').css("display","block");
-		    $( "input[id='LoteDataValidade']" ).addClass('shadow-vermelho');
-		    $("#loaderAjax").hide();
-		    $("#bt-salvarLote").show();
 		}else if(fabricante == ''){
 		    $('#validaModLoteFabricante').css("display","block");
 		    $( "select[id='LoteParceirodenegocioId']" ).addClass('shadow-vermelho');
@@ -377,7 +360,7 @@ $(document).ready(function() {
 				var numeroLoteAdd = $("#LoteNumeroLote").val();
 				var quantidadeLoteAdd = $("#LoteQuantidade").val();
 				var validadeLoteAdd  = $("#LoteDataValidade").val();
-				var LoteId = data.Lote.id;
+				//var LoteId = data.Lote.id;
 
 				$("#bt-salvarLote").hide();
 				$("#loaderAjax").hide();
@@ -1081,18 +1064,6 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 			}
 		});
 		
-		$('#FornecedoreNome').focusin(function(){
-		    $('#FornecedoreNome').attr('required','required');
-		}).focusout(function(){
-		    $('#FornecedoreNome').removeAttr('required','required');
-		});
-	
-		$('#FornecedoreCpfCnpj').focusin(function(){
-		    $('#FornecedoreCpfCnpj').attr('required','required');
-		}).focusout(function(){
-		    $('#FornecedoreCpfCnpj').removeAttr('required','required');
-		});
-	
 		$('body').on('focusin, click','#ProdutoitenValorUnitario', function(){
 		    if( $('#ProdutoitenValorUnitario').val() == ''){
 			$('#ProdutoitenValorUnitario').attr('required','required');
@@ -1327,7 +1298,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 
   /*** Avançar Tela resultado ***/
 	$('.bt-confirmar').bind('click',function(e){
-		
+
 		//alert(ValidaCamposBtConfirmar());
 		if(!ValidaCamposBtConfirmar()){
 		    ValidaCamposBtConfirmar();
@@ -1337,9 +1308,6 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 			var atual_saida = id.substr(7);
 
 			proximo_saida=parseInt(atual_saida);
-			$('.campo-obrigatorio').hide();
-			$( "#EntradaNotaFiscal, #EntradaData" ).removeAttr( "title" );
-			
 			$('.desabilita').attr('readonly', 'readonly');
 			$('.ui-widget').attr('readonly','readonly');
 			$("[class*='ui-button']").css('display','none');
@@ -1372,7 +1340,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 	/*** Voltar Entrada/Saída Manual ***/
 		$('.voltar').bind('click', function(e){
 			e.preventDefault();
-			
+
 			id= $(this).attr('id');
 			
 			$('.retiraBorda').removeClass("borderZero");
@@ -1406,14 +1374,11 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 				$('.bt-salvar').hide();
 				$('.bt-voltar').attr('id', 'voltar2');
 				$('html, body').animate({scrollTop:0}, 'slow');
-				$('#EntradaData').removeAttr('disabled','disabled');
+				
 				$("#EntradaObs").css("display","block");
 				$("#EntradaObs").removeAttr("disabled","disabled");
 				$("span[class='spanTextoObs']").remove();
 				$('input').removeAttr('onfocus','this.blur()');
-				
-				$('.campo-obrigatorio').show();
-				$( "#EntradaNotaFiscal, #EntradaData" ).attr( "title","Campo Obrigatório" );
 				
 			}else{
 			//	alert(nova_saida);
@@ -1603,12 +1568,6 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		    $(".dinheiro").mask("#0.00", {reverse: true, maxlength: false});
 		});
 	*/	
-		$('.dinheiro').priceFormat({
-		    prefix: '',
-		    centsSeparator: ',',
-			thousandsSeparator: '',
-			centsLimit: 5
-		});
 		
 		$('#EntradaData, #LoteDataFabricacao, #LoteDataValidade').mask('99/99/9999');
 	 

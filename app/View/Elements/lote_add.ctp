@@ -54,10 +54,8 @@
 				echo '<span id="validaModLoteDataFabricInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha a data corretamente</span>';
 				
 				
-				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Validade<span class="campo-obrigatorio">*</span>:'));
-				echo '<span id="validaModLoteValidade" class="tooltipMensagemErroDireta" class="tooltipMensagemErroDireta" style="display:none">Preencha o campo validade</span>';
-				echo '<span id="validaModLoteDataValInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha a data corretamente</span>';
-
+				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'forma-data tamanho-medio validacao-entrada','label'=>'Validade:'));
+				
 				echo $this->Form->input('Lote.parceirodenegocio_id', array('type'=>'select','class'=>'select tamanho-medio validacao-entrada','label'=>'Fabricante<span class="campo-obrigatorio">*</span>:','options'=> $fabricantes));
 				echo '<span id="validaModLoteFabricante" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo fabricante</span>';
 
