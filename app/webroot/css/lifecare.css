@@ -246,7 +246,6 @@ legend{
 	cursor:pointer;
 }
 
-
 /* MENU SUPERIOR ************************************/
 #top{
 	position:fixed;
@@ -366,7 +365,6 @@ legend{
 	border-radius: 5px;
 	background-color:#ffd5d5;
 	text-align:center;
-	
 }
 
 .error-message:after {
@@ -423,7 +421,6 @@ legend{
 	height: 12px;
 	line-height: 10px;
 	position:absolute
-
 }
 
 #spanDataInicialLote{
@@ -593,12 +590,10 @@ legend{
 .conteudo-principal section.lateral{
 	clear:none;
 	position:relative;
-
 	border:0px;
 	width:46%;
 	margin-bottom:20px;
 	font-family: arial;
-
 	font-size:20px;
 	padding:15px;
 }
@@ -607,26 +602,21 @@ legend{
 	float:right;
 }
 
-
 .conteudo-principal section.a-esquerda{
 	float:left;
 }
 
 .conteudo-principal section.lateral input:not([type="submit"]){
-
 	width:210px;
-
 }
 .tamanho-medio{
 	height: 19px;
 	width:150px;
-
 }
 
 .tamanho-pequeno{
 	height: 16px;
 	width:80px;
-
 }
 
 .conteudo-principal section form input:not([type="submit"]).tamanho-medio{
@@ -637,59 +627,44 @@ legend{
 
 
 .conteudo-principal section form input:not([type="submit"]).tamanho-pequeno {
-
 	width:80px;
-	}
+}
 
 .conteudo-principal footer .bt-salvar, .submit {
-
 	position:absolute;
-
 	float:right;
 	display:block;
 	width:72px;
-
 	right:0px;
 }
 
 .conteudo-principal footer .bt-voltar {
-
 	position:absolute;
-
 	float:left;
 	display:block;
 	width:72px;
-
 	left:0px;
 	cursor:pointer;
 }
 
 .conteudo-principal footer .bt-filtrar {
-
 	position:absolute;
-
 	float:right;
 	display:block;
 	width:72px;
-
 	right:0px;
 	cursor:pointer;
 }
 
 img[class^="semaforo"] {
-
 	display:block;
 	position:relative;
-
 	margin-left:auto;
 	margin-right:auto;
-
 	width:15px;
 	height:15px;
 	max-width: 15px;
-
 	box-sizing: border-box;
-	
 	-webkit-border-radius: 20px;
 }
 
@@ -697,90 +672,71 @@ img[class^="nivel"] {
 
 	display:block;
 	position:relative;
-
 	margin-left:auto;
 	margin-right:auto;
-
 	width:15px;
 	height:15px;
-	
 	-webkit-border-radius: 20px;
 }
 
 img.nivel-vermelho {
 	background-image: url('../img/semaforo-vermelho-12x12.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.nivel-amarelo {
 	background-image: url('../img/semaforo-amarelo-12x12.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.nivel-verde {
 	background-image: url('../img/semaforo-verde-12x12.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.semaforo-vermelho {
 	background-image: url('../img/semaforo-bomba.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.semaforo-amarelo {
 	background-image: url('../img/semaforo-icon-amarelo-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.semaforo-verde {
 	background-image: url('../img/semaforo-icon-verde-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.semaforo-bomba {
 	background-image: url('../img/semaforo-bomba-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
 }
 
 img.semaforo-exclamacao {
-
 	background-image: url('../img/semaforo-exclamacao-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
-
 }
 
 img.semaforo-ok {
-
 	background-image: url('../img/semaforo-ok-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
-
 }
 
 img.semaforo-nulo {
-
 	background-image: url('../img/semaforo-nulo-16x16.png');
 	background-repeat:none;
-
 	background-size: cover;
-
 }
 
 .fieldset{
@@ -881,10 +837,6 @@ img.semaforo-nulo {
 	width:0;
 }
 
-/*
-.tooltipMensagemSucessDireita{}
-*/
-
 /*********** Botões *********************************/
 [class*="bt"]{
     cursor: pointer;
@@ -907,4 +859,3 @@ cursor: pointer;
     position: relative;
     cursor:pointer;
 }
-
