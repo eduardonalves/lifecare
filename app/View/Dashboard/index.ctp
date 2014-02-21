@@ -85,7 +85,8 @@
 						?>
 
 						<tr>
-							<td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($lote['Lote']['status']); ?>" /></td>			
+							<td><?php echo $this->Html->image('semaforo-icon-' . strtolower($lote['Lote']['status']) . '-16x16.png', array('alt' => 'Status de estoque: '.$lote['Lote']['status'], 'title' => 'Status de estoque')); ?></td>
+							<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($lote['Lote']['status']); ?>" /></td>-->
 							<td><?php echo $lote['Lote']['numero_lote'];  ?></td>
 							<td><?php echo $lote['Produto']['nome'];  ?></td>
 							<td><?php echo $lote['Lote']['estoque']; ?></td>
@@ -166,7 +167,8 @@
 							?>
 
 							<tr>
-								<td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>			
+								<td><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-')); ?></td>
+								<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>-->
 								<td><?php echo $produto['Produto']['nome'];  ?></td>
 								<td><?php echo $produto['Produto']['estoque_minimo']; ?></td>								
 								<td><?php echo $produto['Produto']['estoque']; ?></td>
