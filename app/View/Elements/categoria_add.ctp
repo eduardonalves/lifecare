@@ -44,7 +44,7 @@
 		    dataType: 'json',
 		    success: function(data) {
 			console.debug(data);
-			alert(data.Categoria.id);
+			
 			if(data.Categoria.id == 0 || data.Categoria.id == undefined ){
 			    $(".loaderAjaxCategoriaDIV").hide();
 			    $(".bt-salvarCategoria").show();
