@@ -72,7 +72,7 @@
     padding: 3px;
     position: absolute;
     text-align: center;
-    top: 119px;
+    top: 121px;
     width: 110px;
 }
 
@@ -87,6 +87,35 @@
     position: absolute;
     top: -68px;
  }
+
+
+#myModal_add-categoria #spanMsgCateNomeInvalido{
+    background-color: #ffd5d5;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    color: #d40000;
+    display: block;
+    font-size: 13px;
+    left: 375px;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    top: 121px;
+    width: 110px;
+}
+
+#myModal_add-categoria #spanMsgCateNomeInvalido:after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #ffd5d5 transparent transparent;
+	left: -20px;
+	top: 9px;
+}
+
 
 #myModal_add-categoria footer{
 
