@@ -32,6 +32,10 @@ class Fornecedore extends Parceirodenegocio {
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'unique' => array(
+				'rule' => 'isUnique',
+				'message' => 'Este CPF ou CNPJ já existe.'
 			)
 		),
 	);
