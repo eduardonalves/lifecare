@@ -49,6 +49,7 @@
 			    $(".loaderAjaxCategoriaDIV").hide();
 			    $(".bt-salvarCategoria").show();
 			    $("#spanMsgCateNomeInvalido").css("display","block");
+			    $('#CategoriaNome').addClass('shadow-vermelho');
 			}else{
 			    $("#myModal_add-categoria").modal('hide');
 			    $("#myModal_add-produtos").modal('show');
