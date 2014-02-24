@@ -67,10 +67,10 @@
 	});
 
 	$("#rightValues").on('change', function(){
-		valorCategoria=$(this).val();
-		if(valorCategoria=="add-categoria"){
-			$("#myModal_add-produtos").modal('hide');
-		}
+	    valorCategoria=$(this).val();
+	    if(valorCategoria=="add-categoria"){
+		$("#myModal_add-produtos").modal('hide');
+	    }
 		
 	});
 	
