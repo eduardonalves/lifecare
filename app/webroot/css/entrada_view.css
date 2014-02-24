@@ -26,7 +26,6 @@
 	width:110px;
 }
 
-
 #spanDataFuturoEntrada{
 	color: #d40000;
 	position: absolute;
@@ -40,7 +39,6 @@
 	text-align: center;
 	top: -62px;
 	left: 154px;
-
 }
 
 #spanDataFuturoEntrada:after {
@@ -55,7 +53,6 @@
 	top: 51px;
 }
 
-
 /* HERANÇA ************************************************************/
 #NotaIndexForm label{
 	width:126px;
@@ -67,62 +64,45 @@ footer img{
 	margin-bottom: 10px;
 }
 
-
 #fase1{
 	position:absolute;
-
 }
 
 #fase2{
 	position:relative;
 	display:none;
-
 }
 
 #fase3{
 	position:absolute;
 	display:none;
-
 }
 
 #fase0{
 	position:absolute;
 	display:none;
-
 }
 
 .cake-debug-output{
 	display:none;
 }
 
-
 #passos-bar {
-
 	position:relative;
-
 	clear:both;
 	display:block;
-
 	width:100%;
-
 	top:20px;
-
 	margin-bottom:100px;
-
 }
 
 #passos-bar .linha-verde {
-
 	position:relative;
-
 	float:left;
 	margin-bottom:70px;
 	width:239px;
-
 	background-color:#7DBD7D;
-
 	height:6px;
-
 }
 
 #passos-bar .linha-verde.complete {
@@ -134,48 +114,31 @@ footer img{
 }
 
 #passos-bar .circle.complete{
-
 	background-color: #008000;
     border: 4px solid #008000;
 	color:#CECECE;
-
 }
 
 #passos-bar .circle {
-
 	position:relative;
-
 	float:left;
-
 	width:8px;
-
 	border: 4px solid #7DBD7D;
-
 	background-color:#F9F9F9;
-
 	height:8px;
 	border-radius:50%;
-
 	top:-6px;
 	overflow:visible;
-
 }
 
 #passos-bar .circle span{
-
 	position:relative;
 	display:block;
-
 	width:50px;
-
-
 	top:16px;
 	left:-21px;
-
 	font-size:10px;
-
 	text-align:center;
-
 }
 
 .campo-importar-xml{
@@ -194,24 +157,21 @@ footer img{
 }
 
 .campo-superior-direito label{
-
-	 width:170px !important;
+	width:170px !important;
 }
 
 .campo-superior-esquerdo{
-	 float:right;
-	 margin-right: 25px;
+	float:right;
+	margin-right: 25px;
 }
 
 .campo-superior-produto{
 	margin-bottom:10px;
 	display:table-cell;
-
 }
 
 .direita-infeior{
 	margin-top:29px;
-
 }
 
 .dados-lote{
@@ -223,12 +183,10 @@ footer img{
     width: 330px;
 }
 
-
 table{
 	margin-top:5px;
 	margin-bottom:10px;
 }
-
 
 .tabela-lote{
 	border: 0 !important;
@@ -258,18 +216,15 @@ table{
 
 .field-total{
 	border:none !important ;
-	 clear: both;
-
+	clear: both;
 }
 
 #ProdutoCodigo{
-	/*border: 0px !important;*/
 	cursor: pointer;
 	font-size:13px;
 }
 
 #ProdutoNome{
-	/*border: 0px !important;*/
 	cursor: pointer;
 	font-size:13px;
 }
@@ -277,7 +232,6 @@ table{
 .borderZero{border: 0px !important;}
 
 #ProdutoUnidade{
-	/*border: 0px !important;*/
 	cursor: pointer;
 	font-size:13px;
 }
@@ -288,7 +242,6 @@ table{
 	cursor: pointer;
 	position: absolute;
 	float: left;
-
 }
 
 .loaderAjaxCarregarLoteDIV{
@@ -296,14 +249,12 @@ table{
 	width: 234px;
 	margin-top: -1px;
 	position: absolute;
-
 }
 
 .bt-preencher{
 	margin-left: 380px;
     margin-top: -55px;
     cursor:pointer;
-
 }
 
 .bt-adicionar{
@@ -329,9 +280,7 @@ table{
 	margin-left:420px;
 	margin-top:70px;
 	cursor:pointer;
-
 }
-
 
 .bt-entrada-manual{
 	cursor: pointer;
@@ -357,7 +306,6 @@ table{
 	float:right;
 	width:700px;
 }
-
 
 .bt-upload{
 	width:86;
@@ -412,7 +360,6 @@ fieldset{
 
 .dadosEntrada{
 	font-size:13px;
-/*	color:#555555;*/
 	display: inline-block;
     width: 180px;
     margin-bottom: 8px;
@@ -451,12 +398,15 @@ fieldset{
 #EntradaValorIpi{
 	border:none;
 }
+
 #EntradaValorIcms{
 	border:none;
 }
+
 #EntradaCpfCnpj{
 	border:none;
 }
+
 .lote-message{
 	color:#d40000;
 	position:absolute;
@@ -527,8 +477,6 @@ fieldset{
 	left:249px;
 }
 
-
-
 #spanDataFuturo:after{
 	content: "";
 	position: absolute;
@@ -540,10 +488,6 @@ fieldset{
 	left: -20px;
 	top: 7px;
 }
-
-
-
-
 
 #spanNumeroLote{
 	color:#000000;
@@ -559,7 +503,6 @@ fieldset{
 	text-align:center;
 	top:34px;
 }
-
 
 #spanNumeroLote:after{
 	content: "";
@@ -709,7 +652,6 @@ fieldset{
 	top: 7px;
 }
 
-
 #validaModLoteDataFabricFutu{
 	background-color: #ffd5d5;
     border: 1px solid #AAAAAA;
@@ -764,7 +706,6 @@ fieldset{
 	top: 51px;
 }
 
-
 #LoteParceirodenegocioId{
 	height:21px;
 }
@@ -772,4 +713,3 @@ fieldset{
 #fieldFornecedore .custom-combobox-input{
 	width:153px;
 }
-

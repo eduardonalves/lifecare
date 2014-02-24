@@ -1,23 +1,24 @@
-$(document).ready(function() {
-	
-/**************************** Mascara de dinheiro *******************************/
-$('.dinheiro').priceFormat({
-		    prefix: '',
-		    centsSeparator: ',',
-			thousandsSeparator: '',
-			centsLimit: 5
-		});
-		
-/**************************** Preco Venda *******************************/
-$('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
-			precoVenda = $('#ProdutoPrecoVenda').val();	    	    
-			$('input[id="ProdutoPrecoVenda"]').val(precoVenda.replace(',','.'));
+$(document).ready(function(){
+
+/** MÁSCARA DE DINHEIRO ***********************************************/
+	$('.dinheiro').priceFormat({
+		prefix: '',
+		centsSeparator: ',',
+		thousandsSeparator: '',
+		centsLimit: 5
 	});
 
+/** PREÇO VENDA *******************************************************/
+	$('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
+		precoVenda = $('#ProdutoPrecoVenda').val(); 
+		$('input[id="ProdutoPrecoVenda"]').val(precoVenda.replace(',','.'));
+	});
 
 	//Esconde todos os modais
-	$('.modal').css("display", "none"); 
-/**************************** Função Menu *******************************/
+	$('.modal').css("display", "none");
+
+
+/** FUNÇÃO MENU *******************************************************/
     var width = screen.width;
 
     if(width<1366){
@@ -35,218 +36,127 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
     $("#menu li").removeClass("active");
 
     $("ul li:nth-child(" + optionLateral + ")").addClass("selected");
-    $("#menu li:nth-child(" + optionSuperior + ")").addClass("active");	
-/**************** PICK LIST ************************/
-	$("#btnLeft").bind('click', function () {
+    $("#menu li:nth-child(" + optionSuperior + ")").addClass("active");
 
 
-			var selectedItem = $("#rightValues option:selected");
-			var valor = selectedItem.val();
+/** PICK LIST *********************************************************/
+	$("#btnLeft").bind('click', function(){
+		var selectedItem = $("#rightValues option:selected");
+		var valor = selectedItem.val();
 
-			if(String(valor).substring(0,3)!='add')
-			{
-				$("#leftValues").append(selectedItem);
-			}
+		if(String(valor).substring(0,3)!='add'){
+			$("#leftValues").append(selectedItem);
+		}
+	});
 
-			});
+	$("#btnRight").bind('click', function(){
+		var selectedItem = $("#leftValues option:selected");
+		$("#rightValues").append(selectedItem);
+	});
 
-	$("#btnRight").bind('click', function () {
-			var selectedItem = $("#leftValues option:selected");
-			$("#rightValues").append(selectedItem);
-			});
+	$("#rightValues").bind('click', function(){
+		var selectedItem = $("#rightValues option:selected");
+		$("#txtRight").val(selectedItem.text());
+	});
 
-	$("#rightValues").bind('click', function () {
-			var selectedItem = $("#rightValues option:selected");
-			$("#txtRight").val(selectedItem.text());
-			});
-/**************************** Modal Mutiplo *******************************/
+
+/** MODAL MULTIPLO ****************************************************/
 	var ultimo_modal = '';
 	var modal_atual = '';
 
-	function showModal(modal)
-	{
-
+	function showModal(modal){
 		var valor = modal;
 
-		if(ultimo_modal!='' && modal_atual=='')
-		{
-
+		if(ultimo_modal!='' && modal_atual==''){
 			modal_atual = 1;
 			$('#'+ultimo_modal).modal("hide");
 			modal_atual = modal;
 		}else{
-
-		ultimo_modal = modal;
-
+			ultimo_modal = modal;
 		}
 
-
-
 		$('#'+String(modal)).modal('show');
-
-
 	}
 
 	$('.select-multiple, .bt-showmodal').bind('click',function(e){
+		e.preventDefault();
 
-			e.preventDefault();
-
-			if($( this ).hasClass( "bt-showmodal" ))
-			{
-
+		if($( this ).hasClass( "bt-showmodal" )){
 			valor = $(this).attr("href");
-
-
-			}else{
-
+		}else{
 			valor = $(this).val();
-				if(valor =='add-categoria'){
-					$('#myModal_add-produtos').modal('hide');
-				
-				}
-
+			
+			if(valor =='add-categoria'){
+				$('#myModal_add-produtos').modal('hide');
 			}
+		}
 
-
-			if(String(valor).substring(0,3)=='add')
-			{
-
-				showModal('myModal_' + String(valor));
-
-
-			}
-
-	});
-/************************ Modal Select *********************************/
-
-	$('.select').bind('change',function(){
-
-		valor = $(this).val();
-
-		teste=String(valor).substring(0,3);
-		if(String(valor).substring(0,3)=='add')
-		{
+		if(String(valor).substring(0,3)=='add'){
 			showModal('myModal_' + String(valor));
 		}
-
 	});
 
+
+/** MODAL SELECT ******************************************************/
+	$('.select').bind('change',function(){
+		valor = $(this).val();
+		teste = String(valor).substring(0,3);
+		
+		if(String(valor).substring(0,3)=='add'){
+			showModal('myModal_' + String(valor));
+		}
+	});
 
 	$('.modal').bind('hide.bs.modal', function() {
-
 		$(this).css("display", "none");
 
-		if(modal_atual!='')
-		{
+		if(modal_atual!=''){
 			modal_atual = '';
 			$('#'+String(ultimo_modal)).modal('show');
-
 		}else{
-
 			ultimo_modal = '';
 		}
-
 	});
-/*************************** Modal dados do lote *******************************/
 
+
+/** MODAL DADOS DO LOTE ***********************************************/
 	$('.bt-add').bind('click',function(){
-
 	    $('#spanAdicionarLote').css('display','none');
 
 	    if($('#ProdutoNome').val() ==''){
-		$(".campo-superior-produto input").addClass('shadow-vermelho');
-		$('#spanValProduto').css('display','block');
+			$(".campo-superior-produto input").addClass('shadow-vermelho');
+			$('#spanValProduto').css('display','block');
 	    }else{
 		    showModal('myModal_' + 'add-lote');
-		    //$('#spanProdutoLote').css('display','block');
 	    }
-
 	});
-/************************ Modal Form submit Categoria ******************************
-
-	$('#CategoriaAddForm.modal-form').bind('submit', function(event) {
-
-		event.preventDefault();
-
-		var dadosForm = $(this).serialize();
-		var urlAction = $(this).attr("action");
-
-		$('.modal-body').css("cursor","wait");
-		$('.modal-form input, .modal-form select').attr('disabled', true);
-		$('.bt-salvar').css('display','none');
-		$('.close').css('display','none');
-		$('.modal-backdrop').off('click');
 
 
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			success: function(data) {
-
-
-				//alert(data.Flashm);
-
-				$('.modal-body').css("cursor","default");
-				$('.modal-form input, .modal-form select').attr('disabled', false);
-				$('.bt-salvar').css('display','inherit');
-				$('.close').css('display','inherit');
-				$('#'+ultimo_modal).modal("hide");
-				$('.modal-backdrop').on('click');
-
-
-				if(data.Categoria.id != 0)
-				{
-					$("#leftValues").append("<option value=\""+data.Categoria.id+"\" selected=\"selected\">"+data.Categoria.nome+"</option>");
-
-					availableTagsCategorias.push(data.Categoria.nome);
-
-					availableTagsCategorias.sort(function (a, b){
-						a = a.toLowerCase(); b = b.toLowerCase();
-						if (a>b) return 1;
-						if (a <b) return -1;
-						return 0; });
-
-					$( ".nome-categoria" ).autocomplete({
-					source: availableTagsCategorias
-					});
-				}
-			
-			}
-		});
-
-		//alert(dadosForm);
-
-	});***/
-	
-/***************** Focusin em Produtos *********************/	
-	
+/** FOCUS-IN EM PRODUTOS **********************************************/	
 	$('#ProdutoNome').focusin(function(){
-	  
 	    $('#ProdutoNome').attr('required','required');
 	});
-	
+
 	$('#ProdutoUnidade').focusin(function(){
 	    $('#ProdutoUnidade').attr('required','required');
 	});
-	
+
 	$('[id*=Ncm]').focusin(function(){
 	    $('[id*=Ncm]').attr('required','required');
 	});
-	
+
 	$('[id*=Cfop]').focusin(function(){
 	    $('[id*=Cfop]').attr('required','required');
 	});
-	
+
 	$('#ProdutoEstoqueMinimo').focusin(function(){
 	    $('#ProdutoEstoqueMinimo').attr('required','required');
 	});
-	
+
 	$('#estoqueIdeal').focusin(function(){
 	    $('#estoqueIdeal').attr('required','required');
 	});
-	
+
 	$('#ProdutoUnidade').removeAttr('required','required');
 	$('input[class*="valida"]').focusout(function(){
 	    $('#ProdutoNome').removeAttr('required','required');
@@ -256,41 +166,37 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 	    $('#ProdutoEstoqueMinimo').removeAttr('required','required');
 	    $('#estoqueIdeal').removeAttr('required','required');
 	});
-	
 
 
-/**Ajustar função abaixo para cadastro de produtos sem ser no modal****/
+/** AJUSTAR FUNÇÃO ABAIXO PARA CADASTRO DE PRODUTOS SEM SER NO MODAL **/
 	$('body').on("focusin , click", "[class*=valida], #ProdutoEstoqueMinimo", function(){
-			$('.validaCodigo').removeClass('shadow-vermelho');
-			$('#validaCodi').css('display','none');
-		
-			$('.validaNome').removeClass('shadow-vermelho');
-			$('#validaNome').css('display','none');
-			
-			$('.validaUnidade').removeClass('shadow-vermelho');
-			$('#validaUnidade').css('display','none');
-			
-			$('span[id="spanEstoqueMinimo"]').css('display','none');
-			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
-			$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
-			$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
-			
-			$('.validaNcm').removeClass('shadow-vermelho');
-			$('#validaNcm').css('display','none');
-			
-			$('.validaCfop').removeClass('shadow-vermelho');
-			$('#validaCfop').css('display','none');
-			
-			$('.validaEstoqueIdeal').removeClass('shadow-vermelho');
-			$('#validaEstoqueIdeal').css('display','none');
-						
-						
+		$('.validaCodigo').removeClass('shadow-vermelho');
+		$('#validaCodi').css('display','none');
+
+		$('.validaNome').removeClass('shadow-vermelho');
+		$('#validaNome').css('display','none');
+
+		$('.validaUnidade').removeClass('shadow-vermelho');
+		$('#validaUnidade').css('display','none');
+
+		$('span[id="spanEstoqueMinimo"]').css('display','none');
+		$('span[id="spanEstoqueMinimoZero"]').css('display','none');
+		$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
+		$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
+
+		$('.validaNcm').removeClass('shadow-vermelho');
+		$('#validaNcm').css('display','none');
+
+		$('.validaCfop').removeClass('shadow-vermelho');
+		$('#validaCfop').css('display','none');
+
+		$('.validaEstoqueIdeal').removeClass('shadow-vermelho');
+		$('#validaEstoqueIdeal').css('display','none');
 	});
-	
-	
+
 	$('#bt-edit-salvar').click(function(event) {
 		event.preventDefault();
-		    
+
 	    if($('.validaNome').val() ==''){	    
 			$('.validaNome').addClass('shadow-vermelho');
 			$('#validaNome').css('display','block');
@@ -308,7 +214,6 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 			$('.SpanEstoqueMinimo').addClass('shadow-vermelho');
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="SpanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-
 	    }else if($('.valiEstoqueIdeal').val() ==''){	    
 			$('.valiEstoqueIdeal').addClass('shadow-vermelho');
 			$('#valiEstoqueIdeal').css('display','block');
@@ -316,14 +221,13 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 			$('#FormEditSubmit').submit();
 	    }
 	}); 
-	
+
 	$('#btn-salvarProduto').click(function(event) {
 		event.preventDefault();
-	    
+
 	    if($('.validaCodigo').val() ==''){
 			$('.validaCodigo').addClass('shadow-vermelho');
 			$('#validaCodi').css('display','block');
-						    
 	    }else if($('.validaNome').val() ==''){	    
 			$('.validaNome').addClass('shadow-vermelho');
 			$('#validaNome').css('display','block');
@@ -339,22 +243,20 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="spanEstoqueMinimo"  class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-
 			$('<span id="spanEstoqueMinimoZero"  class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-
 	    }else if($('.validaEstoqueIdeal').val() ==''){	    
 			$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 			$('#validaEstoqueIdeal').css('display','block');
 	    }else{
 			$('#ProdutoAddForm').submit();
 	    }
-	});	
-/**---------------Verificação Estoque Minimo > ideal-----------------------------------**/
-	$('#ProdutoEstoqueMinimo, #estoqueIdeal').on("change, focusin, focusout",function(){
+	});
 
+
+/** VERIFICAÇÃO ESTOQUE MÍNIMO MAIOR QUE ESTOQUE IDEAL ****************/
+	$('#ProdutoEstoqueMinimo, #estoqueIdeal').on("change, focusin, focusout",function(){
 		estoqueMinimo= $('#ProdutoEstoqueMinimo').val();
 		estoqueDesejado= $('#estoqueIdeal').val();
 
@@ -364,19 +266,14 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 				    $('span[id="spanEstoqueMinimo"]').remove();
 				    $('#spanEstoqueMinimo').css('display:block');
 				    $('<span id="spanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-				  //$('input[id="ProdutoEstoqueMinimo"]').after("<span id='ProdutoEstoqueMinimo'").text('Estoque Mínimo não pode ser maior do que o Estoque Ideal');
-				    //alert('Estoque Mínimo não pode ser maior do que o Estoque Ideal');
 				    $('#estoqueIdeal').val('');
 				    $('#estoqueIdeal').addClass('shadow-vermelho');
 				    $('#ProdutoEstoqueMinimo').val('');
 				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-
 				if((estoqueMinimo > estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').css("display","block");
 				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
 				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-				  
-
 				}
 				else{
 					$('span[id="spanEstoqueMinimo"]').css("display","none");
@@ -385,27 +282,24 @@ $('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
 			}
 		}
 	});
-/******************** Botão Upload *********************************/
+
+
+/** BOTÃO UPLOAD ******************************************************/
 	$(document).ready(function() {
-	    /*
 	    $('#teste').bind("click" , function () {
-		var arquivo = $('input[type=file]').val();
-		alert(arquivo);
-	    });
-	    */
-
-	    $('#teste').bind("click" , function () {
-		$('#doc_file').click();
+			$('#doc_file').click();
 	    });
 
-	    $('input[type=file]').change(function(e){
-	      var arquivo = $('#doc_file').val();
-		$('#valor').attr('value',arquivo);
-	    });
+		$('input[type=file]').change(function(e){
+			var arquivo = $('#doc_file').val();
 
+			$('#valor').attr('value',arquivo);
+		});
 	});
-/*********** Mascaras ***********/
-jQuery(function($){
+
+
+/** MÁSCARAS **********************************************************/
+	jQuery(function($){
 		$(".ncm").mask("00000000");
 		$(".cfop").mask("0000");
 		$(".icms").mask("000.00", {reverse: true});
@@ -417,30 +311,25 @@ jQuery(function($){
 		$(".numberMask").mask("9999999999");
 		$(".tel").mask("(00) #0000-0000");
 	});
-	
-/************* Mascara Tel ou Cel *****************/
 
 
+/** MÁSCARA TELEFONE OU CELULAR ***************************************/
 	$(".tel").focusout(function(){
-			var elemento =  $(".tel").val();
-			elemento = elemento.replace("-","");
-			var subEsq = elemento.substring(0,9);
-			//var subMeio = elemento.substring(9,10);
-			var subDir = elemento.substring(9);
-			
-			var telefone = subEsq+'-'+subDir;
-			//alert(telefone);
-			//alert(elemento.length);
-			if(elemento.length == 13){
-				$(".tel").val(telefone);
-			}
+		var elemento =  $(".tel").val();
+
+		elemento = elemento.replace("-","");
+
+		var subEsq = elemento.substring(0,9);
+		var subDir = elemento.substring(9);
+		var telefone = subEsq+'-'+subDir;
+
+		if(elemento.length == 13){
+			$(".tel").val(telefone);
+		}
 	});
 
 
-
-
-	
-/************* Datepicker *****************/
+/** DATEPICKER ********************************************************/
 	$("[class*='forma-data']").datepicker({
 		dateFormat: 'dd/mm/yy',
 		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
@@ -451,44 +340,47 @@ jQuery(function($){
 		nextText: 'Próximo',
 		prevText: 'Anterior'
 	});
-/************* EDIT PRODUTO *****************/
+
+
+/** EDIT PRODUTO ******************************************************/
 	var temClasse;
+
 	if(temClasse){
 		$('input[type=text]').on('keypress',function(e){
 			return e.keyCode != 13;
 		});
 	}
 
-/************* ROLAGEM DA TELA DO BOTÃO SALVAR *****************/
+
+/** ROLAGEM DA TELA DO BOTÃO SALVAR ***********************************/
 	$('.bt-salvar, .bt-salvar1').bind('click',function(){
-	    $('html, body').animate({scrollTop:0},0);
+		$('html, body').animate({scrollTop:0},0);
 	});
 
 
-/************* LOGIN *****************/
+/** LOGIN *************************************************************/
 	$(".loginEntrar").click(function(){
-		
 		$("input[type=submit]").trigger("click");
 	});
-	
-/************* Sumir com mensagem de validação *****************/
+
+
+/** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusin', function(){
-	$('span[class^="Msg"]').css('display','none');
-	$('span[class^="DinamicaMsg"]').remove();
+		$('span[class^="Msg"]').css('display','none');
+		$('span[class^="DinamicaMsg"]').remove();
     });
-    
-    
-	
-/************* Sumir com mensagem  do controller *****************/
+
+
+/** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(6000);
-	
+
     
-/************* Funcao que impede digitar letras na input *****************/
-$(".Nao-Letras").on("keypress",function(event){		
+/** FUNÇÃO QUE IMPEDE DIGITAR LETRAS NA INPUT *************************/
+	$(".Nao-Letras").on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
-	
+
 		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
 		if (!((charCode>47)&&(charCode<58))){return false;}
 	});
-	
+
 });
