@@ -26,12 +26,16 @@ class Fornecedore extends Parceirodenegocio {
 		),
 		'cpf_cnpj' => array(
 			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			    'rule' => array('notEmpty'),
+			    //'message' => 'Your custom message here',
+			    //'allowEmpty' => false,
+			    //'required' => false,
+			    //'last' => false, // Stop validation after this rule
+			    //'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'unique' => array(
+			    'rule' => 'isUnique',
+			    'message' => 'Este CPF ou CNPJ já existe.'
 			)
 		),
 	);
