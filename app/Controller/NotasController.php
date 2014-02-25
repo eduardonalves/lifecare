@@ -330,6 +330,7 @@ class NotasController extends AppController {
 							'estoque_desejado' => 'Estoque Ideal',
 							'nivel' => 'Nível Estoque',			
 							'periodocriticovalidade' => 'Período Crítico',
+							'preco_venda' => 'Preço Venda',
 							'preco_custo' => 'Preço Custo',
 							'ativo' => 'Ativo',							
 							'bloqueado' => 'Produto Bloqueado'																									

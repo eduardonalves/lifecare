@@ -63,6 +63,13 @@
 	
 									echo "<td class=\"$campo\"><span title=\"". $produto['Produto']['dosagem']. "\">" . h($produto['Produto'][$campo]) . "&nbsp;</span></td>";	
 								
+								}else if($campo == "preco_venda"){
+									
+									$varlor =  h($produto['Produto']['preco_venda']);
+									$varlor = str_replace(".", ",",$varlor);
+										
+									echo "<td class=\"$campo\">".$varlor."</td>";	
+								
 								}else if($campo == "codigo"){
 	
 									echo "<td class=\"$campo\"><span title=\"". $produto['Produto']['id']. "\">" . h($produto['Produto']['id']) . "&nbsp;</span></td>";	

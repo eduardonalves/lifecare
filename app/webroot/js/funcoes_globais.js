@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 /** PREÇO VENDA *******************************************************/
-	$('#btn-salvarProduto, #btn-salvarProdutoModal').click(function(){
+	$('#btn-salvarProduto, #btn-salvarProdutoModal, #bt-edit-salvar').click(function(){
 		precoVenda = $('#ProdutoPrecoVenda').val(); 
 		$('input[id="ProdutoPrecoVenda"]').val(precoVenda.replace(',','.'));
 	});
