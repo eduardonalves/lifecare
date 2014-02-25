@@ -360,7 +360,7 @@ $(document).ready(function() {
 				var numeroLoteAdd = $("#LoteNumeroLote").val();
 				var quantidadeLoteAdd = $("#LoteQuantidade").val();
 				var validadeLoteAdd  = $("#LoteDataValidade").val();
-				//var LoteId = data.Lote.id;
+				var LoteId = data.Lote.id;
 
 				$("#bt-salvarLote").hide();
 				$("#loaderAjax").hide();
