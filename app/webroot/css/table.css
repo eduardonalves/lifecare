@@ -146,6 +146,7 @@ p.table-counter {
 .posicao-seta{
 	float: right;
 	margin-top: -7px;
+	-moz-margin-start: -20px;
 }
 
 .highlight{

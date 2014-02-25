@@ -161,9 +161,9 @@
 
 				<?php
 					echo $this->Form->input('Estoque Atual:', array('type'=>'text','value'=>h($estoque),'class'=>'','id'=>'','disabled'=>'disabled'));
+					echo $this->Html->image('semaforo-icon-' . strtolower($produto['Produto']['nivel']) . '-16x16.png', array('alt' => 'Status de estoque: '.$produto['Produto']['nivel'], 'title' => 'Status de estoque'));
+				
 				?>
-
-				<span><img src="" class="nivel-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></span>
 
 				<?php
 					/* Não implementado */
