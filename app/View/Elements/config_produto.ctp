@@ -103,6 +103,12 @@
 						echo $this->Form->input('categoria', array('label' => 'Categorias', 'type' => 'checkbox'));
 					}
 
+					if($configproduto['Configproduto']['preco_venda']==1){
+						echo $this->Form->input('preco_venda', array('value' => 1, 'checked' =>'checked', 'label'=>'Preço Venda' ));
+					} else{
+						echo $this->Form->input('preco_venda', array('label' => 'Preço Venda'));
+					}
+
 					if($configproduto['Configproduto']['dosagem']==1){
 						echo $this->Form->input('dosagem', array('value' => 1, 'checked' =>'checked', 'label'=>'Dosagem' ));
 					} else{

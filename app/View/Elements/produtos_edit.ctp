@@ -126,7 +126,7 @@
 						echo $this->Form->input('Tributo.cfop', array('type'=>'text','label'=>'CFOP<span class="campo-obrigatorio">*</span>:','value'=>h($tributo['cfop']),'class'=>'tamanho-pequeno validaCfop cfop', 'maxlength' => '6'));
 						echo '<span id="validaCfop" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo CFOP</span>';
 						echo $this->Form->input('Tributo.al_icms', array('type'=>'text','label'=>'ICMS:','value'=>h($tributo['al_icms']),'class'=>'tamanho-pequeno icms', 'maxlength' => '6','after' => '&nbsp;%'));
-
+						echo $this->Form->input('Produto.preco_venda',array('class'=>'tamanho-pequeno dinheiro','type'=>'text', 'label'=>'Preço de Venda:'));
 						echo $this->Form->input('Tributo.codigo_selo_ipi', array('type'=>'text','label'=>'Cód Selo IPI:','value'=>h($tributo['codigo_selo_ipi']),'class'=>'tamanho-pequeno s-ipi','id'=>'', 'maxlength' => '10'));
 
 						echo $this->Form->input('Tributo.qtde_selo_ipi', array('type'=>'text','label'=>'Qtd Selo IPI:','value'=>h($tributo['qtde_selo_ipi']),'class'=>'tamanho-pequeno q-ip','id'=>'', 'maxlength' => '10'));

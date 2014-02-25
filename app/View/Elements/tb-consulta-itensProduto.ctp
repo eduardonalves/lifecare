@@ -91,6 +91,13 @@
 	
 									echo "<td class=\"$campo\"><span title=\"". $produtoiten['Produto']['dosagem']. "\">" . h($produtoiten['Produto'][$campo]) . "&nbsp;</span></td>";	
 								
+								}else if($campo == "preco_venda"){
+									
+									$varlor =  h($produtoiten['Produto']['preco_venda']);
+									$varlor = str_replace(".", ",",$varlor);
+										
+									echo "<td class=\"$campo\">".$varlor."</td>";	
+								
 								}else if($campo == "codigo"){
 	
 									echo "<td class=\"$campo\"><span title=\"". $produtoiten['Produto']['id']. "\">" . h($produtoiten['Produto']['id']) . "&nbsp;</span></td>";	

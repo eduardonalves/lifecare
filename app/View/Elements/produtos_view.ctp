@@ -132,7 +132,9 @@
 						echo $this->Form->input('Tributo.cfop', array('type'=>'text','label'=>'CFOP:','value'=>h($tributo['cfop']),'class'=>'cfop','id'=>'','disabled'=>'disabled'));
 					
 						echo $this->Form->input('Tributo.al_icms', array('type'=>'text','label'=>'ICMS:','value'=>h($tributo['al_icms']),'class'=>'icms','id'=>'','disabled'=>'disabled'));
-					
+						
+						echo $this->Form->input('Produto.preco_venda',array('type'=>'text','value'=>h($produto['Produto']['preco_venda']), 'class'=>'tamanho-pequeno dinheiro', 'label'=>'Preço de Venda:','disabled'=>'disabled'));
+						
 						echo $this->Form->input('Tributo.codigo_selo_ipi', array('type'=>'text','label'=>'Código Selo IPI:','value'=>h($tributo['codigo_selo_ipi']),'class'=>'s-ipi','id'=>'','disabled'=>'disabled'));
 					
 						echo $this->Form->input('Tributo.qtde_selo_ipi', array('type'=>'text','label'=>'Quantidade Selo IPI:','value'=>h($tributo['qtde_selo_ipi']),'class'=>'q-ip','id'=>'','disabled'=>'disabled'));
