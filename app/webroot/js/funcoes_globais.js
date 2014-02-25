@@ -366,13 +366,15 @@ $(document).ready(function(){
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusin', function(){
-		$('span[class^="Msg"]').css('display','none');
-		$('span[class^="DinamicaMsg"]').remove();
+	$('span[class^="Msg"]').css('display','none');
+	$('span[class^="DinamicaMsg"]').remove();
+	$('input,select').removeClass('shadow-vermelho');
+	
     });
 
 
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
-    $('#flashMessage').fadeOut(6000);
+    $('#flashMessage').fadeOut(7000);
 
     
 /** FUNÇÃO QUE IMPEDE DIGITAR LETRAS NA INPUT *************************/

@@ -49,6 +49,7 @@
 			    $(".loaderAjaxCategoriaDIV").hide();
 			    $(".bt-salvarCategoria").show();
 			    $("#spanMsgCateNomeInvalido").css("display","block");
+			    $('#CategoriaNome').addClass('shadow-vermelho');
 			}else{
 			    $("#myModal_add-categoria").modal('hide');
 			    $("#myModal_add-produtos").modal('show');
@@ -66,10 +67,10 @@
 	});
 
 	$("#rightValues").on('change', function(){
-		valorCategoria=$(this).val();
-		if(valorCategoria=="add-categoria"){
-			$("#myModal_add-produtos").modal('hide');
-		}
+	    valorCategoria=$(this).val();
+	    if(valorCategoria=="add-categoria"){
+		$("#myModal_add-produtos").modal('hide');
+	    }
 		
 	});
 	
