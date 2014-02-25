@@ -381,13 +381,13 @@
 			<section class="coluna-central" id="alinhamento-direita">
 				<div class="direita-superior">
 					<?php
-						echo $this->Form->input('qtde', array('type'=>'text', 'onfocus'=>'this.blur()', 'label'=>'Quantidade:','id'=>'qtdTotalProduto','class'=>'tamanho-pequeno resultado-qtde','readonly'=>'readonly'));
+						echo $this->Form->input('qtde', array('type'=>'text', 'onfocus'=>'this.blur()', 'label'=>'Quantidade:','id'=>'qtdTotalProduto','class'=>'limpa tamanho-pequeno resultado-qtde','readonly'=>'readonly'));
 					?>
 
 					<div id="divQtdProduto"></div>
 
 					<?php
-						echo $this->Form->input('vunitario', array('type'=>'text','maxlength'=>'20','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-saida ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+						echo $this->Form->input('vunitario', array('type'=>'text','maxlength'=>'20','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-saida ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 					?>
 
 				<!--	<input id='valor-qtde' type='hidden'/>
@@ -397,7 +397,7 @@
 					<span id="spanProdutoitenValorUnitario" class="MsgProdutoitenValorUnitario tooltipMensagemErroDireta" style="display:none">Preencha o campo Valor Unitário</span>
 
 					<?php
-						echo $this->Form->input('vtotal', array('type'=>'text','onfocus'=>'this.blur()','id'=>'ProdutoitenValorTotal', 'label'=>'Valor Total:','class'=>'tamanho-pequeno ativos desativados vt','allowEmpty' => 'false','readonly'=>'readonly'));
+						echo $this->Form->input('vtotal', array('type'=>'text','onfocus'=>'this.blur()','id'=>'ProdutoitenValorTotal', 'label'=>'Valor Total:','class'=>'limpa tamanho-pequeno ativos desativados vt','allowEmpty' => 'false','readonly'=>'readonly'));
 
 					?>
 
