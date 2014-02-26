@@ -61,6 +61,58 @@ class Parceirodenegocio extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Conta' => array(
+			'className' => 'Conta',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Contato' => array(
+			'className' => 'Contato',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Dadosbancario' => array(
+			'className' => 'Dadosbancario',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Dadoscredito' => array(
+			'className' => 'Dadoscredito',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Endereco' => array(
 			'className' => 'Endereco',
 			'foreignKey' => 'parceirodenegocio_id',
