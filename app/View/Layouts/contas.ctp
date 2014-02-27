@@ -97,7 +97,7 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
@@ -119,7 +119,7 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
@@ -130,7 +130,7 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('emitir.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));

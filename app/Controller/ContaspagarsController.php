@@ -22,6 +22,7 @@ class ContaspagarsController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Conta->recursive = 0;
 		$this->set('contas', $this->Paginator->paginate());
 	}
@@ -34,6 +35,7 @@ class ContaspagarsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
@@ -47,6 +49,7 @@ class ContaspagarsController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Conta->create();
 			if ($this->Conta->save($this->request->data)) {
@@ -56,7 +59,7 @@ class ContaspagarsController extends AppController {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
 		}
-		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
+		//$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}
 
@@ -68,6 +71,7 @@ class ContaspagarsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
