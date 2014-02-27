@@ -46,7 +46,7 @@
 		//echo $this->Html->css('jquery-ui/jquery-ui.css');
 		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 		//echo $this->Html->css('jquery-ui/custom-combobox.css');
-		//echo $this->Html->css('saidas.css');
+		echo $this->Html->css('financeiro_geral.css');
 		echo $this->fetch('css');
 		echo $this->Html->script('jquery_novo.js');
 		echo $this->Html->script('jquery-ui/jquery-ui.js');
@@ -118,8 +118,8 @@
 					</a>
 				</li>
 
-				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"add"),true);?>'>
+				<li class="item abaMenuLateral">
+					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
@@ -129,8 +129,8 @@
 					</a>
 				</li>
 
-				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"add"),true);?>'>
+				<li class="item abaMenuLateral">
+					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('emitir.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));

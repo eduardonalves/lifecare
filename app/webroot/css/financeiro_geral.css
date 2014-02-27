@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+
+/*  Padrao{tamanho; posição; forma; etc;}
+ * .Padrao{tamanho; posição; forma; etc;}
+ * #Padrao{tamanho; posição; forma; etc;}*/
+
+/*** Menu Lateral****/
+
+.item{line-height: 15px;}
+
+.abaMenuLateral{ line-height: 13px; }
+
+.textMenuLateral{ margin-top: -11px; }
+.textMenuLateral span{ height: 40px; }
+
