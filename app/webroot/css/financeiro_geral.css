@@ -12,5 +12,12 @@
 .abaMenuLateral{ line-height: 13px; }
 
 .textMenuLateral{ margin-top: -11px; }
-.textMenuLateral span{ height: 40px; }
+.textMenuLateral span{ height: 42px; }
 
+/** Formulário**/
+textarea{height: 68px !important; width: 147px !important;;}
+
+/** Botões **/
+.bt-direita{float: right; margin: 10px 10px 5px 3px;}
+
+table{margin-top: 20px;}

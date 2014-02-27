@@ -34,6 +34,9 @@ select{
 	width:0;
 }
 
+
+.borderZero{border: 0px !important;}
+
 [class*=Msg-tooltipDireita]{
 	background-color:#ffd5d5;
 	border:1px solid #aaa;

@@ -43,8 +43,8 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('lifecare');
-		//echo $this->Html->css('jquery-ui/jquery-ui.css');
-		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		echo $this->Html->css('jquery-ui/jquery-ui.css');
+		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 		//echo $this->Html->css('jquery-ui/custom-combobox.css');
 		echo $this->Html->css('financeiro_geral.css');
 		echo $this->fetch('css');
@@ -122,7 +122,7 @@
 					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
+							echo $this->Html->image('financeiro_lateral.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
 						?>
 
 						<span class="label">Cadastrar Conta a Receber</span>
