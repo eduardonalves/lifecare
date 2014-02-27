@@ -65,7 +65,7 @@
 
 	<section class="coluna-direita" >
 	    <?php
-		echo $this->Form->input('Pagamento.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno BorderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
+		echo $this->Form->input('Pagamento.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
 	    ?>
 	</section>
 	
@@ -76,7 +76,7 @@
     
 	<section class="coluna-esquerda">
 	    <?php
-		echo $this->Form->input('Parcela.parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno BorderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
+		echo $this->Form->input('Parcela.parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
 		echo $this->Form->input('Parcela.valor',array('label' => 'Valor:','class' => 'tamanho-pequeno'));
 		echo $this->Form->input('Parcela.agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno'));
 	    ?>    
