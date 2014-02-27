@@ -1,31 +1,92 @@
+<?php 
+	if(isset($modal)){	
+		$this->extend('/Common/modal');
+		$this->assign('modal',$modal);
+?>
+
+<?php	    
+	}	
+	
+	$this->start('css');
+	//echo $this->Html->css('');
+	$this->end();	
+?>
+
+<header>
+
+    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+     
+    <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
+    <h1 class="menuOption32">Cadastrar Parceiro</h1>
+
+</header>
+
+<section> <!---section superior--->
+
+	<header>Parceiro</header>
+
+	<section class="coluna-esquerda">
+	</section>
+
+	<section class="coluna-central" >
+	</section>
+
+	<section class="coluna-direita" >
+	</section>
+
+</section><!---Fim section superior--->
+
+
+<section> <!---section MEIO--->
+
+	<!--
+	    <header class=""></header>
+	-->
+	
+	<section class="coluna-esquerda">
+	</section>
+
+	<section class="coluna-central" >
+	</section>
+
+	<section class="coluna-direita" >
+	</section>
+	
+</section><!--fim Meio-->
+
+<section> <!---section Baixo--->	
+	
+	<!--
+	    <header class=""></header>
+	-->
+	
+	<section class="coluna-esquerda">
+	</section>
+
+	<section class="coluna-central" >
+	</section>
+
+	<section class="coluna-direita" >
+	</section>
+
+</section>	
+
+<footer>
+</footer>
+
+<!--
 <div class="parceirodenegocios form">
-<?php echo $this->Form->create('Parceirodenegocio'); ?>
+<?php //echo $this->Form->create('Parceirodenegocio'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Parceirodenegocio'); ?></legend>
+		<legend><?php //echo __('Add Parceirodenegocio'); ?></legend>
 	<?php
-		echo $this->Form->input('nome');
-		echo $this->Form->input('cpf_cnpj');
-		echo $this->Form->input('tipo');
-		echo $this->Form->input('categoria');
+		//echo $this->Form->input('nome');
+		//echo $this->Form->input('cpf_cnpj');
+		//echo $this->Form->input('tipo');
+		//echo $this->Form->input('categoria');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php //echo $this->Form->end(__('Submit')); ?>
 </div>
-<h1 class="menuOption32">Cadastrar Parceiro</h1>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
 
-		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Contatos'), array('controller' => 'contatos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Contato'), array('controller' => 'contatos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Enderecos'), array('controller' => 'enderecos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Endereco'), array('controller' => 'enderecos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Entradas'), array('controller' => 'entradas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Entrada'), array('controller' => 'entradas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Notas'), array('controller' => 'notas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Nota'), array('controller' => 'notas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Saidas'), array('controller' => 'saidas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Saida'), array('controller' => 'saidas', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+-->
