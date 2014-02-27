@@ -21,6 +21,7 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Parceirodenegocio->recursive = 0;
 		$this->set('parceirodenegocios', $this->Paginator->paginate());
 	}
@@ -46,6 +47,7 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->save($this->request->data)) {

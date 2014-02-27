@@ -21,6 +21,7 @@ class ContasController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Conta->recursive = 0;
 		$this->set('contas', $this->Paginator->paginate());
 	}

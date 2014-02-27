@@ -108,35 +108,35 @@
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Produtos","action"=>"add"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 						?>
 
-						<span class="label">Cadastrar</span>
+						<span class="label">Cadastrar Parceiro</span>
 					</a>
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"entradas","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"index"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
 						?>
 
-						<span class="label">Entrada</span>
+						<span class="label">Cadastrar Conta a Receber</span>
 					</a>
 				</li>
 
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"saidas","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"index"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('saida.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
+							echo $this->Html->image('emitir.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
 						?>
 
-						<span class="label">Sa&iacute;da</span>
+						<span class="label">Cadastrar Conta a Pagar</span>
 					</a>
 				</li>
 			

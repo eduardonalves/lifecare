@@ -22,6 +22,7 @@ class ContasrecebersController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Conta->recursive = 0;
 		$this->set('contas', $this->Paginator->paginate());
 	}
@@ -47,6 +48,7 @@ class ContasrecebersController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Conta->create();
 			if ($this->Conta->save($this->request->data)) {

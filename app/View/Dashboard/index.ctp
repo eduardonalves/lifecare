@@ -16,7 +16,6 @@
 
 <header>
 	<h1 class="menuOption12">Dashboard</h1>
-
 </header>
 
 <section class="section-superior"> <!-- INICIO SUPERIOR -->

@@ -1,4 +1,4 @@
-<h1 class="menuOption33">Contas a Receber</h1>
+
 <div class="contas index">
 	<h2><?php echo __('Contas'); ?></h2>
 	<table cellpadding="0" cellspacing="0">

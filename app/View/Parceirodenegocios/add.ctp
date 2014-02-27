@@ -11,6 +11,7 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
+<h1 class="menuOption32">Cadastrar Parceiro</h1>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
