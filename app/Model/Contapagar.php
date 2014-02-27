@@ -9,6 +9,7 @@ App::uses('AppModel', 'Model');
  */
  App::Import('Model', 'Conta');
 class Contapagar extends Conta {
+	var $name = 'Contapagar';
 	public $useTable = 'contas';  
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
