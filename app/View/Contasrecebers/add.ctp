@@ -7,10 +7,10 @@
 
 <header>
 
-    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+    <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
      
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption32">Cadastrar Parceiro</h1>
+    <h1 class="menuOption33">Cadastrar Contas a Receber</h1>
     
     <?php echo $this->Form->create('Conta'); ?>
 
@@ -49,7 +49,7 @@
 
 <section> <!---section BAIXO--->
 
-	<header class="">Dados Parcelas</header>
+	<header class="">Dados da(s) Parcela(s)</header>
 		
 	<section class="coluna-esquerda">
 	    <?php 
