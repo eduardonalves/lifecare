@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AppController', 'Controller', 'CakeTime', 'Utility');
 /**
  * Contas Controller
  *
@@ -13,7 +13,7 @@ class ContasController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'Session');
 
 /**
  * index method
@@ -21,9 +21,25 @@ class ContasController extends AppController {
  * @return void
  */
 	public function index() {
+		if(!isset($_GET['parametro'])){
+			$_GET['parametro'] = 'movimentacao';
+		}
+		
 		$this->layout = 'contas';
 		$this->Conta->recursive = 0;
 		$this->set('contas', $this->Paginator->paginate());
+		
+		/**QuickLink**/
+		$this->loadModel('Quicklink');
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
+		foreach($quicklinks as $link)
+		{
+			array_push ($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
+		}
+		
+		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=produtos&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		
+		$this->set(compact('users', 'quicklinks', 'confignot', 'quicklinksList'));
 	}
 
 /**

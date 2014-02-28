@@ -17,10 +17,11 @@
 	
 <section> <!---section superior--->
 
-	<header>Dados Gerais de Movimentação</header>
+	<header>Dados Gerais da Movimentação</header>
 
 	<section class="coluna-esquerda">
 		<?php
+			echo $this->Form->create('Conta');
 			echo $this->Form->input('identificacao',array('label'=>'Identificação:','class'=>'tamanho-medio'));
 			echo $this->Form->input('valor',array('label'=>'Valor:','class'=>'tamanho-pequeno'));
 			echo $this->Form->input('status',array('label'=>'Status:','class'=>'tamanho-pequeno'));
@@ -50,7 +51,7 @@
 
 <section> <!---section meio--->
 
-	<header>Dados da Parcela</header>
+	<header>Dados da(s) Parcela(s)</header>
 
 	<section class="coluna-esquerda">
 		<?php
