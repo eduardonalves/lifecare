@@ -216,13 +216,13 @@ legend{
 	cursor: auto;
 }
 
-.conteudo-principal section form input:not([type="submit"]){
+.conteudo-principal section input:not([type="submit"]){
 	/*border: 1px solid #CCCCCC;*/
 	max-width:220px;
 	padding-top: 4px;
 }
 
-.conteudo-principal section form input[type="text"]{
+.conteudo-principal section input[type="text"]{
 	border-radius:4px;
 	width:175px;
 }
