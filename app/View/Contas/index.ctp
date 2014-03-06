@@ -11,7 +11,8 @@
 	$this->end();
 	
 	$this->start('modais');
-		//echo $this->element('config_produto', array('modal'=>'add-config_produto'));;
+		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
+		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
 	$this->end();
 ?>
 
@@ -71,7 +72,7 @@
 			<section id="filtro-movimentacao" class="coluna-esquerda">
 				<span id="titulo-movimentacao">Dados da Movimentação</span>
 				
-				<a href="add-" class="bt-showmodal">
+				<a href="add-config_movimentacao" class="bt-showmodal">
 				
 					<?php
 						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração Movimentação', 'title' => 'Configuração Movimentação'));
@@ -106,7 +107,7 @@
 						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados do Parceiro de Negócio'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
 					?>
 				</div>
-				<a href="add-" class="bt-showmodal">
+				<a href="add-config_parceiro" class="bt-showmodal">
 				
 					<?php
 						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração do Parceiro', 'title' => 'Configuração do Parceiro'));

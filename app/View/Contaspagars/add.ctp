@@ -22,28 +22,28 @@
 	<section class="coluna-esquerda">
 		<?php
 			echo $this->Form->create('Conta');
-			echo $this->Form->input('identificacao',array('label'=>'Identificação:','class'=>'tamanho-medio'));
-			echo $this->Form->input('valor',array('label'=>'Valor:','class'=>'tamanho-pequeno'));
-			echo $this->Form->input('status',array('label'=>'Status:','class'=>'tamanho-pequeno'));
+			echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio'));
+			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno'));
+			echo $this->Form->input('status',array('type'=>'text','label'=>'Status:','class'=>'tamanho-pequeno'));
 		?>
 				
 	</section>
 		
 	<section class="coluna-central" >
 		<?php		
-			echo $this->Form->input('data_emissao',array('label'=>'Data de Emissão:','class'=>'tamanho-pequeno forma-data'));			
-			echo $this->Form->input('cliente',array('label'=>'Cliente:','type'=>'select','class'=>'tamanho-medio'));	
+			echo $this->Form->input('data_emissao',array('type'=>'text','label'=>'Data de Emissão:','class'=>'tamanho-pequeno forma-data'));			
+			echo $this->Form->input('cliente',array('type'=>'text','label'=>'Cliente:','type'=>'select','class'=>'tamanho-medio'));	
 			//echo $this->Form->input('parceirodenegocio_id',array('label'=>'Parceiro de Negócio:','class'=>'tamanho-medio'));	
-			echo $this->Form->input('perido_critico',array('label'=>'Periodo Crítico:','class'=>'tamanho-medio'));		
+			echo $this->Form->input('perido_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-medio'));		
 		?>		
 	</section>
 	
 	<section class="coluna-direita" >
 		<?php
-			echo $this->Form->input('data_quitacao',array('label'=>'Data Validade:','class'=>'tamanho-pequeno forma-data'));
-			echo $this->Form->input('tipo',array('label'=>'Tipo:','class'=>'tamanho-medio'));
+			echo $this->Form->input('data_quitacao',array('type'=>'text','label'=>'Data Validade:','class'=>'tamanho-pequeno forma-data'));
+			echo $this->Form->input('tipo',array('type'=>'text','label'=>'Tipo:','class'=>'tamanho-medio'));
 			//echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio'));
-			echo $this->Form->input('descricao',array('label'=>'Descrição:','class'=>'','type'=>'textarea'));
+			echo $this->Form->input('descricao',array('type'=>'text','label'=>'Descrição:','class'=>'','type'=>'textarea'));
 		?>
 		
 	</section>
@@ -61,13 +61,13 @@
 	
 	<section class="coluna-central">
 		<?php
-		echo $this->Form->input('forma_pagamento',array('label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno'));
+		echo $this->Form->input('forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno'));
 		?>	
 	</section>
 	
 	<section class="coluna-direita">
 		<?php
-		echo $this->Form->input('numero_parcelas',array('label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
+		echo $this->Form->input('numero_parcelas',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
 		?>
 	</section>
 </section><!--fim Meio-->
@@ -76,27 +76,27 @@
 	
 		<section class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('parcela',array('label'=>'Parcela:','class'=>'tamanho-pequeno'));	
-				echo $this->Form->input('valor',array('label'=>'Valor:','class'=>'tamanho-pequeno'));	
-				echo $this->Form->input('agencia',array('label'=>'Agência:','class'=>'tamanho-pequeno'));	
+				echo $this->Form->input('parcela',array('type'=>'text','label'=>'Parcela:','class'=>'tamanho-pequeno'));	
+				echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno'));	
+				echo $this->Form->input('agencia',array('type'=>'text','label'=>'Agência:','class'=>'tamanho-pequeno'));	
 			?>
 		</section>
 	
 			
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('identificacao',array('label'=>'Identificação:','class'=>'tamanho-pequeno'));
-				echo $this->Form->input('periodo_critico',array('label'=>'Periodo Crítico:','class'=>'tamanho-pequeno'));
-				echo $this->Form->input('conta',array('label'=>'Conta:','class'=>'tamanho-pequeno'));
+				echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-pequeno'));
+				echo $this->Form->input('periodo_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-pequeno'));
+				echo $this->Form->input('conta',array('type'=>'text','label'=>'Conta:','class'=>'tamanho-pequeno'));
 			?>	
 		</section>
 	
 				
 		<section class="coluna-direita">
 			<?php
-				echo $this->Form->input('data_vencimento',array('label'=>'Data de Vencimento:','class'=>'tamanho-pequeno forma-data'));	
-				echo $this->Form->input('desconto',array('label'=>'Desconto:','class'=>'tamanho-pequeno'));	
-				echo $this->Form->input('banco',array('label'=>'Banco:','class'=>'tamanho-medio'));					
+				echo $this->Form->input('data_vencimento',array('type'=>'text','label'=>'Data de Vencimento:','class'=>'tamanho-pequeno forma-data'));	
+				echo $this->Form->input('desconto',array('type'=>'text','label'=>'Desconto:','class'=>'tamanho-pequeno'));	
+				echo $this->Form->input('banco',array('type'=>'text','label'=>'Banco:','class'=>'tamanho-medio'));					
 			?>
 		</section>
 			<?php

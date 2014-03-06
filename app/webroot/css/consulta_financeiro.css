@@ -8,6 +8,7 @@ label{
 	margin-bottom:5px !important;
 }
 
+
 /* CLASS **************************************************************/
 .informacoesParceiro{
 	margin-left: -40px;
@@ -77,10 +78,14 @@ label{
 }
 
 .forma-data{
-	height:16px;
+	height:19px;
 	margin-top:3px;
 	width:70px !important;
+	padding-top: 0px !important;
+	line-height:16px;
 }
+
+
 
 .a-data-ES{
 	display:block;
@@ -210,6 +215,42 @@ label{
 }
 
 /* HERANÇA ************************************************************/
+.modal-body header img {
+position: relative;
+height: 24px;
+float: left;
+}
+
+.modal-body header h1{
+position: relative;
+float: left;
+margin-top: -6px;
+left: 10px;
+font-size: 30px;
+color: #008000;
+}
+
+.modal-body section header {
+position: relative;
+float: left;
+border-bottom: 3px #CCCCCC solid;
+width: 100%;
+text-align: right;
+margin: 20px 0px;
+font-family: arial;
+color: #008000;
+font-size: 20px;
+}
+
+.modal-body footer {
+position: relative;
+float: left;
+display: block;
+width: 100%;
+margin-top: 60px;
+margin-bottom: 50px;
+}
+
 .content-filtros img{
 	position:absolute;
 	right:10px;
