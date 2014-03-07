@@ -30,7 +30,7 @@
 	    <section class="coluna-esquerda">
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio'));
-		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas'));
 		    echo $this->Form->input('status',array('label' => 'Status:','class' => 'tamanho-pequeno'));
 		?>
 		
@@ -84,7 +84,7 @@
 	    <section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
-		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno','id' => 'valorConta-receber'));
+		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas','id' => 'valorConta-receber'));
 		    echo $this->Form->input('agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno'));
 		?>    
 	    </section>
@@ -100,7 +100,7 @@
 	    <section class="coluna-direita" >
 		<?php
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento:', 'type' => 'text','class' => 'tamanho-pequeno forma-data','id' => 'dataVencimento-receber'));
-		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno dinheiro_duasCasas'));
 		    echo $this->Form->input('banco',array('label' => 'Banco:','class' => 'tamanho-medio'));
 		?>
 		

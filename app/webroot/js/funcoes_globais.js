@@ -7,6 +7,12 @@ $(document).ready(function(){
 		thousandsSeparator: '',
 		centsLimit: 5
 	});
+	
+	$(".dinheiro_duasCasas").priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: ''
+	});
 
 /** PREÇO VENDA *******************************************************/
 	$('#btn-salvarProduto, #btn-salvarProdutoModal, #bt-edit-salvar').click(function(){

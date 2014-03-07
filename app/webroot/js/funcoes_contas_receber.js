@@ -138,6 +138,7 @@
     var parcelaAtual;
     
     $("body").on("click",'.btnEditar', function(e){
+	
 	//salva valor atual da parcela
 	parcelaAtual=$('#ContaParcela').val();
 	
@@ -175,4 +176,14 @@
 	$('#parcelaCont'+numero).addClass('shadow-vermelho');
     });
 
+
+/*********** Tira virgula e coloca ponto antes do submit ***********/	
+	$('#btn-salvarContaReceber').click(function(){
+	    
+	    //pega valor
+	    ContaValorAux = $('#ContaValor').val();
+	    
+	    //retira a virgula
+	    $('input[id="ContaValor"]').val(ContaValorAux.replace(',','.'));
+	});
 });
