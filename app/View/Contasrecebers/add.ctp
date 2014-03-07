@@ -1,6 +1,6 @@
 <?php	    
 	$this->start('css');
-	    echo $this->Html->css('contas_receber');
+	   // echo $this->Html->css('contas_receber');
 	    echo $this->Html->css('table');
 	$this->end();
 	
@@ -30,7 +30,7 @@
 	    <section class="coluna-esquerda">
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio'));
-		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas'));
+		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas', 'type' => 'text'));
 		    echo $this->Form->input('status',array('label' => 'Status:','class' => 'tamanho-pequeno'));
 		?>
 		
@@ -66,13 +66,13 @@
 
 	    <section class="coluna-central" >
 		<?php
-		    echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno', 'type' => 'text'));
 		    ?>    
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('Pagamento.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
+		    echo $this->Form->input('Pagamento.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text'));
 		?>
 	    </section>
 	    
@@ -84,7 +84,7 @@
 	    <section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
-		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas','id' => 'valorConta-receber'));
+		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
 		    echo $this->Form->input('agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno'));
 		?>    
 	    </section>
@@ -113,8 +113,8 @@
 								 'class'=>'bt-direita'
 								 ));
 								 
-		echo $this->html->image('.png',array('alt'=>'Alterar',
-						     'title'=>'Alterar Conta',
+		echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
+						     'title'=>'Editar Conta',
 						     'id'=>'bt-alterarConta-receber',
 						     'class'=>'bt-direita'
 						     ));

@@ -46,7 +46,7 @@ window.onload = function() {
 
 	<section class="coluna-central" >
 	    <?php
-		echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ'));
+		echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ:'));
 		echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
 		echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
 		echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";			
@@ -75,7 +75,7 @@ window.onload = function() {
 	<section class="coluna-esquerda">
 	    <?php 
 		echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
-		echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Númeor da Agência:','class' => 'tamanho-pequeno'));
+		echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno'));
 		echo $this->Form->input('Dadosbancario.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
 	    ?>
 	</section>
@@ -103,7 +103,7 @@ window.onload = function() {
 	
 	<section class="coluna-esquerda">
 	    <?php
-		echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
+		echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
 		echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
 	    ?>
 	</section>
