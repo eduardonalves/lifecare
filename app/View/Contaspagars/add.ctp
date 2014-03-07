@@ -120,7 +120,7 @@
 	
 	<div>
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
-			<tr>
+			<thead>
 
 					<th><?php echo ('Parcela'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>
@@ -132,7 +132,7 @@
 					<th><?php echo ('Agência'); ?></th>
 					<th><?php echo ('Conta'); ?></th>
 					<th class="actions"><?php echo __('Ações'); ?></th>
-			</tr>
+			</thead>
 		</table>
 	
 	

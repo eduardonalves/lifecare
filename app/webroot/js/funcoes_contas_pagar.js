@@ -28,7 +28,7 @@
 	banco = $('#ContaBanco').val();
 	
 	//adiciona a tabela
-	$('#tabela-conta-pagar').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/></td></tr>');
+	$('#tabela-conta-pagar').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/>  <img title="Remover" alt="Editar" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 		
 	
 	//limpa campos
@@ -135,6 +135,8 @@
     
 /********* Função Editar da tabela ******************/
     
+    
+    var numero;
     var parcelaAtual;
     
     $("body").on("click",'.btnEditar', function(e){
@@ -145,7 +147,7 @@
 	//pega id da linha
 	id = $(this).attr('id');
 	numero = id.substr(7);
-	
+		
 	//recebe parcela antiga da linha
 	parcelaAnt=$('#numParc'+numero).text();
 	identificacaoAnt = $('#ident'+numero).text();
@@ -175,6 +177,59 @@
 	//adicona borda vermelha
 	$('#parcelaCont'+numero).addClass('shadow-vermelho');
     });
+
+
+/*********** Botão excluir uma parcela da tabela ***********/	
+	$("body").on("click",'.btnExcluir', function(e){
+		
+		//pega id da linha
+		var td = $(this).parent();
+        var trPar = td.parent();
+        var trId = trPar.attr('id');
+        var tr = trId.substr(11);
+        
+        //alert(tr);
+        
+        //Remove a linha
+		trPar.fadeOut(400, function(){
+            trPar.remove();
+            
+			contadortr = 0;
+			var tabelatr = $('#tabela-conta-pagar tbody tr');
+			
+			tabelatr.each(function(){
+				//alert($(this).attr('id'));
+				$(this).attr('id','parcelaCont'+contadortr);
+				contadortr++;
+			});
+			
+			contadortd = 0;
+			var tabelatd = $('#tabela-conta-pagar tbody tr td:first-child');
+			tabelatd.each(function(){
+				//alert($(this).attr('id'));
+				$(this).attr('id','numParc'+contadortd);
+				contadortd++;
+			});
+			
+			contadortext = 0;
+			var tabelatext = $('#tabela-conta-pagar tbody tr td:first-child');
+			tabelatext.each(function(){
+				//alert($(this).attr('id'));
+				$(this).text(contadortext+1);
+				contadortext++;
+			});
+			
+			princ_cont = tabelatr;
+			numeroParcela = contadortext+1;
+			numParcela = contadortext;
+			
+			$('#ContaParcela').val(numeroParcela)	
+			$('#ContaNumeroParcelas').val(numParcela);
+        });       
+        	
+        
+	});
+	
 
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
