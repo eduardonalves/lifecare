@@ -50,7 +50,7 @@
 	<header>Consultar por Produto, Lote e/ou Operação</header>
 
 	<?php 
-		$urlQuickLink= $this->Html->url( null, true );
+		$urlQuickLink = $this->Html->url( null, true );
 		$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro'];
 	?>
 

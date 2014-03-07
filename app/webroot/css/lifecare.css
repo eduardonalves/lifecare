@@ -34,6 +34,9 @@ select{
 	width:0;
 }
 
+
+.borderZero{border: 0px !important;}
+
 [class*=Msg-tooltipDireita]{
 	background-color:#ffd5d5;
 	border:1px solid #aaa;
@@ -620,7 +623,7 @@ legend{
 }
 
 .conteudo-principal section form input:not([type="submit"]).tamanho-medio{
-	height:16px;
+	height:19px;
 	width:150px;
 	border-radius:4px;
 }
