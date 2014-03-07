@@ -1,0 +1,311 @@
+@charset "utf-8";
+
+/* TESTE ************************************************************/
+
+
+/* TAG ****************************************************************/
+label{
+	margin-bottom:5px !important;
+}
+
+
+/* CLASS **************************************************************/
+.informacoesParceiro{
+	margin-left: -40px;
+}
+
+.boxParceiro{
+	margin: 4px 0px 16px -10px;
+}
+
+.boxParceiro label{
+	width:190px !important; 
+	margin: -4px -5px;
+}
+
+.tipoMovimentacao{
+	margin-left: -144px;
+}
+
+.filtros{
+	background-color:white;
+	display:block;
+	float:left;
+	height:260px;
+	margin-top:-15px;
+	padding:10px;
+	position:relative;
+	width:1067px;
+}
+
+.content-filtros{
+	display:block;
+	float:left;
+	margin: 10px 0px 0px 160px;
+	padding:0;
+	position:relative;
+	width:74%;
+}
+
+.dados-produto{
+	margin-top:-11px;
+}
+
+.input-alinhamento{
+	margin-top:3px;	
+}
+
+.a-data{
+	display:block;
+	font-size:15px;
+	height:18px;
+	margin:4px 0px 0px 238px;
+	position:absolute;
+	width:10px;
+}
+
+.msgFiltro{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	bottom:13px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	left:-110px;
+	margin-left:50%;
+	padding:4px 11px;
+	position:absolute;
+}
+
+.forma-data{
+	height:19px;
+	margin-top:3px;
+	width:70px !important;
+	padding-top: 0px !important;
+	line-height:16px;
+}
+
+
+
+.a-data-ES{
+	display:block;
+	font-size:15px;
+	height:18px;
+	margin:51px 0px 0px 238px;
+	position:absolute;
+	width:10px;
+}
+
+.msgModal{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	height:20px;
+	left:-65px;
+	margin-left: 50%;
+	padding:4px 11px;
+	position:absolute;
+	top:295px;
+	width:115px;
+}
+
+.areaTabela{
+	overflow:visible;
+	width:1090px;
+}
+
+.paging{
+	clear:both;
+	float:left;
+	width:100%;
+	margin-top:15px;
+}
+
+.separador{
+	font-size:13px;
+	line-height:13px;
+	position:relative;
+	top:-3px;
+}
+
+.paging-direito{
+	clear:both;
+	display:inline-flex;
+	float:right;
+	margin-bottom:2px;
+	position:relative;
+	width:436px;
+}
+
+.resultado-total{
+	float:right;
+	font-size:13px;
+	margin:4px 54px 0px 0px;
+}
+
+/* ID *****************************************************************/
+#quick-select{
+	float:left;
+	width:225px;
+}
+
+#quick-salvar{
+	border:0px !important;
+	float:left;
+	margin-left:8px;
+}
+
+#quick-editar{
+	border:0px !important;
+	margin-left:5px;
+}
+
+#filtro-movimentacao{
+	background-color: #F0F5DB;
+	border: 1px solid rgb(171, 200, 55);
+	border-radius: 8px;
+	height: 162px;
+	margin-top: 5px;
+	padding: 6px;
+	width: 350px;
+}
+
+#titulo-movimentacao{
+	color:#333;
+	display:block;
+	font-size:15px;
+	margin:0px 0px 15px 10px;
+	text-align:left;
+	width:170px;
+}
+
+#filtro-parceiro{
+	background-color:#FFFAE7;
+	border:1px solid rgb(255, 212, 42);
+	border-radius:8px;
+	height:162px;
+	margin:5px 0px 0px 13px;
+	padding:5px;
+	width:335px;
+}
+
+
+#quick-filtrar{
+	border: none;
+	bottom: 100px;
+	position: relative;
+	right: 16px;
+}
+
+#paginatorFirst{
+	background-image:url(../img/botao-tabela-primeiro.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:16px;
+}
+
+#paginatorLast{
+	background-image:url(../img/botao-tabela-ultimo.png);
+	display:inline-block;
+	height:15px;
+	width:16px;
+}
+
+/* HERANÇA ************************************************************/
+.modal-body header img {
+position: relative;
+height: 24px;
+float: left;
+}
+
+.modal-body header h1{
+position: relative;
+float: left;
+margin-top: -6px;
+left: 10px;
+font-size: 30px;
+color: #008000;
+}
+
+.modal-body section header {
+position: relative;
+float: left;
+border-bottom: 3px #CCCCCC solid;
+width: 100%;
+text-align: right;
+margin: 20px 0px;
+font-family: arial;
+color: #008000;
+font-size: 20px;
+}
+
+.modal-body footer {
+position: relative;
+float: left;
+display: block;
+width: 100%;
+margin-top: 60px;
+margin-bottom: 50px;
+}
+
+.content-filtros img{
+	position:absolute;
+	right:10px;
+	top:5px
+}
+
+.filtros label{
+	line-height:24px;
+}
+
+.operacao label{
+	font-size:13px !important;
+	line-height:20px !important;
+	margin:-4px 0px 0px 4px ;
+	text-align:left !important;
+	width:57px !important;
+}
+
+.operacao input[type="checkbox"]{
+	margin: 0px 4px 0px 13px;
+}
+
+.paging-direito img{
+	display:block;
+	float: right;
+}
+
+.paging-direito label{
+	line-height:20px;
+}
+
+.prev a{
+	background-image:url(../img/botao-tabela-voltar.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:9px;
+}
+
+.next a{
+	background-image:url(../img/botao-tabela-adiantar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
+
+#filtro-lote .error-message-quicklink{
+	display:none;
+}
+
+
+input[id*="between"]{
+	float:right;
+	height:16px;
+	margin-top:3px;
+	width:70px !important;
+}

@@ -67,6 +67,7 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Parceirodenegocio->exists($id)) {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
