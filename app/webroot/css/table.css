@@ -29,7 +29,7 @@ table tr {
 
 }
 
-table tr:first-child {
+table thead tr:first-child {
 
 background: #e8e8e8; /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
