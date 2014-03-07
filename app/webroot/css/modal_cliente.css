@@ -32,7 +32,7 @@
 
 #myModal_add-cliente label[for=ClienteNome]{
 	 display: block;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 10px;
     margin-left: 17px;
     margin-top: -7px;
@@ -40,7 +40,7 @@
 
 #myModal_add-cliente input[id=ClienteNome]{
 	display: block;
-    height: 20px;
+    height: 16px;
     margin-left: -5px;
     margin-top: -13px;
 }
@@ -52,13 +52,13 @@
 #myModal_add-cliente input[id=ClienteCpfCnpj]{
 	display: block;
     margin-left: 165px;
-    margin-top: 10px;
+    margin-top: 0px;
     height: 20px;
     background: #EBEAFC;
 }
 #myModal_add-cliente .modal-body{
 	margin-top: -45px;
-	height: 595px !important;
+	height: 510px !important;
 }
 
 
@@ -152,7 +152,7 @@
 #myModal_add-cliente #idcpf{
 	  float: left;
     margin-left: 37px;
-    margin-top: 23px;
+    margin-top: 12px;
     position: absolute;
     width: 67px;
 }
@@ -160,7 +160,7 @@
 #myModal_add-cliente #idcnpj{
 	float: left;
     margin-left: 93px;
-    margin-top: 26px;
+    margin-top: 15px;
     position: absolute;
     width: 77px;
 }
@@ -168,10 +168,11 @@
 
 
 #myModal_add-cliente .label-cpf{
-	font-size: 14px;
+	font-size: 13px;
 	margin-top: -10px;
 	float: right;
 	width: 39px;
+	line-height: 15px;
 }
 
 
@@ -182,10 +183,11 @@
 }
 
 #myModal_add-cliente .label-cnpj{
-	font-size: 14px;
+	font-size: 13px;
 	margin-top: -13px;
 	float: right;
 	width: 50px;
+	line-height: 15px
 }
 
 
@@ -336,17 +338,17 @@
 
 
 
-#myModal_add-cliente .modal-body  .inputCliente input{width: 220px;}
+#myModal_add-cliente .modal-body  .inputCliente input{width: 220px; height: 16px;}
 #myModal_add-cliente .modal-body .divNomeCli input {width: 220px;}
-#myModal_add-cliente .modal-body .divCpfCnpj input {width: 220px;}
+#myModal_add-cliente .modal-body .divCpfCnpj input {width: 220px; height: 16px;}
 #myModal_add-cliente .modal-body .divUf input {width: 64px;}
 #myModal_add-cliente .modal-body .divRef textarea {width: 220px; height: 85px;}
 .inputCliente{
-	margin-top: 30px;
+	margin-top: 19px;
 	margin-left: 13px;
 	height: 15px;
 }
 
 .divLogradouro{
-	margin-top: 57px;
+	margin-top: 35px;
 }

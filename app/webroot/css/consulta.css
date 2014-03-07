@@ -34,13 +34,13 @@ label{
 }
 
 .produtos-alinhamento{
-	height:25px;
+	height:23px;
 	margin-top:3px;	
 }
 
 .a-data{
 	display:block;
-	font-size:15px;
+	font-size:13px;
 	height:18px;
 	margin:4px 0px 0px 238px;
 	position:absolute;
@@ -68,7 +68,7 @@ label{
 
 .a-data-ES{
 	display:block;
-	font-size:15px;
+	font-size:13px;
 	height:18px;
 	margin:51px 0px 0px 238px;
 	position:absolute;
@@ -150,6 +150,7 @@ label{
 #quick-select{
 	float:left;
 	width:225px;
+	height:23px;
 }
 
 #quick-salvar{
@@ -241,6 +242,16 @@ label{
 	width:16px;
 }
 
+#select-rpp{
+	height:23px;
+}
+
+#QuicklinkNome{
+	height:15px;
+	padding:3px;
+}
+
+
 /* HERANÇA ************************************************************/
 .content-filtros img{
 	position:absolute;
@@ -253,8 +264,8 @@ label{
 }
 
 .operacao label{
-	font-size:12px !important;
-	line-height:20px !important;
+	font-size:13px !important;
+	line-height:13px !important;
 	margin:0px 0px 0px 4px ;
 	text-align:left !important;
 	width:57px !important;

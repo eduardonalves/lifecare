@@ -543,6 +543,10 @@ legend{
 	width:35px;
 }
 
+#add-lote_saida{
+	height:23px;
+}
+
 #img-logout {
 	float: right;
 	height: auto;
@@ -623,9 +627,10 @@ legend{
 }
 
 .conteudo-principal section form input:not([type="submit"]).tamanho-medio{
-	height:19px;
-	width:150px;
-	border-radius:4px;
+	height:15px;
+	width:143px;
+	padding:3px;
+	/*border-radius:4px;*/
 }
 
 
