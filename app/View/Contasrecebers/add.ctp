@@ -38,9 +38,9 @@
 
 	    <section class="coluna-central" >
 		<?php 
-		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão','type' => 'text','class' => 'tamanho-pequeno forma-data'));
+		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão:','type' => 'text','class' => 'tamanho-pequeno forma-data'));
 		    echo $this->Form->input('cliente',array('label' => 'Cliente:','type' => 'select'));
-		    echo $this->Form->input('periodo_critico',array('label' => 'Período Crítico','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('periodo_critico',array('label' => 'Período Crítico:','class' => 'tamanho-pequeno'));
 		?>
 	    </section>
 
@@ -92,16 +92,16 @@
 	    <section class="coluna-central" >
 		<?php
 		    echo $this->Form->input('identificacao_documento',array('label' => 'Identificação:','class' => 'tamanho-pequeno'));
-		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico','class' => 'tamanho-pequeno'));
-		    echo $this->Form->input('conta',array('label' => 'Conta','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('conta',array('label' => 'Conta:','class' => 'tamanho-pequeno'));
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento', 'type' => 'text','class' => 'tamanho-pequeno forma-data','id' => 'dataVencimento-receber'));
-		    echo $this->Form->input('desconto',array('label' => 'Desconto','class' => 'tamanho-pequeno'));
-		    echo $this->Form->input('banco',array('label' => 'Banco','class' => 'tamanho-medio'));
+		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento:', 'type' => 'text','class' => 'tamanho-pequeno forma-data','id' => 'dataVencimento-receber'));
+		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('banco',array('label' => 'Banco:','class' => 'tamanho-medio'));
 		?>
 		
 	    </section>
