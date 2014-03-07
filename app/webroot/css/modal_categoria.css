@@ -33,17 +33,17 @@
 
 #myModal_add-categoria label[for=CategoriaNome]{
 	display:block;
-	font-size:15px;
+	font-size:13px;
 	margin-left:37px !important;
 	margin-top:5px;
-	line-height:10px;
+	line-height:2px;
 }
 
 #myModal_add-categoria input[id=CategoriaNome]{
 	display:block;
 	margin-left:188px;
 	margin-top:-36px;
-	height:20px;
+	height:16px;
 }
 
 #myModal_add-categoria .centro{
