@@ -103,7 +103,7 @@ window.onload = function() {
 	
 	<section class="coluna-esquerda">
 	    <?php
-		echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
+		echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
 		echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
 	    ?>
 	</section>
