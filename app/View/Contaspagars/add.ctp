@@ -2,7 +2,12 @@
 	$this->start('css');
 	echo $this->Html->css('contas_pagar');
 	echo $this->Html->css('table');
-	$this->end();	
+	$this->end();
+	
+	$this->start('script');	
+	echo $this->Html->script('funcoes_contas_pagar.js');	
+	$this->end();
+
 ?>
 
 
@@ -76,8 +81,8 @@
 	
 		<section class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('parcela',array('type'=>'text','label'=>'Parcela:','class'=>'tamanho-pequeno'));	
-				echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno'));	
+				echo $this->Form->input('parcela',array('type'=>'text','label'=>'Parcela:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
+				echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno','id'=>'valorPagar'));	
 				echo $this->Form->input('agencia',array('type'=>'text','label'=>'Agência:','class'=>'tamanho-pequeno'));	
 			?>
 		</section>
@@ -85,7 +90,7 @@
 			
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-pequeno'));
+				echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-pequeno','id'=>'identificacaoPagar'));
 				echo $this->Form->input('periodo_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-pequeno'));
 				echo $this->Form->input('conta',array('type'=>'text','label'=>'Conta:','class'=>'tamanho-pequeno'));
 			?>	
@@ -102,25 +107,32 @@
 			<?php
 				echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
 																		'title'=>'Adicionar',
-																		'class'=>'bt-direita'
+																		'class'=>'bt-direita',
+																		'id'=>'bt-adicionarConta-pagar'
 																		));
+				echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
+						     'title'=>'Editar Conta',
+						     'id'=>'bt-editarConta-pagar',
+						     'class'=>'bt-direita'
+						     ));
 			?>		
 </div>
 	
 	<div>
-		<table id="tabela-principal" cellpadding="0" cellspacing="0">
-			<tr>
+		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
+			<thead>
 
 					<th><?php echo ('Parcela'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>
 					<th><?php echo ('Data de Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
 					<th><?php echo ('Periodo Crítico'); ?></th>
+					<th><?php echo ('Desconto'); ?></th>
 					<th><?php echo ('Banco'); ?></th>
 					<th><?php echo ('Agência'); ?></th>
 					<th><?php echo ('Conta'); ?></th>
 					<th class="actions"><?php echo __('Ações'); ?></th>
-			</tr>
+			</thead>
 		</table>
 	
 	

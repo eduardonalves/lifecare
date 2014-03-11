@@ -32,14 +32,14 @@ class ContasController extends AppController {
 		
 		$configContasLabels = array(
 		
-							
+							'parcela' => 'Parcela',
 							'identificacao' => 'Identificacao',
-							'descricao' => 'Descrição',
-							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
-							'data_quitacao' => 'Data de Quitação ',
+							'data_vencimento' => 'Data do vencimento',
 							'valor' => 'Valor',
-							'parceirodenegocio_id' => 'Parceiro de Negócios',
+							'parceirodenegocio' => 'Parceiro de negócios',
+							'periodocritico' => 'Período Crítico',		
+							'descricao' => 'Descrição',
 							'status' => 'Status'																								
 							);
 		
@@ -57,7 +57,6 @@ class ContasController extends AppController {
 		}
 		
 		$configCont = $configContasLabels;
-		$this->set(compact('configCont'));
 /*--------FIM configContas----------*/
 		
 /*--------CONFIG Parcelas----------*/
@@ -68,7 +67,7 @@ class ContasController extends AppController {
 		
 		$configParcelasLabels = array(
 							'parcela' => 'Parcela',
-							'identificacao_documento' => 'Identificacao',
+							'identificacao' => 'Identificacao',
 							'data_vencimento' => 'Data do vencimento',
 							'valor' => 'Valor',
 							'periodocritico' => 'Período Crítico',		
@@ -93,7 +92,6 @@ class ContasController extends AppController {
 		}
 		
 		$configparc = $configParcelasLabels;
-		$this->set(compact('configparc'));
 /*--------FIM configContas----------*/		
 
 /*--------CONFIG Configparceiros----------*/

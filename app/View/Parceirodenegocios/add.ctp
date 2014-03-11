@@ -42,6 +42,7 @@
 	</section>
 
 	<section class="coluna-central" >
+<<<<<<< HEAD
 
 		<?php
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:'));
@@ -49,6 +50,14 @@
 			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
 
+=======
+	    <?php
+		echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ:'));
+		echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
+		echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
+		echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";			
+	    ?>
+>>>>>>> b7c0d844149d4010cf62f8b20d869c9148c4e993
 	</section>
 
 	<section class="coluna-direita" >
@@ -73,6 +82,7 @@
 	<header class="">Endereços</header>
 
 	<section class="coluna-esquerda">
+<<<<<<< HEAD
 
 		<?php
 			/*Corrigir Campo*/ echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select','div' =>array( 'class' => 'input select')));
@@ -81,6 +91,13 @@
 			echo $this->Form->input('Endereco.0. ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 		?>
 
+=======
+	    <?php 
+		echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
+		echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno'));
+		echo $this->Form->input('Dadosbancario.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
+	    ?>
+>>>>>>> b7c0d844149d4010cf62f8b20d869c9148c4e993
 	</section>
 
 	<section class="coluna-central" >
@@ -142,12 +159,19 @@
 	<header class="">Dados do Crédito</header>
 
 	<section class="coluna-esquerda">
+<<<<<<< HEAD
 
 		<?php
 			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
 			echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
 		?>
 
+=======
+	    <?php
+		echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
+		echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
+	    ?>
+>>>>>>> b7c0d844149d4010cf62f8b20d869c9148c4e993
 	</section>
 
 	<section class="coluna-central" >
