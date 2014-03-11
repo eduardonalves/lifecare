@@ -18,6 +18,11 @@ label{
 	margin: 4px 0px 16px -10px;
 }
 
+.boxParceiro div label{
+	font-size: 15px;
+	width: 210px !important;
+}
+
 .boxParceiro label{
 	width:190px !important; 
 	margin: -4px -5px;
@@ -52,7 +57,8 @@ label{
 }
 
 .input-alinhamento{
-	margin-top:3px;	
+	margin-top:3px;
+	height:23px !important;
 }
 
 .a-data{
@@ -78,7 +84,7 @@ label{
 }
 
 .forma-data{
-	height:19px;
+	height:23px;
 	margin-top:3px;
 	width:70px !important;
 	padding-top: 0px !important;
