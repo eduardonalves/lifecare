@@ -3,6 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Conta Model
  *
+ * @property User $User
  * @property Parceirodenegocio $Parceirodenegocio
  * @property Pagamento $Pagamento
  * @property Parcela $Parcela
@@ -18,6 +19,13 @@ class Conta extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Parceirodenegocio' => array(
 			'className' => 'Parceirodenegocio',
 			'foreignKey' => 'parceirodenegocio_id',
