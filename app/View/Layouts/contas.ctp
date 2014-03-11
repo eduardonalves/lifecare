@@ -97,7 +97,7 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'>
 						
 						<?php 
 							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));

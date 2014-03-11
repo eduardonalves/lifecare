@@ -125,42 +125,19 @@ class ContasController extends AppController {
 		$configparcei = $configParceirosLabels;
 /*--------FIM configContas----------*/		
 
-		//Contas
-		if($this->request['url']['parametro'] == 'contas'){
-
-			$this->loadModel('Conta');
-			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
-			$this->Paginator->settings = array(
-				'Conta' => array(
-					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
-					'fields_toCount' => 'DISTINCT Conta.id',
-					//'limit' => $this->request['url']['limit'],
-					'order' => 'Conta.identificacao ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntContas = count($contas);
-			//debug($cntProdutos);	
-			$contas = $this->Paginator->paginate('Conta');
-
-			$this->set(compact('contas', 'cntContas'));
-			$log = $this->Conta->getDataSource()->getLog(false, false);
-			
-		}
+		
 		//Parcelas
 		
 		if($this->request['url']['parametro'] == 'parcelas'){
 
 			$this->loadModel('Parcela');
 			
-			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
+			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 0, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
 			$this->Paginator->settings = array(
 				'Parcela' => array(
 					'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
 					'fields_toCount' => 'DISTINCT Parcela.id',
-					//'limit' => $this->request['url']['limit'],
+					'limit' => $this->request['url']['limit'],
 					'order' => 'Parcela.identificacao_documento ASC',
 					'conditions' => $this->Filter->getConditions()
 				)
@@ -175,13 +152,33 @@ class ContasController extends AppController {
 			
 		}		
 			
-		if(!isset($_GET['parametro'])){
-			$_GET['parametro'] = 'movimentacao';
+		//Contas
+		if($this->request['url']['parametro'] == 'contas'){
+
+			
+			
+			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+			$this->Paginator->settings = array(
+				'Conta' => array(
+					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
+					'fields_toCount' => 'DISTINCT Conta.id',
+					'limit' => $this->request['url']['limit'],
+					'order' => 'Conta.identificacao ASC',
+					'conditions' => $this->Filter->getConditions()
+				)
+			);
+			
+			$cntContas = count($contas);
+			//debug($cntProdutos);	
+			$contas = $this->Paginator->paginate('Conta');
+
+			$this->set(compact('contas', 'cntContas'));
+			$log = $this->Conta->getDataSource()->getLog(false, false);
+			
 		}
 		
 		$this->layout = 'contas';
-		$this->Conta->recursive = 0;
-		$this->set('contas', $this->Paginator->paginate());
+		
 		
 		/**QuickLink**/
 		$this->loadModel('Quicklink');

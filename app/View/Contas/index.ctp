@@ -124,7 +124,7 @@
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
-			</section>
+			
 			
 			<footer>
 				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>
@@ -155,11 +155,7 @@
 					//Inicio da checagem das colunas de contas
 					if(isset($configCont)){ ?>
 						<tr>
-								<th class="colunaConta">Ações</th>
-								
-								
-									
-									
+								<th class="colunaConta">Ações</th>									
 									 <?php 
 									 
 										foreach($configCont as $campo=>$campoLabel)
@@ -240,10 +236,6 @@
 					if(isset($configparc)){ ?>
 						<tr>
 								<th class="colunaParcela">Ações</th>
-								
-								
-									
-									
 									 <?php 
 									 
 										foreach($configparc as $campo=>$campoLabel)
@@ -271,10 +263,7 @@
 									
 									 <?php 
 
-										
-
-
-										foreach($configparc as $campo=>$campoLabel){							
+									foreach($configparc as $campo=>$campoLabel){							
 											if($campo=="status"){
 												echo "<td>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => '-'.$parcela['Parcela']['status'], 'title' => '-')) . "&nbsp;</td>";
 												
@@ -307,3 +296,8 @@
 	
 
 </div>
+<br />
+<br />
+<br />
+<br />
+

@@ -86,6 +86,14 @@ p.table-counter {
 
 }
 
+.colunaConta{
+	background-color:#F0F5DB;
+}
+
+.colunaParcela{
+	background-color:#FFFAE7;
+}
+
 .colunaProduto{
 	background-color:#F0F5DB;
 }

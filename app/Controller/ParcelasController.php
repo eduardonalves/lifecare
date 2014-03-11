@@ -56,7 +56,8 @@ class ParcelasController extends AppController {
 			}
 		}
 		$users = $this->Parcela->User->find('list');
-		$this->set(compact('users'));
+		$contas = $this->Parcela->Contum->find('list');
+		$this->set(compact('users', 'contas'));
 	}
 
 /**
@@ -82,7 +83,8 @@ class ParcelasController extends AppController {
 			$this->request->data = $this->Parcela->find('first', $options);
 		}
 		$users = $this->Parcela->User->find('list');
-		$this->set(compact('users'));
+		$contas = $this->Parcela->Contum->find('list');
+		$this->set(compact('users', 'contas'));
 	}
 
 /**
