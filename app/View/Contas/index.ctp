@@ -5,32 +5,31 @@
 		echo $this->Html->css('jquery-ui/jquery-ui.css');
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
-	
+
 	$this->start('script');
 		//echo $this->Html->script('funcoes_consulta.js');
 	$this->end();
-	
+
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
 		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
 	$this->end();
 ?>
 
-<?php 
+<?php
 	if(isset($pageReload)){
 		if($pageReload=='Reload'){
 ?>
-
 
 <script type="text/javascript">
 	$(document ).ready(function(){
 		setTimeout(function(){
 			location.reload();
-		}, 2000); 
+		}, 2000);
 	});
 </script>
 
-<?php	
+<?php
 		}
 	}
 ?>
