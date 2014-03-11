@@ -20,6 +20,11 @@ class ContasController extends AppController {
  *
  * @return void
  */
+	public function beforeFilter() {
+			if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
+	}
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
