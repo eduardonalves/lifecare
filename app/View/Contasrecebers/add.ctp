@@ -18,14 +18,13 @@
 
 </header>
 
-<fieldset class="field-total" style="border:none">
+<?php echo $this->Form->create('Conta'); ?>
 
+<div class="fieldset-total" style="border:none">
+    
     <section> <!---section superior--->
 
 	    <header>Dados Gerais da movimentação</header>
-	    
-	    <?php echo $this->Form->create('Conta'); ?>
-	    
 	    
 	    <section class="coluna-esquerda">
 		<?php 
@@ -123,11 +122,11 @@
 
     </div>
     
-</fieldset>
+</div>
 
 <div>
 	<table id="tabela-conta-receber" cellpadding="0" cellspacing="0">
-	    <tr>
+	    <thead>
 		<th><?php echo ('Parcela'); ?></th>
 		<th><?php echo ('Identificação'); ?></th>
 		<th><?php echo ('Data de Vencimento'); ?></th>
@@ -138,7 +137,7 @@
 		<th><?php echo ('Agência'); ?></th>
 		<th><?php echo ('Conta'); ?></th>
 		<th class="actions"><?php echo __('Ações'); ?></th>
-	    </tr>
+	    </thead>
 	</table>
 	
 	

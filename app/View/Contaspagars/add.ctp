@@ -19,14 +19,17 @@
 	<h1 class="menuOption34">Cadastrar Conta a Pagar</h1>
 	
 </header>
-	
+
+<?php echo $this->Form->create('Conta'); ?>
+
+<div class="fieldset-total" style="border:none">
+    	
 <section> <!---section superior--->
 
 	<header>Dados Gerais da Movimentação</header>
 
 	<section class="coluna-esquerda">
 		<?php
-			echo $this->Form->create('Conta');
 			echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio'));
 			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno'));
 			echo $this->Form->input('status',array('type'=>'text','label'=>'Status:','class'=>'tamanho-pequeno'));
@@ -77,47 +80,47 @@
 	</section>
 </section><!--fim Meio-->
 
-<div class="fieldset">
+    <div class="fieldset">
 	
-		<section class="coluna-esquerda">
-			<?php
-				echo $this->Form->input('parcela',array('type'=>'text','label'=>'Parcela:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
-				echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno','id'=>'valorPagar'));	
-				echo $this->Form->input('agencia',array('type'=>'text','label'=>'Agência:','class'=>'tamanho-pequeno'));	
-			?>
-		</section>
-	
+	<section class="coluna-esquerda">
+		<?php
+			echo $this->Form->input('parcela',array('type'=>'text','label'=>'Parcela:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
+			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno','id'=>'valorPagar'));	
+			echo $this->Form->input('agencia',array('type'=>'text','label'=>'Agência:','class'=>'tamanho-pequeno'));	
+		?>
+	</section>
+
+		
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-pequeno','id'=>'identificacaoPagar'));
+			echo $this->Form->input('periodo_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-pequeno'));
+			echo $this->Form->input('conta',array('type'=>'text','label'=>'Conta:','class'=>'tamanho-pequeno'));
+		?>	
+	</section>
+
 			
-		<section class="coluna-central">
-			<?php
-				echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-pequeno','id'=>'identificacaoPagar'));
-				echo $this->Form->input('periodo_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-pequeno'));
-				echo $this->Form->input('conta',array('type'=>'text','label'=>'Conta:','class'=>'tamanho-pequeno'));
-			?>	
-		</section>
-	
-				
-		<section class="coluna-direita">
-			<?php
-				echo $this->Form->input('data_vencimento',array('type'=>'text','label'=>'Data de Vencimento:','class'=>'tamanho-pequeno forma-data'));	
-				echo $this->Form->input('desconto',array('type'=>'text','label'=>'Desconto:','class'=>'tamanho-pequeno'));	
-				echo $this->Form->input('banco',array('type'=>'text','label'=>'Banco:','class'=>'tamanho-medio'));					
-			?>
-		</section>
-			<?php
-				echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
-																		'title'=>'Adicionar',
-																		'class'=>'bt-direita',
-																		'id'=>'bt-adicionarConta-pagar'
-																		));
-				echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
-						     'title'=>'Editar Conta',
-						     'id'=>'bt-editarConta-pagar',
-						     'class'=>'bt-direita'
-						     ));
-			?>		
-</div>
-	
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('data_vencimento',array('type'=>'text','label'=>'Data de Vencimento:','class'=>'tamanho-pequeno forma-data'));	
+			echo $this->Form->input('desconto',array('type'=>'text','label'=>'Desconto:','class'=>'tamanho-pequeno'));	
+			echo $this->Form->input('banco',array('type'=>'text','label'=>'Banco:','class'=>'tamanho-medio'));					
+		?>
+	</section>
+	<?php
+		echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
+																'title'=>'Adicionar',
+																'class'=>'bt-direita',
+																'id'=>'bt-adicionarConta-pagar'
+																));
+		echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
+				     'title'=>'Editar Conta',
+				     'id'=>'bt-editarConta-pagar',
+				     'class'=>'bt-direita'
+				     ));
+	?>		
+    </div>
+</div>	
 	<div>
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
 			<thead>
