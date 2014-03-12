@@ -10,6 +10,22 @@ label{
 
 
 /* CLASS **************************************************************/
+
+
+.boxParcela{
+	margin: 4px 0px 16px -10px;
+}
+
+.boxParcela div label{
+	font-size: 15px;
+	width: 145px !important;
+}
+
+.boxParcela label{
+	width:190px !important; 
+	margin: -4px -5px;
+}
+
 .informacoesParceiro{
 	margin-left: -40px;
 }
@@ -46,10 +62,10 @@ label{
 .content-filtros{
 	display:block;
 	float:left;
-	margin: 10px 0px 0px 160px;
+	margin: 10px 0px 0px 0px;
 	padding:0;
 	position:relative;
-	width:74%;
+	width:100%;
 }
 
 .dados-produto{
@@ -173,7 +189,7 @@ label{
 	border: 1px solid rgb(171, 200, 55);
 	border-radius: 8px;
 	height: 162px;
-	margin-top: 5px;
+	margin: 5px 0px 0px -5px;
 	padding: 6px;
 	width: 350px;
 }
@@ -187,12 +203,22 @@ label{
 	width:170px;
 }
 
+#filtro-parcela{
+	background-color:#c9f0e8;
+	border:1px solid #37c8ab;
+	border-radius: 8px;
+	height:162px;
+	margin-top:5px;
+	padding:5px;
+	width:333px;
+}
+
 #filtro-parceiro{
 	background-color:#FFFAE7;
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
 	height:162px;
-	margin:5px 0px 0px 13px;
+	margin:5px 0px 0px 7px;
 	padding:5px;
 	width:335px;
 }
