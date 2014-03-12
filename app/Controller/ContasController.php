@@ -34,7 +34,7 @@ class ContasController extends AppController {
 $this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
-	                'Conta.identificacao' => array(
+	                '_Conta.identificacao' => array(
 	                    'operator' => 'LIKE'
 
 	                )
@@ -58,7 +58,7 @@ $this->Filter->addFilters(
 	                )
 	            ),
 		        'data_emissao' => array(
-		            'Conta.data_emissao' => array(
+		            '_Conta.data_emissao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -66,15 +66,42 @@ $this->Filter->addFilters(
 		            )
 		        ),
 	            'data_quitacao' => array(
-		            'Conta.data_quitacao' => array(
+		            '_Conta.data_quitacao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
 		                )
 		            )
 		        ),
+		         'valor' => array(
+		            'Parcela.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_vencimento' => array(
+		            'Parcela.data_vencimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		       
+	            'forma_pagamento' => array(
+	                'Pagamento.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		 'select' => array('' => '','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
 		        'tipoMovimentacao' => array(
-	                'Conta.tipo' => array(
+	                '_Conta.tipo' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -220,7 +247,7 @@ $this->Filter->addFilters(
 
 			
 			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
 			$this->Paginator->settings = array(
 				'Conta' => array(
 					'fields' => array('DISTINCT Conta.id', 'Conta.*'),

@@ -117,8 +117,9 @@
 				</a>
 				<div class="informacoesParceiro">
 				<?php
-					echo $this->Form->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
+					echo $this->Search->input('valor', array('label' => 'Valor:','class'=>'tamanho-medio'));
+					echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
+					echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
 					
 				?>
@@ -166,6 +167,7 @@
 </section>
 
 <!------------------ CONSULTA ------------------>
+
 <div class="areaTabela">
 <?php
 	//Inicio de consulta de Contas
