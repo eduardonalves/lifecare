@@ -15,7 +15,15 @@
 .textMenuLateral span{ height: 42px; }
 
 /** Formulário**/
-textarea{height: 68px !important; width: 147px !important;;}
+textarea{height: 68px !important; width: 147px !important;}
+#Endereco0PontoReferencia{margin-bottom:5px;}
+.fake-footer{
+	display:inline-block;
+	width:100%;
+}
+.fake-footer img{
+	margin:0;
+}
 
 /** Botões **/
 .bt-direita{float: right; margin: 10px 10px 5px 3px;}
