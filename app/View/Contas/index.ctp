@@ -13,6 +13,7 @@
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
 		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
+		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
 	$this->end();
 ?>
 
@@ -99,9 +100,34 @@
 				?>
 				
 			</section>
-
-			<!------------------ FILTRO DE LOTE ------------------>
+			
+			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
+				<div class="boxParcela">
+					<?php
+						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados das Parcelas'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
+					?>
+				</div>
+				<a href="add-config_parcela" class="bt-showmodal">
+				
+					<?php
+						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração das Parcelas', 'title' => 'Configuração das Parcelas'));
+					?>
+					
+				</a>
+				<div class="informacoesParceiro">
+				<?php
+					echo $this->Form->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Form->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
+					echo $this->html->tag('span','a',array('class'=>'a-data'));
+					
+				?>
+				</div>
+				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+			</section>
+
+			<!------------------ FILTRO Do Parceiro ------------------>
+			<section id="filtro-parcela" class="coluna-direita">
 				<div class="boxParceiro">
 					<?php
 						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados do Parceiro de Negócio'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
@@ -125,7 +151,7 @@
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
-			
+		
 			
 			<footer>
 				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>

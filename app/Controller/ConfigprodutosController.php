@@ -49,7 +49,7 @@ class ConfigprodutosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Configproduto->create();
 			if ($this->Configproduto->save($this->request->data)) {
-				$this->Session->setFlash(__('The configproduto has been saved.'));
+				$this->Session->setFlash(__('O configproduto Foi Salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The configproduto could not be saved. Please, try again.'));
