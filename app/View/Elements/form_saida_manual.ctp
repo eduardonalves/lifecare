@@ -504,7 +504,7 @@
 	<div class="saidas add">
 
 		<table id="tabela-principal" cellpadding="0" cellspacing="0">
-			<tr>
+			<thead>
 
 					<th><?php echo ('Código'); ?></th>
 					<th><?php echo ('Nome'); ?></th>
@@ -521,7 +521,7 @@
 
 
 					<th class="actions"><?php echo __('Ações'); ?></th>
-			</tr>
+			</thead>
 
 		</table>
 
