@@ -1,6 +1,17 @@
 @charset "utf-8";
 
-/* CLASS **************************************************************/
+/* ID *****************************************************************/
 
+/* CLASS **************************************************************/
 .divTipoParceiro{margin-bottom:50px;}
+
+.bloco-area-endereço{
+	display:inline-block;
+	margin-top:20px;
+}
+
+.bloco-area-endereço:first-child{
+	display:inline-block;
+	margin-top:0px !important;
+}
 
