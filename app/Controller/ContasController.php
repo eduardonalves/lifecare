@@ -29,6 +29,64 @@ class ContasController extends AppController {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
 	$users= $this->User->find('list');
+	
+/*--------Filtros da consulta início-----*/
+$this->Filter->addFilters(
+	        array(
+	            'identificacao' => array(
+	                'Conta.identificacao' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+		        'nome' => array(
+	                'Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            'cpf_cnpj' => array(
+	                'Parceirodenegocio.cpf_cnpj' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'BLOQUEADO'=>'BLOQUEADO', 'LIBERADO'=>'LIBERADO')
+	                )
+	            ),
+		        'data_emissao' => array(
+		            'Conta.data_emissao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'data_quitacao' => array(
+		            'Conta.data_quitacao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'tipoMovimentacao' => array(
+	                'Conta.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		 'select' => array('APAGAR' => 'A PAGAR', 'ARECEBER' => 'A RECEBER')
+					)
+	            ),
+	        )
+		);
+
+/*-------Filtros da consulta fim---------*/
+	
 /*--------CONFIG Contas----------*/
 		$this->loadModel('Configconta');
 		$configconta=$this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));

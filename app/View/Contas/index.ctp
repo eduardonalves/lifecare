@@ -13,6 +13,7 @@
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
 		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
+		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
 	$this->end();
 ?>
 
@@ -88,19 +89,45 @@
 					    'multiple' => 'checkbox',
 					    'options' => array('REECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),   
 					));
+					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
+					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
-					echo $this->Form->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('tipo', array('label' => 'Tipo:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data'));
+					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data', 'type' => 'text'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
-					echo $this->Form->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data'));
+					echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data', 'type' => 'text'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
 				?>
 				
 			</section>
-
-			<!------------------ FILTRO DE LOTE ------------------>
+			
+			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
+				<div class="boxParcela">
+					<?php
+						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados das Parcelas'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
+					?>
+				</div>
+				<a href="add-config_parcela" class="bt-showmodal">
+				
+					<?php
+						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração das Parcelas', 'title' => 'Configuração das Parcelas'));
+					?>
+					
+				</a>
+				<div class="informacoesParceiro">
+				<?php
+					echo $this->Form->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Form->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
+					echo $this->html->tag('span','a',array('class'=>'a-data'));
+					
+				?>
+				</div>
+				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+			</section>
+
+			<!------------------ FILTRO Do Parceiro ------------------>
+			<section id="filtro-parcela" class="coluna-direita">
 				<div class="boxParceiro">
 					<?php
 						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados do Parceiro de Negócio'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
@@ -115,16 +142,16 @@
 				</a>
 				<div class="informacoesParceiro">
 				<?php
-					echo $this->Form->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('status', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 					
 				?>
 				</div>
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
-			
+		
 			
 			<footer>
 				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>

@@ -1,11 +1,11 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Configparceiro Model
+ * configparceiros Model
  *
  * @property User $User
  */
-class Configparceiro extends AppModel {
+class configparceiros extends AppModel {
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
