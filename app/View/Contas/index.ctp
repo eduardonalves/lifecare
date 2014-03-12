@@ -88,12 +88,13 @@
 					    'multiple' => 'checkbox',
 					    'options' => array('REECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),   
 					));
+					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
+					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
-					echo $this->Form->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('tipo', array('label' => 'Tipo:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data'));
+					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data', 'type' => 'text'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
-					echo $this->Form->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data'));
+					echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data', 'type' => 'text'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
 				?>
 				
@@ -115,9 +116,9 @@
 				</a>
 				<div class="informacoesParceiro">
 				<?php
-					echo $this->Form->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('status', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 					
 				?>
 				</div>
