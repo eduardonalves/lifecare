@@ -27,26 +27,26 @@
 		<div class="">
 			
 			<?php
-				//echo $this->Form->create('Configlote');
+				echo $this->Form->create('Configconta');
 			?>	
 			
 			<?php
-				//echo $this->Form->input('id',array('value' => $configlote['Configlote']['id']));
+				//echo $this->Form->input('identificacao',array('value' => $configconta['Configconta']['id']));
 			?>
 					
 			<div class='esconder'>	
 				<?php //echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
 			</div>
 		
-			<?php /*
+			<?php 
 				
-				if($configlote['Configlote']['numero_lote']==1){
-						echo $this->Form->input('numero_lote', array('value' => 1, 'checked' =>'checked', 'label'=>'Número Lote'));
+				if($configconta['Configconta']['data_emissao']==1){
+						echo $this->Form->input('data_emissao', array('value' => 1, 'checked' =>'checked', 'label'=>'Data de Emissão'));
 					} else{
-						echo $this->Form->input('numero_lote', array('label' => 'Número Lote'));
+						echo $this->Form->input('data_emissao', array('label' => 'Data de Emissão'));
 					}
-					
-				if($configlote['Configlote']['data_fabricacao']==1){
+					/*
+				if($configlote['Configlote']['data_quitacao']==1){
 						echo $this->Form->input('data_fabricacao', array('value' => 1, 'checked' =>'checked', 'label'=>'Data Fabricacao'));
 					} else{
 						echo $this->Form->input('data_fabricacao', array('label' => 'Data Fabricacao'));
