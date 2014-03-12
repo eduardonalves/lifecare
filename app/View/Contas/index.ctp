@@ -7,7 +7,7 @@
 	$this->end();
 
 	$this->start('script');
-		//echo $this->Html->script('funcoes_consulta.js');
+		echo $this->Html->script('funcoes_financeiro.js');
 	$this->end();
 
 	$this->start('modais');
@@ -93,10 +93,12 @@
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
 					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
+					
 					echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data', 'type' => 'text'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
+
 					echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data', 'type' => 'text'));
-					echo $this->html->tag('span','a',array('class'=>'a-data'));
+					echo $this->html->tag('span','a',array('class'=>'a-data','style'=>'margin-top: 90px;'));
 				?>
 				
 			</section>
@@ -118,8 +120,8 @@
 				<div class="informacoesParceiro">
 				<?php
 					echo $this->Form->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Form->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
-					echo $this->html->tag('span','a',array('class'=>'a-data'));
+					echo $this->Search->input('data_quitacao', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
+					echo $this->html->tag('span','a',array('class'=>'a-data-par'));
 					
 				?>
 				</div>

@@ -100,9 +100,7 @@ $this->Filter->addFilters(
 							'descricao' => 'Descrição',
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
-							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',
-							'parceirodenegocio_id' => 'Parceiro de Negócios',
 							'status' => 'Status'																								
 							);
 		
