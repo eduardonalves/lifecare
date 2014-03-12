@@ -20,10 +20,73 @@ class ContasController extends AppController {
  *
  * @return void
  */
+	public function beforeFilter() {
+			if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
+	}
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
 	$users= $this->User->find('list');
+	
+/*--------Filtros da consulta início-----*/
+$this->Filter->addFilters(
+	        array(
+	            'identificacao' => array(
+	                'Conta.identificacao' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+		        'nome' => array(
+	                'Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            'cpf_cnpj' => array(
+	                'Parceirodenegocio.cpf_cnpj' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'BLOQUEADO'=>'BLOQUEADO', 'LIBERADO'=>'LIBERADO')
+	                )
+	            ),
+		        'data_emissao' => array(
+		            'Conta.data_emissao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'data_quitacao' => array(
+		            'Conta.data_quitacao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'tipoMovimentacao' => array(
+	                'Conta.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		 'select' => array('APAGAR' => 'A PAGAR', 'ARECEBER' => 'A RECEBER')
+					)
+	            ),
+	        )
+		);
+
+/*-------Filtros da consulta fim---------*/
+	
 /*--------CONFIG Contas----------*/
 		$this->loadModel('Configconta');
 		$configconta=$this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));
@@ -32,14 +95,14 @@ class ContasController extends AppController {
 		
 		$configContasLabels = array(
 		
-							'parcela' => 'Parcela',
+							
 							'identificacao' => 'Identificacao',
-							'data_emissao' => 'Data da emissão',
-							'data_vencimento' => 'Data do vencimento',
-							'valor' => 'Valor',
-							'parceirodenegocio' => 'Parceiro de negócios',
-							'periodocritico' => 'Período Crítico',		
 							'descricao' => 'Descrição',
+							'data_quitacao' => 'Data de Quitação ',
+							'data_emissao' => 'Data da emissão',
+							'data_quitacao' => 'Data de Quitação ',
+							'valor' => 'Valor',
+							'parceirodenegocio_id' => 'Parceiro de Negócios',
 							'status' => 'Status'																								
 							);
 		
@@ -57,6 +120,7 @@ class ContasController extends AppController {
 		}
 		
 		$configCont = $configContasLabels;
+		$this->set(compact('configCont'));
 /*--------FIM configContas----------*/
 		
 /*--------CONFIG Parcelas----------*/
@@ -67,7 +131,7 @@ class ContasController extends AppController {
 		
 		$configParcelasLabels = array(
 							'parcela' => 'Parcela',
-							'identificacao' => 'Identificacao',
+							'identificacao_documento' => 'Identificacao',
 							'data_vencimento' => 'Data do vencimento',
 							'valor' => 'Valor',
 							'periodocritico' => 'Período Crítico',		
@@ -92,6 +156,7 @@ class ContasController extends AppController {
 		}
 		
 		$configparc = $configParcelasLabels;
+		$this->set(compact('configparc'));
 /*--------FIM configContas----------*/		
 
 /*--------CONFIG Configparceiros----------*/
@@ -123,42 +188,19 @@ class ContasController extends AppController {
 		$configparcei = $configParceirosLabels;
 /*--------FIM configContas----------*/		
 
-		//Contas
-		if($this->request['url']['parametro'] == 'contas'){
-
-			$this->loadModel('Conta');
-			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
-			$this->Paginator->settings = array(
-				'Conta' => array(
-					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
-					'fields_toCount' => 'DISTINCT Conta.id',
-					//'limit' => $this->request['url']['limit'],
-					'order' => 'Conta.identificacao ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntContas = count($contas);
-			//debug($cntProdutos);	
-			$contas = $this->Paginator->paginate('Conta');
-
-			$this->set(compact('contas', 'cntContas'));
-			$log = $this->Conta->getDataSource()->getLog(false, false);
-			
-		}
+		
 		//Parcelas
 		
 		if($this->request['url']['parametro'] == 'parcelas'){
 
 			$this->loadModel('Parcela');
 			
-			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
+			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 0, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
 			$this->Paginator->settings = array(
 				'Parcela' => array(
 					'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
 					'fields_toCount' => 'DISTINCT Parcela.id',
-					//'limit' => $this->request['url']['limit'],
+					'limit' => $this->request['url']['limit'],
 					'order' => 'Parcela.identificacao_documento ASC',
 					'conditions' => $this->Filter->getConditions()
 				)
@@ -173,13 +215,33 @@ class ContasController extends AppController {
 			
 		}		
 			
-		if(!isset($_GET['parametro'])){
-			$_GET['parametro'] = 'movimentacao';
+		//Contas
+		if($this->request['url']['parametro'] == 'contas'){
+
+			
+			
+			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+			$this->Paginator->settings = array(
+				'Conta' => array(
+					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
+					'fields_toCount' => 'DISTINCT Conta.id',
+					'limit' => $this->request['url']['limit'],
+					'order' => 'Conta.identificacao ASC',
+					'conditions' => $this->Filter->getConditions()
+				)
+			);
+			
+			$cntContas = count($contas);
+			//debug($cntProdutos);	
+			$contas = $this->Paginator->paginate('Conta');
+
+			$this->set(compact('contas', 'cntContas'));
+			$log = $this->Conta->getDataSource()->getLog(false, false);
+			
 		}
 		
 		$this->layout = 'contas';
-		$this->Conta->recursive = 0;
-		$this->set('contas', $this->Paginator->paginate());
+		
 		
 		/**QuickLink**/
 		$this->loadModel('Quicklink');
