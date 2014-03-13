@@ -1,12 +1,19 @@
 <?php	    
 	$this->start('css');
-	echo $this->Html->css('contas_pagar');
-	echo $this->Html->css('table');
+	    echo $this->Html->css('contas_pagar');
+	    echo $this->Html->css('table');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 	
 	$this->start('script');	
-	echo $this->Html->script('funcoes_contas_pagar.js');	
+	    echo $this->Html->script('funcoes_contas_pagar.js');
+	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');	
 	$this->end();
+
+	$this->start('modais');
+	    echo $this->element('parceiroFornecedor_add',array('modal'=>'add-parceiroFornecedor'));
+	$this->end();	
 
 ?>
 
@@ -32,26 +39,50 @@
 		<?php
 			echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio'));
 			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor:','class'=>'tamanho-pequeno'));
-			echo $this->Form->input('status',array('type'=>'text','label'=>'Status:','class'=>'tamanho-pequeno'));
+			echo $this->Form->input('status',array('label' => 'Status:','type' => 'select','options'=>array('','Aberto','Pago','Pago parcialmente','Atrasado','Cobrança','Protesto')));
+
+			 echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher',
+										     'class'=>'bt-preencherConta',
+										     'id'=>'bt-preencherFornecedor'
+										     ));
 		?>
+
+		<div class="input autocompleteFornecedor ">
+		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+		    <select class="tamanho-medio limpa" id="add-fornecedor">
+			<option id="optvazioForn"></option>
+			<option value="add-parceiroFornecedor">Cadastrar</option>
+			<?php
+			    foreach($allFornecedores as $allFornecedore)
+			    {
+				    echo "<option id='".$allFornecedore['Fornecedore']['nome']."' class='".$allFornecedore['Fornecedore']['cpf_cnpj']."' rel='".$allFornecedore['Fornecedore']['tipo']."' value='".$allFornecedore['Fornecedore']['id']."' >";
+				    echo $allFornecedore['Fornecedore']['nome'];
+				    echo "</option>";
+			    }
+
+			?>
+		    </select>
+		</div>
 				
 	</section>
 		
 	<section class="coluna-central" >
 		<?php		
-			echo $this->Form->input('data_emissao',array('type'=>'text','label'=>'Data de Emissão:','class'=>'tamanho-pequeno forma-data'));			
-			echo $this->Form->input('cliente',array('type'=>'text','label'=>'Cliente:','type'=>'select','class'=>'tamanho-medio'));	
-			//echo $this->Form->input('parceirodenegocio_id',array('label'=>'Parceiro de Negócio:','class'=>'tamanho-medio'));	
-			echo $this->Form->input('perido_critico',array('type'=>'text','label'=>'Periodo Crítico:','class'=>'tamanho-medio'));		
+		    echo $this->Form->input('data_emissao',array('type'=>'text','label'=>'Data de Emissão:','class'=>'tamanho-pequeno forma-data'));
+		    //echo $this->Form->input('parceirodenegocio_id',array('label'=>'Parceiro de Negócio:','class'=>'tamanho-medio'));	
+		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select'));
+		    echo $this->Form->input('periodo_critico',array('label' => 'Período Crítico:','class' => 'tamanho-pequeno'));
+		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório'));		
 		?>		
 	</section>
 	
 	<section class="coluna-direita" >
 		<?php
-			echo $this->Form->input('data_quitacao',array('type'=>'text','label'=>'Data Validade:','class'=>'tamanho-pequeno forma-data'));
-			echo $this->Form->input('tipo',array('type'=>'text','label'=>'Tipo:','class'=>'tamanho-medio'));
-			//echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio'));
-			echo $this->Form->input('descricao',array('type'=>'text','label'=>'Descrição:','class'=>'','type'=>'textarea'));
+		    echo $this->Form->input('data_quitacao',array('type'=>'text','label'=>'Data Validade:','class'=>'tamanho-pequeno forma-data'));
+		    //echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio'));
+		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
+		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
 		?>
 		
 	</section>
@@ -63,7 +94,7 @@
 
 	<section class="coluna-esquerda">
 		<?php
-		echo $this->Form->input('tipo',array('label'=>'Tipo:','type'=>'select','class'=>'tamanho-pequeno'));	
+		echo $this->Form->input('Pagamento.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','options'=>array('','A Vista','A Prazo')));	
 		?>
 	</section>
 	

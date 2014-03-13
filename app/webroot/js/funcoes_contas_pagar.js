@@ -414,8 +414,44 @@
 	$('#bt-adicionarConta-pagar').show();
 	$('#bt-editarConta-pagar').hide();    
     });
-	
+    
+/**************** Modal Parceiro de negocio tipo cliente *****************/
+    $('body').on('click', '#ui-id-1 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteFornecedor input").val('');
+	    $("#myModal_add-parceiroFornecedor").modal('show');
+	}
 
+    });
+
+/********************* Preencher Dados Fornecedor *********************/    
+    $("#bt-preencherFornecedor").click(function(){
+	valorForncedor=	$("#add-fornecedor option:selected" ).val();
+	valorCpfCnpj= $("#add-fornecedor option:selected" ).attr('class');
+	valorNome= $("#add-fornecedor option:selected" ).attr('id');
+
+	if(!valorForncedor==""){
+		if(valorForncedor=="add-Fornecedor"){
+			//chama modal fornecedor
+			//$("#myModal_add-fornecedor").modal('show');
+		}else{
+			$(".autocompleteFornecedor input").val('');
+			$(".autocompleteFornecedor input").removeAttr('required','required');
+			
+			$("#EntradaParceirodenegocioId").val(valorForncedor);
+			$("#ContaCpfCnpj").val(valorCpfCnpj);
+			$("#ContaParceiro").val(valorNome);
+		}
+	}
+
+    });
+    
+/********************* Autocomplete Cliente *********************/
+    $(function() {
+	$( "#add-fornecedor" ).combobox();
+
+  });
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaPagar').click(function(){

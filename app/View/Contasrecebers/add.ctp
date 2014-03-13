@@ -30,7 +30,15 @@
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio'));
 		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas', 'type' => 'text'));
-		    echo $this->Form->input('status',array('label' => 'Status:','class' => 'tamanho-pequeno'));
+
+		    echo $this->Form->input('status',array('label' => 'Status:','type' => 'select','options'=>array('','Aberto','Pago','Pago parcialmente','Atrasado','Cobrança','Protesto')));
+		
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher',
+										     'class'=>'bt-preencherConta',
+										     'id'=>'bt-preencherCliente'
+										     ));
+
 		?>
 		
 	    </section>
@@ -46,7 +54,10 @@
 	    <section class="coluna-direita" >
 		<?php 
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data Vencimento:','class' => 'tamanho-pequeno forma-data'));
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => ''));
+
+		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
+		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
+
 		?>
 	    </section>
 
