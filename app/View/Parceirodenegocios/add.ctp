@@ -2,13 +2,10 @@
 	$this->start('css');
 		echo $this->Html->css('parceiro');
 	$this->end();
-<<<<<<< HEAD
 
 	$this->start('script');
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
-=======
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
 ?>
 
 <script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script>
@@ -36,7 +33,7 @@
 
 		<?php
 			echo $this->Form->create('Parceirodenegocio');
-			
+
 			echo $this->Form->input('tipo',array('label' => 'Classificação:','options'=>array('','Cliente','Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
 			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 1:'));
 			/*Corrigir Campo*/ echo $this->Form->input('fax',array('class' => 'tamanho-medio','label' => 'Fax:'));
@@ -52,17 +49,6 @@
 			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
 
-<<<<<<< HEAD
-=======
-
-	    <?php
-		echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ:'));
-		echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
-		echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
-		echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";			
-	    ?>
-
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
 	</section>
 
 	<section class="coluna-direita" >
@@ -78,7 +64,6 @@
 <section class="ajusteAlignSection"> <!---section MEIO--->
 	
 	<header class="">Endereços</header>
-<<<<<<< HEAD
 	
 	
 	<div class="area-endereço"> 
@@ -96,60 +81,35 @@
 			</section>
 		
 			<section class="coluna-central" >
-=======
 
-	<section class="coluna-esquerda">
+				<?php
+					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
+					echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";
+				?>
 
+			</section>
 
-		<?php
-			/*Corrigir Campo*/ echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select','div' =>array( 'class' => 'input select')));
-			echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','div' => array('class' => 'inputCliente input text divUf')));
-			echo "<span id='spanEndereco0Uf' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione o Estado</span>";
-			echo $this->Form->input('Endereco.0. ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
-		?>
-
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
-
-	    <?php 
-		echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
-		echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno'));
-		echo $this->Form->input('Dadosbancario.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
-	    ?>
-
-	</section>
-
-<<<<<<< HEAD
 		
 			<section class="coluna-direita" >
-=======
-	<section class="coluna-central" >
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
 
-		<?php
-			echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-			echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
-			echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";
-		?>
+				<?php
+					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno'));
+					echo "<span id='spanEndereco0Bairro' class='Msg tooltipMensagemErroDireta' style='display:none'>Preencha o campo bairro</span>";
+				?>
 
-<<<<<<< HEAD
 			</section>
 		</div>	
 	</div>
 	
 	<div class="fake-footer">
-=======
-	</section>
-
-	<section class="coluna-direita" >
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
 
 		<?php
-			echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
-			echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno'));
-			echo "<span id='spanEndereco0Bairro' class='Msg tooltipMensagemErroDireta' style='display:none'>Preencha o campo bairro</span>";
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'add-area-endereco','class'=>'bt-direita'));
 		?>
 
-	</section>    
+	</div>
 </section><!--fim Meio-->
 
 <section class="ajusteAlignSection"> <!---section MEIO--->
@@ -179,7 +139,6 @@
 
 			<section class="coluna-direita" >
 
-<<<<<<< HEAD
 				<?php
 					echo $this->Form->input('Dadosbancario.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
 					echo $this->Form->input('Dadosbancario.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-pequeno'));
@@ -196,9 +155,6 @@
 		?>
 
 	</div>
-=======
-	</section>    
->>>>>>> 730029a4aaf3595b9ac0fa67168ff35b5a3de3fa
 </section><!--fim Meio-->
 
 <section class="areaCliente"> <!---section Baixo--->	
