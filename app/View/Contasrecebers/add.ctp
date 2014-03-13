@@ -2,20 +2,11 @@
 	$this->start('css');
 	   // echo $this->Html->css('contas_receber');
 	    echo $this->Html->css('table');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
-
-	$this->start('script');
-	    echo $this->Html->script('funcoes_contas_receber.js');
-	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-	$this->end();
-
-	$this->start('modais');
-	    echo $this->element('parceiroCliente_add',array('modal'=>'add-parceiroCliente'));
-	$this->end();	
+	
+	echo $this->Html->script('funcoes_contas_receber.js');
 ?>
-    
+
 <header>
 
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
@@ -39,49 +30,23 @@
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio'));
 		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas', 'type' => 'text'));
-		    echo $this->Form->input('status',array('label' => 'Status:','type' => 'select','options'=>array('','Aberto','Pago','Pago parcialmente','Atrasado','Cobrança','Protesto')));
-		
-		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-										 'title'=>'Preencher',
-										     'class'=>'bt-preencher',
-										     'id'=>'bt-preencherCliente'
-										     ));
+		    echo $this->Form->input('status',array('label' => 'Status:','class' => 'tamanho-pequeno'));
 		?>
-		
-		<div class="input autocompleteCliente">
-		    <label>Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-		    <select class="tamanho-medio" id="add-cliente">
-			    <option id="optvazioForn"></option>
-			    <option value="add-parceiroCliente">Cadastrar</option>
-			    <?php
-				    foreach($allClientes as $allCliente)
-				    {
-					    echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
-					    echo $allCliente['Cliente']['nome'];
-					    echo "</option>";
-				    }
-
-			    ?>
-		    </select>
-		</div>
-		
 		
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php 
 		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão:','type' => 'text','class' => 'tamanho-pequeno forma-data'));
-		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select'));
+		    echo $this->Form->input('cliente',array('label' => 'Cliente:','type' => 'select'));
 		    echo $this->Form->input('periodo_critico',array('label' => 'Período Crítico:','class' => 'tamanho-pequeno'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório'));
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php 
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data Vencimento:','class' => 'tamanho-pequeno forma-data'));
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','id' => 'textAreaConta'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
+		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => ''));
 		?>
 	    </section>
 
@@ -94,7 +59,7 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','options'=>array('','A Vista','A Prazo')));
+		    echo $this->Form->input('Pagamento.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select'));
 		?>
 	    </section>
 

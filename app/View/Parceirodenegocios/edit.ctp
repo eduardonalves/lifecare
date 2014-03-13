@@ -102,3 +102,8 @@ window.onload = function() {
 
 </footer>
 
+<!-- Modal Add Categoria -->
+	
+	<?php echo $this->element('categoria_add', array('modal'=>'add-categoria'));?>
+
+<!-- /.modal -->
