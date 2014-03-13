@@ -7,7 +7,7 @@
 	$this->end();
 
 	$this->start('script');
-		//echo $this->Html->script('funcoes_consulta.js');
+		echo $this->Html->script('funcoes_financeiro.js');
 	$this->end();
 
 	$this->start('modais');
@@ -70,7 +70,7 @@
 
 			<!------------------ Dados da Movimentação ------------------>
 			<section id="filtro-movimentacao" class="coluna-esquerda">
-				<span id="titulo-movimentacao">Dados da Movimentação</span>
+				<span id="titulo">Dados da Movimentação</span>
 				
 				<a href="add-config_movimentacao" class="bt-showmodal">
 				
@@ -92,37 +92,50 @@
 					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
+					
 					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'forma-data', 'type' => 'text'));
-					echo $this->html->tag('span','a',array('class'=>'a-data'));
-					echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'forma-data', 'type' => 'text'));
-					echo $this->html->tag('span','a',array('class'=>'a-data'));
 				?>
+				
+				<div class="inputSearchData">
+					<?php
+						echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'', 'type' => 'text'));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+					?>
+				</div>
+
+				<div class="inputSearchData" >
+					<?php
+						echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'', 'type' => 'text'));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+					?>
+				</div>
 				
 			</section>
 			
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
-				<div class="boxParcela">
-					<?php
-						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados das Parcelas'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
-					?>
-				</div>
-				<a href="add-config_parcela" class="bt-showmodal">
+				<span id="titulo">Dados das Parcelas</span>
 				
+				<a href="add-config_parcela" class="bt-showmodal">
 					<?php
 						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração das Parcelas', 'title' => 'Configuração das Parcelas'));
-					?>
-					
+					?>					
 				</a>
-				<div class="informacoesParceiro">
-				<?php
-					echo $this->Search->input('valor', array('label' => 'Valor:','class'=>'tamanho-medio'));
-					echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
-					echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
-					echo $this->html->tag('span','a',array('class'=>'a-data'));
-					
-				?>
+				
+				<div class="formaPagamento">
+					<?php
+						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
+					?>
+				</div>	
+				<div class="inputSearchValor">
+					<?php
+						echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio'));
+					?>
+				</div>
+				<div class="inputSearchData">
+					<?php	
+						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));									
+					?>
 				</div>
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
