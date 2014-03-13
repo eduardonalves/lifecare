@@ -5,13 +5,35 @@
 /* CLASS **************************************************************/
 .divTipoParceiro{margin-bottom:50px;}
 
-.bloco-area-endereço{
+.bloco-area-endereco{
 	display:inline-block;
 	margin-top:20px;
 }
 
-.bloco-area-endereço:first-child{
+.bloco-area-endereco:first-child{
 	display:inline-block;
 	margin-top:0px !important;
 }
 
+.bloco-area-dadosbanc{
+	display:inline-block;
+	margin-top:20px;
+}
+
+.bloco-area-dadosbanc:first-child{
+	display:inline-block;
+	margin-top:0px !important;
+}
+
+.conteudo-principal section{
+	display:inline-block;
+}
+
+.ajusteAlignSection{
+	width:100%;
+}
+
+/* TAG ****************************************************************/
+hr{
+	margin:0 !important;
+}
