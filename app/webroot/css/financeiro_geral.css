@@ -35,7 +35,7 @@ table{margin-top: 20px;}
 /** ID **/
 #textAreaConta{height: 50px !important; width: 186px !important;padding-top:5px;}
 
-#bt-preencherCliente {float: left;margin:5px 0 0 192px;position: absolute;}
+#bt-preencherCliente {float: left;margin:5px 0 0 192px;position: absolute;z-index: 1;}
 
 /** Classes **/
 .autocompleteCliente .custom-combobox-input {width: 153px;}
