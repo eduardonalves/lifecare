@@ -426,8 +426,7 @@
 
 /********************* Autocomplete Cliente *********************/
   
-    $(".bt-preencherCliente").click(function(){
-	alert();
+    $("#bt-preencherCliente").click(function(){
 	valorForncedor=	$("#add-cliente option:selected" ).val();
 	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 	valorNome= $("#add-cliente option:selected" ).attr('id');
@@ -441,8 +440,8 @@
 		    $(".autocompleteCliente input").removeAttr('required','required');
 		    
 		    $("#SaidaParceirodenegocioId").val(valorForncedor);
-		    $("#SaidaCpfCnpj").val(valorCpfCnpj);
-		    $("#SaidaParceiro").val(valorNome);
+		    $("#ContaCpfCnpj").val(valorCpfCnpj);
+		    $("#ContaParceiro").val(valorNome);
 		}
 	}
 
