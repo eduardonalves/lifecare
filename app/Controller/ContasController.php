@@ -20,11 +20,96 @@ class ContasController extends AppController {
  *
  * @return void
  */
-	public function beforeFilter() {
+	public function beforeFilter(){
 			if(!isset($this->request->query['limit'])){
 				$this->request->query['limit'] = 15;
 			}
+			//Verificamos a data para setarmos o semáfaro do Parcela
+			
+			//Inicio Cemáfaro
+			
+			$this->loadModel('Parcela');
+			$Parcelas = $this->Parcela->find('all', array('recursive' => 0));
+			
+			$contasEmAtraso=0;
+			foreach($Parcelas as $Parcela){
+				$hoje= date("Y-m-d");
+				$vencimento= $Parcela['Parcela']['data_vencimento'];
+				$diasCritico = $Parcela['Parcela']['periodocritico'];
+				
+				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+				$conta=$this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $Parcela['_Conta']['id'])));
+				if(isset($conta)){
+					if(!empty($conta)){
+						if($diasCritico !=''){
+				
+							if(strtotime($hoje)  <=  strtotime($vencimento)){
+								if($dataCritica < $hoje){
+									
+									if($conta['Conta']['status'] != "LIQUIDADA"){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
+										$this->Parcela->save($updatevencimento);
+							
+										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'AMARELO');
+										$this->Conta->save($updateConta);
+										
+									}
+									
+								}else{
+									if($conta['Conta']['status'] != "LIQUIDADA"){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+										$this->Parcela->save($updatevencimento);
+										
+										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+										$this->Conta->save($updateConta);
+									}
+								}
+		
+							}else{
+								if($conta['Conta']['status'] != "LIQUIDADA"){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+									$this->Parcela->save($updatevencimento);
+									
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+									$this->Conta->save($updateConta);
+								}
+							}
+						
+						}else{
+						
+							if(strtotime($hoje)  <=  strtotime($vencimento)){
+								if($conta['Conta']['status'] != "LIQUIDADA"){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+									$this->Parcela->save($updatevencimento);
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+									$this->Conta->save($updateConta);
+								}
+							}else{
+								if($conta['Conta']['status'] != "LIQUIDADA"){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+									$this->Parcela->save($updatevencimento);
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+									$this->Conta->save($updateConta);
+								}
+							}
+						
+						}
+					
+					}
+				}
+				
+				
+				
+			
+			}
+			if(!isset($this->request->query['limit']))
+			{
+				$this->request->query['limit'] = 15;
+			}
 	}
+	
+			
+		
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
@@ -364,92 +449,9 @@ $this->Filter->addFilters(
 		return $this->redirect(array('action' => 'index'));
 	}
 	
-	//Before Render
 	
-		public function beforeRender(){
-			
-			//Verificamos a data para setarmos o semáfaro do Parcela
-			
-			//Inicio Cemáfaro
-			parent::beforeRender();
-			$this->loadModel('Parcela');
-			$Parcelas = $this->Parcela->find('all', array('recursive' => 0));
-			
-			$contasEmAtraso=0;
-			foreach($Parcelas as $Parcela){
-				$hoje= date("Y-m-d");
-				$vencimento= $Parcela['Parcela']['data_vencimento'];
-				$diasCritico = $Parcela['Parcela']['periodocritico'];
-				
-				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
-				$conta=$this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $Parcela['_Conta']['id'])));
-				
-				if($diasCritico !=''){
-				
-					if(strtotime($hoje)  <=  strtotime($vencimento)){
-						if($dataCritica < $hoje){
-							
-							if($conta['Conta']['status'] != "LIQUIDADA"){
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
-								$this->Parcela->save($updatevencimento);
-					
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'AMARELO');
-								$this->Parcela->save($updateConta);
-								
-							}
-							
-						}else{
-							if($conta['Conta']['status'] != "LIQUIDADA"){
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
-								$this->Parcela->save($updatevencimento);
-								
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
-								$this->Parcela->save($updateConta);
-							}
-						}
 
-					}else{
-						if($conta['Conta']['status'] != "LIQUIDADA"){
-							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-							$this->Parcela->save($updatevencimento);
-							
-							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-							$this->Parcela->save($updateConta);
-						}
-					}
-				
-				}else{
-				
-					if(strtotime($hoje)  <=  strtotime($vencimento)){
-						if($conta['Conta']['status'] != "LIQUIDADA"){
-							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
-							$this->Parcela->save($updatevencimento);
-							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
-							$this->Parcela->save($updateConta);
-						}
-					}else{
-						if($conta['Conta']['status'] != "LIQUIDADA"){
-							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-							$this->Parcela->save($updatevencimento);
-							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-							$this->Parcela->save($updateConta);
-						}
-					}
-				
-				}
-				
-				
-				//Fim cemáfaro
-				
-				
-				
-			
-			
-			}
-			
-		}
-
-
+		
 }
 
 
