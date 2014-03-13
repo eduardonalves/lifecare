@@ -404,16 +404,6 @@
     });
 
 /**************** Modal Parceiro de negocio tipo cliente *****************/
-
-    $('body').on('click', '#ui-id-1 li',function(){
-	valorCad= $(this).text();
-	if(valorCad=="Cadastrar"){
-	    $(".campo-superior-produto input").val('');
-	    $("#myModal_add-produtos").modal('show');
-	}
-
-    });
-
     $('body').on('click', '#ui-id-1 a',function(){
 	valorCad= $(this).text();
 	if(valorCad=="Cadastrar"){
@@ -423,9 +413,9 @@
 	}
 
     });
+    
+/********************* Preencher Dados Cliente *********************/
 
-/********************* Autocomplete Cliente *********************/
-  
     $("#bt-preencherCliente").click(function(){
 	valorForncedor=	$("#add-cliente option:selected" ).val();
 	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
@@ -446,7 +436,8 @@
 	}
 
     });
-
+    
+/********************* Autocomplete Cliente *********************/
     $(function() {
 	$( "#add-cliente" ).combobox();
 

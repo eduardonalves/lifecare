@@ -6,7 +6,7 @@
 	}
 	
 	$this->start('css');
-	echo $this->Html->css('');
+	    //echo $this->Html->css('');
 	$this->end();
 	
 ?>

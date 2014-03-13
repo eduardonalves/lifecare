@@ -43,7 +43,7 @@
 		
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
 										 'title'=>'Preencher',
-										     'class'=>'bt-preencher',
+										     'class'=>'bt-preencherConta',
 										     'id'=>'bt-preencherCliente'
 										     ));
 		?>
@@ -80,7 +80,7 @@
 	    <section class="coluna-direita" >
 		<?php 
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data Vencimento:','class' => 'tamanho-pequeno forma-data'));
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','id' => 'textAreaConta'));
+		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
 		?>
 	    </section>
