@@ -45,7 +45,7 @@ label{
 }
 
 .tipoMovimentacao{
-	margin-left: -144px;
+	margin-left: -164px;
 }
 
 .filtros{
@@ -74,14 +74,22 @@ label{
 
 .input-alinhamento{
 	margin-top:3px;
-	height:23px !important;
 }
 
 .a-data{
+	display: block;
+	font-size: 15px;
+	height: 18px;
+	margin: 60px 0px 0px 245px;
+	position: absolute;
+	width: 10px;
+}
+
+.a-data-par{
 	display:block;
 	font-size:15px;
 	height:18px;
-	margin:4px 0px 0px 238px;
+	margin:51px 0px 0px 238px;
 	position:absolute;
 	width:10px;
 }
@@ -100,22 +108,11 @@ label{
 }
 
 .forma-data{
-	height:23px;
+	height:20px;
 	margin-top:3px;
 	width:70px !important;
 	padding-top: 0px !important;
 	line-height:16px;
-}
-
-
-
-.a-data-ES{
-	display:block;
-	font-size:15px;
-	height:18px;
-	margin:51px 0px 0px 238px;
-	position:absolute;
-	width:10px;
 }
 
 .msgModal{
