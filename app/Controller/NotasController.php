@@ -16,22 +16,22 @@ class NotasController extends AppController {
 	public $components = array('Paginator', 'Session');
 
 
-	public function beforeFilter()
-	{
-		if(!isset($this->request->query['limit']))
-		{
-			$this->request->query['limit'] = 15;
-		}
-	}
+	
+		
+	
 
 	//Before Render
 	
-		public function beforeRender(){
+		public function beforeFilter(){
 			
 			//Verificamos a data para setarmos o semáfaro do lote
 			
 			//Inicio Cemáfaro
-			parent::beforeRender();
+			if(!isset($this->request->query['limit']))
+			{
+				$this->request->query['limit'] = 15;
+			}
+			
 			$this->loadModel('Lote');
 			$lotes = $this->Lote->find('all', array('recursive' => 0));
 			
