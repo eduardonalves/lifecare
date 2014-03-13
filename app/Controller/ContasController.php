@@ -94,8 +94,6 @@ $this->Filter->addFilters(
 		$configCont = array();
 		
 		$configContasLabels = array(
-		
-							
 							'identificacao' => 'Identificacao',
 							'descricao' => 'Descrição',
 							'data_quitacao' => 'Data de Quitação ',
