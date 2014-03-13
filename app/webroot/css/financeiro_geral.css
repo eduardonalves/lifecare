@@ -15,9 +15,17 @@
 .textMenuLateral span{ height: 42px; }
 
 /** Formulário**/
-textarea{height: 68px !important; width: 147px !important;;}
+textarea{height: 68px !important; width: 147px !important;}
 
 /** Botões **/
 .bt-direita{float: right; margin: 10px 10px 5px 3px;}
 
 table{margin-top: 20px;}
+
+/** ID **/
+#textAreaConta{height: 50px !important; width: 186px !important;padding-top:5px;}
+
+#bt-preencherCliente {float: left;margin:5px 0 0 192px;position: absolute;}
+
+/** Classes **/
+.autocompleteCliente .custom-combobox-input {width: 153px;}

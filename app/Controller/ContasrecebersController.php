@@ -58,8 +58,11 @@ class ContasrecebersController extends AppController {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
 		}
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
 		//$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios'));
+		$this->set(compact('parceirodenegocios','allClientes'));
 	}
 
 /**
