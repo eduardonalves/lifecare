@@ -73,8 +73,35 @@ $this->Filter->addFilters(
 		                )
 		            )
 		        ),
+		         'valor' => array(
+		            '_Parcela.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_vencimento' => array(
+		            '_Parcela.data_vencimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		       
+	            'forma_pagamento' => array(
+	                '_Pagamento.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		 'select' => array('' => '','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
 		        'tipoMovimentacao' => array(
-	                'Conta.tipo' => array(
+	                '_Conta.tipo' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -106,7 +133,7 @@ $this->Filter->addFilters(
 							'status' => 'Status'																								
 							);
 		
-		//if($this->request->query['parametro']!='produtos') { unset($configContasLabels['categoria']); }
+		//if($this->request->query['parametro']!='Contas') { unset($configContasLabels['categoria']); }
 		
 		foreach ($configconta['Configconta'] as $key => $value)
 		{
@@ -142,7 +169,7 @@ $this->Filter->addFilters(
 							'status' => 'Status'																								
 							);
 		
-	//if($this->request->query['parametro']!='produtos') { unset($configParcelasLabels['categoria']); }
+	//if($this->request->query['parametro']!='Contas') { unset($configParcelasLabels['categoria']); }
 		
 		foreach ($configparcela['Configparcela'] as $key => $value)
 		{
@@ -172,7 +199,7 @@ $this->Filter->addFilters(
 							'telefone' => 'Telefone'																								
 							);
 		
-	//if($this->request->query['parametro']!='produtos') { unset($configParceirosLabels['categoria']); }
+	//if($this->request->query['parametro']!='Contas') { unset($configParceirosLabels['categoria']); }
 		
 		foreach ($configparceiro['Configparceiro'] as $key => $value)
 		{
@@ -207,7 +234,7 @@ $this->Filter->addFilters(
 			);
 			
 			$cntParcelas = count($parcelas);
-			//debug($cntProdutos);	
+			//debug($cntContas);	
 			$parcelas = $this->Paginator->paginate('Parcela');
 
 			$this->set(compact('parcelas', 'cntParcelas'));
@@ -220,7 +247,7 @@ $this->Filter->addFilters(
 
 			
 			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
 			$this->Paginator->settings = array(
 				'Conta' => array(
 					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
@@ -232,7 +259,7 @@ $this->Filter->addFilters(
 			);
 			
 			$cntContas = count($contas);
-			//debug($cntProdutos);	
+			//debug($cntContas);	
 			$contas = $this->Paginator->paginate('Conta');
 
 			$this->set(compact('contas', 'cntContas'));
@@ -251,7 +278,7 @@ $this->Filter->addFilters(
 			array_push ($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
 		}
 		
-		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=produtos&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=Contas&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
 		
 		$this->set(compact('users', 'quicklinks', 'confignot', 'quicklinksList'));
 	}
@@ -335,4 +362,95 @@ $this->Filter->addFilters(
 			$this->Session->setFlash(__('The conta could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+	
+	//Before Render
+	
+		public function beforeRender(){
+			
+			//Verificamos a data para setarmos o semáfaro do Parcela
+			
+			//Inicio Cemáfaro
+			parent::beforeRender();
+			$this->loadModel('Parcela');
+			$Parcelas = $this->Parcela->find('all', array('recursive' => 0));
+			
+			$contasEmAtraso=0;
+			foreach($Parcelas as $Parcela){
+				$hoje= date("Y-m-d");
+				$vencimento= $Parcela['Parcela']['data_vencimento'];
+				$diasCritico = $Parcela['Parcela']['periodocritico'];
+				
+				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+				$conta=$this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $Parcela['_Conta']['id'])));
+				
+				if($diasCritico !=''){
+				
+					if(strtotime($hoje)  <=  strtotime($vencimento)){
+						if($dataCritica < $hoje){
+							
+							if($conta['Conta']['status'] != "LIQUIDADA"){
+								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
+								$this->Parcela->save($updatevencimento);
+					
+								$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'AMARELO');
+								$this->Parcela->save($updateConta);
+								
+							}
+							
+						}else{
+							if($conta['Conta']['status'] != "LIQUIDADA"){
+								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+								$this->Parcela->save($updatevencimento);
+								
+								$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+								$this->Parcela->save($updateConta);
+							}
+						}
+
+					}else{
+						if($conta['Conta']['status'] != "LIQUIDADA"){
+							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+							$this->Parcela->save($updatevencimento);
+							
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+							$this->Parcela->save($updateConta);
+						}
+					}
+				
+				}else{
+				
+					if(strtotime($hoje)  <=  strtotime($vencimento)){
+						if($conta['Conta']['status'] != "LIQUIDADA"){
+							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+							$this->Parcela->save($updatevencimento);
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+							$this->Parcela->save($updateConta);
+						}
+					}else{
+						if($conta['Conta']['status'] != "LIQUIDADA"){
+							$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+							$this->Parcela->save($updatevencimento);
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+							$this->Parcela->save($updateConta);
+						}
+					}
+				
+				}
+				
+				
+				//Fim cemáfaro
+				
+				
+				
+			
+			
+			}
+			
+		}
+
+
+}
+
+
+
