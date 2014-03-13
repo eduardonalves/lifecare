@@ -34,7 +34,7 @@ class ContasController extends AppController {
 $this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
-	                '_Conta.identificacao' => array(
+	                'Conta.identificacao' => array(
 	                    'operator' => 'LIKE'
 
 	                )
@@ -58,7 +58,7 @@ $this->Filter->addFilters(
 	                )
 	            ),
 		        'data_emissao' => array(
-		            '_Conta.data_emissao' => array(
+		            'Conta.data_emissao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -66,7 +66,7 @@ $this->Filter->addFilters(
 		            )
 		        ),
 	            'data_quitacao' => array(
-		            '_Conta.data_quitacao' => array(
+		            'Conta.data_quitacao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -74,7 +74,7 @@ $this->Filter->addFilters(
 		            )
 		        ),
 		         'valor' => array(
-		            'Parcela.valor' => array(
+		            '_Parcela.valor' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -82,7 +82,7 @@ $this->Filter->addFilters(
 		            )
 		        ),
 		        'data_vencimento' => array(
-		            'Parcela.data_vencimento' => array(
+		            '_Parcela.data_vencimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -91,7 +91,7 @@ $this->Filter->addFilters(
 		        ),
 		       
 	            'forma_pagamento' => array(
-	                'Pagamento.forma_pagamento' => array(
+	                '_Pagamento.forma_pagamento' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -127,7 +127,9 @@ $this->Filter->addFilters(
 							'descricao' => 'Descrição',
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
+							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',
+							'parceirodenegocio_id' => 'Parceiro de Negócios',
 							'status' => 'Status'																								
 							);
 		
