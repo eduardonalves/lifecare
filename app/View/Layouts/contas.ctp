@@ -43,8 +43,8 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('lifecare');
-		//echo $this->Html->css('jquery-ui/jquery-ui.css');
-		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		echo $this->Html->css('jquery-ui/jquery-ui.css');
+		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 		//echo $this->Html->css('jquery-ui/custom-combobox.css');
 		echo $this->Html->css('financeiro_geral.css');
 		echo $this->fetch('css');

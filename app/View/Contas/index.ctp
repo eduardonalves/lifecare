@@ -115,7 +115,7 @@
 					?>
 					
 				</a>
-				<div class="inputParcela">
+				<div class="informacoesParceiro">
 				<?php
 					echo $this->Search->input('valor', array('label' => 'Valor:','class'=>'tamanho-medio'));
 					echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>'forma-data'));
