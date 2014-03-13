@@ -404,16 +404,6 @@
     });
 
 /**************** Modal Parceiro de negocio tipo cliente *****************/
-
-    $('body').on('click', '#ui-id-1 li',function(){
-	valorCad= $(this).text();
-	if(valorCad=="Cadastrar"){
-	    $(".campo-superior-produto input").val('');
-	    $("#myModal_add-produtos").modal('show');
-	}
-
-    });
-
     $('body').on('click', '#ui-id-1 a',function(){
 	valorCad= $(this).text();
 	if(valorCad=="Cadastrar"){
@@ -423,11 +413,10 @@
 	}
 
     });
+    
+/********************* Preencher Dados Cliente *********************/
 
-/********************* Autocomplete Cliente *********************/
-  
-    $(".bt-preencherCliente").click(function(){
-	alert();
+    $("#bt-preencherCliente").click(function(){
 	valorForncedor=	$("#add-cliente option:selected" ).val();
 	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 	valorNome= $("#add-cliente option:selected" ).attr('id');
@@ -441,13 +430,14 @@
 		    $(".autocompleteCliente input").removeAttr('required','required');
 		    
 		    $("#SaidaParceirodenegocioId").val(valorForncedor);
-		    $("#SaidaCpfCnpj").val(valorCpfCnpj);
-		    $("#SaidaParceiro").val(valorNome);
+		    $("#ContaCpfCnpj").val(valorCpfCnpj);
+		    $("#ContaParceiro").val(valorNome);
 		}
 	}
 
     });
-
+    
+/********************* Autocomplete Cliente *********************/
     $(function() {
 	$( "#add-cliente" ).combobox();
 
