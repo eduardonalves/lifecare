@@ -77,5 +77,50 @@ class Conta extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+var $hasOne = array(
+	  
+	  /**
+	   * 'Hack' para HABTM
+	   */ 
+	  '_ParcelasConta' => array(
+	    'className'  => 'ParcelasConta',
+	    'foreignKey' => 'conta_id',
+	    'fields'     => 'id'	
+	  ),
+	  '_Parcela' => array(
+	    'className'  => 'Parcela',
+	    'foreignKey' => false,
+	    'conditions' => '_Parcela.id = _ParcelasConta.parcela_id',
+	    'fields'	 => 'id'
+	  ),
+	  '_Pagamento' => array(
+	    'className'  => 'Pagamento',
+	    'foreignKey' => false,
+	    'conditions' => 'Conta.id = _Pagamento.conta_id',
+	    'fields'	 => 'id'
+	  ),
+	);
+public function paginateCount($conditions = null, $recursive = 0,
+                                $extra = array()) {
 
+	if(isset($extra['fields_toCount']))
+	{
+
+	$fields = $extra['fields_toCount'];
+	$parameters = compact('conditions','fields');
+	
+	}else{
+
+	$parameters = compact('conditions');
+	}
+	
+
+	if ($recursive != $this->recursive) {
+		$parameters['recursive'] = $recursive;
+	}
+	$count = $this->find('count', array_merge($parameters, $extra));
+
+	return $count;
+
+}
 }

@@ -32,7 +32,6 @@
 	
 	//adiciona a tabela
 	$('#tabela-conta-receber').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
-		
 	
 	//limpa campos
 	$('#ContaIdentificacaoDocumento').val('');
@@ -43,8 +42,7 @@
 	$('#ContaAgencia').val('');
 	$('#ContaConta').val('');
 	$('#ContaBanco').val('');
-	
-	
+		
 	//campos hidden
 	$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimento-receber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorConta-receber'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
 	
@@ -404,6 +402,57 @@
 	$('#bt-alterarConta-receber').hide();     
 
     });
+
+/**************** Modal Parceiro de negocio tipo cliente *****************/
+
+    $('body').on('click', '#ui-id-1 li',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".campo-superior-produto input").val('');
+	    $("#myModal_add-produtos").modal('show');
+	}
+
+    });
+
+    $('body').on('click', '#ui-id-1 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteCliente input").val('');
+	    $("#myModal_add-parceiroCliente").modal('show');
+	  //$("#spanClienteCPFExistente").hide();
+	}
+
+    });
+
+/********************* Autocomplete Cliente *********************/
+  
+    $(".bt-preencherCliente").click(function(){
+	alert();
+	valorForncedor=	$("#add-cliente option:selected" ).val();
+	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
+	valorNome= $("#add-cliente option:selected" ).attr('id');
+
+	if(!valorForncedor==""){
+		if(valorForncedor=="add-parceiroCliente"){
+			//chama modal cliente
+			//$("#myModal_add-cliente").modal('show');
+		}else{
+		    $(".autocompleteCliente input").val('');
+		    $(".autocompleteCliente input").removeAttr('required','required');
+		    
+		    $("#SaidaParceirodenegocioId").val(valorForncedor);
+		    $("#SaidaCpfCnpj").val(valorCpfCnpj);
+		    $("#SaidaParceiro").val(valorNome);
+		}
+	}
+
+    });
+
+    $(function() {
+	$( "#add-cliente" ).combobox();
+
+    });
+
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaReceber').click(function(){

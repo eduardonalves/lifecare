@@ -69,5 +69,67 @@ class Parcela extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+//Hack Hasone
+/**
+ * Define relacionamentos "Contém um"
+ *
+ * @var array
+ * @access public
+ * @link http://book.cakephp.org/pt/view/1041/hasOne
+ */
+ 
+	var $hasOne = array(
+	  
+	  /**
+	   * 'Hack' para HABTM
+	   */ 
+	  '_ParcelasConta' => array(
+	    'className'  => 'ParcelasConta',
+	    'foreignKey' => 'parcela_id',
+	    'fields'     => 'id'	
+	  ),
+	  '_Conta' => array(
+	    'className'  => 'Conta',
+	    'foreignKey' => false,
+	    'conditions' => '_Conta.id = _ParcelasConta.conta_id',
+	    'fields'	 => 'id'
+	  ),
+	  
+	  
+	);
 
+/**
+ * Define relacionamentos "Contém um"
+ *
+ * @var array
+ * @access public
+ * @link http://book.cakephp.org/pt/view/1041/hasOne
+ */
+ 
+/**
+ * Overridden paginateCount method
+ */
+public function paginateCount($conditions = null, $recursive = 0,
+                                $extra = array()) {
+
+	if(isset($extra['fields_toCount']))
+	{
+
+	$fields = $extra['fields_toCount'];
+	$parameters = compact('conditions','fields');
+	
+	}else{
+
+	$parameters = compact('conditions');
+	}
+	
+
+	if ($recursive != $this->recursive) {
+		$parameters['recursive'] = $recursive;
+	}
+	$count = $this->find('count', array_merge($parameters, $extra));
+
+	return $count;
+
+}
 }
