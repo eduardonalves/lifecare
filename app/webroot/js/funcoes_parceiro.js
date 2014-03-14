@@ -2,11 +2,11 @@ $(document).ready(function() {
 
 	var contadorBlocoEndereco = 1;
 	var contadorBlocoDadosBanc = 1;
-	
+
 	$("#add-area-endereco").click(function(){
 		if($("#Endereco"+ (contadorBlocoEndereco-1) +"Logradouro").val()){
 			$('.area-endereço').append('<hr>\
-			<div class="bloco-area-endereco">\
+			<div class="bloco-area">\
 				<section class="coluna-esquerda">\
 					<div class="input select">\
 						<label for="ParceirodenegocioTipo">Tipo:</label>\
@@ -51,15 +51,15 @@ $(document).ready(function() {
 					<span id="spanEndereco'+ contadorBlocoEndereco +'Bairro" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo bairro</span>\
 				</section>\
 			<div>');
-		
+
 			contadorBlocoEndereco++;
 		}
 	});
-	
+
 	$("#add-area-dadosbanc").click(function(){
 		if($("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1) +"").val()){
 			$('.area-dadosbanc').append('<hr>\
-			<div class="bloco-area-dadosbanc">\
+			<div class="bloco-area">\
 				<section class="coluna-esquerda">\
 					<div class="input text">\
 						<label for="DadosbancarioNomeBanco">Nome do Banco:</label>\
@@ -101,22 +101,25 @@ $(document).ready(function() {
 					</div>\
 				</section>\
 			<div>');
-			
+
 			contadorBlocoDadosBanc++;
-			
 		}
 	});
 
-	$('.areaCliente').css('display','none');
+	if(($('#ParceirodenegocioTipo').val() == 1) || ($('#ParceirodenegocioTipo').val() == 'CLIENTE')){
+		$('.areaCliente').css('display','inline-block');
+	}else{
+		$('.areaCliente').css('display','none');
+	}
 
 	$('#ParceirodenegocioTipo').change(function(){
-		
+
 		if($('#ParceirodenegocioTipo').val() == 1){
 			$('.areaCliente').css('display','inline-block');
 		}else{
 			$('.areaCliente').css('display','none');
 		}
-		
+
 	});
 
 });

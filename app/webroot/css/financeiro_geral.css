@@ -32,7 +32,7 @@ textarea{height: 68px !important; width: 147px !important;}
 
 
 /** Botões **/
-.bt-direita{float: right; margin: 10px 10px 5px 3px;}
+.bt-direita{float: right !important; margin: 10px 10px 5px 3px;}
 
 table{margin-top: 20px;}
 
