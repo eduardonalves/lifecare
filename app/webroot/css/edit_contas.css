@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+/* CLASS **************************************************************/
+.coluna-parcelas{
+	float:left;
+	margin-left:25px;
+	width:705px;
+}
+
+.coluna-parcelas fieldset{
+	padding:5px;
+}
