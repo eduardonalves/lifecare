@@ -27,7 +27,7 @@
 
 </header>
 
-<?php echo $this->Form->create('Conta'); ?>
+<?php echo $this->Form->create('Contasreceber'); ?>
 
 <div class="fieldset-total" style="border:none">
     
@@ -93,19 +93,19 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','options'=>array('','A Vista','A Prazo')));
+		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','options'=>array('','A Vista','A Prazo')));
 		?>
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php
-		    echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno', 'type' => 'text'));
+		    echo $this->Form->input('Pagamento.0.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno', 'type' => 'text'));
 		    ?>    
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('Pagamento.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text'));
+		    echo $this->Form->input('Pagamento.0.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text'));
 		?>
 	    </section>
 	    

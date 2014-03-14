@@ -93,12 +93,7 @@ var $hasOne = array(
 	    'conditions' => '_Parcela.id = _ParcelasConta.parcela_id',
 	    'fields'	 => 'id'
 	  ),
-	  '_Pagamento' => array(
-	    'className'  => 'Pagamento',
-	    'foreignKey' => 'conta_id',
-	    'conditions' => 'Conta.id = _Pagamento.conta_id',
-	    'fields'	 => 'id'
-	  ),
+	  
 	);
 public function paginateCount($conditions = null, $recursive = 0,
                                 $extra = array()) {
