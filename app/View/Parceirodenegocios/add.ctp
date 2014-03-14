@@ -121,9 +121,9 @@
 			<section class="coluna-esquerda">
 
 				<?php 
-					echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
-					echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Númeor da Agência:','class' => 'tamanho-pequeno'));
-					echo $this->Form->input('Dadosbancario.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Númeor da Agência:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
 				?>
 
 			</section>
@@ -131,8 +131,8 @@
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio'));
-					echo $this->Form->input('Dadosbancario.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0'));
+					echo $this->Form->input('Dadosbancario.0.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Dadosbancario.0.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0'));
 				?>
 
 			</section>
@@ -140,8 +140,8 @@
 			<section class="coluna-direita" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
-					echo $this->Form->input('Dadosbancario.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.0.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.0.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-pequeno'));
 				?>
 
 			</section>
@@ -165,14 +165,14 @@
 
 
 		<?php
-			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
-			echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
 		?>
 
 
 	    <?php
-			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
-			echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
 	    ?>
 
 	</section>
@@ -180,7 +180,7 @@
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limitte:','type' => 'text','class' => 'tamanho-pequeno'));
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limitte:','type' => 'text','class' => 'tamanho-pequeno'));
 		?>
 
 	</section>
@@ -188,7 +188,7 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.status',array('label' => 'Status:','type' => 'select'));
+			echo $this->Form->input('Dadoscredito.0.status',array('label' => 'Status:','type' => 'select'));
 		?>
 
 	</section>

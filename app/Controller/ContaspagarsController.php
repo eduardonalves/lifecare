@@ -23,8 +23,8 @@ class ContaspagarsController extends AppController {
  */
 	public function index() {
 		$this->layout = 'contas';
-		$this->Conta->recursive = 0;
-		$this->set('contas', $this->Paginator->paginate());
+		$this->Contaspagar->recursive = 0;
+		$this->set('contaspagars', $this->Paginator->paginate());
 	}
 
 /**
@@ -36,11 +36,11 @@ class ContaspagarsController extends AppController {
  */
 	public function view($id = null) {
 		$this->layout = 'contas';
-		if (!$this->Conta->exists($id)) {
-			throw new NotFoundException(__('Invalid conta'));
+		if (!$this->Contaspagar->exists($id)) {
+			throw new NotFoundException(__('Invalid Contaspagar'));
 		}
-		$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
-		$this->set('conta', $this->Conta->find('first', $options));
+		$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id));
+		$this->set('contaspagar', $this->Contaspagar->find('first', $options));
 	}
 
 /**
@@ -51,16 +51,17 @@ class ContaspagarsController extends AppController {
 	public function add() {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
-			$this->Conta->create();
-			if ($this->Conta->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('The conta has been saved.'));
+			$this->Contaspagar->create();
+			if ($this->Contaspagar->saveAll($this->request->data)) {
+				$this->Session->setFlash(__('The Contaspagar has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The Contaspagar could not be saved. Please, try again.'));
+				debug($this->request->data);
 			}
 		}
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'Fornecedor')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		$this->set(compact('parceirodenegocios'));
 	}
 
@@ -73,21 +74,21 @@ class ContaspagarsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->layout = 'contas';
-		if (!$this->Conta->exists($id)) {
+		if (!$this->Contaspagar->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Conta->save($this->request->data)) {
+			if ($this->Contaspagar->save($this->request->data)) {
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
-			$this->request->data = $this->Conta->find('first', $options);
+			$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id));
+			$this->request->data = $this->Contaspagar->find('first', $options);
 		}
-		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
+		$parceirodenegocios = $this->Contaspagar->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}
 
@@ -99,12 +100,12 @@ class ContaspagarsController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->Conta->id = $id;
-		if (!$this->Conta->exists()) {
+		$this->Contaspagar->id = $id;
+		if (!$this->Contaspagar->exists()) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Conta->delete()) {
+		if ($this->Contaspagar->delete()) {
 			$this->Session->setFlash(__('The conta has been deleted.'));
 		} else {
 			$this->Session->setFlash(__('The conta could not be deleted. Please, try again.'));

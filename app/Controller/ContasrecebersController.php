@@ -38,8 +38,8 @@ class ContasrecebersController extends AppController {
 		if (!$this->Contasreceber->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
-		$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
-		$this->set('Contasreceber', $this->Conta->find('first', $options));
+		$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id));
+		$this->set('Contasreceber', $this->Contasreceber->find('first', $options));
 	}
 
 /**

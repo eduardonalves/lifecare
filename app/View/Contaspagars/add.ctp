@@ -27,7 +27,7 @@
 	
 </header>
 
-<?php echo $this->Form->create('Contapagar'); ?>
+<?php echo $this->Form->create('Contaspagar'); ?>
 
 <div class="fieldset-total" style="border:none">
     	
