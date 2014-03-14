@@ -234,7 +234,7 @@ class ContasController extends AppController {
 	
 /*--------CONFIG Contas----------*/
 		$this->loadModel('Configconta');
-		$configconta = $this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));
+		$configconta=$this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));
 		
 		$configCont = array();
 		
@@ -245,6 +245,7 @@ class ContasController extends AppController {
 							'descricao' => 'Descrição',
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
+							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',
 							'parceirodenegocio_id' => 'Parceiro de Negócios',
 							'status' => 'Status'																								
@@ -299,7 +300,6 @@ class ContasController extends AppController {
 			}
 		}
 		
-		
 		$configparc = $configParcelasLabels;
 		$this->set(compact('configparc','configparcela'));
 /*--------FIM configContas----------*/		
@@ -335,6 +335,12 @@ class ContasController extends AppController {
 		$this->set(compact('configparcei','configparceiro'));
 /*--------FIM configContas----------*/		
 
+		
+				
+			
+	
+		
+
 			
 			
 			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
@@ -354,7 +360,9 @@ class ContasController extends AppController {
 
 			$this->set(compact('contas', 'cntContas'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
-				
+			
+		
+		
 		$this->layout = 'contas';
 		
 		
