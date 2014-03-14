@@ -5,6 +5,10 @@
  * .Padrao{tamanho; posição; forma; etc;}
  * #Padrao{tamanho; posição; forma; etc;}*/
 
+select{
+	height:23px !important;
+}
+
 /*** Menu Lateral****/
 
 .item{line-height: 15px;}
