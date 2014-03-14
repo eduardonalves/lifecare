@@ -50,7 +50,7 @@
 		
 		<?php 
 			$urlQuickLink = $this->Html->url( null, true );
-			$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro'];
+			$urlQuickLink = $urlQuickLink;
 		?>
 	
 	
@@ -182,11 +182,7 @@
 <!------------------ CONSULTA ------------------>
 
 <div class="areaTabela">
-<?php
-	//Inicio de consulta de Contas
-	if(isset($_GET['parametro'])){
-		if($_GET['parametro'] == 'contas'){
-		?>
+
 	
 			<?php echo $this->element('paginador_superior');?>
 
@@ -208,6 +204,7 @@
 									 }
 
 									 ?>
+									 
 
 						</tr>
 
@@ -252,9 +249,8 @@
 						
 						
 				<?php
-				}
-		}
-	}
+			
+					}
 	//fim de Consulta de contas
 	
 	?>	
@@ -262,79 +258,7 @@
 	
 	
 	
-<?php
-	//Inicio de consulta de Parcelas
-	if(isset($_GET['parametro'])){
-		if($_GET['parametro'] == 'parcelas'){
-		?>
 	
-			<?php echo $this->element('paginador_superior');?>
-
-			<div class="tabelas" id="parcelas">
-				
-				<table cellpadding="0" cellspacing="0">
-					<?php 
-					//Inicio da checagem das colunas de parcelas
-					if(isset($configparc)){ ?>
-						<tr>
-								<th class="colunaParcela">Ações</th>
-									 <?php 
-									 
-										foreach($configparc as $campo=>$campoLabel)
-									 {
-										 
-										 echo "<th id=\"$campo\" class=\"colunaParcela comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-										 
-									 }
-
-									 ?>
-
-						</tr>
-
-						<?php 
-
-						foreach ($parcelas as $parcela): 
-
-						?>
-					
-							<tr>
-									<td class="actions">
-										<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'parcelas','action' => 'view', $parcela['Parcela']['id']))); ?>
-										<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'parcelas','action' => 'edit', $parcela['Parcela']['id']))); ?>
-									</td>
-									
-									 <?php 
-
-									foreach($configparc as $campo=>$campoLabel){							
-											if($campo=="status"){
-												echo "<td>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => '-'.$parcela['Parcela']['status'], 'title' => '-')) . "&nbsp;</td>";
-												
-											}else{
-												
-												echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
-											}
-											
-										}						
-										
-									?>
-							</tr>
-
-						<?php 
-
-						endforeach; ?>
-				</table>
-							
-								<?php echo $this->element('paginador_inferior');?>
-			</div>
-						
-						
-				<?php
-				}
-		}
-	}
-	//fim de Consulta de parcelas
-	
-	?>	
 	
 
 </div>

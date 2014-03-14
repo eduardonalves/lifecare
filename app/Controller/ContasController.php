@@ -336,34 +336,10 @@ class ContasController extends AppController {
 /*--------FIM configContas----------*/		
 
 		
-		//Parcelas
+				
+			
+	
 		
-		if($this->request['url']['parametro'] == 'parcelas'){
-
-			$this->loadModel('Parcela');
-			
-			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 0, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
-			$this->Paginator->settings = array(
-				'Parcela' => array(
-					'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
-					'fields_toCount' => 'DISTINCT Parcela.id',
-					'limit' => $this->request['url']['limit'],
-					'order' => 'Parcela.identificacao_documento ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntParcelas = count($parcelas);
-			//debug($cntContas);	
-			$parcelas = $this->Paginator->paginate('Parcela');
-
-			$this->set(compact('parcelas', 'cntParcelas'));
-			$log = $this->Parcela->getDataSource()->getLog(false, false);
-			
-		}		
-			
-		//Contas
-		if($this->request['url']['parametro'] == 'contas'){
 
 			
 			
@@ -385,7 +361,7 @@ class ContasController extends AppController {
 			$this->set(compact('contas', 'cntContas'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
 			
-		}
+		
 		
 		$this->layout = 'contas';
 		
