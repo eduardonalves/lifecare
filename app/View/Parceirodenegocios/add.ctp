@@ -180,7 +180,7 @@
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limitte:','type' => 'text','class' => 'tamanho-pequeno'));
+			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno'));
 		?>
 
 	</section>
