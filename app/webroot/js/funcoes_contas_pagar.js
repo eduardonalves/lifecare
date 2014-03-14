@@ -10,7 +10,7 @@
     var numParcela = 0;
      
     //recebe valor
-    $('#ContaParcela').val(numeroParcela);
+    $('#ContapagarParcela').val(numeroParcela);
     
     $('#bt-adicionarConta-pagar').click(function(e){
 
@@ -18,14 +18,14 @@
 	
 	//recebe valores digitados
 	identificacao = $('#identificacaoPagar').val();
-	dataVencimento = $('#ContaDataVencimento').val();
+	dataVencimento = $('#ContapagarDataVencimento').val();
 	valor = $('#valorPagar').val();
-	periodocritico = $('#ContaPeriodoCritico').val();
+	periodocritico = $('#PagarPeriodocritico').val();
 	
-	desconto = $('#ContaDesconto').val();
-	agencia = $('#ContaAgencia').val();
-	conta = $('#ContaConta').val();
-	banco = $('#ContaBanco').val();
+	desconto = $('#ContapagarDesconto').val();
+	agencia = $('#ContapagarAgencia').val();
+	conta = $('#ContapagarConta').val();
+	banco = $('#ContapagarBanco').val();
 	
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
@@ -36,13 +36,13 @@
 	
 	//limpa campos
 	$('#identificacaoPagar').val('');
-	$('#ContaDataVencimento').val('');
+	$('#ContapagarDataVencimento').val('');
 	$('#valorPagar').val('');
-	$('#ContaPeriodoCritico').val('');
-	$('#ContaDesconto').val('');
-	$('#ContaAgencia').val('');
-	$('#ContaConta').val('');
-	$('#ContaBanco').val('');
+	$('#PagarPeriodocritico').val('');
+	$('#ContapagarDesconto').val('');
+	$('#ContapagarAgencia').val('');
+	$('#ContapagarConta').val('');
+	$('#ContapagarBanco').val('');
 	
 	//campos hidden
 	$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimento-receber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorConta-receber'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
@@ -52,7 +52,7 @@
 	numParcela++;
 	
 	//incrementa 1 a parcela
-	$('#ContaParcela').val(numeroParcela)	
+	$('#ContapagarParcela').val(numeroParcela)	
 	$('#ContaNumeroParcelas').val(numParcela);
     });
         
@@ -65,17 +65,17 @@
 	   
 	    //recebe valores digitados
 	    identificacao = $('#identificacaoPagar').val();
-	    dataVencimento = $('#ContaDataVencimento').val();
+	    dataVencimento = $('#ContapagarDataVencimento').val();
 	    valor = $('#valorPagar').val();
-	    periodocritico = $('#ContaPeriodoCritico').val();
+	    periodocritico = $('#PagarPeriodocritico').val();
 	    
-	    desconto = $('#ContaDesconto').val();
-	    agencia = $('#ContaAgencia').val();
-	    conta = $('#ContaConta').val();
-	    banco = $('#ContaBanco').val();
+	    desconto = $('#ContapagarDesconto').val();
+	    agencia = $('#ContapagarAgencia').val();
+	    conta = $('#ContapagarConta').val();
+	    banco = $('#ContapagarBanco').val();
 	    
 	    //certifica que parcelas são iguais
-	    if($(this).text() == $('#ContaParcela').val()){
+	    if($(this).text() == $('#ContapagarParcela').val()){
 		
 		//substitui valor
 		$('#ident'+numero).text(identificacao);
@@ -105,19 +105,19 @@
 	    }
 	    
 	    //parcela recebe numero antigo e troca botoes
-	    $('#ContaParcela').val(parcelaAtual);
+	    $('#ContapagarParcela').val(parcelaAtual);
 	    $('#bt-adicionarConta-pagar').show();
 	    $('#bt-editarConta-pagar').hide();
 	
 	    //limpa campos
 	    $('#identificacaoPagar').val('');
-	    $('#ContaDataVencimento').val('');
+	    $('#ContapagarDataVencimento').val('');
 	    $('#valorPagar').val('');
-	    $('#ContaPeriodoCritico').val('');
-	    $('#ContaDesconto').val('');
-	    $('#ContaAgencia').val('');
-	    $('#ContaConta').val('');
-	    $('#ContaBanco').val('');
+	    $('#PagarPeriodocritico').val('');
+	    $('#ContapagarDesconto').val('');
+	    $('#ContapagarAgencia').val('');
+	    $('#ContapagarConta').val('');
+	    $('#ContapagarBanco').val('');
 	   
 	});
 	
@@ -137,7 +137,7 @@
     $("body").on("click",'.btnEditar', function(e){
 	
 	//salva valor atual da parcela
-	parcelaAtual=$('#ContaParcela').val();
+	parcelaAtual=$('#ContapagarParcela').val();
 	
 	//pega id da linha
 	id = $(this).attr('id');
@@ -155,15 +155,15 @@
 	bancoAnt = $('#bancoTabela'+numero).text();
 	
 	//adiciona devolta na input
-	$('#ContaParcela').val(parcelaAnt);
+	$('#ContapagarParcela').val(parcelaAnt);
 	$('#identificacaoPagar').val(identificacaoAnt);
-	$('#ContaDataVencimento').val(dataVencimentoAnt);
+	$('#ContapagarDataVencimento').val(dataVencimentoAnt);
 	$('#valorPagar').val(valorAnt);
-	$('#ContaPeriodoCritico').val(periodocriticoAnt);
-	$('#ContaDesconto').val(descontoAnt);
-	$('#ContaAgencia').val(agenciaAnt);
-	$('#ContaConta').val(contaAnt);
-	$('#ContaBanco').val(bancoAnt);
+	$('#PagarPeriodocritico').val(periodocriticoAnt);
+	$('#ContapagarDesconto').val(descontoAnt);
+	$('#ContapagarAgencia').val(agenciaAnt);
+	$('#ContapagarConta').val(contaAnt);
+	$('#ContapagarBanco').val(bancoAnt);
 
 	//troca botoes
 	$('#bt-adicionarConta-pagar').hide();
@@ -317,7 +317,7 @@
 		numeroParcela = contadortext+1;
 		numParcela = contadortext;
 		
-		$('#ContaParcela').val(numeroParcela)	
+		$('#ContapagarParcela').val(numeroParcela)	
 		$('#ContaNumeroParcelas').val(numParcela);
 	    });
 	    
