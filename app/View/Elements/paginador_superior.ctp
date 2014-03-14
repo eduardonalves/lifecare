@@ -61,7 +61,7 @@
 			<?php 
 
 				echo $this->Form->create('Paginator', array('type'=>'GET'));
-				echo $this->Form->input('Paginate.parametro', array('type'=>'hidden','value'=>$this->request->query['parametro']));
+				
 				echo $this->Form->input('Paginate.limit', array('type'=>'select', 'value'=>$this->request->query['limit'], 'id'=>'select-rpp', 'label'=>'Resultados por Página: ', 'options'=> array(15=>15,20=>20,40=>40,45=>45,60=>60)));
 				echo $this->Form->end();
 			?>

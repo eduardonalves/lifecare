@@ -149,7 +149,7 @@ class ContasController extends AppController {
 	$users= $this->User->find('list');
 	
 /*--------Filtros da consulta início-----*/
-$this->Filter->addFilters(
+		$this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
 	                'Conta.identificacao' => array(
@@ -265,7 +265,7 @@ $this->Filter->addFilters(
 		}
 		
 		$configCont = $configContasLabels;
-		$this->set(compact('configCont'));
+		$this->set(compact('configCont','configconta'));
 /*--------FIM configContas----------*/
 		
 /*--------CONFIG Parcelas----------*/
@@ -301,7 +301,7 @@ $this->Filter->addFilters(
 		}
 		
 		$configparc = $configParcelasLabels;
-		$this->set(compact('configparc'));
+		$this->set(compact('configparc','configparcela'));
 /*--------FIM configContas----------*/		
 
 /*--------CONFIG Configparceiros----------*/
@@ -331,37 +331,15 @@ $this->Filter->addFilters(
 		}
 		
 		$configparcei = $configParceirosLabels;
+		
+		$this->set(compact('configparcei','configparceiro'));
 /*--------FIM configContas----------*/		
 
 		
-		//Parcelas
+				
+			
+	
 		
-		if($this->request['url']['parametro'] == 'parcelas'){
-
-			$this->loadModel('Parcela');
-			
-			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 0, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
-			$this->Paginator->settings = array(
-				'Parcela' => array(
-					'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
-					'fields_toCount' => 'DISTINCT Parcela.id',
-					'limit' => $this->request['url']['limit'],
-					'order' => 'Parcela.identificacao_documento ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntParcelas = count($parcelas);
-			//debug($cntContas);	
-			$parcelas = $this->Paginator->paginate('Parcela');
-
-			$this->set(compact('parcelas', 'cntParcelas'));
-			$log = $this->Parcela->getDataSource()->getLog(false, false);
-			
-		}		
-			
-		//Contas
-		if($this->request['url']['parametro'] == 'contas'){
 
 			
 			
@@ -383,7 +361,7 @@ $this->Filter->addFilters(
 			$this->set(compact('contas', 'cntContas'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
 			
-		}
+		
 		
 		$this->layout = 'contas';
 		
@@ -398,7 +376,59 @@ $this->Filter->addFilters(
 		
 		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=Contas&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
 		
-		$this->set(compact('users', 'quicklinks', 'confignot', 'quicklinksList'));
+		$this->set(compact('users', 'quicklinks','quicklinksList'));
+		if ($this->request->is('post')) {
+			
+			
+			//salva o post do quicklink
+			if(isset($this->request->data['Quicklink'])){
+					$this->Quicklink->create();
+					if ($this->Quicklink->save($this->request->data)) {
+						$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
+						return $this->redirect($this->referer());
+						
+					} else {
+						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
+					}				
+					
+			}
+			
+			//salva o post das colunas de parcela
+			if(isset($this->request->data['Configparcela'])){
+				$this->Configparcela->create();
+				if ($this->Configparcela->save($this->request->data)) {
+					$this->Session->setFlash(__('The configparcela has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configparcela could not be saved. Please, try again.'));
+				}
+				
+			}
+			
+			//salva o post das colunas de parceiro
+			if(isset($this->request->data['Configparceiro'])){
+				$this->Configparceiro->create();
+				if ($this->Configparceiro->save($this->request->data)) {
+					$this->Session->setFlash(__('The configparceiro has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configparceiro could not be saved. Please, try again.'));
+				}
+				
+			}
+
+			//salva o post das colunas de conta
+			if(isset($this->request->data['Configconta'])){
+				$this->Configconta->create();
+				if ($this->Configconta->save($this->request->data)) {
+					$this->Session->setFlash(__('The configconta has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configconta could not be saved. Please, try again.'));
+				}
+			}
+		
+		}
 	}
 
 /**
@@ -424,7 +454,7 @@ $this->Filter->addFilters(
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Conta->create();
-			if ($this->Conta->save($this->request->data)) {
+			if ($this->Conta->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -483,7 +513,7 @@ $this->Filter->addFilters(
 	}
 	
 	
-
+	
 		
 }
 

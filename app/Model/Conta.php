@@ -95,7 +95,7 @@ var $hasOne = array(
 	  ),
 	  '_Pagamento' => array(
 	    'className'  => 'Pagamento',
-	    'foreignKey' => false,
+	    'foreignKey' => 'conta_id',
 	    'conditions' => 'Conta.id = _Pagamento.conta_id',
 	    'fields'	 => 'id'
 	  ),
