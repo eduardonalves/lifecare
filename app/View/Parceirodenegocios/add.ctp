@@ -67,7 +67,7 @@
 	
 	
 	<div class="area-endereço"> 
-		<div class="bloco-area-endereco">
+		<div class="bloco-area">
 			
 			<section class="coluna-esquerda">
 
@@ -117,7 +117,7 @@
 	<header class="">Dados Bancários</header>
 	
 	<div class="area-dadosbanc">
-		<div class="bloco-area-dadosbanc">
+		<div class="bloco-area">
 			<section class="coluna-esquerda">
 
 				<?php 
