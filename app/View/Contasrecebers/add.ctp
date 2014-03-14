@@ -54,13 +54,12 @@
 			    <option id="optvazioForn"></option>
 			    <option value="add-parceiroCliente">Cadastrar</option>
 			    <?php
-				    foreach($allClientes as $allCliente)
-				    {
-					    echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
-					    echo $allCliente['Cliente']['nome'];
-					    echo "</option>";
-				    }
-
+			       foreach($parceirodenegocios as $parceirodenegocio)
+				{
+				    echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
+				    echo $parceirodenegocio['Parceirodenegocio']['nome'];
+				    echo "</option>";
+				}
 			    ?>
 		    </select>
 		</div>

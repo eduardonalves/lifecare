@@ -59,7 +59,8 @@ class ContaspagarsController extends AppController {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
 		}
-		//$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		$this->set(compact('parceirodenegocios'));
 	}
 
