@@ -72,7 +72,7 @@
 		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão:','type' => 'text','class' => 'tamanho-pequeno forma-data'));
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select'));
 		    echo $this->Form->input('periodo_critico',array('label' => 'Período Crítico:','class' => 'tamanho-pequeno'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório'));
+		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
 		?>
 	    </section>
 
@@ -80,7 +80,8 @@
 		<?php 
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data Vencimento:','class' => 'tamanho-pequeno forma-data'));
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
+		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 		?>
 	    </section>
 
