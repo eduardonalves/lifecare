@@ -39,34 +39,13 @@
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio'));
 		    echo $this->Form->input('valor',array('label' => 'Valor:','class' => 'tamanho-pequeno dinheiro_duasCasas', 'type' => 'text'));
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of fb6b800... Alteracoes Consultas
-=======
-
->>>>>>> a23b7d4861f267f3c2f98d4c1da820265bea6b0c
 		    echo $this->Form->input('status',array('label' => 'Status:','type' => 'select','options'=>array('','Aberto','Pago','Pago parcialmente','Atrasado','Cobrança','Protesto')));
 		
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
 										 'title'=>'Preencher',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a23b7d4861f267f3c2f98d4c1da820265bea6b0c
 										     'class'=>'bt-preencherConta',
 										     'id'=>'bt-preencherCliente'
 										     ));
-
-<<<<<<< HEAD
-=======
-										     'class'=>'bt-preencher',
-										     'id'=>'bt-preencherCliente'
-										     ));
->>>>>>> parent of fb6b800... Alteracoes Consultas
-=======
->>>>>>> a23b7d4861f267f3c2f98d4c1da820265bea6b0c
 		?>
 		
 		<div class="input autocompleteCliente">
@@ -101,21 +80,8 @@
 	    <section class="coluna-direita" >
 		<?php 
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data Vencimento:','class' => 'tamanho-pequeno forma-data'));
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a23b7d4861f267f3c2f98d4c1da820265bea6b0c
-
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
-
-<<<<<<< HEAD
-=======
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','id' => 'textAreaConta'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','required'=>'false','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly'));
->>>>>>> parent of fb6b800... Alteracoes Consultas
-=======
->>>>>>> a23b7d4861f267f3c2f98d4c1da820265bea6b0c
 		?>
 	    </section>
 

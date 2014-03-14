@@ -50,7 +50,7 @@ class ParceirodenegociosController extends AppController {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Parceirodenegocio->create();
-			if ($this->Parceirodenegocio->save($this->request->data)) {
+			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The parceirodenegocio has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

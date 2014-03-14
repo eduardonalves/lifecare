@@ -52,19 +52,15 @@ class ContaspagarsController extends AppController {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Conta->create();
-			if ($this->Conta->save($this->request->data)) {
+			if ($this->Conta->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
 		}
-
-		$this->loadModel('Fornecedore');
-		$allFornecedores = $this->Fornecedore->find('all', array('conditions' => array('Fornecedore.tipo' => 'FORNECEDOR'),'order' => 'Fornecedore.nome ASC'));
-		
 		//$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios', 'allFornecedores'));
+		$this->set(compact('parceirodenegocios'));
 	}
 
 /**

@@ -18,57 +18,5 @@ class Contasreceber extends Conta {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Parceirodenegocio' => array(
-			'className' => 'Parceirodenegocio',
-			'foreignKey' => 'parceirodenegocio_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
-
-/**
- * hasMany associations
- *
- * @var array
- */
-	public $hasMany = array(
-		'Pagamento' => array(
-			'className' => 'Pagamento',
-			'foreignKey' => 'conta_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Parcela' => array(
-			'className' => 'Parcela',
-			'joinTable' => 'parcelas_contas',
-			'foreignKey' => 'conta_id',
-			'associationForeignKey' => 'parcela_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
 
 }

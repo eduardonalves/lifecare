@@ -31,16 +31,16 @@
 			?>	
 			
 			<?php
-				echo $this->Form->input('identificacao',array('value' => $configConta['Configconta']['id']));
+				//echo $this->Form->input('identificacao',array('value' => $configconta['Configconta']['id']));
 			?>
 					
 			<div class='esconder'>	
-				<?php echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
+				<?php //echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
 			</div>
 		
 			<?php 
 				
-				if($configConta['Configconta']['data_emissao']==1){
+				if($configconta['Configconta']['data_emissao']==1){
 						echo $this->Form->input('data_emissao', array('value' => 1, 'checked' =>'checked', 'label'=>'Data de Emissão'));
 					} else{
 						echo $this->Form->input('data_emissao', array('label' => 'Data de Emissão'));

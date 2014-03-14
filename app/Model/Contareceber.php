@@ -8,8 +8,8 @@ App::uses('AppModel', 'Model');
  * @property Parcela $Parcela
  */
  App::Import('Model', 'Conta');
-class Contareceber extends Conta {
-	var $name = 'Contareceber';  
+class Contasreceber extends Conta {
+	var $name = 'Contasreceber';  
 	public $useTable = 'contas';  
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
