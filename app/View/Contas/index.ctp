@@ -195,88 +195,75 @@
 						<tr>
 								<th class="colunaConta">Ações</th>									
 									 <?php 
-										//TH CONTAS	
+									 
 										foreach($configCont as $campo=>$campoLabel)
 									 {
 										 
 										 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 										 
 									 }
-									 
-									 //TH PARCELAS	
-										 echo "<th id=\"$campo\" class=\"colunaParcela comprimentoMinimo\">Parcelas<div id='indica-ordem' class='posicao-seta'></div></th>";
-										
-									 
-									 //TH PARCEIROS	
-									 	foreach($configparcei as $campo=>$campoLabel)
-									 {
-										 
-										 echo "<th id=\"$campo\" class=\"colunaParceiro comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-										 
-									 }						 
 
 									 ?>
 									 
-		
 
 						</tr>
 
-						<?php foreach ($contas as $conta): ?>
+						<?php 
+
+						foreach ($contas as $conta): 
+
+						?>
+					
 							<tr>
-								<td class="actions">
-									<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id']))); ?>
-									<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'contas','action' => 'edit', $conta['Conta']['id']))); ?>
-								</td>
+									<td class="actions">
+										<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id']))); ?>
+										<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'contas','action' => 'edit', $conta['Conta']['id']))); ?>
+									</td>
 									
-									<?php
-										//TD CONTA
+									 <?php 
+
+										
+
+
 										foreach($configCont as $campo=>$campoLabel){							
 											if($campo=="status"){
-												echo "<td class=\"$campo\">" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
+												echo "<td>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
 												
 											}else{
 												
 												echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 											}
 											
-										}	
-										
-										//TD PARCELA
-										foreach($configparc as $campo=>$campoLabel){							
-												if ( isset( $conta['Parcela']['identificacao_documento'] ) ){
-													echo "<td class='parcelas'>" . $conta['Parcela']['identificacao_documento'] . "&nbsp;</td>";
-												}												
-											}											
-									
-										
-										//TD Parceiro
-										foreach($configparcei as $campo=>$campoLabel){
-											if ( isset( $conta['Pagamento'][$campo] ) ){							
-											echo "<td class=\"$campo\">" . $conta['Pagamento'][$campo] . "&nbsp;</td>";							
-											}		
-										}
+										}						
 										
 									?>
-						<?php endforeach; ?>
-						
-							</tr>			
-						
+							</tr>
+
+						<?php 
+
+						endforeach; ?>
 				</table>
 							
-						<?php echo $this->element('paginador_inferior');?>
+								<?php echo $this->element('paginador_inferior');?>
 			</div>
-										
-				<?php			
+						
+						
+				<?php
+			
 					}
-	//fim de Consulta de contas	
+	//fim de Consulta de contas
+	
 	?>	
 	
+	
+	
+	
+	
+	
+
 </div>
 <br />
 <br />
 <br />
 <br />
-
-
-
 

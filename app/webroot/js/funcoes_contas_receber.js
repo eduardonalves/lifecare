@@ -10,22 +10,22 @@
     var numParcela=0;
      
     //recebe valor
-    $('#ContaParcela').val(numeroParcela);
+    $('#ContasreceberParcela').val(numeroParcela);
     
     $('#bt-adicionarConta-receber').click(function(e){
 
 	e.preventDefault();
 	
 	//recebe valores digitados
-	identificacao = $('#ContaIdentificacaoDocumento').val();
+	identificacao = $('#ContasreceberIdentificacaoDocumento').val();
 	dataVencimento = $('#dataVencimento-receber').val();
 	valor = $('#valorConta-receber').val();
-	periodocritico = $('#ContaPeriodocritico').val();
+	periodocritico = $('#ContasreceberPeriodocritico').val();
 	
-	desconto = $('#ContaDesconto').val();
-	agencia = $('#ContaAgencia').val();
-	conta = $('#ContaConta').val();
-	banco = $('#ContaBanco').val();
+	desconto = $('#ContasreceberDesconto').val();
+	agencia = $('#ContasreceberAgencia').val();
+	conta = $('#ContasreceberConta').val();
+	banco = $('#ContasreceberBanco').val();
 	
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
@@ -34,14 +34,14 @@
 	$('#tabela-conta-receber').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 	
 	//limpa campos
-	$('#ContaIdentificacaoDocumento').val('');
+	$('#ContasreceberIdentificacaoDocumento').val('');
 	$('#dataVencimento-receber').val('');
 	$('#valorConta-receber').val('');
-	$('#ContaPeriodocritico').val('');
-	$('#ContaDesconto').val('');
-	$('#ContaAgencia').val('');
-	$('#ContaConta').val('');
-	$('#ContaBanco').val('');
+	$('#ContasreceberPeriodocritico').val('');
+	$('#ContasreceberDesconto').val('');
+	$('#ContasreceberAgencia').val('');
+	$('#ContasreceberConta').val('');
+	$('#ContasreceberBanco').val('');
 		
 	//campos hidden
 	$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimento-receber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorConta-receber'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
@@ -51,7 +51,7 @@
 	numParcela++;
 	
 	//incrementa 1 a parcela
-	$('#ContaParcela').val(numeroParcela)	
+	$('#ContasreceberParcela').val(numeroParcela)	
 	$('#PagamentoNumeroParcela').val(numParcela);
     });
         
@@ -63,18 +63,18 @@
 	$('#numParc'+numero).each(function(){
 	   
 	    //recebe valores digitados
-	    identificacao = $('#ContaIdentificacaoDocumento').val();
+	    identificacao = $('#ContasreceberIdentificacaoDocumento').val();
 	    dataVencimento = $('#dataVencimento-receber').val();
 	    valor = $('#valorConta-receber').val();
-	    periodocritico = $('#ContaPeriodocritico').val();
+	    periodocritico = $('#ContasreceberPeriodocritico').val();
 	    
-	    desconto = $('#ContaDesconto').val();
-	    agencia = $('#ContaAgencia').val();
-	    conta = $('#ContaConta').val();
-	    banco = $('#ContaBanco').val();
+	    desconto = $('#ContasreceberDesconto').val();
+	    agencia = $('#ContasreceberAgencia').val();
+	    conta = $('#ContasreceberConta').val();
+	    banco = $('#ContasreceberBanco').val();
 	    
 	    //certifica que parcelas são iguais
-	    if($(this).text() == $('#ContaParcela').val()){
+	    if($(this).text() == $('#ContasreceberParcela').val()){
 		
 		//substitui valor
 		$('#ident'+numero).text(identificacao);
@@ -98,14 +98,14 @@
 	    $('#bt-alterarConta-receber').hide();
 	
 	    //limpa campos
-	    $('#ContaIdentificacaoDocumento').val('');
+	    $('#ContasreceberIdentificacaoDocumento').val('');
 	    $('#dataVencimento-receber').val('');
 	    $('#valorConta-receber').val('');
-	    $('#ContaPeriodocritico').val('');
-	    $('#ContaDesconto').val('');
-	    $('#ContaAgencia').val('');
-	    $('#ContaConta').val('');
-	    $('#ContaBanco').val('');
+	    $('#ContasreceberPeriodocritico').val('');
+	    $('#ContasreceberDesconto').val('');
+	    $('#ContasreceberAgencia').val('');
+	    $('#ContasreceberConta').val('');
+	    $('#ContasreceberBanco').val('');
 	   
 	});
 	
@@ -123,7 +123,7 @@
     $("body").on("click",'.btnEditar', function(e){
 	
 	//salva valor atual da parcela
-	parcelaAtual=$('#ContaParcela').val();
+	parcelaAtual=$('#ContasreceberParcela').val();
 	
 	//pega id da linha
 	id = $(this).attr('id');
@@ -141,15 +141,15 @@
 	bancoAnt = $('#bancoTabela'+numero).text();
 	
 	//adiciona devolta na input
-	$('#ContaParcela').val(parcelaAnt);
-	$('#ContaIdentificacaoDocumento').val(identificacaoAnt);
+	$('#ContasreceberParcela').val(parcelaAnt);
+	$('#ContasreceberIdentificacaoDocumento').val(identificacaoAnt);
 	$('#dataVencimento-receber').val(dataVencimentoAnt);
 	$('#valorConta-receber').val(valorAnt);
-	$('#ContaPeriodocritico').val(periodocriticoAnt);
-	$('#ContaDesconto').val(descontoAnt);
-	$('#ContaAgencia').val(agenciaAnt);
-	$('#ContaConta').val(contaAnt);
-	$('#ContaBanco').val(bancoAnt);
+	$('#ContasreceberPeriodocritico').val(periodocriticoAnt);
+	$('#ContasreceberDesconto').val(descontoAnt);
+	$('#ContasreceberAgencia').val(agenciaAnt);
+	$('#ContasreceberConta').val(contaAnt);
+	$('#ContasreceberBanco').val(bancoAnt);
 
 	//troca botoes
 	$('#bt-adicionarConta-receber').hide();
@@ -303,7 +303,7 @@
 	    numeroParcela = contadortext+1;
 	    numParcela = contadortext;
 	    
-	    $('#ContaParcela').val(numeroParcela)	
+	    $('#ContasreceberParcela').val(numeroParcela)	
 	    $('#PagamentoNumeroParcela').val(numParcela);
 	});
 	
@@ -430,8 +430,8 @@
 		    $(".autocompleteCliente input").removeAttr('required','required');
 		    
 		    $("#SaidaParceirodenegocioId").val(valorForncedor);
-		    $("#ContaCpfCnpj").val(valorCpfCnpj);
-		    $("#ContaParceiro").val(valorNome);
+		    $("#ContasreceberCpfCnpj").val(valorCpfCnpj);
+		    $("#ContasreceberParceiro").val(valorNome);
 		}
 	}
 

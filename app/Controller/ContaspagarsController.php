@@ -60,7 +60,7 @@ class ContaspagarsController extends AppController {
 			}
 		}
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'Fornecedor')));
 		$this->set(compact('parceirodenegocios'));
 	}
 
