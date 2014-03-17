@@ -1,12 +1,38 @@
 @charset "utf-8";
 
 /* ID *****************************************************************/
+
+/* CLASS **************************************************************/
+
+
 #myModal_add-parceiroCliente .modal-body{
-	width:1115px;
-	height:610px;
+	width: 1100px;
+	height: 450px;
 }
 
-#myModal_add-parceiroCliente{
-	left:29%;
-	top:15px;
+#myModal_add-parceiroCliente.modal{
+	left: 27%;
+	top: 6%;
+}
+
+#myModal_add-parceiroCliente  .divTipoParceiro{margin-bottom:50px;}
+
+#myModal_add-parceiroCliente  .bloco-area{
+	display:inline-block;
+	margin-top:20px;
+	width:100%;
+}
+
+#myModal_add-parceiroCliente  .bloco-area:first-child{
+	display:inline-block;
+	margin-top:0px !important;
+}
+
+#myModal_add-parceiroCliente .ajusteAlignSection{
+	clear:both;
+}
+
+/* TAG ****************************************************************/
+#myModal_add-parceiroCliente  hr{
+	margin:0 !important;
 }
