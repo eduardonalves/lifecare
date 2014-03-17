@@ -20,18 +20,136 @@ class ContasController extends AppController {
  *
  * @return void
  */
-	public function beforeFilter() {
+	public function beforeFilter(){
 			if(!isset($this->request->query['limit'])){
 				$this->request->query['limit'] = 15;
 			}
+			//Verificamos a data para setarmos o semáfaro do Parcela
+			
+			//Inicio Cemáfaro
+			
+			$this->loadModel('Parcela');
+			$Parcelas = $this->Parcela->find('all', array('recursive' => 0));
+			
+			
+			foreach($Parcelas as $Parcela){
+				
+						
+				$hoje= date("Y-m-d");
+				$vencimento= $Parcela['Parcela']['data_vencimento'];
+				$diasCritico = $Parcela['Parcela']['periodocritico'];
+				
+				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+				$conta=$this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $Parcela['_Conta']['id'])));
+				
+				if(isset($conta)){
+					if(!empty($conta)){
+						
+						if($diasCritico !=''){
+				
+							if(strtotime($hoje)  <=  strtotime($vencimento)){
+								if($dataCritica < $hoje){
+									
+									if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
+										$this->Parcela->save($updatevencimento);
+										
+										
+										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'AMARELO');
+										$this->Conta->save($updateConta);
+										
+										
+									}
+									
+								}else{
+									if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+										$this->Parcela->save($updatevencimento);
+										
+										
+										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+										$this->Conta->save($updateConta);
+									}
+								}
+		
+							}else{
+								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+									$this->Parcela->save($updatevencimento);
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+									$this->Conta->save($updateConta);
+								}
+							}
+						
+						}else{
+						
+							if(strtotime($hoje)  <=  strtotime($vencimento)){
+								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+									$this->Parcela->save($updatevencimento);
+									
+							
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
+									$this->Conta->save($updateConta);
+								}
+							}else{
+								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+									$this->Parcela->save($updatevencimento);
+									
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+									$this->Conta->save($updateConta);
+								}
+							}
+						
+						}
+					
+					}
+					$contasEmAtraso= $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status' => 'VERMELHO')));
+				
+					$contasEmAberto= $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
+					
+					if(isset($contasEmAtraso)){
+						if(!empty($contasEmAtraso)){
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso);
+							$this->Conta->save($updateConta);
+						}else{
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => 0);
+							$this->Conta->save($updateConta);
+						}
+					}
+					
+					if(isset($contasEmAberto)){
+						if(!empty($contasEmAberto)){
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => $contasEmAberto);
+							$this->Conta->save($updateConta);
+						}else{
+							$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => 0, 'status' => 'CINZA');
+							$this->Conta->save($updateConta);
+						}
+					}
+				}
+				
+				
+				
+			
+			}
+			if(!isset($this->request->query['limit']))
+			{
+				$this->request->query['limit'] = 15;
+			}
 	}
+	
+			
+		
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
+	$this->set(compact('userid'));
 	$this->loadModel('User');
 	$users= $this->User->find('list');
 	
 /*--------Filtros da consulta início-----*/
-$this->Filter->addFilters(
+		$this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
 	                'Conta.identificacao' => array(
@@ -73,8 +191,35 @@ $this->Filter->addFilters(
 		                )
 		            )
 		        ),
+		         'valor' => array(
+		            '_Parcela.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_vencimento' => array(
+		            '_Parcela.data_vencimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		       
+	            'forma_pagamento' => array(
+	                '_Pagamento.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		 'select' => array('' => '','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
 		        'tipoMovimentacao' => array(
-	                'Conta.tipo' => array(
+	                '_Conta.tipo' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -101,12 +246,16 @@ $this->Filter->addFilters(
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
 							'data_quitacao' => 'Data de Quitação ',
-							'valor' => 'Valor',
+							'valor' => 'Valor',	
+							'parcelas' => 'Parcelas',	
 							'parceirodenegocio_id' => 'Parceiro de Negócios',
+							'nome_parceiro' => 'Nome do Parceiro',
+							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
+							'status_parceiro' => 'status do Parceiro',
 							'status' => 'Status'																								
 							);
 		
-		//if($this->request->query['parametro']!='produtos') { unset($configContasLabels['categoria']); }
+		//if($this->request->query['parametro']!='Contas') { unset($configContasLabels['categoria']); }
 		
 		foreach ($configconta['Configconta'] as $key => $value)
 		{
@@ -120,7 +269,7 @@ $this->Filter->addFilters(
 		}
 		
 		$configCont = $configContasLabels;
-		$this->set(compact('configCont'));
+		$this->set(compact('configCont','configconta'));
 /*--------FIM configContas----------*/
 		
 /*--------CONFIG Parcelas----------*/
@@ -142,7 +291,7 @@ $this->Filter->addFilters(
 							'status' => 'Status'																								
 							);
 		
-	//if($this->request->query['parametro']!='produtos') { unset($configParcelasLabels['categoria']); }
+	//if($this->request->query['parametro']!='Contas') { unset($configParcelasLabels['categoria']); }
 		
 		foreach ($configparcela['Configparcela'] as $key => $value)
 		{
@@ -156,7 +305,7 @@ $this->Filter->addFilters(
 		}
 		
 		$configparc = $configParcelasLabels;
-		$this->set(compact('configparc'));
+		$this->set(compact('configparc','configparcela'));
 /*--------FIM configContas----------*/		
 
 /*--------CONFIG Configparceiros----------*/
@@ -172,7 +321,7 @@ $this->Filter->addFilters(
 							'telefone' => 'Telefone'																								
 							);
 		
-	//if($this->request->query['parametro']!='produtos') { unset($configParceirosLabels['categoria']); }
+	//if($this->request->query['parametro']!='Contas') { unset($configParceirosLabels['categoria']); }
 		
 		foreach ($configparceiro['Configparceiro'] as $key => $value)
 		{
@@ -186,41 +335,19 @@ $this->Filter->addFilters(
 		}
 		
 		$configparcei = $configParceirosLabels;
+		
+		$this->set(compact('configparcei','configparceiro'));
 /*--------FIM configContas----------*/		
 
 		
-		//Parcelas
+				
+			
+	
 		
-		if($this->request['url']['parametro'] == 'parcelas'){
-
-			$this->loadModel('Parcela');
-			
-			$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 0, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.identificacao_documento ASC'));
-			$this->Paginator->settings = array(
-				'Parcela' => array(
-					'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
-					'fields_toCount' => 'DISTINCT Parcela.id',
-					'limit' => $this->request['url']['limit'],
-					'order' => 'Parcela.identificacao_documento ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntParcelas = count($parcelas);
-			//debug($cntProdutos);	
-			$parcelas = $this->Paginator->paginate('Parcela');
-
-			$this->set(compact('parcelas', 'cntParcelas'));
-			$log = $this->Parcela->getDataSource()->getLog(false, false);
-			
-		}		
-			
-		//Contas
-		if($this->request['url']['parametro'] == 'contas'){
 
 			
 			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
 			$this->Paginator->settings = array(
 				'Conta' => array(
 					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
@@ -232,28 +359,102 @@ $this->Filter->addFilters(
 			);
 			
 			$cntContas = count($contas);
-			//debug($cntProdutos);	
+			//debug($contas);	
+			$this->loadModel('Parceirodenegocio');
 			$contas = $this->Paginator->paginate('Conta');
+			foreach ($contas as $id => $conta) {
+				
+				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
+				
+				
+			
+				$contas[$id]['Conta']['nome_parceiro']="";
+			
+				if(isset($parceirodenegocio)){
+						if(!empty($parceirodenegocio)){
+							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
+							$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
+							$contas[$id]['Conta']['status_parceiro'] = $parceirodenegocio['Parceirodenegocio']['status'];	 
+						}	
+				}
+				
+			}
+			
+			
 
 			$this->set(compact('contas', 'cntContas'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
 			
-		}
+		
 		
 		$this->layout = 'contas';
 		
 		
 		/**QuickLink**/
+		$quicklinksList = array();
 		$this->loadModel('Quicklink');
-		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
+		$quicklinks =  $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
+		
 		foreach($quicklinks as $link)
 		{
 			array_push ($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
 		}
 		
-		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=produtos&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'contas', 'action'=>'index')) . '/?limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
 		
-		$this->set(compact('users', 'quicklinks', 'confignot', 'quicklinksList'));
+		$this->set(compact('users', 'quicklinks','quicklinksList'));
+		if ($this->request->is('post')) {
+			
+			
+			//salva o post do quicklink
+			if(isset($this->request->data['Quicklink'])){
+					$this->Quicklink->create();
+					if ($this->Quicklink->save($this->request->data)) {
+						$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
+						return $this->redirect($this->referer());
+						
+					} else {
+						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
+					}				
+					
+			}
+			
+			//salva o post das colunas de parcela
+			if(isset($this->request->data['Configparcela'])){
+				$this->Configparcela->create();
+				if ($this->Configparcela->save($this->request->data)) {
+					$this->Session->setFlash(__('The configparcela has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configparcela could not be saved. Please, try again.'));
+				}
+				
+			}
+			
+			//salva o post das colunas de parceiro
+			if(isset($this->request->data['Configparceiro'])){
+				$this->Configparceiro->create();
+				if ($this->Configparceiro->save($this->request->data)) {
+					$this->Session->setFlash(__('The configparceiro has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configparceiro could not be saved. Please, try again.'));
+				}
+				
+			}
+
+			//salva o post das colunas de conta
+			if(isset($this->request->data['Configconta'])){
+				$this->Configconta->create();
+				if ($this->Configconta->save($this->request->data)) {
+					$this->Session->setFlash(__('The configconta has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The configconta could not be saved. Please, try again.'));
+				}
+			}
+		
+		}
 	}
 
 /**
@@ -279,7 +480,7 @@ $this->Filter->addFilters(
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Conta->create();
-			if ($this->Conta->save($this->request->data)) {
+			if ($this->Conta->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -335,4 +536,12 @@ $this->Filter->addFilters(
 			$this->Session->setFlash(__('The conta could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+	
+	
+	
+		
+}
+
+
+
