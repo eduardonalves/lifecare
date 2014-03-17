@@ -7,23 +7,23 @@
 
 #myModal_add-parceiroFornecedor .modal-body{
 	width: 1100px;
-	height: 450px;
+	height: 525px;
 }
 
 #myModal_add-parceiroFornecedor.modal{
-	left: 27%;
+	left: 29%;
 	top: 6%;
 }
 
-#myModal_add-parceiroFornecedor  .divTipoParceiro{margin-bottom:50px;}
+#myModal_add-parceiroFornecedor .divTipoParceiro{margin-bottom:50px;}
 
-#myModal_add-parceiroFornecedor  .bloco-area{
+#myModal_add-parceiroFornecedor .bloco-area{
 	display:inline-block;
 	margin-top:20px;
 	width:100%;
 }
 
-#myModal_add-parceiroFornecedor  .bloco-area:first-child{
+#myModal_add-parceiroFornecedor .bloco-area:first-child{
 	display:inline-block;
 	margin-top:0px !important;
 }

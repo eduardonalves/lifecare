@@ -3,27 +3,25 @@
 /* ID *****************************************************************/
 
 /* CLASS **************************************************************/
-
-
 #myModal_add-parceiroCliente .modal-body{
 	width: 1100px;
-	height: 450px;
+	height: 525px;
 }
 
 #myModal_add-parceiroCliente.modal{
-	left: 27%;
+	left: 29%;
 	top: 6%;
 }
 
-#myModal_add-parceiroCliente  .divTipoParceiro{margin-bottom:50px;}
+#myModal_add-parceiroCliente .divTipoParceiro{margin-bottom:50px;}
 
-#myModal_add-parceiroCliente  .bloco-area{
+#myModal_add-parceiroCliente .bloco-area{
 	display:inline-block;
 	margin-top:20px;
 	width:100%;
 }
 
-#myModal_add-parceiroCliente  .bloco-area:first-child{
+#myModal_add-parceiroCliente .bloco-area:first-child{
 	display:inline-block;
 	margin-top:0px !important;
 }
@@ -33,6 +31,6 @@
 }
 
 /* TAG ****************************************************************/
-#myModal_add-parceiroCliente  hr{
+#myModal_add-parceiroCliente hr{
 	margin:0 !important;
 }
