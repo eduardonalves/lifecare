@@ -21,19 +21,19 @@ $(document).ready(function() {
 					\
 					<div class="input textarea">\
 						<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-						<textarea name="data[Endereco][0][ ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+						<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
 					</div>\
 				</section>\
 				\
 				<section class="coluna-central">\
 					<div class="input text">\
 						<label for="Endereco'+ contadorBlocoEndereco +'Logradouro">Logradouro<span class="campo-obrigatorio">*</span>:</label>\
-						<input name="data[Endereco][0][logradouro]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
+						<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
 					</div>\
 					\
 					<div class="input select">\
 						<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
-						<select name="data[Endereco][0][cidade]" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
+						<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
 					</div>\
 					<span id="spanEndereco'+ contadorBlocoEndereco +'Cidade" class="Msg tooltipMensagemErroDireta" style="display:none">Selecione a cidade</span>\
 				</section>\
@@ -41,12 +41,12 @@ $(document).ready(function() {
 				<section class="coluna-direita" >\
 					<div class="input text">\
 						<label for="Endereco'+ contadorBlocoEndereco +'Complemento">Complemento:</label>\
-						<input name="data[Endereco][0][complemento]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento"/>\
+						<input name="data[Endereco]['+ contadorBlocoEndereco +'][complemento]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento"/>\
 					</div>\
 					\
 					<div class="input text">\
 						<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
-						<input name="data[Endereco][0][bairro]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
+						<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
 					</div>\
 					<span id="spanEndereco'+ contadorBlocoEndereco +'Bairro" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo bairro</span>\
 				</section>\

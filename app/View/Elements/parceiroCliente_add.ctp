@@ -22,7 +22,55 @@
 	 
 	 
 <script>
+<<<<<<< HEAD
 $(document).ready(function(){
+=======
+	window.onload = function(){
+	  new dgCidadesEstados({
+		estado: document.getElementById('Endereco0Uf'),
+		cidade: document.getElementById('Endereco0Cidade')
+	  });
+	}
+</script>
+
+<section> <!---section superior--->
+
+	<header>Dados GeriasParceiro</header>
+
+	<section class="coluna-esquerda">
+
+		<?php
+			echo $this->Form->create('Parceirodenegocio');
+
+			echo $this->Form->input('tipo',array('label' => 'Classificação:','value' =>'CLIENTE','type' => 'hidden'));
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:'));
+			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 2:'));
+			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));			
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<?php
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ:'));
+			/*Corrigir Campo*/ echo $this->Form->input('celular',array('class' => 'tamanho-medio','label' => 'Celular:'));
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+
+		<?php
+			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 1:'));
+			/*Corrigir Campo*/ echo $this->Form->input('fax',array('class' => 'tamanho-medio','label' => 'Fax:'));
+		?>
+
+	</section>
+</section><!---Fim section superior--->
+
+<section class="ajusteAlignSection"> <!---section MEIO--->
+>>>>>>> Francisco
 	
 	$("#ClienteCpfCnpj").on("keypress",function(event){		
 		var charCode = event.keyCode || event.which;
@@ -202,12 +250,18 @@ window.onload = function() {
 		var cl = document.getElementById('add-cliente');
 		var clTexts = new Array();
 
+<<<<<<< HEAD
 		for(i = 2; i < cl.length; i++){
 			clTexts[i-2] =
 				cl.options[i].text.toUpperCase() + "," +
 				cl.options[i].text + "," +
 				cl.options[i].value;
 		}
+=======
+		<?php
+			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno'));
+		?>
+>>>>>>> Francisco
 
 		clTexts.sort();
 

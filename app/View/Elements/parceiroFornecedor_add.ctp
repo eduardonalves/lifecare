@@ -23,9 +23,42 @@
 		echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 	?>
 	
+<<<<<<< HEAD
 	 <h1>Cadastrar Fornecedor</h1>
 	
 </header>
+=======
+	 <h1>Cadastrar Parceiro</h1>
+
+<script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script>
+<script>
+	window.onload = function(){
+	  new dgCidadesEstados({
+		estado: document.getElementById('Endereco0Uf'),
+		cidade: document.getElementById('Endereco0Cidade')
+	  });
+	}
+</script>
+
+<section> <!---section superior--->
+
+	<header>Dados GeriasParceiro</header>
+
+	<section class="coluna-esquerda">
+
+		<?php
+			echo $this->Form->create('Parceirodenegocio');
+
+			echo $this->Form->input('tipo',array('label' => 'Classificação:','value' =>'FORNECEDOR','type' => 'hidden'));
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:'));
+			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 2:'));
+			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));			
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+>>>>>>> Francisco
 
 <section>
 	<header class="header">Dados do Fornecedor</header>
@@ -34,6 +67,7 @@
 	 <div id="fornecedor-modal">
 			
 		<?php
+<<<<<<< HEAD
 			echo $this->Form->create('Fornecedore', array('required'=>false,'url'=>array('controller'=>'Fornecedores', 'action'=>'add'), 'class'=>'modal-form')); 
 			echo $this->Form->input('Fornecedore.nome',array('type'=>'text','label'=>'Nome<span class="campo-obrigatorio">*</span>:'));
 			echo "<span id='spanFornecedorNome'  class='MsgFornecedorNome Msg validaFonecedor tooltipMensagemErroDireta' style='display:none'>Preencha o campo Nome</span>";
@@ -51,6 +85,10 @@
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo $this->Form->input('Fornecedore.tipo',array('type'=>'hidden','value'=>'FORNECEDOR'));	
 			
+=======
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ:'));
+			/*Corrigir Campo*/ echo $this->Form->input('celular',array('class' => 'tamanho-medio','label' => 'Celular:'));
+>>>>>>> Francisco
 		?>
 	 </div>	
 	</section>
@@ -60,11 +98,16 @@
 <footer>
 	<div class="loaderAjax" style="display:none;">
 		<?php
+<<<<<<< HEAD
 			
 			echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
 														 'title'=>'Carregando',
 														 'class'=>'ajaxLoader',
 														 ));
+=======
+			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 1:'));
+			/*Corrigir Campo*/ echo $this->Form->input('fax',array('class' => 'tamanho-medio','label' => 'Fax:'));
+>>>>>>> Francisco
 		?>
 		<span>Salvando aguarde...</span>
 	</div>
@@ -142,6 +185,7 @@
 		}
 		
 	
+<<<<<<< HEAD
 	});
 
     var tamanho_cpf_cnpj = 0;
@@ -254,3 +298,104 @@
     });
     
 </script>
+=======
+	<div class="fake-footer">
+
+		<?php
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'add-area-endereco','class'=>'bt-direita'));
+		?>
+
+	</div>
+</section><!--fim Meio-->
+
+<section class="ajusteAlignSection"> <!---section MEIO--->
+
+	<header class="">Dados Bancários</header>
+	
+	<div class="area-dadosbanc">
+		<div class="bloco-area-dadosbanc">
+			<section class="coluna-esquerda">
+
+				<?php 
+					echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Dadosbancario.numero_agencia',array('label' => 'Númeor da Agência:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
+				?>
+
+			</section>
+
+			<section class="coluna-central" >
+
+				<?php
+					echo $this->Form->input('Dadosbancario.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Dadosbancario.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0'));
+				?>
+
+			</section>
+
+			<section class="coluna-direita" >
+
+				<?php
+					echo $this->Form->input('Dadosbancario.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
+					echo $this->Form->input('Dadosbancario.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-pequeno'));
+				?>
+
+			</section>
+		</div>
+	</div>
+	
+	<div class="fake-footer">
+
+		<?php
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'add-area-dadosbanc','class'=>'bt-direita'));
+		?>
+
+	</div>
+</section><!--fim Meio-->
+
+<section class="areaCliente"> <!---section Baixo--->	
+
+	<header class="">Dados do Crédito</header>
+
+	<section class="coluna-esquerda">
+
+
+		<?php
+			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
+			echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
+		?>
+
+
+	    <?php
+			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
+			echo $this->Form->input('Dadoscredito.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
+	    ?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<?php
+			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno'));
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+
+		<?php
+			echo $this->Form->input('Dadoscredito.status',array('label' => 'Status:','type' => 'select'));
+		?>
+
+	</section>
+</section>	
+
+<footer>
+
+    <?php
+		echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'add','view' => 'add'));
+		echo $this->Form->end();
+    ?>
+
+</footer>
+>>>>>>> Francisco
