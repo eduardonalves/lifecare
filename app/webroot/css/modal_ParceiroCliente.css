@@ -1,6 +1,12 @@
+@charset "utf-8";
 
-/** id **/
+/* ID *****************************************************************/
+#myModal_add-parceiroCliente .modal-body{
+	width:1115px;
+	height:610px;
+}
 
-#myModal_add-parceiroCliente .modal-body{width:1360px;height:709px;}
-
-#myModal_add-parceiroCliente{left:25%;top:40px;}
+#myModal_add-parceiroCliente{
+	left:29%;
+	top:15px;
+}
