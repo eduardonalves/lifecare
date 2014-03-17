@@ -166,44 +166,6 @@
 	</div>
 </section><!--fim Meio-->
 
-
-<section class="areaCliente"> <!---section Baixo--->	
-
-	<header class="">Dados do Crédito</header>
-
-	<section class="coluna-esquerda">
-
-
-		<?php
-			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio'));
-			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
-		?>
-
-
-	    <?php
-			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','class' => 'tamanho-medio dinheiro_duasCasas'));
-			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','type' => 'select'));
-	    ?>
-
-	</section>
-
-	<section class="coluna-central" >
-
-		<?php
-			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limitte:','type' => 'text','class' => 'tamanho-pequeno'));
-		?>
-
-	</section>
-
-	<section class="coluna-direita" >
-
-		<?php
-			echo $this->Form->input('Dadoscredito.0.status',array('label' => 'Status:','type' => 'select'));
-		?>
-
-	</section>
-</section>	
-
 <footer>
 
     <?php
