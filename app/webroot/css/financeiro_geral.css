@@ -30,6 +30,10 @@ textarea{height: 68px !important; width: 147px !important;}
 	margin:0;
 }
 
+select[id^='Endereco']{
+	width:190px !important;
+}
+
 
 /** Botões **/
 .bt-direita{float: right !important; margin: 10px 10px 5px 3px;}
