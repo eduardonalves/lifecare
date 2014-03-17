@@ -54,7 +54,7 @@
 	
 	
 		<?php
-			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => ''));
+			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList));
 		?>
 		
 		<a href="add-quicklink" class="bt-showmodal">

@@ -390,6 +390,7 @@ class ContasController extends AppController {
 		
 		
 		/**QuickLink**/
+		$quicklinksList = array();
 		$this->loadModel('Quicklink');
 		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
 		foreach($quicklinks as $link)
@@ -397,7 +398,7 @@ class ContasController extends AppController {
 			array_push ($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
 		}
 		
-		//array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'notas', 'action'=>'index')) . '/?parametro=Contas&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'contas', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
 		
 		$this->set(compact('users', 'quicklinks','quicklinksList'));
 		if ($this->request->is('post')) {
