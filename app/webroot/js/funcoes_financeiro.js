@@ -23,6 +23,65 @@ $(document).ready(function() {
 		thousandsSeparator: '',
 		centsLimit: 5
 	});
-	
-	
+
+
+/********** Avançar tela de resultado Contas ****************/
+
+    $('.bt-confirmar').click(function(){
+	$('.tela-resultado').hide();
+	$('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
+	$('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
+	$('.forma-data').attr('disabled','disabled')
+	$('.bt-preencherConta').hide();
+	$('.ui-widget').attr('readonly','readonly').addClass('borderZero');
+	$("[class*='ui-button']").css('display','none');
+	$('html, body').animate({scrollTop:0}, 'slow');
+	$('.bt-salvarConta').show();
+	$('.bt-voltar').show();
+	$('.bt-confirmar').hide();
+	$('table td:nth-last-child(1), th:nth-last-child(1)').hide();
+
+	//percorre as select e transforma em input
+	$('select[class*="desabilita"]').each(function(){
+	    valorSelecionado = $(this).find('option:selected').text();
+	    id=$(this).attr('id');
+
+	    //insere input depois do select
+	    $('<input id="'+id+'"" class="tamanho-medio borderZero" readonly="readonly" onfocus="this.blur()" value="'+valorSelecionado+'">').insertAfter($(this));
+	});
+
+	//substitui textarea por span
+	valTextArea= $('textarea[id*="Descricao"]').val();
+
+	$('.textAreaConta').hide();
+	$('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('.textAreaConta');
+
+	$('.forma-data').each(function(){
+	    valorFormaData=$(this).val();
+	    id=$(this).attr('id');
+
+	    $('<input id="'+id+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
+	});
+
+    });
+/********** Avançar tela de resultado Contas ****************/
+
+    $('.bt-voltar').click(function(){
+	$('.tela-resultado').show();
+	$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
+	$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
+	$('.forma-data').removeAttr('disabled','disabled')
+	$('select[class*="desabilita"] + input ').remove();
+	$('#spanTextArea').remove();
+	$('.textAreaConta').show();
+	$('.bt-preencherConta').show();
+	$('.ui-widget').removeAttr('readonly','readonly').removeClass('borderZero');
+	$("[class*='ui-button']").css('display','inherit');
+	$('html, body').animate({scrollTop:0}, 'slow');
+	$('.bt-salvarConta').hide();
+	$('.bt-voltar').hide();
+	$('.bt-confirmar').show();
+	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
+    });	
+
 });

@@ -6,9 +6,8 @@
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
-	$this->start('script');
-		echo $this->Html->script('funcoes_financeiro.js');
-	$this->end();
+	//$this->start('script');
+	//$this->end();
 
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
