@@ -228,7 +228,17 @@
 										foreach($configCont as $campo=>$campoLabel){							
 											if($campo=="status"){
 												echo "<td>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
-												
+												//Monter uma tabela dentro de um modal
+											}else if($campo=="parcelas"){
+												echo "<td class='parcelas'>"; 
+												foreach($conta['Parcela'] as $parcela){
+													echo $parcela['identificacao_documento'];
+													echo "<br />";
+													echo $parcela['data_vencimento'];
+													echo "<br />";
+													echo $parcela['data_pagamento'];
+												}
+												echo "</td>";
 											}else{
 												
 												echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
@@ -262,6 +272,9 @@
 	
 
 </div>
+
+
+
 <br />
 <br />
 <br />

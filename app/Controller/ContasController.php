@@ -76,7 +76,6 @@ class ContasController extends AppController {
 								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
 									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
 									$this->Parcela->save($updatevencimento);
-									
 									$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
 									$this->Conta->save($updateConta);
 								}
@@ -246,8 +245,12 @@ class ContasController extends AppController {
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
 							'data_quitacao' => 'Data de Quitação ',
-							'valor' => 'Valor',
+							'valor' => 'Valor',	
+							'parcelas' => 'Parcelas',	
 							'parceirodenegocio_id' => 'Parceiro de Negócios',
+							'nome_parceiro' => 'Nome do Parceiro',
+							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
+							'status_parceiro' => 'status do Parceiro',
 							'status' => 'Status'																								
 							);
 		
@@ -355,8 +358,28 @@ class ContasController extends AppController {
 			);
 			
 			$cntContas = count($contas);
-			//debug($cntContas);	
+			//debug($contas);	
+			$this->loadModel('Parceirodenegocio');
 			$contas = $this->Paginator->paginate('Conta');
+			foreach ($contas as $id => $conta) {
+				
+				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
+				
+				
+			
+				$contas[$id]['Conta']['nome_parceiro']="";
+			
+				if(isset($parceirodenegocio)){
+						if(!empty($parceirodenegocio)){
+							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
+							$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
+							$contas[$id]['Conta']['status_parceiro'] = $parceirodenegocio['Parceirodenegocio']['status'];	 
+						}	
+				}
+				
+			}
+			
+			
 
 			$this->set(compact('contas', 'cntContas'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
