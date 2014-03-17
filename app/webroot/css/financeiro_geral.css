@@ -38,11 +38,29 @@ select[id^='Endereco']{
 /** Botões **/
 .bt-direita{float: right !important; margin: 10px 10px 5px 3px;}
 
+#bt-voltarPagar{display:none;}
+
+#bt-voltarReceber{display:none;}
+
+#bt-alterarConta-receber{display:none}
+
+#bt-editarConta-pagar{display:none;}
+
+.bt-salvarConta{display:none;}
+
+.bt-confirmar{float:right;}
+
+.bt-preencherConta {display:block;float: left;margin:29px 0 0 345px;position: absolute;z-index: 1;}
+
 table{margin-top: 20px;}
 
 /** Classes **/
 .textAreaConta{height: 50px !important; width: 186px !important;margin-bottom:5px;}
 
-.bt-preencherConta {float: left;margin:5px 0 0 192px;position: absolute;z-index: 1;}
+#spanTextArea{display:block;font-size:13px;min-width:100px;margin-left: 153px;}
 
 [class*="autocomplete"] .custom-combobox-input {width: 153px;}
+
+
+
+

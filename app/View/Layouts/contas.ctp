@@ -58,6 +58,7 @@
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');
 		echo $this->Html->script('funcoes_globais.js');
+		echo $this->Html->script('funcoes_financeiro.js');
 		echo $this->fetch('script');
 	?>
 
