@@ -52,12 +52,16 @@ class ContasrecebersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Contasreceber->create();
 			if ($this->Contasreceber->saveAll($this->request->data)) {
+				$this->loadModel('Pagamento');
+				$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 				debug($this->request->data);
 			}
+			//$this->lifecareDataFuncsComponent->formatDateToBD();
+			debug($this->request->data);
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));

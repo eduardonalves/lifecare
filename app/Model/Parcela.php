@@ -24,28 +24,14 @@ class Parcela extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
-
-/**
- * hasMany associations
- *
- * @var array
- */
-	public $hasMany = array(
+		),
 		'Pagamento' => array(
 			'className' => 'Pagamento',
-			'foreignKey' => 'parcela_id',
-			'dependent' => false,
+			'foreignKey' => 'pagamento_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+			'order' => ''
+		),
 	);
 
 

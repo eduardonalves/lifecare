@@ -94,7 +94,7 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','class'=>'desabilita','options'=>array('','A Vista','A Prazo')));
+		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','class'=>'desabilita desabilidado', 'options'=> array('' => '','A VISTA' => 'A VISTA','A PRAZO' => 'A PRAZO')));
 		?>
 	    </section>
 
