@@ -78,8 +78,6 @@ $(document).ready(function() {
 		var agencia = $("#Dadosbancario"+ (contadorBlocoDadosBanc-1) +"NumeroAgencia").val();
 		var conta = $("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1) +"").val();
 		
-		alert(agencia +' '+ conta);
-		
 		if(conta && agencia){
 			$('.area-dadosbanc').append('<hr>\
 				<div class="bloco-area">\
@@ -132,14 +130,14 @@ $(document).ready(function() {
 
 /*** Visualização de Créditos *****************************************/
 
-	if(($('#ParceirodenegocioTipo').val() == 1) || ($('#ParceirodenegocioTipo').val() == 'CLIENTE')){
+	if(($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 		$('.areaCliente').css('display','inline-block');
 	}else{
 		$('.areaCliente').css('display','none');
 	}
 
-	$('#ParceirodenegocioTipo').change(function(){
-		if($('#ParceirodenegocioTipo').val() == 1){
+	$('#ParceirodenegocioClassificacao').change(function(){
+		if($('#ParceirodenegocioClassificacao').val() == 1){
 			$('.areaCliente').css('display','inline-block');
 		}else{
 			$('.areaCliente').css('display','none');
@@ -148,9 +146,75 @@ $(document).ready(function() {
 
 
 /*** Validação ********************************************************/
-	$('#ParceirodenegocioAddForm').submit(function(event){
-		event.preventDefault();
+
+	$('#ParceirodenegocioAddForm').submit(function(){
+		
+		if($('#ParceirodenegocioClassificacao').val() == 0){
+			$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
+			$('#validaClassificacao').css('display','block');
+			return false;
+		}else if($('#ParceirodenegocioNome').val() == ''){
+			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+			$('#validaNome').css('display','block');
+			return false;
+		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+			$('#validaCPF').css('display','block');
+			return false;
+		}else if($('#ParceirodenegocioTelefone1').val() == ''){
+			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+			$('#validaTelefone').css('display','block');
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
+			$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').val() == 0){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').addClass('shadow-vermelho');
+			$('#valida'+ (contadorBlocoEndereco-1) +'Uf').css('display','block');
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').val() == ''){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').addClass('shadow-vermelho');
+			$('#valida'+ (contadorBlocoEndereco-1) +'Cidade').css('display','block');
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
+			$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
+			return false;
+		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
+			$('#validaLimite').css('display','block');
+			return false;
+		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
+			$('#validaValidade').css('display','block');
+			return false;
+		}else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#Dadoscredito0Status').addClass('shadow-vermelho');
+			$('#validaStatus').css('display','block');
+			return false;
+		}else if(($('#Dadoscredito0Bloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#Dadoscredito0Bloqueado').addClass('shadow-vermelho');
+			$('#validaBloqueado').css('display','block');
+			return false;
+		}else{
+			return true;
+		}
+
 	});
+
+/*** Máscara **********************************************************/
+	jQuery(function($){
+		$(".agencia").mask("9999-9");
+	});
+
+/*** Teste ************************************************************/
+	/*
+	$('#ParceirodenegocioTipo').change(function(){
+		alert($('#ParceirodenegocioTipo').val());
+	});
+	*/
+
 });
 
 

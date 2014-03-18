@@ -24,3 +24,69 @@ hr{
 }
 
 /* VALIDAR CAMPOS *****************************************************/
+#validaClassificacao{
+	width:85px;
+	top:-5px;
+	left:260px;
+}
+
+#validaNome{
+	width:85px;
+	top:-5px;
+	left:325px;
+}
+
+#validaTelefone{
+	width:85px;
+	top:25px;
+	left:325px;
+}
+
+#Endereco0Logradouro{
+	width:85px;
+	top:-5px;
+	left:325px;
+}
+
+#valida0Logradouro{
+	width:85px;
+	top:-5px;
+	left:260px;
+}
+
+#valida0Uf{
+	width:85px;
+	top:25px;
+	left:360px;
+}
+
+#valida0Cidade{
+	width:85px;
+	top:25px;
+	left:360px;
+}
+
+#validaLimite{
+	width: 85px;
+	left: 325px;
+	top: -5px;
+	z-index: 1;
+}
+
+#validaValidade{
+	width: 85px;
+	top: -5px;
+	left: 260px;	
+}
+
+#validaStatus{
+	width: 85px;
+	top: -5px;
+	left: 260px;	
+}
+
+#Dadoscredito0Bloqueado{
+	width: 85px;
+	top: -5px;
+	left: 260px;
+}
