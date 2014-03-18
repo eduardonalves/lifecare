@@ -4,17 +4,18 @@
 	$this->end();
 
 	$this->start('script');
+		echo $this->Html->script('http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js');
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
 ?>
 
-<script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script>
+<!-- <script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script> -->
 <script>
 	window.onload = function(){
-	  new dgCidadesEstados({
-		estado: document.getElementById('Endereco0Uf'),
-		cidade: document.getElementById('Endereco0Cidade')
-	  });
+		new dgCidadesEstados({
+			estado: document.getElementById('Endereco0Uf'),
+			cidade: document.getElementById('Endereco0Cidade')
+		});
 	}
 </script>
 
@@ -44,7 +45,7 @@
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:'));
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:','required'=>'false'));
 			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 2:'));
 			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
@@ -73,7 +74,7 @@
 
 				<?php	
 					/*Corrigir Campo*/ echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select','div' =>array( 'class' => 'input select')));
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado','div' => array('class' => 'inputCliente input text divUf')));
 					echo "<span id='spanEndereco0Uf' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione o Estado</span>";
 					echo $this->Form->input('Endereco.0. ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
@@ -84,7 +85,7 @@
 
 				<?php
 					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select'));
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade'));
 					echo "<span id='spanEndereco0Cidade' class='Msg tooltipMensagemErroDireta' style='display:none'>Selecione a cidade</span>";
 				?>
 
