@@ -1,0 +1,21 @@
+
+
+/*  Padrao{tamanho; posição; forma; etc;}
+ * .Padrao{tamanho; posição; forma; etc;}
+ * #Padrao{tamanho; posição; forma; etc;}*/
+
+/*************** BOTÕES  **********************************************/
+
+.editarParcela{cursor: pointer;}
+
+.excluirParcela{cursor:pointer;}
+
+/*************** TABELA DE PARCELAS ***********************************/
+
+
+#tabelaParcelasEdit{
+	margin-top: 25px;
+}
+
+
+
