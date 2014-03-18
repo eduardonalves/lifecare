@@ -28,7 +28,9 @@
 	princ_cont = numParcela;
 	
 	//adiciona a tabela
-	$('#tabela-conta-receber').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+	$('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+
+	calcularValorConta();
 	
 	//limpa campos
 	$('#ContasreceberIdentificacaoDocumento').val('');
@@ -50,8 +52,31 @@
 	//incrementa 1 a parcela
 	$('#ContasreceberParcela').val(numeroParcela)	
 	$('#Pagamento0NumeroParcela').val(numParcela);
+
     });
-        
+
+/****************** Soma valor conta *********************/        
+    var valorContaAnt=0;
+    function calcularValorConta(){
+	valorConta=$('#valorConta-receber').val().replace(",", ".");
+	valorConta=parseFloat(valorConta);
+	
+	if(isNaN(valorConta)){
+	    valorConta=0;
+	}
+	valorResultado= valorContaAnt+valorConta;
+	
+	valorContaAnt=valorResultado;
+
+	valorResultadoAux=parseFloat(valorResultado);
+	
+	$('#ContasreceberValor').val(valorResultadoAux.toFixed(2))
+				.priceFormat({
+				    prefix: '',
+				    centsSeparator: ',',
+				    thousandsSeparator: '',
+	});
+    };
     
 /****************** Altera linha da tabela *********************/
     $('#bt-alterarConta-receber').click(function(){
@@ -440,14 +465,13 @@
 
     });
 
-
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaReceber').click(function(){
 	    
 	    //pega valor
-	    ContaValorAux = $('#ContaValor').val();
+	    ContaValorAux = $('#ContasreceberValor').val();
 	    
 	    //retira a virgula
-	    $('input[id="ContaValor"]').val(ContaValorAux.replace(',','.'));
+	    $('input[id="ContasreceberValor"]').val(ContaValorAux.replace(',','.'));
 	});
 });

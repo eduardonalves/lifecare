@@ -61,6 +61,16 @@ table{margin-top: 20px;}
 
 [class*="autocomplete"] .custom-combobox-input {width: 153px;}
 
+/** Id **/
+[id*="msg"]:after{left: -20px;top: 1px;}
+
+[id*="msg"]{left: 245px;}
+
+#msgAutoComplete:after{  left: 23px;top: 51px;}
+#msgAutoComplete{left: 38px;top: -63px;}
+
+#msgCpfCnpj:after{ border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0); left: 51px;top: -20px;}
+#msgCpfCnpj{float: right;left: 1280px;top: 550px;width: 107px;}
 
 
 
