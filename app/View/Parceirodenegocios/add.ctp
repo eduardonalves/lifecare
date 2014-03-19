@@ -28,17 +28,18 @@
 <section> <!---section superior--->
 
 	<header>Dados GeriasParceiro</header>
+	
+	<?php echo $this->Form->create('Parceirodenegocio'); ?>
+
 
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->create('Parceirodenegocio');
-
 			echo $this->Form->input('tipo',array('label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('fax',array('class' => 'tamanho-medio tel','label' => 'Fax:'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio tel','label' => 'Fax:'));
 		?>
 
 	</section>
@@ -48,8 +49,8 @@
 		<?php
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
-			/*Corrigir Campo*/ echo $this->Form->input('email',array('class' => 'tamanho-medio','label' => 'Email:'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
 
 	</section>
@@ -60,7 +61,7 @@
 			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
 		?>
 
 	</section>
@@ -79,7 +80,7 @@
 					/*Corrigir Campo*/ echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
 					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					echo $this->Form->input('Endereco.0. ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
+					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
 
 			</section>
@@ -111,7 +112,7 @@
 
 		<?php
 			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco de Endereços','id'=>'add-area-endereco','class'=>'bt-direita'));
-			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Remover Bloco de Endereços','id'=>'remove-area-endereco','class'=>'bt-direita'));
+			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco de Endereços','id'=>'remove-area-endereco','class'=>'bt-direita'));
 		?>
 
 	</div>
@@ -157,7 +158,7 @@
 
 		<?php
 			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco Dados Bancários','id'=>'add-area-dadosbanc','class'=>'bt-direita'));
-			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'remove-area-dadosbanc','class'=>'bt-direita'));
+			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'remove-area-dadosbanc','class'=>'bt-direita'));
 		?>
 
 	</div>

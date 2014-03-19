@@ -30,20 +30,25 @@ hr{
 	margin-bottom:10px !important;
 }
 
+textarea{
+	width:184px !important;
+}
+
+
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao, #valida0Logradouro, #valida0Cidade, #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+#validaClassificacao, /*#valida0Logradouro*/span[id$="Logradouro"], /*#valida0Cidade*/span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
 	top: -5px;
 	left: 260px;	
 }
 
-#validaNome, #Endereco0Logradouro, #validaLimite{
+#validaNome, #validaLimite{
 	width:85px;
 	top:-5px;
 	left:325px;
 }
 
-#valida0Uf,#valida0Cidade{
+/*#valida0Uf*/span[id$="Uf"],#valida0Cidade{
 	width:85px;
 	top:25px;
 	left:360px;
@@ -61,12 +66,12 @@ hr{
 	left:185px;
 }
 
-#valida0Bairro{
+/*#valida0Bairro*/span[id$="Bairro"]{
 	width:85px;
 	top:60px;
 	left:185px;
 }
 
-#validaCPF:after,#validaCPFTamanho:after,#valida0Bairro:after{
+#validaCPF:after,#validaCPFTamanho:after,/*#valida0Bairro:after*/span[id$="Bairro"]:after{
 	left:35px;
 }
