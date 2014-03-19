@@ -13,6 +13,20 @@
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
 		//echo $this->element('view_parcelas', array('modal'=>'add-view_parcelas'));
 	$this->end();
+	
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
 ?>
 
 <?php
@@ -224,16 +238,98 @@
 												<div class="modal-body">
 													<?php
 													 echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); 
-													
-														foreach($conta['Parcela'] as $parcela){
-																echo $parcela['identificacao_documento'];
-																echo "<br />";
-																echo $parcela['data_vencimento'];
-																echo "<br />";
-																echo $parcela['data_pagamento'];
-																print_r($parcela);
-														}													
 													?>
+													<header id="cabecalho">
+														<?php 
+															echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+														?>	
+														<h1>Visualização das Parcelas</h1>
+													</header>
+
+													<section>
+														<header>Parcelas</header>
+
+														<section class="coluna-modal">
+															<table>
+																<thead>
+																	<tr>
+																		<th>Identificação do Documento</th>
+																		<th>Data de Vencimento</th>
+																		<th>Data de Pagamento</th>
+																		<th>Período Crítico</th>
+																		<th>Valor</th>
+																		<th>Desconto</th>																	
+																		<th>Código de Barras</th>																	
+																		<th>Parcela</th>																	
+																		<th>Banco</th>																	
+																		<th>Agência</th>																	
+																		<th>Conta</th>																	
+																		<th>Status</th>		
+																	</tr>											
+																</thead>
+																
+																<?php
+																	
+																	foreach($conta['Parcela'] as $parcela){
+																		
+																		echo "<tr><td>";
+																			echo $parcela['identificacao_documento'];															
+																		echo "</td>";	
+																		
+																		echo "<td>";
+																			formatDateToView($parcela['data_vencimento']);
+																			echo $parcela['data_vencimento'];															
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			formatDateToView($parcela['data_pagamento']);
+																			echo $parcela['data_pagamento'];															
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['periodocritico'];															
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['valor'];															
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['desconto'];
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['codigodebarras'];
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['parcela'];
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['banco'];
+																		echo "</td>";
+																	
+																		echo "<td>";
+																			echo $parcela['agencia'];
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['conta'];
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
+																			
+																		echo "</td>";
+																		
+																		echo "</tr>";																																	
+																	}
+																?>
+																
+															</table>
+														</section>
+													</section>
 												</div>	
 											</div>
 
@@ -277,7 +373,6 @@
 		
 	});
 </script>
-
 
 <br />
 <br />
