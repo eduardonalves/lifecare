@@ -24,6 +24,53 @@
 		cidade: document.getElementById('Endereco0Cidade')
 	  });
 	}
+	
+	
+$(document).ready(function(){
+	
+		$('#bt-salvarParceiro').click(function(event){
+	    
+					
+	    event.preventDefault();
+	    $(".loaderAjaxCParceiroDIV").show();
+	    $("#bt-salvarParceiro").hide();
+	
+	    			    
+
+		var urlAction = "<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>";
+		var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		
+		$.ajax({
+		    type: "POST",
+		    url: urlAction,
+		    data:  dadosForm,
+		    dataType: 'json',
+		    success: function(data) {
+			console.debug(data);
+			
+			if(data.Parceirodenegocio.id == 0 || data.Parceirodenegocio.id == undefined ){
+			    $(".loaderAjaxCParceiroDIV").hide();
+			    $("#bt-salvarParceiro").show();
+			   // $("#spanMsgCateNomeInvalido").css("display","block");
+			    //$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+			}else{
+			    $("#myModal_add-parceiroFornecedor").modal('hide');
+			  	$('#ContaspagarParceirodenegocioId').val(data.Parceirodenegocio.id);
+			  	$('#ContaspagarParceiro').val(data.Parceirodenegocio.nome);
+			  	$('#ContaspagarCpfCnpj').val(data.Parceirodenegocio.cpf_cnpj);
+			    $("#ParceirodenegocioNome").val("");
+			    $(".loaderAjaxCParceiroDIV").hide();
+			    $("#bt-salvarParceiro").show();
+			    $("#add-fornecedor").append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='FORNECEDOR'>"+data.Parceirodenegocio.nome+"</option>");						
+			   // $("#spanMsgCateNomeInvalido").css("display","none");
+			    $(".loaderAjaxParceirodenegocioDIV").hide();
+			}
+
+		    }
+		});
+	    
+	});
+});		
 </script>
 
 
@@ -42,7 +89,7 @@
 		<?php
 			echo $this->Form->create('Parceirodenegocio');
 
-			echo $this->Form->input('tipo',array('value'=>'fornecedor','type' => 'hidden'));
+			echo $this->Form->input('tipo',array('value'=>'FORNECEDOR','type' => 'hidden'));
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome:'));
 			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 1:'));
 			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio','label' => 'Telefone 2:'));
@@ -167,7 +214,16 @@
 </section><!--fim Meio-->
 
 <footer>
-
+		<div class="loaderAjaxCParceiroDIV" style="display:none">
+				<?php
+					
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxParceirodenegocio',
+																 ));
+				?>
+				<span>Salvando aguarde...</span>
+		</div>	
     <?php
 		echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'add','view' => 'add'));
 		echo $this->Form->end();

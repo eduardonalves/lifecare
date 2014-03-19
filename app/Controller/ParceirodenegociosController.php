@@ -13,7 +13,7 @@ class ParceirodenegociosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','RequestHandler');
 
 /**
  * index method
@@ -52,11 +52,37 @@ class ParceirodenegociosController extends AppController {
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The parceirodenegocio has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$ultimoParceiro = $this->Parceirodenegocio->find('first', array('order' => array('Parceirodenegocio.id' => 'desc'), 'recursive' =>-1));
+				$this->set(compact('ultimoParceiro'));
+				if(! $this->request->is('ajax')){
+					return $this->redirect(array('action' => 'index'));
+				}
+				
 			} else {
-				$this->Session->setFlash(__('The parceirodenegocio could not be saved. Please, try again.'));
+				$ultimoParceiro = $this->request->data;
+
+				/*$errors = $this->Parceirodenegocio->invalidFields();
+
+				$str_erros = "Erro ao adicionar Parceiro de Negócio. ";
+				
+				foreach ($errors as $error)
+				{
+					$str_erros .= $error[0] . "\n";
+				}
+
+				$this->Session->setFlash(__($str_erros));*/
+				
+				//$this->Session->setFlash(__('The parceirodenegocio could not be saved. Please, try again.'));
 			}
 		}
+		//$ultimoParceiro['Flashm'] = $this->Session->read('Message.flash.message');
+		//$ultimoParceiro['Controller'] = "Parceirodenegocio";
+		//$ultimoParceiro['Action'] = "add";
+				
+		//$this->Session->delete('Message.flash');
+		
+		
+		$this->set(compact('ultimoParceiro'));
 	}
 
 /**
