@@ -24,6 +24,11 @@ class ContasController extends AppController {
 			if(!isset($this->request->query['limit'])){
 				$this->request->query['limit'] = 15;
 			}
+
+			if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
+			
 			//Verificamos a data para setarmos o semáfaro do Parcela
 			
 			//Inicio Cemáfaro
@@ -446,7 +451,7 @@ class ContasController extends AppController {
 		/**QuickLink**/
 		$quicklinksList = array();
 		$this->loadModel('Quicklink');
-		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'FINANCEIRO'), 'order' => array('Quicklink.nome' => 'ASC')));
 		foreach($quicklinks as $link)
 		{
 			array_push ($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
@@ -454,9 +459,8 @@ class ContasController extends AppController {
 		
 		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'contas', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
 		
-		$this->set(compact('users', 'quicklinks','quicklinksList'));
+		$this->set(compact('users','userid', 'quicklinks','quicklinksList'));
 		if ($this->request->is('post')) {
-			
 			
 			//salva o post do quicklink
 			if(isset($this->request->data['Quicklink'])){

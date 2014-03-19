@@ -17,7 +17,12 @@
 		echo $this->element('quicklink_add', array('modal'=>'add-quicklink'));
 	$this->end();
 ?>
-
+<script>
+    $(document).ready(function() {
+	var usoPhp = '<?php ?>' ;
+	var usoGet = '$_GET["ql"]';	
+    });
+</script>
 <?php 
 	if(isset($pageReload)){
 		if($pageReload=='Reload'){

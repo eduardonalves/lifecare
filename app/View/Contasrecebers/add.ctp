@@ -64,6 +64,7 @@
 		</div>
 
 		<?php
+		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
 		?>
 		
@@ -72,6 +73,8 @@
 	    <section class="coluna-central" >
 		<?php 
 		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno desabilita forma-data'));
+		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
+		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
 		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio desabilita borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
 		?>
@@ -94,7 +97,8 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','class'=>'desabilita desabilidado', 'options'=> array('' => '','A VISTA' => 'A VISTA','A PRAZO' => 'A PRAZO')));
+		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','class'=>'desabilita desabilidado', 'options'=> array('','A Vista','A Prazo')));
+		    echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';
 		?>
 	    </section>
 
@@ -119,6 +123,7 @@
 		<?php
 		    echo $this->Form->input('parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
 		    echo $this->Form->input('valor',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
+		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno desabilita'));
 		?>    
 	    </section>
@@ -127,6 +132,7 @@
 		<?php
 		    echo $this->Form->input('identificacao_documento',array('label' => 'Código de Barras:','class' => 'tamanho-pequeno desabilita'));
 		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita'));
+		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		    echo $this->Form->input('conta',array('label' => 'Conta:','class' => 'tamanho-pequeno desabilita'));
 		?>
 	    </section>
@@ -134,6 +140,8 @@
 	    <section class="coluna-direita" >
 		<?php
 		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno desabilita forma-data','id' => 'dataVencimento-receber'));
+		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
+		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
 		    echo $this->Form->input('banco',array('label' => 'Banco:','class' => 'tamanho-medio desabilita'));
 		?>
@@ -145,13 +153,15 @@
 								 'title'=>'Adicionar Conta',
 								 'id'=>'bt-adicionarConta-receber',
 								 'class'=>'bt-direita'
-								 ));
-								 
+		));
+
 		echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
 						     'title'=>'Editar Conta',
 						     'id'=>'bt-alterarConta-receber',
 						     'class'=>'bt-direita'
-						     ));
+		));
+
+		echo '<span id="msgCpfCnpj" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
 	    ?>
 	    
 

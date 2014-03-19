@@ -375,6 +375,8 @@ $(document).ready(function(){
 	$('span[class^="Msg"]').css('display','none');
 	$('span[class^="DinamicaMsg"]').remove();
 	$('input,select').removeClass('shadow-vermelho');
+	$('.ui-widget').removeClass('shadow-vermelho');
+	
 	
     });
 

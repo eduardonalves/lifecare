@@ -28,21 +28,29 @@
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
 
-	if(tipoPagamento == ''){
-	    alert('Tipo Pagamento vazio');
-	   // $('<span id="msgDataVencimento" class="Msg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+	if(tipoPagamento == 0){
+	    //alert('Tipo Pagamento vazio');
+	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
+	    $('#msgTipoPagamento').css('display','block');
+	    $('#Pagamento0TipoPagamento').addClass('shadow-vermelho');
 	    
 	}else if(dataVencimento == ''){
 	    //alert('valor vazio');
-	    $('<span id="msgDataVencimento" class="Msg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+	    $('#msgDataVencimento').css('display','block');
+	    $('#ContaspagarDataVencimento').addClass('shadow-vermelho');
 	
 	}else if(valor == ''){
 	    //alert('valor vazio');
-	    $('<span id="msgContaValor" class="Msg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
+	   //$('<span id="msgContaValor" class="DinamicaMsg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
+	    $('#msgContaValor').css('display','block');
+	    $('#valorPagar').addClass('shadow-vermelho');
 	    
 	}else if(periodocritico == ''){
 	    //alert('periodocritico vazio');
-	    $('<span id="msgPeriodoCritico" class="Msg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
+	    //$('<span id="msgPeriodoCritico" class="DinamicaMsg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
+	    $('#msgPeriodoCritico').css('display','block');
+	    $('#PagarPeriodocritico').addClass('shadow-vermelho');
 
 	}else{
 	    
@@ -66,10 +74,12 @@
 
 	    if(tipoPagamento == 1){
 		$('.tela-resultado').hide();
-	    }
-		princ_cont++;
+	    }else{
 		numeroParcela++;
-		numParcela++;		
+	    }
+
+	    princ_cont++;
+	    numParcela++;		
 
 	    //incrementa 1 a parcela
 	    $('#ContaspagarParcela').val(numeroParcela)	
@@ -101,9 +111,43 @@
 				    thousandsSeparator: '',
 	});
     };
-    
+
+/****************** Subtrair valor conta *********************/        
+   
+    function subtrairValorConta(numero){
+	valorSubConta=$('#valorTabela'+numero).text().replace(",", ".");
+	valorSubConta=parseFloat(valorSubConta);
+
+	valorTotal=$('#ContaspagarValor').val().replace(",", ".");
+	valorTotal=parseFloat(valorTotal);
+
+	if(isNaN(valorSubConta)){
+	    valorSubConta=0;
+	}
+	
+	if(isNaN(valorTotal)){
+	    valorTotal=valorSubConta;
+	}
+	valorSubResultado= valorTotal-valorSubConta;
+
+	valorSubResultadoAux=parseFloat(valorSubResultado);
+
+	valorContaAnt=valorSubResultadoAux;
+	
+	$('#ContaspagarValor').val(valorSubResultadoAux.toFixed(2))
+				.priceFormat({
+				    prefix: '',
+				    centsSeparator: ',',
+				    thousandsSeparator: '',
+	});
+    };
+
 /****************** Altera linha da tabela *********************/
     $('#bt-editarConta-pagar').click(function(){
+
+	if($('#Pagamento0TipoPagamento').val() == 1){
+	    $('.tela-resultado').hide();
+	}
 	
 	//percorre a td
 	$('#numParc'+numero).each(function(){
@@ -148,6 +192,8 @@
 		$('fieldset').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Conta]['+numero+'][banco] step="any"  id="ParcelaBanco'+numero+'banco" value="'+banco+'" type="hidden"></div> ');
 
 	    }
+
+	    calcularValorConta();
 	    
 	    //parcela recebe numero antigo e troca botoes
 	    $('#ContaspagarParcela').val(parcelaAtual);
@@ -184,6 +230,7 @@
     var numeroAnt;
     
     $("body").on("click",'.btnEditar', function(e){
+
 	$('.tela-resultado').show();
 	
 	//salva valor atual da parcela
@@ -227,19 +274,25 @@
 	
 	//recebe numero antigo
 	numeroAnt= numero;
+
+	subtrairValorConta(numero);
 	
     });
 
 
 /*********** Botão excluir uma parcela da tabela ***********/	
     $("body").on("click",'.btnExcluir', function(e){
-		
+
+	$('.tela-resultado').show();
+	
 	//pega id da linha
 	var td = $(this).parent();
         var trPar = td.parent();
         var trId = trPar.attr('id');
         var tr = trId.substr(11);
-    
+
+	numeroValor=tr;
+	subtrairValorConta(numero);
 	$('.clonadoProduto'+tr).remove();
     
         //Remove a linha
@@ -502,6 +555,52 @@
 	$( "#add-fornecedor" ).combobox();
 
   });
+
+/****************Valida Data Emissão******************************************/
+    $("#ContaspagarDataEmissao").change(function(){
+
+	var dfuturoSaida = $("#ContaspagarDataEmissao").val();
+	var dataFutura = new Date();
+
+	var anoDigitado = dfuturoSaida.split("/")[2];
+	var mesDigitado = dfuturoSaida.split("/")[1];
+	var diaDigitado = dfuturoSaida.split("/")[0];
+
+
+	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    $("#msgDataEmissaoInvalida").css("display","block");   
+	    $("#ContaspagarDataEmissao").addClass('shadow-vermelho');
+	    $("#ContaspagarDataEmissao").val("");    
+	}else{		    
+	    $("#ContaspagarDataEmissao").removeClass('shadow-vermelho');
+	    $("#msgDataEmissaoInvalida").css("display","none");  
+	    
+	}
+	
+    });
+    
+/****************Valida Data Vencimento******************************************/
+    $("#ContaspagarDataVencimento").change(function(){
+
+	var dfuturoSaida = $("#ContaspagarDataVencimento").val();
+	var dataFutura = new Date();
+
+	var anoDigitado = dfuturoSaida.split("/")[2];
+	var mesDigitado = dfuturoSaida.split("/")[1];
+	var diaDigitado = dfuturoSaida.split("/")[0];
+
+
+	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    $("#msgDataVencimentoInvalida").css("display","block");   
+	    $("#ContaspagarDataVencimento").addClass('shadow-vermelho');
+	    $("#ContaspagarDataVencimento").val("");    
+	}else{		    
+	    $("#ContaspagarDataVencimento").removeClass('shadow-vermelho');
+	    $("#msgDataVencimentoInvalida").css("display","none");  
+	    
+	}
+	
+    });  
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaPagar').click(function(){
