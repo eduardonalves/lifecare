@@ -11,6 +11,7 @@
 
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
+		//echo $this->element('view_parcelas', array('modal'=>'add-view_parcelas'));
 	$this->end();
 ?>
 
@@ -102,7 +103,7 @@
 
 				<div class="inputSearchData" >
 					<?php
-						echo $this->Search->input('data_quitacao', array('label' => 'Validade:','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('data_quitacao', array('label' => 'Quitação:','class'=>'', 'type' => 'text'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
@@ -198,49 +199,58 @@
 						</tr>
 
 						<?php 
-
-						foreach ($contas as $conta): 
-
-						?>
+						$j=0;
+						foreach ($contas as $conta): ?>
 					
-							<tr>
+								<tr>
 									<td class="actions">
 										<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id']))); ?>
 										<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'contas','action' => 'edit', $conta['Conta']['id']))); ?>
 									</td>
 									
 									 <?php 
-
-										
-
-
+									 											
 										foreach($configCont as $campo=>$campoLabel){							
 											if($campo=="status"){
 												echo "<td>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
 												//Monter uma tabela dentro de um modal
 											}else if($campo=="parcelas"){
-												echo "<td class='parcelas'>"; 
-												foreach($conta['Parcela'] as $parcela){
-													echo $parcela['identificacao_documento'];
-													echo "<br />";
-													echo $parcela['data_vencimento'];
-													echo "<br />";
-													echo $parcela['data_pagamento'];
-												}
+												echo "<td class='parcelas'><a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
+												echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar'));
+												echo "</a>";
+										?>
+																					
+											<div class="modal fade" id="myModal_add-view_parcelas<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+												<div class="modal-body">
+													<?php
+													 echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); 
+													
+														foreach($conta['Parcela'] as $parcela){
+																echo $parcela['identificacao_documento'];
+																echo "<br />";
+																echo $parcela['data_vencimento'];
+																echo "<br />";
+																echo $parcela['data_pagamento'];
+																print_r($parcela);
+														}													
+													?>
+												</div>	
+											</div>
+
+										<?php
 												echo "</td>";
+												
 											}else{
 												
 												echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 											}
-											
+											$j=$j+1;
 										}						
 										
 									?>
-							</tr>
+								</tr>
 
-						<?php 
-
-						endforeach; ?>
+						<?php endforeach; ?>
 				</table>
 							
 								<?php echo $this->element('paginador_inferior');?>
@@ -253,15 +263,20 @@
 	//fim de Consulta de contas
 	
 	?>	
-	
-	
-	
-	
-	
-	
+		
 
 </div>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".bt-showmodal").click(function(){
+				
+				nome = $(this).attr('href');
+				$('#'+nome).modal('show');
+				
+		});	
+		
+	});
+</script>
 
 
 <br />
