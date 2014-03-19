@@ -47,7 +47,7 @@ $(document).ready(function() {
 							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
 							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
 						</div>\
-						<span id="spanEndereco0Uf" class="Msg tooltipMensagemErroDireta" style="display:none">Selecione o Estado</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>\
 						\
 						<div class="input textarea">\
 							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
@@ -60,12 +60,13 @@ $(document).ready(function() {
 							<label for="Endereco'+ contadorBlocoEndereco +'Logradouro">Logradouro<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
 						</div>\
+						<span id="valida'+ contadorBlocoEndereco +'Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>\
 						\
 						<div class="input select">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
 							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
 						</div>\
-						<span id="spanEndereco'+ contadorBlocoEndereco +'Cidade" class="Msg tooltipMensagemErroDireta" style="display:none">Selecione a cidade</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
@@ -78,7 +79,7 @@ $(document).ready(function() {
 							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
 						</div>\
-						<span id="spanEndereco'+ contadorBlocoEndereco +'Bairro" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo bairro</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>\
 					</section>\
 				<div>');
 				
@@ -108,7 +109,7 @@ $(document).ready(function() {
 					<section class="coluna-esquerda">\
 						<div class="input text">\
 							<label for="DadosbancarioNomeBanco">Nome do Banco:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="DadosbancarioNomeBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeBanco"/>\
 						</div>\
 						\
 						<div class="input text">\
@@ -118,18 +119,18 @@ $(document).ready(function() {
 						\
 						<div class="input text">\
 							<label for="DadosbancarioGerente">Gerente:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioGerente"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'Gerente"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-central" >\
 						<div class="input text">\
 							<label for="DadosbancarioNumeroBanco">Número do Banco:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="DadosbancarioNumeroBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroBanco"/>\
 						</div>\
 						\
 						<div class="input text">\
-							<label for="DadosbancarioConta">Conta:</label>\
+							<label for="DadosbancarioConta'+ contadorBlocoDadosBanc +'">Conta:</label>\
 							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'"/>\
 						</div>\
 					</section>\
@@ -137,12 +138,12 @@ $(document).ready(function() {
 					<section class="coluna-direita" >\
 						<div class="input text">\
 							<label for="DadosbancarioNomeAgencia">Nome da Agência:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioNomeAgencia"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeAgencia"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioTelefoneBanco">Telefone:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="DadosbancarioTelefoneBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco"/>\
 						</div>\
 					</section>\
 				<div>');
