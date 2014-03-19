@@ -564,6 +564,7 @@ class ContasController extends AppController {
 		} else {
 			$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
 			$this->request->data = $this->Conta->find('first', $options);
+			$this->set('conta', $this->Conta->find('first', $options));
 		}
 		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));

@@ -1,12 +1,9 @@
 <?php
 
 $this->start('css');
-	    echo $this->Html->css('contas_pagar');
+	    echo $this->Html->css('contas_view');
 	    echo $this->Html->css('table');
-	    //echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    //echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
-
 ?>	
 
 <header>
@@ -26,64 +23,54 @@ $this->start('css');
 	<section class="coluna-esquerda">
 		<?php
 			//echo $this->Form->input('id',array('label' => 'Id:','value'=>h($conta['Conta']['id']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h($conta['Conta']['valor']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-
-			
+			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		?>				
 	</section>
 		
 	<section class="coluna-central" >
-		<?php		
-		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão:','value'=>h($conta['Conta']['data_emissao']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-		    echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-		   
-		   foreach($conta['Parcela'] as $parcelas){
-				echo $this->Form->input('periodocritico',array('label' => 'Período Critico:','value'=>h($parcelas['periodocritico']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-				echo $this->Form->input('data_vencimento',array('label' => 'Data de Vencimento:','value'=>h($parcelas['data_vencimento']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			}
-			echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-
-		    
+		<?php
+			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h($conta['Conta']['valor']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão:','value'=>h($conta['Conta']['data_emissao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+   			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		?>		
 	</section>
 	
 	<section class="coluna-direita" >
 		<?php
-			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-medio','disabled'=>'disabled'));
-			echo $this->Form->input('imagem',array('label' => 'Imagem:','value'=>h($conta['Conta']['imagem']),'class' => 'tamanho-medio','disabled'=>'disabled'));		    
+			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+		   	echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+		
+			//echo $this->Form->input('imagem',array('label' => 'Imagem:','value'=>h($conta['Conta']['imagem']),'class' => 'tamanho-medio','disabled'=>'disabled'));		    
 		?>		
 	</section>
 </section><!---Fim section superior--->
 
 	<div>
 		<?php if (!empty($conta['Pagamento'])): ?>
-			<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
+			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
-						<th><?php echo ('Id'); ?></th>
-						<th><?php echo ('Tipo Pagamento'); ?></th>
-						<th><?php echo ('Número Parcela'); ?></th>
-						<th><?php echo ('Conta Id'); ?></th>
-						<th><?php echo ('Parcela Id'); ?></th>
-						<th><?php echo ('Forma Pagamento'); ?></th>
-						<th class="actions"><?php echo __('Ações'); ?></th>
+						<th><?php echo ('Parcela'); ?></th>
+						<th><?php echo ('Identificação'); ?></th>
+						<th><?php echo ('Data Vencimento'); ?></th>
+						<th><?php echo ('Período Crítico'); ?></th>
+						<th><?php echo ('Valor'); ?></th>
+						<th><?php echo ('Banco'); ?></th>
+						<th><?php echo ('Agência'); ?></th>
+						<th><?php echo ('Conta'); ?></th>
 					</thead>
 				
-					<?php foreach ($conta['Pagamento'] as $pagamento): ?>
+					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
-							<td><?php echo $pagamento['id']; ?></td>
-							<td><?php echo $pagamento['tipo_pagamento']; ?></td>
-							<td><?php echo $pagamento['numero_parcela']; ?></td>
-							<td><?php echo $pagamento['conta_id']; ?></td>
-							<td><?php echo $pagamento['parcela_id']; ?></td>
-							<td><?php echo $pagamento['forma_pagamento']; ?></td>
-							<td class="actions">
-								<?php echo $this->Html->link(__('View'), array('controller' => 'pagamentos', 'action' => 'view', $pagamento['id'])); ?>
-								<?php echo $this->Html->link(__('Edit'), array('controller' => 'pagamentos', 'action' => 'edit', $pagamento['id'])); ?>
-								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'pagamentos', 'action' => 'delete', $pagamento['id']), null, __('Are you sure you want to delete # %s?', $pagamento['id'])); ?>
-							</td>
+							<td><?php echo $parcelas['id']; ?></td>
+							<td><?php echo $parcelas['identificacao_documento']; ?></td>
+							<td><?php echo $parcelas['data_vencimento']; ?></td>
+							<td><?php echo $parcelas['periodocritico']; ?></td>
+							<td><?php echo $parcelas['valor']; ?></td>
+							<td><?php echo $parcelas['banco']; ?></td>
+							<td><?php echo $parcelas['agencia']; ?></td>
+							<td><?php echo $parcelas['conta']; ?></td>
 						</tr>
 					<?php endforeach; ?>	
 			</table>
@@ -95,15 +82,15 @@ $this->start('css');
 		
 	<?php
 		
-		echo $this->form->submit( 'botao-salvar.png',array('class'=>'bt-salvarConta','alt'=>'Salvar','title'=>'Salvar','id'=>'btn-salvarContaPagar')); 
+		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('action'=>'edit',$conta['Conta']['id'])));
 			
-		echo $this->Form->end();	
+			
 	?>	
 
 	<!-- </form> 
 	</section> -->
 </footer>
 
-<pre>
-<?php print_r($conta); ?>
-</pre>
