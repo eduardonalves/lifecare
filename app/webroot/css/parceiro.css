@@ -1,15 +1,21 @@
 @charset "utf-8";
 
+/* ID *****************************************************************/
+#remove-area-endereco, #remove-area-dadosbanc{
+	display:none;
+	margin-right:10px;
+}
+
 /* CLASS **************************************************************/
 .divTipoParceiro{margin-bottom:50px;}
 
-.bloco-area{
+div[class^="bloco-area"]{
 	display:inline-block;
 	margin-top:20px;
 	width:100%;
 }
 
-.bloco-area:first-child{
+div[class^="bloco-area"]:first-child{
 	display:inline-block;
 	margin-top:0px !important;
 }
@@ -20,20 +26,27 @@
 
 /* TAG ****************************************************************/
 hr{
-	margin:0 !important;
+	margin-top:-15px !important;
+	margin-bottom:10px !important;
 }
 
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao{
-	width:85px;
-	top:-5px;
-	left:260px;
+#validaClassificacao, #valida0Logradouro, #valida0Cidade, #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+	width: 85px;
+	top: -5px;
+	left: 260px;	
 }
 
-#validaNome{
+#validaNome, #Endereco0Logradouro, #validaLimite{
 	width:85px;
 	top:-5px;
 	left:325px;
+}
+
+#valida0Uf,#valida0Cidade{
+	width:85px;
+	top:25px;
+	left:360px;
 }
 
 #validaTelefone{
@@ -42,51 +55,18 @@ hr{
 	left:325px;
 }
 
-#Endereco0Logradouro{
+#validaCPF, #validaCPFTamanho{
 	width:85px;
-	top:-5px;
-	left:325px;
+	top:30px;
+	left:185px;
 }
 
-#valida0Logradouro{
+#valida0Bairro{
 	width:85px;
-	top:-5px;
-	left:260px;
+	top:60px;
+	left:185px;
 }
 
-#valida0Uf{
-	width:85px;
-	top:25px;
-	left:360px;
-}
-
-#valida0Cidade{
-	width:85px;
-	top:25px;
-	left:360px;
-}
-
-#validaLimite{
-	width: 85px;
-	left: 325px;
-	top: -5px;
-	z-index: 1;
-}
-
-#validaValidade{
-	width: 85px;
-	top: -5px;
-	left: 260px;	
-}
-
-#validaStatus{
-	width: 85px;
-	top: -5px;
-	left: 260px;	
-}
-
-#Dadoscredito0Bloqueado{
-	width: 85px;
-	top: -5px;
-	left: 260px;
+#validaCPF:after,#validaCPFTamanho:after,#valida0Bairro:after{
+	left:35px;
 }
