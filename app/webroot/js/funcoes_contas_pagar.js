@@ -10,7 +10,6 @@
     $('#ContaspagarParcela').val(numeroParcela);
     
     $('#bt-adicionarConta-pagar').click(function(e){
-
 	e.preventDefault();
 	
 	//recebe valores digitados
@@ -23,43 +22,84 @@
 	agencia = $('#ContaspagarAgencia').val();
 	conta = $('#ContaspagarConta').val();
 	banco = $('#ContaspagarBanco').val();
+
+	tipoPagamento=$('#Pagamento0TipoPagamento').val();
 	
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
-	
-	//adiciona a tabela
-	$('#tabela-conta-pagar').append('<tr id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
-		
-	
-	//limpa campos
-	$('#identificacaoPagar').val('');
-	$('#ContaspagarDataVencimento').val('');
-	$('#valorPagar').val('');
-	$('#PagarPeriodocritico').val('');
-	$('#ContapagarDesconto').val('');
-	$('#ContaspagarAgencia').val('');
-	$('#ContaspagarConta').val('');
-	$('#ContaspagarBanco').val('');
-	
-	//campos hidden
-	$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoPagar'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaPagar'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
-	
-	princ_cont++;
-	numeroParcela++;
-	numParcela++;
-	
-	//incrementa 1 a parcela
-	$('#ContaspagarParcela').val(numeroParcela)	
-	$('#Pagamento0NumeroParcela').val(numParcela);
 
-	calcularValorConta();
+	if(tipoPagamento == ''){
+	    alert('Tipo Pagamento vazio');
+	   // $('<span id="msgDataVencimento" class="Msg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+	    
+	}else if(dataVencimento == ''){
+	    //alert('valor vazio');
+	    $('<span id="msgDataVencimento" class="Msg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+	
+	}else if(valor == ''){
+	    //alert('valor vazio');
+	    $('<span id="msgContaValor" class="Msg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
+	    
+	}else if(periodocritico == ''){
+	    //alert('periodocritico vazio');
+	    $('<span id="msgPeriodoCritico" class="Msg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
+
+	}else{
+	    
+	    //adiciona a tabela
+	    $('#tabela-conta-pagar').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+
+	    calcularValorConta();	
+	    
+	    //limpa campos
+	    $('#identificacaoPagar').val('');
+	    $('#ContaspagarDataVencimento').val('');
+	    $('#valorPagar').val('');
+	    $('#PagarPeriodocritico').val('');
+	    $('#ContapagarDesconto').val('');
+	    $('#ContaspagarAgencia').val('');
+	    $('#ContaspagarConta').val('');
+	    $('#ContaspagarBanco').val('');
+	    
+	    //campos hidden
+	    $('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoPagar'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaPagar'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
+
+	    if(tipoPagamento == 1){
+		$('.tela-resultado').hide();
+	    }
+		princ_cont++;
+		numeroParcela++;
+		numParcela++;		
+
+	    //incrementa 1 a parcela
+	    $('#ContaspagarParcela').val(numeroParcela)	
+	    $('#Pagamento0NumeroParcela').val(numParcela);
+	}    
+	
     });
 
 
-/******************* Somar Valor Total *************************/
+/****************** Soma valor conta *********************/        
+    var valorContaAnt=0;
     function calcularValorConta(){
-	
+	valorConta=$('#valorPagar').val().replace(",", ".");
+	valorConta=parseFloat(valorConta);
 
+	if(isNaN(valorConta)){
+	    valorConta=0;
+	}
+	valorResultado= valorContaAnt+valorConta;
+	
+	valorContaAnt=valorResultado;
+
+	valorResultadoAux=parseFloat(valorResultado);
+	
+	$('#ContaspagarValor').val(valorResultadoAux.toFixed(2))
+				.priceFormat({
+				    prefix: '',
+				    centsSeparator: ',',
+				    thousandsSeparator: '',
+	});
     };
     
 /****************** Altera linha da tabela *********************/
@@ -125,7 +165,11 @@
 	    $('#ContaspagarBanco').val('');
 	   
 	});
-	
+
+	if($('#Pagamento0TipoPagamento').val() == 1){
+	    $('.tela-resultado').hide();
+	}
+
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');
     
@@ -140,6 +184,7 @@
     var numeroAnt;
     
     $("body").on("click",'.btnEditar', function(e){
+	$('.tela-resultado').show();
 	
 	//salva valor atual da parcela
 	parcelaAtual=$('#ContaspagarParcela').val();
