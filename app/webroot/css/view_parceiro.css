@@ -36,9 +36,10 @@ span{
 
 /* CLASS ************************************/
 .dadosbancarioLinha{
-	display: inline-block;
+	float: left;
 	font-size: 13px;
 	margin-left: 73px;
+	clear: both;
 }
 
 .dadosbancarioLinha .linha1{

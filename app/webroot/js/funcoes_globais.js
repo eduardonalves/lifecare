@@ -1,5 +1,19 @@
 $(document).ready(function(){
 
+/************* Inicio Seta de Ordenação da tabela *****************/
+	$(".colunaConta a.asc + div").addClass("seta-cima");
+	$(".colunaConta a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".colunaConta a.asc ,  .colunaConta a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
+	
+
 /** MÁSCARA DE DINHEIRO ***********************************************/
 	$('.dinheiro').priceFormat({
 		prefix: '',

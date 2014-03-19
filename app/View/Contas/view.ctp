@@ -25,7 +25,9 @@ $this->start('css');
 			//echo $this->Form->input('id',array('label' => 'Id:','value'=>h($conta['Conta']['id']),'class' => 'tamanho-medio','disabled'=>'disabled'));
 			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
-			echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+			echo "<span class='statusSemaforo'>Status: ". $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) ."</span>"
+			//echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+			
 		?>				
 	</section>
 		
@@ -59,6 +61,7 @@ $this->start('css');
 						<th><?php echo ('Banco'); ?></th>
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
+						<th><?php echo ('Ação'); ?></th>
 					</thead>
 				
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
@@ -71,6 +74,7 @@ $this->start('css');
 							<td><?php echo $parcelas['banco']; ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
 							<td><?php echo $parcelas['conta']; ?></td>
+							<td><a>Quitar</a></td>
 						</tr>
 					<?php endforeach; ?>	
 			</table>
@@ -82,15 +86,16 @@ $this->start('css');
 		
 	<?php
 		
-		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
-												     'title'=>'Editar',
-													 'class'=>'bt-editar',
-													 'url'=>array('action'=>'edit',$conta['Conta']['id'])));
-			
-			
+	  echo $this->html->image('voltar.png',array('alt'=>'Voltar',
+												     'title'=>'voltar',
+													 'class'=>'bt-voltar',
+													 'url'=>'/Contas/?parametro=contas'));
+
 	?>	
 
 	<!-- </form> 
 	</section> -->
 </footer>
+
+
 

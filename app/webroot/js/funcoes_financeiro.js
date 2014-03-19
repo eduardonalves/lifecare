@@ -14,18 +14,80 @@ $(document).ready(function() {
 		nextText: 'Próximo',
 		prevText: 'Anterior'
 	});
+
+/*** Validação de Datas ****************************************/
 	
-/***Input Search Para valores**********/
-	$(".inputSearchValor input[id*='between']").before("<span>a</span>");
-	$(".inputSearchValor input[type='text']").priceFormat({
-		prefix: '',
-		centsSeparator: ',',
-		thousandsSeparator: '',
-		centsLimit: 5
+$("#filterDataEmissao-between").change(function(){
+		
+		var data_inicial = $("#filterDataEmissao").val();
+		var data_final = $("#filterDataEmissao-between").val();
+		
+		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+		
+		if(Compara01 > Compara02){ 
+			$("#filterDataEmissao, #filterDataEmissao-between").val("");
+			$("#filterDataEmissao, #filterDataEmissao-between").addClass("shadow-vermelho");
+		}else{
+			$("#filterDataEmissao, #filterDataEmissao-between").removeClass("shadow-vermelho");
+
+		}			
 	});
+	
+	
+$("#filterDataQuitacao-between").change(function(){
+		
+		var data_inicial = $("#filterDataQuitacao").val();
+		var data_final = $("#filterDataQuitacao-between").val();
+		
+		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+		
+		if(Compara01 > Compara02){ 
+			$("#filterDataQuitacao, #filterDataQuitacao-between").val("");
+			$("#filterDataQuitacao, #filterDataQuitacao-between").addClass("shadow-vermelho");
+		}else{
+			$("#filterDataQuitacao, #filterDataQuitacao-between").removeClass("shadow-vermelho");
+
+		}			
+	});
+	
+$("#filterDataVencimento-between").change(function(){
+		
+		var data_inicial = $("#filterDataVencimento").val();
+		var data_final = $("#filterDataVencimento-between").val();
+		
+		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+		
+		if(Compara01 > Compara02){ 
+			$("#filterDataVencimento, #filterDataVencimento-between").val("");
+			$("#filterDataVencimento, #filterDataVencimento-between").addClass("shadow-vermelho");
+		}else{
+			$("#filterDataVencimento, #filterDataVencimento-between").removeClass("shadow-vermelho");
+
+		}			
+	});
+	
+$("#filterValor-between").focusout(function(){
+		
+		var valor_inicial = $("#filterValor").val();
+		var valor_final = $("#filterValor-between").val();
+
+		if(valor_inicial > valor_final){ 
+			$("#filterValor, #filterValor-between").val(' ');
+			$("#filterValor, #filterValor-between").addClass("shadow-vermelho");
+		}else{
+			$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+
+		}			
+	});
+	
+/***Input Search Para valores *****************************************/
+	$(".inputSearchValor input[id*='between']").before("<span>a</span>");
 
 
-/********** Avançar tela de resultado Contas ****************/
+/********** Avançar tela de resultado Contas **************************/
 
     $('.bt-confirmar').click(function(e){
 	e.preventDefault();
