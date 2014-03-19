@@ -14,7 +14,7 @@ class ContasrecebersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs');
 
 /**
  * index method
@@ -50,18 +50,40 @@ class ContasrecebersController extends AppController {
 	public function add() {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
-			$this->Contasreceber->create();
+				$this->Contasreceber->create();
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
 			if ($this->Contasreceber->saveAll($this->request->data)) {
 				$this->loadModel('Pagamento');
+				$this->loadModel('Parcela');
+				$this->loadModel('ParcelasConta');
+				$this->loadModel('Conta');
 				$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
+				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+				$parcelasEnviadas = $this->request->data['Parcela'];
+				//debug($parcelasEnviadas);
+				$cont=0;
+				foreach($parcelasEnviadas as $parcelasEnviada){
+					//$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
+					$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+					
+					$this->Parcela->create();
+					$this->Parcela->save($parcelasEnviada);
+					$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+					
+					$this->ParcelasConta->create();
+					$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
+					$this->ParcelasConta->save($parcela_conta);
+					
+				}
 				$this->Session->setFlash(__('The conta has been saved.'));
 				return $this->redirect(array('action' => 'index'));
+				
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
-				debug($this->request->data);
+				
 			}
-			//$this->lifecareDataFuncsComponent->formatDateToBD();
-			debug($this->request->data);
+			
+			
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));

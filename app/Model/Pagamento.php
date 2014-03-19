@@ -25,26 +25,4 @@ class Pagamento extends AppModel {
 			'order' => ''
 		)
 	);
-	/**
- * hasMany associations
- *
- * @var array
- */
-	public $hasMany = array(
-		'Parcela' => array(
-			'className' => 'Parcela',
-			'foreignKey' => 'pagamento_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-
-	
 }
