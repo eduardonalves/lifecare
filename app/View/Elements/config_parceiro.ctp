@@ -27,58 +27,37 @@
 		<div class="c">
 			
 			<?php
-				//echo $this->Form->create('Configlote');
+				echo $this->Form->create('Configparceiro');
 			?>	
 			
 			<?php
-				//echo $this->Form->input('id',array('value' => $configlote['Configlote']['id']));
+				echo $this->Form->input('id',array('type'=>'hidden','value' => $configparceiro['Configparceiro']['id']));
 			?>
-					
-			<div class='esconder'>	
-				<?php //echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
-			</div>
 		
-			<?php /*
-				
-				if($configlote['Configlote']['numero_lote']==1){
-						echo $this->Form->input('numero_lote', array('value' => 1, 'checked' =>'checked', 'label'=>'Número Lote'));
+			<?php 
+				if($configparceiro['Configparceiro']['nome']==1){
+						echo $this->Form->input('nome', array('value' => 1, 'checked' =>'checked', 'label'=>' Parceiro de Negócio'));
 					} else{
-						echo $this->Form->input('numero_lote', array('label' => 'Número Lote'));
+						echo $this->Form->input('nome', array('label' => ' Parceiro de Negócio'));
 					}
 					
-				if($configlote['Configlote']['data_fabricacao']==1){
-						echo $this->Form->input('data_fabricacao', array('value' => 1, 'checked' =>'checked', 'label'=>'Data Fabricacao'));
+				if($configparceiro['Configparceiro']['cnpj']==1){
+						echo $this->Form->input('cnpj', array('value' => 1, 'checked' =>'checked', 'label'=>' CNPJ/CPF'));
 					} else{
-						echo $this->Form->input('data_fabricacao', array('label' => 'Data Fabricacao'));
+						echo $this->Form->input('cnpj', array('label' => ' CNPJ/CPF'));
 					}
-				
 					
-				if($configlote['Configlote']['estoque']==1){
-						echo $this->Form->input('estoque', array('value' => 1, 'checked' =>'checked', 'label'=>'Qtd. Atual'));
+				if($configparceiro['Configparceiro']['endereco']==1){
+						echo $this->Form->input('endereco', array('value' => 1, 'checked' =>'checked', 'label'=>' endereco'));
 					} else{
-						echo $this->Form->input('estoque', array('label' => 'Qtd. Estoque'));
+						echo $this->Form->input('endereco', array('label' => ' endereco'));
 					}
 				
-								
-				
-				if($configlote['Configlote']['fabricante']==1){
-						echo $this->Form->input('fabricante', array('value' => 1, 'checked' =>'checked', 'label'=>'Fabricante'));
+				if($configparceiro['Configparceiro']['telefone']==1){
+						echo $this->Form->input('telefone', array('value' => 1, 'checked' =>'checked', 'label'=>' telefone'));
 					} else{
-						echo $this->Form->input('fabricante', array('label' => 'Fabricante'));
+						echo $this->Form->input('telefone', array('label' => ' telefone'));
 					}
-				
-				if($configlote['Configlote']['data_validade']==1){
-						echo $this->Form->input('data_validade', array('value' => 1, 'checked' =>'checked', 'label'=>'Data Validade'));
-					} else{
-						echo $this->Form->input('data_validade', array('label' => 'Data Validade'));
-					}
-				
-				if($configlote['Configlote']['status']==1){
-						echo $this->Form->input('status', array('value' => 1, 'checked' =>'checked', 'label'=>'Status Validade'));
-					} else{
-						echo $this->Form->input('status', array('label' => 'Status Validade'));
-					}
-					* */
 			?>
 		</div>
 		
@@ -94,3 +73,7 @@
 		
 	?>			
 </footer>
+
+<pre>
+<?php print_r($configparceiro); ?>
+</pre>

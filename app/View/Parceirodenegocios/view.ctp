@@ -2,7 +2,7 @@
 	$this->start('css');
 	echo $this->Html->css('view_parceiro');
 	$this->end();
-	
+
 ?>
 
 
@@ -13,7 +13,7 @@
 	?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption21">Consultas</h1>
+	<h1 class="menuOption31">Consultas</h1>
 
 	<script>
 		$('img').tooltip();
@@ -104,12 +104,12 @@
 		
 	<section class="coluna-central" >
 		<fieldset>
-			<legend>Dados do Tributário</legend>
+			<legend>Dados Bancários</legend>
 
 			<div class="coluna-content">
 
 				<?php		
-					
+
 				foreach($parceirodenegocio['Dadosbancario'] as $dadosbancario){
 					echo $this->Form->input('Dadosbancario.nome_banco',array('label' => 'Nome do Banco:','value'=>h($dadosbancario['nome_banco']),'class' => 'tamanho-medio','disabled'=>'disabled'));
 					echo $this->Form->input('Dadosbancario.numero_banco',array('label' => 'Número do Banco:','value'=>h($dadosbancario['numero_banco']),'class' => 'tamanho-medio','disabled'=>'disabled'));
@@ -134,19 +134,19 @@
 
 	<section class="coluna-direita" >
 		<fieldset>
-			<legend>Dados do Estoque</legend>
+			<legend>Dados de Crédito</legend>
 
 			<div class="coluna-content">
 				
 				<?php		
-					
+
 				foreach($parceirodenegocio['Dadoscredito'] as $dadoscredito){
-			
+
 					echo $this->Form->input('limite',array('label' => 'Limite:','value'=>h($dadoscredito['limite']),'class' => 'tamanho-medio','disabled'=>'disabled'));
 					echo $this->Form->input('validade_limite',array('label' => 'Validade Limite:','value'=>h($dadoscredito['validade_limite']),'class' => 'tamanho-medio','disabled'=>'disabled'));
 					echo $this->Form->input('status',array('label' => 'Status:','value'=>h($dadoscredito['status']),'class' => 'tamanho-pequeno','disabled'=>'disabled'));
 					echo $this->Form->input('bloqueado',array('label' => 'Bloqueado:','value'=>h($dadoscredito['bloqueado']),'class' => 'tamanho-pequeno','disabled'=>'disabled'));
-					
+
 				}	
 				?>
 				

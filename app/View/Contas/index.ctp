@@ -11,8 +11,6 @@
 
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
-		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
-		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
 	$this->end();
 ?>
 
@@ -114,13 +112,7 @@
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
 				<span id="titulo">Dados das Parcelas</span>
-				
-				<a href="add-config_parcela" class="bt-showmodal">
-					<?php
-						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração das Parcelas', 'title' => 'Configuração das Parcelas'));
-					?>					
-				</a>
-				
+										
 				<div class="formaPagamento">
 					<?php
 						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
@@ -142,17 +134,9 @@
 			<!------------------ FILTRO Do Parceiro ------------------>
 			<section id="filtro-parcela" class="coluna-direita">
 				<div class="boxParceiro">
-					<?php
-						echo $this->Form->input('', array('label'=>array('id'=>'','text'=>'Dados do Parceiro de Negócio'),'type'=>'checkbox', 'id' => '' , 'value' => ''));
-					?>
+					<span>Dados do Parceiro de Negócio</span>
 				</div>
-				<a href="add-config_parceiro" class="bt-showmodal">
-				
-					<?php
-						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração do Parceiro', 'title' => 'Configuração do Parceiro'));
-					?>
-					
-				</a>
+			
 				<div class="informacoesParceiro">
 				<?php
 					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
@@ -197,8 +181,14 @@
 									 
 										foreach($configCont as $campo=>$campoLabel)
 									 {
-										 
-										 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+										 if($campo=='parcelas'){
+											 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+										 }else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+											echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+
+										 }else{
+											 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+										 }
 										 
 									 }
 

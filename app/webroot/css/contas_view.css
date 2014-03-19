@@ -10,3 +10,14 @@
 #tabelaParcelas{
 	margin-top: 25px;
 }
+
+.statusSemaforo{
+	float: left;
+	font-size: 13px;
+	margin-left: 95px;
+	clear: both;
+}
+
+.statusSemaforo img{
+	margin-left:15px;
+}

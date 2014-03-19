@@ -12,10 +12,10 @@ label{
 /* CLASS **************************************************************/
 
 .boxParceiro{
-	margin: 4px 0px 16px -10px;
+	margin: 0px 0px 16px 17px;
 }
 
-.boxParceiro label{
+.boxParceiro span{
 	font-size: 15px !important;
 	width: 210px !important;
 	margin-top: -4px;

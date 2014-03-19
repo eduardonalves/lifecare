@@ -295,13 +295,14 @@ class ContasController extends AppController {
 							'data_emissao' => 'Data da emissão',
 							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',	
+							'tipo' => 'Tipo de Conta',
+							'status' => 'Status da Conta',
 							'parcelas' => 'Parcelas',	
-							'parceirodenegocio_id' => 'Parceiro de Negócios',
+							'parceirodenegocio_id' => 'Código do Parceiro',
 							'nome_parceiro' => 'Nome do Parceiro',
 							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
-							'status_parceiro' => 'status do Parceiro',
-							'tipo' => 'Tipo de Conta',
-							'status' => 'Status'																								
+							'status_parceiro' => 'Status do Parceiro'					
+																															
 							);
 		
 		//if($this->request->query['parametro']!='Contas') { unset($configContasLabels['categoria']); }
