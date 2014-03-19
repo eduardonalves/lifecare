@@ -31,6 +31,10 @@ class NotasController extends AppController {
 			{
 				$this->request->query['limit'] = 15;
 			}
+
+			if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
 			
 			$this->loadModel('Lote');
 			$lotes = $this->Lote->find('all', array('recursive' => 0));
@@ -430,7 +434,7 @@ class NotasController extends AppController {
 
 
 		$this->loadModel('Quicklink');
-		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid), 'order' => array('Quicklink.nome' => 'ASC')));
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid ,'Quicklink.tipo' =>'ESTOQUE'), 'order' => array('Quicklink.nome' => 'ASC')));
 		
 		$quicklinksList = array();
 
@@ -649,11 +653,11 @@ class NotasController extends AppController {
 		
 		}else{
 		    
-		    if($this->request->is('GET')){
-			if(!isset($this->request->data['filter'])){
-			    $_GET['ql']="";
-			}
-		    }
+		    //if($this->request->is('GET')){
+			//if(!isset($this->request->data['filter'])){
+			    //$_GET['ql']="";
+			//}
+		    //}
 			
 			//$options = array('conditions' => array('Configproduto.' . $this->Configproduto->primaryKey => $configproduto['Configproduto']['id']));
 			//$this->request->data = $this->Configproduto->find('first', $options);			

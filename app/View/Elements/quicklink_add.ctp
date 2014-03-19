@@ -106,6 +106,7 @@
 				<?php
 					echo $this->Form->input('url',array('value' => $urlQuickLink));
 					echo $this->Form->input('user_id',array('value' => $configproduto['Configproduto']['user_id']));
+					echo $this->Form->input('tipo',array('value' => 'ESTOQUE', 'type' => 'hidden'));
 				?>	
 			</div>	
 		<?php	

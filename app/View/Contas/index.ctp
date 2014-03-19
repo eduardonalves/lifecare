@@ -11,22 +11,34 @@
 
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
+
 		//echo $this->element('view_parcelas', array('modal'=>'add-view_parcelas'));
+
+		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
+		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
+		echo $this->element('quicklink_addfinanceiro', array('modal'=>'add-quicklink'));
+
 	$this->end();
 ?>
-
+<script>
+$(document).ready(function() {
+	var usoInicioPhp = '<?php ?>' ;
+	var usoGet = '$_GET["ql"]';
+    });
+</script>
 <?php
 	if(isset($pageReload)){
 		if($pageReload=='Reload'){
 ?>
-
 <script type="text/javascript">
-	$(document ).ready(function(){
-		setTimeout(function(){
-			location.reload();
-		}, 2000);
-	});
+    $(document).ready(function() {
+	    setTimeout(function(){
+		    location.reload();
+	    }, 2000);
+
+    });	
 </script>
+
 
 <?php
 		}
@@ -50,10 +62,15 @@
 			$urlQuickLink = $this->Html->url( null, true );
 			$urlQuickLink = $urlQuickLink;
 		?>
-	
+		
 	
 		<?php
-			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList));
+
+		    $ql= $_GET['ql'];
+		    if($ql ==''){
+			$ql=0;
+		    }
+			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default'=>$ql));
 		?>
 		
 		<a href="add-quicklink" class="bt-showmodal">

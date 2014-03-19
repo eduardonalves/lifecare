@@ -157,6 +157,7 @@ return get;
 		if(urlQuickLink!='')
 		{
 		    window.location.href=urlQuickLink;
+		    $("#quick-select option").text($(this).children('option:selected').text());
 		}
 
 	});

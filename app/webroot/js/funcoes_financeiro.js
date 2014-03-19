@@ -1,6 +1,5 @@
 $(document).ready(function() {
-	
-	
+
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
 	$(".inputSearchData input[id*='between']").before("<span>a</span>");
 	
@@ -66,6 +65,7 @@ $("#filterDataVencimento-between").change(function(){
 		}else{
 			$("#filterDataVencimento, #filterDataVencimento-between").removeClass("shadow-vermelho");
 
+
 		}			
 	});
 	
@@ -87,7 +87,69 @@ $("#filterValor-between").focusout(function(){
 	$(".inputSearchValor input[id*='between']").before("<span>a</span>");
 
 
-/********** Avançar tela de resultado Contas **************************/
+/******** Carregar filtro no select Quick link ***********************/
+
+	$("#quick-select").change(function(){
+		var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
+
+		$("#quick-editar").css("display", "none");
+		
+		if(urlQuickLink !='')
+		{
+		    window.location.href=urlQuickLink;
+		    $("#quick-select option").text($(this).children('option:selected').text());
+		}
+
+		
+
+	});
+
+	$("#quick-filtrar").click(function(){
+	    var usoInicioPhp = '<?php' ;
+	    var usoFinalPhp ='?>';
+	    var usoGet = '$_GET["ql"]=0';
+
+	    $('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
+	});
+	
+/************************ Salvar Quicklink******************************************/
+    $("#bt-salvar-quicklink").click(function(event){
+	event.preventDefault();
+	
+	nomequick = $('.nome-quicklink').val();
+	
+	if(nomequick  !=''){
+		$("#formCadQuicklink").submit();
+		$("#quick-select").val(nomequick);
+		$('#quick-select').find('option[text="'+nomequick+'"]').val();
+	}else{
+		 $('#spanQuicklink').show();
+	}
+    });
+    
+/************************************ Limpa QuickLink *********************************/		
+	$('input, select').on('focusin',function(){
+	    $('#quick-select').val('');
+	    $("#quick-editar").css("display", "none");
+	   
+	});
+	
+	//alert($("#quick-select option:selected").val());
+
+	$("#quick-filtrar").click(function(){
+	 /* 
+		var urlQuickLink = $(this).children('option:selected').attr('data-url').val();
+
+		$("#quick-editar").css("display", "none");
+		
+		if(urlQuickLink!='')
+		{
+		    window.location.href=urlQuickLink;
+		}
+	*/
+	});
+/********** Avançar tela de resultado Contas ****************/
+
 
     $('.bt-confirmar').click(function(e){
 	e.preventDefault();
@@ -97,15 +159,20 @@ $("#filterValor-between").focusout(function(){
 	CpfCnpj = $('[id*="CpfCnpj"]').val();
 	
 	if(dataEmissao == ''){
-	    $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
+	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
+	    $('#msgDataEmissao').css('display','block');
+	    $('[id*="DataEmissao"]').addClass('shadow-vermelho');
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else if(CpfCnpj ==''){
-	    $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
-	     $('html, body').animate({scrollTop:0}, 'slow');
-	     
+	   // $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
+	    $('#msgAutoComplete').css('display','block');
+	    $('.ui-widget').addClass('shadow-vermelho');
+	    $('html, body').animate({scrollTop:0}, 'slow');
+	    
 	}else if(!temclasvalbtconf){
-	    $('<span id="msgCpfCnpj" class="Msg-tooltipDireita">Adicione parcelas a tabela</span>').insertAfter('.bt-direita');
+	  //  $('<span id="msgCpfCnpj" class="Msg-tooltipDireita">Adicione parcelas a tabela</span>').insertAfter('.bt-direita');
+	    $('#msgCpfCnpj').css('display','block');
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else{    	
@@ -146,12 +213,6 @@ $("#filterValor-between").focusout(function(){
 	}    
 
     });
-
-/***************** Validação BT Confirmar ****************/
-    function ValidaBTConfirmar(){
-	
-	
-    } 
     
 /********** Avançar tela de resultado Contas ****************/
 
