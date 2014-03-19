@@ -5,6 +5,22 @@ $(document).ready(function() {
 	var contadorBlocoEndereco = 1;
 	var contadorBlocoDadosBanc = 1;
 
+	function botaoRemoverEnd(){
+		if(contadorBlocoEndereco > 1){
+			$("#remove-area-endereco").css('display','block');
+		}else{
+			$("#remove-area-endereco").css('display','none');
+		}
+	}
+
+	function botaoRemoverBanc(){
+		if(contadorBlocoDadosBanc > 1){
+			$("#remove-area-dadosbanc").css('display','block');
+		}else{
+			$("#remove-area-dadosbanc").css('display','none');
+		}
+	}
+
 	$("#add-area-endereco").click(function(){
 		
 		var logradouro = $("#Endereco"+ (contadorBlocoEndereco-1) +"Logradouro").val();
@@ -16,17 +32,20 @@ $(document).ready(function() {
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
 		
 		if(logradouro && uf && municipio && bairro){
-			$('.area-endereço').append('<hr>\
-				<div class="bloco-area">\
+			$('.area-endereco').append('<div class="bloco-area-end'+ contadorBlocoEndereco +'">\
+				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
 							<label for="ParceirodenegocioTipo">Tipo:</label>\
-							<select name="data[Parceirodenegocio][tipo]" id="ParceirodenegocioTipo"></select>\
+							<select name="data[Parceirodenegocio][tipo]" id="ParceirodenegocioTipo">\
+								<option value="1">Cobrança</option>\
+								<option value="2">Entrega</option>\
+							</select>\
 						</div>\
 						\
 						<div class="inputCliente input text divUf">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco][0][uf]" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
 						</div>\
 						<span id="spanEndereco0Uf" class="Msg tooltipMensagemErroDireta" style="display:none">Selecione o Estado</span>\
 						\
@@ -62,7 +81,9 @@ $(document).ready(function() {
 						<span id="spanEndereco'+ contadorBlocoEndereco +'Bairro" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo bairro</span>\
 					</section>\
 				<div>');
-
+				
+			$('.bloco-area-end'+ contadorBlocoEndereco).hide().fadeIn(2000);
+			
 			contadorBlocoEndereco++;
 		}
 
@@ -70,74 +91,98 @@ $(document).ready(function() {
 			estado: $('#'+idUf).get(0),
 			cidade: $('#'+idCidade).get(0)
 		});
-		
+			
+		botaoRemoverEnd();
 	});
 	
 	$("#add-area-dadosbanc").click(function(){
 		
 		var agencia = $("#Dadosbancario"+ (contadorBlocoDadosBanc-1) +"NumeroAgencia").val();
-		var conta = $("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1) +"").val();
+		var conta = $("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1)).val();
+		
+		alert(agencia +' '+ conta);
 		
 		if(conta && agencia){
-			$('.area-dadosbanc').append('<hr>\
-				<div class="bloco-area">\
+			$('.area-dadosbanc').append('<div class="bloco-area-banc'+ contadorBlocoDadosBanc +'">\
+					<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input text">\
 							<label for="DadosbancarioNomeBanco">Nome do Banco:</label>\
-							<input name="data[Dadosbancario][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="DadosbancarioNomeBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="DadosbancarioNomeBanco"/>\
 						</div>\
 						\
 						<div class="input text">\
-							<label for="DadosbancarioNumeroAgencia">Númeor da Agência:</label>\
-							<input name="data[Dadosbancario][numero_agencia]" class="tamanho-pequeno" maxlength="15" type="text" id="DadosbancarioNumeroAgencia"/>\
+							<label for="DadosbancarioNumeroAgencia">Número da Agência:</label>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_agencia]" class="tamanho-pequeno" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroAgencia"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioGerente">Gerente:</label>\
-							<input name="data[Dadosbancario][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioGerente"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioGerente"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-central" >\
 						<div class="input text">\
 							<label for="DadosbancarioNumeroBanco">Número do Banco:</label>\
-							<input name="data[Dadosbancario][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="DadosbancarioNumeroBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="DadosbancarioNumeroBanco"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioConta">Conta:</label>\
-							<input name="data[Dadosbancario][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
 						<div class="input text">\
 							<label for="DadosbancarioNomeAgencia">Nome da Agência:</label>\
-							<input name="data[Dadosbancario][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioNomeAgencia"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="DadosbancarioNomeAgencia"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioTelefoneBanco">Telefone:</label>\
-							<input name="data[Dadosbancario][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="DadosbancarioTelefoneBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="DadosbancarioTelefoneBanco"/>\
 						</div>\
 					</section>\
 				<div>');
+				
+			$('.bloco-area-banc'+ contadorBlocoDadosBanc).hide().fadeIn(2000);
 
 			contadorBlocoDadosBanc++;
 		}
+		
+		botaoRemoverBanc();
 	});
+	
+/*** Remoção de Blocos de Endereços e Dados Bancários *****************/
 
+	$("#remove-area-endereco").click(function(){		
+		$(".bloco-area-end" + (contadorBlocoEndereco-1)).remove();
+		
+		contadorBlocoEndereco--;
+		
+		botaoRemoverEnd();
+	});
+	
+	$("#remove-area-dadosbanc").click(function(){		
+		$(".bloco-area-banc" + (contadorBlocoDadosBanc-1)).remove();
+		
+		contadorBlocoDadosBanc--;
+		
+		botaoRemoverBanc();
+	});
 
 /*** Visualização de Créditos *****************************************/
 
-	if(($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+	if($('#ParceirodenegocioClassificacao').val() == 'CLIENTE'){
 		$('.areaCliente').css('display','inline-block');
 	}else{
 		$('.areaCliente').css('display','none');
 	}
 
 	$('#ParceirodenegocioClassificacao').change(function(){
-		if($('#ParceirodenegocioClassificacao').val() == 1){
+		if($('#ParceirodenegocioClassificacao').val() == 'CLIENTE'){
 			$('.areaCliente').css('display','inline-block');
 		}else{
 			$('.areaCliente').css('display','none');
@@ -156,6 +201,10 @@ $(document).ready(function() {
 		}else if($('#ParceirodenegocioNome').val() == ''){
 			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
 			$('#validaNome').css('display','block');
+			return false;
+		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+			$('#validaCPFTamanho').css('display','block');
 			return false;
 		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
@@ -206,6 +255,29 @@ $(document).ready(function() {
 /*** Máscara **********************************************************/
 	jQuery(function($){
 		$(".agencia").mask("9999-9");
+		//$(".maskcpf").mask("999.999.999-99");
+	});	
+	
+	$('.maskcpf').focusout(function(){
+	
+		var digitos = this.value;
+		
+		if($(".maskcpf").val().length == 11 ){
+			var parte1 = digitos.substring(0,3);
+			var parte2 = digitos.substring(3,6);
+			var parte3 = digitos.substring(6,9);
+			var parte4 = digitos.substring(9,11);
+			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'-'+parte4);
+		}else if($(".maskcpf").val().length == 14){
+			var parte1 = digitos.substring(0,2);
+			var parte2 = digitos.substring(2,5);
+			var parte3 = digitos.substring(5,8);
+			var parte4 = digitos.substring(8,12);
+			var parte5 = digitos.substring(12,14);
+			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'/'+parte4+'-'+parte5);
+		}else if ($(".maskcpf").val().length == 18){
+			$(".maskcpf").val();
+		}
 	});
 
 /*** Teste ************************************************************/
@@ -216,30 +288,3 @@ $(document).ready(function() {
 	*/
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

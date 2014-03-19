@@ -34,7 +34,7 @@
 		<?php
 			echo $this->Form->create('Parceirodenegocio');
 
-			echo $this->Form->input('tipo',array('label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array('','Cliente','Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
+			echo $this->Form->input('tipo',array('label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('telefone',array('class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
@@ -57,8 +57,9 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false'));
-			echo '<span id="validaCPF" class="Msg-tooltipDireita" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false'));
+			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
 		?>
 
@@ -68,9 +69,8 @@
 <section class="ajusteAlignSection"> <!---section MEIO--->
 	
 	<header class="">Endereços</header>
-	
-	
-	<div class="area-endereço"> 
+
+	<div class="area-endereco"> 
 		<div class="bloco-area">
 			
 			<section class="coluna-esquerda">
@@ -95,23 +95,23 @@
 
 			</section>
 
-		
 			<section class="coluna-direita" >
 
 				<?php
 					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
 					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
+					echo '<span id="valida0Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
 				?>
 
 			</section>
 		</div>	
 	</div>
-	
+
 	<div class="fake-footer">
 
 		<?php
-			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'add-area-endereco','class'=>'bt-direita'));
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco de Endereços','id'=>'add-area-endereco','class'=>'bt-direita'));
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Remover Bloco de Endereços','id'=>'remove-area-endereco','class'=>'bt-direita'));
 		?>
 
 	</div>
@@ -127,7 +127,7 @@
 
 				<?php 
 					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
-					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Númeor da Agência:','class' => 'tamanho-pequeno agencia'));
+					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno agencia'));
 					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
 				?>
 
@@ -156,7 +156,8 @@
 	<div class="fake-footer">
 
 		<?php
-			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'add-area-dadosbanc','class'=>'bt-direita'));
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco Dados Bancários','id'=>'add-area-dadosbanc','class'=>'bt-direita'));
+			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'remove-area-dadosbanc','class'=>'bt-direita'));
 		?>
 
 	</div>
