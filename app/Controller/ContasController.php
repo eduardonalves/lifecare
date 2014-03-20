@@ -538,10 +538,10 @@ class ContasController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Conta->create();
 			if ($this->Conta->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('The conta has been saved.'));
+				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
 		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');

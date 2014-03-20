@@ -75,11 +75,11 @@ class ContasrecebersController extends AppController {
 					$this->ParcelasConta->save($parcela_conta);
 					
 				}
-				$this->Session->setFlash(__('The conta has been saved.'));
+				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 				
 			} else {
-				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 				
 			}
 			

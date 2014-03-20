@@ -2,7 +2,7 @@
 	$this->start('css');
 	echo $this->Html->css('table');	
 	echo $this->Html->css('dashboard');
-	echo $this->Html->css('chartfx');
+	//echo $this->Html->css('chartfx');
 	echo $this->Html->css('table');
 	$this->end();
 

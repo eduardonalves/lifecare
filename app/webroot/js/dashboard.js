@@ -10,6 +10,13 @@ var barData = {
 			strokeColor : "#32435A",
 			data : [200,300,400,500,600,700],
 			
+		},
+		
+		{
+			fillColor : "#48A497",
+			strokeColor : "#32435A",
+			data: [100,200,300,400,700,500],
+			
 		}
 	]	
 };
