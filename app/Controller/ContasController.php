@@ -521,6 +521,7 @@ class ContasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+	    $this->layout = 'contas';
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}

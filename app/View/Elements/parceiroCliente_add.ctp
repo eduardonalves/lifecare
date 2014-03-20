@@ -143,7 +143,7 @@ $(document).ready(function(){
 
 			echo $this->Form->input('tipo',array('value'=>'CLIENTE','type' => 'hidden'));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio tel','label' => 'Fax:'));
 		?>
@@ -153,7 +153,7 @@ $(document).ready(function(){
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio obrigatorio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:'));
@@ -164,7 +164,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false'));
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio obrigatorio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength' => '14'));
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
@@ -184,7 +184,7 @@ $(document).ready(function(){
 
 				<?php	
 					/*Corrigir Campo*/ echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
@@ -194,9 +194,9 @@ $(document).ready(function(){
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>';
-					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade'));
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade obrigatorio'));
 					echo '<span id="valida0Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>';
 				?>
 
@@ -206,7 +206,7 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-pequeno'));
-					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
+					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
 				?>
 
@@ -270,16 +270,16 @@ $(document).ready(function(){
 	</div>
 </section><!--fim Meio-->
 
-<section class="areaCliente"> <!---section Baixo--->	
+<section> <!---section Baixo--->	
 
 	<header class="">Dados do Crédito</header>
 
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio'));
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio obrigatorio'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
-			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não','Sim'),'type' => 'select'));
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('class' =>'obrigatorio','label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não','Sim'),'type' => 'select'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
 		?>
 
@@ -288,7 +288,7 @@ $(document).ready(function(){
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno'));
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio'));
 			echo '<span id="validaValidade" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 		?>
 
@@ -297,7 +297,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.status',array('label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1','Status 2','Status 3'),'type' => 'select'));
+			echo $this->Form->input('Dadoscredito.0.status',array('label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1','Status 2','Status 3'),'type' => 'select','class' => 'obrigatorio'));
 			echo '<span id="validaStatus" class="Msg-tooltipDireita" style="display:none">Selecione o Status</span>';
 		?>
 
