@@ -39,7 +39,12 @@ class ParceirodenegociosController extends AppController {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
 		$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
+		
+		$this->loadModel('Conta');
+		
+		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO')));
 		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+		$this->set(compact('contasParceiros'));
 	}
 
 /**
@@ -99,7 +104,7 @@ class ParceirodenegociosController extends AppController {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Parceirodenegocio->save($this->request->data)) {
+			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('Parceiro editado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view',$id));
 			} else {
@@ -109,6 +114,8 @@ class ParceirodenegociosController extends AppController {
 			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
 			$this->request->data = $this->Parceirodenegocio->find('first', $options);
 		}
+		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+
 	}
 
 /**

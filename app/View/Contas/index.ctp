@@ -242,8 +242,14 @@ $(document).ready(function() {
 									 											
 										foreach($configCont as $campo=>$campoLabel){							
 											if($campo=="status"){
-												echo "<td>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
+												echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
 												//Monter uma tabela dentro de um modal
+											}if($campo=="parceirodenegocio_id"){
+												echo "<td class='parcelas'>"; 
+												echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar',
+												     'title'=>'Visualizar',
+													'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
+												echo "</a>";
 											}else if($campo=="parcelas"){
 												echo "<td class='parcelas'><a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
 												echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar'));
