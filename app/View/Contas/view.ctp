@@ -43,7 +43,7 @@ $this->start('css');
 		<?php
 			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		   	echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
-		
+			echo $this->Form->postLink(__('Cancelar'), array('action' => 'cancelarConta', $conta['Conta']['id']), null, __('Tem certeza que deseja quitar esta Conta # %s?', $conta['Conta']['id'])); 
 			//echo $this->Form->input('imagem',array('label' => 'Imagem:','value'=>h($conta['Conta']['imagem']),'class' => 'tamanho-medio','disabled'=>'disabled'));		    
 		?>		
 	</section>
@@ -74,7 +74,10 @@ $this->start('css');
 							<td><?php echo $parcelas['banco']; ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
 							<td><?php echo $parcelas['conta']; ?></td>
-							<td><a>Quitar</a></td>
+							<td>
+								<?php echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
+								
+							</td>
 						</tr>
 					<?php endforeach; ?>	
 			</table>

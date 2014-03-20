@@ -28,7 +28,7 @@ class ContasController extends AppController {
 			if(!isset($_GET['ql'])){
 			    $_GET['ql']=0;
 			}
-			
+		
 			//Verificamos a data para setarmos o semáfaro do Parcela
 			
 			//Inicio Cemáfaro
@@ -48,99 +48,36 @@ class ContasController extends AppController {
 				$conta = $this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $Parcela['_Conta']['id'])));
 				
 				if(isset($conta)){
-					if(!empty($conta)){
-						if($diasCritico !=''){
-							if($vencimento < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-								$this->Parcela->save($updatevencimento);	
-								//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-								//$this->Conta->save($updateConta);
-							}else if( $dataCritica < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
-								$this->Parcela->save($updatevencimento);
-							}else{
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
-								$this->Parcela->save($updatevencimento);
-							} 
-						}else{
-							if($vencimento < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-								$this->Parcela->save($updatevencimento);	
-							}else{
-								$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
-								$this->Parcela->save($updatevencimento);
-							}
-						}
-						/*if($diasCritico !=''){
-				
-							if(strtotime($hoje)  <=  strtotime($vencimento)){
-								if($dataCritica < $hoje){
-									
-									if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+					if(!empty($conta) && $conta['Conta']['status'] !='CANCELADO'){
+						if($Parcela['Parcela']['status'] != 'CINZA'){
+								if($diasCritico !=''){
+									if($vencimento < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+										$this->Parcela->save($updatevencimento);	
+										//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+										//$this->Conta->save($updateConta);
+									}else if( $dataCritica < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
 										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'AMARELO');
 										$this->Parcela->save($updatevencimento);
-					
-										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'AMARELO');
-										$this->Conta->save($updateConta);
-										
-										
-										
-									}
-									
-								}else{
-									if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
+									}else{
 										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
 										$this->Parcela->save($updatevencimento);
-										
-										
-											$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
-											$this->Conta->save($updateConta);
-										
-										
+									} 
+								}else{
+									if($vencimento < $hoje  && $Parcela['Parcela']['status'] !='CINZA'){
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
+										$this->Parcela->save($updatevencimento);	
+									}else{
+										$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
+										$this->Parcela->save($updatevencimento);
 									}
 								}
-		
-							}else{
-								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
-									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-									$this->Parcela->save($updatevencimento);
-									
-										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-										$this->Conta->save($updateConta);
-									
-									
-								}
-							}
+							
+						}
+				
 						
-						}else{
-						
-							if(strtotime($hoje)  <=  strtotime($vencimento)){
-								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
-									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERDE');
-									$this->Parcela->save($updatevencimento);
-									
-									
-										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERDE');
-										$this->Conta->save($updateConta);
-									
-									
-								}
-							}else{
-								if($conta['Conta']['status'] != "CINZA" && $Parcela['Parcela']['status'] !='CINZA'){
-									
-									$updatevencimento= array('id' => $Parcela['Parcela']['id'], 'status' => 'VERMELHO');
-									$this->Parcela->save($updatevencimento);
-									
-										$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-										$this->Conta->save($updateConta);
-								
-									
-								}
-							}
-						
-						}*/
 					
-					}
+					
 					$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status' => 'VERMELHO')));
 				
 					$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
@@ -185,7 +122,8 @@ class ContasController extends AppController {
 							
 						}
 					}
-				}
+					}
+				}//aqui
 				
 				
 				
@@ -596,8 +534,78 @@ class ContasController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 	
-	
-	
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function quitarParcela($id = null) {
+		$userid = $this->Session->read('Auth.User.id');
+		$this->Conta->id = $id;
+		if (!$this->Conta->exists()) {
+			throw new NotFoundException(__('Conta inválida'));
+		}
+		$this->request->onlyAllow('post', 'quitarParcela');
+		
+		$hoje= date("Y-m-d");
+		$this->loadModel('Parcela');
+		$parcela= $this->Parcela->find('first', array('conditions' => array('Parcela.id' => $id)));
+		
+		if($parcela['Parcela']['status'] != 'CINZA'){
+			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $hoje, 'user_id' => $userid);
+			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
+			
+			
+			
+			if($this->Parcela->save($updatePacela)){
+				$parcelasEmAberto= $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id, 'Parcela.status NOT LIKE' => 'CINZA')));
+				if(!empty($parcelasEmAberto)){
+					$updateConta= array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
+					$this->Conta->save($updateConta);
+				}
+				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
+				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
+			}else{
+				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'));
+				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
+			}
+		}else{
+			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
+			$this->Session->setFlash(__('Esta parcela já foi quitada.'));
+			return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
+		}
+		
+		
+	}	
+	public function cancelarConta($id = null) {
+		$userid = $this->Session->read('Auth.User.id');
+		$this->Conta->id = $id;
+		if (!$this->Conta->exists()) {
+			throw new NotFoundException(__('Conta inválida'));
+		}
+		$this->request->onlyAllow('post', 'quitarParcela');
+		$hoje= date("Y-m-d");
+		$updateConta = array('id' => $id, 'status' => 'CANCELADO', 'canceladopor' => $userid, 'data_cancelamento' => $hoje);
+		$conta = $this->Conta->find('first', array('conditions'=> array('Conta.id' => $id)));
+		if($conta['Conta']['status'] != 'CANCELADO'){
+			if($this->Conta->save($updateConta)){
+				$this->loadModel('Parcela');
+				$pacelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $id)));
+				
+				foreach($pacelas as $parcela){
+					$updateParcela = array('id' => $parcela['Parcela']['id'], 'status' => 'CANCELADO');
+					$this->Parcela->save($updateParcela);
+				}
+				
+				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'));
+				return $this->redirect(array('action' => 'view', $parcela['_Conta']['id']));
+			}
+		}else{
+			
+		}
+	}	
 		
 }
 
