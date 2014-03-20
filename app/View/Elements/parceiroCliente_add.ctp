@@ -29,6 +29,8 @@
 	
 	
 $(document).ready(function(){
+	var contadorBlocoEndereco = 1;
+	var contadorBlocoDadosBanc = 1;
 	
 	$('#bt-salvarParceiro').click(function(event){
 	    event.preventDefault();
@@ -164,7 +166,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio obrigatorio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength' => '14'));
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio obrigatorio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength' => '20'));
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
