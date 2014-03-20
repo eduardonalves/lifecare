@@ -72,7 +72,7 @@
 
 	    <section class="coluna-central" >
 		<?php 
-		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno desabilita forma-data'));
+		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data'));
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
@@ -97,7 +97,7 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento:','type' => 'select','class'=>'desabilita desabilidado', 'options'=> array('','A Vista','A Prazo')));
+		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio desabilidado', 'options'=> array('','A Vista','A Prazo')));
 		    echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';
 		?>
 	    </section>
@@ -122,7 +122,7 @@
 	    <section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
-		    echo $this->Form->input('valor',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
+		    echo $this->Form->input('valor',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno desabilita'));
 		?>    
@@ -131,7 +131,7 @@
 	    <section class="coluna-central" >
 		<?php
 		    echo $this->Form->input('identificacao_documento',array('label' => 'Código de Barras:','class' => 'tamanho-pequeno desabilita'));
-		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita'));
+		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'obrigatorio tamanho-pequeno desabilita'));
 		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		    echo $this->Form->input('conta',array('label' => 'Conta:','class' => 'tamanho-pequeno desabilita'));
 		?>
@@ -139,7 +139,7 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno desabilita forma-data','id' => 'dataVencimento-receber'));
+		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber'));
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));

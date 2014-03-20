@@ -25,11 +25,13 @@
     <h1 class="menuOption32">Cadastrar Parceiro</h1>
 </header>
 
+<?php echo $this->Form->create('Parceirodenegocio'); ?>
+
 <section> <!---section superior--->
 
 	<header>Dados GeriasParceiro</header>
 	
-	<?php echo $this->Form->create('Parceirodenegocio'); ?>
+	
 
 
 	<section class="coluna-esquerda">
@@ -201,7 +203,7 @@
 <footer>
 
     <?php
-		echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'add','view' => 'add'));
+		echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro'));
 		echo $this->Form->end();
     ?>
 

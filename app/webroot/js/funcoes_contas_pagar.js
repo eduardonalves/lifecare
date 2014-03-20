@@ -291,7 +291,7 @@
         var trId = trPar.attr('id');
         var tr = trId.substr(11);
 
-	numeroValor=tr;
+	numero=tr;
 	subtrairValorConta(numero);
 	$('.clonadoProduto'+tr).remove();
     

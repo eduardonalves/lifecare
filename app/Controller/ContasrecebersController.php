@@ -75,11 +75,11 @@ class ContasrecebersController extends AppController {
 					$this->ParcelasConta->save($parcela_conta);
 					
 				}
-				$this->Session->setFlash(__('The conta has been saved.'));
+				$this->Session->setFlash(__('A conta foi salva.'));
 				return $this->redirect(array('action' => 'index'));
 				
 			} else {
-				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'));
 				
 			}
 			
@@ -103,10 +103,10 @@ class ContasrecebersController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Contasreceber->save($this->request->data)) {
-				$this->Session->setFlash(__('The Contasreceber has been saved.'));
+				$this->Session->setFlash(__('A conta foi salva.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The Contasreceber could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id));
@@ -130,9 +130,9 @@ class ContasrecebersController extends AppController {
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Contasreceber->delete()) {
-			$this->Session->setFlash(__('The Contasreceber has been deleted.'));
+			$this->Session->setFlash(__('A conta foi ser deletada.'));
 		} else {
-			$this->Session->setFlash(__('The Contasreceber could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}}
