@@ -17,7 +17,7 @@ class Parceirodenegocio extends AppModel {
  * @var array
  */
 	public $displayField = 'nome';
-	public $validate = array(
+	/*public $validate = array(
 		'nome' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -38,7 +38,7 @@ class Parceirodenegocio extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-	);
+	);*/
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
