@@ -36,7 +36,7 @@ textarea{
 
 
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao, /*#valida0Logradouro*/span[id$="Logradouro"], /*#valida0Cidade*/span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+#validaClassificacao,span[id$="Logradouro"], span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
 	top: -5px;
 	left: 260px;	
@@ -48,7 +48,7 @@ textarea{
 	left:325px;
 }
 
-/*#valida0Uf*/span[id$="Uf"],#valida0Cidade{
+span[id$="Uf"],#valida0Cidade{
 	width:85px;
 	top:25px;
 	left:360px;
@@ -66,12 +66,12 @@ textarea{
 	left:185px;
 }
 
-/*#valida0Bairro*/span[id$="Bairro"]{
+span[id$="Bairro"]{
 	width:85px;
 	top:60px;
 	left:185px;
 }
 
-#validaCPF:after,#validaCPFTamanho:after,/*#valida0Bairro:after*/span[id$="Bairro"]:after{
+#validaCPF:after,#validaCPFTamanho:after,span[id$="Bairro"]:after{
 	left:35px;
 }

@@ -193,7 +193,7 @@ $(document).ready(function() {
 
 /*** Validação ********************************************************/
 
-	$('#ParceirodenegocioAddForm').submit(function(){
+	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
 		
 		if($('#ParceirodenegocioClassificacao').val() == 0){
 			$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
@@ -231,19 +231,19 @@ $(document).ready(function() {
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
 			$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
 			$('#validaLimite').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#validaValidade').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Status').addClass('shadow-vermelho');
 			$('#validaStatus').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0Bloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0Bloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Bloqueado').addClass('shadow-vermelho');
 			$('#validaBloqueado').css('display','block');
 			return false;
@@ -256,7 +256,7 @@ $(document).ready(function() {
 /*** Máscara **********************************************************/
 	jQuery(function($){
 		$(".agencia").mask("9999-9");
-		//$(".maskcpf").mask("999.999.999-99");
+		$(".maskTelefone").mask("(99) 9999-9999")
 	});	
 	
 	$('.maskcpf').focusout(function(){
@@ -269,7 +269,7 @@ $(document).ready(function() {
 			var parte3 = digitos.substring(6,9);
 			var parte4 = digitos.substring(9,11);
 			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'-'+parte4);
-		}else if($(".maskcpf").val().length == 14){
+		}else if(($(".maskcpf").val().length == 14) && ($(".maskcpf").val().indexOf('/') != -1)){
 			var parte1 = digitos.substring(0,2);
 			var parte2 = digitos.substring(2,5);
 			var parte3 = digitos.substring(5,8);
@@ -279,13 +279,6 @@ $(document).ready(function() {
 		}else if ($(".maskcpf").val().length == 18){
 			$(".maskcpf").val();
 		}
-	});
-
-/*** Teste ************************************************************/
-	/*
-	$('#ParceirodenegocioTipo').change(function(){
-		alert($('#ParceirodenegocioTipo').val());
-	});
-	*/
+	});	
 
 });
