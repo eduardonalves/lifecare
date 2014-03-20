@@ -39,7 +39,7 @@ class ContasController extends AppController {
 			
 			foreach($Parcelas as $Parcela){
 				
-						
+				
 				$hoje= date("Y-m-d");
 				$vencimento= $Parcela['Parcela']['data_vencimento'];
 				$diasCritico = $Parcela['Parcela']['periodocritico'];
@@ -377,9 +377,70 @@ class ContasController extends AppController {
 				
 			}
 			
+			$contasAtrasadasREceber=0;
+			$contasRecebidas=0;
+			$contasVencerParaREceber=0;
+			$totalAreceber=0;
+			$totalGeralReceber=0;
 			
-
-			$this->set(compact('contas', 'cntContas'));
+			$contasAtrasadasPagar=0;
+			$contaspagas=0;
+			$contasVencerParaPagar=0;
+			$totalAPagar=0;
+			$totalGeralPagar=0;
+			
+			foreach($contas as $conta){
+				if($conta['Conta']['tipo']== 'A RECEBER'){
+					foreach($conta['Parcela'] as $parcela){
+						if($parcela['status']=="VERMELHO"){
+							$contasAtrasadasREceber = $contasAtrasadasREceber +  $parcela['valor'];
+						}
+		
+						if($parcela['status']=="CINZA"){
+							$contasRecebidas = $contasRecebidas +  $parcela['valor'];
+						}
+						
+						if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
+							$contasVencerParaREceber = $contasVencerParaREceber +  $parcela['valor'];
+							
+						}
+						
+						$totalAreceber = $contasAtrasadasREceber + $contasVencerParaREceber;
+						
+						$totalGeralReceber=  $totalAreceber + $contasRecebidas;
+					}
+					
+				}else{
+					
+					
+					foreach($conta['Parcela'] as $parcela){
+						if($parcela['status']=="VERMELHO"){
+							$contasAtrasadasPagar = $contasAtrasadasPagar +  $parcela['valor'];
+						}
+		
+						if($parcela['status']=="CINZA"){
+							$contaspagas = $contaspagas +  $parcela['valor'];
+						}
+						
+						if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
+							$contasVencerParaPagar = $contasVencerParaPagar +  $parcela['valor'];
+							
+						}
+						
+						$totalAPagar = $contasAtrasadasPagar + $contasVencerParaPagar;
+						
+						$totalGeralPagar=  $totalAPagar + $contaspagas;
+					}
+					
+				}
+				
+				
+			}
+			
+			$balancete =$totalGeralReceber-$totalGeralPagar;
+					
+			$this->set(compact('contas', 'cntContas','contasAtrasadasREceber', 'contasRecebidas','contasVencerParaREceber', 'totalAreceber', 'totalGeralReceber', 'contasAtrasadasPagar'));
+			$this->set(compact('contaspagas', 'contasVencerParaPagar','totalAPagar','totalGeralPagar','balancete','$totalGeralReceber','totalGeralPagar'));
 			$log = $this->Conta->getDataSource()->getLog(false, false);
 			
 		

@@ -398,4 +398,44 @@ $(document).ready(function() {
 <br />
 <br />
 <br />
-
+<?php
+			if(isset($contasAtrasadasREceber)){
+			echo "Valor total das contas atrasadas a receber: R$ ".$contasAtrasadasREceber."<br />";
+			}	
+			if(isset($contasRecebidas)){
+				echo "Valor total das contas recebidas: R$ ".$contasRecebidas."<br />";
+			}
+			if(isset($contasVencerParaREceber)){
+			echo "Valor total das contas a vencer para receber: R$ ".$contasVencerParaREceber."<br />";
+			}
+			if(isset($totalAreceber)){
+				echo "Valor total das contas a receber: R$".$totalAreceber."<br />";
+			}
+			if(isset($totalGeralReceber)){
+				echo "Valor total das contas a receber/recebidas: R$ ".$totalGeralReceber."<br />";
+			}	
+			echo "<br /> <br />";
+			if(isset($contasAtrasadasPagar)){
+				echo "Valor total das contas atrasadas a pagar: R$ ".$contasAtrasadasPagar."<br />";
+			}
+			if(isset($contaspagas)){
+				echo "Valor total das contas pagas: R$ ".$contaspagas."<br />";
+			}
+			if(isset($contasVencerParaPagar)){
+				echo "Valor total das contas a vencer para pagar: R$ ".$contasVencerParaPagar."<br />";
+			}	
+			if(isset($totalAPagar)){
+				echo "Valor total das contas a pagar: R$".$totalAPagar."<br />";
+			}
+			if(isset($totalGeralPagar)){
+				echo "Valor total das contas a pagar/pagas: R$ ".$totalGeralPagar."<br />";
+			}	
+		
+		 	if(isset($balancete)){
+		 		echo "Balancete R$ ".$balancete."<br />";
+		 	}
+			 
+			
+			
+			
+?>
