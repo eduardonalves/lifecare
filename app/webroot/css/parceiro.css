@@ -6,6 +6,9 @@
 	margin-right:10px;
 }
 
+#bt-removeEndereco, #bt-addEndereco{
+	margin-right:10px;
+}
 /* CLASS **************************************************************/
 .divTipoParceiro{margin-bottom:50px;}
 
@@ -24,6 +27,11 @@ div[class^="bloco-area"]:first-child{
 	clear:both;
 }
 
+.dadosRepetidos{
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
 /* TAG ****************************************************************/
 hr{
 	margin-top:-15px !important;
