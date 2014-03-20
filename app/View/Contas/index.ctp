@@ -236,7 +236,6 @@ $(document).ready(function() {
 								<tr>
 									<td class="actions">
 										<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id']))); ?>
-										<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'contas','action' => 'edit', $conta['Conta']['id']))); ?>
 									</td>
 									
 									 <?php 
@@ -282,6 +281,7 @@ $(document).ready(function() {
 																		<th>Agência</th>																	
 																		<th>Conta</th>																	
 																		<th>Status</th>		
+																		<th>Usuário</th>		
 																	</tr>											
 																</thead>
 																
@@ -337,7 +337,10 @@ $(document).ready(function() {
 																		
 																		echo "<td>";
 																			echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
-																			
+																		echo "</td>";
+																		
+																		echo "<td>";
+																			echo $parcela['user_id'];
 																		echo "</td>";
 																		
 																		echo "</tr>";																																	
