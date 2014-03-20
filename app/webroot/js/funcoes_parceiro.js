@@ -269,7 +269,7 @@ $(document).ready(function() {
 			var parte3 = digitos.substring(6,9);
 			var parte4 = digitos.substring(9,11);
 			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'-'+parte4);
-		}else if(($(".maskcpf").val().length == 14) && ($(".maskcpf").val().indexOf('/') != -1)){
+		}else if(($(".maskcpf").val().length == 14) && (($(".maskcpf").val().indexOf('/') != -1) || ($(".maskcpf").val().indexOf('.') == -1))){
 			var parte1 = digitos.substring(0,2);
 			var parte2 = digitos.substring(2,5);
 			var parte3 = digitos.substring(5,8);

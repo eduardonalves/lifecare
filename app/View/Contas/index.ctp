@@ -396,6 +396,8 @@ $(document).ready(function() {
 <br />
 <br />
 <br />
+<div id="totalReceber" class="coluna-esquerda fieldset">
+	<h2 class="legendEffect"><span>Contas A Receber</span></h2>
 <?php
 			if(isset($contasAtrasadasREceber)){
 			echo "Valor total das contas atrasadas a receber: R$ ".$contasAtrasadasREceber."<br />";
@@ -412,7 +414,12 @@ $(document).ready(function() {
 			if(isset($totalGeralReceber)){
 				echo "Valor total das contas a receber/recebidas: R$ ".$totalGeralReceber."<br />";
 			}	
-			echo "<br /> <br />";
+?>
+</div>
+
+<div id="totalPagar" class="coluna-direita fieldset">
+	<h2 class="legendEffect"><span>Contas A Pagar</span></h2>
+<?php
 			if(isset($contasAtrasadasPagar)){
 				echo "Valor total das contas atrasadas a pagar: R$ ".$contasAtrasadasPagar."<br />";
 			}
@@ -437,3 +444,4 @@ $(document).ready(function() {
 			
 			
 ?>
+</div>
