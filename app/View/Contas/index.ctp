@@ -281,7 +281,7 @@ $(document).ready(function() {
 																		<th>Agência</th>																	
 																		<th>Conta</th>																	
 																		<th>Status</th>		
-																		<th>Usuário</th>		
+																				
 																	</tr>											
 																</thead>
 																
@@ -339,9 +339,7 @@ $(document).ready(function() {
 																			echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
 																		echo "</td>";
 																		
-																		echo "<td>";
-																			echo $parcela['user_id'];
-																		echo "</td>";
+																		
 																		
 																		echo "</tr>";																																	
 																	}

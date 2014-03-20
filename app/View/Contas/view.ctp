@@ -76,7 +76,7 @@ function formatDateToView(&$data){
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
 						<th><?php echo ('Status'); ?></th>
-						<th><?php echo ('Usuário'); ?></th>
+						
 						<th><?php echo ('Ação'); ?></th>
 					</thead>
 				
@@ -98,8 +98,8 @@ function formatDateToView(&$data){
 							</td>
 
 							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => '-')); ?></td>
-							<td><?php echo $parcelas['user_id']; ?></td>
-							<td><a>Quitar</a></td>
+							
+							
 
 						</tr>
 					<?php endforeach; ?>	
