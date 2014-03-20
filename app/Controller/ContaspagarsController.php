@@ -84,8 +84,10 @@ class ContaspagarsController extends AppController {
 				
 			} else {
 				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
+				return $this->redirect(array('action' => 'index'));
 				
-			}
+			} 
+
 			
 			
 		}
@@ -108,10 +110,10 @@ class ContaspagarsController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Contaspagar->save($this->request->data)) {
-				$this->Session->setFlash(__('The conta has been saved.'));
+				$this->Session->setFlash(__('A conta não pode ser salva.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id));
@@ -135,9 +137,10 @@ class ContaspagarsController extends AppController {
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Contaspagar->delete()) {
-			$this->Session->setFlash(__('The conta has been deleted.'));
+			$this->Session->setFlash(__('A conta foi ser deletada.'), 'default', array('class' => 'success-flash'));
 		} else {
-			$this->Session->setFlash(__('The conta could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+}

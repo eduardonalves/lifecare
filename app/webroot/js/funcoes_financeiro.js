@@ -232,6 +232,28 @@ $("#filterValor-between").focusout(function(){
 	$('.bt-voltar').hide();
 	$('.bt-confirmar').show();
 	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
-    });	
+    });
+/****************** Marca em vermelho o campo ***********/
+    $('[class*="obrigatorio"]').focusin(function(){
+	$(this).attr('required','required');
+	
+    }).focusout(function(){
+	if($(this).val()==''){
+	    $(this).removeAttr('required','required');
+	}
+    });
 
-});
+    $('[class*="autocomplete"]').click(function(){
+	$('.ui-widget').attr('required',true);
+	
+    }).focusout(function(){
+	if($('input[class*="ui-widget"]').val()==''){
+	    $('.ui-widget').removeAttr('required');
+	    
+	}else{
+	    $('.ui-button').removeClass('shadow-vermelho');
+	    
+	}
+    });
+    
+ });
