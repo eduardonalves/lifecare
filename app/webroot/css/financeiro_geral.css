@@ -75,3 +75,34 @@ table{margin-top: 20px;}
 #msgTipoPagamento{top:0px;left:230px;}
 
 
+#totalReceber, #totalPagar{
+	font-size:13px;
+	margin-top:10px;
+	width:375px;
+	padding-left:50px;
+	height:100px;
+}
+
+#totalReceber{
+	margin-left:100px;
+}
+
+#totalPagar{
+	margin-right:100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
