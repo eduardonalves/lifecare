@@ -4,6 +4,20 @@ $this->start('css');
 	    echo $this->Html->css('contas_view');
 	    echo $this->Html->css('table');
 	$this->end();
+	
+function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
 ?>	
 
 <header>
@@ -61,6 +75,8 @@ $this->start('css');
 						<th><?php echo ('Banco'); ?></th>
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
+						<th><?php echo ('Status'); ?></th>
+						<th><?php echo ('Usuário'); ?></th>
 						<th><?php echo ('Ação'); ?></th>
 					</thead>
 				
@@ -68,16 +84,23 @@ $this->start('css');
 						<tr>
 							<td><?php echo $parcelas['id']; ?></td>
 							<td><?php echo $parcelas['identificacao_documento']; ?></td>
-							<td><?php echo $parcelas['data_vencimento']; ?></td>
+							<td><?php formatDateToView($parcelas['data_vencimento']);
+									  echo $parcelas['data_vencimento']; ?></td>
 							<td><?php echo $parcelas['periodocritico']; ?></td>
 							<td><?php echo $parcelas['valor']; ?></td>
 							<td><?php echo $parcelas['banco']; ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
 							<td><?php echo $parcelas['conta']; ?></td>
+
 							<td>
 								<?php echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
 								
 							</td>
+
+							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => '-')); ?></td>
+							<td><?php echo $parcelas['user_id']; ?></td>
+							<td><a>Quitar</a></td>
+
 						</tr>
 					<?php endforeach; ?>	
 			</table>
@@ -99,6 +122,4 @@ $this->start('css');
 	<!-- </form> 
 	</section> -->
 </footer>
-
-
 

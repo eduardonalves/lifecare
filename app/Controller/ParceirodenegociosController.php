@@ -34,6 +34,7 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Parceirodenegocio->exists($id)) {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
@@ -51,11 +52,11 @@ class ParceirodenegociosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('The parceirodenegocio has been saved.'));
+				$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				$ultimoParceiro = $this->Parceirodenegocio->find('first', array('order' => array('Parceirodenegocio.id' => 'desc'), 'recursive' =>-1));
 				$this->set(compact('ultimoParceiro'));
 				if(! $this->request->is('ajax')){
-					return $this->redirect(array('action' => 'index'));
+					return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id']));
 				}
 				
 			} else {
@@ -99,10 +100,10 @@ class ParceirodenegociosController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Parceirodenegocio->save($this->request->data)) {
-				$this->Session->setFlash(__('The parceirodenegocio has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('Parceiro editado com sucesso.'), 'default', array('class' => 'success-flash'));
+				return $this->redirect(array('action' => 'view',$id));
 			} else {
-				$this->Session->setFlash(__('The parceirodenegocio could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Não foi possível editar o Parceiro. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
