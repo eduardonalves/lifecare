@@ -31,6 +31,7 @@ div[class^="bloco-area"]:first-child{
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	padding-top: 10px;
+	clear: both;
 }
 /* TAG ****************************************************************/
 hr{
