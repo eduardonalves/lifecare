@@ -22,7 +22,7 @@
 }
 
 .section-inferior{
-	margin:390px 5px 0px 5px;
+	margin:420px 5px 0px 5px;
 	width:1170pxpx;
 }
 
@@ -46,7 +46,7 @@
 .div-board{
 	border-radius:6px;
 	box-shadow:-5px 5px 7px #BABABA;
-	height:300px;
+	height:340px;
 	width:380px;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .grafico-ajuste{
-	margin-top:5px;
+	margin-top:10px;
 }
 
 .tb-dataValidade{
@@ -97,6 +97,25 @@
 	width: 376px;
 	margin-left: 3px;
 }
+
+.menuAnos{
+	display: inline-block;
+	margin-top: 5px;
+	width: 379px;
+	text-align: center;
+	
+}
+
+#anos{
+position:absolute;
+display:block;
+width: 300px;
+}
+
+.menuAnos span{
+	cursor: pointer;
+}
+
 
 
 /* ID *****************************************************************/
