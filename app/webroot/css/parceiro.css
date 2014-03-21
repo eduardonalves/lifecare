@@ -84,3 +84,44 @@ span[id$="Bairro"]{
 #validaCPF:after,#validaCPFTamanho:after,span[id$="Bairro"]:after{
 	left:35px;
 }
+
+#idcpf{
+	float: left;
+	position:absolute;
+	margin-top: 2px;
+}
+
+#idcnpj{
+	float: left;
+	position:absolute;
+	margin-top: 2px;
+}
+
+.label-cpf{
+	float:right;
+	font-size:13px;
+	margin-top:-4px;
+	width:65px !important;
+}
+
+.label-cnpj{
+	margin-left:85px;
+	margin-top:-4px;
+	width:50px !important;
+}
+
+#inputcnpj{
+	position:absolute;   
+	margin-left:75px;
+}
+
+#inputcpf{
+	position:absolute;
+	z-index: 999;
+	margin-left: 10px;
+}
+
+#ClienteCpfCnpj{
+	position:absolute;
+	height:16px;
+}
