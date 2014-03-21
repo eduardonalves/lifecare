@@ -44,8 +44,7 @@ class ContaspagarsController extends ContasController {
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
-						//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-						//$this->Conta->save($updateConta);
+						
 					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
 						$this->Parcela->save($updatevencimento);
