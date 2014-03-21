@@ -21,7 +21,7 @@
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
      
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption33">Cadastrar Contas a Receber</h1>
+    <h1 class="menuOption33">Cadastrar Conta a Receber</h1>
     
     
 
@@ -33,7 +33,7 @@
     
     <section> <!---section superior--->
 
-	    <header>Dados Gerais da movimentação</header>
+	    <header>Dados Gerais da Movimentação</header>
 	    
 	    <section class="coluna-esquerda">
 		<?php 
@@ -72,7 +72,7 @@
 
 	    <section class="coluna-central" >
 		<?php 
-		    echo $this->Form->input('data_emissao',array('label' => 'Data Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data'));
+		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data'));
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
@@ -140,7 +140,7 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('data_vencimento',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber'));
+		    echo $this->Form->input('data_vencimento',array('label' => 'Data de Vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber'));
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
