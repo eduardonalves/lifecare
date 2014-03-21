@@ -213,7 +213,19 @@ $(document).ready(function() {
 			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone').css('display','block');
+			$('#validaTelefone1').css('display','block');
+			return false;
+		}else if($('#ParceirodenegocioTelefone1').val().length != 14){
+			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+			$('#validaTelefone2').css('display','block');
+			return false;
+		}else if(($('#ParceirodenegocioTelefone2').val().length != 14) && ($('#ParceirodenegocioTelefone2').val().length != 0)){
+			$('#ParceirodenegocioTelefone2').addClass('shadow-vermelho');
+			$('#validaTelefone22').css('display','block');
+			return false;
+		}else if(($('#Contato0Celular').val().length != 15) && ($('#Contato0Celular').val().length != 0)){
+			$('#Contato0Celular').addClass('shadow-vermelho');
+			$('#validaCelular').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');

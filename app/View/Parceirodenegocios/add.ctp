@@ -40,7 +40,8 @@
 			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio maskTelefone','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
-			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
+			echo '<span id="validaTelefone1" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
+			echo '<span id="validaTelefone2" class="Msg-tooltipDireita" style="display:none">Preencha o Corretamente</span>';
 			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio maskTelefone','label' => 'Fax:'));
 		?>
 
@@ -52,6 +53,7 @@
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio obrigatorio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 			echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio maskTelefone','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+			echo '<span id="validaTelefone22" class="Msg-tooltipDireita" style="display:none">Preencha o Corretamente</span>';
 			echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
 
@@ -66,6 +68,7 @@
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
+			echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
 		?>
 
 	</section>
