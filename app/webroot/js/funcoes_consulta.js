@@ -368,8 +368,77 @@ return get;
 	
 /************* Data validação dados da nota *****************/
 
-$("input[id='filterDataLote-between']").addClass('forma-data1 validaLote');
-		
+    $("input[id*='filterDataLote']").addClass('forma-data1 validaLote');
+
+
+	/**Data Lote**/
+
+	$(".validaLote").focusout(function(){
+	    var texto = $(this).val();
+		if(texto.length == 0){
+				$( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
+			}
+		else{
+				$( "input[id='filterDataLote-between']" ).removeClass('shadow-vermelho');
+		}
+	});
+
+
+	$(".validaLote").change(function(){
+	    var dataInicialLote = $("input[id='filterDataLote']").datepicker('getDate');
+	    var dataFinalLote = $("input[id='filterDataLote-between']").datepicker('getDate');
+
+	    var daysLote = (dataFinalLote - dataInicialLote) / 1000 / 60 / 60 / 24;
+
+	    if(daysLote < 0){
+		if(dataFinalLote != null){
+		    $('span[id="spanDataInicialLote"]').remove();
+		    $('<span id="spanDataInicialLote" class="DinamicaMsg">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataLote-between"]');
+		    //alert('A data Final não pode ser menor que a inicial');
+		    $("input[id='filterDataLote-between']").val(" ");
+		    $( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
+		}
+	    }else{
+		$('span[id="spanDataInicialLote"]').remove();
+	    }
+	});
+
+		/**Data Nota**/
+
+	$("input[id='filterDataNota-between']").addClass('validaNota');
+	$("input[id='filterDataNota']").addClass('validaNota');
+
+	$(".validaNota").focusout(function(){
+		 var texto = $(this).val();
+			if(texto.length == 0){
+					$( "input[id='filterDataNota-between']" ).addClass('shadow-vermelho');
+				}
+			else{
+					$( "input[id='filterDataNota-between']" ).removeClass('shadow-vermelho');
+				}
+		});
+
+	$(".validaNota").change(function(){
+
+		var dataInicialNota = $("input[id='filterDataNota']").datepicker('getDate');
+		var dataFinalNota = $("input[id='filterDataNota-between']").datepicker('getDate');
+
+		var daysNota = (dataFinalNota - dataInicialNota) / 1000 / 60 / 60 / 24;
+
+		if(daysNota < 0){
+			$('span[id="spanDataInicialNota"]').remove();
+			if(dataFinalNota != null){
+			    $('<span id="spanDataInicialNota" class="DinamicaMsg">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataNota-between"]');
+			    //alert('A data Final não pode ser menor que a inicial');
+			    $("input[id='filterDataNota-between']").val("");
+			    $("input[id='filterDataNota-between']").addClass('shadow-vermelho');
+			}    
+		}else{
+		    $('span[id="spanDataInicialNota"]').remove();
+		}
+
+	});
+	
 	
 	
     /****************** Chamada DatePicker lote e nota ****************************************/

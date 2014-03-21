@@ -1,116 +1,162 @@
 $(document).ready(function() {
 
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
-	$(".inputSearchData input[id*='between']").before("<span>a</span>");
-	
-	$(".inputSearchData input[type='text']").datepicker({
-		dateFormat: 'dd/mm/yy',
-		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-		dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-		nextText: 'Próximo',
-		prevText: 'Anterior'
-	});
+    $(".inputSearchData input[id*='between']").before("<span>a</span>");
+    
+    $(".inputSearchData input[type='text']").datepicker({
+	    dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior'
+    });
 
-/*** Validação de Datas ****************************************/
-	
-$("#filterDataEmissao-between").change(function(){
-		
-		var data_inicial = $("#filterDataEmissao").val();
-		var data_final = $("#filterDataEmissao-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataEmissao, #filterDataEmissao-between").val("");
-			$("#filterDataEmissao, #filterDataEmissao-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataEmissao, #filterDataEmissao-between").removeClass("shadow-vermelho");
+/*** Validação de Datas Consultas ****************************************/
 
-		}			
-	});
-	
-	
-$("#filterDataQuitacao-between").change(function(){
-		
-		var data_inicial = $("#filterDataQuitacao").val();
-		var data_final = $("#filterDataQuitacao-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataQuitacao, #filterDataQuitacao-between").val("");
-			$("#filterDataQuitacao, #filterDataQuitacao-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataQuitacao, #filterDataQuitacao-between").removeClass("shadow-vermelho");
+    $("[id*='filterData']").addClass('validaConFinan');
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataEmissao").datepicker('getDate');
+	    var data_final = $("#filterDataEmissao-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
 
-		}			
-	});
-	
-$("#filterDataVencimento-between").change(function(){
-		
-		var data_inicial = $("#filterDataVencimento").val();
-		var data_final = $("#filterDataVencimento-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataVencimento, #filterDataVencimento-between").val("");
-			$("#filterDataVencimento, #filterDataVencimento-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataVencimento, #filterDataVencimento-between").removeClass("shadow-vermelho");
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){
+		    $("#filterDataEmissao, #filterDataEmissao-between").val("");
+		    $("#filterDataEmissao-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}     
+	    }else{
+		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+
+	    }			
+    });
+    
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataQuitacao").datepicker('getDate');
+	    var data_final = $("#filterDataQuitacao-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){
+		    $("#filterDataQuitacao, #filterDataQuitacao-between").val("");
+		    $(" #filterDataQuitacao-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalQui" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}    
+	    }else{
+		    $("#filterDataQuitacao-between").removeClass("shadow-vermelho");
+
+	    }			
+    });
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataVencimento").datepicker('getDate');
+	    var data_final = $("#filterDataVencimento-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){ 
+		    $("#filterDataVencimento, #filterDataVencimento-between").val("");
+		    $("#filterDataVencimento-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}    
+	    }else{
+		    $("#filterDataVencimento-between").removeClass("shadow-vermelho");
 
 
-		}			
-	});
-	
-$("#filterValor-between").focusout(function(){
-		
-		var valor_inicial = $("#filterValor").val();
-		var valor_final = $("#filterValor-between").val();
+	    }			
+    });
+    
+    $("#filterValor-between").focusout(function(){
+	    
+	    var valor_inicial = $("#filterValor").val();
+	    var valor_final = $("#filterValor-between").val();
 
-		if(valor_inicial > valor_final){ 
-			$("#filterValor, #filterValor-between").val(' ');
-			$("#filterValor, #filterValor-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+	    if(valor_inicial > valor_final){ 
+		    $("#filterValor, #filterValor-between").val(' ');
+		    $("#filterValor, #filterValor-between").addClass("shadow-vermelho");
+	    }else{
+		    $("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
 
-		}			
-	});
-	
+	    }			
+    });
+
+
+/*** Validação de Datas Contas ****************************************/
+    
+    $(".hasDatepicker").change(function(){
+	    
+	    var data_inicial = $("[id*='DataEmissao']").datepicker('getDate');
+	    var data_final = $("[id*='DataVencimento']").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){
+		    alert();
+		    $("[id*='DataEmissao'], [id*='DataVencimento']").val("");
+		    $("[id*='DataVencimento']").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id*="DataVencimento"]');
+		    $("[id*='Invalida']").css('display','transparent');
+		   
+		}     
+	    }else{
+		alert('aqui');
+		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+
+	    }			
+    });
+    
 /***Input Search Para valores *****************************************/
-	$(".inputSearchValor input[id*='between']").before("<span>a</span>");
+    $(".inputSearchValor input[id*='between']").before("<span>a</span>");
 
 
 /******** Carregar filtro no select Quick link ***********************/
 
-	$("#quick-select").change(function(){
-		var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
+    $("#quick-select").change(function(){
+	    var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
 
-		$("#quick-editar").css("display", "none");
-		
-		if(urlQuickLink !='')
-		{
-		    window.location.href=urlQuickLink;
-		    $("#quick-select option").text($(this).children('option:selected').text());
-		}
+	    $("#quick-editar").css("display", "none");
+	    
+	    if(urlQuickLink !='')
+	    {
+		window.location.href=urlQuickLink;
+		$("#quick-select option").text($(this).children('option:selected').text());
+	    }
 
-		
+	    
 
-	});
+    });
 
-	$("#quick-filtrar").click(function(){
-	    var usoInicioPhp = '<?php' ;
-	    var usoFinalPhp ='?>';
-	    var usoGet = '$_GET["ql"]=0';
+    $("#quick-filtrar").click(function(){
+	var usoInicioPhp = '<?php' ;
+	var usoFinalPhp ='?>';
+	var usoGet = '$_GET["ql"]=0';
 
-	    $('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
-	});
+	$('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
+    });
 	
 /************************ Salvar Quicklink******************************************/
     $("#bt-salvar-quicklink").click(function(event){

@@ -64,24 +64,24 @@
 	<fieldset class="filtros">
 	
 		<?php
-			$_GET['ql'] = (isset($_GET['ql'])) ? $_GET['ql'] : '';
-			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default' => $_GET['ql']));
+		    $_GET['ql'] = (isset($_GET['ql'])) ? $_GET['ql'] : '';
+		    echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default' => $_GET['ql']));
 		?>
 		
 		<a href="add-quicklink" class="bt-showmodal">
 			
 			<?php	
-				echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar'));
+			    echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar'));
 			?>
 		
 		</a>	
 			
 			<?php
-				echo $this->Form->end();
+			    echo $this->Form->end();
 
-				if(isset($_GET['ql']) && $_GET['ql']!=''){
-					echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
-				}
+			    if(isset($_GET['ql']) && $_GET['ql']!=''){
+				    echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
+			    }
 			?>
 
 		<div class="content-filtros">
@@ -99,12 +99,12 @@
 				</a>
 				
 				<?php	
-					echo $this->Search->create();
-					echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio produtos-alinhamento'));
-					echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio produtos-alinhamento'));
-					echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio produtos-alinhamento'));
-					echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio produtos-alinhamento'));
-					//OBS.:ADICIONE O MODELO PARA O NÌVEL EM ESTOQUE, REPETI produtoCategoria só para aparecer na tela.
+				    echo $this->Search->create();
+				    echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio produtos-alinhamento'));
+				    echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio produtos-alinhamento'));
+				    echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio produtos-alinhamento'));
+				    echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio produtos-alinhamento'));
+				    //OBS.:ADICIONE O MODELO PARA O NÌVEL EM ESTOQUE, REPETI produtoCategoria só para aparecer na tela.
 				?>
 				
 			</section>
