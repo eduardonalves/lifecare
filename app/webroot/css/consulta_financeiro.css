@@ -321,6 +321,14 @@ margin-bottom: 50px;
 	max-height: 400px !important;
 }
 
+#myModal_add-quicklink{
+	width: 536px;
+	left: 50% !important;
+}
+
+#myModal_add-quicklink .modal-body{
+	width: 500px;
+}
 
 
 
