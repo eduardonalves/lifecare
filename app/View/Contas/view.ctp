@@ -57,7 +57,10 @@ function formatDateToView(&$data){
 		<?php
 			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		   	echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
-			echo $this->Form->postLink(__('Cancelar'), array('action' => 'cancelarConta', $conta['Conta']['id']), null, __('Tem certeza que deseja quitar esta Conta # %s?', $conta['Conta']['id'])); 
+			echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
+			echo $this->Form->postLink($this->Html->image('botao-cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $_GET['ql']),array('escape' => false, 'confirm' => __('Tem certeza que deseja quitar esta Conta # %s?', $conta['Conta']['id'])));
+
+			//echo $this->Form->postLink(__('Cancelar'), array('action' => 'cancelarConta', $conta['Conta']['id']), null, __('Tem certeza que deseja quitar esta Conta # %s?', $conta['Conta']['id'])); 
 			//echo $this->Form->input('imagem',array('label' => 'Imagem:','value'=>h($conta['Conta']['imagem']),'class' => 'tamanho-medio','disabled'=>'disabled'));		    
 		?>		
 	</section>
@@ -93,7 +96,10 @@ function formatDateToView(&$data){
 							<td><?php echo $parcelas['conta']; ?></td>
 
 							<td>
-								<?php echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
+								<?php
+								    echo $this->Form->postLink($this->Html->image('botao-quitar.png',array('id'=>'bt-quitar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'contas','action' => 'quitarParcela',  $parcelas['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])));
+
+								    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
 								
 							</td>
 
