@@ -13,26 +13,15 @@ class ContasController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'lifecareDataFuncs');
+	public $components = array('Paginator', 'Session', 'lifecareDataFuncs', 'lifecareFuncs');
 
 /**
  * index method
  *
  * @return void
  */
-	public function beforeFilter(){
-			if(!isset($this->request->query['limit'])){
-				$this->request->query['limit'] = 15;
-			}
-
-			if(!isset($_GET['ql'])){
-			    $_GET['ql']=0;
-			}
-		
-			//Verificamos a data para setarmos o semáfaro do Parcela
-			
-			//Inicio Cemáfaro
-			
+ 	public function setStatusContasParcelas(){
+		if(isset($_GET['parametro'])){
 			$this->loadModel('Parcela');
 			$Parcelas = $this->Parcela->find('all', array('recursive' => 1));
 			
@@ -82,46 +71,46 @@ class ContasController extends AppController {
 				
 					$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
 					$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $Parcela['_Conta']['id'], 'Parcela.status' => 'AMARELO'))); 
-					if(isset($contasEmAtraso)){
-						if(!empty($contasEmAtraso)){
-							
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
-								$this->Conta->save($updateConta);
-							
-							
-						}else{
-							if(isset($contasPrestesAVencer)){
-								if(!empty($contasPrestesAVencer)){
-									$updateConta = array('id' => $Parcela['_Conta']['id'],  'status' =>'AMARELO');
-									$this->Conta->save($updateConta);
-								}else{
-									$updateConta = array('id' => $Parcela['_Conta']['id'],  'status' =>'VERDE');
-									$this->Conta->save($updateConta);
-								}
-							}else{
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => 0);
-								$this->Conta->save($updateConta);
-							}	
+						if(isset($contasEmAtraso)){
+							if(!empty($contasEmAtraso)){
 								
-							
-							
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
+									$this->Conta->save($updateConta);
+								
+								
+							}else{
+								if(isset($contasPrestesAVencer)){
+									if(!empty($contasPrestesAVencer)){
+										$updateConta = array('id' => $Parcela['_Conta']['id'],  'status' =>'AMARELO');
+										$this->Conta->save($updateConta);
+									}else{
+										$updateConta = array('id' => $Parcela['_Conta']['id'],  'status' =>'VERDE');
+										$this->Conta->save($updateConta);
+									}
+								}else{
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_atraso' => 0);
+									$this->Conta->save($updateConta);
+								}	
+									
+								
+								
+							}
 						}
-					}
 					
-					if(isset($contasEmAberto)){
-						if(!empty($contasEmAberto)){
-							
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => $contasEmAberto);
-								$this->Conta->save($updateConta);
-							
-						}else{
-							
-								$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => 0, 'status' => 'CINZA');
-								$this->Conta->save($updateConta);
-							
-							
+						if(isset($contasEmAberto)){
+							if(!empty($contasEmAberto)){
+								
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => $contasEmAberto);
+									$this->Conta->save($updateConta);
+								
+							}else{
+								
+									$updateConta = array('id' => $Parcela['_Conta']['id'], 'parcelas_aberto' => 0, 'status' => 'CINZA');
+									$this->Conta->save($updateConta);
+								
+								
+							}
 						}
-					}
 					}
 				}//aqui
 				
@@ -129,7 +118,62 @@ class ContasController extends AppController {
 				
 			
 			}
+		}	
+	}
+
+
+	public function setStatusConta(&$idConta){
+		$this->loadModel('Parcela');
+		$this->loadModel('Conta');
+		$parcelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $idConta)));
+		
+		$hoje= date("Y-m-d");
+		foreach($parcelas as $parcela){
 			
+			$vencimento= $parcela['Parcela']['data_vencimento'];
+			$diasCritico = $parcela['Parcela']['periodocritico'];
+			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+			
+			if($parcela['Parcela']['status'] != 'CINZA'){
+				if($diasCritico !=''){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);	
+						//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+						//$this->Conta->save($updateConta);
+					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
+						$this->Parcela->save($updatevencimento);
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					} 
+				}else{
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);	
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					}
+				}
+							
+			}
+		}
+	}
+	public function beforeFilter(){
+			if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
+
+			if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
+		
+			//Verificamos a data para setarmos o semáfaro do Parcela
+			
+			//Inicio Cemáfaro
+		$this->setStatusContasParcelas();
 	}
 	
 			
@@ -210,12 +254,11 @@ class ContasController extends AppController {
 	            ),
 	            
 		        'tipoMovimentacao' => array(
-	                '_Conta.tipo' => array(
+	                'Conta.tipo' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
-	               		 ),
-	               		 'select' => array('APAGAR' => 'A PAGAR', 'ARECEBER' => 'A RECEBER')
+	               		 )
 					)
 	            ),
 	        )
@@ -538,8 +581,10 @@ class ContasController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Conta->create();
 			if ($this->Conta->saveAll($this->request->data)) {
+				
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'index'));
+				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
+				return $this->redirect(array('action' => 'view', $ultimaConta['Conta']['id']));
 			} else {
 				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}

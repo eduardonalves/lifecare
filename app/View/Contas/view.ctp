@@ -75,9 +75,10 @@ function formatDateToView(&$data){
 						<th><?php echo ('Banco'); ?></th>
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
-						<th><?php echo ('Status'); ?></th>
+						
 						
 						<th><?php echo ('Ação'); ?></th>
+						<th><?php echo ('Status'); ?></th>
 					</thead>
 				
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>

@@ -7,14 +7,14 @@ App::uses('AppController', 'Controller');
  * @property PaginatorComponent $Paginator
  */
 App::import('Controller', 'Contas');
-class ContasrecebersController extends AppController {
+class ContasrecebersController extends ContasController {
 
 /**
  * Components
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs');
+	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs');
 
 /**
  * index method
@@ -40,6 +40,46 @@ class ContasrecebersController extends AppController {
 		}
 		$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id));
 		$this->set('Contasreceber', $this->Contasreceber->find('first', $options));
+	}
+
+	public function setStatusConta(&$idConta){
+		$this->loadModel('Parcela');
+		$this->loadModel('Conta');
+		$parcelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $idConta)));
+		
+		$hoje= date("Y-m-d");
+		foreach($parcelas as $parcela){
+			
+			$vencimento= $parcela['Parcela']['data_vencimento'];
+			$diasCritico = $parcela['Parcela']['periodocritico'];
+			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+			
+			if($parcela['Parcela']['status'] != 'CINZA'){
+				if($diasCritico !=''){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);	
+						//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
+						//$this->Conta->save($updateConta);
+					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
+						$this->Parcela->save($updatevencimento);
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					} 
+				}else{
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);	
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					}
+				}
+							
+			}
+		}
 	}
 
 /**
@@ -75,9 +115,10 @@ class ContasrecebersController extends AppController {
 					$this->ParcelasConta->save($parcela_conta);
 					
 				}
-
+				$this->setStatusConta($ultimaConta['Conta']['id']);
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'index'));
+				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
+				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 				
 			} else {
 				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));

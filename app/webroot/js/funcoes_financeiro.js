@@ -255,5 +255,47 @@ $("#filterValor-between").focusout(function(){
 	    
 	}
     });
-    
+    /*********************Checkbox A Pagar e a Receber***********************/
+   
+   	var valorAux= $('#filterTipoMovimentacao').val();
+   	
+	if(valorAux  != undefined){
+
+		var valorEntrada=valorAux.substr(0,7);
+		var valorSaida1=valorAux.substr(0,5);
+		var valorSaida2 =valorAux.substr(8,5);
+	}
+
+	var statusEntrada = '';
+	
+	var statusSaida= '';
+	
+	var statusEntradaSaida='';
+	
+
+	if(valorEntrada =='RECEBER'){
+		$('#NomeREECEBER').attr('checked', true);
+	}
+	if(valorSaida1 == 'PAGAR'){
+		$('#NomePAGAR').attr('checked', true);
+	}
+	if(valorSaida2 == 'PAGAR'){
+		$('#NomePAGAR').attr('checked', true);
+	}
+	$("#NomeREECEBER, #NomePAGAR").bind('click', function(){
+		if($('#NomeREECEBER').is(':checked')){
+			if($('#NomePAGAR').is(':checked')){
+				$('#filterTipoMovimentacao').val('RECEBER PAGAR');
+			}else{
+				$('#filterTipoMovimentacao').val('RECEBER');
+			}
+		}else{
+			if($('#NomePAGAR').is(':checked')){
+				$('#filterTipoMovimentacao').val('PAGAR');
+			}else{
+				$('#filterTipoMovimentacao').val(' ');
+			}
+		}
+
+	});
  });
