@@ -352,7 +352,7 @@
 <footer>
 
 	<?php
-		echo $this->html->image('botao-imprimircom.png',array('alt'=>'Confirmar',
+		echo $this->html->image('botao-imprimircom-novo.png',array('alt'=>'Confirmar',
 									'title'=>'Confirmar',
 									'id'=>'avancar2',
 									'class'=>'bt-confirmar imprimirCom',

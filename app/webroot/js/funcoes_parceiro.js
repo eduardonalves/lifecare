@@ -92,15 +92,15 @@ $(document).ready(function() {
 			estado: $('#'+idUf).get(0),
 			cidade: $('#'+idCidade).get(0)
 		});
-			
+
 		botaoRemoverEnd();
 	});
 	
 	$("#add-area-dadosbanc").click(function(){
-		
+
 		var agencia = $("#Dadosbancario"+ (contadorBlocoDadosBanc-1) +"NumeroAgencia").val();
 		var conta = $("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1)).val();
-	
+
 		if(conta && agencia){
 			$('.area-dadosbanc').append('<div class="bloco-area-banc'+ contadorBlocoDadosBanc +'">\
 					<hr>\
@@ -145,7 +145,7 @@ $(document).ready(function() {
 						</div>\
 					</section>\
 				<div>');
-				
+
 			$('.bloco-area-banc'+ contadorBlocoDadosBanc).hide().fadeIn(2000);
 
 			contadorBlocoDadosBanc++;
@@ -153,6 +153,7 @@ $(document).ready(function() {
 		
 		botaoRemoverBanc();
 	});
+	
 	
 /*** Remoção de Blocos de Endereços e Dados Bancários *****************/
 
@@ -171,6 +172,7 @@ $(document).ready(function() {
 		
 		botaoRemoverBanc();
 	});
+	
 
 /*** Visualização de Créditos *****************************************/
 
@@ -247,7 +249,7 @@ $(document).ready(function() {
 			return false;
 		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-			$('#validaValidade').css('display','block');
+			$('#validaValidade1').css('display','block');
 			return false;
 		}else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Status').addClass('shadow-vermelho');
@@ -262,33 +264,25 @@ $(document).ready(function() {
 		}
 
 	});
+	
+	
+	$('#Dadoscredito0ValidadeLimite').change(function(){
+		var hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+		var selecionado = $('#Dadoscredito0ValidadeLimite').datepicker('getDate').getTime();
+		
+		if(selecionado < hoje){
+			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
+			$('#validaValidade2').css('display','block');
+			$('#Dadoscredito0ValidadeLimite').val('');
+		}
+	});
+
 
 /*** Máscara **********************************************************/
 	jQuery(function($){
 		$(".maskTelefone").mask("(99) 9999-9999")
 	});	
 	
-	$('.maskcpf').focusout(function(){
-	
-		var digitos = this.value;
-		
-		if($(".maskcpf").val().length == 11 ){
-			var parte1 = digitos.substring(0,3);
-			var parte2 = digitos.substring(3,6);
-			var parte3 = digitos.substring(6,9);
-			var parte4 = digitos.substring(9,11);
-			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'-'+parte4);
-		}else if(($(".maskcpf").val().length == 14) && (($(".maskcpf").val().indexOf('/') != -1) || ($(".maskcpf").val().indexOf('.') == -1))){
-			var parte1 = digitos.substring(0,2);
-			var parte2 = digitos.substring(2,5);
-			var parte3 = digitos.substring(5,8);
-			var parte4 = digitos.substring(8,12);
-			var parte5 = digitos.substring(12,14);
-			$(".maskcpf").val(parte1+'.'+parte2+'.'+parte3+'/'+parte4+'-'+parte5);
-		}else if ($(".maskcpf").val().length == 18){
-			$(".maskcpf").val();
-		}
-	});
 	
 /*** Validar CPF ******************************************************/
 	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
