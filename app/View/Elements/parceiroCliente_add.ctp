@@ -166,9 +166,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj')));
-			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
+			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio obrigatorio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength' => '20'));
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
@@ -283,7 +281,7 @@ $(document).ready(function(){
 		<?php
 			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio obrigatorio'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
-			echo $this->Form->input('Dadoscredito.0.bloqueado',array('class' =>'obrigatorio','label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não','Sim'),'type' => 'select'));
+			echo $this->Form->input('bloqueado',array('class' =>'obrigatorio','label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não','Sim' => 'Sim'),'type' => 'select'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
 		?>
 
@@ -301,7 +299,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.status',array('label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1','Status 2','Status 3'),'type' => 'select','class' => 'obrigatorio'));
+			echo $this->Form->input('status',array('label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1' => 'Status 1','Status 2' => 'Status 2','Status 3' => 'Status 3'),'type' => 'select','class' => 'obrigatorio'));
 			echo '<span id="validaStatus" class="Msg-tooltipDireita" style="display:none">Selecione o Status</span>';
 		?>
 

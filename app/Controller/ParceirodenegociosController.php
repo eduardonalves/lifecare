@@ -13,7 +13,7 @@ class ParceirodenegociosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','RequestHandler');
+	public $components = array('Paginator','RequestHandler','lifecareDataFuncs');
 
 /**
  * index method
@@ -55,6 +55,15 @@ class ParceirodenegociosController extends AppController {
 	public function add() {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
+			$i=0;
+			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
+				
+				$i++;
+			}
+			
+			
+			
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));

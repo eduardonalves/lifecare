@@ -98,13 +98,13 @@ function formatDateToView(&$data){
 
 							<td>
 								<?php
-								    echo $this->Form->postLink($this->Html->image('botao-quitar.png',array('id'=>'bt-quitar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'contas','action' => 'quitarParcela',  $parcelas['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])));
+								    echo $this->Form->postLink($this->Html->image('botao-quitar.png',array('id'=>'bt-quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela'))), array('controller' => 'contas','action' => 'quitarParcela',  $parcelas['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])));
 
 								    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
 								
 							</td>
 
-							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => '-')); ?></td>
+							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 							
 							
 
