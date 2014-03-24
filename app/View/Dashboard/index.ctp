@@ -24,10 +24,18 @@
 		<div class="div-board">
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Compra/Venda</span>
+				<span class="span-titulo">Faturamento/Despesa</span>
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
-			
+				<div class="menuAnos">
+							<span id="anoEscolha"><?php $dia= date('d'); $mes=date('m'); $ano = date('Y'); echo $dia;?>, <?php echo $mes;?> - <?php echo $ano;?></span>
+				</div>
+				
+				<div id="anos" width="380" height="240" style="display:none;" class="grafico-ajuste">
+				
+				
+				</div>
+				
 				<canvas id="income" width="380" height="240" class="grafico-ajuste"></canvas>
 					
 		</div>
@@ -49,7 +57,7 @@
 		<div class="div-board">
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Faturamente/Despesa</span>
+				<span class="span-titulo">Metas</span>
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			
@@ -181,7 +189,9 @@
 			</div>		
 		</div>
 	</section>
+	<input type="hidden" id="totalPagar" value="<?php echo $totaPagar; ?>" />
+	<input type="hidden" id="totalReceber" value="<?php echo $totaReceber; ?>" />
 
 </section><!-- ## FIM SECTION INFERIOR -->
 
-
+<?php echo $this->element('sql_dump'); ?>

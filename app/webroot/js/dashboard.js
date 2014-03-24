@@ -1,31 +1,66 @@
 $(document).ready(function() {
 
-
+var receber =  $("#totalPagar").val();
+var pagar =  $("#totalReceber").val();
 
 var barData = {
-	labels : ["January","February","March","April","May","June"],
+	labels : ["Janeiro","Fevereiro","Março","Abril","Maio","Junho"],
 	datasets : [
 		{
-			fillColor : "#48A497",
+			//RECEBER
+			fillColor : "#4FE072",
 			strokeColor : "#32435A",
-			data : [200,300,400,500,600,700],
+			labels: 'CP',
+			data : [receber],
 			
 		},
 		
 		{
-			fillColor : "#48A497",
+			//Pagar
+			fillColor : "#F84148",
 			strokeColor : "#32435A",
-			data: [100,200,300,400,700,500],
+			data: [pagar],
 			
 		}
 	]	
 };
 
 var options = {
+    
     scaleFontColor: "#4456ff", //Cor das letras
-    scaleLineColor : "rgba(5,5,3,.1)",
+    scaleLineColor : "rgba(8,5,3,.1)", //cor das linhas
+    
 	scaleLineWidth : 1, //Espessura das linhas que separam a parte texto das barras
-	scaleShowGridLines : true, //Cor das Letras
+	scaleShowGridLines : true, //Mostra Grid Line
+	scaleGridLineColor : "rgba(0,0,0,.05)",	 //String - Cor da grid lines
+	
+		
+	scaleOverlay : false, //Boolean - Se nós mostrarmos a escala acima os dados do gráfico
+	scaleOverride : false, //Boolean - Se queremos substituir com uma escala codificado
+	
+	scaleOverride : false, //Boolean - Escala Codificada
+	scaleSteps : null, //** Requer scaleOverride: true ** //Número - Numero de Passos para a escala codificada
+	
+	
+	scaleShowLabels : true, //Boolean - Se deve mostrar rótulos na escala
+	scaleLabel : "<%=value%>", //interpolada JS string - pode acessar o valor]
+	
+	
+	scaleFontFamily : "'Arial'", //String - Scale label font declaration for the scale label
+	scaleFontSize : 10, //Number - Scale label font size in pixels	
+	scaleFontStyle : "normal", //String - Scale label font weight style	
+	scaleFontColor : "#000",		//String - Scale label font colour	
+	
+	
+	barShowStroke : true, //Boolean - If there is a stroke on each bar		
+	barStrokeWidth : 1, //Number - Pixel width of the bar stroke		
+	barValueSpacing : 3, //Number - Spacing between each of the X value sets
+	barDatasetSpacing : 2, //Number - Spacing between data sets within X values
+	
+	animation : true,//Boolean - Whether to animate the chart
+	animationSteps : 300,//Number - Tempo da Animação
+	animationEasing : "easeOutQuart", //String - Animation easing effect
+	onAnimationComplete : null 	//Function - Fires when the animation is complete
 	
 };
 
