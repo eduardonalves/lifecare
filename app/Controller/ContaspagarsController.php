@@ -92,6 +92,7 @@ class ContaspagarsController extends ContasController {
  */
 	public function add() {
 		$this->layout = 'contas';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 				$this->Contaspagar->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contaspagar']['data_emissao']);
@@ -103,6 +104,7 @@ class ContaspagarsController extends ContasController {
 				$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
 				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
 				$parcelasEnviadas = $this->request->data['Parcela'];
+				
 				//debug($parcelasEnviadas);
 				$cont=0;
 				foreach($parcelasEnviadas as $parcelasEnviada){
@@ -134,7 +136,7 @@ class ContaspagarsController extends ContasController {
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
-		$this->set(compact('parceirodenegocios'));
+		$this->set(compact('parceirodenegocios','userid'));
 	}
 
 /**

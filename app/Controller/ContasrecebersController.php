@@ -89,6 +89,7 @@ class ContasrecebersController extends ContasController {
  */
 	public function add() {
 		$this->layout = 'contas';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 				$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
@@ -131,7 +132,7 @@ class ContasrecebersController extends ContasController {
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
-		$this->set(compact('parceirodenegocios'));
+		$this->set(compact('parceirodenegocios','userid'));
 	}
 
 /**

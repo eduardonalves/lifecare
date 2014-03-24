@@ -38,7 +38,8 @@
 	    <section class="coluna-esquerda">
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita'));
-		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'EM ABERTO','type' => 'hidden'));
+		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
+		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 		
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
 										 'title'=>'Preencher',
@@ -122,29 +123,31 @@
 	
 	    <section class="coluna-esquerda">
 		<?php
-		    echo $this->Form->input('parcela',array('label' => 'Parcela:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
-		    echo $this->Form->input('valor',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
+		    echo $this->Form->input('parcela_parcela',array('label' => 'Parcela:','id' =>'ContasreceberParcela','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
+		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
-		    echo $this->Form->input('agencia',array('label' => 'Agencia:','class' => 'tamanho-pequeno desabilita'));
+		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita'));
 		?>    
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php
-		    echo $this->Form->input('identificacao_documento',array('label' => 'Código de Barras:','class' => 'tamanho-pequeno desabilita'));
-		    echo $this->Form->input('periodocritico',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'obrigatorio tamanho-pequeno desabilita'));
+		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-pequeno desabilita'));
+		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita'));
 		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
-		    echo $this->Form->input('conta',array('label' => 'Conta:','class' => 'tamanho-pequeno desabilita'));
+		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita'));
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('data_vencimento',array('label' => 'Data de Vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber'));
+
+		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber'));
+
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
-		    echo $this->Form->input('desconto',array('label' => 'Desconto:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
-		    echo $this->Form->input('banco',array('label' => 'Banco:','class' => 'tamanho-medio desabilita'));
+		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
+		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','class' => 'tamanho-medio desabilita'));
 		?>
 		
 	    </section>
