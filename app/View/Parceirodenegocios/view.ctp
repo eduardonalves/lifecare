@@ -64,8 +64,8 @@
 
 		<?php
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.celular',array('class' => 'tamanho-medio tel borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			}
+				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-medio tel borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
+			}	
 		?>
 
 	</section>
@@ -187,4 +187,6 @@
     ?>
 
 </footer>
-
+<pre>
+<?php print_r($parceirodenegocio['Contato']);?>
+</pre>
