@@ -38,7 +38,7 @@
 	<section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita'));
-		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'EM ABERTO','type' => 'hidden'));
+		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 		    
 
 		     echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
