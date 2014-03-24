@@ -250,7 +250,9 @@ $(document).ready(function() {
 		valorFormaData=$(this).val();
 		id=$(this).attr('id');
 
-		$('<input id="'+id+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
+		name=$(this).attr('name');
+
+		$('<input id="'+id+'" name="'+name+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
 	    });
 	}    
 

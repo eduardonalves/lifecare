@@ -543,7 +543,7 @@
     });
 
 /****************Valida Data Emissão******************************************/
-    $("#ContasreceberDataEmissao").focusout(function(){
+    $("#ContasreceberDataEmissao").change(function(){
 
 	var dfuturoSaida = $("#ContasreceberDataEmissao").val();
 	var dataFutura = new Date();
@@ -552,21 +552,21 @@
 	var mesDigitado = dfuturoSaida.split("/")[1];
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
-	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
-		$("#msgDataEmissaoInvalida").css("display","block");   
-		$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
-		$("#ContasreceberDataEmissao").val("");    
-	    }else{		    
-		$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
-		$("#msgDataEmissaoInvalida").css("display","none");  
-		
-	    }
+
+	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    $("#msgDataEmissaoInvalida").css("display","block");   
+	    $("#ContasreceberDataEmissao").addClass('shadow-vermelho');
+	    $("#ContasreceberDataEmissao").val("");    
+	}else{		    
+	    $("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
+	    $("#msgDataEmissaoInvalida").css("display","none");  
+	    
 	}
+	
     });
     
 /****************Valida Data Vencimento******************************************/
-    $("#dataVencimento-receber").focusout(function(){
+    $("#dataVencimento-receber").change(function(){
 
 	var dfuturoSaida = $("#dataVencimento-receber").val();
 	var dataFutura = new Date();
@@ -575,21 +575,22 @@
 	var mesDigitado = dfuturoSaida.split("/")[1];
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
-	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
-		$("#msgDataVencimentoInvalida").css("display","block");   
-		$("#dataVencimento-receber").addClass('shadow-vermelho');
-		$("#dataVencimento-receber").val("");    
-	    }else{		    
-		$("#dataVencimento-receber").removeClass('shadow-vermelho');
-		$("#msgDataVencimentoInvalida").css("display","none");  
-	    }
+
+	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    $("#msgDataVencimentoInvalida").css("display","block");   
+	    $("#dataVencimento-receber").addClass('shadow-vermelho');
+	    $("#dataVencimento-receber").val("");    
+	}else{		    
+	    $("#dataVencimento-receber").removeClass('shadow-vermelho');
+	    $("#msgDataVencimentoInvalida").css("display","none");  
+	    
 	}
 	
     });    
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaReceber').click(function(){
+	    
 	    //pega valor
 	    ContaValorAux = $('#ContasreceberValor').val();
 	    
