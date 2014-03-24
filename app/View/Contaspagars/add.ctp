@@ -91,7 +91,7 @@
 	<section class="coluna-direita" >
 		<?php
 		    //echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio desabilita'));
-		    echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-pequeno desabilita dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+		    echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio ','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
@@ -106,7 +106,7 @@
 
 	<section class="coluna-esquerda">
 		<?php
-		echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','options'=>array('','A Vista','A Prazo')));
+		echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','options'=>array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
 		echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';	
 		?>
 	</section>
@@ -119,12 +119,12 @@
 	
 	<section class="coluna-direita">
 		<?php
-		echo $this->Form->input('Pagamento.0.numero_parcela',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
+		echo $this->Form->input('Pagamento.0.numero_parcela',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','value' => '0'));	
 		?>
 	</section>
 </section><!--fim Meio-->
 
-    <div class="fieldset tela-resultado">
+    <div class="fieldset tela-resultado-field">
 	
 	<section class="coluna-esquerda">
 	    <?php

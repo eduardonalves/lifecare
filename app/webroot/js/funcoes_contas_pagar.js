@@ -28,7 +28,7 @@
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
 
-	if(tipoPagamento == 0){
+	if(tipoPagamento == ''){
 	    //alert('Tipo Pagamento vazio');
 	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
 	    $('#msgTipoPagamento').css('display','block');
@@ -74,8 +74,8 @@
 	    //campos hidden
 	    $('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoPagar'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaPagar'+princ_cont+'" value="'+valor.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.replace(",", ".")+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
 
-	    if(tipoPagamento == 1){
-		$('.tela-resultado').hide();
+	    if(tipoPagamento == 'A Vista'){
+		$('.tela-resultado-field').hide();
 	    }else{
 		numeroParcela++;
 	    }
@@ -146,9 +146,10 @@
 
 /****************** Altera linha da tabela *********************/
     $('#bt-editarConta-pagar').click(function(){
-
-	if($('#Pagamento0TipoPagamento').val() == 1){
-	    $('.tela-resultado').hide();
+	$('.btnEditar').show();
+	
+	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+	    $('.tela-resultado-field').hide();
 	}
 	
 	//percorre a td
@@ -214,7 +215,7 @@
 	   
 	});
 
-	if($('#Pagamento0TipoPagamento').val() == 1){
+	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
 	    $('.tela-resultado').hide();
 	}
 
@@ -233,8 +234,8 @@
     
     $("body").on("click",'.btnEditar', function(e){
 
-	$('.tela-resultado').show();
-	
+	$('.tela-resultado-field').show();
+	$('.btnEditar').hide();
 	//salva valor atual da parcela
 	parcelaAtual=$('#ContaspagarParcela').val();
 	
@@ -285,7 +286,7 @@
 /*********** Botão excluir uma parcela da tabela ***********/	
     $("body").on("click",'.btnExcluir', function(e){
 
-	$('.tela-resultado').show();
+	$('.tela-resultado-field').show();
 	
 	//pega id da linha
 	var td = $(this).parent();

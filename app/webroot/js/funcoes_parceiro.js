@@ -251,12 +251,12 @@ $(document).ready(function() {
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#validaValidade1').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
-			$('#Dadoscredito0Status').addClass('shadow-vermelho');
+		}else if(($('#ParceirodenegociosStatus').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#ParceirodenegociosStatus').addClass('shadow-vermelho');
 			$('#validaStatus').css('display','block');
 			return false;
-		}else if(($('#Dadoscredito0Bloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
-			$('#Dadoscredito0Bloqueado').addClass('shadow-vermelho');
+		}else if(($('#ParceirodenegociosBloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+			$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
 			$('#validaBloqueado').css('display','block');
 			return false;
 		}else{
