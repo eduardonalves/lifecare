@@ -85,7 +85,7 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
+		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-pequeno dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
@@ -101,7 +101,7 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio desabilidado', 'options'=> array('','A Vista','A Prazo')));
+		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio desabilidado', 'options'=> array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
 		    echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';
 		?>
 	    </section>
@@ -114,14 +114,14 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('Pagamento.0.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text'));
+		    echo $this->Form->input('Pagamento.0.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text','value' => '0'));
 		?>
 	    </section>
 	    
     </section><!--fim BAIXO-->
 
 
-    <div class="fieldset tela-resultado">
+    <div class="fieldset tela-resultado-field">
 	
 	    <section class="coluna-esquerda">
 		<?php
@@ -163,7 +163,7 @@
 
 		echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
 						     'title'=>'Editar Conta',
-						     'id'=>'bt-alterarConta-receber',
+						     'id'=>'bt-editarConta-receber',
 						     'class'=>'bt-direita'
 		));
 

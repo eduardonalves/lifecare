@@ -218,7 +218,7 @@ $(document).ready(function() {
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else{    	
-	    $('.tela-resultado').hide();
+	    $('.tela-resultado, .tela-resultado-field').hide();
 	    $('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
 	    $('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
 	    $('.forma-data').attr('disabled','disabled');
@@ -260,7 +260,6 @@ $(document).ready(function() {
 /********** Voltar tela de resultado Contas ****************/
 
     $('.bt-voltar').click(function(){
-	$('.tela-resultado').show();
 	$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
 	$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
 	$('.forma-data').removeAttr('disabled','disabled')
@@ -275,6 +274,11 @@ $(document).ready(function() {
 	$('.bt-confirmar').show();
 	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
 	$('input').removeAttr('required');
+
+	tipo_pagamento = $('#Pagamento0TipoPagamento').val();
+	if(tipo_pagamento != 1){
+	    $('.tela-resultado-field').show();
+	}
     });
 /****************** Marca em vermelho o campo ***********/
     $('[class*="obrigatorio"]').focusin(function(){
@@ -341,8 +345,22 @@ $(document).ready(function() {
 		}
 
 	});
+
 /****************** Mascara Data *************************/
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
+    
+/****************** Tipo de pagamento *************************/
+    $('#Pagamento0TipoPagamento').change(function(){
+	    $('input[name*="parcela"]').val('');
+	    $('#Pagamento0FormaPagamento').val('');
+	    $('tr[id*="parcelaCont"],div[class*="clonadoProduto"]').remove();
+	    $('[id*="editarConta"]').hide();
+	    $('[id*="bt-adicionarConta"]').show();
+	    $('.tela-resultado-field').show();
+	    $('#Pagamento0NumeroParcela').val(0);
+	    $('#ContaspagarParcela').val(1);
+	    
+    });    
 	
  });
