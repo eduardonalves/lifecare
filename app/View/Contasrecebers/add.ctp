@@ -40,7 +40,9 @@
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita'));
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
-		
+		?>
+	<div class="tela-resultado">   
+		<?php
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
 										 'title'=>'Preencher',
 										     'class'=>'bt-preencherConta',
@@ -63,7 +65,7 @@
 			    ?>
 		    </select>
 		</div>
-
+	</div>
 		<?php
 		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta'));
@@ -77,14 +79,14 @@
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio desabilita borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
 		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio desabilita','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
@@ -147,7 +149,7 @@
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
-		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','class' => 'tamanho-medio desabilita'));
+		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','id' =>'ContasreceberBanco','class' => 'tamanho-medio desabilita'));
 		?>
 		
 	    </section>
@@ -182,9 +184,9 @@
 		<th><?php echo ('Valor'); ?></th>
 		<th><?php echo ('Periodo Crítico'); ?></th>
 		<th><?php echo ('Desconto'); ?></th>
-		<th><?php echo ('Banco'); ?></th>
 		<th><?php echo ('Agência'); ?></th>
 		<th><?php echo ('Conta'); ?></th>
+		<th><?php echo ('Banco'); ?></th>
 		<th class="actions"><?php echo __('Ações'); ?></th>
 	    </thead>
 	</table>

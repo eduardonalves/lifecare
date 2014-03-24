@@ -55,8 +55,10 @@
 
 	}else{
 	    //adiciona a tabela
-	    $('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 
+	    $('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+	    $('input').removeAttr('required');
+	    
 	    calcularValorConta();
 	    
 	    //limpa campos
@@ -543,7 +545,7 @@
     });
 
 /****************Valida Data Emissão******************************************/
-    $("#ContasreceberDataEmissao").change(function(){
+    $("#ContasreceberDataEmissao").focusout(function(){
 
 	var dfuturoSaida = $("#ContasreceberDataEmissao").val();
 	var dataFutura = new Date();
@@ -552,21 +554,22 @@
 	var mesDigitado = dfuturoSaida.split("/")[1];
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
-
-	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
-	    $("#msgDataEmissaoInvalida").css("display","block");   
-	    $("#ContasreceberDataEmissao").addClass('shadow-vermelho');
-	    $("#ContasreceberDataEmissao").val("");    
-	}else{		    
-	    $("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
-	    $("#msgDataEmissaoInvalida").css("display","none");  
-	    
+	if(dfuturoSaida != ''){
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
+		$("#msgDataEmissaoInvalida").css("display","block");   
+		$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
+		$("#ContasreceberDataEmissao").val("");    
+	    }else{		    
+		$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
+		$("#msgDataEmissaoInvalida").css("display","none");  
+		
+	    }
 	}
 	
     });
     
 /****************Valida Data Vencimento******************************************/
-    $("#dataVencimento-receber").change(function(){
+    $("#dataVencimento-receber").focusout(function(){
 
 	var dfuturoSaida = $("#dataVencimento-receber").val();
 	var dataFutura = new Date();
@@ -575,15 +578,16 @@
 	var mesDigitado = dfuturoSaida.split("/")[1];
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
-
-	if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
-	    $("#msgDataVencimentoInvalida").css("display","block");   
-	    $("#dataVencimento-receber").addClass('shadow-vermelho');
-	    $("#dataVencimento-receber").val("");    
-	}else{		    
-	    $("#dataVencimento-receber").removeClass('shadow-vermelho');
-	    $("#msgDataVencimentoInvalida").css("display","none");  
-	    
+	if(dfuturoSaida != ''){
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
+		$("#msgDataVencimentoInvalida").css("display","block");   
+		$("#dataVencimento-receber").addClass('shadow-vermelho');
+		$("#dataVencimento-receber").val("");    
+	    }else{		    
+		$("#dataVencimento-receber").removeClass('shadow-vermelho');
+		$("#msgDataVencimentoInvalida").css("display","none");  
+		
+	    }
 	}
 	
     });    

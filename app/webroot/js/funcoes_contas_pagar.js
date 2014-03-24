@@ -57,6 +57,8 @@
 	    //adiciona a tabela
 	    $('#tabela-conta-pagar').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 
+	    $('input').removeAttr('required');
+	    
 	    calcularValorConta();	
 	    
 	    //limpa campos
@@ -64,7 +66,7 @@
 	    $('#ContaspagarDataVencimento').val('');
 	    $('#valorPagar').val('');
 	    $('#PagarPeriodocritico').val('');
-	    $('#ContapagarDesconto').val('');
+	    $('#ContaspagarDesconto').val('');
 	    $('#ContaspagarAgencia').val('');
 	    $('#ContaspagarConta').val('');
 	    $('#ContaspagarBanco').val('');
@@ -567,7 +569,7 @@
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
 	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
 		$("#msgDataEmissaoInvalida").css("display","block");   
 		$("#ContaspagarDataEmissao").addClass('shadow-vermelho');
 		$("#ContaspagarDataEmissao").val("");    
@@ -591,7 +593,7 @@
 	var diaDigitado = dfuturoSaida.split("/")[0];
 
 	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
 		$("#msgDataVencimentoInvalida").css("display","block");   
 		$("#ContaspagarDataVencimento").addClass('shadow-vermelho');
 		$("#ContaspagarDataVencimento").val("");    

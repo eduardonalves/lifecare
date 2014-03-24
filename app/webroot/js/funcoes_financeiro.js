@@ -221,8 +221,7 @@ $(document).ready(function() {
 	    $('.tela-resultado').hide();
 	    $('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
 	    $('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
-	    $('.forma-data').attr('disabled','disabled')
-	    $('.bt-preencherConta').hide();
+	    $('.forma-data').attr('disabled','disabled');
 	    $('.ui-widget').attr('readonly','readonly').addClass('borderZero');
 	    $("[class*='ui-button']").css('display','none');
 	    $('html, body').animate({scrollTop:0}, 'slow');
@@ -258,7 +257,7 @@ $(document).ready(function() {
 
     });
     
-/********** Avançar tela de resultado Contas ****************/
+/********** Voltar tela de resultado Contas ****************/
 
     $('.bt-voltar').click(function(){
 	$('.tela-resultado').show();
@@ -268,7 +267,6 @@ $(document).ready(function() {
 	$('select[class*="desabilita"] + input ').remove();
 	$('#spanTextArea').remove();
 	$('.textAreaConta').show();
-	$('.bt-preencherConta').show();
 	$('.ui-widget').removeAttr('readonly','readonly').removeClass('borderZero');
 	$("[class*='ui-button']").css('display','inherit');
 	$('html, body').animate({scrollTop:0}, 'slow');
@@ -276,6 +274,7 @@ $(document).ready(function() {
 	$('.bt-voltar').hide();
 	$('.bt-confirmar').show();
 	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
+	$('input').removeAttr('required');
     });
 /****************** Marca em vermelho o campo ***********/
     $('[class*="obrigatorio"]').focusin(function(){
@@ -342,4 +341,8 @@ $(document).ready(function() {
 		}
 
 	});
+/****************** Mascara Data *************************/
+
+    $('input[id*=Data],input[id*=data]').mask('99/99/9999');
+	
  });
