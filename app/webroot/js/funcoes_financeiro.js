@@ -80,9 +80,8 @@ $(document).ready(function() {
 		    $('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
 		}    
 	    }else{
-		    $("#filterDataVencimento-between").removeClass("shadow-vermelho");
-
-
+		$("#filterDataVencimento-between").removeClass("shadow-vermelho");
+		
 	    }			
     });
     
@@ -95,37 +94,34 @@ $(document).ready(function() {
 		    $("#filterValor, #filterValor-between").val(' ');
 		    $("#filterValor, #filterValor-between").addClass("shadow-vermelho");
 	    }else{
-		    $("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
-
+		$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+	    
 	    }			
     });
 
 
 /*** Validação de Datas Contas ****************************************/
+
+    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento').addClass('validaDataContas');
     
-    $(".hasDatepicker").change(function(){
+    $(".validaDataContas").change(function(){
 	    
-	    var data_inicial = $("[id*='DataEmissao']").datepicker('getDate');
-	    var data_final = $("[id*='DataVencimento']").datepicker('getDate');
+	    var data_inicial = $("input[id*='DataEmissao']").datepicker('getDate');
+	    var data_final = $("input[id*='Vencimento']").datepicker('getDate');
 	    
 	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
 	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
 
 	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
-	    
+
 	    if(daysNota < 0){
 		if(data_final != null){
-		    alert();
-		    $("[id*='DataEmissao'], [id*='DataVencimento']").val("");
-		    $("[id*='DataVencimento']").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id*="DataVencimento"]');
-		    $("[id*='Invalida']").css('display','transparent');
-		   
+		    $("input[id*='DataEmissao'], [id*='Vencimento']").val("");
+		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id*="Vencimento"]');
 		}     
 	    }else{
-		alert('aqui');
 		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
-
 	    }			
     });
     
