@@ -83,11 +83,13 @@ label{
 .inputSearchData span{
 	float: left;
 	margin: 5px 10px 0px 10px;
+	font-size:13px;
 }
 
 .inputSearchValor span{
 	float: left;
 	margin: 5px 10px 0px 10px;
+	font-size:13px;
 }
 
 .inputSearchValor input[type='text']{

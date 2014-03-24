@@ -580,7 +580,7 @@
     });
     
 /****************Valida Data Vencimento******************************************/
-    $("#ContaspagarDataVencimento").change(function(){
+    $("#ContaspagarDataVencimento").focusout(function(){
 
 	var dfuturoSaida = $("#ContaspagarDataVencimento").val();
 	var dataFutura = new Date();
