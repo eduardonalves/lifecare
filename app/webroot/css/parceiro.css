@@ -45,8 +45,14 @@ textarea{
 
 
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao, span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+#validaClassificacao, span[id$="Cidade"], #validaValidade1, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
+	top: -5px;
+	left: 260px;	
+}
+
+#validaValidade2{
+	width: 145px;
 	top: -5px;
 	left: 260px;	
 }
