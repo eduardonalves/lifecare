@@ -21,7 +21,7 @@ $(document).ready(function() {
 		}
 	}
 
-	$("#add-area-endereco").click(function(){
+	$("#bt-addEndereco").click(function(){
 		
 		var logradouro = $("#Endereco"+ (contadorBlocoEndereco-1) +"Logradouro").val();
 		var uf = $("#Endereco"+ (contadorBlocoEndereco-1) +"Uf").val();
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		var idUf = "Endereco"+ contadorBlocoEndereco +"Uf";
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
 		
-		if(logradouro && uf && municipio && bairro){
+		if(logradouro && uf && municipio && bairro){			
 			$('.area-endereco').append('<div class="bloco-area-end'+ contadorBlocoEndereco +'">\
 				<hr>\
 					<section class="coluna-esquerda">\
@@ -82,7 +82,7 @@ $(document).ready(function() {
 						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>\
 					</section>\
 				<div>');
-				
+
 			$('.bloco-area-end'+ contadorBlocoEndereco).hide().fadeIn(2000);
 			
 			contadorBlocoEndereco++;
@@ -100,9 +100,7 @@ $(document).ready(function() {
 		
 		var agencia = $("#Dadosbancario"+ (contadorBlocoDadosBanc-1) +"NumeroAgencia").val();
 		var conta = $("#DadosbancarioConta"+ (contadorBlocoDadosBanc-1)).val();
-		
-		alert(agencia +' '+ conta);
-		
+	
 		if(conta && agencia){
 			$('.area-dadosbanc').append('<div class="bloco-area-banc'+ contadorBlocoDadosBanc +'">\
 					<hr>\
@@ -267,7 +265,6 @@ $(document).ready(function() {
 
 /*** Máscara **********************************************************/
 	jQuery(function($){
-		$(".agencia").mask("9999-9");
 		$(".maskTelefone").mask("(99) 9999-9999")
 	});	
 	
