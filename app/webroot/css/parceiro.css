@@ -45,16 +45,31 @@ textarea{
 
 
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao,span[id$="Logradouro"], span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+#validaClassificacao, span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
 	top: -5px;
 	left: 260px;	
 }
 
-#validaNome, #validaLimite{
+span[id$="Logradouro"]{
 	width:85px;
 	top:-5px;
 	left:325px;
+	z-index:9991;
+}
+
+#validaNome, #validaLimite, #validaTelefone22{
+	width:85px;
+	top:-5px;
+	left:325px;
+	z-index:9991;
+}
+
+#validaTelefone22{
+	width:85px;
+	top:22px;
+	left:325px;
+	z-index:9991;
 }
 
 span[id$="Uf"],#valida0Cidade{
@@ -63,15 +78,21 @@ span[id$="Uf"],#valida0Cidade{
 	left:360px;
 }
 
-#validaTelefone{
+#validaTelefone1,#validaTelefone2{
 	width:85px;
 	top:25px;
 	left:325px;
 }
 
-#validaCPF, #validaCPFTamanho{
+#validaCPF, #validaCPFTamanho, #validaCelular{
 	width:85px;
 	top:30px;
+	left:185px;
+}
+
+#validaCelular{
+width:85px;
+	top:60px;
 	left:185px;
 }
 
@@ -83,4 +104,45 @@ span[id$="Bairro"]{
 
 #validaCPF:after,#validaCPFTamanho:after,span[id$="Bairro"]:after{
 	left:35px;
+}
+
+#idcpf{
+	float: left;
+	position:absolute;
+	margin-top: 2px;
+}
+
+#idcnpj{
+	float: left;
+	position:absolute;
+	margin-top: 2px;
+}
+
+.label-cpf{
+	float:right;
+	font-size:13px;
+	margin-top:-4px;
+	width:65px !important;
+}
+
+.label-cnpj{
+	margin-left:85px;
+	margin-top:-4px;
+	width:50px !important;
+}
+
+#inputcnpj{
+	position:absolute;   
+	margin-left:75px;
+}
+
+#inputcpf{
+	position:absolute;
+	z-index: 999;
+	margin-left: 10px;
+}
+
+#ClienteCpfCnpj{
+	position:absolute;
+	height:16px;
 }

@@ -213,7 +213,19 @@ $(document).ready(function() {
 			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone').css('display','block');
+			$('#validaTelefone1').css('display','block');
+			return false;
+		}else if($('#ParceirodenegocioTelefone1').val().length != 14){
+			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+			$('#validaTelefone2').css('display','block');
+			return false;
+		}else if(($('#ParceirodenegocioTelefone2').val().length != 14) && ($('#ParceirodenegocioTelefone2').val().length != 0)){
+			$('#ParceirodenegocioTelefone2').addClass('shadow-vermelho');
+			$('#validaTelefone22').css('display','block');
+			return false;
+		}else if(($('#Contato0Celular').val().length != 15) && ($('#Contato0Celular').val().length != 0)){
+			$('#Contato0Celular').addClass('shadow-vermelho');
+			$('#validaCelular').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
@@ -279,6 +291,34 @@ $(document).ready(function() {
 		}else if ($(".maskcpf").val().length == 18){
 			$(".maskcpf").val();
 		}
-	});	
+	});
+	
+/*** Validar CPF ******************************************************/
+	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
+		var charCode = event.keyCode || event.which;
+	
+		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
+		if (!((charCode>47)&&(charCode<58))){return false;}
+	});
+	
+	$('#inputcpf, #inputcnpj').attr("enabled","enabled");
+	$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");
+
+	$('#inputcpf, #inputcnpj').click(function(){
+		
+		$("#ParceirodenegocioCpfCnpj").val('');
+		
+		valorCpfCnpj = $(this).attr('id'); 
+
+		if(valorCpfCnpj == 'inputcpf'){
+			$("#ParceirodenegocioCpfCnpj").removeAttr("disabled");
+			$("#ParceirodenegocioCpfCnpj").css("background-color","#FFFFFF;");
+			$("#ParceirodenegocioCpfCnpj").mask("999.999.999-99");//cpf
+		}else{
+			$("#ParceirodenegocioCpfCnpj").removeAttr("disabled");
+			$("#ParceirodenegocioCpfCnpj").css("background-color","#FFFFFF;");
+			$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");//cnpj
+		}
+	});
 
 });

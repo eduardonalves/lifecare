@@ -157,7 +157,9 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio obrigatorio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlenght' =>'20'));
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj')));
+			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
+				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
