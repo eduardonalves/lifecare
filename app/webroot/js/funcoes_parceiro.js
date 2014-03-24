@@ -265,7 +265,6 @@ $(document).ready(function() {
 
 	});
 	
-	
 	$('#Dadoscredito0ValidadeLimite').change(function(){
 		var hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var selecionado = $('#Dadoscredito0ValidadeLimite').datepicker('getDate').getTime();
