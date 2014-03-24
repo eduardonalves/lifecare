@@ -4,17 +4,17 @@
 		$this->extend('/Common/modal');
 		$this->assign('modal', $modal);
 	}
-	
+
 	$this->start('css');
 	    echo $this->Html->css('modal_ParceiroFornecedor');
 	    echo $this->Html->css('parceiro');
 	$this->end();
-	
+
 	$this->start('script');
 		//echo $this->Html->script('modal_funcoes_parceiro.js');
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
-	
+
 ?>
 
 
