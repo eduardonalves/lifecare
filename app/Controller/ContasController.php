@@ -683,16 +683,43 @@ class ContasController extends AppController {
 			
 			
 			if($this->Parcela->save($updatePacela)){
-				$parcelasEmAberto= $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id, 'Parcela.status NOT LIKE' => 'CINZA')));
+				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
 				
 				
-				if(empty($parcelasEmAberto)){
+				if(empty($parcelasEmAbertos)){
 					$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
 					$this->Conta->save($updateConta);
+				}else{
+					foreach($parcelasEmAbertos as $parcelasEmAberto){
+						//debug($parcelasEmAberto);
+						if($parcelasEmAberto['Parcela']['status'] =="VERMELHO"){
+							$verm="tem";
+						}
+					
+						if($parcelasEmAberto['Parcela']['status'] =="AMARELO"){
+							$ama="tem";
+						}
+						
+						if($parcelasEmAberto['Parcela']['status'] =="VERDE"){
+							$verd="tem";
+						}
+						
+						if(isset($verm)){
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERMELHO');
+							$this->Conta->save($updateConta);
+						}else if(isset($ama)){
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'AMARELO');
+							$this->Conta->save($updateConta);
+						}else if($verd){
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERDE');
+							$this->Conta->save($updateConta);
+						}
+					
+					}
 				}
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
-				//debug($updateConta);
+				//debug($parcelasEmAberto);
 			}else{
 				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
