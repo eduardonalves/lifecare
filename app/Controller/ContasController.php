@@ -251,10 +251,20 @@ class ContasController extends AppController {
 	            'forma_pagamento' => array(
 	                '_Pagamento.forma_pagamento' => array(
 	                    'operator' => 'LIKE',
-                         'explode' => array(
+                         /*  'explode' => array(
 	                    	'concatenate' => 'OR'
-	               		 ),
+	               		 ),*/
 	               		 'select' => array('' => '','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
+				'status_conta' => array(
+	                'Conta.status' => array(
+	                    'operator' => 'LIKE',
+                        /* 'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),*/
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
 					)
 	            ),
 	            
@@ -654,18 +664,19 @@ class ContasController extends AppController {
  * @return void
  */
 	public function quitarParcela($id = null) {
+		$this->loadModel('Parcela');
 		$userid = $this->Session->read('Auth.User.id');
-		$this->Conta->id = $id;
-		if (!$this->Conta->exists()) {
-			throw new NotFoundException(__('Conta inválida'));
+		$this->Parcela->id = $id;
+		if (!$this->Parcela->exists()) {
+			throw new NotFoundException(__('Parcela inválida'));
 		}
 		$this->request->onlyAllow('post', 'quitarParcela');
 		
 		$hoje= date("Y-m-d");
-		$this->loadModel('Parcela');
+		
 		$parcela= $this->Parcela->find('first', array('conditions' => array('Parcela.id' => $id)));
 		
-		if($parcela['Parcela']['status'] != 'CINZA'){
+		if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
 			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $hoje, 'user_id' => $userid);
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
 			
@@ -673,15 +684,19 @@ class ContasController extends AppController {
 			
 			if($this->Parcela->save($updatePacela)){
 				$parcelasEmAberto= $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id, 'Parcela.status NOT LIKE' => 'CINZA')));
-				if(!empty($parcelasEmAberto)){
-					$updateConta= array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
+				
+				
+				if(empty($parcelasEmAberto)){
+					$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
 					$this->Conta->save($updateConta);
 				}
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
+				//debug($updateConta);
 			}else{
 				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
+				
 			}
 		}else{
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
@@ -690,10 +705,12 @@ class ContasController extends AppController {
 		}
 		
 		
+		
 	}	
 	public function cancelarConta($id = null) {
 		$userid = $this->Session->read('Auth.User.id');
 		$this->Conta->id = $id;
+		$this->loadModel('Parcela');
 		if (!$this->Conta->exists()) {
 			throw new NotFoundException(__('Conta inválida'));
 		}
@@ -703,7 +720,7 @@ class ContasController extends AppController {
 		$conta = $this->Conta->find('first', array('conditions'=> array('Conta.id' => $id)));
 		if($conta['Conta']['status'] != 'CANCELADO'){
 			if($this->Conta->save($updateConta)){
-				$this->loadModel('Parcela');
+				
 				$pacelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $id)));
 				
 				foreach($pacelas as $parcela){
@@ -715,7 +732,8 @@ class ContasController extends AppController {
 				return $this->redirect(array('action' => 'view', $parcela['_Conta']['id']));
 			}
 		}else{
-			
+			$this->Session->setFlash(__('Esta conta já foi cancelada.'));
+			return $this->redirect(array('action' => 'view', $id));
 		}
 	}	
 		

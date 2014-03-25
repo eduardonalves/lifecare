@@ -136,6 +136,14 @@ $(document).ready(function() {
 					<?php
 						echo $this->Search->input('data_quitacao', array('label' => 'Quitação:','class'=>'', 'type' => 'text'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+						
+					?>
+				</div>
+				
+				<div class="inputSearchData" >
+					<?php
+						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>''));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
 				
