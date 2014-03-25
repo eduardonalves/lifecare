@@ -25,7 +25,7 @@ $(document).ready(function(){
 	$(".dinheiro_duasCasas").priceFormat({
 	    prefix: '',
 	    centsSeparator: ',',
-	    thousandsSeparator: ''
+	    thousandsSeparator: '.'
 	});
 
 /** PREÇO VENDA *******************************************************/
