@@ -83,30 +83,32 @@ class ContasrecebersController extends ContasController {
 	}
 
 
-	public function setStatusContaPrincipal(&$idConta){
+	public function setStatusContaPrincipal(&$idConta2){
+			$this->loadModel('Parcela');
+			$this->loadModel('Conta');
+			
+			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'VERMELHO')));
 		
-			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta, 'Parcela.status' => 'VERMELHO')));
-		
-			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta, 'Parcela.status NOT LIKE' => 'CINZA')));
-			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta, 'Parcela.status' => 'AMARELO'))); 
+			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status NOT LIKE' => 'CINZA')));
+			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
 				
 			if(!empty($contasEmAtraso)){
 				
-					$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
+					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
 					$this->Conta->save($updateConta);
 				
 				
 			}else{
 				if(isset($contasPrestesAVencer)){
 					if(!empty($contasPrestesAVencer)){
-						$updateConta = array('id' => $idConta,  'status' =>'AMARELO');
+						$updateConta = array('id' => $idConta2,  'status' =>'AMARELO');
 						$this->Conta->save($updateConta);
 					}else{
-						$updateConta = array('id' => $idConta,  'status' =>'VERDE');
+						$updateConta = array('id' => $idConta2,  'status' =>'VERDE');
 						$this->Conta->save($updateConta);
 					}
 				}else{
-					$updateConta = array('id' => $idConta, 'parcelas_atraso' => 0);
+					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => 0);
 					$this->Conta->save($updateConta);
 				}	
 					
@@ -116,12 +118,12 @@ class ContasrecebersController extends ContasController {
 	
 			if(!empty($contasEmAberto)){
 				
-					$updateConta = array('id' => $idConta, 'parcelas_aberto' => $contasEmAberto);
+					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => $contasEmAberto);
 					$this->Conta->save($updateConta);
 				
 			}else{
 				
-					$updateConta = array('id' => $idConta, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 					$this->Conta->save($updateConta);
 				
 				
@@ -162,7 +164,7 @@ class ContasrecebersController extends ContasController {
 					
 				}
 				$this->setStatusConta($ultimaConta['Conta']['id']);
-				setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
 				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
