@@ -51,7 +51,7 @@ $(document).ready(function() {
 						\
 						<div class="input textarea">\
 							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
 						</div>\
 					</section>\
 					\
@@ -223,9 +223,9 @@ $(document).ready(function() {
 			$('#ParceirodenegocioTelefone2').addClass('shadow-vermelho');
 			$('#validaTelefone22').css('display','block');
 			return false;
-		}else if(($('#Contato0Celular').val().length != 15) && ($('#Contato0Celular').val().length != 0)){
-			$('#Contato0Celular').addClass('shadow-vermelho');
-			$('#validaCelular').css('display','block');
+		}else if(($('#Contato0Telefone3').val().length != 15) && ($('#Contato0Telefone3').val().length != 0)){
+			$('#Contato0Telefone3').addClass('shadow-vermelho');
+			$('#validaTelefone3').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');

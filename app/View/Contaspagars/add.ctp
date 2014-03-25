@@ -113,7 +113,7 @@
 	
 	<section class="coluna-central">
 		<?php
-		echo $this->Form->input('Pagamento.0.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita'));
+		echo $this->Form->input('Pagamento.0.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 		?>	
 	</section>
 	

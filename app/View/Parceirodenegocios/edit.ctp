@@ -78,7 +78,7 @@
 		<?php
 			$j=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.'.$j.'.celular',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
+				echo $this->Form->input('Contato.'.$j.'.telefone3',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
 				$j++;
 			}
 		?>
