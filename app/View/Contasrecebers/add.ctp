@@ -40,6 +40,7 @@
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita'));
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
+		   
 		?>
 	<div class="tela-resultado">   
 		<?php
@@ -129,14 +130,16 @@
 		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita'));
+		     echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita'));
+		     echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		?>    
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php
-		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-pequeno desabilita'));
-		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita'));
-		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
+		    echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46'));
+		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita'));		   
+		    
 		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita'));
 		?>
 	    </section>
@@ -150,6 +153,7 @@
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas'));
 		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','id' =>'ContasreceberBanco','class' => 'tamanho-medio desabilita'));
+		   
 		?>
 		
 	    </section>
@@ -179,9 +183,10 @@
 	<table id="tabela-conta-receber" cellpadding="0" cellspacing="0">
 	    <thead>
 		<th><?php echo ('Parcela'); ?></th>
-		<th><?php echo ('Identificação'); ?></th>
+		<th><?php echo ('Código de Barras'); ?></th>
 		<th><?php echo ('Data de Vencimento'); ?></th>
 		<th><?php echo ('Valor'); ?></th>
+		<th><?php echo ('Identificação'); ?></th>
 		<th><?php echo ('Periodo Crítico'); ?></th>
 		<th><?php echo ('Desconto'); ?></th>
 		<th><?php echo ('Agência'); ?></th>

@@ -42,9 +42,7 @@ select[id^='Endereco']{
 
 #bt-voltarReceber{display:none;}
 
-#bt-alterarConta-receber{display:none}
-
-#bt-editarConta-pagar{display:none;}
+[id*="bt-editarConta"]{display:none;}
 
 .bt-salvarConta{display:none;}
 
@@ -102,17 +100,4 @@ table{margin-top: 20px;}
 
 [id*="spanDataFinal"]{left: 215px;top: 112px;width: 129px;}
 
-#spanDataFinalEmi{height: 49px;left: 245px;top: -3px;width: 94px;z-index: 1;}
-
-
-
-
-
-
-
-
-
-
-
-
-
+#spanDataFinalEmi{height: 60px;left: 245px;top: -3px;width: 94px;z-index: 1;}

@@ -118,7 +118,7 @@ $(document).ready(function() {
 		if(data_final != null){
 		    $("input[id*='DataEmissao'], [id*='Vencimento']").val("");
 		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id*="Vencimento"]');
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('input[id*="Vencimento"]');
 		}     
 	    }else{
 		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
@@ -350,17 +350,5 @@ $(document).ready(function() {
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
     
-/****************** Tipo de pagamento *************************/
-    $('#Pagamento0TipoPagamento').change(function(){
-	    $('input[name*="parcela"]').val('');
-	    $('#Pagamento0FormaPagamento').val('');
-	    $('tr[id*="parcelaCont"],div[class*="clonadoProduto"]').remove();
-	    $('[id*="editarConta"]').hide();
-	    $('[id*="bt-adicionarConta"]').show();
-	    $('.tela-resultado-field').show();
-	    $('#Pagamento0NumeroParcela').val(0);
-	    $('#ContaspagarParcela').val(1);
-	    
-    });    
-	
+
  });

@@ -131,16 +131,17 @@
 		echo $this->Form->input('parcela_parcela',array('type'=>'text','label'=>'Parcela:','id' => 'ContaspagarParcela','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
 		echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio'));
 		echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
-		echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita'));	
+		echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita'));
+		echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio','id' =>'PagarPeriodocritico'));
+		echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';	
 	    ?>
 	</section>
 
 		
 	<section class="coluna-central">
 		<?php
-		    echo $this->Form->input('identificacao_documento_parcela',array('type'=>'text','label'=>'Código de Barras:','id' => 'identificacaoPagar','class'=>'tamanho-pequeno desabilita'));
-		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio','id' =>'PagarPeriodocritico'));
-		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
+		   echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContaspagarCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46'));
+		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita'));
 		    echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita'));
 		?>	
 	</section>
@@ -176,9 +177,10 @@
 			<thead>
 
 					<th><?php echo ('Parcela'); ?></th>
-					<th><?php echo ('Identificação'); ?></th>
+					<th><?php echo ('Código de Barras'); ?></th>
 					<th><?php echo ('Data de Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
+					<th><?php echo ('Identificação'); ?></th>
 					<th><?php echo ('Periodo Crítico'); ?></th>
 					<th><?php echo ('Desconto'); ?></th>
 					<th><?php echo ('Agência'); ?></th>

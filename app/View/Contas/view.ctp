@@ -48,7 +48,7 @@ function formatDateToView(&$data){
 	<section class="coluna-central" >
 		<?php
 			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h($conta['Conta']['valor']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
-		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão:','value'=>h($conta['Conta']['data_emissao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		?>		
 	</section>
@@ -71,10 +71,11 @@ function formatDateToView(&$data){
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
 						<th><?php echo ('Parcela'); ?></th>
-						<th><?php echo ('Identificação'); ?></th>
+						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
 						<th><?php echo ('Período Crítico'); ?></th>
 						<th><?php echo ('Valor'); ?></th>
+						<th><?php echo ('Identificação'); ?></th>
 						<th><?php echo ('Banco'); ?></th>
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
@@ -87,11 +88,12 @@ function formatDateToView(&$data){
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
 							<td><?php echo $parcelas['id']; ?></td>
-							<td><?php echo $parcelas['identificacao_documento']; ?></td>
+							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);
 									  echo $parcelas['data_vencimento']; ?></td>
 							<td><?php echo $parcelas['periodocritico']; ?></td>
 							<td><?php echo $parcelas['valor']; ?></td>
+							<td><?php echo $parcelas['identificacao_documento']; ?></td>
 							<td><?php echo $parcelas['banco']; ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
 							<td><?php echo $parcelas['conta']; ?></td>
@@ -129,4 +131,3 @@ function formatDateToView(&$data){
 	<!-- </form> 
 	</section> -->
 </footer>
-
