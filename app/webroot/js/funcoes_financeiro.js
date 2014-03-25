@@ -346,6 +346,7 @@ $(document).ready(function() {
 
 	});
 
+
 /****************** Mascara Data *************************/
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
