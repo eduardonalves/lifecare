@@ -709,8 +709,9 @@ class ContasController extends AppController {
 	}	
 	public function cancelarConta($id = null) {
 		$userid = $this->Session->read('Auth.User.id');
-		$this->Conta->id = $id;
 		$this->loadModel('Parcela');
+		$this->Conta->id = $id;
+		
 		if (!$this->Conta->exists()) {
 			throw new NotFoundException(__('Conta inválida'));
 		}
