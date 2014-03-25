@@ -16,7 +16,7 @@
 
 		<?php
 			echo $this->Form->input('Dadoscredito.limite',array('value'=>h($dadoscredito['limite']),'label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('Dadoscredito.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('bloqueado',array('value'=>h($parceirodenegocio['Parceirodenegocio']['bloqueado'] ),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 
 	</section>
@@ -33,7 +33,7 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.status',array('value'=>h($dadoscredito['status']),'label' => 'Status:','type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('status',array('value'=>h($parceirodenegocio['Parceirodenegocio']['status'] ),'label' => 'Status:','type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 
 	</section>

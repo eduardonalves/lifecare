@@ -6,7 +6,9 @@
 }
 
 #myModal_add-config_movimentacao.modal{
-	margin-left:-350px;
+	margin-left: 50%;
+	left: -326px !important;
+	width: 656px;
 }
 
 #myModal_add-config_movimentacao .coluna-modal{

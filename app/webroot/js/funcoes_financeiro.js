@@ -1,116 +1,158 @@
 $(document).ready(function() {
 
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
-	$(".inputSearchData input[id*='between']").before("<span>a</span>");
-	
-	$(".inputSearchData input[type='text']").datepicker({
-		dateFormat: 'dd/mm/yy',
-		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-		dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-		nextText: 'Próximo',
-		prevText: 'Anterior'
-	});
+    $(".inputSearchData input[id*='between']").before("<span>a</span>");
+    
+    $(".inputSearchData input[type='text']").datepicker({
+	    dateFormat: 'dd/mm/yy',
+	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+	    nextText: 'Próximo',
+	    prevText: 'Anterior'
+    });
 
-/*** Validação de Datas ****************************************/
-	
-$("#filterDataEmissao-between").change(function(){
-		
-		var data_inicial = $("#filterDataEmissao").val();
-		var data_final = $("#filterDataEmissao-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataEmissao, #filterDataEmissao-between").val("");
-			$("#filterDataEmissao, #filterDataEmissao-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataEmissao, #filterDataEmissao-between").removeClass("shadow-vermelho");
+/*** Validação de Datas Consultas ****************************************/
 
-		}			
-	});
-	
-	
-$("#filterDataQuitacao-between").change(function(){
-		
-		var data_inicial = $("#filterDataQuitacao").val();
-		var data_final = $("#filterDataQuitacao-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataQuitacao, #filterDataQuitacao-between").val("");
-			$("#filterDataQuitacao, #filterDataQuitacao-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataQuitacao, #filterDataQuitacao-between").removeClass("shadow-vermelho");
+    $("[id*='filterData']").addClass('validaConFinan');
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataEmissao").datepicker('getDate');
+	    var data_final = $("#filterDataEmissao-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
 
-		}			
-	});
-	
-$("#filterDataVencimento-between").change(function(){
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){
+		    $("#filterDataEmissao, #filterDataEmissao-between").val("");
+		    $("#filterDataEmissao-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}     
+	    }else{
+		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+
+	    }			
+    });
+    
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataQuitacao").datepicker('getDate');
+	    var data_final = $("#filterDataQuitacao-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){
+		    $("#filterDataQuitacao, #filterDataQuitacao-between").val("");
+		    $(" #filterDataQuitacao-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalQui" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}    
+	    }else{
+		    $("#filterDataQuitacao-between").removeClass("shadow-vermelho");
+
+	    }			
+    });
+    
+    $(".validaConFinan").change(function(){
+	    
+	    var data_inicial = $("#filterDataVencimento").datepicker('getDate');
+	    var data_final = $("#filterDataVencimento-between").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+	    
+	    if(daysNota < 0){
+		if(data_final != null){ 
+		    $("#filterDataVencimento, #filterDataVencimento-between").val("");
+		    $("#filterDataVencimento-between").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+		}    
+	    }else{
+		$("#filterDataVencimento-between").removeClass("shadow-vermelho");
 		
-		var data_inicial = $("#filterDataVencimento").val();
-		var data_final = $("#filterDataVencimento-between").val();
-		
-		var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-		var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-		
-		if(Compara01 > Compara02){ 
-			$("#filterDataVencimento, #filterDataVencimento-between").val("");
-			$("#filterDataVencimento, #filterDataVencimento-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterDataVencimento, #filterDataVencimento-between").removeClass("shadow-vermelho");
+	    }			
+    });
+    
+    $("#filterValor-between").focusout(function(){
+	    
+	    var valor_inicial = $("#filterValor").val();
+	    var valor_final = $("#filterValor-between").val();
+
+	    if(valor_inicial > valor_final){ 
+		    $("#filterValor, #filterValor-between").val(' ');
+		    $("#filterValor, #filterValor-between").addClass("shadow-vermelho");
+	    }else{
+		$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+	    
+	    }			
+    });
 
 
-		}			
-	});
-	
-$("#filterValor-between").focusout(function(){
-		
-		var valor_inicial = $("#filterValor").val();
-		var valor_final = $("#filterValor-between").val();
+/*** Validação de Datas Contas ****************************************/
 
-		if(valor_inicial > valor_final){ 
-			$("#filterValor, #filterValor-between").val(' ');
-			$("#filterValor, #filterValor-between").addClass("shadow-vermelho");
-		}else{
-			$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento').addClass('validaDataContas');
+    
+    $(".validaDataContas").change(function(){
+	    
+	    var data_inicial = $("input[id*='DataEmissao']").datepicker('getDate');
+	    var data_final = $("input[id*='Vencimento']").datepicker('getDate');
+	    
+	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
 
-		}			
-	});
-	
+	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+
+	    if(daysNota < 0){
+		if(data_final != null){
+		    $("input[id*='DataEmissao'], [id*='Vencimento']").val("");
+		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('input[id*="Vencimento"]');
+		}     
+	    }else{
+		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+	    }			
+    });
+    
 /***Input Search Para valores *****************************************/
-	$(".inputSearchValor input[id*='between']").before("<span>a</span>");
+    $(".inputSearchValor input[id*='between']").before("<span>a</span>");
 
 
 /******** Carregar filtro no select Quick link ***********************/
 
-	$("#quick-select").change(function(){
-		var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
+    $("#quick-select").change(function(){
+	    var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
 
-		$("#quick-editar").css("display", "none");
-		
-		if(urlQuickLink !='')
-		{
-		    window.location.href=urlQuickLink;
-		    $("#quick-select option").text($(this).children('option:selected').text());
-		}
+	    $("#quick-editar").css("display", "none");
+	    
+	    if(urlQuickLink !='')
+	    {
+		window.location.href=urlQuickLink;
+		$("#quick-select option").text($(this).children('option:selected').text());
+	    }
 
-		
+	    
 
-	});
+    });
 
-	$("#quick-filtrar").click(function(){
-	    var usoInicioPhp = '<?php' ;
-	    var usoFinalPhp ='?>';
-	    var usoGet = '$_GET["ql"]=0';
+    $("#quick-filtrar").click(function(){
+	var usoInicioPhp = '<?php' ;
+	var usoFinalPhp ='?>';
+	var usoGet = '$_GET["ql"]=0';
 
-	    $('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
-	});
+	$('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
+    });
 	
 /************************ Salvar Quicklink******************************************/
     $("#bt-salvar-quicklink").click(function(event){
@@ -176,11 +218,10 @@ $("#filterValor-between").focusout(function(){
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else{    	
-	    $('.tela-resultado').hide();
+	    $('.tela-resultado, .tela-resultado-field').hide();
 	    $('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
 	    $('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
-	    $('.forma-data').attr('disabled','disabled')
-	    $('.bt-preencherConta').hide();
+	    $('.forma-data').attr('disabled','disabled');
 	    $('.ui-widget').attr('readonly','readonly').addClass('borderZero');
 	    $("[class*='ui-button']").css('display','none');
 	    $('html, body').animate({scrollTop:0}, 'slow');
@@ -208,23 +249,23 @@ $("#filterValor-between").focusout(function(){
 		valorFormaData=$(this).val();
 		id=$(this).attr('id');
 
-		$('<input id="'+id+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
+		name=$(this).attr('name');
+
+		$('<input id="'+id+'" name="'+name+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
 	    });
 	}    
 
     });
     
-/********** Avançar tela de resultado Contas ****************/
+/********** Voltar tela de resultado Contas ****************/
 
     $('.bt-voltar').click(function(){
-	$('.tela-resultado').show();
 	$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
 	$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
 	$('.forma-data').removeAttr('disabled','disabled')
 	$('select[class*="desabilita"] + input ').remove();
 	$('#spanTextArea').remove();
 	$('.textAreaConta').show();
-	$('.bt-preencherConta').show();
 	$('.ui-widget').removeAttr('readonly','readonly').removeClass('borderZero');
 	$("[class*='ui-button']").css('display','inherit');
 	$('html, body').animate({scrollTop:0}, 'slow');
@@ -232,6 +273,12 @@ $("#filterValor-between").focusout(function(){
 	$('.bt-voltar').hide();
 	$('.bt-confirmar').show();
 	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
+	$('input').removeAttr('required');
+
+	tipo_pagamento = $('#Pagamento0TipoPagamento').val();
+	if(tipo_pagamento != 1){
+	    $('.tela-resultado-field').show();
+	}
     });
 /****************** Marca em vermelho o campo ***********/
     $('[class*="obrigatorio"]').focusin(function(){
@@ -298,4 +345,10 @@ $("#filterValor-between").focusout(function(){
 		}
 
 	});
+
+/****************** Mascara Data *************************/
+
+    $('input[id*=Data],input[id*=data]').mask('99/99/9999');
+    
+
  });

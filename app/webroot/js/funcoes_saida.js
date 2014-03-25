@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 
 /****************Valida Data******************************************/
-	$("#LoteDataFabricacao").change(function(){
+	$("#LoteDataFabricacao").focusout(function(){
 
 	    var dfuturoSaida = $("#LoteDataFabricacao").val();
 	    var dataFutura = new Date();
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		$("#validaModLoteDataFabricFutu").css("display","block");
 		$("#LoteDataFabricacao").addClass('shadow-vermelho');
 		$("#LoteDataFabricacao").val("");
-	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
 		$("#validaModLoteDataFabricInvalida").css("display","block");   
 		$("#LoteDataFabricacao").addClass('shadow-vermelho');
 		$("#LoteDataFabricacao").val("");    
@@ -56,7 +56,7 @@ $(document).ready(function() {
 	 });
 	 	 
 /****************Valida Data******************************************/
-	$("#LoteDataValidade").change(function(){
+	$("#LoteDataValidade").focusout(function(){
 
 	    var dfuturoSaida = $("#LoteDataValidade").val();
 	    var dataFutura = new Date();
@@ -66,7 +66,7 @@ $(document).ready(function() {
 	    var diaDigitado = dfuturoSaida.split("/")[0];
 
 
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
 		$("#validaModLoteDataValInvalida").css("display","block");   
 		$("#LoteDataValidade").addClass('shadow-vermelho');
 		$("#LoteDataValidade").val("");    
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 /***************Valida Data*******************************************/
 
-	$("#SaidaData").change(function(){
+	$("#SaidaData").focusout(function(){
 
 	    var dfuturoSaida = $("#SaidaData").val();
 	    var dataFutura = new Date();
@@ -100,7 +100,7 @@ $(document).ready(function() {
 		$('#spanDataFuturoSaida').css("display","block");
 		$("#SaidaData").addClass('shadow-vermelho');
 		$("#SaidaData").val("");
-	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 ){ 
+	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
 		$("#spanDataInvalidaSaida").css("display","block");   
 		$("#SaidaData").addClass('shadow-vermelho');
 		$("#SaidaData").val("");   

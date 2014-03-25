@@ -82,6 +82,53 @@ class ContasrecebersController extends ContasController {
 		}
 	}
 
+
+	public function setStatusContaPrincipal(&$idConta2){
+			$this->loadModel('Parcela');
+			$this->loadModel('Conta');
+			
+			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'VERMELHO')));
+		
+			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status NOT LIKE' => 'CINZA')));
+			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
+				
+			if(!empty($contasEmAtraso)){
+				
+					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
+					$this->Conta->save($updateConta);
+				
+				
+			}else{
+				if(isset($contasPrestesAVencer)){
+					if(!empty($contasPrestesAVencer)){
+						$updateConta = array('id' => $idConta2,  'status' =>'AMARELO');
+						$this->Conta->save($updateConta);
+					}else{
+						$updateConta = array('id' => $idConta2,  'status' =>'VERDE');
+						$this->Conta->save($updateConta);
+					}
+				}else{
+					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => 0);
+					$this->Conta->save($updateConta);
+				}	
+					
+				
+				
+			}
+	
+			if(!empty($contasEmAberto)){
+				
+					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => $contasEmAberto);
+					$this->Conta->save($updateConta);
+				
+			}else{
+				
+					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+					$this->Conta->save($updateConta);
+				
+				
+			}	
+	}
 /**
  * add method
  *
@@ -89,6 +136,7 @@ class ContasrecebersController extends ContasController {
  */
 	public function add() {
 		$this->layout = 'contas';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 				$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
@@ -116,6 +164,7 @@ class ContasrecebersController extends ContasController {
 					
 				}
 				$this->setStatusConta($ultimaConta['Conta']['id']);
+				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
 				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
@@ -131,7 +180,7 @@ class ContasrecebersController extends ContasController {
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
-		$this->set(compact('parceirodenegocios'));
+		$this->set(compact('parceirodenegocios','userid'));
 	}
 
 /**

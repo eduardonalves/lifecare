@@ -45,8 +45,14 @@ textarea{
 
 
 /* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao, span[id$="Cidade"], #validaValidade, #validaStatus, #Dadoscredito0Bloqueado{
+#validaClassificacao, #validaValidade1, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
+	top: -5px;
+	left: 260px;	
+}
+
+#validaValidade2, #validaValidade3{
+	width: 145px;
 	top: -5px;
 	left: 260px;	
 }
@@ -58,7 +64,7 @@ span[id$="Logradouro"]{
 	z-index:9991;
 }
 
-#validaNome, #validaLimite, #validaTelefone22{
+#validaNome, #validaLimite, #validaTelefone22, #valida0Cep1{
 	width:85px;
 	top:-5px;
 	left:325px;
@@ -72,13 +78,27 @@ span[id$="Logradouro"]{
 	z-index:9991;
 }
 
-span[id$="Uf"],#valida0Cidade{
+span[id$="Uf"]{
 	width:85px;
 	top:25px;
 	left:360px;
+	z-index:10;
 }
 
-#validaTelefone1,#validaTelefone2{
+#valida0Cidade{
+	width:85px;
+	top:60px;
+	left:225px;
+	z-index:10;
+}
+
+#valida0Bairro{
+	width:85px;
+	top:50px;
+	left:325px;
+}
+
+#validaTelefone{
 	width:85px;
 	top:25px;
 	left:325px;
@@ -96,13 +116,19 @@ width:85px;
 	left:185px;
 }
 
-span[id$="Bairro"]{
+span[id$="Cidade"]{
 	width:85px;
 	top:60px;
 	left:185px;
 }
 
-#validaCPF:after,#validaCPFTamanho:after,span[id$="Bairro"]:after{
+#valida0Logradouro{
+	width:85px;
+	top:30px;
+	left:185px;
+}
+
+#validaCPF:after,#validaCPFTamanho:after{
 	left:35px;
 }
 
@@ -138,7 +164,7 @@ span[id$="Bairro"]{
 
 #inputcpf{
 	position:absolute;
-	z-index: 999;
+	z-index: 1;
 	margin-left: 10px;
 }
 

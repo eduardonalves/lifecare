@@ -13,7 +13,7 @@ class ParceirodenegociosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','RequestHandler');
+	public $components = array('Paginator','RequestHandler','lifecareDataFuncs');
 
 /**
  * index method
@@ -42,7 +42,7 @@ class ParceirodenegociosController extends AppController {
 		
 		$this->loadModel('Conta');
 		
-		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO')));
+		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
 		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
 		$this->set(compact('contasParceiros'));
 	}
@@ -55,6 +55,15 @@ class ParceirodenegociosController extends AppController {
 	public function add() {
 		$this->layout = 'contas';
 		if ($this->request->is('post')) {
+			$i=0;
+			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
+				
+				$i++;
+			}
+			
+			
+			
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
