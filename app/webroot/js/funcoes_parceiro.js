@@ -84,7 +84,7 @@ $(document).ready(function() {
 				<div>');
 
 			$('.bloco-area-end'+ contadorBlocoEndereco).hide().fadeIn(2000);
-			
+
 			contadorBlocoEndereco++;
 		}
 
@@ -201,19 +201,38 @@ $(document).ready(function() {
 			return false;
 		}else if($('#ParceirodenegocioNome').val() == ''){
 			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-			$('#validaNome').css('display','block');
-			return false;
-		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-			$('#validaCPFTamanho').css('display','block');
+			$('#ParceirodenegocioNome').on('focus',function(){
+				if($('#ParceirodenegocioNome').val() == ''){
+					$('#validaNome').css('display','block');
+				}
+			});
+			$('#ParceirodenegocioNome').focus();
+			$('#ParceirodenegocioNome').focusout(function(){
+				$('#validaNome').css('display','none');
+			});
 			return false;
 		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 			$('#validaCPF').css('display','block');
 			return false;
+		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+			$('#ParceirodenegocioCpfCnpj').focus();
+			$('#validaCPFTamanho').css('display','block');
+			$('#ParceirodenegocioCpfCnpj').focusout(function(){
+				$('#validaCPFTamanho').css('display','none');
+			});
+			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone1').css('display','block');
+			$('#ParceirodenegocioTelefone1').on('focus',function(){
+				if($('#ParceirodenegocioTelefone1').val() == ''){
+					$('#validaTelefone1').css('display','block');
+				}
+			});
+			$('#ParceirodenegocioTelefone1').focus();
+			$('#ParceirodenegocioTelefone1').focusout(function(){
+				$('#validaTelefone1').css('display','none');
+			});
 			return false;
 		}else if($('#ParceirodenegocioTelefone1').val().length != 14){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
@@ -229,7 +248,15 @@ $(document).ready(function() {
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').on('focus',function(){
+				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
+					$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
+				}
+			});
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focus();
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','none');
+			});
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').val() == 0){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').addClass('shadow-vermelho');
@@ -241,15 +268,39 @@ $(document).ready(function() {
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').on('focus',function(){
+				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
+					$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
+				}
+			});
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focus();
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','none');
+			});
 			return false;
 		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
-			$('#validaLimite').css('display','block');
+			$('#Dadoscredito0Limite').on('focus',function(){
+				if($('#Dadoscredito0Limite').val() == ''){
+					$('#validaLimite').css('display','block');
+				}
+			});
+			$('#Dadoscredito0Limite').focus();
+			$('#Dadoscredito0Limite').focusout(function(){
+				$('#validaLimite').css('display','none');
+			});
 			return false;
 		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-			$('#validaValidade1').css('display','block');
+			$('#Dadoscredito0ValidadeLimite').on('focus',function(){
+				if($('#Dadoscredito0ValidadeLimite').val() == ''){
+					$('#validaValidade1').css('display','block');
+				}
+			});
+			$('#Dadoscredito0ValidadeLimite').focus();
+			$('#Dadoscredito0ValidadeLimite').focusout(function(){
+				$('#validaValidade1').css('display','none');
+			});
 			return false;
 		}else if(($('#ParceirodenegociosStatus').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#ParceirodenegociosStatus').addClass('shadow-vermelho');
@@ -276,6 +327,26 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#Dadoscredito0ValidadeLimite").focusout(function(){
+		var dfuturoSaida = $("#Dadoscredito0ValidadeLimite").val();
+		var dataFutura = new Date();
+
+		var anoDigitado = dfuturoSaida.split("/")[2];
+		var mesDigitado = dfuturoSaida.split("/")[1];
+		var diaDigitado = dfuturoSaida.split("/")[0];
+
+		if(dfuturoSaida != ''){
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){
+				$("#validaValidade3").css("display","block");
+				$("#Dadoscredito0ValidadeLimite").addClass('shadow-vermelho');
+				$("#Dadoscredito0ValidadeLimite").val("");
+			}else{
+				$("#Dadoscredito0ValidadeLimite").removeClass('shadow-vermelho');
+				$("#validaValidade3").css("display","none");
+			}
+		}
+    });
+
 
 /*** Máscara **********************************************************/
 	jQuery(function($){
@@ -293,6 +364,7 @@ $(document).ready(function() {
 	
 	$('#inputcpf, #inputcnpj').attr("enabled","enabled");
 	$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");
+	$("#Dadoscredito0ValidadeLimite").mask("99/99/9999");
 
 	$('#inputcpf, #inputcnpj').click(function(){
 		
