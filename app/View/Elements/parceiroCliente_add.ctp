@@ -11,7 +11,6 @@
 	$this->end();
 
 	$this->start('script');
-		//echo $this->Html->script('modal_funcoes_parceiro.js');
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
 
@@ -36,41 +35,35 @@ $(document).ready(function(){
 	    event.preventDefault();
 
 	    if($('#ParceirodenegocioTelefone1').val() == ''){
-		$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-		$('#validaTelefone').css('display','block');
-		$('.modal-body').animate({scrollTop:0}, 'slow');
-		return false;
+			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+			$('#validaTelefone').css('display','block');
+			$('.modal-body').animate({scrollTop:0}, 'slow');
+			return false;
 	    }else if($('#ParceirodenegocioNome').val() == ''){
-		$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-		$('#validaNome').css('display','block');
-		$('.modal-body').animate({scrollTop:0}, 'slow');
-		
+			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+			$('#validaNome').css('display','block');
+			$('.modal-body').animate({scrollTop:0}, 'slow');
 	    }else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-		$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-		$('#validaCPFTamanho').css('display','block');
-		$('.modal-body').animate({scrollTop:0}, 'slow');
-		
+			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+			$('#validaCPFTamanho').css('display','block');
+			$('.modal-body').animate({scrollTop:0}, 'slow');
 	    }else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 		$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 		$('#validaCPF').css('display','block');
 		$('.modal-body').animate({scrollTop:0}, 'slow');
-		
 	    }else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
 		$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
-	       
 	    }else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').val() == 0){
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').addClass('shadow-vermelho');
 		$('#valida'+ (contadorBlocoEndereco-1) +'Uf').css('display','block');
-		
 	    }else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').val() == ''){
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').addClass('shadow-vermelho');
 		$('#valida'+ (contadorBlocoEndereco-1) +'Cidade').css('display','block');
-		
 	    }else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
 		$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
-	       
+
 	    }else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 		$('#Dadoscredito0Limite').addClass('shadow-vermelho');
 		$('#validaLimite').css('display','block');
@@ -78,10 +71,6 @@ $(document).ready(function(){
 	    }else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 		$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 		$('#validaValidade').css('display','block');
-		
-	    }else if(($('#Dadoscredito0Status').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 1) || ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
-		$('#Dadoscredito0Status').addClass('shadow-vermelho');
-		$('#validaStatus').css('display','block');
 		
 	    }else if(($('#Dadoscredito0Bloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 		$('#Dadoscredito0Bloqueado').addClass('shadow-vermelho');
@@ -145,9 +134,9 @@ $(document).ready(function(){
 
 			echo $this->Form->input('tipo',array('value'=>'CLIENTE','type' => 'hidden'));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio tel','label' => 'Fax:'));
+			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio tel','label' => 'Fax:'));
 		?>
 
 	</section>
@@ -157,8 +146,8 @@ $(document).ready(function(){
 		<?php
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio obrigatorio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:'));
+			echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+			echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:'));
 		?>
 
 	</section>
@@ -171,7 +160,7 @@ $(document).ready(function(){
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
-			/*Corrigir Campo*/ echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
+			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
 		?>
 
 	</section>
@@ -281,10 +270,8 @@ $(document).ready(function(){
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio obrigatorio'));
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio obrigatorio dinheiro'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
-			echo $this->Form->input('bloqueado',array('class' =>'obrigatorio','label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select'));
-			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
 		?>
 
 	</section>
@@ -292,8 +279,10 @@ $(document).ready(function(){
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio'));
-			echo '<span id="validaValidade" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio forma-data'));
+			echo '<span id="validaValidade1" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
+			echo '<span id="validaValidade2" class="Msg-tooltipDireita" style="display:none">Nao é possivel selecionar data passada</span>';
+			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display:none">Preencha corretamente a data</span>';
 		?>
 
 	</section>
@@ -301,8 +290,8 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('status',array('label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1' => 'Status 1', 'Status 2' => 'Status 2', 'Status 3' => 'Status 3'),'type' => 'select','class' => 'obrigatorio'));
-			echo '<span id="validaStatus" class="Msg-tooltipDireita" style="display:none">Selecione o Status</span>';
+			echo $this->Form->input('bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio'));
+			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
 		?>
 
 	</section>
