@@ -103,20 +103,35 @@
 	margin-top: 5px;
 	width: 379px;
 	text-align: center;
-	
-}
-
-#anos{
-position:absolute;
-display:block;
-width: 300px;
 }
 
 .menuAnos span{
 	cursor: pointer;
 }
 
+.dataButao span{
+	cursor: pointer;
+	
+	background:#eaeaea; /* Old browsers */
+	background:-moz-linear-gradient(top, #eaeaea 9%, #bababa 70%, #bababa 96%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(9%,#eaeaea), color-stop(70%,#bababa), color-stop(96%,#bababa)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(top, #eaeaea 9%,#bababa 70%,#bababa 96%); /* IE10+ */
+	background:linear-gradient(to bottom, #eaeaea 9%,#bababa 70%,#bababa 96%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#bababa',GradientType=0 ); /* IE6-9 */
+}
 
+.dataButao span:hover{
+	background:#eaeaea; /* Old browsers */
+	background:-moz-linear-gradient(top, #928787 9%, #969696 70%, #D8D4D4 96%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(9%,#928787), color-stop(70%,#D8D4D4), color-stop(96%,#D8D4D4)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #928787 9%,#969696 70%,#D8D4D4 96%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #928787 9%,#969696 70%,#D8D4D4 96%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(top, #928787 9%,#969696 70%,#D8D4D4 96%); /* IE10+ */
+	background:linear-gradient(to bottom,#928787 9%,#969696 70%,#D8D4D4 96%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#bababa',GradientType=0 ); /* IE6-9 */
+}
 
 /* ID *****************************************************************/
 
@@ -130,3 +145,52 @@ width: 300px;
 	position:relative;
 	left:10px;
 }
+
+.diaDiv{
+	padding: 30px;
+}
+
+.diaDiv span{
+	display: inline-block;
+	margin-bottom: 5px;
+	width: 50px;
+	text-align: center;
+	height: 29px;
+	line-height: 30px;
+}
+
+.mesDiv{
+	padding: 10px;
+	margin: 20px 25px;
+	text-align: center;
+}
+.mesDiv span{
+	display: inline-block;
+	margin-bottom: 5px;
+	width: 80px;
+	text-align: center;
+	height: 40px;
+	line-height: 38px;
+	font-size: 15px;
+}
+
+.anoDiv{
+	padding: 10px;
+	margin: 20px 25px;
+	text-align: center;
+}
+.anoDiv span{
+	display: inline-block;
+	margin-bottom: 5px;
+	width: 80px;
+	text-align: center;
+	height: 40px;
+	line-height: 38px;
+	font-size: 15px;
+}
+
+.loaderAjaxGrafico{
+	margin: 90px 70px;
+	width: 240px;
+}
+
