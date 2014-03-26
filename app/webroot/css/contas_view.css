@@ -21,3 +21,37 @@
 .statusSemaforo img{
 	margin-left:15px;
 }
+
+.quitar{
+	cursor: pointer;
+}
+.modalQuitar{
+	border-radius: 0px !important;
+	padding: 10px;
+}
+
+.modalQuitar  .Msg-tooltipDireita{
+	float: left;
+	left: 314px;
+	margin-top: -5px;
+	width: 120px;
+}
+
+.modalQuitar section{
+	clear: both;
+	position: relative;
+}
+
+.modalQuitar section.coluna-central{
+	margin: 15px 0px 0px 95px;
+	height: 50px;	
+}
+.modalQuitar footer{
+	margin-bottom: 50px;
+	margin-top: 20px;
+}
+
+.modalQuitar section.coluna-central label{
+	margin-top: 0px;
+}
+
