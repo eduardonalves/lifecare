@@ -346,6 +346,34 @@ $(document).ready(function() {
 
 	});
 
+/*** Validar CPF ******************************************************/
+    $("#cpf_cnpj").on("keypress",function(event){		
+	var charCode = event.keyCode || event.which;
+
+	if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
+	if (!((charCode>47)&&(charCode<58))){return false;}
+    });
+
+    $('#inputcpf, #inputcnpj').attr("enabled","enabled");
+    //$("#filterCpfCnpj").mask("99.999.999/9999-99");
+
+    $('#inputcpf, #inputcnpj').click(function(){
+	$("#cpf_cnpj").val('');
+
+	valorCpfCnpj = $(this).attr('id'); 
+
+	if(valorCpfCnpj == 'inputcpf'){
+		$("#cpf_cnpj").removeAttr("disabled");
+		$("#cpf_cnpj").css("background-color","#FFFFFF;");
+		$("#cpf_cnpj").mask("999.999.999-99");//cpf
+	}else{
+		$("#cpf_cnpj").removeAttr("disabled");
+		$("#cpf_cnpj").css("background-color","#FFFFFF;");
+		$("#cpf_cnpj").mask("99.999.999/9999-99");//cnpj
+	}
+    });
+	
+
 
 /****************** Mascara Data *************************/
 

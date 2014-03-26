@@ -27,7 +27,7 @@ label{
 }
 
 .informacoesParceiro{
-	margin: 0px -50px;
+	margin: 0px -40px;
 }
 
 
@@ -331,9 +331,47 @@ margin-bottom: 50px;
 #myModal_add-quicklink .modal-body{
 	width: 500px;
 }
+#filterStatusConta{margin-top:3px;float:left;}
 
+#idcpf{
+	float: left;
+	position:absolute;
+	margin-top: 5px;
+}
 
+#idcnpj{
+	float: left;
+	position:absolute;
+	margin-top: 5px;
+}
 
+.label-cpf{
+	float:right;
+	font-size:13px;
+	margin-top:-4px;
+	width:65px !important;
+	margin-left: -31px;
+}
 
+.label-cnpj{
+	margin-left:-12px;
+	margin-top:-4px;
+	width:50px !important;
+}
 
+#inputcnpj{
+	position:relative;   
+	margin-left:87px;
+}
 
+#inputcpf{
+	position:relative;
+	z-index: 1;
+	margin-left: 37px;
+}
+
+#ClienteCpfCnpj{
+	position:absolute;
+	height:16px;
+}
+#cpf_cnpj{margin-top:3px}

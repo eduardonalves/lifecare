@@ -50,6 +50,9 @@ $(document).ready(function() {
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][numero]" class="tamanho-medio obrigatorio" maxlength="20" type="text" id="Endereco'+ contadorBlocoEndereco +'Numero"/>\
 						</div>\
 						\
+						<div class="input textarea">\
+							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
+							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
@@ -233,6 +236,9 @@ $(document).ready(function() {
 			$('#validaCPF').css('display','block');
 			return false;
 		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+
+			$('#ParceirodenegocioCpfCnpj').prop('invalid', true);
+
 			$('#ParceirodenegocioCpfCnpj').focus();
 			$('#validaCPFTamanho').css('display','block');
 			$('#ParceirodenegocioCpfCnpj').focusout(function(){
@@ -269,6 +275,11 @@ $(document).ready(function() {
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
 				$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','none');
 			});
+			$('#validaTelefone').css('display','block');
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
+			$('#valida0Cep1').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
@@ -367,12 +378,18 @@ $(document).ready(function() {
     });
 
 
+
 /*** Mascara **********************************************************/
 	jQuery(function($){
 		$(".maskCep").mask("99999-999");
 	});
 		
-		
+
+    
+    $("#Endereco0Cep").mask("99999-999");
+
+
+
 /*** Validar CPF ******************************************************/
 	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
 		var charCode = event.keyCode || event.which;

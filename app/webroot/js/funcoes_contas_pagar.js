@@ -1,4 +1,12 @@
  $(document).ready(function() {
+
+    $('input').focus(function(){
+	$('.ui-autocomplete-input').attr('tabindex','3');
+    });
+
+    $('#ContaspagarDataEmissao').focusout(function(){
+	$('.ui-autocomplete-input').attr({required:true});
+    });
     
 /********** Adicionar na tabela Principal ****************/
     

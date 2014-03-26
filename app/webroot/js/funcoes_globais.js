@@ -398,7 +398,6 @@ $(document).ready(function(){
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(7000);
 
-    
 /** FUNÇÃO QUE IMPEDE DIGITAR LETRAS NA INPUT *************************/
 	$(".Nao-Letras").on("keypress",function(event){
 		var charCode = event.keyCode || event.which;

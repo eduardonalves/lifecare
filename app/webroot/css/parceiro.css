@@ -57,7 +57,18 @@ textarea{
 	left: 260px;	
 }
 
+<<<<<<< HEAD
 #validaNome, #validaLimite, #validaTelefone22, span[id*="Cep1"], span[id*="Cep2"]{
+=======
+span[id$="Logradouro"]{
+	width:85px;
+	top:-5px;
+	left:325px;
+	z-index:9991;
+}
+
+#validaNome, #validaLimite, #validaTelefone22, #valida0Cep1{
+>>>>>>> Wagner
 	width:85px;
 	top:-5px;
 	left:325px;
@@ -78,7 +89,18 @@ span[id$="Uf"]{
 	z-index:10;
 }
 
+<<<<<<< HEAD
 span[id$="Bairro"]{
+=======
+#valida0Cidade{
+	width:85px;
+	top:60px;
+	left:225px;
+	z-index:10;
+}
+
+#valida0Bairro{
+>>>>>>> Wagner
 	width:85px;
 	top:50px;
 	left:325px;
@@ -108,10 +130,17 @@ span[id$="Cidade"]{
 	left:185px;
 }
 
+<<<<<<< HEAD
 span[id$="Logradouro"]{
 	width:85px;
 	top:32px;
 	left:169px;
+=======
+#valida0Logradouro{
+	width:85px;
+	top:30px;
+	left:185px;
+>>>>>>> Wagner
 }
 
 #validaCPF:after,#validaCPFTamanho:after{
