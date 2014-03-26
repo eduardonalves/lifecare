@@ -372,7 +372,21 @@ $(document).ready(function() {
 		$("#cpf_cnpj").mask("99.999.999/9999-99");//cnpj
 	}
     });
-	
+
+
+/************ Validar Email *******/
+    function validarEmail(email){
+
+	var email = $("#Email").val();
+	var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+	if(!emailValido.test(email)){
+	    return false;
+	    
+	}else{
+	     return true;
+	}
+    }	
 
 
 /****************** Mascara Data *************************/
