@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
 /*** Criação dos Blocos de Endereços e Dados Bancários ****************/
-
 	var contadorBlocoEndereco = 1;
 	var contadorBlocoDadosBanc = 1;
+
+	var contadorTab = 29;
 
 	function botaoRemoverEnd(){
 		if(contadorBlocoEndereco > 1){
@@ -28,17 +29,17 @@ $(document).ready(function() {
 		var uf = $("#Endereco"+ (contadorBlocoEndereco-1) +"Uf").val();
 		var cidade = $("#Endereco"+ (contadorBlocoEndereco-1) +"Cidade").val();
 		var bairro = $("#Endereco"+ (contadorBlocoEndereco-1) +"Bairro").val();
-		
+
 		var idUf = "Endereco"+ contadorBlocoEndereco +"Uf";
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
-		
+
 		if((cep) && (logradouro) && (uf) && (cidade) && (bairro)){			
 			$('.area-endereco').append('<div class="bloco-area-end'+ contadorBlocoEndereco +'">\
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Tipo">Tipo:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="tipo'+ contadorBlocoEndereco +'">\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="tipo'+ contadorBlocoEndereco +'" tabindex="'+ contadorTab +'">\
 								<option value=""></option>\
 								<option value="COBRANCA">Cobrança</option>\
 								<option value="ENTREGA">Entrega</option>\
@@ -47,15 +48,12 @@ $(document).ready(function() {
 						\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Numero">Número:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][numero]" class="tamanho-medio obrigatorio" maxlength="20" type="text" id="Endereco'+ contadorBlocoEndereco +'Numero"/>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][numero]" class="tamanho-medio obrigatorio" maxlength="20" type="text" id="Endereco'+ contadorBlocoEndereco +'Numero" tabindex="'+ (contadorTab+3) +'"/>\
 						</div>\
 						\
-						<div class="input textarea">\
-							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro" tabindex="'+ (contadorTab+6) +'"/>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>\
 					</section>\
@@ -63,38 +61,38 @@ $(document).ready(function() {
 					<section class="coluna-central" >\
 						<div class="input text">\
 							<label for="Endereco0Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep"/>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep" tabindex="'+ (contadorTab+1) +'"/>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>\
 						<span id="valida'+ contadorBlocoEndereco +'Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>\
 						\
 						<div class="inputCliente input text divUf">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" class="estado obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" class="estado obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Uf" tabindex="'+ (contadorTab+4) +'"></select>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>\
 						\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Complemento">Complemento:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][complemento]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento"/>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][complemento]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento" tabindex="'+ (contadorTab+7) +'"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Logradouro">Logradouro<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro" tabindex="'+ (contadorTab+2) +'"/>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>\
 						\
 						<div class="input select">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" class="cidade obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" class="cidade obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Cidade" tabindex="'+ (contadorTab+5) +'"></select>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>\
 						<div class="input textarea">\
 							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia" tabindex="'+ (contadorTab+8) +'"></textarea>\
 						</div>\
 					</section>\
 				<div>');
@@ -102,13 +100,14 @@ $(document).ready(function() {
 			$('.bloco-area-end'+ contadorBlocoEndereco).hide().fadeIn(2000);
 
 			contadorBlocoEndereco++;
+			contadorTab = contadorTab+10;
 		}
 
 		new dgCidadesEstados({
 			estado: $('#'+idUf).get(0),
 			cidade: $('#'+idCidade).get(0)
 		});
-		
+
 		jQuery(function($){
 			$(".maskCep").mask("99999-999");
 		});
@@ -127,41 +126,41 @@ $(document).ready(function() {
 					<section class="coluna-esquerda">\
 						<div class="input text">\
 							<label for="DadosbancarioNomeBanco">Nome do Banco:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_banco]" class="tamanho-medio" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeBanco" tabindex="'+ (contadorTab+1) +'"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioNumeroAgencia">Número da Agência:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_agencia]" class="tamanho-pequeno" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroAgencia"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_agencia]" class="tamanho-pequeno" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroAgencia" tabindex="'+ (contadorTab+4) +'"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioGerente">Gerente:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'Gerente"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'Gerente" tabindex="'+ (contadorTab+7) +'"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-central" >\
 						<div class="input text">\
 							<label for="DadosbancarioNumeroBanco">Número do Banco:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroBanco" tabindex="'+ (contadorTab+2) +'"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioConta'+ contadorBlocoDadosBanc +'">Conta:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'" tabindex="'+ (contadorTab+5) +'"/>\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
 						<div class="input text">\
 							<label for="DadosbancarioNomeAgencia">Nome da Agência:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeAgencia"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeAgencia" tabindex="'+ (contadorTab+3) +'"/>\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioTelefoneBanco">Telefone:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco" tabindex="'+ (contadorTab+6) +'"/>\
 						</div>\
 					</section>\
 				<div>');
@@ -169,11 +168,11 @@ $(document).ready(function() {
 			$('.bloco-area-banc'+ contadorBlocoDadosBanc).hide().fadeIn(2000);
 
 			contadorBlocoDadosBanc++;
+			contadorTab = contadorTab+10;
 		}
 
 		botaoRemoverBanc();
 	});
-
 
 /*** Remoção de Blocos de Endereços e Dados Bancários *****************/
 
@@ -234,9 +233,6 @@ $(document).ready(function() {
 			$('#validaCPF').css('display','block');
 			return false;
 		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-
-			$('#ParceirodenegocioCpfCnpj').prop('invalid', true);
-
 			$('#ParceirodenegocioCpfCnpj').focus();
 			$('#validaCPFTamanho').css('display','block');
 			$('#ParceirodenegocioCpfCnpj').focusout(function(){
@@ -273,11 +269,6 @@ $(document).ready(function() {
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
 				$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','none');
 			});
-			$('#validaTelefone').css('display','block');
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
-			$('#valida0Cep1').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
@@ -376,16 +367,10 @@ $(document).ready(function() {
     });
 
 
-
 /*** Mascara **********************************************************/
 	jQuery(function($){
 		$(".maskCep").mask("99999-999");
 	});
-		
-
-    
-    $("#Endereco0Cep").mask("99999-999");
-
 
 
 /*** Validar CPF ******************************************************/
