@@ -178,7 +178,6 @@ $(document).ready(function() {
 		$(".bloco-area-end" + (contadorBlocoEndereco-1)).remove();
 
 		contadorBlocoEndereco--;
-
 		botaoRemoverEnd();
 	});
 
@@ -186,7 +185,6 @@ $(document).ready(function() {
 		$(".bloco-area-banc" + (contadorBlocoDadosBanc-1)).remove();
 
 		contadorBlocoDadosBanc--;
-
 		botaoRemoverBanc();
 	});
 
