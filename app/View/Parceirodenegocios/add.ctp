@@ -36,10 +36,10 @@
 		<?php
 			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select')));
 			echo '<span id="validaClassificacao" class="Msg-tooltipDireita" style="display:none">Selecione a Classificação</span>';
-			
+
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
-			
+
 			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio','label' => 'Fax:', 'maxlength'=>'11'));
 		?>
 
@@ -50,10 +50,10 @@
 		<?php
 			echo $this->Form->input('nome',array('class' => 'tamanho-medio obrigatorio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength'=>'50'));
 			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
-			
+
 			echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2', 'maxlength'=>'11'));
 			echo '<span id="validaTelefone22" class="Msg-tooltipDireita" style="display:none">Preencha o Corretamente</span>';
-			
+
 			echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','label' => 'Email:','maxlength'=>'50'));
 		?>
 
@@ -67,7 +67,7 @@
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
-			
+
 			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio','label' => 'Celular:' , 'maxlength'=>'11'));
 			echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
 		?>
@@ -84,19 +84,12 @@
 			<section class="coluna-esquerda">
 
 				<?php	
-
 					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 
-					
-					/*Ajusta Input*/echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio obrigatorio'));
-					
+					/*Ajusta Input*/echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio'));
+
 					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
-
-
 				?>
 
 			</section>
@@ -104,18 +97,14 @@
 			<section class="coluna-central" >
 
 				<?php
-
-					/*Ajusta Input*/echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep','maxlength'=>'12'));
+					/*Ajusta Input*/echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12'));
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
-					
+
 					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					
-					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio'));
-				
-					
 
+					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio'));
 				?>
 
 			</section>
@@ -126,10 +115,8 @@
 					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>';
 
-				
 					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade obrigatorio'));
 					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>';
-				
 
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
@@ -158,9 +145,9 @@
 
 				<?php 
 					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio'));
-					
+
 					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno agencia'));
-					
+
 					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno'));
 				?>
 
@@ -170,7 +157,7 @@
 
 				<?php
 					echo $this->Form->input('Dadosbancario.0.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio'));
-					
+
 					echo $this->Form->input('Dadosbancario.0.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0'));
 				?>
 
@@ -180,7 +167,7 @@
 
 				<?php
 					echo $this->Form->input('Dadosbancario.0.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
-					
+
 					echo $this->Form->input('Dadosbancario.0.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio tel'));
 				?>
 
