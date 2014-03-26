@@ -84,7 +84,7 @@
 			<section class="coluna-esquerda">
 
 				<?php	
-					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
 
 					/*Ajusta Input*/echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio'));
 
