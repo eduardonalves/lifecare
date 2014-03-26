@@ -1,3 +1,6 @@
+<script>
+	var urlInicio = '<?php echo Router::url("/", true)?>';
+</script>	
 <?php
 	$this->start('css');
 	echo $this->Html->css('table');	
@@ -9,8 +12,15 @@
 	$this->start('script');	
 	echo $this->Html->script('Chart.min.js');
 	echo $this->Html->script('Chart.js');	
+	
 	echo $this->Html->script('dashboard.js');
 	$this->end();
+	
+	$dia = date("d");
+	$mes = date("M");
+	$ano = date("Y");
+	
+	$mesTexto = array("Jan" => "Janeiro", "Feb" => "Fevereiro", "Mar" => "Março", "Apr" => "Abril", "May" => "Maio", "Jun" => "Junho", "Jul" => "Julho", "Aug" => "Agosto", "Nov" => "Novembro", "Sep" => "Setembro", "Oct" => "Outubro", "Dec" => "Dezembro");
 ?>
 
 
@@ -27,17 +37,93 @@
 				<span class="span-titulo">Faturamento/Despesa</span>
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
-				<div class="menuAnos">
-							<span id="anoEscolha"><?php $dia= date('d'); $mes=date('m'); $ano = date('Y'); echo $dia;?>, <?php echo $mes;?> - <?php echo $ano;?></span>
+			
+			
+	<div class="menuAnos">
+		<span title="Escolha o Dia" id="diaEscolha"><?php echo $dia;?></span> de
+		<span title="Escolha o Mês" id="mesEscolha"><?php echo $mesTexto[$mes];?></span> de 
+		<span title="Escolha o Ano" id="anoEscolha"><?php echo $ano;?></span>				
+	</div>
+
+<div width="380" height="240" style="display:none;" class="dataButao diaDiv">
+					<span class="carregaDia">Todos</span>
+					<span class="carregaDia">01</span>
+					<span class="carregaDia">02</span>
+					<span class="carregaDia">03</span>
+					<span class="carregaDia">04</span>
+					<span class="carregaDia">05</span>
+					<span class="carregaDia">06</span>
+					<span class="carregaDia">07</span>
+					<span class="carregaDia">08</span>
+					<span class="carregaDia">09</span>
+					<span class="carregaDia">10</span>
+					<span class="carregaDia">11</span>
+					<span class="carregaDia">12</span>
+					<span class="carregaDia">13</span>
+					<span class="carregaDia">14</span>
+					<span class="carregaDia">15</span>
+					<span class="carregaDia">16</span>
+					<span class="carregaDia">17</span>
+					<span class="carregaDia">18</span>
+					<span class="carregaDia">19</span>
+					<span class="carregaDia">20</span>
+					<span class="carregaDia">21</span>
+					<span class="carregaDia">22</span>
+					<span class="carregaDia">23</span>
+					<span class="carregaDia">24</span>
+					<span class="carregaDia">25</span>
+					<span class="carregaDia">26</span>
+					<span class="carregaDia">27</span>
+					<span class="carregaDia">28</span>
+					<span class="carregaDia">29</span>
+					<span class="carregaDia">30</span>
+					<span class="carregaDia">31</span>
+									
 				</div>
 				
-				<div id="anos" width="380" height="240" style="display:none;" class="grafico-ajuste">
-				
-				
+				<div width="400" height="240" style="display:none;" class="dataButao mesDiv">
+					<span class="carregaMes">Todos</span>
+					<span class="carregaMes">Janeiro</span>
+					<span class="carregaMes">Fevereiro</span>
+					<span class="carregaMes">Março</span>
+					<span class="carregaMes">Abril</span>
+					<span class="carregaMes">Maio</span>
+					<span class="carregaMes">Junho</span>
+					<span class="carregaMes">Julho</span>
+					<span class="carregaMes">Agosto</span>
+					<span class="carregaMes">Setembro</span>
+					<span class="carregaMes">Outubro</span>
+					<span class="carregaMes">Novembro</span>
+					<span class="carregaMes">Dezembro</span>
+				</div>
+				<div width="380" height="240" style="display:none;" class="dataButao anoDiv">
+					<?php					
+						
+						$i=0;
+						foreach($anosModel as $i => $anosArray){
+								echo "<span class='carregaAno'>".$anosArray[$i]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
+						}	
+						
+						
+					?>						
 				</div>
 				
-				<canvas id="income" width="380" height="240" class="grafico-ajuste"></canvas>
-					
+				<div class="loaderAjaxGrafico" style="display:none">
+						<?php
+							
+							echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																		 'title'=>'Carregando',
+																		 'class'=>'',
+																		 ));
+						?>
+						<span>Carregando Gráfico aguarde...</span>
+					</div>
+				
+				
+				<div id="loadGrafico">	
+					<canvas id="income" width="380" height="240" class="grafico-ajuste"></canvas>
+				</div>
+				
 		</div>
 	</section>	
 	
@@ -45,7 +131,7 @@
 		<div class="div-board">
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Vendas - Etilefrina</span>
+				<span class="span-titulo">Contas por Período</span>
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			
@@ -189,9 +275,36 @@
 			</div>		
 		</div>
 	</section>
-	<input type="hidden" id="totalPagar" value="<?php echo $totaPagar; ?>" />
-	<input type="hidden" id="totalReceber" value="<?php echo $totaReceber; ?>" />
-
 </section><!-- ## FIM SECTION INFERIOR -->
 
-<?php echo $this->element('sql_dump'); ?>
+
+
+<!-- ## RECEBER -->
+<input type="hidden" id="totalJanReceber" value="<?php echo $totalJanReceber; ?>" />
+<input type="hidden" id="totalFevReceber" value="<?php echo $totalFevReceber; ?>" />
+<input type="hidden" id="totalmarReceber" value="<?php echo $totalmarReceber; ?>" />
+<input type="hidden" id="totalabrReceber" value="<?php echo $totalabrReceber; ?>" />
+<input type="hidden" id="totalmaiReceber" value="<?php echo $totalmaiReceber; ?>" />
+<input type="hidden" id="totaljunReceber" value="<?php echo $totaljunReceber; ?>" />
+<input type="hidden" id="totaljulReceber" value="<?php echo $totaljulReceber; ?>" />
+<input type="hidden" id="totalagoReceber" value="<?php echo $totalagoReceber; ?>" />
+<input type="hidden" id="totalsetReceber" value="<?php echo $totalsetReceber; ?>" />
+<input type="hidden" id="totaloutReceber" value="<?php echo $totaloutReceber; ?>" />
+<input type="hidden" id="totalnovReceber" value="<?php echo $totalnovReceber; ?>" />
+<input type="hidden" id="totaldezReceber" value="<?php echo $totaldezReceber; ?>" />
+
+<!-- ## PAGAR-->
+<input type="hidden" id="totalJanPagar" value="<?php echo $totalJanPagar; ?>" />
+<input type="hidden" id="totalFevPagar" value="<?php echo $totalFevPagar; ?>" />
+<input type="hidden" id="totalmarPagar" value="<?php echo $totalmarPagar; ?>" />
+<input type="hidden" id="totalabrPagar" value="<?php echo $totalabrPagar; ?>" />
+<input type="hidden" id="totalmaiPagar" value="<?php echo $totalmaiPagar; ?>" />
+<input type="hidden" id="totaljunPagar" value="<?php echo $totaljunPagar; ?>" />
+<input type="hidden" id="totaljulPagar" value="<?php echo $totaljulPagar; ?>" />
+<input type="hidden" id="totalagoPagar" value="<?php echo $totalagoPagar; ?>" />
+<input type="hidden" id="totalsetPagar" value="<?php echo $totalsetPagar; ?>" />
+<input type="hidden" id="totaloutPagar" value="<?php echo $totaloutPagar; ?>" />
+<input type="hidden" id="totalnovPagar" value="<?php echo $totalnovPagar; ?>" />
+<input type="hidden" id="totaldezPagar" value="<?php echo $totaldezPagar; ?>" />
+
+<?php //echo $this->element('sql_dump'); ?>

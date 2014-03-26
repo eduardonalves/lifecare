@@ -1,25 +1,478 @@
 $(document).ready(function() {
+	
+/**** VARIAVEIS GRAFICO ***********************************************/
+	
+	var dia = $("#diaEscolha").text();
+	var mes = $("#mesEscolha").text(); 
+	var ano = $("#anoEscolha").text();
+	
+	switch(mes){
+		
+		case "Todos":
+		mes = '';
+		break;
+		
+		case "Janeiro":
+		mes = "01";
+		break;
+		
+		case "Fevereiro":
+		mes = "02";
+		break;
+		
+		case "Março":
+		mes = "03";
+		break;
+		
+		case "Abril":
+		mes = "04";
+		break;
+		
+		case "Maio":
+		mes = "05";
+		break;
+		
+		case "Junho":
+		mes = "06";
+		break;
+		
+		case "Julho":
+		mes = "07";
+		break;
+		
+		case "Agosto":
+		mes = "08";
+		break;
+		
+		case "Setembro":
+		mes = "09";
+		break;
+		
+		case "Outubro":
+		mes = "10";
+		break;
+		
+		case "Novembro":
+		mes = "11";
+		break;
+		
+		case "Dezembro":
+		mes = "12";
+		break;
+	}
 
-var receber =  $("#totalPagar").val();
-var pagar =  $("#totalReceber").val();
+/**** DIA ESCOLHA *****************************************************/
+	$('#diaEscolha').bind('click',function(){
+		$('#loadGrafico').hide();
+		$('.mesDiv, .anoDiv').hide();
+		$('.diaDiv').show();
+		
+	});
+
+/**** MES ESCOLHA *****************************************************/
+	$('#mesEscolha').bind('click',function(){
+		$('#loadGrafico').hide();
+		$('.diaDiv, .anoDiv').hide();
+		$('.mesDiv').show();
+	});
+
+/**** ANO ESCOLHA *****************************************************/
+	$('#anoEscolha').bind('click',function(){
+		$('#loadGrafico').hide();
+		$('.diaDiv, .mesDiv').hide();	
+		$('.anoDiv').show();
+	});
+	
+/**** CARREGA DIA *****************************************************/
+	$('.carregaDia').bind('click',function(){
+		
+		$('.diaDiv').hide();		
+		$("#income").remove();
+		$('.loaderAjaxGrafico').show();
+		
+		if($(this).text() == "Todos"){	
+			dia = '';
+		}else{
+			dia = $(this).text();
+		}
+		
+		mes = $("#mesEscolha").text();
+				
+		switch(mes){
+		
+			case "Todos":
+			mes = '';
+			break;
+			
+			case "Janeiro":
+			mes = "01";
+			break;
+			
+			case "Fevereiro":
+			mes = "02";
+			break;
+			
+			case "Março":
+			mes = "03";
+			break;
+			
+			case "Abril":
+			mes = "04";
+			break;
+			
+			case "Maio":
+			mes = "05";
+			break;
+			
+			case "Junho":
+			mes = "06";
+			break;
+			
+			case "Julho":
+			mes = "07";
+			break;
+			
+			case "Agosto":
+			mes = "08";
+			break;
+			
+			case "Setembro":
+			mes = "09";
+			break;
+			
+			case "Outubro":
+			mes = "10";
+			break;
+			
+			case "Novembro":
+			mes = "11";
+			break;
+			
+			case "Dezembro":
+			mes = "12";
+			break;
+		}
+		
+		ano = $("#anoEscolha").text();
+
+		$("#loadGrafico").load(urlInicio+'dashboard/loadgrafico?dias='+dia+'&mes='+mes+'&ano='+ano+'', function(){
+				$('.loaderAjaxGrafico').hide();
+				$('#loadGrafico').show();
+		});	
+		
+		if(dia==''){
+			$("#diaEscolha").text("Todos");
+		}else{
+			$("#diaEscolha").text(dia);
+		}	
+		
+		if(mes==''){
+			$("#mesEscolha").text("Todos"); 			 
+		}else if(mes=="01"){
+			$("#mesEscolha").text("Janeiro");
+		}else if(mes=="02"){
+			$("#mesEscolha").text("Fevereiro");
+		}else if(mes=="03"){
+			$("#mesEscolha").text("Março");
+		}else if(mes=="04"){
+			$("#mesEscolha").text("Abril");
+		}else if(mes=="05"){
+			$("#mesEscolha").text("Maio");
+		}else if(mes=="06"){
+			$("#mesEscolha").text("Junho");
+		}else if(mes=="07"){
+			$("#mesEscolha").text("Julho");
+		}else if(mes=="08"){
+			$("#mesEscolha").text("Agosto");
+		}else if(mes=="09"){
+			$("#mesEscolha").text("Setembro");
+		}else if(mes=="10"){
+			$("#mesEscolha").text("Outubro");
+		}else if(mes=="11"){
+			$("#mesEscolha").text("Novembro");
+		}else if(mes=="12"){
+			$("#mesEscolha").text("Dezembro");
+		}		
+		
+		$("#anoEscolha").text(ano);	
+	});
+	
+/**** CARREGA MES *********************************************************/
+	$('.carregaMes').bind('click',function(){
+		
+		$('.mesDiv').hide();
+		$("#income").remove();
+		$('.loaderAjaxGrafico').show();
+				
+		mes = $(this).text();
+				
+		switch(mes){
+		
+			case "Todos":
+			mes = '';
+			break;
+			
+			case "Janeiro":
+			mes = "01";
+			break;
+			
+			case "Fevereiro":
+			mes = "02";
+			break;
+			
+			case "Março":
+			mes = "03";
+			break;
+			
+			case "Abril":
+			mes = "04";
+			break;
+			
+			case "Maio":
+			mes = "05";
+			break;
+			
+			case "Junho":
+			mes = "06";
+			break;
+			
+			case "Julho":
+			mes = "07";
+			break;
+			
+			case "Agosto":
+			mes = "08";
+			break;
+			
+			case "Setembro":
+			mes = "09";
+			break;
+			
+			case "Outubro":
+			mes = "10";
+			break;
+			
+			case "Novembro":
+			mes = "11";
+			break;
+			
+			case "Dezembro":
+			mes = "12";
+			break;
+		}
+		
+		if($("#diaEscolha").text() == "Todos"){	
+			dia = '';
+		}else{
+			dia = $("#diaEscolha").text();
+		}
+				
+		ano = $("#anoEscolha").text();
+		
+		//alert(dia + mes + ano);
+				
+		$("#loadGrafico").load(urlInicio+'dashboard/loadgrafico?dias='+dia+'&mes='+mes+'&ano='+ano+'', function(){
+				$('.loaderAjaxGrafico').hide();
+				$('#loadGrafico').show();
+		});
+		
+		if(mes==''){
+			$("#mesEscolha").text("Todos"); 			 
+		}else if(mes=="01"){
+			$("#mesEscolha").text("Janeiro");
+		}else if(mes=="02"){
+			$("#mesEscolha").text("Fevereiro");
+		}else if(mes=="03"){
+			$("#mesEscolha").text("Março");
+		}else if(mes=="04"){
+			$("#mesEscolha").text("Abril");
+		}else if(mes=="05"){
+			$("#mesEscolha").text("Maio");
+		}else if(mes=="06"){
+			$("#mesEscolha").text("Junho");
+		}else if(mes=="07"){
+			$("#mesEscolha").text("Julho");
+		}else if(mes=="08"){
+			$("#mesEscolha").text("Agosto");
+		}else if(mes=="09"){
+			$("#mesEscolha").text("Setembro");
+		}else if(mes=="10"){
+			$("#mesEscolha").text("Outubro");
+		}else if(mes=="11"){
+			$("#mesEscolha").text("Novembro");
+		}else if(mes=="12"){
+			$("#mesEscolha").text("Dezembro");
+		}		
+		
+		if(dia==''){
+			$("#diaEscolha").text("Todos");
+		}else{
+			$("#diaEscolha").text(dia);
+		}
+		
+		$("#anoEscolha").text(ano);
+	});
+
+/**** CARREGA ANO *********************************************************/
+	$('.carregaAno').bind('click',function(){
+		$('.anoDiv').hide();
+		$("#income").remove();
+		$('.loaderAjaxGrafico').show();
+		
+		if($("#diaEscolha").text() == "Todos"){	
+			dia = '';
+		}else{
+			dia = $("#diaEscolha").text();
+		}
+		
+		mes = $("#mesEscolha").text();
+				
+		switch(mes){
+		
+			case "Todos":
+			mes = '';
+			break;
+			
+			case "Janeiro":
+			mes = "01";
+			break;
+			
+			case "Fevereiro":
+			mes = "02";
+			break;
+			
+			case "Março":
+			mes = "03";
+			break;
+			
+			case "Abril":
+			mes = "04";
+			break;
+			
+			case "Maio":
+			mes = "05";
+			break;
+			
+			case "Junho":
+			mes = "06";
+			break;
+			
+			case "Julho":
+			mes = "07";
+			break;
+			
+			case "Agosto":
+			mes = "08";
+			break;
+			
+			case "Setembro":
+			mes = "09";
+			break;
+			
+			case "Outubro":
+			mes = "10";
+			break;
+			
+			case "Novembro":
+			mes = "11";
+			break;
+			
+			case "Dezembro":
+			mes = "12";
+			break;
+		}
+		
+		ano = $(this).text();
+		
+		$("#loadGrafico").load(urlInicio+'dashboard/loadgrafico?dias='+dia+'&mes='+mes+'&ano='+ano+'', function(){
+				$('.loaderAjaxGrafico').hide();
+				$('#loadGrafico').show();
+		});	
+		
+		if(mes==''){
+			$("#mesEscolha").text("Todos"); 			 
+		}else if(mes=="01"){
+			$("#mesEscolha").text("Janeiro");
+		}else if(mes=="02"){
+			$("#mesEscolha").text("Fevereiro");
+		}else if(mes=="03"){
+			$("#mesEscolha").text("Março");
+		}else if(mes=="04"){
+			$("#mesEscolha").text("Abril");
+		}else if(mes=="05"){
+			$("#mesEscolha").text("Maio");
+		}else if(mes=="06"){
+			$("#mesEscolha").text("Junho");
+		}else if(mes=="07"){
+			$("#mesEscolha").text("Julho");
+		}else if(mes=="08"){
+			$("#mesEscolha").text("Agosto");
+		}else if(mes=="09"){
+			$("#mesEscolha").text("Setembro");
+		}else if(mes=="10"){
+			$("#mesEscolha").text("Outubro");
+		}else if(mes=="11"){
+			$("#mesEscolha").text("Novembro");
+		}else if(mes=="12"){
+			$("#mesEscolha").text("Dezembro");
+		}		
+		
+		if(dia==''){
+			$("#diaEscolha").text("Todos");
+		}else{
+			$("#diaEscolha").text(dia);
+		} 
+		$("#anoEscolha").text(ano);	
+	});
+
+
+/**** RECEBER *********************************************************/
+var totalJanReceber = $("#totalJanReceber").val();
+var	totalFevReceber = $("#totalFevReceber").val();
+var	totalmarReceber = $("#totalmarReceber").val();
+var totalabrReceber = $("#totalabrReceber").val();
+var	totalmaiReceber = $("#totalmaiReceber").val();
+var totaljunReceber = $("#totaljunReceber").val();
+var totaljulReceber = $("#totaljulReceber").val();
+var	totalagoReceber = $("#totalagoReceber").val();
+var totalsetReceber = $("#totalsetReceber").val();
+var totaloutReceber = $("#totaloutReceber").val();
+var totalnovReceber = $("#totalnovReceber").val();
+var totaldezReceber = $("#totaldezReceber").val();
+
+/**** RECEBER *********************************************************/
+var totalJanPagar = $("#totalJanPagar").val();
+var	totalFevPagar = $("#totalFevPagar").val();
+var	totalmarPagar = $("#totalmarPagar").val();
+var totalabrPagar = $("#totalabrPagar").val();
+var	totalmaiPagar = $("#totalmaiPagar").val();
+var totaljunPagar = $("#totaljunPagar").val();
+var totaljulPagar = $("#totaljulPagar").val();
+var	totalagoPagar = $("#totalagoPagar").val();
+var totalsetPagar = $("#totalsetPagar").val();
+var totaloutPagar = $("#totaloutPagar").val();
+var totalnovPagar = $("#totalnovPagar").val();
+var totaldezPagar = $("#totaldezPagar").val();
+
 
 var barData = {
-	labels : ["Janeiro","Fevereiro","Março","Abril","Maio","Junho"],
+
+	labels : ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
 	datasets : [
 		{
 			//RECEBER
 			fillColor : "#4FE072",
 			strokeColor : "#32435A",
 			labels: 'CP',
-			data : [receber],
-			
+			data : [totalJanReceber,totalFevReceber,totalmarReceber,totalabrReceber,totalmaiReceber,totaljunReceber,totaljulReceber,totalagoReceber,totalsetReceber,totaloutReceber,totalnovReceber,totaldezReceber],
+
 		},
 		
 		{
 			//Pagar
 			fillColor : "#F84148",
 			strokeColor : "#32435A",
-			data: [pagar],
+			data: [totalJanPagar,totalFevPagar,totalmarPagar,totalabrPagar,totalmaiPagar,totaljunPagar,totaljulPagar,totalagoPagar,totalsetPagar,totaloutPagar,totalnovPagar,totaldezPagar],
 			
 		}
 	]	
@@ -35,7 +488,7 @@ var options = {
 	scaleGridLineColor : "rgba(0,0,0,.05)",	 //String - Cor da grid lines
 	
 		
-	scaleOverlay : false, //Boolean - Se nós mostrarmos a escala acima os dados do gráfico
+	scaleOverlay : true, //Boolean - Se nós mostrarmos a escala acima os dados do gráfico
 	scaleOverride : false, //Boolean - Se queremos substituir com uma escala codificado
 	
 	scaleOverride : false, //Boolean - Escala Codificada
@@ -60,59 +513,13 @@ var options = {
 	animation : true,//Boolean - Whether to animate the chart
 	animationSteps : 300,//Number - Tempo da Animação
 	animationEasing : "easeOutQuart", //String - Animation easing effect
-	onAnimationComplete : null 	//Function - Fires when the animation is complete
+	onAnimationComplete : null, 	//Function - Fires when the animation is complete
 	
+	stacked: true
 };
-
-
-
 
 var income = document.getElementById("income").getContext("2d");
 new Chart(income).Bar(barData, options);
 
-//..................................................................
-var pieData = [
-	{
-		value: 20,
-		color:"#878BB6"
-	},
-	{
-		value : 40,
-		color : "#4ACAB4"
-	},
-	{
-		value : 10,
-		color : "#FF8153"
-	},
-	{
-		value : 30,
-		color : "#FFEA88"
-	}
-];
-
-var pieOptions = {
-	segmentShowStroke : false,
-	animateScale : true
-}
-
-var countries= document.getElementById("countries").getContext("2d");
-new Chart(countries).Pie(pieData, pieOptions);
-
-//..................................................................
-var buyerData = {
-	labels : ["January","February","March","April","May","June"],
-	datasets : [
-		{
-			fillColor : "rgba(172,194,132,0.4)",
-			strokeColor : "#ACC26D",
-			pointColor : "#fff",
-			pointStrokeColor : "#9DB86D",
-			data : [203,156,99,251,305,247]
-		}
-	]
-}
-
- var buyers = document.getElementById('buyers').getContext('2d');
-    new Chart(buyers).Line(buyerData);
 
 });
