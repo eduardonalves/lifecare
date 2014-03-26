@@ -6,7 +6,7 @@
 	margin-right:10px;
 }
 
-#bt-removeEndereco, #bt-addEndereco{
+#bt-removeEndereco{
 	margin-right:10px;
 }
 /* CLASS **************************************************************/
@@ -57,14 +57,7 @@ textarea{
 	left: 260px;	
 }
 
-span[id$="Logradouro"]{
-	width:85px;
-	top:-5px;
-	left:325px;
-	z-index:9991;
-}
-
-#validaNome, #validaLimite, #validaTelefone22, #valida0Cep1{
+#validaNome, #validaLimite, #validaTelefone22, span[id*="Cep1"], span[id*="Cep2"]{
 	width:85px;
 	top:-5px;
 	left:325px;
@@ -85,14 +78,7 @@ span[id$="Uf"]{
 	z-index:10;
 }
 
-#valida0Cidade{
-	width:85px;
-	top:60px;
-	left:225px;
-	z-index:10;
-}
-
-#valida0Bairro{
+span[id$="Bairro"]{
 	width:85px;
 	top:50px;
 	left:325px;
@@ -122,10 +108,10 @@ span[id$="Cidade"]{
 	left:185px;
 }
 
-#valida0Logradouro{
+span[id$="Logradouro"]{
 	width:85px;
-	top:30px;
-	left:185px;
+	top:32px;
+	left:169px;
 }
 
 #validaCPF:after,#validaCPFTamanho:after{

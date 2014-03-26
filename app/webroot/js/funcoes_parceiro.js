@@ -22,22 +22,23 @@ $(document).ready(function() {
 	}
 
 	$("#bt-addEndereco").click(function(){
-		
+
+		var cep = $("#Endereco"+ (contadorBlocoEndereco-1) +"Cep").val();
 		var logradouro = $("#Endereco"+ (contadorBlocoEndereco-1) +"Logradouro").val();
 		var uf = $("#Endereco"+ (contadorBlocoEndereco-1) +"Uf").val();
-		var municipio = $("#Endereco"+ (contadorBlocoEndereco-1) +"Cidade").val();
+		var cidade = $("#Endereco"+ (contadorBlocoEndereco-1) +"Cidade").val();
 		var bairro = $("#Endereco"+ (contadorBlocoEndereco-1) +"Bairro").val();
 		
 		var idUf = "Endereco"+ contadorBlocoEndereco +"Uf";
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
 		
-		if(logradouro && uf && municipio && bairro){			
+		if((cep) && (logradouro) && (uf) && (cidade) && (bairro)){			
 			$('.area-endereco').append('<div class="bloco-area-end'+ contadorBlocoEndereco +'">\
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Tipo">Tipo:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="Endereco'+ contadorBlocoEndereco +'Tipo">\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="tipo'+ contadorBlocoEndereco +'">\
 								<option value=""></option>\
 								<option value="COBRANCA">Cobrança</option>\
 								<option value="ENTREGA">Entrega</option>\
@@ -49,9 +50,6 @@ $(document).ready(function() {
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][numero]" class="tamanho-medio obrigatorio" maxlength="20" type="text" id="Endereco'+ contadorBlocoEndereco +'Numero"/>\
 						</div>\
 						\
-						<div class="input textarea">\
-							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
@@ -106,6 +104,10 @@ $(document).ready(function() {
 		new dgCidadesEstados({
 			estado: $('#'+idUf).get(0),
 			cidade: $('#'+idCidade).get(0)
+		});
+		
+		jQuery(function($){
+			$(".maskCep").mask("99999-999");
 		});
 
 		botaoRemoverEnd();
@@ -231,7 +233,6 @@ $(document).ready(function() {
 			$('#validaCPF').css('display','block');
 			return false;
 		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-			$('#ParceirodenegocioCpfCnpj').prop('invalid', true);
 			$('#ParceirodenegocioCpfCnpj').focus();
 			$('#validaCPFTamanho').css('display','block');
 			$('#ParceirodenegocioCpfCnpj').focusout(function(){
@@ -240,11 +241,34 @@ $(document).ready(function() {
 			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone').css('display','block');
+			$('#ParceirodenegocioTelefone1').on('focus',function(){
+				if($('#ParceirodenegocioTelefone1').val() == ''){
+					$('#validaTelefone').css('display','block');
+				}
+			});
+			$('#ParceirodenegocioTelefone1').focus();
+			$('#ParceirodenegocioTelefone1').focusout(function(){
+				$('#validaTelefone').css('display','none');
+			});
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
-			$('#valida0Cep1').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').on('focus',function(){
+				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
+					$('#valida'+ (contadorBlocoEndereco-1) +'Cep1').css('display','block');
+				}
+			});
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focus();
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Cep1').css('display','none');
+			});
+			return false;
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val().length < 9){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focus();
+			$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','none');
+			});
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
@@ -341,10 +365,14 @@ $(document).ready(function() {
 			}
 		}
     });
-    
-    $("#Endereco0Cep").mask("99999-999");
 
 
+/*** Mascara **********************************************************/
+	jQuery(function($){
+		$(".maskCep").mask("99999-999");
+	});
+		
+		
 /*** Validar CPF ******************************************************/
 	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
 		var charCode = event.keyCode || event.which;
