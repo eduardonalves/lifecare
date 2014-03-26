@@ -254,7 +254,9 @@ class ContasController extends AppController {
                          /*  'explode' => array(
 	                    	'concatenate' => 'OR'
 	               		 ),*/
-	               		 'select' => array('' => '','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+
+	               		 'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+
 					)
 	            ),
 	            

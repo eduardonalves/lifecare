@@ -258,7 +258,7 @@ $(document).ready(function() {
 		    echo "</a></td>";
 		}else if($campo=="parcelas"){
 		    echo "<td class='parcelas'><a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
-		    echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar'));
+		    echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizarParcela','title'=>'Visualizar'));
 		    echo "</a>";
 	?>
 										
@@ -318,11 +318,11 @@ $(document).ready(function() {
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['valor'];															
+					echo number_format($parcela['valor'], 2, ',', '.');  															
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['desconto'];
+					echo number_format($parcela['desconto'], 2, ',', '.');
 				echo "</td>";
 				
 				echo "<td>";
@@ -363,7 +363,8 @@ $(document).ready(function() {
 
 		<?php
 		    echo "</td>";
-		    
+		    }else if($campo=="valor"){
+			echo "<td class=\"$campo\">" . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
 		    }else{
 			echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 		    }
@@ -403,19 +404,19 @@ $(document).ready(function() {
 	<h2 class="legendEffect"><span>Contas A Receber</span></h2>
 	<?php
 	    if(isset($contasAtrasadasREceber)){
-	    echo "Valor total das contas atrasadas a receber: R$ ".$contasAtrasadasREceber."<br />";
+	    echo "Valor total das contas atrasadas a receber: R$ ".number_format($contasAtrasadasREceber, 2, ',', '.')."<br />";
 	    }	
 	    if(isset($contasRecebidas)){
-		    echo "Valor total das contas recebidas: R$ ".$contasRecebidas."<br />";
+		    echo "Valor total das contas recebidas: R$ ".number_format($contasRecebidas, 2, ',', '.')."<br />";
 	    }
 	    if(isset($contasVencerParaREceber)){
-	    echo "Valor total das contas a vencer para receber: R$ ".$contasVencerParaREceber."<br />";
+	    echo "Valor total das contas a vencer para receber: R$ ".number_format($contasVencerParaREceber, 2, ',', '.')."<br />";
 	    }
 	    if(isset($totalAreceber)){
-		    echo "Valor total das contas a receber: R$".$totalAreceber."<br />";
+		    echo "Valor total das contas a receber: R$".number_format($totalAreceber, 2, ',', '.')."<br />";
 	    }
 	    if(isset($totalGeralReceber)){
-		    echo "Valor total das contas a receber/recebidas: R$ ".$totalGeralReceber."<br />";
+		    echo "Valor total das contas a receber/recebidas: R$ ".number_format($totalGeralReceber, 2, ',', '.')."<br />";
 	    }	
 	?>
     </div>
@@ -424,23 +425,23 @@ $(document).ready(function() {
 	<h2 class="legendEffect"><span>Contas A Pagar</span></h2>
 	<?php
 	    if(isset($contasAtrasadasPagar)){
-		    echo "Valor total das contas atrasadas a pagar: R$ ".$contasAtrasadasPagar."<br />";
+		    echo "Valor total das contas atrasadas a pagar: R$ ".number_format($contasAtrasadasPagar, 2, ',', '.')."<br />";
 	    }
 	    if(isset($contaspagas)){
-		    echo "Valor total das contas pagas: R$ ".$contaspagas."<br />";
+		    echo "Valor total das contas pagas: R$ ".number_format($contaspagas, 2, ',', '.')."<br />";
 	    }
 	    if(isset($contasVencerParaPagar)){
-		    echo "Valor total das contas a vencer para pagar: R$ ".$contasVencerParaPagar."<br />";
+		    echo "Valor total das contas a vencer para pagar: R$ ".number_format($contasVencerParaPagar, 2, ',', '.')."<br />";
 	    }	
 	    if(isset($totalAPagar)){
-		    echo "Valor total das contas a pagar: R$".$totalAPagar."<br />";
+		    echo "Valor total das contas a pagar: R$".number_format($totalAPagar, 2, ',', '.')."<br />";
 	    }
 	    if(isset($totalGeralPagar)){
-		    echo "Valor total das contas a pagar/pagas: R$ ".$totalGeralPagar."<br />";
+		    echo "Valor total das contas a pagar/pagas: R$ ".number_format($totalGeralPagar, 2, ',', '.')."<br />";
 	    }	
     
 	    if(isset($balancete)){
-		    echo "Balancete R$ ".$balancete."<br />";
+		    echo "Balancete R$ ".number_format($balancete, 2, ',', '.')."<br />";
 	    }
 	
 			
