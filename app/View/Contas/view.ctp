@@ -29,10 +29,15 @@ function formatDateToView(&$data){
 		
 		$('.bt-quitar').click(function(e){
 			
-			e.preventDefault();
-			form= $(this).attr('id');
-			
-			$('.'+form).submit();
+			if($("#ContaDataPagamento").val() == ''){
+				$("#spanQuitarData").show();
+			}else{
+				$("#spanQuitarData").hide();
+				e.preventDefault();
+				form= $(this).attr('id');
+				$('.'+form).submit();
+			}
+				
 		});
 	});
 </script>
@@ -128,38 +133,36 @@ function formatDateToView(&$data){
 							
 
 						</tr>
-						<div id="<?php echo "modal-quitar".$j; ?>" class="modal" style="display: none;">
-							<?php 
-								$this->start('css');
-								echo $this->Html->css('modal_quicklink');
-								echo $this->Html->css('table');
-								$this->end();
-							?>
+						<div id="<?php echo "modal-quitar".$j; ?>" class="modal modalQuitar" style="display: none;">
 							<header id="cabecalho">
 								<?php 
 									echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Quitar', 'title' => 'Quitar'));
 								 ?>
 								 <h1>Quitar parcela</h1>
 							</header>
-							
+							<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>	
+
+							<section><header>Data do Pagamento</header></section>
 							<section>
-								<header>Dados da parcela</header>
-								<section class="coluna-modal">
+								
+								<section class="coluna-central">
 									<div>	
 										<?php
 											echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 											echo "<div class=\"ui-widget\">";
-											echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-medio','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
-											echo "<span id='spanQuitarData' class='Msg' style='display:none'>Preencha o Campo Data do pagamento</span>";
+											echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-medio forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
 											echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 										?>
-									</div>	
+										<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>
+									</div>
+										
 								</section>
 							</section>
 							
 							<footer>
 								<?php
-									echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
+									echo $this->Html->image('botao-salvar.png',array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar'));
+									//echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 									echo $this->form->end();
 								?>			
 							</footer>

@@ -10,6 +10,12 @@ label{
 
 
 /* CLASS **************************************************************/
+.statusMovimentacao{
+	display:block;
+	position: relative;
+	clear: both;
+	top:4px;
+}
 
 .boxParceiro{
 	margin: 0px 0px 16px 17px;
