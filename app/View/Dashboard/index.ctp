@@ -11,15 +11,14 @@
 
 	$this->start('script');	
 	echo $this->Html->script('Chart.min.js');
-	echo $this->Html->script('Chart.js');	
-	
-	echo $this->Html->script('dashboard.js');
+	echo $this->Html->script('ChartNew.js');	
+	echo $this->Html->script('faturamentoDespesas.js');
+	echo $this->Html->script('contasPeriodo.js');
 	$this->end();
 	
 	$dia = date("d");
 	$mes = date("M");
-	$ano = date("Y");
-	
+	$ano = date("Y");	
 	$mesTexto = array("Jan" => "Janeiro", "Feb" => "Fevereiro", "Mar" => "Março", "Apr" => "Abril", "May" => "Maio", "Jun" => "Junho", "Jul" => "Julho", "Aug" => "Agosto", "Nov" => "Novembro", "Sep" => "Setembro", "Oct" => "Outubro", "Dec" => "Dezembro");
 ?>
 
@@ -135,7 +134,33 @@
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			
-			<canvas id="countries" width="380" height="240" class="grafico-ajuste"></canvas>		
+			<div class="menuEntreDatas">
+				<input id="dataInicial" class="forma-data tamanho-pequeno" />
+				<span>a</span>
+				<?php 
+					echo "<span id='periodoDIA' style='display:none;'>".$dia."</span>"; 
+					echo "<span id='periodoMes' style='display:none;'>".$mes."</span>"; 
+					echo "<span id='periodoAno' style='display:none;'>".$ano."</span>"; 
+				;?>
+				<input id="dataFinal" class="forma-data tamanho-pequeno" value=""/>
+				<span id="btCarregar" style="cursor:pointer;">Carregar Gráfico</span>
+				<span id="btCarregar2" style="cursor:pointer;">Carregar2</span>
+							
+			</div>			
+			
+			<div class="loaderAjaxGrafico" style="display:none">
+					<?php
+						echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																		'title'=>'Carregando',
+																		 'class'=>'',
+																		 ));
+					?>
+					<span>Carregando Gráfico aguarde...</span>
+			</div>
+			
+			<div id="loadPeriodo">
+				<canvas id="graficoPeriodo" width="380" height="240" class="grafico-ajuste"></canvas>		
+			</div>
 		</div>
 	</section>
 	
@@ -278,7 +303,7 @@
 </section><!-- ## FIM SECTION INFERIOR -->
 
 
-
+<div><!-- Hidden do grafico de Faturamento/Despesas -->
 <!-- ## RECEBER -->
 <input type="hidden" id="totalJanReceber" value="<?php echo $totalJanReceber; ?>" />
 <input type="hidden" id="totalFevReceber" value="<?php echo $totalFevReceber; ?>" />
@@ -306,5 +331,39 @@
 <input type="hidden" id="totaloutPagar" value="<?php echo $totaloutPagar; ?>" />
 <input type="hidden" id="totalnovPagar" value="<?php echo $totalnovPagar; ?>" />
 <input type="hidden" id="totaldezPagar" value="<?php echo $totaldezPagar; ?>" />
+</div>
+
+<div><!-- Hidden do grafico de Contas por Periodo -->
+<!-- ## RECEBER -->
+<input type="hidden" id="totalJanReceberP" value="<?php echo $totalJanReceberP; ?>" />
+<input type="hidden" id="totalFevReceberP" value="<?php echo $totalFevReceberP; ?>" />
+<input type="hidden" id="totalmarReceberP" value="<?php echo $totalmarReceberP; ?>" />
+<input type="hidden" id="totalabrReceberP" value="<?php echo $totalabrReceberP; ?>" />
+<input type="hidden" id="totalmaiReceberP" value="<?php echo $totalmaiReceberP; ?>" />
+<input type="hidden" id="totaljunReceberP" value="<?php echo $totaljunReceberP; ?>" />
+<input type="hidden" id="totaljulReceberP" value="<?php echo $totaljulReceberP; ?>" />
+<input type="hidden" id="totalagoReceberP" value="<?php echo $totalagoReceberP; ?>" />
+<input type="hidden" id="totalsetReceberP" value="<?php echo $totalsetReceberP; ?>" />
+<input type="hidden" id="totaloutReceberP" value="<?php echo $totaloutReceberP; ?>" />
+<input type="hidden" id="totalnovReceberP" value="<?php echo $totalnovReceberP; ?>" />
+<input type="hidden" id="totaldezReceberP" value="<?php echo $totaldezReceberP; ?>" />
+
+<!-- ## PAGAR-->
+<input type="hidden" id="totalJanPagarP" value="<?php echo $totalJanPagarP; ?>" />
+<input type="hidden" id="totalFevPagarP" value="<?php echo $totalFevPagarP; ?>" />
+<input type="hidden" id="totalmarPagarP" value="<?php echo $totalmarPagarP; ?>" />
+<input type="hidden" id="totalabrPagarP" value="<?php echo $totalabrPagarP; ?>" />
+<input type="hidden" id="totalmaiPagarP" value="<?php echo $totalmaiPagarP; ?>" />
+<input type="hidden" id="totaljunPagarP" value="<?php echo $totaljunPagarP; ?>" />
+<input type="hidden" id="totaljulPagarP" value="<?php echo $totaljulPagarP; ?>" />
+<input type="hidden" id="totalagoPagarP" value="<?php echo $totalagoPagarP; ?>" />
+<input type="hidden" id="totalsetPagarP" value="<?php echo $totalsetPagarP; ?>" />
+<input type="hidden" id="totaloutPagarP" value="<?php echo $totaloutPagarP; ?>" />
+<input type="hidden" id="totalnovPagarP" value="<?php echo $totalnovPagarP; ?>" />
+<input type="hidden" id="totaldezPagarP" value="<?php echo $totaldezPagarP; ?>" />
+</div>
+
+
+
 
 <?php //echo $this->element('sql_dump'); ?>

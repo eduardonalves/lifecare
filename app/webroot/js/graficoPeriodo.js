@@ -1,31 +1,32 @@
 $(document).ready(function() {
+	
 /**** RECEBER *********************************************************/
-var totalJanReceber = $("#totalJanReceber").val();
-var	totalFevReceber = $("#totalFevReceber").val();
-var	totalmarReceber = $("#totalmarReceber").val();
-var totalabrReceber = $("#totalabrReceber").val();
-var	totalmaiReceber = $("#totalmaiReceber").val();
-var totaljunReceber = $("#totaljunReceber").val();
-var totaljulReceber = $("#totaljulReceber").val();
-var	totalagoReceber = $("#totalagoReceber").val();
-var totalsetReceber = $("#totalsetReceber").val();
-var totaloutReceber = $("#totaloutReceber").val();
-var totalnovReceber = $("#totalnovReceber").val();
-var totaldezReceber = $("#totaldezReceber").val();
+var totalJanReceberP = $("#totalJanReceberP").val();
+var	totalFevReceberP = $("#totalFevReceberP").val();
+var	totalmarReceberP = $("#totalmarReceberP").val();
+var totalabrReceberP = $("#totalabrReceberP").val();
+var	totalmaiReceberP = $("#totalmaiReceberP").val();
+var totaljunReceberP = $("#totaljunReceberP").val();
+var totaljulReceberP = $("#totaljulReceberP").val();
+var	totalagoReceberP = $("#totalagoReceberP").val();
+var totalsetReceberP = $("#totalsetReceberP").val();
+var totaloutReceberP = $("#totaloutReceberP").val();
+var totalnovReceberP = $("#totalnovReceberP").val();
+var totaldezReceberP = $("#totaldezReceberP").val();
 
 /**** RECEBER *********************************************************/
-var totalJanPagar = $("#totalJanPagar").val();
-var	totalFevPagar = $("#totalFevPagar").val();
-var	totalmarPagar = $("#totalmarPagar").val();
-var totalabrPagar = $("#totalabrPagar").val();
-var	totalmaiPagar = $("#totalmaiPagar").val();
-var totaljunPagar = $("#totaljunPagar").val();
-var totaljulPagar = $("#totaljulPagar").val();
-var	totalagoPagar = $("#totalagoPagar").val();
-var totalsetPagar = $("#totalsetPagar").val();
-var totaloutPagar = $("#totaloutPagar").val();
-var totalnovPagar = $("#totalnovPagar").val();
-var totaldezPagar = $("#totaldezPagar").val();
+var totalJanPagarP = $("#totalJanPagarP").val();
+var	totalFevPagarP = $("#totalFevPagarP").val();
+var	totalmarPagarP = $("#totalmarPagarP").val();
+var totalabrPagarP = $("#totalabrPagarP").val();
+var	totalmaiPagarP = $("#totalmaiPagarP").val();
+var totaljunPagarP = $("#totaljunPagarP").val();
+var totaljulPagarP = $("#totaljulPagarP").val();
+var	totalagoPagarP = $("#totalagoPagarP").val();
+var totalsetPagarP = $("#totalsetPagarP").val();
+var totaloutPagarP = $("#totaloutPagarP").val();
+var totalnovPagarP = $("#totalnovPagarP").val();
+var totaldezPagarP = $("#totaldezPagarP").val();
 
 
 var barData = {
@@ -38,7 +39,7 @@ var barData = {
 			strokeColor : "#32435A",
 			pointColor : "rgba(220,220,220,1)",
 			pointStrokeColor : "#fff",
-			data : [totalJanReceber,totalFevReceber,totalmarReceber,totalabrReceber,totalmaiReceber,totaljunReceber,totaljulReceber,totalagoReceber,totalsetReceber,totaloutReceber,totalnovReceber,totaldezReceber],
+			data : [totalJanReceberP,totalFevReceberP,totalmarReceberP,totalabrReceberP,totalmaiReceberP,totaljunReceberP,totaljulReceberP,totalagoReceberP,totalsetReceberP,totaloutReceberP,totalnovReceberP,totaldezReceberP],
 		title: "Conta Receber"
 		},
 		
@@ -48,7 +49,7 @@ var barData = {
 			strokeColor : "#32435A",
 			pointColor : "rgba(220,220,220,1)",
 			pointStrokeColor : "#fff",
-			data: [totalJanPagar,totalFevPagar,totalmarPagar,totalabrPagar,totalmaiPagar,totaljunPagar,totaljulPagar,totalagoPagar,totalsetPagar,totaloutPagar,totalnovPagar,totaldezPagar],
+			data: [totalJanPagarP,totalFevPagarP,totalmarPagarP,totalabrPagarP,totalmaiPagarP,totaljunPagarP,totaljulPagarP,totalagoPagarP,totalsetPagarP,totaloutPagarP,totalnovPagarP,totaldezPagarP],
 		title: "Conta Pagar"
 		}
 	]	
@@ -299,7 +300,7 @@ var newopts = {
     setopts=noopts;
     setopts=newopts;
     
-var income = document.getElementById("income").getContext("2d");
-new Chart(income).Bar(barData, setopts);
+var graficoPeriodo = document.getElementById("graficoPeriodo").getContext("2d");
+new Chart(graficoPeriodo).Bar(barData, setopts);
 
 });

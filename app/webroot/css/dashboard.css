@@ -103,10 +103,36 @@
 	margin-top: 5px;
 	width: 379px;
 	text-align: center;
+	font-size: 13px;
 }
 
 .menuAnos span{
 	cursor: pointer;
+}
+
+.menuEntreDatas{
+	margin-top: 7px;
+	display: inline-flex;
+	font-size: 13px;
+}
+
+#dataInicial{
+	margin-left: 50px;
+	margin-right: 20px;
+	border-radius: 4px;
+	border: 1px solid #CCCCCC;
+	font-size: 13px;
+}
+
+#dataFinal{
+	margin-left: 20px;
+	border-radius: 4px;
+	border: 1px solid #CCCCCC;
+	font-size: 13px;
+}
+
+#btCarregar{
+	margin-left: 10px;
 }
 
 .dataButao span{
