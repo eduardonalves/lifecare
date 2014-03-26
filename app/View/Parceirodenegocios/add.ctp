@@ -85,7 +85,7 @@
 
 				<?php	
 
-					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
 					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
