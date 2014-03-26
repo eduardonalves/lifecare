@@ -678,8 +678,12 @@ class ContasController extends AppController {
 		
 		$parcela= $this->Parcela->find('first', array('conditions' => array('Parcela.id' => $id)));
 		
+		$dataPagamento= $this->request->data['Conta']['data_pagamento'];
+		
+		$this->lifecareDataFuncs->formatDateToBD($dataPagamento);
+		
 		if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
-			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $hoje, 'user_id' => $userid);
+			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $dataPagamento, 'user_id' => $userid);
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
 			
 			

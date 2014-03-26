@@ -19,7 +19,23 @@ function formatDateToView(&$data){
 		return $data;
 	}
 ?>	
-
+<script>
+	$(document).ready(function() {
+		
+		$('.quitar').click(function(){
+			modal=$(this).attr('id');
+			$('#modal-'+modal).modal('show');
+		});
+		
+		$('.bt-quitar').click(function(e){
+			
+			e.preventDefault();
+			form= $(this).attr('id');
+			
+			$('.'+form).submit();
+		});
+	});
+</script>
 <header>
 
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => '', 'alt' => 'Consulta de Conta', 'title' => 'Consulta de Conta')); ?>
@@ -84,7 +100,7 @@ function formatDateToView(&$data){
 						<th><?php echo ('Ação'); ?></th>
 						<th><?php echo ('Status'); ?></th>
 					</thead>
-				
+					<?php $j =0; ?>
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
 							<td><?php echo $parcelas['id']; ?></td>
@@ -100,9 +116,10 @@ function formatDateToView(&$data){
 
 							<td>
 								<?php
-								    echo $this->Form->postLink($this->Html->image('botao-quitar.png',array('id'=>'bt-quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela'))), array('controller' => 'contas','action' => 'quitarParcela',  $parcelas['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])));
+								    echo $this->Html->image('botao-quitar.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 
 								    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
+							
 								
 							</td>
 
@@ -111,6 +128,44 @@ function formatDateToView(&$data){
 							
 
 						</tr>
+						<div id="<?php echo "modal-quitar".$j; ?>" class="modal" style="display: none;">
+							<?php 
+								$this->start('css');
+								echo $this->Html->css('modal_quicklink');
+								echo $this->Html->css('table');
+								$this->end();
+							?>
+							<header id="cabecalho">
+								<?php 
+									echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Quitar', 'title' => 'Quitar'));
+								 ?>
+								 <h1>Quitar parcela</h1>
+							</header>
+							
+							<section>
+								<header>Dados da parcela</header>
+								<section class="coluna-modal">
+									<div>	
+										<?php
+											echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
+											echo "<div class=\"ui-widget\">";
+											echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-medio','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+											echo "<span id='spanQuitarData' class='Msg' style='display:none'>Preencha o Campo Data do pagamento</span>";
+											echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
+										?>
+									</div>	
+								</section>
+							</section>
+							
+							<footer>
+								<?php
+									echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
+									echo $this->form->end();
+								?>			
+							</footer>
+
+						</div>	
+						<?php $j=$j+1;?>
 					<?php endforeach; ?>	
 			</table>
 		<?php endif; ?>
