@@ -187,6 +187,3 @@
     ?>
 
 </footer>
-<pre>
-<?php print_r($parceirodenegocio['Contato']);?>
-</pre>

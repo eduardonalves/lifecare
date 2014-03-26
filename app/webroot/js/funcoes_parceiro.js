@@ -36,55 +36,70 @@ $(document).ready(function() {
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
-							<label for="ParceirodenegocioTipo">Tipo:</label>\
-							<select name="data[Parceirodenegocio][tipo]" id="ParceirodenegocioTipo">\
-								<option value="1">Cobrança</option>\
-								<option value="2">Entrega</option>\
+							<label for="Endereco'+ contadorBlocoEndereco +'Tipo">Tipo:</label>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="Endereco'+ contadorBlocoEndereco +'Tipo">\
+								<option value=""></option>\
+								<option value="COBRANCA">Cobrança</option>\
+								<option value="ENTREGA">Entrega</option>\
 							</select>\
 						</div>\
 						\
-						<div class="inputCliente input text divUf">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
+						<div class="input text">\
+							<label for="Endereco'+ contadorBlocoEndereco +'Numero">Número:</label>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][numero]" class="tamanho-medio obrigatorio" maxlength="20" type="text" id="Endereco'+ contadorBlocoEndereco +'Numero"/>\
 						</div>\
-						<span id="valida'+ contadorBlocoEndereco +'Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>\
 						\
 						<div class="input textarea">\
 							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
-							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+						<div class="input text">\
+							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
 						</div>\
+						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>\
 					</section>\
 					\
-					<section class="coluna-central">\
+					<section class="coluna-central" >\
 						<div class="input text">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Logradouro">Logradouro<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
+							<label for="Endereco0Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep"/>\
 						</div>\
-						<span id="valida'+ contadorBlocoEndereco +'Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>\
 						\
-						<div class="input select">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
+						<div class="inputCliente input text divUf">\
+							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" class="estado obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Uf"></select>\
 						</div>\
-						<span id="valida'+ contadorBlocoEndereco +'Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>\
+						\
+						<div class="input text">\
+							<label for="Endereco'+ contadorBlocoEndereco +'Complemento">Complemento:</label>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][complemento]" class="tamanho-medio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento"/>\
+						</div>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
 						<div class="input text">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Complemento">Complemento:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][complemento]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Complemento"/>\
+							<label for="Endereco'+ contadorBlocoEndereco +'Logradouro">Logradouro<span class="campo-obrigatorio">*</span>:</label>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][logradouro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Logradouro"/>\
 						</div>\
+						<span id="valida'+ contadorBlocoEndereco +'Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>\
 						\
-						<div class="input text">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-pequeno" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro"/>\
+						<div class="input select">\
+							<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
+							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" class="cidade obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Cidade"></select>\
 						</div>\
-						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>\
+						<div class="input textarea">\
+							<label for="Endereco'+ contadorBlocoEndereco +'PontoReferencia">Ponto de Referência:</label>\
+							<textarea name="data[Endereco]['+ contadorBlocoEndereco +'][ponto_referencia]" cols="30" rows="6" id="Endereco'+ contadorBlocoEndereco +'PontoReferencia"></textarea>\
+						</div>\
 					</section>\
 				<div>');
 
 			$('.bloco-area-end'+ contadorBlocoEndereco).hide().fadeIn(2000);
-			
+
 			contadorBlocoEndereco++;
 		}
 
@@ -95,7 +110,7 @@ $(document).ready(function() {
 
 		botaoRemoverEnd();
 	});
-	
+
 	$("#add-area-dadosbanc").click(function(){
 
 		var agencia = $("#Dadosbancario"+ (contadorBlocoDadosBanc-1) +"NumeroAgencia").val();
@@ -150,29 +165,29 @@ $(document).ready(function() {
 
 			contadorBlocoDadosBanc++;
 		}
-		
+
 		botaoRemoverBanc();
 	});
-	
-	
+
+
 /*** Remoção de Blocos de Endereços e Dados Bancários *****************/
 
 	$("#remove-area-endereco").click(function(){		
 		$(".bloco-area-end" + (contadorBlocoEndereco-1)).remove();
-		
+
 		contadorBlocoEndereco--;
-		
+
 		botaoRemoverEnd();
 	});
-	
+
 	$("#remove-area-dadosbanc").click(function(){		
 		$(".bloco-area-banc" + (contadorBlocoDadosBanc-1)).remove();
-		
+
 		contadorBlocoDadosBanc--;
-		
+
 		botaoRemoverBanc();
 	});
-	
+
 
 /*** Visualização de Créditos *****************************************/
 
@@ -194,42 +209,54 @@ $(document).ready(function() {
 /*** Validação ********************************************************/
 
 	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
-		
+
 		if($('#ParceirodenegocioClassificacao').val() == 0){
 			$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
 			$('#validaClassificacao').css('display','block');
 			return false;
 		}else if($('#ParceirodenegocioNome').val() == ''){
 			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-			$('#validaNome').css('display','block');
-			return false;
-		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-			$('#validaCPFTamanho').css('display','block');
+			$('#ParceirodenegocioNome').on('focus',function(){
+				if($('#ParceirodenegocioNome').val() == ''){
+					$('#validaNome').css('display','block');
+				}
+			});
+			$('#ParceirodenegocioNome').focus();
+			$('#ParceirodenegocioNome').focusout(function(){
+				$('#validaNome').css('display','none');
+			});
 			return false;
 		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 			$('#validaCPF').css('display','block');
 			return false;
+		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+			$('#ParceirodenegocioCpfCnpj').prop('invalid', true);
+			$('#ParceirodenegocioCpfCnpj').focus();
+			$('#validaCPFTamanho').css('display','block');
+			$('#ParceirodenegocioCpfCnpj').focusout(function(){
+				$('#validaCPFTamanho').css('display','none');
+			});
+			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
 			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone1').css('display','block');
+			$('#validaTelefone').css('display','block');
 			return false;
-		}else if($('#ParceirodenegocioTelefone1').val().length != 14){
-			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#validaTelefone2').css('display','block');
-			return false;
-		}else if(($('#ParceirodenegocioTelefone2').val().length != 14) && ($('#ParceirodenegocioTelefone2').val().length != 0)){
-			$('#ParceirodenegocioTelefone2').addClass('shadow-vermelho');
-			$('#validaTelefone22').css('display','block');
-			return false;
-		}else if(($('#Contato0Telefone3').val().length != 15) && ($('#Contato0Telefone3').val().length != 0)){
-			$('#Contato0Telefone3').addClass('shadow-vermelho');
-			$('#validaTelefone3').css('display','block');
+		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
+			$('#valida0Cep1').css('display','block');
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').on('focus',function(){
+				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
+					$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
+				}
+			});
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focus();
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','none');
+			});
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').val() == 0){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').addClass('shadow-vermelho');
@@ -241,19 +268,39 @@ $(document).ready(function() {
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').on('focus',function(){
+				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
+					$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
+				}
+			});
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focus();
+			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focusout(function(){
+				$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','none');
+			});
 			return false;
 		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
-			$('#validaLimite').css('display','block');
+			$('#Dadoscredito0Limite').on('focus',function(){
+				if($('#Dadoscredito0Limite').val() == ''){
+					$('#validaLimite').css('display','block');
+				}
+			});
+			$('#Dadoscredito0Limite').focus();
+			$('#Dadoscredito0Limite').focusout(function(){
+				$('#validaLimite').css('display','none');
+			});
 			return false;
 		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-			$('#validaValidade1').css('display','block');
-			return false;
-		}else if(($('#ParceirodenegociosStatus').val() == 0) && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
-			$('#ParceirodenegociosStatus').addClass('shadow-vermelho');
-			$('#validaStatus').css('display','block');
+			$('#Dadoscredito0ValidadeLimite').on('focus',function(){
+				if($('#Dadoscredito0ValidadeLimite').val() == ''){
+					$('#validaValidade1').css('display','block');
+				}
+			});
+			$('#Dadoscredito0ValidadeLimite').focus();
+			$('#Dadoscredito0ValidadeLimite').focusout(function(){
+				$('#validaValidade1').css('display','none');
+			});
 			return false;
 		}else if(($('#ParceirodenegociosBloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
 			$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
@@ -262,13 +309,12 @@ $(document).ready(function() {
 		}else{
 			return true;
 		}
-
 	});
-	
+
 	$('#Dadoscredito0ValidadeLimite').change(function(){
 		var hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var selecionado = $('#Dadoscredito0ValidadeLimite').datepicker('getDate').getTime();
-		
+
 		if(selecionado < hoje){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#validaValidade2').css('display','block');
@@ -276,28 +322,44 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#Dadoscredito0ValidadeLimite").focusout(function(){
+		var dfuturoSaida = $("#Dadoscredito0ValidadeLimite").val();
+		var dataFutura = new Date();
 
-/*** Máscara **********************************************************/
-	jQuery(function($){
-		$(".maskTelefone").mask("(99) 9999-9999")
-	});	
-	
-	
+		var anoDigitado = dfuturoSaida.split("/")[2];
+		var mesDigitado = dfuturoSaida.split("/")[1];
+		var diaDigitado = dfuturoSaida.split("/")[0];
+
+		if(dfuturoSaida != ''){
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){
+				$("#validaValidade3").css("display","block");
+				$("#Dadoscredito0ValidadeLimite").addClass('shadow-vermelho');
+				$("#Dadoscredito0ValidadeLimite").val("");
+			}else{
+				$("#Dadoscredito0ValidadeLimite").removeClass('shadow-vermelho');
+				$("#validaValidade3").css("display","none");
+			}
+		}
+    });
+    
+    $("#Endereco0Cep").mask("99999-999");
+
+
 /*** Validar CPF ******************************************************/
 	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
 		var charCode = event.keyCode || event.which;
-	
+
 		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
 		if (!((charCode>47)&&(charCode<58))){return false;}
 	});
-	
+
 	$('#inputcpf, #inputcnpj').attr("enabled","enabled");
 	$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");
+	$("#Dadoscredito0ValidadeLimite").mask("99/99/9999");
 
 	$('#inputcpf, #inputcnpj').click(function(){
-		
 		$("#ParceirodenegocioCpfCnpj").val('');
-		
+
 		valorCpfCnpj = $(this).attr('id'); 
 
 		if(valorCpfCnpj == 'inputcpf'){
