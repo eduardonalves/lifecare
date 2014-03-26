@@ -81,21 +81,15 @@
 
 	<div class="area-endereco"> 
 		<div class="bloco-area">
-			
 			<section class="coluna-esquerda">
 
 				<?php	
-					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo:','type' => 'select','disabled' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select')));
 
-					
-					/*Ajusta Input*/echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio obrigatorio'));
-					
+					/*Ajusta Input*/echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio'));
+
 					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
-
 				?>
 
 			</section>
@@ -103,16 +97,14 @@
 			<section class="coluna-central" >
 
 				<?php
-					/*Ajusta Input*/echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep','maxlength'=>'12'));
+					/*Ajusta Input*/echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12'));
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
-					
+
 					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					
+
 					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio'));
-				
-					
 				?>
 
 			</section>
@@ -122,10 +114,10 @@
 				<?php
 					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio'));
 					echo '<span id="valida0Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>';
-				
+
 					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade obrigatorio'));
 					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>';
-				
+
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
 
