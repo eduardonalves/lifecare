@@ -20,9 +20,83 @@ class ContasController extends AppController {
  *
  * @return void
  */
+ 	public function setStatusParceiro(&$idParceiro){
+ 		$this->loadModel('Parceirodenegocio');
+		$hoje= date("Y-m-d");
+		$parceiros = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE','Parceirodenegocio.id' => $idParceiro)));
+		
+		//debug($parceiros);
+		
+		foreach($parceiros as $parceiro){
+			
+			foreach($parceiro['Dadoscredito'] as $dadosCredito){
+				if($dadosCredito['bloqueado'] != 'Sim'){
+					$vencimento= $dadosCredito['validade_limite'];
+					$diasCritico = 10;
+					$hoje= date("Y-m-d");
+					$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+					
+					$valorLimite = $dadosCredito['limite'];
+					
+					$valorLimiteUsado = $dadosCredito['limite_usado'];
+					
+					$pocentagem = ($dadosCredito['limite'] * $dadosCredito['limite_usado'])/100;
+					
+					if($vencimento < $hoje){
+						$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+						$this->Parceirodenegocio->save($updateParceiro);
+						
+					}else if( $dataCritica < $hoje ){
+						if($parceiro['Parceiro']['status'] != 'VERMELHO'){
+							$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'AMARELO');
+							$this->Parceirodenegocio->save($updateParceiro);
+						}
+					}else{
+						if($parceiro['Parceiro']['status'] != 'VERMELHO' && $parceiro['Parceiro']['status'] != 'AMARELO'){
+							if($pocentagem > $valorLimite){
+								$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERDE');
+								$this->Parceirodenegocio->save($updateParceiro);
+							}
+						}
+					} 
+					
+					if($valorLimite <= $valorLimiteUsado){
+						$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+						$this->Parceirodenegocio->save($updateParceiro);
+					}else if($pocentagem <= $valorLimite){
+						if($parceiro['Parceiro']['status'] != 'VERMELHO'){
+							$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'AMARELO');
+							$this->Parceirodenegocio->save($updateParceiro);
+						}
+					}
+				}
+			}
+		}
+		
+		
+ 	}
+
+	public function setLimiteUsadoLess(&$clienteId, &$valorParcela){
+		$this->loadModel('Dadoscredito');
+		
+		$dadosCredito = $this->Dadoscredito->find('first', array('conditios' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		
+		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+		
+		$novoLimiteUsado =  $limiteUsado - $valorParcela;
+		
+		if($novoLimiteUsado < 0){
+			$novoLimiteUsado=0;	
+		}
+		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['parceirodenegocio_id'],'limite_usado' => $novoLimiteUsado);
+		$this->Dadoscredito->save($updateDadosCredito);
+	
+	}
+	
  	public function setStatusContasParcelas(){
 		if(isset($_GET['parametro'])){
 			$this->loadModel('Parcela');
+			$this->loadModel('Parceirodenegocio');
 			$parcelas = $this->Parcela->find('all', array('recursive' => 1));
 			
 			
@@ -42,7 +116,9 @@ class ContasController extends AppController {
 								if($diasCritico !=''){
 									if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
-										$this->Parcela->save($updatevencimento);	
+										$this->Parcela->save($updatevencimento);
+										
+											
 										//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
 										//$this->Conta->save($updateConta);
 									}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
@@ -76,16 +152,28 @@ class ContasController extends AppController {
 								
 									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
 									$this->Conta->save($updateConta);
-								
+									
+									$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'VERMELHO', 'bloqueado' =>'Sim');
+									$this->Parceirodenegocio->save($updateParceiro);
 								
 							}else{
 								if(isset($contasPrestesAVencer)){
 									if(!empty($contasPrestesAVencer)){
 										$updateConta = array('id' => $parcela['_Conta']['id'],  'status' =>'AMARELO');
 										$this->Conta->save($updateConta);
+										
+										$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'AMARELO', 'bloqueado' =>'Não');
+										$this->Parceirodenegocio->save($updateParceiro);
 									}else{
 										$updateConta = array('id' => $parcela['_Conta']['id'],  'status' =>'VERDE');
 										$this->Conta->save($updateConta);
+										
+										$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'VERDE', 'bloqueado' =>'Não');
+										$this->Parceirodenegocio->save($updateParceiro);
+										
+										$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
+										//antes de ficar verde verificar limite de crédito e data de validade do limite de crédito (a fazer)
+										
 									}
 								}else{
 									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_atraso' => 0);
@@ -147,6 +235,7 @@ class ContasController extends AppController {
 					}else{
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
 						$this->Parcela->save($updatevencimento);
+						
 					} 
 				}else{
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
@@ -180,7 +269,8 @@ class ContasController extends AppController {
 	//$this->setStatusContasParcelas();	
 	public function beforeRender(){
 		parent::beforeRender();
-		//$this->setStatusContasParcelas();
+		$this->setStatusContasParcelas();
+		
 	}
 		
 	public function index() {
@@ -723,6 +813,7 @@ class ContasController extends AppController {
 					
 					}
 				}
+				$this->setLimiteUsadoLess($pacelas['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor']);
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				//debug($parcelasEmAberto);
@@ -733,7 +824,7 @@ class ContasController extends AppController {
 			}
 		}else{
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
-			$this->Session->setFlash(__('Esta parcela já foi quitada.'));
+			$this->Session->setFlash(__('Esta parcela já foi quitada ou está cancelada.'));
 			return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 		}
 		
@@ -760,6 +851,9 @@ class ContasController extends AppController {
 				foreach($pacelas as $parcela){
 					$updateParcela = array('id' => $parcela['Parcela']['id'], 'status' => 'CANCELADO');
 					$this->Parcela->save($updateParcela);
+				}
+				if($conta['Conta']['status'] != 'CINZA'){
+					$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
 				}
 				
 				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'));
