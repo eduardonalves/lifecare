@@ -107,7 +107,7 @@
 					?>						
 				</div>
 				
-				<div class="loaderAjaxGrafico" style="display:none">
+				<div class="loaderAjaxGrafico posicaoLoader" style="display:none">
 						<?php
 							
 							echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
@@ -120,7 +120,7 @@
 				
 				
 				<div id="loadGrafico">	
-					<canvas id="income" width="380" height="240" class="grafico-ajuste"></canvas>
+					<canvas id="income" width="380" height="260" class="grafico-ajuste"></canvas>
 				</div>
 				
 		</div>
@@ -135,20 +135,28 @@
 			</div>
 			
 			<div class="menuEntreDatas">
-				<input id="dataInicial" class="forma-data tamanho-pequeno" />
+				<span style="margin-left: 15px;">Contas de:</span>
+				<input id="dataInicial" class="forma-data tamanho-pequeno" placeholder="Data Inicial" />
 				<span>a</span>
 				<?php 
 					echo "<span id='periodoDIA' style='display:none;'>".$dia."</span>"; 
 					echo "<span id='periodoMes' style='display:none;'>".$mes."</span>"; 
 					echo "<span id='periodoAno' style='display:none;'>".$ano."</span>"; 
 				;?>
-				<input id="dataFinal" class="forma-data tamanho-pequeno" value=""/>
-				<span id="btCarregar" style="cursor:pointer;">Carregar Gráfico</span>
-				<span id="btCarregar2" style="cursor:pointer;">Carregar2</span>
+				<input id="dataFinal" class="forma-data tamanho-pequeno" placeholder="Data Final"/>
+				
+				<?php
+						echo $this->html->image('carregar_grafico.png',array('alt'=>'Carregar Grafico',
+																		'title'=>'Carregar Grafico',
+																		 'id'=>'btCarregar',
+																		 'style'=>'cursor: pointer;'
+																		 ));
+					?>
+				
 							
 			</div>			
 			
-			<div class="loaderAjaxGrafico" style="display:none">
+			<div class="loaderAjaxGraficoPeriodo posicaoLoader" style="display:none">
 					<?php
 						echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
 																		'title'=>'Carregando',
@@ -159,7 +167,7 @@
 			</div>
 			
 			<div id="loadPeriodo">
-				<canvas id="graficoPeriodo" width="380" height="240" class="grafico-ajuste"></canvas>		
+				<canvas id="graficoPeriodo" width="380" height="250" class="grafico-ajuste"></canvas>		
 			</div>
 		</div>
 	</section>

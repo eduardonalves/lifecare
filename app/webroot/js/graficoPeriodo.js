@@ -150,7 +150,7 @@ var allopts = {
 	animationEasing : "easeOutQuart",
 	//Function - Fires when the animation is complete
 	onAnimationComplete : null,
-  canvasBorders : true,
+  canvasBorders : false,
   canvasBordersWidth : 30,
   canvasBordersColor : "black",
   yAxisLeft : true,
@@ -212,7 +212,7 @@ var allopts = {
   }
 
     var onlyborderopts = {
-  canvasBorders : true,
+  canvasBorders : false,
   canvasBordersWidth : 3,
   canvasBordersColor : "black"
   

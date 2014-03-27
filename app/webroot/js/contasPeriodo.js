@@ -2,33 +2,152 @@ $(document).ready(function() {
 
 /**** Variaveis *************************************************/
 	
-	var diaI = $("#periodoDIA").text();
-	var mesI = $("#periodoMes").text(); 
-	var anoI = $("#periodoAno").text();
+	var diaF = $("#periodoDIA").text();
+	var mesF = $("#periodoMes").text(); 
+	var anoF = $("#periodoAno").text();
 	
-	var diaF = '';
-	var mesF = '';
-	var anoF = '';
+	switch(mesF){
+				
+		case "Jan":
+		mesF = "01";
+		break;
+		
+		case "Feb":
+		mesF = "02";
+		break;
+		
+		case "Mar":
+		mesF = "03";
+		break;
+		
+		case "Apr":
+		mesF = "04";
+		break;
+		
+		case "May":
+		mesF = "05";
+		break;
+		
+		case "Jun":
+		mesF = "06";
+		break;
+		
+		case "Jul":
+		mesF = "07";
+		break;
+		
+		case "Aug":
+		mesF = "08";
+		break;
+		
+		case "Sep":
+		mesF = "09";
+		break;
+		
+		case "Ouc":
+		mesF = "10";
+		break;
+		
+		case "Nov":
+		mesF = "11";
+		break;
+		
+		case "Dec":
+		mesF = "12";
+		break;
+	}
+		
+	var diaI = '';
+	var mesI = '';
+	var anoI = '';
 
 /**** LOAD PELO BUTAO *************************************************/
-	$("#btCarregar2").click(function(){
-		if($("#dataInicial").val() == '' ){
-				alert("teste");
-		}						
-	});
-	
 	$("#btCarregar").click(function(){
+		
+		if($("#dataInicial").val() == '' ){
+			diaI = '';
+			mesI = '';
+			anoI = '';
+		}else{
+			dataInicial = $("#dataInicial").val();
 			
-			$('.loaderAjaxGrafico').show();
+			diaI = dataInicial.substring(0,2);
+			mesI = dataInicial.substring(3,5);
+			anoI = dataInicial.substring(6,10);
+		}	
+		
+		if($("#dataFinal").val() == '' ){
+			diaF = $("#periodoDIA").text();
+			mesF = $("#periodoMes").text(); 
+			switch(mesF){					
+				case "Jan":
+				mesF = "01";
+				break;
+				
+				case "Feb":
+				mesF = "02";
+				break;
+				
+				case "Mar":
+				mesF = "03";
+				break;
+				
+				case "Apr":
+				mesF = "04";
+				break;
+				
+				case "May":
+				mesF = "05";
+				break;
+				
+				case "Jun":
+				mesF = "06";
+				break;
+				
+				case "Jul":
+				mesF = "07";
+				break;
+				
+				case "Aug":
+				mesF = "08";
+				break;
+				
+				case "Sep":
+				mesF = "09";
+				break;
+				
+				case "Ouc":
+				mesF = "10";
+				break;
+				
+				case "Nov":
+				mesF = "11";
+				break;
+				
+				case "Dec":
+				mesF = "12";
+				break;
+			}
+			anoF = $("#periodoAno").text();
+		}else{
+			dataFinal = $("#dataFinal").val();
 			
-			$("#loadPeriodo").load(urlInicio+'dashboard/graficoPeriodo?diaI='+diaI+'&mesI='+mesI+'&anoI='+anoI+'&diaF='+diaF+'&mesF='+mesF+'&anoF='+anoF+'', function(){
-				$('.loaderAjaxGrafico').hide();
-				$('#loadGrafico').show();
+			diaF = dataFinal.substring(0,2);
+			mesF = dataFinal.substring(3,5);
+			anoF = dataFinal.substring(6,10);
+		}
+		
+		$('#loadPeriodo').hide();
+		$('.loaderAjaxGraficoPeriodo').show();
+			
+		$("#loadPeriodo").load(urlInicio+'dashboard/graficoperiodo?diaI='+diaI+'&mesI='+mesI+'&anoI='+anoI+'&diaF='+diaF+'&mesF='+mesF+'&anoF='+anoF+'', function(){
+				$('.loaderAjaxGraficoPeriodo').hide();
+				$('#loadPeriodo').show();
 		});	
 		
+						
 	});
-
-	
+		
 
 
 /**** RECEBER *********************************************************/

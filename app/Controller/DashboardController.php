@@ -94,7 +94,6 @@ class DashboardController extends AppController {
 				$diaF = '-'.date('d');
 			}
 		//QUERY
-		//debug($anoF.$mesF.$diaF);
 		$parcelas = $this->Parcela->find('all',array('conditions' => array('Parcela.data_vencimento >= ' => $anoI.$mesI.$diaI ,'Parcela.data_vencimento <= ' => $anoF.$mesF.$diaF )));
 				
 				
@@ -317,7 +316,7 @@ class DashboardController extends AppController {
 				$diaF = '-'.date('d');
 			}
 		//QUERY
-		debug($anoF.$mesF.$diaF);
+		
 		$parcelas = $this->Parcela->find('all',array('conditions' => array('Parcela.data_vencimento >= ' => $anoI.$mesI.$diaI ,'Parcela.data_vencimento <= ' => $anoF.$mesF.$diaF )));
 				
 				

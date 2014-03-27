@@ -22,7 +22,7 @@
 }
 
 .section-inferior{
-	margin:420px 5px 0px 5px;
+	margin:440px 5px 0px 5px;
 	width:1170pxpx;
 }
 
@@ -46,7 +46,7 @@
 .div-board{
 	border-radius:6px;
 	box-shadow:-5px 5px 7px #BABABA;
-	height:340px;
+	height:360px;
 	width:380px;
 }
 
@@ -116,8 +116,12 @@
 	font-size: 13px;
 }
 
+#btCarregar{
+	margin-left:10px;
+}
+
 #dataInicial{
-	margin-left: 50px;
+	margin-left: 20px;
 	margin-right: 20px;
 	border-radius: 4px;
 	border: 1px solid #CCCCCC;
@@ -215,7 +219,7 @@
 	font-size: 15px;
 }
 
-.loaderAjaxGrafico{
+.posicaoLoader{
 	margin: 90px 70px;
 	width: 240px;
 }

@@ -656,7 +656,7 @@ var newopts = {
       scaleTickSizeBottom : 5,
       scaleTickSizeTop : 5,
       scaleFontSize : 13,
-      canvasBorders : true,
+      canvasBorders : false,
       canvasBordersWidth : 0,
       canvasBordersColor : "black",
       graphTitle : "",
