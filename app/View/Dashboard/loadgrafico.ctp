@@ -3,9 +3,7 @@
 	<!-- ## RECEBER -->
 <?php  
 
-	$this->start('script');	
-		echo $this->Html->script('load-grafico.js');
-	$this->end();
+
 ?>
 
 <input type="hidden" id="totalJanReceber" value="<?php echo $totalJanReceber; ?>" />
