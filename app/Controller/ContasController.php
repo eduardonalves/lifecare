@@ -43,29 +43,29 @@ class ContasController extends AppController {
 					$pocentagem = ($dadosCredito['limite'] * $dadosCredito['limite_usado'])/100;
 					
 					if($vencimento < $hoje){
-						$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+						$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
 						$this->Parceirodenegocio->save($updateParceiro);
 						
 					}else if( $dataCritica < $hoje ){
-						if($parceiro['Parceiro']['status'] != 'VERMELHO'){
-							$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'AMARELO');
+						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO'){
+							$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
 							$this->Parceirodenegocio->save($updateParceiro);
 						}
 					}else{
-						if($parceiro['Parceiro']['status'] != 'VERMELHO' && $parceiro['Parceiro']['status'] != 'AMARELO'){
+						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO' && $parceiro['Parceirodenegocio']['status'] != 'AMARELO'){
 							if($pocentagem > $valorLimite){
-								$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERDE');
+								$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
 								$this->Parceirodenegocio->save($updateParceiro);
 							}
 						}
 					} 
 					
 					if($valorLimite <= $valorLimiteUsado){
-						$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+						$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
 						$this->Parceirodenegocio->save($updateParceiro);
 					}else if($pocentagem <= $valorLimite){
-						if($parceiro['Parceiro']['status'] != 'VERMELHO'){
-							$updateParceiro= array('id' => $parceiro['Parceiro']['id'], 'status' => 'AMARELO');
+						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO'){
+							$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
 							$this->Parceirodenegocio->save($updateParceiro);
 						}
 					}
