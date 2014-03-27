@@ -38,13 +38,14 @@ $(document).ready(function() {
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
-							<label for="Endereco'+ contadorBlocoEndereco +'Tipo">Tipo:</label>\
+							<label for="Endereco'+ contadorBlocoEndereco +'Tipo">Tipo<span class="campo-obrigatorio">*</span>:</label>\
 							<select name="data[Endereco]['+ contadorBlocoEndereco +'][tipo]" id="tipo'+ contadorBlocoEndereco +'" tabindex="'+ contadorTab +'">\
 								<option value=""></option>\
 								<option value="COBRANCA">Cobrança</option>\
 								<option value="ENTREGA">Entrega</option>\
 							</select>\
 						</div>\
+						<span id="valida'+ contadorBlocoEndereco +'Tipo" class="Msg-tooltipDireita" style="display:none">Preencha o Tipo</span>\
 						\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Numero">Número:</label>\
@@ -211,6 +212,8 @@ $(document).ready(function() {
 /*** Validação ********************************************************/
 
 	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
+	    var email = $("#Contato0Email").val();
+	    var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
 		if($('#ParceirodenegocioClassificacao').val() == 0){
 			$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
@@ -232,11 +235,20 @@ $(document).ready(function() {
 			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 			$('#validaCPF').css('display','block');
 			return false;
+			
+		}else if(!emailValido.test(email)){
+			$('#Contato0Email').focus().css('border-color','pink');
+			$('#validaEmail').css('display','block');
+			$('#Contato0Email').focusout(function(){
+			    $('#validaEmail').css('display','none');
+			});
+
+			return false;
 		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 			$('#ParceirodenegocioCpfCnpj').focus();
 			$('#validaCPFTamanho').css('display','block');
 			$('#ParceirodenegocioCpfCnpj').focusout(function(){
-				$('#validaCPFTamanho').css('display','none');
+			    $('#validaCPFTamanho').css('display','none');
 			});
 			return false;
 		}else if($('#ParceirodenegocioTelefone1').val() == ''){
@@ -250,6 +262,16 @@ $(document).ready(function() {
 			$('#ParceirodenegocioTelefone1').focusout(function(){
 				$('#validaTelefone').css('display','none');
 			});
+			return false;
+		}else if($('#tipo'+ (contadorBlocoEndereco-1) ).val() == ''){
+			$('#tipo'+ (contadorBlocoEndereco-1) ).addClass('shadow-vermelho');
+			$('#valida'+ (contadorBlocoEndereco-1) +'Tipo').css('display','block');
+			$('#tipo'+ (contadorBlocoEndereco-1) ).on('focus',function(){
+				if($('#tipo'+ (contadorBlocoEndereco-1)).val() == ''){
+				    $('#valida'+ (contadorBlocoEndereco-1) +'Tipo').css('display','none');
+				}
+			});
+
 			return false;
 		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
 			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
@@ -400,5 +422,6 @@ $(document).ready(function() {
 			$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");//cnpj
 		}
 	});
+
 
 });
