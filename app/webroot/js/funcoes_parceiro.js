@@ -424,4 +424,66 @@ $(document).ready(function() {
 	});
 
 
+/*** Mascara Telefone/Celular *************************************************/
+	$(".maskTel,maskCel").on('focusin',function(){
+		var numeroTel = $(this).val().replace(/[^0-9]/gi, '');
+		
+		$(this).val(numeroTel);
+	});
+
+	$(".maskTel").on('focusout',function(){
+		var numeroTel;
+		var telPart1;
+		var telPart2;
+		var telPart3;		
+		
+		numeroTel = $(this).val().replace(/[^0-9]/gi, '');
+		
+		if(numeroTel.length == 5){
+			telPart1 = numeroTel.substring(0,3);
+			telPart2 = numeroTel.substring(3,5);
+			
+			$(this).val(telPart1 +' '+ telPart2);
+		}else if((numeroTel.charAt(0) == '0') && (numeroTel.length = 11)){
+			telPart1 = numeroTel.substring(0,4);
+			telPart2 = numeroTel.substring(4,7);
+			telPart3 = numeroTel.substring(7,11);
+			
+			$(this).val(telPart1 +' '+ telPart2 +' '+ telPart3);
+		}else if((numeroTel.charAt(0) == '4') && (numeroTel.charAt(1) == '0') && (numeroTel.length = 8)){
+			telPart1 = numeroTel.substring(0,4);
+			telPart2 = numeroTel.substring(4,8);
+			
+			$(this).val(telPart1 +' '+ telPart2);
+		}else if(numeroTel == ''){
+			$(this).val('');
+		}else{
+			telPart1 = numeroTel.substring(0,2);
+			telPart2 = numeroTel.substring(2,6);
+			telPart3 = numeroTel.substring(6,10);
+			
+			$(this).val('('+ telPart1 +') '+ telPart2 +'-'+ telPart3);
+		}
+		
+	});
+	
+	$(".maskCel").on('focusout',function(){
+		var numeroTel;
+		var telPart1;
+		var telPart2;
+		var telPart3;		
+		
+		numeroTel = $(this).val().replace(/[^0-9]/gi, '');
+		
+		if(numeroTel.length == 11){
+			telPart1 = numeroTel.substring(0,2);
+			telPart2 = numeroTel.substring(2,7);
+			telPart3 = numeroTel.substring(7,11);
+			
+			$(this).val('('+ telPart1 +') '+ telPart2 +'-'+ telPart3);
+		}else{
+			$(this).val(numeroTel);
+		}
+		
+	});
 });
