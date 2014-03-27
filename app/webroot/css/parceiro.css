@@ -160,3 +160,18 @@ span[id$="Logradouro"]{
 	position:absolute;
 	height:16px;
 }
+
+#validaEmail{
+    left: 135px;
+    top: 88px;
+}
+
+[id*="Tipo"]:after{
+    top:0px;
+}
+
+[id*="Tipo"]{
+    left: 239px;
+    top: -4px;
+    top:0px;
+}

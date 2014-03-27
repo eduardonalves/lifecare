@@ -102,9 +102,10 @@
 /****************** Soma valor conta *********************/        
     var valorContaAnt=0;
     function calcularValorConta(){
-	valorConta=$('#valorConta-receber').val().replace(",", ".").replace('.','');
+	valorConta=$('#valorConta-receber').val().split('.').join('').replace(',','.');
+
 	valorConta=parseFloat(valorConta);
-	
+
 	if(isNaN(valorConta)){
 	    valorConta=0;
 	}
@@ -114,7 +115,7 @@
 
 	valorContaAnt=valorResultadoAux;
 	
-	$('#ContasreceberValor').val(valorResultadoAux.toFixed(2))
+	$('#ContasreceberValor').val(valorResultadoAux.toFixed(2))	
 				.priceFormat({
 				    prefix: '',
 				    centsSeparator: ',',
@@ -126,10 +127,10 @@
 /****************** Subtrair valor conta *********************/        
    
     function subtrairValorConta(numero){
-	valorSubConta=$('#valorTabela'+numero	).text().replace(",", ".").replace('.','');
+	valorSubConta=$('#valorTabela'+numero	).text().split('.').join('').replace(',','.');
 	valorSubConta=parseFloat(valorSubConta);
 
-	valorTotal=$('#ContasreceberValor').val().replace(",", ".").replace('.','');
+	valorTotal=$('#ContasreceberValor').val().split('.').join('').replace(',','.');
 	valorTotal=parseFloat(valorTotal);
 
 	if(isNaN(valorSubConta)){
@@ -144,7 +145,7 @@
 	valorSubResultadoAux=parseFloat(valorSubResultado);
 
 	valorContaAnt=valorSubResultadoAux;
-	
+
 	$('#ContasreceberValor').val(valorSubResultadoAux.toFixed(2))
 				.priceFormat({
 				    prefix: '',

@@ -140,10 +140,10 @@ $(document).ready(function() {
 					?>
 				</div>
 				
-				<div class="statusMovimentacao">
+				<div class="inputSearchData" >
 					<?php
-						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>'','type'=>'select'));
-						
+						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>''));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
 				

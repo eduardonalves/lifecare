@@ -374,21 +374,6 @@ $(document).ready(function() {
     });
 
 
-/************ Validar Email *******/
-    function validarEmail(email){
-
-	var email = $("#Email").val();
-	var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-
-	if(!emailValido.test(email)){
-	    return false;
-	    
-	}else{
-	     return true;
-	}
-    }	
-
-
 /****************** Mascara Data *************************/
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
