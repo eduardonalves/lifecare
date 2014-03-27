@@ -91,7 +91,7 @@ function formatDateToView(&$data){
 		<?php if (!empty($conta['Pagamento'])): ?>
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
-						<th><?php echo ('Parcela'); ?></th>
+						<th><?php echo ('Código da Conta'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
 						<th><?php echo ('Período Crítico'); ?></th>
