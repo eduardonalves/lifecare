@@ -140,7 +140,7 @@ $(document).ready(function() {
 					?>
 				</div>
 				
-				<div class="inputSearchData" >
+				<div class="" >
 					<?php
 						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>''));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
