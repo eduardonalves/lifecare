@@ -68,7 +68,7 @@ function formatDateToView(&$data){
 		
 	<section class="coluna-central" >
 		<?php
-			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h($conta['Conta']['valor']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h(number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 		?>		
@@ -91,7 +91,7 @@ function formatDateToView(&$data){
 		<?php if (!empty($conta['Pagamento'])): ?>
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
-						<th><?php echo ('Parcela'); ?></th>
+						<th><?php echo ('Código da Conta'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
 						<th><?php echo ('Período Crítico'); ?></th>
@@ -113,7 +113,7 @@ function formatDateToView(&$data){
 							<td><?php formatDateToView($parcelas['data_vencimento']);
 									  echo $parcelas['data_vencimento']; ?></td>
 							<td><?php echo $parcelas['periodocritico']; ?></td>
-							<td><?php echo $parcelas['valor']; ?></td>
+							<td><?php echo number_format($parcelas['valor'], 2, ',', '.'); ?></td>
 							<td><?php echo $parcelas['identificacao_documento']; ?></td>
 							<td><?php echo $parcelas['banco']; ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
@@ -180,9 +180,9 @@ function formatDateToView(&$data){
 	<?php
 		
 	  echo $this->html->image('voltar.png',array('alt'=>'Voltar',
-												     'title'=>'voltar',
-													 'class'=>'bt-voltar',
-													 'url'=>'/Contas/?parametro=contas'));
+						     'title'=>'voltar',
+						     'class'=>'bt-voltar',
+						     'url'=>'javascript:history.go(-1)'));
 
 	?>	
 

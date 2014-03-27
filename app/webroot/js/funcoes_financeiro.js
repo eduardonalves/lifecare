@@ -372,7 +372,6 @@ $(document).ready(function() {
 		$("#cpf_cnpj").mask("99.999.999/9999-99");//cnpj
 	}
     });
-	
 
 
 /****************** Mascara Data *************************/

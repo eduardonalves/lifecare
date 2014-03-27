@@ -129,6 +129,22 @@ class ContasrecebersController extends ContasController {
 				
 			}	
 	}
+	
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta){
+		$this->loadModel('Dadoscredito');
+		
+		$dadosCredito = $this->Dadoscredito->find('first', array('conditios' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		
+		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+		
+		$novoLimiteUsado =  $limiteUsado + $valorConta;
+		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['parceirodenegocio_id'],'limite_usado' => $novoLimiteUsado);
+		$this->Dadoscredito->save($updateDadosCredito);
+	
+	}
+	
+	
+	
 /**
  * add method
  *
@@ -163,10 +179,15 @@ class ContasrecebersController extends ContasController {
 					$this->ParcelasConta->save($parcela_conta);
 					
 				}
+				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
 				$this->setStatusConta($ultimaConta['Conta']['id']);
 				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor']);
+				
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
-				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
+				
+				
+				
 				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 				
 			} else {

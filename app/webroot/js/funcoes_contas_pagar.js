@@ -104,7 +104,7 @@
 /****************** Soma valor conta *********************/        
     var valorContaAnt=0;
     function calcularValorConta(){
-	valorConta=$('#valorPagar').val().replace(",", ".").replace('.','');
+	valorConta=$('#valorPagar').val().split('.').join('').replace(',','.');
 	valorConta=parseFloat(valorConta);
 
 	if(isNaN(valorConta)){
@@ -127,10 +127,10 @@
 /****************** Subtrair valor conta *********************/        
    
     function subtrairValorConta(numero){
-	valorSubConta=$('#valorTabela'+numero).text().replace(",", ".").replace('.','');
+	valorSubConta=$('#valorTabela'+numero).text().split('.').join('').replace(',','.');
 	valorSubConta=parseFloat(valorSubConta);
 
-	valorTotal=$('#ContaspagarValor').val().replace(",", ".").replace('.','');
+	valorTotal=$('#ContaspagarValor').val().split('.').join('').replace(',','.');
 	valorTotal=parseFloat(valorTotal);
 
 	if(isNaN(valorSubConta)){

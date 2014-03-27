@@ -12,7 +12,7 @@
 	$this->end();
 
 	$this->start('modais');
-	    echo $this->element('parceiroCliente_add',array('modal'=>'add-parceiroCliente'));
+	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
 	$this->end();	
 ?>
     
@@ -86,7 +86,7 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-pequeno dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
+		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
