@@ -46,11 +46,16 @@
 		<?php
 			echo $this->Form->input('Parceirodenegocio.id');
 			echo $this->Form->input('tipo',array('label' => 'Classificação:','disabled'=>'disabled','type' => 'text','class'=>'tamanho-medio borderZero'));
-			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
-			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
-			echo $this->Form->input('cpf_cnpj',array('class' => 'tamanho-medio maskcpf Nao-Letras','label' => 'CPF/CNPJ<span class="campo-obrigatorio">*</span>:','required'=>'false'));
-			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
-			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
+			
+			$p=0;
+			foreach($parceirodenegocio['Contato'] as $contato){
+				echo $this->Form->input('Contato.'.$p.'.id', array('value'=>$contato['id']));
+				echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+				echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
+				echo $this->Form->input('Contato.'.$p.'.fax',array('class' => 'tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
+				$p++;
+			}
+			
 		?>
 
 	</section>
@@ -59,14 +64,14 @@
 
 		<?php
 			
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
+			echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 			
 			$l=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
+				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
 				echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'tamanho-medio','label' => 'Email:'));
-				echo $this->Form->input('Contato.'.$l.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
-				echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
-				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
 				$l++;
 			}
 		?>
@@ -76,9 +81,18 @@
 	<section class="coluna-direita" >
 
 		<?php
+		
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
+			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
+				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
+			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
+
 			$j=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.'.$j.'.telefone3',array('class' => 'tamanho-medio tel','label' => 'Celular:'));
+				echo $this->Form->input('Contato.'.$j.'.id', array('value'=>$contato['id']));
+				echo $this->Form->input('Contato.'.$j.'.telefone3',array('class' => 'tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6'));
+				echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
 				$j++;
 			}
 		?>
@@ -104,10 +118,13 @@
 					echo $this->Form->input('Endereco.'.$z.'.id', array('value'=>$endereco['id']));
 
 					echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal','COBRANCA'=>'Cobrança','ENTREGA'=>'Entrega'),'div' =>array( 'class' => 'input select')));
-					echo $this->Form->input('Endereco.'.$z.'.uf', array('value' => h($endereco['uf']),'label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno','div' => array('class' => 'inputCliente input text divUf')));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
-					echo $this->Form->input('Endereco.'.$z.'.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','type' => 'textarea'));
-				
+					
+					
+					echo $this->Form->input('Endereco.'.$z.'.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
+					
+					echo $this->Form->input('Endereco.'.$z.'.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
+					echo '<span id="valida0Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
+						
 				?>
 
 			</section>
@@ -115,20 +132,27 @@
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Endereco.'.$z.'.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo '<span id="valida0Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>';
-					echo $this->Form->input('Endereco.'.$z.'.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno'));
-					echo '<span id="valida0Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>';
-				?>
+					echo $this->Form->input('Endereco.'.$z.'.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
+					echo $this->html->image('consultas.png',array('id'=>'consultaCEP'.$z.'','style'=>'margin-left:10px;cursor:pointer;'));
+				
+					
+					echo $this->Form->input('Endereco.'.$z.'.uf', array('value' => h($endereco['uf']),'label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno','div' => array('class' => 'inputCliente input text divUf')));
+					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
+					
+					echo $this->Form->input('Endereco.'.$z.'.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','class' => 'tamanho-pequeno'));
+					
+					?>
 
 			</section>
 
 			<section class="coluna-direita" >
 
 				<?php
-					echo $this->Form->input('Endereco.'.$z.'.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','class' => 'tamanho-pequeno'));
-					echo $this->Form->input('Endereco.'.$z.'.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo '<span id="valida0Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
+					echo $this->Form->input('Endereco.'.$z.'.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
+					echo '<span id="valida0Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>';
+					echo $this->Form->input('Endereco.'.$z.'.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno'));
+					echo '<span id="valida0Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>';
+					echo $this->Form->input('Endereco.'.$z.'.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
 
 			</section>
