@@ -467,7 +467,7 @@ var barData = {
 			pointColor : "rgba(220,220,220,1)",
 			pointStrokeColor : "#fff",
 			data : [totalJanReceber,totalFevReceber,totalmarReceber,totalabrReceber,totalmaiReceber,totaljunReceber,totaljulReceber,totalagoReceber,totalsetReceber,totaloutReceber,totalnovReceber,totaldezReceber],
-		title: "Conta Receber"
+		title: "Conta Receber "
 		},
 		
 		{
@@ -477,50 +477,12 @@ var barData = {
 			pointColor : "rgba(220,220,220,1)",
 			pointStrokeColor : "#fff",
 			data: [totalJanPagar,totalFevPagar,totalmarPagar,totalabrPagar,totalmaiPagar,totaljunPagar,totaljulPagar,totalagoPagar,totalsetPagar,totaloutPagar,totalnovPagar,totaldezPagar],
-		title: "Conta Pagar"
+		title: "Conta Pagar "
 		}
 	]	
 };
 
-var options = {
-    
-    scaleFontColor: "#4456ff", //Cor das letras
-    scaleLineColor : "rgba(8,5,3,.1)", //cor das linhas
-    
-	scaleLineWidth : 1, //Espessura das linhas que separam a parte texto das barras
-	scaleShowGridLines : true, //Mostra Grid Line
-	scaleGridLineColor : "rgba(0,0,0,.05)",	 //String - Cor da grid lines
-	
-		
-	scaleOverlay : true, //Boolean - Se nós mostrarmos a escala acima os dados do gráfico
-	scaleOverride : false, //Boolean - Se queremos substituir com uma escala codificado
-	
-	scaleOverride : false, //Boolean - Escala Codificada
-	scaleSteps : null, //** Requer scaleOverride: true ** //Número - Numero de Passos para a escala codificada
-	
-	
-	scaleShowLabels : true, //Boolean - Se deve mostrar rótulos na escala
-	scaleLabel : "<%=value%>", //interpolada JS string - pode acessar o valor]
-	
-	
-	scaleFontFamily : "'Arial'", //String - Scale label font declaration for the scale label
-	scaleFontSize : 10, //Number - Scale label font size in pixels	
-	scaleFontStyle : "normal", //String - Scale label font weight style	
-	scaleFontColor : "#000",		//String - Scale label font colour	
-	
-	
-	barShowStroke : true, //Boolean - If there is a stroke on each bar		
-	barStrokeWidth : 1, //Number - Pixel width of the bar stroke		
-	barValueSpacing : 3, //Number - Spacing between each of the X value sets
-	barDatasetSpacing : 2, //Number - Spacing between data sets within X values
-	
-	animation : true,//Boolean - Whether to animate the chart
-	animationSteps : 300,//Number - Tempo da Animação
-	animationEasing : "easeOutQuart", //String - Animation easing effect
-	onAnimationComplete : null, 	//Function - Fires when the animation is complete
-	
-	stacked: true
-};
+
 var allopts = {
 	//Boolean - If we show the scale above the chart data	  -> Default value Changed
   scaleOverlay : true,
@@ -639,7 +601,7 @@ var allopts = {
   }
 
     var onlyborderopts = {
-  canvasBorders : true,
+  canvasBorders : false,
   canvasBordersWidth : 3,
   canvasBordersColor : "black"
   
@@ -648,13 +610,13 @@ var allopts = {
 var nooptions = { }
 
 var newopts = {
-      inGraphDataShow : true,
+      inGraphDataShow : true, //Ativação do valor em cima das barras
       datasetFill : true,
       scaleLabel: "<%=value%>",
       scaleTickSizeRight : 5,
       scaleTickSizeLeft : 5,
-      scaleTickSizeBottom : 5,
-      scaleTickSizeTop : 5,
+      scaleTickSizeBottom : 10,
+      scaleTickSizeTop : 10,
       scaleFontSize : 13,
       canvasBorders : false,
       canvasBordersWidth : 0,
@@ -702,7 +664,7 @@ var newopts = {
 			yAxisUnitFontSize : 8,
 			yAxisUnitFontStyle : "normal",
 			yAxisUnitFontColor : "#666",
-      annotateDisplay : true, 
+      annotateDisplay : true, // Ativação tooltip 
       spaceTop : 0,
       spaceBottom : 0,
       spaceLeft : 0,
@@ -725,7 +687,7 @@ var newopts = {
 	setopts=allopts;
     setopts=onlyborderopts;
     setopts=noopts;
-    setopts=newopts;
+    setopts=newopts; //tip config
     
 var income = document.getElementById("income").getContext("2d");
 new Chart(income).Bar(barData, setopts);
