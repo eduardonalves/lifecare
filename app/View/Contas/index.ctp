@@ -252,10 +252,12 @@ $(document).ready(function() {
 		if($campo=="status"){
 		    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
 		    //Monter uma tabela dentro de um modal
+		}else if($campo=="status_parceiro"){
+		    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
+		    //Monter uma tabela dentro de um modal
 		}else if($campo=="parceirodenegocio_id"){
 		    echo "<td class='statusParceiro'>"; 
-		    echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar',
-			'title'=>'Visualizar',
+		    echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
 			'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
 		    echo "</a></td>";
 		}else if($campo=="parcelas"){
