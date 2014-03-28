@@ -19,7 +19,7 @@ select{
 .textMenuLateral span{ height: 42px; }
 
 /** Formulário**/
-textarea{height: 68px !important; width: 147px !important;}
+textarea{height: 40px !important; width: 147px !important;}
 
 #Endereco0PontoReferencia{margin-bottom:5px;}
 .fake-footer{
@@ -53,7 +53,7 @@ select[id^='Endereco']{
 table{margin-top: 20px;}
 
 /** Classes **/
-.textAreaConta{height: 50px !important; width: 186px !important;margin-bottom:5px;}
+.textAreaConta{height: 40px !important; width: 186px !important;margin-bottom:5px;}
 
 #spanTextArea{display:block;font-size:13px;min-width:100px;margin-left: 153px;}
 
