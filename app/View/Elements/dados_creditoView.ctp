@@ -33,7 +33,8 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('status',array('value'=>h($parceirodenegocio['Parceirodenegocio']['status'] ),'label' => 'Status:','type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo '<div class="input text" ><label>Status:</label></div>';			
+		    echo $this->Html->image('semaforo-' . strtolower($parceirodenegocio['Parceirodenegocio']['status']) . '-12x12.png', array('alt' => h($parceirodenegocio['Parceirodenegocio']['status']), 'title' => h($parceirodenegocio['Parceirodenegocio']['status'])));
 		?>
 
 	</section>

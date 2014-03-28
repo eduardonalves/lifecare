@@ -34,8 +34,7 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.'.$y.'.status',array('value'=>h($dadoscredito['status']),'label' => 'Status<span class="campo-obrigatorio">*</span>:','options'=>array('Status 1','Status 2','Status 3'),'type' => 'select'));
-			echo '<span id="validaStatus" class="Msg-tooltipDireita" style="display:none">Selecione o Status</span>';
+		
 		?>
 
 	</section>

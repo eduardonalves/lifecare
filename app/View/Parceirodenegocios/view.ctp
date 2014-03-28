@@ -42,8 +42,12 @@
 		<?php
 		
 			echo $this->Form->input('tipo',array('value'=>h($parceirodenegocio['Parceirodenegocio']['tipo']),'label' => 'Classificação:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-medio borderZero'));
-			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-medio borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
-			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-medio maskcpf borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			
+			foreach($parceirodenegocio['Contato'] as $contato){
+				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio tel borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
+				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-medio tel borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			}			
+			
 		?>
 
 	</section>
@@ -51,10 +55,12 @@
 	<section class="coluna-central" >
 
 		<?php
+			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-medio borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
+
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-medio borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio tel borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
 				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio tel borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
+				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-medio borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+
 			}
 		?>
 
@@ -63,6 +69,8 @@
 	<section class="coluna-direita" >
 
 		<?php
+			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-medio maskcpf borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-medio tel borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
 			}	
@@ -89,8 +97,8 @@
 					echo $this->Form->input('Endereco.id', array('value'=>$endereco['id']));
 
 					echo $this->Form->input('Endereco.tipo',array('value' => h($endereco['tipo']),'label' => 'Tipo:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
-					echo $this->Form->input('Endereco.uf', array('value' => h($endereco['uf']),'label'=>'UF:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
-					echo $this->Form->input('Endereco.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'textarea','class'=>'borderZero'));
+					echo $this->Form->input('Endereco.numero',array('value' => h($endereco['numero']),'label' => 'Número:','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
+					echo $this->Form->input('Endereco.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
 				
 				?>
 
@@ -99,17 +107,22 @@
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Endereco.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero' ));
-					echo $this->Form->input('Endereco.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade:', 'type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
-				?>
+				
+					echo $this->Form->input('Endereco.cep', array('value' => h($endereco['cep']),'label'=>'CEP:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.uf', array('value' => h($endereco['uf']),'label'=>'UF:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-pequeno borderZero'));
+
+						?>
 
 			</section>
 
 			<section class="coluna-direita" >
 
 				<?php
-					echo $this->Form->input('Endereco.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-pequeno borderZero'));
-					echo $this->Form->input('Endereco.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
+					echo $this->Form->input('Endereco.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero' ));
+					echo $this->Form->input('Endereco.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade:', 'type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
+					echo $this->Form->input('Endereco.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'textarea','class'=>'borderZero'));
+
 				?>
 
 			</section>
@@ -187,3 +200,4 @@
     ?>
 
 </footer>
+
