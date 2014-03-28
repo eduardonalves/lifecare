@@ -9,14 +9,5 @@
 	$this->end();
 ?>
 
-<script>
-	window.onload = function(){
-		new dgCidadesEstados({
-			estado: document.getElementById('Endereco0Uf'),
-			cidade: document.getElementById('Endereco0Cidade')
-		});
-	}
-</script>
-
 <?php echo $this->element('parceirodeNegoicos_add'); ?>
 

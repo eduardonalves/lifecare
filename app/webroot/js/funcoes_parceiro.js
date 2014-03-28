@@ -193,7 +193,7 @@ $(document).ready(function() {
 
 
 /*** Visualização de Créditos *****************************************/
-
+/*
 	if($('#ParceirodenegocioClassificacao').val() == 'CLIENTE'){
 		$('.areaCliente').css('display','inline-block');
 	}else{
@@ -208,7 +208,7 @@ $(document).ready(function() {
 		}
 	});
 
-
+*/
 /*** Validação ********************************************************/
 
 	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
@@ -324,7 +324,7 @@ $(document).ready(function() {
 				$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','none');
 			});
 			return false;
-		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0Limite').val() == '')){
 			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
 			$('#Dadoscredito0Limite').on('focus',function(){
 				if($('#Dadoscredito0Limite').val() == ''){
@@ -336,7 +336,7 @@ $(document).ready(function() {
 				$('#validaLimite').css('display','none');
 			});
 			return false;
-		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0ValidadeLimite').val() == '')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#Dadoscredito0ValidadeLimite').on('focus',function(){
 				if($('#Dadoscredito0ValidadeLimite').val() == ''){
@@ -348,7 +348,7 @@ $(document).ready(function() {
 				$('#validaValidade1').css('display','none');
 			});
 			return false;
-		}else if(($('#ParceirodenegociosBloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#ParceirodenegociosBloqueado').val() == '')){
 			$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
 			$('#validaBloqueado').css('display','block');
 			return false;

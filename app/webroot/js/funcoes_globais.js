@@ -385,7 +385,7 @@ $(document).ready(function(){
 
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
-    $('input, select, div').on('focusin', function(){
+    $('input, select, div').on('focusout', function(){
 	$('span[class^="Msg"]').css('display','none');
 	$('span[class^="DinamicaMsg"]').remove();
 	$('input,select').removeClass('shadow-vermelho');
@@ -402,8 +402,9 @@ $(document).ready(function(){
 	$(".Nao-Letras").on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
-		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
-		if (!((charCode>47)&&(charCode<58))){return false;}
+		//if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
+		//if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==46)|| (charCode==37)|| (charCode==39))){return false;}else{return true}
+		if (!((charCode>47)&&(charCode<58) || (charCode==8))){return false;}else{return true}
 	});
 
 });

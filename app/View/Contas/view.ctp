@@ -91,15 +91,16 @@ function formatDateToView(&$data){
 		<?php if (!empty($conta['Pagamento'])): ?>
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
-						<th><?php echo ('Código da Conta'); ?></th>
+						<th><?php echo ('Parcela'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
-						<th><?php echo ('Período Crítico'); ?></th>
 						<th><?php echo ('Valor'); ?></th>
 						<th><?php echo ('Identificação'); ?></th>
-						<th><?php echo ('Banco'); ?></th>
+						<th><?php echo ('Período Crítico'); ?></th>
+						<th><?php echo ('Desconto'); ?></th>
 						<th><?php echo ('Agência'); ?></th>
 						<th><?php echo ('Conta'); ?></th>
+						<th><?php echo ('Banco'); ?></th>
 						
 						
 						<th><?php echo ('Ação'); ?></th>
@@ -108,16 +109,17 @@ function formatDateToView(&$data){
 					<?php $j =0; ?>
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
-							<td><?php echo $parcelas['id']; ?></td>
+							<td><?php echo $parcelas['parcela']; ?></td>
 							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);
 									  echo $parcelas['data_vencimento']; ?></td>
-							<td><?php echo $parcelas['periodocritico']; ?></td>
 							<td><?php echo number_format($parcelas['valor'], 2, ',', '.'); ?></td>
 							<td><?php echo $parcelas['identificacao_documento']; ?></td>
-							<td><?php echo $parcelas['banco']; ?></td>
+							<td><?php echo $parcelas['periodocritico']; ?></td>
+							<td><?php echo number_format($parcelas['desconto'], 2, ',', '.'); ?></td>
 							<td><?php echo $parcelas['agencia']; ?></td>
 							<td><?php echo $parcelas['conta']; ?></td>
+							<td><?php echo $parcelas['banco']; ?></td>
 
 							<td>
 								<?php
@@ -174,22 +176,25 @@ function formatDateToView(&$data){
 		<?php endif; ?>
 	</div>
 	
-
-/*
+<!--
 <footer>
 		
 	<?php
-	  
+	  /*
 
 		echo $this->html->image('voltar.png',array('alt'=>'Voltar',
 							 'title'=>'voltar',
 							 'class'=>'bt-voltar',
 							 'url'=>'javascript:history.go(-1)'));
-	    
+
+	*/ 
+	  
 
 	?>	
 
 	<!-- </form> 
 	</section> -->
+	<!--
 </footer>
-*/
+
+-->
