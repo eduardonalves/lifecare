@@ -175,17 +175,21 @@ function formatDateToView(&$data){
 	</div>
 	
 
+/*
 <footer>
 		
 	<?php
-		
-	  echo $this->html->image('voltar.png',array('alt'=>'Voltar',
-						     'title'=>'voltar',
-						     'class'=>'bt-voltar',
-						     'url'=>'javascript:history.go(-1)'));
+	  
+
+		echo $this->html->image('voltar.png',array('alt'=>'Voltar',
+							 'title'=>'voltar',
+							 'class'=>'bt-voltar',
+							 'url'=>'javascript:history.go(-1)'));
+	    
 
 	?>	
 
 	<!-- </form> 
 	</section> -->
 </footer>
+*/
