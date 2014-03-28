@@ -135,6 +135,7 @@ class DashboardController extends AppController {
 					$mes =substr($parcela['Parcela']['data_vencimento'],5, 2);
 					if($mes==01){
 						$totalJanReceberP = $totalJanReceberP + $parcela['Parcela']['valor'];
+						
 					}				
 					if($mes==02){
 						$totalFevReceberP = $totalFevReceberP + $parcela['Parcela']['valor'];
@@ -237,7 +238,8 @@ class DashboardController extends AppController {
 				}
 				
 			}
-		
+			
+			
 			$this->set(compact('totalJanReceberP','totalFevReceberP','totalmarReceberP','totalabrReceberP','totalmaiReceberP','totaljunReceberP','totaljulReceberP','totalagoReceberP','totalsetReceberP','totaloutReceberP','totalnovReceberP','totaldezReceberP'));
 			$this->set(compact('totalJanPagarP','totalFevPagarP','totalmarPagarP','totalabrPagarP','totalmaiPagarP','totaljunPagarP','totaljulPagarP','totalagoPagarP','totalsetPagarP','totaloutPagarP','totalnovPagarP','totaldezPagarP'));	
 		
@@ -457,6 +459,11 @@ class DashboardController extends AppController {
 				}
 				
 			}
+			
+			//Conversão
+			//number_format($totalmarPagarP, 2, ',', '.');
+			
+			//debug($totalmarPagarP);
 		
 			$this->set(compact('totalJanReceberP','totalFevReceberP','totalmarReceberP','totalabrReceberP','totalmaiReceberP','totaljunReceberP','totaljulReceberP','totalagoReceberP','totalsetReceberP','totaloutReceberP','totalnovReceberP','totaldezReceberP'));
 			$this->set(compact('totalJanPagarP','totalFevPagarP','totalmarPagarP','totalabrPagarP','totalmaiPagarP','totaljunPagarP','totaljulPagarP','totalagoPagarP','totalsetPagarP','totaloutPagarP','totalnovPagarP','totaldezPagarP'));			
