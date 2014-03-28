@@ -19,33 +19,10 @@
 
 <script>
 var contadorBlocoEndereco = 1;
-var contadorBlocoDadosBanc = 1;
-
-	function findCEP() {
-		    if($.trim($("#Endereco0Cep").val()) != ""){
-		        
-		        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco0Cep").val().replace("-", ""), function(){
-		            if(resultadoCEP["resultado"] == 1){
-		                $("#Endereco0Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
-		                $("#Endereco0Bairro").val(unescape(resultadoCEP["bairro"]));
-		                $("#Endereco0Cidade").val(unescape(resultadoCEP["cidade"]));
-		                $("#Endereco0Uf").val(unescape(resultadoCEP["uf"]));
-		                $("#Endereco0Numero").focus();
-		            }else{
-		                $('#valida'+ (contadorBlocoEndereco-1) +'Cep3').css('display','block');
-		            }
-		        });
-		    }
-		}
-	
+var contadorBlocoDadosBanc = 1;	
 	
 $(document).ready(function(){
-	
-	//busca cep
-	$('#consultaCEP').click(function(){
-		findCEP();
-	});
-	
+		
     valH1=$('h1').attr('class');
     valH1Aux=valH1[valH1.length-1];
 
@@ -316,7 +293,7 @@ $(document).ready(function(){
 				<?php
 					echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
 					
-					echo $this->html->image('consultas.png',array('id'=>'consultaCEP','style'=>'margin-left:10px;cursor:pointer;'));
+					echo $this->html->image('consultas.png',array('id'=>'consultaCEP0','class'=>'buscarCEP','style'=>'margin-left:10px;cursor:pointer;'));
 				
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
