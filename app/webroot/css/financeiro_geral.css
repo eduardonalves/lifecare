@@ -68,7 +68,7 @@ table{margin-top: 20px;}
 #msgAutoComplete{top: -35px;}
 
 #msgCpfCnpj:after{ border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0); left: 51px;top: -20px;}
-#msgCpfCnpj{float: right;left: 1280px;top: 550px;width: 107px;}
+#msgCpfCnpj{float: right;left: 1280px;top: 550px;width: 107px;z-index:1}
 
 #msgTipoPagamento{top:0px;left:230px;}
 

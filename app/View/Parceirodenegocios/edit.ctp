@@ -27,16 +27,21 @@
 	
 function findCEP(ind) {
 		    if($.trim($("#Endereco"+ind+"Cep").val()) != ""){
+			//adiciona o loader
+			$('#loaderCep').remove();
+			$("#Endereco"+ ind +"Cep").after('<img id="loaderCep" src="/lifecare/app/webroot/img/loaderInput.gif" style="display:block">');
 		        
 		        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco"+ind+"Cep").val().replace("-", ""), function(){
 		            if(resultadoCEP["resultado"] == 1){
+				$('#loaderCep').remove();
 		                $("#Endereco"+ind+"Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
 		                $("#Endereco"+ind+"Bairro").val(unescape(resultadoCEP["bairro"]));
 		                $("#Endereco"+ind+"Cidade").val(unescape(resultadoCEP["cidade"]));
 		                $("#Endereco"+ind+"Uf").val(unescape(resultadoCEP["uf"]));
 		                $("#Endereco"+ind+"Numero").focus();
 		            }else{
-		               $('#valida'+ ind +'Cep3').css('display','block');
+				$('#loaderCep').remove();
+		                $('#valida'+ ind +'Cep3').css('display','block');
 		            }
 		        });
 		    }
