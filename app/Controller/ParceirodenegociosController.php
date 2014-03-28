@@ -240,7 +240,15 @@ class ParceirodenegociosController extends AppController {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			$i=0;
+			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
+				
+				$i++;
+			}
+			
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
+				$this->setStatusParceiro($id);
 				$this->Session->setFlash(__('Parceiro editado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view',$id));
 			} else {

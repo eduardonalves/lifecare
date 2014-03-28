@@ -15,7 +15,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.limite',array('value'=>h($dadoscredito['limite']),'label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.limite',array('value'=>h($dadoscredito['limite']),'label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 			echo $this->Form->input('bloqueado',array('value'=>h($parceirodenegocio['Parceirodenegocio']['bloqueado'] ),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 

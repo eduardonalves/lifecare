@@ -369,6 +369,14 @@ $(document).ready(function() {
 			$('#validaBloqueado').css('display','block');
 			return false;
 		}else{
+			
+			var valorLimite = $('.dinheiro_duasCasas').val();
+			
+			valorLimite = valorLimite.replace(/\./g, '');
+			valorLimite = valorLimite.replace(',', '.');
+			
+			$('.dinheiro_duasCasas').val(valorLimite);
+			
 			return true;
 		}
 	});
