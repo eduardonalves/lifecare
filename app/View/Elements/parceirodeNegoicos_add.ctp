@@ -17,17 +17,33 @@
 
 ?>
 
-<script type="text/javascript" src="http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js"></script>
 <script>
-	window.onload = function(){
-	  new dgCidadesEstados({
-		estado: document.getElementById('Endereco0Uf'),
-		cidade: document.getElementById('Endereco0Cidade')
-	  });
-	}
+
+	function findCEP() {
+		    if($.trim($("#Endereco0Cep").val()) != ""){
+		        
+		        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco0Cep").val().replace("-", ""), function(){
+		            if(resultadoCEP["resultado"] == 1){
+		                $("#Endereco0Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+		                $("#Endereco0Bairro").val(unescape(resultadoCEP["bairro"]));
+		                $("#Endereco0Cidade").val(unescape(resultadoCEP["cidade"]));
+		                $("#Endereco0Uf").val(unescape(resultadoCEP["uf"]));
+		                $("#Endereco0Numero").focus();
+		            }else{
+		                alert("Endereço não encontrado para o cep ");
+		            }
+		        });
+		    }
+		}
 	
 	
 $(document).ready(function(){
+	
+	//busca cep
+	$('#consultaCEP').click(function(){
+		findCEP();
+	});
+	
     valH1=$('h1').attr('class');
     valH1Aux=valH1[valH1.length-1];
 
@@ -300,11 +316,14 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
+					
+					echo $this->html->image('consultas.png',array('id'=>'consultaCEP','style'=>'margin-left:10px;cursor:pointer;'));
+				
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
 
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'select','class' => 'estado obrigatorio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
+					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estado</span>';
 
 					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio','tabindex'=>'16'));
 				?>
@@ -317,8 +336,8 @@ $(document).ready(function(){
 					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'11'));
 					echo '<span id="valida0Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>';
 
-					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'select','class' => 'cidade obrigatorio','tabindex'=>'14'));
-					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>';
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'cidade obrigatorio tamanho-medio','tabindex'=>'14'));
+					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Preencha o campo Cidade</span>';
 
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea','tabindex'=>'17'));
 				?>
