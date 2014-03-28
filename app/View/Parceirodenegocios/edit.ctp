@@ -36,7 +36,7 @@ function findCEP(ind) {
 		                $("#Endereco"+ind+"Uf").val(unescape(resultadoCEP["uf"]));
 		                $("#Endereco"+ind+"Numero").focus();
 		            }else{
-		                alert("Endereço não encontrado para o cep ");
+		               $('#valida'+ ind +'Cep3').css('display','block');
 		            }
 		        });
 		    }
@@ -161,7 +161,10 @@ $(document).ready(function(){
 				<?php
 					echo $this->Form->input('Endereco.'.$z.'.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
 					echo $this->html->image('consultas.png',array('id'=>'consultaCEP'.$z.'','class'=>'buscaCep','style'=>'margin-left:10px;cursor:pointer;'));
-				
+					
+					echo '<span id="valida'.$z.'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
+					echo '<span id="valida'.$z.'Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
+					echo '<span id="valida'.$z.'Cep3" class="Msg-tooltipDireita" style="display:none">Endereço não encontrado para o cep digitado.</span>';
 					
 					echo $this->Form->input('Endereco.'.$z.'.uf', array('value' => h($endereco['uf']),'label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno','div' => array('class' => 'inputCliente input text divUf')));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
