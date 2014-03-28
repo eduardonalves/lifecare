@@ -85,6 +85,30 @@ select{
 	width:0;
 }
 
+[class*=Msg-tooltipEsquerda]{
+	background-color:#ffd5d5;
+	border:1px solid #aaa;
+	border-radius:5px;
+	color:#d40000;
+	display:block;
+	font-size:13px;
+	padding:3px;
+	position:absolute;
+	text-align:center;
+}
+
+[class*=Msg-tooltipEsquerda]:after{
+	border-width:10px;
+	border-style:solid;
+	border-color:transparent transparent transparent #ffd5d5;
+	content:"";
+	height:0;
+	left:156px;
+	position:absolute;
+	top:15px;
+	width:0;
+}
+
 /* ID *****************************************************************/
 
 
@@ -593,7 +617,7 @@ legend{
 
 .conteudo-principal header img {
 	position:relative;
-	height:24px;
+	/*height:24px;*/
 	float:left;
 }
 
