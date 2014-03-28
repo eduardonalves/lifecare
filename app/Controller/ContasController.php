@@ -171,7 +171,7 @@ class ContasController extends AppController {
 										$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'VERDE', 'bloqueado' =>'Não');
 										$this->Parceirodenegocio->save($updateParceiro);
 										
-										$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
+										//$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
 										//antes de ficar verde verificar limite de crédito e data de validade do limite de crédito (a fazer)
 										
 									}
