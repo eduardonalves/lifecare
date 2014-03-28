@@ -229,13 +229,13 @@ $(document).ready(function() {
 	if(dataEmissao == ''){
 	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 	    $('#msgDataEmissao').css('display','block');
-	    $('[id*="DataEmissao"]').addClass('shadow-vermelho');
+	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else if(CpfCnpj ==''){
 	   // $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
 	    $('#msgAutoComplete').css('display','block');
-	    $('.ui-widget').addClass('shadow-vermelho');
+	    $('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else if(!temclasvalbtconf){
@@ -328,6 +328,14 @@ $(document).ready(function() {
 	    
 	}
     });
+
+    $('input').focusin(function(){
+	valrInput=$('input').val();
+	if(valrInput!=''){
+	    $('input').removeClass('shadow-vermelho');
+	}
+    });
+    
     /*********************Checkbox A Pagar e a Receber***********************/
    
    	var valorAux= $('#filterTipoMovimentacao').val();

@@ -35,11 +35,11 @@ $(document).ready(function(){
 
     if(valH1Aux == 3){
 	$('#ParceirodenegocioClassificacao').attr('disabled',true).val('CLIENTE');
-	$('.areaCliente').show();
+	//$('.areaCliente').show();
 	tipoModal='CLIENTE';
     }else if(valH1Aux == 4){
 	$('#ParceirodenegocioClassificacao').attr('disabled',true).val('FORNECEDOR');
-	$('.areaCliente').hide();
+	//$('.areaCliente').hide();
 	tipoModal='FORNECEDOR';
     }else{
 	$('.areaCliente').hide();
@@ -141,7 +141,7 @@ $(document).ready(function(){
 				$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','none');
 			});
 			return false;
-		}else if(($('#Dadoscredito0Limite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0Limite').val() == '')){
 			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
 			$('#Dadoscredito0Limite').on('focus',function(){
 				if($('#Dadoscredito0Limite').val() == ''){
@@ -153,7 +153,7 @@ $(document).ready(function(){
 				$('#validaLimite').css('display','none');
 			});
 			return false;
-		}else if(($('#Dadoscredito0ValidadeLimite').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#Dadoscredito0ValidadeLimite').val() == '')){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#Dadoscredito0ValidadeLimite').on('focus',function(){
 				if($('#Dadoscredito0ValidadeLimite').val() == ''){
@@ -165,7 +165,7 @@ $(document).ready(function(){
 				$('#validaValidade1').css('display','none');
 			});
 			return false;
-		}else if(($('#ParceirodenegociosBloqueado').val() == '') && ($('#ParceirodenegocioClassificacao').val() == 'CLIENTE')){
+		}else if(($('#ParceirodenegociosBloqueado').val() == '')){
 			$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
 			$('#validaBloqueado').css('display','block');
 			return false;
@@ -240,7 +240,7 @@ $(document).ready(function(){
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4'));
 			echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
 
-			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
+			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio Nao-Letras maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
 		?>
 
 	</section>
@@ -285,7 +285,7 @@ $(document).ready(function(){
 			<section class="coluna-esquerda">
 
 				<?php	
-					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo<span class="campo-obrigatorio">*</span>:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('Principal'),'div' =>array( 'class' => 'input select'),'tabindex'=>'9'));
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo<span class="campo-obrigatorio">*</span>:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'input select'),'tabindex'=>'9'));
 					echo '<span id="valida0tipo" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
 
 					echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
@@ -387,7 +387,8 @@ $(document).ready(function(){
 	</div>
 </section><!--fim Meio-->
 
-<section class="areaCliente"> <!---section Baixo--->	
+<!--<section class="areaCliente">-->
+<section><!---section Baixo--->	
 
 	<header class="">Dados do Crédito</header>
 
