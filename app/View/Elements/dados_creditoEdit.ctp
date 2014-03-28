@@ -13,7 +13,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h($dadoscredito['limite']),'label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h($dadoscredito['limite']),'label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 			echo $this->Form->input('Dadoscredito.'.$y.'.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não','Sim'),'type' => 'select'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';

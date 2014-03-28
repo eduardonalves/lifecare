@@ -49,6 +49,23 @@ function findCEP(ind) {
 	
 $(document).ready(function(){
 	
+	//alert($('#ParceirodenegocioCpfCnpj').val().length);
+	
+	$('#ParceirodenegocioCpfCnpj').val($('#ParceirodenegocioCpfCnpj').attr('value'));
+	/*
+	if( $('#ParceirodenegocioCpfCnpj').val().length == 10){
+		
+		var campoValor = $('#ParceirodenegocioCpfCnpj').attr('value') .replace(/[^0-9]/gi, '');
+		
+		$('#ParceirodenegocioCpfCnpj').val(campoValor);
+		$('#ParceirodenegocioCpfCnpj').mask("999.999.999-99");
+	}
+	*/
+	$('#ParceirodenegocioCpfCnpj').unmask();
+	
+	teste = $('#ParceirodenegocioCpfCnpj').val();
+	$('#ParceirodenegocioCpfCnpj').val(teste);
+	
 	var	indice = 0;
 	$(".buscaCep").click(function(){		
 		indiceAux = $(this).attr("id");
@@ -77,7 +94,7 @@ $(document).ready(function(){
 
 		<?php
 			echo $this->Form->input('Parceirodenegocio.id');
-			echo $this->Form->input('tipo',array('label' => 'Classificação:','disabled'=>'disabled','type' => 'text','class'=>'tamanho-medio borderZero'));
+			echo $this->Form->input('tipo',array('label' => 'Classificação:','type' => 'text','class'=>'tamanho-medio borderZero'));
 			
 			$p=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
@@ -114,7 +131,7 @@ $(document).ready(function(){
 
 		<?php
 		
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','style'=>'background:#EBEAFC;','readonly'=>'true','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','style'=>'background:#EBEAFC;','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
 			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
@@ -247,9 +264,9 @@ $(document).ready(function(){
 
 <section> <!---section Baixo--->	
 	<?php
-		if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
+		//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
 			echo $this->element('dados_creditoEdit');
-		}
+		//}
 	?>
 </section>	
 

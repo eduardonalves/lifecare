@@ -164,6 +164,14 @@ $(document).ready(function(){
 		}else{
 		//$(".loaderAjaxCParceiroDIV").show();
 		//$("#bt-salvarParceiro").hide();
+			
+			var valorLimite = $('.dinheiro_duasCasas').val();
+			
+			valorLimite = valorLimite.replace(/\./g, '');
+			valorLimite = valorLimite.replace(',', '.');
+			
+			$('.dinheiro_duasCasas').val(valorLimite);
+		
 		    $('#ParceirodenegocioClassificacao').removeAttr('disabled');
 
 		    var urlAction = "<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>";
