@@ -20,60 +20,127 @@ class ContasController extends AppController {
  *
  * @return void
  */
- 	public function setStatusParceiro(&$idParceiro){
+ 	public function setStatusParceiro(&$ideParceiro){
  		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Conta');
 		$hoje= date("Y-m-d");
-		$parceiros = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE','Parceirodenegocio.id' => $idParceiro)));
+		$parceiros = $this->Parceirodenegocio->find('all',array('conditions' => array('Parceirodenegocio.id' => $ideParceiro), 'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*')));
 		
-		//debug($parceiros);
 		
-		foreach($parceiros as $parceiro){
+		if(!empty($parceiros)){
+			foreach($parceiros as $parceiro){
 			
-			foreach($parceiro['Dadoscredito'] as $dadosCredito){
-				if($dadosCredito['bloqueado'] != 'Sim'){
-					$vencimento= $dadosCredito['validade_limite'];
-					$diasCritico = 10;
-					$hoje= date("Y-m-d");
-					$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
-					
-					$valorLimite = $dadosCredito['limite'];
-					
-					$valorLimiteUsado = $dadosCredito['limite_usado'];
-					
-					$pocentagem = ($dadosCredito['limite'] * $dadosCredito['limite_usado'])/100;
-					
-					if($vencimento < $hoje){
-						$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
-						$this->Parceirodenegocio->save($updateParceiro);
-						
-					}else if( $dataCritica < $hoje ){
-						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO'){
-							$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
-							$this->Parceirodenegocio->save($updateParceiro);
-						}
-					}else{
-						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO' && $parceiro['Parceirodenegocio']['status'] != 'AMARELO'){
-							if($pocentagem > $valorLimite){
-								$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
-								$this->Parceirodenegocio->save($updateParceiro);
+				if(isset($parceiro['Dadoscredito'])){
+					if(!empty($parceiro['Dadoscredito'])){
+						foreach($parceiro['Dadoscredito'] as $dadosCredito){
+							
+							if($dadosCredito['bloqueado'] != 'Sim'){
+								$vencimento= $dadosCredito['validade_limite'];
+								$diasCritico = 10;
+								$hoje= date("Y-m-d");
+								$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+								
+								$valorLimite = $dadosCredito['limite'];
+								if($valorLimite =='' or $valorLimite=='NULL'){
+								
+									$valorLimite=0;	
+									
+								}
+								$valorLimiteUsado = $dadosCredito['limite_usado'];
+								
+								if($valorLimiteUsado =='' or $valorLimiteUsado=='NULL'){
+									$valorLimiteUsado=0;
+								}
+								
+								$pocentagem=0;
+								$pocentagem = ($dadosCredito['limite'] * 80)/100;
+								
+								
+								
+								if($vencimento < $hoje){
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+									
+								}else if( $dataCritica < $hoje ){
+										
+										$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
+										$this->Parceirodenegocio->save($updateParceiro);
+										
+										
+								
+								}else{
+									
+										if($pocentagem < $valorLimite){
+											$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
+											$this->Parceirodenegocio->save($updateParceiro);
+										}
+										
+									
+								} 
+								
+								if($valorLimite < $valorLimiteUsado){
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+								}else if($pocentagem < $valorLimiteUsado){
+									
+										
+										
+										$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
+										$this->Parceirodenegocio->save($updateParceiro);
+									
+								}else{
+										
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+								}
+								
 							}
 						}
-					} 
-					
-					if($valorLimite <= $valorLimiteUsado){
-						$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
-						$this->Parceirodenegocio->save($updateParceiro);
-					}else if($pocentagem <= $valorLimite){
-						if($parceiro['Parceirodenegocio']['status'] != 'VERMELHO'){
-							$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
-							$this->Parceirodenegocio->save($updateParceiro);
-						}
-					}
+					}	
 				}
+
+
+
+
+				$contasEmAtraso2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'VERMELHO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAtraso =count($contasEmAtraso2);
+				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'AND' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAberto= count($contasEmAberto2);
+				$contasPrestesAVencer2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'AMARELO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'))); 
+				$contasPrestesAVencer=count($contasPrestesAVencer2);
+				
+					
+				if($contasEmAtraso >= 1){
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO');
+					$this->Parceirodenegocio->save($updateParceirodenegocio);
+					
+				}else if($contasPrestesAVencer >= 1){
+					
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'AMARELO');
+					$this->Parceirodenegocio->save($updateParceirodenegocio);
+					$contasPrestesAVencer =count($contasPrestesAVencer2);
+					
+					
+					
+				}else{
+					if(isset($valorLimite)){
+						if($pocentagem < $valorLimite){
+							$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'VERDE');
+							$this->Parceirodenegocio->save($updateParceirodenegocio);
+						}
+					}else{
+						$updateParceirodenegocio= array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'VERDE');
+						$this->Parceirodenegocio->save($updateParceirodenegocio);
+					}
+					
+				}
+					
+				
 			}
-		}
-		
-		
+		}	
  	}
 
 	public function setLimiteUsadoLess(&$clienteId, &$valorParcela){
@@ -110,23 +177,25 @@ class ContasController extends AppController {
 				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
 				$conta = $this->Conta->find('first', array('recursive' => -1, 'conditions' => array('Conta.id' => $parcela['_Conta']['id'])));
 				
-				if(isset($conta)){
-					if(!empty($conta) && $conta['Conta']['status'] !='CANCELADO'){
+				if(isset($conta) && !empty($conta)){
+											
+					if($conta['Conta']['status'] !='CANCELADO'){
 						if($parcela['Parcela']['status'] != 'CINZA'){
 								if($diasCritico !=''){
-									if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+									if($vencimento < $hoje){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 										$this->Parcela->save($updatevencimento);
 										
-											
-										//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
-										//$this->Conta->save($updateConta);
-									}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+									}else if( $dataCritica < $hoje){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
 										$this->Parcela->save($updatevencimento);
+										
+										
 									}else{
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
 										$this->Parcela->save($updatevencimento);
+										
+										
 									} 
 								}else{
 									if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
@@ -153,52 +222,34 @@ class ContasController extends AppController {
 									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
 									$this->Conta->save($updateConta);
 									
-									$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'VERMELHO', 'bloqueado' =>'Sim');
-									$this->Parceirodenegocio->save($updateParceiro);
 								
 							}else{
-								if(isset($contasPrestesAVencer)){
-									if(!empty($contasPrestesAVencer)){
-										$updateConta = array('id' => $parcela['_Conta']['id'],  'status' =>'AMARELO');
-										$this->Conta->save($updateConta);
-										
-										$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'AMARELO', 'bloqueado' =>'Não');
-										$this->Parceirodenegocio->save($updateParceiro);
+								
+								if(!empty($contasEmAberto)){
+									if(isset($contasPrestesAVencer)){
+										if(!empty($contasPrestesAVencer)){
+											$updateConta = array('id' => $parcela['_Conta']['id'],  'status' =>'AMARELO');
+											$this->Conta->save($updateConta);
+											
+										}
 									}else{
 										$updateConta = array('id' => $parcela['_Conta']['id'],  'status' =>'VERDE');
 										$this->Conta->save($updateConta);
+											
 										
-										$updateParceiro = array('id' => $conta['Conta']['parceirodenegocio_id'], 'status' => 'VERDE', 'bloqueado' =>'Não');
-										$this->Parceirodenegocio->save($updateParceiro);
-										
-										$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
-										//antes de ficar verde verificar limite de crédito e data de validade do limite de crédito (a fazer)
-										
-									}
-								}else{
-									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_atraso' => 0);
-									$this->Conta->save($updateConta);
-								}	
+									}	
 									
-								
-								
-							}
-					
-					
-						
-							if(!empty($contasEmAberto)){
-								
-									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_aberto' => $contasEmAberto);
-									$this->Conta->save($updateConta);
-								
-							}else{
-								
+								}else{
 									$updateConta = array('id' => $parcela['_Conta']['id'], 'parcelas_aberto' => 0, 'status' => 'CINZA');
 									$this->Conta->save($updateConta);
-								
+								}
 								
 							}
+							
+							
+				
 						}
+					
 					
 				}//aqui
 				
@@ -262,7 +313,7 @@ class ContasController extends AppController {
 		
 			//Verificamos a data para setarmos o semáfaro do Parcela
 			
-			//Inicio Cemáfaro
+			
 		
 	}
 	
@@ -273,10 +324,27 @@ class ContasController extends AppController {
 		
 	}
 		
+		
+	
+		
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
 	$users= $this->User->find('list');
+	
+		//debug($this->request->data['filter']);
+// ########## CONVERTE AS DATAS DO FILTRO  PARA O FORMATO DO BD ############
+	if(isset($this->request->data['filter'])){
+		foreach($this->request->data['filter'] as $key=>$value){
+			if(isset($this->request->data['filter']['data_vencimento'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento']);
+			}	
+			if(isset($this->request->data['filter']['data_vencimento-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento-between']);
+			}	
+		}
+		
+	}	
 	
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
@@ -372,6 +440,7 @@ class ContasController extends AppController {
 		);
 
 /*-------Filtros da consulta fim---------*/
+
 	
 /*--------CONFIG Contas----------*/
 		$this->loadModel('Configconta');
@@ -510,6 +579,7 @@ class ContasController extends AppController {
 				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
 				
 				
+				
 			
 				$contas[$id]['Conta']['nome_parceiro']="";
 				
@@ -517,6 +587,10 @@ class ContasController extends AppController {
 			
 				if(isset($parceirodenegocio)){
 						if(!empty($parceirodenegocio)){
+							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
+								$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+							}
+							
 							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
 							$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
 							$contas[$id]['Conta']['status_parceiro'] = $parceirodenegocio['Parceirodenegocio']['status'];	

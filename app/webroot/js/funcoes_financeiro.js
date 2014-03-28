@@ -13,6 +13,32 @@ $(document).ready(function() {
 	    nextText: 'Próximo',
 	    prevText: 'Anterior'
     });
+/*****************************Converte o formato das datas da consulta************************************************/
+
+	datavencimentoInicio = $('#filterDataVencimento').val();
+	
+	if(datavencimentoInicio  != undefined){
+		if(datavencimentoInicio !=''){
+			iniano =  datavencimentoInicio.substr(0, 4);
+			inimes = datavencimentoInicio.substr(5,2);
+			inidia = datavencimentoInicio.substr(8,2);
+			dataInicio =  inidia+'/'+inimes+'/'+iniano;
+			$('#filterDataVencimento').val(dataInicio);
+		}
+	}
+	
+	datavencimentoFim = $('#filterDataVencimento-between').val();
+	if(datavencimentoFim  != undefined){
+		if(datavencimentoFim != ''){
+			
+			fimano =  datavencimentoFim.substr(0, 4);
+			fimmes = datavencimentoFim.substr(5,2);
+			fimdia = datavencimentoFim.substr(8,2);
+			dataFim =  fimdia+'/'+fimmes+'/'+fimano;
+			$('#filterDataVencimento-between').val(dataFim);
+		}
+	}
+
 
 /*** Validação de Datas Consultas ****************************************/
 
