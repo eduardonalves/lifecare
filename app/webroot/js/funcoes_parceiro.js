@@ -9,16 +9,22 @@ $(document).ready(function() {
 		
 		
 		if($.trim($("#Endereco"+ indexCep +"Cep").val()) != ""){
-			
+
+			//adiciona o loader
+			$('#loaderCep').remove();
+			$("#Endereco"+ indexCep +"Cep").after('<img id="loaderCep" src="/lifecare/app/webroot/img/loaderInput.gif" style="display:block">');
+
 			$.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco"+ indexCep +"Cep").val().replace("-", ""), function(){
 				if(resultadoCEP["resultado"] == 1){
-					$("#Endereco"+ indexCep +"Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
-					$("#Endereco"+ indexCep +"Bairro").val(unescape(resultadoCEP["bairro"]));
-					$("#Endereco"+ indexCep +"Cidade").val(unescape(resultadoCEP["cidade"]));
-					$("#Endereco"+ indexCep +"Uf").val(unescape(resultadoCEP["uf"]));
-					$("#Endereco"+ indexCep +"Numero").focus();
+				    $('#loaderCep').remove();
+				    $("#Endereco"+ indexCep +"Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+				    $("#Endereco"+ indexCep +"Bairro").val(unescape(resultadoCEP["bairro"]));
+				    $("#Endereco"+ indexCep +"Cidade").val(unescape(resultadoCEP["cidade"]));
+				    $("#Endereco"+ indexCep +"Uf").val(unescape(resultadoCEP["uf"]));
+				    $("#Endereco"+ indexCep +"Numero").focus();
 				}else{
-					$('#valida'+ indexCep +'Cep3').css('display','block');
+				    $('#loaderCep').remove();
+				    $('#valida'+ indexCep +'Cep3').css('display','block');
 				}
 			});
 		}

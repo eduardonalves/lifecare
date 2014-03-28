@@ -185,3 +185,10 @@ span[id$="Logradouro"]{
     top: -4px;
     top:0px;
 }
+
+#loaderCep{
+    margin-left: 225px;
+    margin-top: -43px;
+    position: absolute;
+    width: 40%;
+}
