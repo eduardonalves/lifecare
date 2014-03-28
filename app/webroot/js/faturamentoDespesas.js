@@ -610,7 +610,7 @@ var allopts = {
 var nooptions = { }
 
 var newopts = {
-      inGraphDataShow : true, //Ativação do valor em cima das barras
+      inGraphDataShow : false, //Ativação do valor em cima das barras
       datasetFill : true,
       scaleLabel: "<%=value%>",
       scaleTickSizeRight : 5,

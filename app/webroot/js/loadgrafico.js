@@ -220,7 +220,7 @@ var allopts = {
 var nooptions = { }
 
 var newopts = {
-      inGraphDataShow : true,
+      inGraphDataShow : false,
       datasetFill : true,
       scaleLabel: "<%=value%>",
       scaleTickSizeRight : 5,
