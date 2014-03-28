@@ -653,10 +653,10 @@ class ContasController extends AppController {
 			if(isset($this->request->data['Configconta'])){
 				$this->Configconta->create();
 				if ($this->Configconta->save($this->request->data)) {
-					$this->Session->setFlash(__('The configconta has been saved.'));
+					$this->Session->setFlash(__('As configurações da movimentação Foram Salvas.'),'default',array('class'=>'success-flash'));
 					return $this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash(__('The configconta could not be saved. Please, try again.'));
+					$this->Session->setFlash(__('As configurações da movimentação Foram Salvas.Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
 				}
 			}
 		
