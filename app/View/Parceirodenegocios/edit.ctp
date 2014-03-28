@@ -24,6 +24,7 @@
 ?>
 
 <script>
+	
 function findCEP(ind) {
 		    if($.trim($("#Endereco"+ind+"Cep").val()) != ""){
 		        
