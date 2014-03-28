@@ -18,6 +18,8 @@
 ?>
 
 <script>
+var contadorBlocoEndereco = 1;
+var contadorBlocoDadosBanc = 1;
 
 	function findCEP() {
 		    if($.trim($("#Endereco0Cep").val()) != ""){
@@ -30,7 +32,7 @@
 		                $("#Endereco0Uf").val(unescape(resultadoCEP["uf"]));
 		                $("#Endereco0Numero").focus();
 		            }else{
-		                alert("Endereço não encontrado para o cep ");
+		                $('#valida'+ (contadorBlocoEndereco-1) +'Cep3').css('display','block');
 		            }
 		        });
 		    }
@@ -60,9 +62,6 @@ $(document).ready(function(){
     }else{
 	$('.areaCliente').hide();
     }
-	
-	var contadorBlocoEndereco = 1;
-	var contadorBlocoDadosBanc = 1;
 	
 	$('#bt-salvarParceiroModal').click(function(event){
 	    event.preventDefault();
@@ -321,6 +320,7 @@ $(document).ready(function(){
 				
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
+					echo '<span id="valida0Cep3" class="Msg-tooltipDireita" style="display:none">Endereço não encontrado para o cep digitado.</span>';
 
 					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estado</span>';
