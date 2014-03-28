@@ -59,7 +59,7 @@ textarea{
 	left: 260px;	
 }
 
-#validaNome, #validaLimite, #validaTelefone22,#valida0Cep3, span[id*="Cep1"], span[id*="Cep2"]{
+#validaNome, #validaLimite, #validaTelefone22,span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
 	width:85px;
 	top:-5px;
 	left:341px;

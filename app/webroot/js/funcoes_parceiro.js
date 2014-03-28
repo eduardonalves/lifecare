@@ -1,9 +1,37 @@
 $(document).ready(function() {
-
-/*** Criação dos Blocos de Endereços e Dados Bancários ****************/
+	
 	var contadorBlocoEndereco = 1;
 	var contadorBlocoDadosBanc = 1;
 
+
+	function findCEP(indexCep) {
+		
+		
+		
+		if($.trim($("#Endereco"+ indexCep +"Cep").val()) != ""){
+			
+			$.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco"+ indexCep +"Cep").val().replace("-", ""), function(){
+				if(resultadoCEP["resultado"] == 1){
+					$("#Endereco"+ indexCep +"Logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+					$("#Endereco"+ indexCep +"Bairro").val(unescape(resultadoCEP["bairro"]));
+					$("#Endereco"+ indexCep +"Cidade").val(unescape(resultadoCEP["cidade"]));
+					$("#Endereco"+ indexCep +"Uf").val(unescape(resultadoCEP["uf"]));
+					$("#Endereco"+ indexCep +"Numero").focus();
+				}else{
+					$('#valida'+ indexCep +'Cep3').css('display','block');
+				}
+			});
+		}
+	}
+	
+	//busca cep
+	$('body').on('click','.buscarCEP',function(){
+		var indexCep = $(this).attr('id').substr($(this).attr('id').length - 1);
+		
+		findCEP(indexCep);
+	});
+
+/*** Criação dos Blocos de Endereços e Dados Bancários ****************/
 	var contadorTab = 29;
 
 	function botaoRemoverEnd(){
@@ -64,12 +92,14 @@ $(document).ready(function() {
 							<label for="Endereco0Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep" tabindex="'+ (contadorTab+1) +'"/>\
 						</div>\
+						<img src="/lifecare/app/webroot/img/consultas.png" id="consultaCEP'+ contadorBlocoEndereco +'" class="buscarCEP" style="margin-left:10px;cursor:pointer;" alt="" />\
 						<span id="valida'+ contadorBlocoEndereco +'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>\
 						<span id="valida'+ contadorBlocoEndereco +'Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>\
+						<span id="valida'+ contadorBlocoEndereco +'Cep3" class="Msg-tooltipDireita" style="display: none;">Endereço não encontrado para o cep digitado.</span>\
 						\
 						<div class="inputCliente input text divUf">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Uf">UF<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" class="estado obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Uf" tabindex="'+ (contadorTab+4) +'"></select>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][uf]" class="obrigatorio tamanho-medio" tabindex="'+ (contadorTab+4) +'" type="text" id="Endereco'+ contadorBlocoEndereco +'Uf"/>\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>\
 						\
@@ -88,7 +118,7 @@ $(document).ready(function() {
 						\
 						<div class="input select">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Cidade">Cidade<span class="campo-obrigatorio">*</span>:</label>\
-							<select name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" class="cidade obrigatorio" id="Endereco'+ contadorBlocoEndereco +'Cidade" tabindex="'+ (contadorTab+5) +'"></select>\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cidade]" class="obrigatorio tamanho-medio" tabindex="'+ (contadorTab+5) +'" type="text" id="Endereco'+ contadorBlocoEndereco +'Cidade">\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Cidade" class="Msg-tooltipAbaixo" style="display:none">Selecione o Cidade</span>\
 						<div class="input textarea">\
@@ -103,11 +133,6 @@ $(document).ready(function() {
 			contadorBlocoEndereco++;
 			contadorTab = contadorTab+10;
 		}
-
-		new dgCidadesEstados({
-			estado: $('#'+idUf).get(0),
-			cidade: $('#'+idCidade).get(0)
-		});
 
 		jQuery(function($){
 			$(".maskCep").mask("99999-999");
