@@ -324,12 +324,15 @@ $(document).ready(function(){
 	</div>
 
 	<div class="fake-footer">
-
+		
+	
+		
 		<?php
 			echo $this->html->image('endereco-adional.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco de Endereços','id'=>'bt-addEndereco','class'=>'bt-direita'));
+			
 			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco de Endereços','id'=>'remove-area-endereco','class'=>'bt-direita'));
 		?>
-
+			<span id="validaEndBloco" class="Msg-tooltipEsquerda" style="display:none">São necessarios os campos obrigatórios para adicionar novo bloco</span>
 	</div>
 </section><!--fim Meio-->
 

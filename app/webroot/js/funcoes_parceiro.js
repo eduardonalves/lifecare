@@ -89,7 +89,7 @@ $(document).ready(function() {
 					\
 					<section class="coluna-central" >\
 						<div class="input text">\
-							<label for="Endereco0Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
+							<label for="Endereco'+ contadorBlocoEndereco +'Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep" tabindex="'+ (contadorTab+1) +'"/>\
 						</div>\
 						<img src="/lifecare/app/webroot/img/consultas.png" id="consultaCEP'+ contadorBlocoEndereco +'" class="buscarCEP" style="margin-left:10px;cursor:pointer;" alt="" />\
@@ -132,6 +132,8 @@ $(document).ready(function() {
 
 			contadorBlocoEndereco++;
 			contadorTab = contadorTab+10;
+		}else{
+			$('#validaEndBloco').css('display','block');
 		}
 
 		jQuery(function($){
@@ -186,7 +188,7 @@ $(document).ready(function() {
 						\
 						<div class="input text">\
 							<label for="DadosbancarioTelefoneBanco">Telefone:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco" tabindex="'+ (contadorTab+6) +'"/>\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno maskTel" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco" tabindex="'+ (contadorTab+6) +'"/>\
 						</div>\
 					</section>\
 				<div>');
@@ -217,23 +219,6 @@ $(document).ready(function() {
 	});
 
 
-/*** Visualização de Créditos *****************************************/
-/*
-	if($('#ParceirodenegocioClassificacao').val() == 'CLIENTE'){
-		$('.areaCliente').css('display','inline-block');
-	}else{
-		$('.areaCliente').css('display','none');
-	}
-
-	$('#ParceirodenegocioClassificacao').change(function(){
-		if($('#ParceirodenegocioClassificacao').val() == 'CLIENTE'){
-			$('.areaCliente').css('display','inline-block');
-		}else{
-			$('.areaCliente').css('display','none');
-		}
-	});
-
-*/
 /*** Validação ********************************************************/
 
 	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
@@ -439,10 +424,12 @@ $(document).ready(function() {
 
 		if(valorCpfCnpj == 'inputcpf'){
 			$("#ParceirodenegocioCpfCnpj").removeAttr("disabled");
+			$("#ParceirodenegocioCpfCnpj").removeAttr("readonly");
 			$("#ParceirodenegocioCpfCnpj").css("background-color","#FFFFFF;");
 			$("#ParceirodenegocioCpfCnpj").mask("999.999.999-99");//cpf
 		}else{
 			$("#ParceirodenegocioCpfCnpj").removeAttr("disabled");
+			$("#ParceirodenegocioCpfCnpj").removeAttr("readonly");
 			$("#ParceirodenegocioCpfCnpj").css("background-color","#FFFFFF;");
 			$("#ParceirodenegocioCpfCnpj").mask("99.999.999/9999-99");//cnpj
 		}
