@@ -13,7 +13,7 @@ class DadoscreditosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','RequestHandler','lifecareDataFuncs');
 
 /**
  * index method
@@ -47,17 +47,32 @@ class DadoscreditosController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito']['validade_limite']);
 			$this->Dadoscredito->create();
+			$ultimoDadoscreditoAtivo = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $this->request->data['Dadoscredito']['parceirodenegocio_id']),'order' => array('Dadoscredito.id' => 'desc'), 'recursive' =>-1));
+			
 			if ($this->Dadoscredito->save($this->request->data)) {
-				$this->Session->setFlash(__('The dadoscredito has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$updateUltimoLimite = array('id' => $ultimoDadoscreditoAtivo['Dadoscredito']['id'],'bloqueado' => 1);
+				$this->Dadoscredito->save($updateUltimoLimite);
+				$ultimoDadoscredito = $this->Dadoscredito->find('first', array('order' => array('Dadoscredito.id' => 'desc'), 'recursive' =>-1));
+				$userid = $this->Session->read('Auth.User.id');
+				$dadosCreditoUser= array( 'id' =>$ultimoDadoscredito['Dadoscredito']['id'], 'user_id' => $userid);
+				$this->Dadoscredito->save($dadosCreditoUser);
+				
+				$this->set(compact('ultimoDadoscredito'));
+				
+				if(! $this->request->is('ajax')){
+					$this->Session->setFlash(__('The dadoscredito has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The dadoscredito could not be saved. Please, try again.'));
+				$ultimoDadoscredito = $this->request->data;
+				//$this->Session->setFlash(__('The dadoscredito could not be saved. Please, try again.'));
 			}
 		}
-		$parceirodenegocios = $this->Dadoscredito->Parceirodenegocio->find('list');
-		$users = $this->Dadoscredito->User->find('list');
-		$this->set(compact('parceirodenegocios', 'users'));
+		//$parceirodenegocios = $this->Dadoscredito->Parceirodenegocio->find('list');
+		//$users = $this->Dadoscredito->User->find('list');
+		$this->set(compact('ultimoDadoscredito'));
 	}
 
 /**
