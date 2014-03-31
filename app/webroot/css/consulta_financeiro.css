@@ -381,3 +381,29 @@ margin-bottom: 50px;
 	height:16px;
 }
 #cpf_cnpj{margin-top:3px}
+
+#vazioDataEmissao{
+    left: 328px;
+    top: 75px;
+    width: 76px;
+    z-index: 1;
+}
+
+#vazioDataQuitacao{
+    left: 328px;
+    top: 100px;
+    width: 76px;
+    z-index: 1;
+}
+#vazioDataVencimento{
+    left: 328px;
+    top: 80px;
+    width: 76px;
+    z-index: 99;
+}
+#vazioFilterValor{
+    left: 328px;
+    top: 55px;
+    width: 76px;
+    z-index: 99;
+}

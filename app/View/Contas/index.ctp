@@ -38,6 +38,8 @@
 $(document).ready(function() {
 	var usoInicioPhp = '<?php ?>' ;
 	var usoGet = '$_GET["ql"]';
+
+	
     });
 </script>
 <?php
@@ -160,7 +162,7 @@ $(document).ready(function() {
 				</div>	
 				<div class="inputSearchValor">
 					<?php
-						echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio'));
+						echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio dinheiro_duasCasas'));
 					?>
 				</div>
 				<div class="inputSearchData">
