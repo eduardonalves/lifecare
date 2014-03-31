@@ -203,6 +203,8 @@ $(document).ready(function() {
 
 			contadorBlocoDadosBanc++;
 			contadorTab = contadorTab+10;
+		}else{
+			$('#validaBancBloco').css('display','block');
 		}
 
 		botaoRemoverBanc();

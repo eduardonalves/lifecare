@@ -164,7 +164,7 @@
 									    'class'=>'bt-direita',
 									    'id'=>'bt-adicionarConta-pagar'
 		));
-		echo $this->html->image('botao-editar2.png',array('alt'=>'Editar',
+		echo $this->html->image('botao-concluir-edicao.png',array('alt'=>'Editar',
 				     'title'=>'Editar Conta',
 				     'id'=>'bt-editarConta-pagar',
 				     'class'=>'bt-direita'
