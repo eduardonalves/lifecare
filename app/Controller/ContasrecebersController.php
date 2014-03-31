@@ -133,17 +133,53 @@ class ContasrecebersController extends ContasController {
 	public function setLimiteUsadoAdd(&$clienteId, &$valorConta){
 		$this->loadModel('Dadoscredito');
 		
-		$dadosCredito = $this->Dadoscredito->find('first', array('conditios' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
 		
 		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
 		
 		$novoLimiteUsado =  $limiteUsado + $valorConta;
-		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['parceirodenegocio_id'],'limite_usado' => $novoLimiteUsado);
+		$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+		
 		$this->Dadoscredito->save($updateDadosCredito);
 	
 	}
 	
+	public function verificaLimiteUsado(&$clienteId, &$valorConta, &$pagamentoTipo, &$pagamentoForma){
+		$this->loadModel('Dadoscredito');
+		
+		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		
+		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+		
+		
+		if($limiteUsado == 'null' || $limiteUsado ==''){
+			$limiteUsado=0;
+		}
+		
+		
+		$limite = $dadosCredito['Dadoscredito']['limite'];
+		if($limite == 'null' || $limite ==''){
+			$limite=0;	
+		}
+		
+		
+		if($pagamentoTipo == "A Vista"){
+			return true;
+		}else if($pagamentoForma == "CREDITO"){
+			return true;
+		}else{	
+			$saldo = $limite - $limiteUsado;
+		
+			if( $saldo < $valorConta){
+				
+				return false;
+			}else{
+				return true;
+			}			
+		}
 	
+		
+	}
 	
 /**
  * add method
@@ -154,50 +190,65 @@ class ContasrecebersController extends ContasController {
 		$this->layout = 'contas';
 		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
-				$this->Contasreceber->create();
+		
+			
+			
+			$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
-			if ($this->Contasreceber->saveAll($this->request->data)) {
-				$this->loadModel('Pagamento');
-				$this->loadModel('Parcela');
-				$this->loadModel('ParcelasConta');
-				$this->loadModel('Conta');
-				$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
-				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
-				$parcelasEnviadas = $this->request->data['Parcela'];
-				//debug($parcelasEnviadas);
-				$cont=0;
-				foreach($parcelasEnviadas as $parcelasEnviada){
-					//$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
-					$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+				foreach( $this->request->data['Pagamento'] as $pagamento){
+					$formaPagamento = $pagamento['forma_pagamento'];
+					$pagamentoTipo = $pagamento['tipo_pagamento'];
+				}
+			
+			if($this->verificaLimiteUsado($this->request->data['Contasreceber']['parceirodenegocio_id'], $this->request->data['Contasreceber']['valor'], $pagamentoTipo,  $formaPagamento)){
+					if ($this->Contasreceber->saveAll($this->request->data)) {
+					$this->loadModel('Pagamento');
+					$this->loadModel('Parcela');
+					$this->loadModel('ParcelasConta');
+					$this->loadModel('Conta');
+					$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
+					$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+					$parcelasEnviadas = $this->request->data['Parcela'];
+					//debug($parcelasEnviadas);
+					$cont=0;
+					foreach($parcelasEnviadas as $parcelasEnviada){
+						//$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
+						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						
+						$this->Parcela->create();
+						$this->Parcela->save($parcelasEnviada);
+						$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+						
+						$this->ParcelasConta->create();
+						$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
+						$this->ParcelasConta->save($parcela_conta);
+						
+					}
+					$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
+					$this->setStatusConta($ultimaConta['Conta']['id']);
+					$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+					$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor']);
 					
-					$this->Parcela->create();
-					$this->Parcela->save($parcelasEnviada);
-					$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+					$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 					
-					$this->ParcelasConta->create();
-					$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
-					$this->ParcelasConta->save($parcela_conta);
+					
+					
+					return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
+					debug($ultimaConta['Conta']['parceirodenegocio_id']);
+				} else {
+					$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
+	
+					return $this->redirect(array('action' => 'index'));
 					
 				}
-				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
-				$this->setStatusConta($ultimaConta['Conta']['id']);
-				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
-				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor']);
-				
-				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
-				
-				
-				
-				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
-				
-			} else {
-				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
+			}else{
+				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Limite de crédito excedido.'), 'default', array('class' => 'error-flash'));
+	
+				//return $this->redirect(array('action' => 'index'));
+			}	
 
-				return $this->redirect(array('action' => 'index'));
-				
-			}
 			
-			
+		
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));

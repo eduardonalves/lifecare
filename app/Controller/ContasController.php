@@ -146,7 +146,7 @@ class ContasController extends AppController {
 	public function setLimiteUsadoLess(&$clienteId, &$valorParcela){
 		$this->loadModel('Dadoscredito');
 		
-		$dadosCredito = $this->Dadoscredito->find('first', array('conditios' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
 		
 		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
 		
@@ -155,7 +155,7 @@ class ContasController extends AppController {
 		if($novoLimiteUsado < 0){
 			$novoLimiteUsado=0;	
 		}
-		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['parceirodenegocio_id'],'limite_usado' => $novoLimiteUsado);
+		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
 		$this->Dadoscredito->save($updateDadosCredito);
 	
 	}
@@ -926,9 +926,9 @@ class ContasController extends AppController {
 					$updateParcela = array('id' => $parcela['Parcela']['id'], 'status' => 'CANCELADO');
 					$this->Parcela->save($updateParcela);
 				}
-				if($conta['Conta']['status'] != 'CINZA'){
-					$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
-				}
+				
+				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
+				
 				
 				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'));
 				return $this->redirect(array('action' => 'view', $parcela['_Conta']['id']));
