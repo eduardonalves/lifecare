@@ -67,6 +67,14 @@ textarea{
 	position:absolute;
 }
 
+#validaBancBloco{
+	width: 150px;
+	right: 200px;
+	margin-top: -15px;
+	z-index:1;
+	position:absolute;
+}
+
 #validaNome, #validaLimite, #validaTelefone22,span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
 	width:85px;
 	top:-5px;

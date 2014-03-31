@@ -224,7 +224,10 @@ $(document).ready(function() {
 		    foreach($configCont as $campo=>$campoLabel)
 		    {
 			if($campo=='parcelas'){
-				 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+				 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+			}else if($campo == 'parceirodenegocio_id' ){
+				//echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+
 			}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
 				echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 
@@ -243,7 +246,115 @@ $(document).ready(function() {
 
 	    <tr>
 		<td class="actions">
-		    <?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id']))); ?>
+		    <?php 
+				echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar Conta','url'=>array('alt'=>'Visualizar Conta','controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
+				
+				echo "<a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
+				echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Parcelas','class' => 'bt-visualizarParcela','title'=>'Visualizar Lista de Parcelas'));
+				echo "</a>";
+			
+				echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
+				'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
+			?>
+			
+			<div class="modal fade" id="myModal_add-view_parcelas<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); 
+			?>
+				<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>	
+					<h1>Visualização das Parcelas</h1>
+				</header>
+
+				<section>
+				<header>Parcelas</header>
+
+				<section class="coluna-modal">
+					<table>
+					<thead>
+						<tr>
+						<th>Identificação do Documento</th>
+						<th>Data de Vencimento</th>
+						<th>Data de Pagamento</th>
+						<th>Período Crítico</th>
+						<th>Valor</th>
+						<th>Desconto</th>																	
+						<th>Código de Barras</th>																	
+						<th>Parcela</th>																	
+						<th>Banco</th>																	
+						<th>Agência</th>																	
+						<th>Conta</th>																	
+						<th>Status</th>		
+						</tr>											
+					</thead>
+							
+					<?php
+					
+						foreach($conta['Parcela'] as $parcela){
+						echo "<tr><td>";
+							echo $parcela['identificacao_documento'];															
+						echo "</td>";	
+						
+						echo "<td>";
+							formatDateToView($parcela['data_vencimento']);
+							echo $parcela['data_vencimento'];															
+						echo "</td>";
+						
+						echo "<td>";
+							formatDateToView($parcela['data_pagamento']);
+							echo $parcela['data_pagamento'];															
+						echo "</td>";
+						
+						echo "<td>";
+							echo $parcela['periodocritico'];															
+						echo "</td>";
+						
+						echo "<td>";
+							echo number_format($parcela['valor'], 2, ',', '.');  															
+						echo "</td>";
+						
+						echo "<td>";
+							echo number_format($parcela['desconto'], 2, ',', '.');
+						echo "</td>";
+						
+						echo "<td>";
+							echo $parcela['codigodebarras'];
+						echo "</td>";
+						
+						echo "<td>";
+							echo $parcela['parcela'];
+						echo "</td>";
+						
+						echo "<td>";
+							echo $parcela['banco'];
+						echo "</td>";
+					
+						echo "<td>";
+							echo $parcela['agencia'];
+						echo "</td>";
+						
+						echo "<td>";
+							echo $parcela['conta'];
+						echo "</td>";
+						
+						echo "<td>";
+							echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
+						echo "</td>";
+						
+						
+						
+						echo "</tr>";												
+						}
+					?>
+										
+					</table>
+				</section>
+				</section>
+			</div>	
+			</div>
 		</td>
 		    
 	<?php 
@@ -256,124 +367,18 @@ $(document).ready(function() {
 		    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
 		    //Monter uma tabela dentro de um modal
 		}else if($campo=="parceirodenegocio_id"){
-		    echo "<td class='statusParceiro'>"; 
-		    echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
-			'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
-		    echo "</a></td>";
+		    //echo "<td class='statusParceiro'>"; 
+		    //echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
+			//'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
+		    //echo "</a></td>";
 		}else if($campo=="parcelas"){
-		    echo "<td class='parcelas'><a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
-		    echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizarParcela','title'=>'Visualizar'));
-		    echo "</a>";
-	?>
-										
-    <div class="modal fade" id="myModal_add-view_parcelas<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-body">
-	<?php
-	    echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); 
-	?>
-	    <header id="cabecalho">
-		<?php 
-		    echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-		?>	
-		    <h1>Visualização das Parcelas</h1>
-	    </header>
-
-	    <section>
-		<header>Parcelas</header>
-
-		<section class="coluna-modal">
-		    <table>
-			<thead>
-			    <tr>
-				<th>Identificação do Documento</th>
-				<th>Data de Vencimento</th>
-				<th>Data de Pagamento</th>
-				<th>Período Crítico</th>
-				<th>Valor</th>
-				<th>Desconto</th>																	
-				<th>Código de Barras</th>																	
-				<th>Parcela</th>																	
-				<th>Banco</th>																	
-				<th>Agência</th>																	
-				<th>Conta</th>																	
-				<th>Status</th>		
-			    </tr>											
-			</thead>
-					
-			<?php
-			
-			    foreach($conta['Parcela'] as $parcela){
-				echo "<tr><td>";
-					echo $parcela['identificacao_documento'];															
-				echo "</td>";	
-				
-				echo "<td>";
-					formatDateToView($parcela['data_vencimento']);
-					echo $parcela['data_vencimento'];															
-				echo "</td>";
-				
-				echo "<td>";
-					formatDateToView($parcela['data_pagamento']);
-					echo $parcela['data_pagamento'];															
-				echo "</td>";
-				
-				echo "<td>";
-					echo $parcela['periodocritico'];															
-				echo "</td>";
-				
-				echo "<td>";
-					echo number_format($parcela['valor'], 2, ',', '.');  															
-				echo "</td>";
-				
-				echo "<td>";
-					echo number_format($parcela['desconto'], 2, ',', '.');
-				echo "</td>";
-				
-				echo "<td>";
-					echo $parcela['codigodebarras'];
-				echo "</td>";
-				
-				echo "<td>";
-					echo $parcela['parcela'];
-				echo "</td>";
-				
-				echo "<td>";
-					echo $parcela['banco'];
-				echo "</td>";
-			
-				echo "<td>";
-					echo $parcela['agencia'];
-				echo "</td>";
-				
-				echo "<td>";
-					echo $parcela['conta'];
-				echo "</td>";
-				
-				echo "<td>";
-					echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
-				echo "</td>";
-				
-				
-				
-				echo "</tr>";												
-			    }
-			?>
-							    
-		    </table>
-		</section>
-	    </section>
-    </div>	
-    </div>
-
-		<?php
-		    echo "</td>";
-		    }else if($campo=="valor"){
+		}else if($campo=="valor"){
 			echo "<td class=\"$campo\">" . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
-		    }else{
+		}else{
 			echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
-		    }
+		}
 			$j=$j+1;
-		    }						
+		}						
 		?>
 	</tr>
 

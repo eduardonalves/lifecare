@@ -388,8 +388,10 @@ $(document).ready(function(){
 
 		<?php
 			echo $this->html->image('banco-adional.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco Dados Bancários','id'=>'add-area-dadosbanc','class'=>'bt-direita'));
+			
 			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'remove-area-dadosbanc','class'=>'bt-direita'));
 		?>
+		<span id="validaBancBloco" class="Msg-tooltipEsquerda" style="display:none">São necessarios os campos Número da Agência e Conta para adicionar novo bloco</span>
 
 	</div>
 </section><!--fim Meio-->
