@@ -37,7 +37,7 @@
 
 	<section class="coluna-esquerda">
 		<?php
-		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '1'));
+		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '1','maxlength'=>'150'));
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));

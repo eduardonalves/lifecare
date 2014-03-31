@@ -4,9 +4,10 @@
 	$('.ui-autocomplete-input').attr('tabindex','3');
     });
 
-    $('#ContasreceberDataEmissao').focusout(function(){
-	$('.ui-autocomplete-input').attr({required:true});
-    });
+      $("body").on('focus','.ui-autocomplete-input',function(){
+		$('.ui-autocomplete-input').attr({required:true});
+	});
+
 /********** Adicionar na tabela Principal ****************/
     
     var princ_cont = 0;

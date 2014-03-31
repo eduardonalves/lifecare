@@ -142,7 +142,7 @@ $(document).ready(function() {
 
 	    if(daysNota < 0){
 		if(data_final != null){
-		    $("input[id*='DataEmissao'], [id*='Vencimento']").val("");
+		    $("[id*='Vencimento']").val("");
 		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
 		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('input[id*="Vencimento"]');
 		}     
