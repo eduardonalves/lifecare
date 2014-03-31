@@ -16,8 +16,29 @@
 
 		<?php
 			echo $this->Form->input('Dadoscredito.limite',array('value'=>h(number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('bloqueado',array('value'=>h($parceirodenegocio['Parceirodenegocio']['bloqueado'] ),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.limite_usado',array('value'=>h(number_format($dadoscredito['limite_usado'], 2, ',', '.')),'label' => 'Limite Usado:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('creditoDisponivel',array('id'=>'creditoDisponivel','label' => 'Disponível:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
+		
+		<script type="text/javascript">
+		$(document).ready(function(){
+		
+			limite =$('#DadoscreditoLimite').val().split('.').join('').replace(',','');
+			usado =$('#DadoscreditoLimiteUsado').val().split('.').join('').replace(',','');
+			disponivel =$('#creditoDisponivel').val().split('.').join('').replace(',','');
+			
+			disponivel = limite - usado;
+			
+		
+			$('#creditoDisponivel').val(disponivel)
+				.priceFormat({
+				    prefix: '',
+				    centsSeparator: ',',
+				    thousandsSeparator: '.',
+			});
+			
+		});
+		</script>
 
 	</section>
 
@@ -26,6 +47,7 @@
 		<?php
 			formatDateToView($dadoscredito['validade_limite']);
 			echo $this->Form->input('Dadoscredito.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('bloqueado',array('value'=>h($parceirodenegocio['Parceirodenegocio']['bloqueado'] ),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 
 	</section>

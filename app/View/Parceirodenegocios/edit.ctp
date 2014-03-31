@@ -8,6 +8,11 @@
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
 	
+	$this->start('modais');
+		echo $this->element('limite_add', array('modal'=>'add-novo_limite'));
+
+	$this->end();
+	
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){
@@ -262,13 +267,13 @@ $(document).ready(function(){
 	<?php $i++;	}?>
 </section><!--fim Meio-->
 
-<section> <!---section Baixo--->	
+	
 	<?php
 		//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
 			echo $this->element('dados_creditoEdit');
 		//}
 	?>
-</section>	
+
 
 
 <footer>
