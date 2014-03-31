@@ -81,6 +81,11 @@ function formatDateToView(&$data){
 	<section class="coluna-direita" >
 		<?php
 
+			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+		   	echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
+			echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+
 			foreach($conta['Pagamento'] as $pagamento){
 				echo $this->Form->input('Pagamento.tipo_pagamento',array('label' => 'Tipo de Pagamento:','value'=>h($pagamento['tipo_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 				echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','value'=>h($pagamento['forma_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
@@ -131,7 +136,7 @@ function formatDateToView(&$data){
 
 							<td>
 								<?php
-								    echo $this->Html->image('botao-quitar.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
+								    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 
 								    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
 							
