@@ -134,7 +134,11 @@ p.table-counter {
 }
 
 .actions{
-	min-width:45px;
+	min-width:70px
+}
+
+.actions img{
+	margin-left:5px
 }
 
 .seta-cima{
