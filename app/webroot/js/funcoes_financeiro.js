@@ -261,8 +261,10 @@ $(document).ready(function() {
 		valorSelecionado = $(this).find('option:selected').text();
 		id=$(this).attr('id');
 
+		name=$(this).attr('name');
+		    
 		//insere input depois do select
-		$('<input id="'+id+'"" class="tamanho-medio borderZero" readonly="readonly" onfocus="this.blur()" value="'+valorSelecionado+'">').insertAfter($(this));
+		$('<input id="'+id+'"" name="'+name+'" class="tamanho-medio borderZero" readonly="readonly" onfocus="this.blur()" value="'+valorSelecionado+'">').insertAfter($(this));
 	    });
 
 	    //substitui textarea por span
@@ -302,7 +304,7 @@ $(document).ready(function() {
 	$('input').removeAttr('required');
 
 	tipo_pagamento = $('#Pagamento0TipoPagamento').val();
-	if(tipo_pagamento != 1){
+	if(tipo_pagamento != 'CLIENTE'){
 	    $('.tela-resultado-field').show();
 	}
     });

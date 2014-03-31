@@ -512,4 +512,17 @@ $(document).ready(function() {
 		}
 		
 	});
+
+	
+	$('#Contato0Email').focusout(function(email){
+	    var email = $("#Contato0Email").val();
+	    var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+	    if(!emailValido.test(email)){
+		$('#Contato0Email').focus().addClass('shadow-vermelho');
+		$('#validaEmail').css('display','block');
+		return false
+	    }
+	    
+	});
 });
