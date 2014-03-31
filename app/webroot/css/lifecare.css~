@@ -674,7 +674,7 @@ legend{
 	width:80px;
 }
 
-.tamanho-grande{
+.tamanho-medio{
 	height: 16px;
 	width:188px;
 	text-overflow: ellipsis;

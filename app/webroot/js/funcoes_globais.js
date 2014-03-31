@@ -404,7 +404,7 @@ $(document).ready(function(){
 
 		//if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
 		//if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==46)|| (charCode==37)|| (charCode==39))){return false;}else{return true}
-		if (!((charCode>47)&&(charCode<58) || (charCode==8))){return false;}else{return true}
+		if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==9))){return false;}else{return true}
 	});
 
 });
