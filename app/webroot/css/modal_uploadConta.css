@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+#myModal_add-uploadConta .modal-body{
+    height:240px;
+}
+#bt-buscar{
+	padding-left:10px;
+	cursor:pointer;
+}
+
+.bt-upload{
+	width:86;
+	height:22;
+}
+#doc_file{
+    display:none;
+}
+#bt-submit{
+
+	border:none;
+	cursor:pointer;
+}

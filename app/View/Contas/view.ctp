@@ -4,7 +4,11 @@ $this->start('css');
 	    echo $this->Html->css('contas_view');
 	    echo $this->Html->css('table');
 	$this->end();
-
+	
+$this->start('modais');
+	    echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
+	$this->end();
+	
 function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){
@@ -60,6 +64,7 @@ function formatDateToView(&$data){
 			//echo $this->Form->input('id',array('label' => 'Id:','value'=>h($conta['Conta']['id']),'class' => 'tamanho-grande','disabled'=>'disabled'));
 			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			echo "<span class='statusSemaforo'>Status: ". $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) ."</span>"
 			//echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 
@@ -71,18 +76,21 @@ function formatDateToView(&$data){
 			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h(number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			//echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
+			
+
 		?>		
 	</section>
 	
 	<section class="coluna-direita" >
 		<?php
-			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-		   	echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-			echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
-			echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
 
-			//echo $this->Form->postLink(__('Cancelar'), array('action' => 'cancelarConta', $conta['Conta']['id']), null, __('Tem certeza que deseja quitar esta Conta # %s?', $conta['Conta']['id'])); 
-			//echo $this->Form->input('imagem',array('label' => 'Imagem:','value'=>h($conta['Conta']['imagem']),'class' => 'tamanho-grande','disabled'=>'disabled'));		    
+			foreach($conta['Pagamento'] as $pagamento){
+				echo $this->Form->input('Pagamento.tipo_pagamento',array('label' => 'Tipo de Pagamento:','value'=>h($pagamento['tipo_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+				echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','value'=>h($pagamento['forma_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+				//print_r($pagamento);
+			}
+			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>		
 	</section>
 </section><!---Fim section superior--->
@@ -91,6 +99,7 @@ function formatDateToView(&$data){
 		<?php if (!empty($conta['Pagamento'])): ?>
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
+						<th><?php echo ('Ações'); ?></th>
 						<th><?php echo ('Parcela'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
@@ -103,12 +112,27 @@ function formatDateToView(&$data){
 						<th><?php echo ('Banco'); ?></th>
 						
 						
-						<th><?php echo ('Ação'); ?></th>
+						
 						<th><?php echo ('Status'); ?></th>
 					</thead>
 					<?php $j =0; ?>
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
+						    <td>
+							<?php
+							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
+							   
+							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
+							    echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+							    echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
+							    echo $this->Html->image('upload',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Conta' ));
+							    echo "</a>";		    
+
+							?>
+
+
+						    </td>
+
 							<td><?php echo $parcelas['parcela']; ?></td>
 							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);
@@ -121,15 +145,7 @@ function formatDateToView(&$data){
 							<td><?php echo $parcelas['conta']; ?></td>
 							<td><?php echo $parcelas['banco']; ?></td>
 
-							<td>
-								<?php
-								    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
-
-								    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id'])); ?>
-
-
-							</td>
-
+							
 							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 							
 							
