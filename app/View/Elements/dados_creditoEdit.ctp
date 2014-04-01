@@ -45,15 +45,6 @@
 		</fieldset>
 	
 	
-	<a href="add-novo_limite" class="bt-showmodal">
-				
-	<?php	
-		echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Limite de Crédito','id'=>'bt-addLimite','class'=>'bt-direita'));
-	?>	
-	</a>
-	
-		
-	
 	
 	<?php $y++;} ?>
 </section>	

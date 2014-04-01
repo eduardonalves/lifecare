@@ -88,7 +88,7 @@ $(document).ready(function(){
 
 			echo $this->Form->create('Dadoscredito');
 
-			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio'));
+			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas'));
 			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'forma-data tamanho-pequeno'));
 			echo $this->Form->input('Dadoscredito.parceirodenegocio_id',array('type' => 'hidden', 'value' => $parceirodenegocio['Parceirodenegocio']['id']));
 			
