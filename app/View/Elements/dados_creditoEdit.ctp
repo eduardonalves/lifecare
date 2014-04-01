@@ -1,5 +1,5 @@
 <section> <!---section Baixo--->
-<header class="">Dados de Crédito</header>
+<header>Dados de Crédito</header>
 	
 	<?php
 		$y=0;
@@ -14,7 +14,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h(number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h(number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 		?>
 
@@ -24,7 +24,7 @@
 
 		<?php
 			formatDateToView($dadoscredito['validade_limite']);
-			echo $this->Form->input('Dadoscredito.'.$y.'.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'forma-data tamanho-pequeno'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-pequeno borderZero'));
 			echo '<span id="validaValidade" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 		?>
 
@@ -33,18 +33,41 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.'.$y.'.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não','Sim'),'type' => 'select'));
-			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
+			$bloqAux = h($dadoscredito['bloqueado']);
+			if($bloqAux == 1){
+				$bloqueado = "Sim";
+			}else{
+				$bloqueado = "Não";
+			}
+			
+			echo $this->Form->input('Dadoscredito.'.$y.'.bloqueado',array('value'=>$bloqueado,'readonly'=>'readonly','onFocus'=>'this.blur();','label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-medio borderZero'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.user_id',array('value'=>h($dadoscredito['user_id']),'readonly'=>'readonly','onFocus'=>'this.blur();','label' => 'Criado por:','type' => 'text','class' => 'tamanho-medio borderZero'));
+			
 		?>
 
+	
 	</section>
 
 		</div>
 	</div>	
 	
 		</fieldset>
+		
+	<?php $y++;} ?>
 	
+	<span style="display:none;" id="quantiaCreditos"><?php echo $y ?></span>
 	
+
 	
 	<?php $y++;} ?>
+
+	<a href="add-novo_limite" class="bt-showmodal">
+				
+	<?php	
+		echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Limite de Crédito','id'=>'bt-addLimite','class'=>'bt-direita'));
+	?>	
+	</a>
+	
 </section>	
+
+

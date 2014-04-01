@@ -1,10 +1,8 @@
 <?php 
 	$this->start('css');
 
-		echo $this->Html->css('modal_quicklink');
-		echo $this->Html->css('table');
-		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-		//echo $this->Html->css('jquery-ui/custom-combobox.css');
+		echo $this->Html->css('limiteAdd');
+	
 	$this->end();
 
 	if(isset($modal))
@@ -24,47 +22,53 @@
 $(document).ready(function(){
 	var contadorBlocoEndereco = 1;
 	var contadorBlocoDadosBanc = 1;
-	
+	var i = 0;
 	$('#bt-salvar-quicklink').click(function(event){
 	  	  event.preventDefault();
-
-		    var urlAction = "<?php echo $this->Html->url(array("controller"=>"Dadoscreditos","action"=>"add"),true);?>";
-		    var dadosForm = $("#DadoscreditoEditForm").serialize();
-		     $("#bt-salvar-quicklink").hide();
-		     $(".loaderAjaxDadoscreditoDIV").show();
-		    $.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			success: function(data) {
-			    console.debug(data);
-			    
-				if(data.Dadoscredito.id == 0 || data.Dadoscredito.id == undefined ){
-				    $(".loaderAjaxDadoscreditoDIV").hide();
-				    $("#bt-salvarParceiro").show();
-				   // $("#spanMsgCateNomeInvalido").css("display","block");
-				    //$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-				}else{
-				   // $('#ParceirodenegocioClassificacao').removeAttr('disabled',true);
-				   $("#bt-salvar-quicklink").show();
-				    $("#myModal_add-novo_limite").modal('hide');
-				     
-				   // $('#ContasreceberParceirodenegocioId').val(data.Parceirodenegocio.id);
-				   // $('#ContasreceberParceiro').val(data.Parceirodenegocio.nome);
-				    //$('#ContasreceberCpfCnpj').val(data.Parceirodenegocio.cpf_cnpj);
-				    //$("#ParceirodenegocioNome").val("");
-				    //$(".loaderAjaxCParceiroDIV").hide();
-				    //$("#bt-salvarParceiro").show();
-				    //$("#add-cliente").append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='CLIENTE'>"+data.Parceirodenegocio.nome+"</option>");						
-				   // $("#spanMsgCateNomeInvalido").css("display","none");
-				    $(".loaderAjaxDadoscreditoDIV").hide();
-				}
-			}
-		});
-	    
+	  	  
+			if($("#DadoscreditoLimite").val() == ""){
+				$("#validaLimiteModal").show();
+				
+			}else if($("#DadoscreditoValidadeLimite").val() == ""){
+						
+				$("#validaValidadeModal").show();
+				
+			}else{
+				$("#validaLimiteModal").hide();
+				$("#validaValidadeModal").hide();
+				
+				var dadosCreditoLimite =  $("#DadoscreditoLimite").val();
+				$("#DadoscreditoLimite").val(dadosCreditoLimite.split('.').join('').replace(',','.'));
+				
+				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Dadoscreditos","action"=>"add"),true);?>";
+				var dadosForm = $("#DadoscreditoEditForm").serialize();
+				 $("#bt-salvar-quicklink").hide();
+				 $(".loaderAjaxDadoscreditoDIV").show();
+				$.ajax({
+					type: "POST",
+					url: urlAction,
+					data:  dadosForm,
+					dataType: 'json',
+					success: function(data) {
+						console.debug(data);
+						
+						if(data.Dadoscredito.id == 0 || data.Dadoscredito.id == undefined ){
+							$(".loaderAjaxDadoscreditoDIV").hide();
+							$("#bt-salvarParceiro").show();
+						}else{
+							$("#bt-salvar-quicklink").show();
+							$("#myModal_add-novo_limite").modal('hide');
+							$(".loaderAjaxDadoscreditoDIV").hide();
+						}
+					}
+				});
+				
+				location.reload();
+			}	    
+		
 	});
 
+	
   
 
 });	
@@ -78,8 +82,7 @@ $(document).ready(function(){
 </header>
 
 <section>
-	<header>Dados Pesquisa Rápida</header>
-
+	<header>Novo Limite</header>
 	
 	<section class="coluna-modal">
 		<div>
@@ -89,7 +92,12 @@ $(document).ready(function(){
 			echo $this->Form->create('Dadoscredito');
 
 			echo $this->Form->input('Dadoscredito.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas'));
+
+			echo '<span id="validaLimiteModal" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
+			
 			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'forma-data tamanho-pequeno'));
+			echo '<span id="validaValidadeModal" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
+			
 			echo $this->Form->input('Dadoscredito.parceirodenegocio_id',array('type' => 'hidden', 'value' => $parceirodenegocio['Parceirodenegocio']['id']));
 			
 		?>

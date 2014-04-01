@@ -1,0 +1,102 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+
+/* CLASS **************************************************************/
+
+
+/* ID *****************************************************************/
+#LoadAjaxQuickLink{
+	left:161px;
+	position:absolute;
+	top:-110px;
+}
+
+#QuicklinkNome{
+	margin-top:15px;
+}
+
+/* HERANÇA ************************************************************/
+.ui-widget .error-message-quicklink{
+	display:none;
+}
+
+#myModal_add-novo_limite .modal-body{
+	height:230px !important;
+}
+
+#myModal_add-novo_limite #spanQuicklink{
+	background-color:#FFD5D5;
+    border:1px solid #AAAAAA;
+    border-radius:5px;
+    color:#D40000;
+    display:block;
+    font-size:13px;
+    left:345px;
+    padding:3px;
+    position:absolute;
+    text-align:center;
+    top:110px;
+    width:108px;
+}
+
+#myModal_add-novo_limite #spanQuicklink:after {
+	border-color:rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style:solid;
+    border-width:10px;
+    content:"";
+    height:0;
+    left:-20px;
+    position:absolute;
+    top:8px;
+    width:0;
+}
+
+#myModal_add-novo_limite footer{
+	height: 26px;
+	margin-bottom: 0px;
+	margin-top: 30px;
+}
+
+#myModal_add-novo_limite .coluna-modal{
+	margin-left: 70px;
+}
+
+#myModal_add-novo_limite #validaLimiteModal{
+	float: right;
+	position: relative;
+	margin-right: 25px;
+}
+
+#myModal_add-novo_limite #validaLimiteModal:after{
+	margin-top: -6px;
+}
+
+
+#myModal_add-novo_limite #validaValidadeModal{
+	float: right;
+	position: relative;
+	margin-right: 80px;
+}
+
+#myModal_add-novo_limite #validaValidadeModal:after{
+	margin-top: -6px;
+}
+
+#myModal_add-novo_limite .loaderAjaxDadoscreditoDIV{
+	position: absolute;
+	margin-left: 180px;
+}
+
+
+
+
+
+
+
+
+
+
+
