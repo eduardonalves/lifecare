@@ -330,6 +330,7 @@ class ContasController extends AppController {
 	public function index() {
 	$userid = $this->Session->read('Auth.User.id');
 	$this->loadModel('User');
+	$this->loadModel('Parceirodenegocio');
 	$users= $this->User->find('list');
 	
 		//debug($this->request->data['filter']);
@@ -346,6 +347,7 @@ class ContasController extends AppController {
 		
 	}	
 	
+	$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
 	        array(
@@ -357,7 +359,8 @@ class ContasController extends AppController {
 	            ),
 		        'nome' => array(
 	                'Parceirodenegocio.nome' => array(
-	                    'operator' => 'LIKE'
+	                    'operator' => 'LIKE', 
+	                    'select' => array(''=> '', $parceirodenegocios)
 
 	                )
 	            ),
@@ -572,7 +575,7 @@ class ContasController extends AppController {
 			
 			$cntContas = count($contas);
 			//debug($contas);	
-			$this->loadModel('Parceirodenegocio');
+			
 			$contas = $this->Paginator->paginate('Conta');
 			foreach ($contas as $id => $conta) {
 				
@@ -660,6 +663,8 @@ class ContasController extends AppController {
 				
 				
 			}
+			
+			
 			
 			$balancete =$totalGeralReceber-$totalGeralPagar;
 					
