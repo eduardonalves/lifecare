@@ -3,19 +3,20 @@
 #myModal_add-uploadConta .modal-body{
     height:240px;
 }
-#bt-buscar{
+#myModal_add-uploadConta #bt-buscar{
 	padding-left:10px;
 	cursor:pointer;
 }
 
-.bt-upload{
+#myModal_add-uploadConta .bt-upload{
 	width:86;
 	height:22;
 }
-#doc_file{
+
+#myModal_add-uploadConta #doc_file{
     display:none;
 }
-#bt-submit{
+#myModal_add-uploadConta #bt-submit{
 
 	border:none;
 	cursor:pointer;

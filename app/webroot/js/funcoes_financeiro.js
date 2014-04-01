@@ -442,6 +442,22 @@ $(document).ready(function() {
     });
 
 
+/******************** Botão Upload *********************************/
+
+    $('#doc_file').change(function(){
+	arquivo = $('#doc_file').val();
+	$('input[id="valor"]').attr('value',arquivo);
+    });
+
+    $('input[id="valor"]').on('focusout',function(){
+	if($(this).val==''){
+	    $('input[id="valor"]').attr('value','');
+	    $('input[id="doc_file"]').attr('value','');
+	    
+	}
+    });
+
+
 /****************** Mascara Data *************************/
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');

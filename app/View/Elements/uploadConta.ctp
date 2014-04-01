@@ -53,17 +53,18 @@
 
 	<div class="campo-importar-xml"/> 
 
-		<div class="notas upload">
-	
-			<form id="ContaIndexForm" accept-charset="utf-8" method="post" enctype="multipart/form-data" action="/cakephp/">
+		<div class="contas upload">
+			<?php echo $this->Form->create('Conta', array('type' => 'file','action'=>'add')); ?>
 				<div style="display:none;">
 					<input type="hidden" value="POST" name="_method"/>
 				</div>
 				
 				<div class="input file">
+				    <?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$conta['Conta']['id'])); ?>
 					<label for="doc_file">Buscar Arquivo:</label>
 					<input id="doc_file" class="campo-buscar" type="file" name="data[Conta][doc_file]"/>
-					<input type="text" id="valor"/>
+					
+					<input type="text" id="valor" name="data[Conta][imagem]"/>
 					<a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
 				</div>
 
@@ -71,7 +72,7 @@
 					<input id="bt-submit" type="image" src="/lifecare/app/webroot//img/botao-confirmar.png"/>
 				</div>
 
-			</form>
+			<?php echo $this->Form->end() ?>
 	
 		</div>
 
