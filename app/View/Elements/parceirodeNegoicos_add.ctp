@@ -229,7 +229,7 @@ $(document).ready(function(){
 
 <section> <!---section superior--->
 
-	<header>Dados GeriasParceiro</header>
+	<header>Dados Gerais do Parceiro</header>
 
 	<section class="coluna-esquerda">
 
