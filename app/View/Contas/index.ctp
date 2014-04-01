@@ -250,7 +250,7 @@ $(document).ready(function() {
 	    <tr>
 		<td class="actions">
 		    <?php 
-				echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar Conta','url'=>array('alt'=>'Visualizar Conta','controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
+				echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
 				
 				echo "<a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
 				echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Parcelas','class' => 'bt-visualizarParcela','title'=>'Visualizar Lista de Parcelas'));
@@ -278,7 +278,7 @@ $(document).ready(function() {
 				<section class="coluna-modal">
 					<table>
 					<thead>
-						<tr>
+					    <tr>
 						<th>Identificação do Documento</th>
 						<th>Data de Vencimento</th>
 						<th>Data de Pagamento</th>
@@ -291,7 +291,7 @@ $(document).ready(function() {
 						<th>Agência</th>																	
 						<th>Conta</th>																	
 						<th>Status</th>		
-						</tr>											
+					    </tr>											
 					</thead>
 							
 					<?php

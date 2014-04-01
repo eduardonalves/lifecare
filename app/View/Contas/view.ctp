@@ -100,6 +100,7 @@ function formatDateToView(&$data){
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
 						<th><?php echo ('Ações'); ?></th>
+						<th><?php echo ('Comprovante'); ?></th>
 						<th><?php echo ('Parcela'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
@@ -118,21 +119,24 @@ function formatDateToView(&$data){
 					<?php $j =0; ?>
 					<?php foreach ($conta['Parcela'] as $parcelas): ?>
 						<tr>
+						    
 						    <td>
 							<?php
 							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 							   
 							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
-							    echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+							    
 							    echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
 							    echo $this->Html->image('upload',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Conta' ));
-							    echo "</a>";		    
+							    echo "</a>";
+							    echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
 
 							?>
 
 
 						    </td>
 
+							<td></td>
 							<td><?php echo $parcelas['parcela']; ?></td>
 							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);

@@ -942,6 +942,27 @@ class ContasController extends AppController {
 			$this->Session->setFlash(__('Esta conta já foi cancelada.'));
 			return $this->redirect(array('action' => 'view', $id));
 		}
+	}
+
+	public function uploadConta() {
+		App::uses('Folder', 'Utility');
+		App::uses('File', 'Utility');
+
+		if($this->request->is('post')){
+			//$filename = WWW_ROOT.DS.$this->request->data['Conta']['doc_file']['name'];
+			//$file=$this->request->data['Conta'];
+			move_uploaded_file($this->request->data['Conta']['doc_file']['tmp_name']);
+			
+			 
+			 //$fileXml = $filename;
+			  
+			    // now parse it 
+			//$xmlArray = Xml::toArray(Xml::build($fileXml));
+		
+		    // see the returned array 
+		    //debug($filename); 
+	
+		}
 	}	
 		
 }
