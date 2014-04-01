@@ -289,10 +289,11 @@ $(document).ready(function(){
 					echo '<span id="valida0tipo" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
 
 					echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
-					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'cidade obrigatorio tamanho-medio','tabindex'=>'16'));
-					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Preencha o campo Cidade</span>';
+
 
 					
+					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'15'));
+					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
 				?>
 
 			</section>
@@ -307,11 +308,13 @@ $(document).ready(function(){
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
 					echo '<span id="valida0Cep3" class="Msg-tooltipDireita" style="display:none">Endereço não encontrado para o cep digitado.</span>';
-					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio','tabindex'=>'13'));
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'17'));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estado</span>';
 
 					
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
+
+					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estado</span>';
+					
+					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio','tabindex'=>'16'));
 				?>
 
 			</section>
@@ -321,8 +324,11 @@ $(document).ready(function(){
 				<?php
 					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'11'));
 					echo '<span id="valida0Logradouro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Logradouro</span>';
-					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'14'));
-					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
+
+					
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'cidade obrigatorio tamanho-medio','tabindex'=>'14'));
+					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Preencha o campo Cidade</span>';
+
 					
 					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea','tabindex'=>'17'));
 				?>
