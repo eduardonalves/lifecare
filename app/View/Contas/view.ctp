@@ -7,6 +7,7 @@ $this->start('css');
 	
 $this->start('modais');
 	    echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
+	    echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
 	$this->end();
 	
 function formatDateToView(&$data){
@@ -100,7 +101,6 @@ function formatDateToView(&$data){
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
 						<th><?php echo ('Ações'); ?></th>
-						<th><?php echo ('Comprovante'); ?></th>
 						<th><?php echo ('Parcela'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
@@ -122,6 +122,9 @@ function formatDateToView(&$data){
 						    
 						    <td>
 							<?php
+							    echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
+								echo $this->Html->image('botao-tabela-visualizar',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
+								echo "</a>";
 							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 							   
 							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
@@ -135,8 +138,6 @@ function formatDateToView(&$data){
 
 
 						    </td>
-
-							<td></td>
 							<td><?php echo $parcelas['parcela']; ?></td>
 							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);
@@ -218,3 +219,4 @@ function formatDateToView(&$data){
 </footer>
 
 -->
+

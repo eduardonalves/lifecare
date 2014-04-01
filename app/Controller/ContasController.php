@@ -950,24 +950,18 @@ class ContasController extends AppController {
 	}
 
 	public function uploadConta() {
+	    $this->layout = 'contas';
 		App::uses('Folder', 'Utility');
 		App::uses('File', 'Utility');
-
 		if($this->request->is('post')){
-			//$filename = WWW_ROOT.DS.$this->request->data['Conta']['doc_file']['name'];
-			//$file=$this->request->data['Conta'];
-			move_uploaded_file($this->request->data['Conta']['doc_file']['tmp_name']);
+			$filename = WWW_ROOT.'files'. DS.$this->request->data['Conta']['doc_file']['name'];
+			$file=$this->request->data['Conta'];
+			move_uploaded_file($this->request->data['Conta']['doc_file']['tmp_name'],$filename);
 			
-			 
-			 //$fileXml = $filename;
-			  
-			    // now parse it 
-			//$xmlArray = Xml::toArray(Xml::build($fileXml));
-		
-		    // see the returned array 
-		    //debug($filename); 
+		   //debug($filename); 
 	
 		}
+		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Conta']['id']));
 	}	
 		
 }
