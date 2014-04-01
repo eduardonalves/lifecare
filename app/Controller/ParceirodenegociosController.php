@@ -257,8 +257,35 @@ class ParceirodenegociosController extends AppController {
 		} else {
 			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
 			$this->request->data = $this->Parceirodenegocio->find('first', $options);
+			
+			
+			
 		}
-		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+		$parceirodenegocio =  $this->Parceirodenegocio->find('first', $options);
+		$i=0;
+		foreach($parceirodenegocio['Dadoscredito'] as $i => $dadosCredito){
+			
+			$this->loadModel('User');
+			$user = $this->User->find('first' , array('conditions' => array('User.id' => $dadosCredito['user_id']),'recursive' => -1));
+			
+			if(!empty($user)){
+				
+				if($user['User']['username'] == null){
+					$nome = "";
+				}else{
+					$nome = $user['User']['username'];
+				}
+				$parceirodenegocio['Dadoscredito'][$i]['user_id'] = $nome;
+			}
+			
+		
+			
+			
+			$i++;
+		}
+		$this->set(compact('parceirodenegocio'));
+		
+		
 
 	}
 
