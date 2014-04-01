@@ -348,6 +348,11 @@ class ContasController extends AppController {
 	}	
 	
 	$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+	$listaParceiros = array();
+	foreach($parceirodenegocios as $parceirodenegocio){
+		array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		
+	}
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
 	        array(
@@ -360,7 +365,7 @@ class ContasController extends AppController {
 		        'nome' => array(
 	                'Parceirodenegocio.nome' => array(
 	                    'operator' => 'LIKE', 
-	                    'select' => array(''=> '', $parceirodenegocios)
+	                    'select' => array(''=> '', $listaParceiros)
 
 	                )
 	            ),
@@ -591,7 +596,7 @@ class ContasController extends AppController {
 				if(isset($parceirodenegocio)){
 						if(!empty($parceirodenegocio)){
 							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
-								$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+								//$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
 							}
 							
 							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
