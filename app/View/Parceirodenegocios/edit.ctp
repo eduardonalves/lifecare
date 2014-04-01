@@ -90,7 +90,7 @@ $(document).ready(function(){
 
 <section> <!---section superior--->
 
-	<header>Dados Gerias do Parceiro</header>
+	<header>Dados Gerais do Parceiro</header>
 	
 	<?php echo $this->Form->create('Parceirodenegocio'); ?>
 
@@ -272,6 +272,13 @@ $(document).ready(function(){
 		//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
 			echo $this->element('dados_creditoEdit');
 		//}
+		
+		//Botão para Add Novo Limite
+		echo "<a href='add-novo_limite' class='bt-showmodal'>";
+		echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Limite de Crédito','id'=>'bt-addLimite','class'=>'bt-direita'));
+		echo "</a>";
+
+		
 	?>
 
 
