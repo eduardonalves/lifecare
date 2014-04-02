@@ -234,7 +234,7 @@ class ContasrecebersController extends ContasController {
 					
 					
 					return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
-					debug($ultimaConta['Conta']['parceirodenegocio_id']);
+					//debug($ultimaConta['Conta']['parceirodenegocio_id']);
 				} else {
 					$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 	

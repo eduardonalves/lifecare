@@ -53,7 +53,7 @@
 	
 		</fieldset>
 		
-	<?php $y++;} ?>
+
 	
 	<span style="display:none;" id="quantiaCreditos"><?php echo $y; ?></span>
 	
