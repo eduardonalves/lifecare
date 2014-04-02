@@ -100,7 +100,7 @@ $(document).ready(function(){
 
 		<?php
 			echo $this->Form->input('Parceirodenegocio.id');
-			echo $this->Form->input('tipo',array('label' => 'Classificação:','type' => 'text','class'=>'tamanho-medio borderZero'));
+			echo $this->Form->input('tipo',array('label' => 'Classificação:','type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class'=>'tamanho-medio borderZero'));
 			
 			$p=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
