@@ -158,7 +158,7 @@
 		   
 		?>
 		
-	    </section>tabindex
+	    </section>
 	    
 	    <?php
 		echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
