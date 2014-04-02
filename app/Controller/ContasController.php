@@ -596,7 +596,7 @@ class ContasController extends AppController {
 				if(isset($parceirodenegocio)){
 						if(!empty($parceirodenegocio)){
 							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
-								//$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+								$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
 							}
 							
 							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
