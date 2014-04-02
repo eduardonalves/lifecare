@@ -51,7 +51,7 @@
 	
 	<section>
 
-	<div class="campo-importar-xml"/> 
+
 
 		<div class="contas upload">
 			<?php echo $this->Form->create('Conta', array('type' => 'file','action'=>'uploadConta')); ?>

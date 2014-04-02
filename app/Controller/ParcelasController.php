@@ -56,7 +56,7 @@ class ParcelasController extends AppController {
 			}
 		}
 		$users = $this->Parcela->User->find('list');
-		$contas = $this->Parcela->Contum->find('list');
+		$contas = $this->Parcela->Conta->find('all');
 		$this->set(compact('users', 'contas'));
 	}
 
@@ -83,7 +83,7 @@ class ParcelasController extends AppController {
 			$this->request->data = $this->Parcela->find('first', $options);
 		}
 		$users = $this->Parcela->User->find('list');
-		$contas = $this->Parcela->Contum->find('list');
+		$contas = $this->Parcela->Conta->find('all');
 		$this->set(compact('users', 'contas'));
 	}
 
@@ -106,4 +106,38 @@ class ParcelasController extends AppController {
 			$this->Session->setFlash(__('The parcela could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+
+	public function uploadParcela() {
+	    $this->layout = 'contas';
+		App::uses('Folder', 'Utility');
+		App::uses('File', 'Utility');
+		
+		if($this->request->is('post')){
+		   
+		    $filename = WWW_ROOT.'files'. DS.$this->request->data['Parcela']['id'].$this->request->data['Parcela']['doc_file']['name'];
+		    
+		    $file=$this->request->data['Parcela'];
+		    move_uploaded_file($this->request->data['Parcela']['doc_file']['tmp_name'],$filename);
+		    
+		//debug($file);
+		    $fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
+		    if(file_exists($fileAntigo)){
+			unlink($fileAntigo);
+		    }
+		    
+		    $this->Parcela->create();
+		    if ($this->Parcela->save($this->request->data)) {
+			$this->Session->setFlash(__('Upload realizado com sucesso.'), 'default', array('class' => 'success-flash'));
+		    } else {
+			$this->Session->setFlash(__('Não foi possível realizar upload. Tente novamente.'), 'default', array('class' => 'error-flash'));
+		    }
+	
+		}
+		
+
+		$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' =>0, 'conditions' => array('Parcela.id' => $this->request->data['Parcela']['id'] )));
+	//debug($this->request->data['Parcela']['id']);
+		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaParcela['_Conta']['id']));
+	}
+}

@@ -457,21 +457,7 @@ $(document).ready(function() {
 	}
     });
 
-    $('#bt-confirmarUpload').click(function(e){
-	e.preventDefault();
-	extensao=$('input[id="valor"]').val().split('.')[1];
-
-	if(extensao== 'gif' || extensao== 'jpg' || extensao=='jpeg' || extensao=='png' ){
-	    $('#ContaUploadContaForm').submit();
-	}else if(extensao== undefined){
-	    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
-	    $('#msgImagemvazia').css('display','block');
-	    
-	}else{
-	    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
-	    $('#msgImagemErro').css('display','block');
-	}
-    });
+   
 
 
 /****************** Mascara Data *************************/
