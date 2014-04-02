@@ -8,8 +8,9 @@
 		position: absolute;
 		top: 0;
 		bottom: 4px;
-		margin-left: -1px;
+		margin-left: -3px;
 		padding: 0;
+		height: 21px;
 		/* support: IE7 */
 		*height: 1.7em;
 		*top: 0.1em;

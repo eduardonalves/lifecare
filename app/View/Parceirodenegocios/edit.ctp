@@ -52,8 +52,9 @@ function findCEP(ind) {
 		    }
 		}
 	
+
 $(document).ready(function(){
-	
+	  
 	//alert($('#ParceirodenegocioCpfCnpj').val().length);
 	
 	$('#ParceirodenegocioCpfCnpj').val($('#ParceirodenegocioCpfCnpj').attr('value'));
