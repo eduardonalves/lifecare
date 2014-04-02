@@ -200,8 +200,3 @@
     ?>
 
 </footer>
-
-<pre>
-<?php 
-	print_r($parceirodenegocio);
-?></pre>
