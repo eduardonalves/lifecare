@@ -193,7 +193,6 @@ $(document).ready(function() {
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
-			
 		
 			
 			<footer>
