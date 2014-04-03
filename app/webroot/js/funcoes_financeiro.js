@@ -446,18 +446,24 @@ $(document).ready(function() {
 
     $('#doc_file').change(function(){
 	arquivo = $('#doc_file').val();
-	$('input[id="valor"]').attr('value',arquivo);
+	$('input[id="valorUpload"]').attr('value',arquivo);
     });
 
-    $('input[id="valor"]').on('focusout',function(){
+    $('input[id="valorUpload"]').on('focusout',function(){
 	if($(this).val==''){
-	    $('input[id="valor"]').attr('value','');
+	    $('input[id="valorUpload"]').attr('value','');
 	    $('input[id="doc_file"]').attr('value','');
 	    
 	}
     });
 
-   
+/******************** Mensagem extensão *********************************/
+    $( "#valor,#bt-buscar" ).hover(function(){
+	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg. Preferencialmente png.</span>');
+	},function(){
+	    $('#msgExtensoes').remove();
+	}
+    );
 
 
 /****************** Mascara Data *************************/

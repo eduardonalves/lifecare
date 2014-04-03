@@ -1,23 +1,38 @@
 @charset "utf-8";
 
-#myModal_add-uploadConta .modal-body{
+[id*="myModal_add-uploadConta"] .modal-body{
     height:240px;
 }
-#myModal_add-uploadConta #bt-buscar{
+[id*="myModal_add-uploadConta"] #bt-buscar{
 	padding-left:10px;
 	cursor:pointer;
 }
 
-#myModal_add-uploadConta .bt-upload{
-	width:86;
-	height:22;
+[id*="myModal_add-uploadConta"] .bt-upload{
+	width:86px;
+	height:22px;
 }
 
-#myModal_add-uploadConta #doc_file{
+[id*="myModal_add-uploadConta"] #doc_file{
     display:none;
 }
-#myModal_add-uploadConta #bt-submit{
+
+[id*="myModal_add-uploadConta"] #bt-submit{
 
 	border:none;
 	cursor:pointer;
+}
+
+#msgExtensoes{
+    background-color:#D9EDF7;
+    color:#317396;
+    left:170px;
+    top:136px;
+    width:150px;
+}
+
+#msgExtensoes:after{
+    border-color:transparent transparent #D9EDF7 transparent;
+    left:75px;
+    top:-18px;
 }
