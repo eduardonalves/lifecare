@@ -1,16 +1,15 @@
 @charset "utf-8";
-#myModal_add-comprovanteView .modal-body{
+[id*="myModal_add-comprovanteView"] .modal-body{
     height: auto;
 }
 
-#myModal_add-comprovanteView.modal {
-  width:690px;
-  top: 56px;
-  
+[id*="myModal_add-comprovanteView"].modal{
+    width:690px;
+    top:55px !important;
 }
 
 .zoomer-holder{
-     opacity:1 !important;
+    opacity:1 !important;
 }
 
 .zoomImagem{

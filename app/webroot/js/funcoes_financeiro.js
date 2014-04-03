@@ -457,7 +457,13 @@ $(document).ready(function() {
 	}
     });
 
-   
+/******************** Mensagem extensão *********************************/
+    $( "#valor,#bt-buscar" ).hover(function(){
+	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg. Preferencialmente png.</span>');
+	},function(){
+	    $('#msgExtensoes').remove();
+	}
+    );
 
 
 /****************** Mascara Data *************************/
