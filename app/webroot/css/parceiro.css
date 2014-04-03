@@ -92,14 +92,14 @@ textarea{
 span[id$="Uf"]{
 	width:85px;
 	top:25px;
-	left:360px;
+	left:245px;
 	z-index:10;
 }
 
 span[id$="Bairro"]{
 	width:85px;
-	top:50px;
-	left:325px;
+	top: 87px;
+	left: 200px;
 }
 
 #validaTelefone{

@@ -332,11 +332,81 @@ $(document).ready(function() {
 		
 		botaoRemoverBanc();
 	});
+	
+
+/*** Validação Parceiro EDIT ******************************************/
+	
+	$('#bt-salvarParceiro').on('click',function(){
+		
+		var fieldLength = 0;
+		$(".enderecoLength").each(function(){
+			fieldLength = fieldLength + 1;
+		});
+		
+		for(i=0; i < fieldLength; i++){
+				
+				valorCep =$('#Endereco'+i+'Cep').val();
+				valorLogradouro = $('#Endereco'+i+'Logradouro').val();
+				valorUf = $('#Endereco'+i+'Uf').val();
+				valorCidade = $('#Endereco'+i+'Cidade').val();
+				valorBairro = $('#Endereco'+i+'Bairro').val();
+				
+				if(valorCep== ''){
+					idval= $('#Endereco'+i+'Cep').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Cep1').css('display','block');
+					break;					
+				}else if(valorCep.length < 9){
+					idval= $('#Endereco'+i+'Cep').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Cep2').css('display','block');
+					break;
+					
+				}else if(valorLogradouro == ''){
+					idval= $('#Endereco'+i+'Logradouro').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Logradouro').css('display','block');
+					break;
+				
+				}else if(valorUf == ''){
+					idval= $('#Endereco'+i+'Uf').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Uf').css('display','block');
+					break;
+				}else if(valorCidade == ''){
+					idval= $('#Endereco'+i+'Cidade').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Cidade').css('display','block');
+					break;
+				}else if(valorBairro == ''){
+					idval= $('#Endereco'+i+'Bairro').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#valida'+i+'Bairro').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioTelefone1').val() == ''){
+					$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+					$('#validaTelefone').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioNome').val() == ''){
+					$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+					$('#validaNome').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					$('#validaCPF').css('display','block');
+					break;
+				}else{
+					//$('#ParceirodenegocioEditForm').submit();
+				}
+		}
+		
+	});
 
 
-/*** Validação ********************************************************/
 
-	$('#ParceirodenegocioAddForm, #ParceirodenegocioEditForm').submit(function(){
+/*** Validação Parceiro ADD *******************************************/
+
+	$('#ParceirodenegocioAddForm').submit(function(){
 	    var email = $("#Contato0Email").val();
 	    var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 

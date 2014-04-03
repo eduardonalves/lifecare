@@ -125,7 +125,7 @@ $(document).ready(function(){
 			$l=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
 				echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'tamanho-medio','label' => 'Email:'));
 				$l++;
 			}
@@ -165,8 +165,8 @@ $(document).ready(function(){
 	?>
 	<div class="area-endereco"> 
 		<div class="bloco-area">
-			<fieldset class="dadosRepetidos">
-				<legend>Endereço  <?php echo $z+1; ?></legend>
+			<fieldset class="dadosRepetidos fieldEndereco">
+				<legend>Endereço <span class="enderecoLength"><?php echo $z+1; ?></span></legend>
 			<section class="coluna-esquerda">
 
 				<?php	
@@ -177,8 +177,8 @@ $(document).ready(function(){
 					
 					echo $this->Form->input('Endereco.'.$z.'.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
 					
-					echo $this->Form->input('Endereco.'.$z.'.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo '<span id="valida0Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
+					echo $this->Form->input('Endereco.'.$z.'.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'auxObr tamanho-medio'));
+					echo '<span id="valida'.$z.'Bairro" class="Msg-tooltipAbaixo" style="display:none">Preencha o Bairro</span>';
 						
 				?>
 
@@ -195,7 +195,7 @@ $(document).ready(function(){
 					echo '<span id="valida'.$z.'Cep3" class="Msg-tooltipDireita" style="display:none">Endereço não encontrado para o cep digitado.</span>';
 					
 					echo $this->Form->input('Endereco.'.$z.'.uf', array('value' => h($endereco['uf']),'label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno','div' => array('class' => 'inputCliente input text divUf')));
-					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Selecione o Estado</span>';
+					echo '<span id="valida'.$z.'Uf" class="Msg-tooltipDireita" style="display:none">Preencha o Estado</span>';
 					
 					echo $this->Form->input('Endereco.'.$z.'.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','class' => 'tamanho-pequeno'));
 					
@@ -207,9 +207,9 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Endereco.'.$z.'.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio'));
-					echo '<span id="valida0Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>';
+					echo '<span id="valida'.$z.'Logradouro" class="Msg-tooltipDireita" style="display:none">Preencha o Logradouro</span>';
 					echo $this->Form->input('Endereco.'.$z.'.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno'));
-					echo '<span id="valida0Cidade" class="Msg-tooltipDireita" style="display:none">Selecione o Cidade</span>';
+					echo '<span id="valida'.$z.'Cidade" class="Msg-tooltipDireita" style="display:none">Preencha a Cidade</span>';
 					echo $this->Form->input('Endereco.'.$z.'.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','type' => 'textarea'));
 				?>
 
@@ -287,7 +287,8 @@ $(document).ready(function(){
 <footer>
 
     <?php
-		echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'add','view' => 'add'));
+   		echo $this->html->image('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvarParceiro','class'=>'bt-salvar'));
+		//echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'edit'));
 		echo $this->Form->end();
     ?>
 
