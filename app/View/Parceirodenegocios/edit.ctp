@@ -162,8 +162,11 @@ $(document).ready(function(){
 				<?php	
 					echo $this->Form->input('Endereco.'.$z.'.id', array('value'=>$endereco['id']));
 
-					echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal','COBRANCA'=>'Cobrança','ENTREGA'=>'Entrega'),'div' =>array( 'class' => 'input select')));
-					
+					if($z==0){
+						echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'input select')));
+					}else{
+						echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('COBRANCA'=>'Cobrança','ENTREGA'=>'Entrega'),'div' =>array( 'class' => 'input select')));
+					}
 					
 					echo $this->Form->input('Endereco.'.$z.'.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
 					
