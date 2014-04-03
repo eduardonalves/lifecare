@@ -73,6 +73,23 @@ class ContaspagarsController extends ContasController {
 				
 				
 			}	
+	}
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento, &$tipoPagamento){
+		
+		if($formaPagamento !="A Vista"  && $tipoPagamento !="CREDITO"){
+			$this->loadModel('Dadoscredito');
+		
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		
+			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+		
+			$novoLimiteUsado =  $limiteUsado + $valorConta;
+			$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+		
+			$this->Dadoscredito->save($updateDadosCredito);
+		}
+		
+	
 	}						
 	public function setStatusConta(&$idConta){
 		$this->loadModel('Parcela');
@@ -169,11 +186,13 @@ class ContaspagarsController extends ContasController {
 				}
 				$this->setStatusConta($ultimaConta['Conta']['id']);
 				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'],  $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
 				return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 				
 			} else {
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contaspagar']['data_emissao']);
 				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 				return $this->redirect(array('action' => 'index'));
 				

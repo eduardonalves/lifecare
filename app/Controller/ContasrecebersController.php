@@ -130,17 +130,21 @@ class ContasrecebersController extends ContasController {
 			}	
 	}
 	
-	public function setLimiteUsadoAdd(&$clienteId, &$valorConta){
-		$this->loadModel('Dadoscredito');
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento, &$tipoPagamento){
 		
-		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+		if($formaPagamento !="A Vista"  && $tipoPagamento !="CREDITO"){
+			$this->loadModel('Dadoscredito');
 		
-		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
 		
-		$novoLimiteUsado =  $limiteUsado + $valorConta;
-		$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
 		
-		$this->Dadoscredito->save($updateDadosCredito);
+			$novoLimiteUsado =  $limiteUsado + $valorConta;
+			$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+		
+			$this->Dadoscredito->save($updateDadosCredito);
+		}
+		
 	
 	}
 	
@@ -227,7 +231,7 @@ class ContasrecebersController extends ContasController {
 					$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
 					$this->setStatusConta($ultimaConta['Conta']['id']);
 					$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
-					$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor']);
+					$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 					
 					$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 					
@@ -236,12 +240,14 @@ class ContasrecebersController extends ContasController {
 					return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 					//debug($ultimaConta['Conta']['parceirodenegocio_id']);
 				} else {
+					$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
 					$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
 	
 					return $this->redirect(array('action' => 'index'));
 					
 				}
 			}else{
+				$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
 				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Limite de crédito excedido.'), 'default', array('class' => 'error-flash'));
 	
 				//return $this->redirect(array('action' => 'index'));

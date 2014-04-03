@@ -254,8 +254,6 @@ class ParceirodenegociosController extends AppController {
 			} else {
 				$this->Session->setFlash(__('Não foi possível editar o Parceiro. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
-			
-			
 		} else {
 			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
 			$this->request->data = $this->Parceirodenegocio->find('first', $options);

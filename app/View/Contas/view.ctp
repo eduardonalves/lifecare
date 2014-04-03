@@ -128,14 +128,14 @@ function formatDateToView(&$data){
 						    
 						    <td>
 							<?php
-							    echo "<a href='add-comprovanteView$j' class='bt-showmodal'>"; 
+							    echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
 								echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
 							    echo "</a>";
 							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 							   
 							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
 							    
-							    echo "<a href='add-uploadConta$j' class='bt-showmodal'>"; 
+							    echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
 							    echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Conta' ));
 							    echo "</a>";
 							    echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
@@ -197,7 +197,7 @@ function formatDateToView(&$data){
 
 						</div>
 <!-------------------------------------- Modal upload Comprovante ----------------------------------------------------->
-						<div class="modal fade" id="myModal_add-uploadConta<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal fade" id="myModal_add-uploadConta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								
 						<div class="modal-body">
 						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
@@ -214,18 +214,18 @@ function formatDateToView(&$data){
 
 							     $('#bt-confirmarUpload').click(function(e){
 								e.preventDefault();
-								extensao=$('input[id="valorUpload"]').val().split('.')[1];
+								extensao=$('input[id="valor"]').val().split('.')[1];
 
-								if(extensao== 'jpg' || extensao=='jpeg' || extensao=='png' ){
-								    valAux=$('input[id="valorUpload"]').val();
-								    $('input[id="valorUpload"]').val(valorComp+valAux);
+								if(extensao== 'gif' || extensao== 'jpg' || extensao=='jpeg' || extensao=='png' ){
+								    valAux=$('input[id="valor"]').val();
+								    $('input[id="valor"]').val(valorComp+valAux);
 								    $('#ParcelaUploadParcelaForm').submit();
 								}else if(extensao== undefined){
-								    $('input[id="valorUpload"]').after('<span').addClass('shadow-vermelho');
+								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
 								    $('#msgImagemvazia').css('display','block');
 								    
 								}else{
-								    $('input[id="valorUpload"]').after('<span').addClass('shadow-vermelho');
+								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
 								    $('#msgImagemErro').css('display','block');
 								}
 							    });
@@ -246,7 +246,7 @@ function formatDateToView(&$data){
 									    <label for="doc_file">Buscar Arquivo:</label>
 									    <input id="doc_file" class="campo-buscar" type="file" name="data[Parcela][doc_file]"/>
 									    <?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id'])); ?>
-									    <input type="text" id="valorUpload" name="data[Parcela][comprovante]"/>
+									    <input type="text" id="valor" name="data[Parcela][comprovante]"/>
 									    <input type="hidden" name="data[Parcela][arquivoAntigo]" value="<?php echo $parcelas['comprovante'] ?>"/>
 									    <a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
 								    </div>
@@ -272,7 +272,7 @@ function formatDateToView(&$data){
 						
 <!--------------------------------------Modal view Comprovante ----------------------------------------------------->
 
-					    <div class="modal fade" id="myModal_add-comprovanteView<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal fade" id="myModal_add-comprovanteView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							    
 					    <div class="modal-body">
 					    <img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	

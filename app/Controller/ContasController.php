@@ -143,20 +143,24 @@ class ContasController extends AppController {
 		}	
  	}
 
-	public function setLimiteUsadoLess(&$clienteId, &$valorParcela){
-		$this->loadModel('Dadoscredito');
+	public function setLimiteUsadoLess(&$clienteId, &$valorParcela, &$formaPagamento, &$tipoPagamento){
 		
-		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
-		
-		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
-		
-		$novoLimiteUsado =  $limiteUsado - $valorParcela;
-		
-		if($novoLimiteUsado < 0){
-			$novoLimiteUsado=0;	
+		if($formaPagamento !="A Vista"  && $tipoPagamento !="CREDITO"){
+			$this->loadModel('Dadoscredito');
+			
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+			
+			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+			$novoLimiteUsado =  $limiteUsado - $valorParcela;
+			
+			if($novoLimiteUsado < 0){
+				$novoLimiteUsado=0;	
+			}
+			$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			$this->Dadoscredito->save($updateDadosCredito);
+			//debug($clienteId);
 		}
-		$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
-		$this->Dadoscredito->save($updateDadosCredito);
 	
 	}
 	
@@ -844,6 +848,8 @@ class ContasController extends AppController {
  */
 	public function quitarParcela($id = null) {
 		$this->loadModel('Parcela');
+		$this->loadModel('Pagamento');
+		$this->loadModel('Conta');
 		$userid = $this->Session->read('Auth.User.id');
 		$this->Parcela->id = $id;
 		if (!$this->Parcela->exists()) {
@@ -855,15 +861,18 @@ class ContasController extends AppController {
 		
 		$parcela= $this->Parcela->find('first', array('conditions' => array('Parcela.id' => $id)));
 		
+		
+		
 		$dataPagamento= $this->request->data['Conta']['data_pagamento'];
 		
 		$this->lifecareDataFuncs->formatDateToBD($dataPagamento);
 		
+		
 		if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
 			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $dataPagamento, 'user_id' => $userid);
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
-			
-			
+			$ultimoPagamento = $this->Pagamento->find('first', array('conditions' => array('Pagamento.conta_id' => $pacelas['_Conta']['id']), 'recursive' => -1));
+			$conta =  $this->Conta->find('first', array('conditions' => array('Conta.id' => $pacelas['_Conta']['id']), 'recursive' => -1));
 			
 			if($this->Parcela->save($updatePacela)){
 				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
@@ -900,10 +909,12 @@ class ContasController extends AppController {
 					
 					}
 				}
-				$this->setLimiteUsadoLess($pacelas['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor']);
+				
+				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
-				//debug($parcelasEmAberto);
+				
+				
 			}else{
 				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
