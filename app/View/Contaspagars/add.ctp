@@ -54,7 +54,7 @@
 										 ));
 		?>
 
-		<div class="input autocompleteFornecedor ">
+		<div class="input autocompleteFornecedor conta">
 		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 		    <select class="tamanho-medio limpa" id="add-fornecedor">
 			<option id="optvazioForn"></option>

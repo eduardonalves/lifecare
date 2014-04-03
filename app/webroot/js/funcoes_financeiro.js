@@ -351,14 +351,11 @@ $(document).ready(function() {
     });
 
     $('[class*="autocomplete"]').click(function(){
-	$('.ui-widget').attr('required',true);
+	$('.contas .ui-widget').attr('required',true);
 	
     }).focusout(function(){
 	if($('input[class*="ui-widget"]').val()==''){
 	    $('.ui-widget').removeAttr('required');
-	    
-	}else{
-	    $('.ui-button').removeClass('shadow-vermelho');
 	    
 	}
     });
