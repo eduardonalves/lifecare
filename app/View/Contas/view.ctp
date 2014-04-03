@@ -214,18 +214,18 @@ function formatDateToView(&$data){
 
 							     $('#bt-confirmarUpload').click(function(e){
 								e.preventDefault();
-								extensao=$('input[id="valor"]').val().split('.')[1];
+								extensao=$('input[id="valorUpload"]').val().split('.')[1];
 
 								if(extensao== 'jpg' || extensao=='jpeg' || extensao=='png' ){
-								    valAux=$('input[id="valor"]').val();
-								    $('input[id="valor"]').val(valorComp+valAux);
+								    valAux=$('input[id="valorUpload"]').val();
+								    $('input[id="valorUpload"]').val(valorComp+valAux);
 								    $('#ParcelaUploadParcelaForm').submit();
 								}else if(extensao== undefined){
-								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
+								    $('input[id="valorUpload"]').after('<span').addClass('shadow-vermelho');
 								    $('#msgImagemvazia').css('display','block');
 								    
 								}else{
-								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
+								    $('input[id="valorUpload"]').after('<span').addClass('shadow-vermelho');
 								    $('#msgImagemErro').css('display','block');
 								}
 							    });
@@ -246,7 +246,7 @@ function formatDateToView(&$data){
 									    <label for="doc_file">Buscar Arquivo:</label>
 									    <input id="doc_file" class="campo-buscar" type="file" name="data[Parcela][doc_file]"/>
 									    <?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id'])); ?>
-									    <input type="text" id="valor" name="data[Parcela][comprovante]"/>
+									    <input type="text" id="valorUpload" name="data[Parcela][comprovante]"/>
 									    <input type="hidden" name="data[Parcela][arquivoAntigo]" value="<?php echo $parcelas['comprovante'] ?>"/>
 									    <a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
 								    </div>

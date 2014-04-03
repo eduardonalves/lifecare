@@ -446,12 +446,12 @@ $(document).ready(function() {
 
     $('#doc_file').change(function(){
 	arquivo = $('#doc_file').val();
-	$('input[id="valor"]').attr('value',arquivo);
+	$('input[id="valorUpload"]').attr('value',arquivo);
     });
 
-    $('input[id="valor"]').on('focusout',function(){
+    $('input[id="valorUpload"]').on('focusout',function(){
 	if($(this).val==''){
-	    $('input[id="valor"]').attr('value','');
+	    $('input[id="valorUpload"]').attr('value','');
 	    $('input[id="doc_file"]').attr('value','');
 	    
 	}
