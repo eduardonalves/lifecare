@@ -18,13 +18,17 @@ class lifecareFuncsComponent extends Component {
 		$valorMoedaAux = explode('.' , $valorMoeda);
 		if(isset ($valorMoedaAux[1])){
 			$i = 0;
+			
 			$convertido='';
 			foreach($valorMoedaAux as $valor){
-				$convertido =$convertido.$valor[$i]; 
+				$convertido =$convertido.$valor; 
+				$i++;
+				
 			}
 		}else{
 			$convertido = $valorMoedaAux[0];
 		}
+		
 		
 		$decimal = explode(',' , $convertido);
 		

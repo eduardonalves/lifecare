@@ -13,7 +13,7 @@ class ParceirodenegociosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','RequestHandler','lifecareDataFuncs');
+	public $components = array('Paginator','RequestHandler','lifecareDataFuncs','lifecareFuncs');
 
 /**
  * index method
@@ -183,7 +183,7 @@ class ParceirodenegociosController extends AppController {
 			$i=0;
 			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
-				
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Dadoscredito'][$i]['limite']);
 				$i++;
 			}
 			
@@ -243,6 +243,7 @@ class ParceirodenegociosController extends AppController {
 			$i=0;
 			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Dadoscredito'][$i]['limite']);
 				
 				$i++;
 			}

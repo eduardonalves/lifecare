@@ -50,7 +50,7 @@ textarea{
 #validaClassificacao, #validaValidade1, #validaStatus, #Dadoscredito0Bloqueado{
 	width: 85px;
 	top: -5px;
-	left: 260px;	
+	left: 253px !important;	
 }
 
 #validaValidade2, #validaValidade3{
@@ -78,7 +78,7 @@ textarea{
 #validaNome, #validaLimite, #validaTelefone22,span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
 	width:85px;
 	top:-5px;
-	left:341px;
+	left:314px !important;
 	z-index:9991;
 }
 
@@ -105,7 +105,7 @@ span[id$="Bairro"]{
 #validaTelefone{
 	width:85px;
 	top:25px;
-	left:325px;
+	left:316px;
 }
 
 #validaCPF, #validaCPFTamanho, #validaCelular{

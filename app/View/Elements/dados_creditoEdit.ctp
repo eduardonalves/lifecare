@@ -34,14 +34,8 @@
 	<section class="coluna-direita" >
 
 		<?php
-			$bloqAux = h($dadoscredito['bloqueado']);
-			if($bloqAux == 1){
-				$bloqueado = "Sim";
-			}else{
-				$bloqueado = "Não";
-			}
-			
-			echo $this->Form->input('Dadoscredito.'.$y.'.bloqueado',array('value'=>$bloqueado,'readonly'=>'readonly','onFocus'=>'this.blur();','label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-medio borderZero'));
+		
+			echo $this->Form->input('Dadoscredito.'.$y.'.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'readonly'=>'readonly','onFocus'=>'this.blur();','label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-medio borderZero'));
 			echo $this->Form->input('Dadoscredito.'.$y.'.user_id',array('value'=>h($dadoscredito['user_id']),'readonly'=>'readonly','onFocus'=>'this.blur();','label' => 'Criado por:','type' => 'text','class' => 'tamanho-medio borderZero'));
 			
 		?>
