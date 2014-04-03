@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::import('Vendor', 'WideImage/WideImage');  
 /**
  * Parcelas Controller
  *
@@ -110,34 +111,53 @@ class ParcelasController extends AppController {
 
 	public function uploadParcela() {
 	    $this->layout = 'contas';
-		App::uses('Folder', 'Utility');
-		App::uses('File', 'Utility');
+	    App::uses('Folder', 'Utility');
+	    App::uses('File', 'Utility');
 		
-		if($this->request->is('post')){
-		   
-		    $filename = WWW_ROOT.'files'. DS.$this->request->data['Parcela']['id'].$this->request->data['Parcela']['doc_file']['name'];
-		    
-		    $file=$this->request->data['Parcela'];
-		    move_uploaded_file($this->request->data['Parcela']['doc_file']['tmp_name'],$filename);
-		    
-		//debug($file);
-		    $fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
-		    if(file_exists($fileAntigo)){
-			unlink($fileAntigo);
+	    if($this->request->is('post')){
+	       
+		$filename = WWW_ROOT.'files'.DS.$this->request->data['Parcela']['id'].$this->request->data['Parcela']['doc_file']['name'];
+		
+		$file=$this->request->data['Parcela'];
+		move_uploaded_file($this->request->data['Parcela']['doc_file']['tmp_name'],$filename);
+
+		//debug($this->request->data['Parcela']['doc_file']['size']);
+		
+		list($w, $h, $type) = getimagesize($filename);
+		
+		if($this->request->data['Parcela']['doc_file']['size'] < 2097152 ){
+		    if(($w >= 700 && $w <=2200) && ($h >= 700 && $h <=2200)){
+			$fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
+			if(file_exists($fileAntigo)){
+			    unlink($fileAntigo);
+			}
+			
+			$fileSeparado = split ('[.]',$filename,2);
+			if($fileSeparado[1]=='jpeg' || $fileSeparado[1]=='jpg' || $fileSeparado[1]=='png' ){
+			    $this->Parcela->create();
+			    if ($this->Parcela->save($this->request->data)) {
+				$this->Session->setFlash(__('Upload realizado com sucesso.'), 'default', array('class' => 'success-flash'));
+			    } else {
+				$this->Session->setFlash(__('Não foi possível realizar upload. Tente novamente.'), 'default', array('class' => 'error-flash'));
+			    }
+			}else{
+			    $this->Session->setFlash(__('Não foi possível realizar upload, extensão inválida. Tente novamente.'), 'default', array('class' => 'error-flash'));
+			}
+		    }else{
+			$this->Session->setFlash(__('Não foi possível realizar upload, resolução máxima ultrapassada. Tente novamente.'), 'default', array('class' => 'error-flash'));
 		    }
-		    
-		    $this->Parcela->create();
-		    if ($this->Parcela->save($this->request->data)) {
-			$this->Session->setFlash(__('Upload realizado com sucesso.'), 'default', array('class' => 'success-flash'));
-		    } else {
-			$this->Session->setFlash(__('Não foi possível realizar upload. Tente novamente.'), 'default', array('class' => 'error-flash'));
-		    }
-	
+		}else{
+		    $this->Session->setFlash(__('Não foi possível realizar upload, tamanho máximo ultrapassada. Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
+
+
 		
 
-		$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' =>0, 'conditions' => array('Parcela.id' => $this->request->data['Parcela']['id'] )));
-	//debug($this->request->data['Parcela']['id']);
-		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaParcela['_Conta']['id']));
+	    }
+	    
+
+	    //$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' =>0, 'conditions' => array('Parcela.id' => $this->request->data['Parcela']['id'] )));
+	    ////debug($this->request->data['Parcela']['id']);
+	    //$this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaParcela['_Conta']['id']));
 	}
 }
