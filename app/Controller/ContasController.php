@@ -911,12 +911,12 @@ class ContasController extends AppController {
 				}
 				
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'));
+				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				
 				
 			}else{
-				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'));
+				$this->Session->setFlash(__('Não foi possível quitar essa parcela. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				
 			}
@@ -954,11 +954,11 @@ class ContasController extends AppController {
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
 				
 				
-				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'));
+				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $parcela['_Conta']['id']));
 			}
 		}else{
-			$this->Session->setFlash(__('Esta conta já foi cancelada.'));
+			$this->Session->setFlash(__('Esta conta já foi cancelada.'), 'default', array('class' => 'error-flash'));
 			return $this->redirect(array('action' => 'view', $id));
 		}
 	}
