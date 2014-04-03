@@ -26,9 +26,10 @@
 #msgExtensoes{
     background-color:#D9EDF7;
     color:#317396;
-    left:170px;
+    left:165px;
     top:136px;
     width:150px;
+    z-index:6;
 }
 
 #msgExtensoes:after{

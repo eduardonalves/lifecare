@@ -446,7 +446,17 @@ $(document).ready(function() {
 
     $('#doc_file').change(function(){
 	arquivo = $('#doc_file').val();
-	$('input[id="valorUpload"]').attr('value',arquivo);
+	$('input[id="valorUpload"]').attr('value',"");
+	
+	if (navigator.userAgent.indexOf("Firefox") != -1){
+	    $('input[id="valorUpload"]').attr('value',arquivo);
+	}else if(navigator.userAgent.indexOf("AppleWebKit") != -1 || navigator.userAgent.indexOf("WebKit") != -1 ){
+	    arquivoAux=arquivo.split('\\')[2];
+	    $('input[id="valorUpload"]').attr('value',arquivoAux);
+	}else if (navigator.userAgent.indexOf("MSIE") != -1){
+	    $('input[id="valorUpload"]').attr('value',arquivo);	    
+	}
+	
     });
 
     $('input[id="valorUpload"]').on('focusout',function(){
@@ -458,7 +468,7 @@ $(document).ready(function() {
     });
 
 /******************** Mensagem extensão *********************************/
-    $( "#valor,#bt-buscar" ).hover(function(){
+    $( "#valorUpload, #bt-buscar" ).hover(function(){
 	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg. Preferencialmente png.</span>');
 	},function(){
 	    $('#msgExtensoes').remove();
