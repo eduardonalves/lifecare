@@ -1,7 +1,7 @@
  $(document).ready(function() {
 
     $('input').focus(function(){
-	$('.ui-autocomplete-input').attr('tabindex','3');
+	$('.ui-autocomplete-input').attr('tabindex','102');
     });
 
       $("body").on('focus','.ui-autocomplete-input',function(){
