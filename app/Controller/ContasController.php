@@ -760,7 +760,10 @@ class ContasController extends AppController {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
+		//$parcelas = $this->ParcelasConta->Parcela->find('list');
 		$this->set('conta', $this->Conta->find('first', $options));
+		$parcelas = $this->Conta->Parcela->find('all');
+		$this->set(compact('parcelas'));
 	}
 
 /**
@@ -948,22 +951,6 @@ class ContasController extends AppController {
 			return $this->redirect(array('action' => 'view', $id));
 		}
 	}
-
-	public function uploadConta() {
-	    $this->layout = 'contas';
-		App::uses('Folder', 'Utility');
-		App::uses('File', 'Utility');
-		if($this->request->is('post')){
-			$filename = WWW_ROOT.'files'. DS.$this->request->data['Conta']['doc_file']['name'];
-			$file=$this->request->data['Conta'];
-			move_uploaded_file($this->request->data['Conta']['doc_file']['tmp_name'],$filename);
-			
-		   //debug($filename); 
-	
-		}
-		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Conta']['id']));
-	}	
-		
 }
 
 

@@ -1,14 +1,20 @@
 <?php
 
-$this->start('css');
-	    echo $this->Html->css('contas_view');
-	    echo $this->Html->css('table');
-	$this->end();
+    $this->start('css');
+	echo $this->Html->css('contas_view');
+	echo $this->Html->css('table');
+	echo $this->Html->css('modal_uploadConta');
+	echo $this->Html->css('comprovante_view');
+	echo $this->Html->css('zoomer');
+    $this->end();
 	
 $this->start('modais');
-	    echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
-	    echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
+	  //  echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
+	   // echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
 	$this->end();
+    $this->start('script');
+	echo $this->Html->script('zoomer.js');
+    $this->end();	
 	
 function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
@@ -124,7 +130,7 @@ function formatDateToView(&$data){
 							<?php
 							    echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
 								echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
-								echo "</a>";
+							    echo "</a>";
 							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 							   
 							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
@@ -152,7 +158,6 @@ function formatDateToView(&$data){
 
 							
 							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => $parcelas['status'])); ?></td>
-							
 							
 
 						</tr>
@@ -190,7 +195,117 @@ function formatDateToView(&$data){
 								?>			
 							</footer>
 
-						</div>	
+						</div>
+<!-------------------------------------- Modal upload Comprovante ----------------------------------------------------->
+						<div class="modal fade" id="myModal_add-uploadConta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								
+						<div class="modal-body">
+						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+			
+						<header id="cabecalho">
+							
+							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Upload comprovante</h1>
+							 
+						</header>
+					
+						<script>
+							$(document).ready(function(){
+							    var valorComp = <?php echo $parcelas['id']; ?>;
+
+							     $('#bt-confirmarUpload').click(function(e){
+								e.preventDefault();
+								extensao=$('input[id="valor"]').val().split('.')[1];
+
+								if(extensao== 'gif' || extensao== 'jpg' || extensao=='jpeg' || extensao=='png' ){
+								    valAux=$('input[id="valor"]').val();
+								    $('input[id="valor"]').val(valorComp+valAux);
+								    $('#ParcelaUploadParcelaForm').submit();
+								}else if(extensao== undefined){
+								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
+								    $('#msgImagemvazia').css('display','block');
+								    
+								}else{
+								    $('input[id="valor"]').after('<span').addClass('shadow-vermelho');
+								    $('#msgImagemErro').css('display','block');
+								}
+							    });
+							});
+						</script>
+						<section>
+							<header class="header">Adicionar Comprovante</header>
+							
+							<section>
+
+							<div class="Parcela upload">
+							    <?php echo $this->Form->create('Parcela', array('type' => 'file','action'=>'uploadParcela')); ?>
+								    <div style="display:none;">
+									<input type="hidden" value="POST" name="_method"/>
+								    </div>
+								    
+								    <div class="input file">
+									    <label for="doc_file">Buscar Arquivo:</label>
+									    <input id="doc_file" class="campo-buscar" type="file" name="data[Parcela][doc_file]"/>
+									    <?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id'])); ?>
+									    <input type="text" id="valor" name="data[Parcela][comprovante]"/>
+									    <input type="hidden" name="data[Parcela][arquivoAntigo]" value="<?php echo $parcelas['comprovante'] ?>"/>
+									    <a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
+								    </div>
+								    <span id="msgImagemvazia" class="Msg-tooltipAbaixo msgImagem" style="display:none">Escolha uma imagem</span>
+								    <span id="msgImagemErro" class="Msg-tooltipAbaixo msgImagem" style="display:none">Extensão inválida</span>
+
+								    <div class="submit">
+									    <input id="bt-confirmarUpload" type="image" src="/lifecare/app/webroot/img/botao-confirmar.png"/>
+								    </div>
+
+							    <?php echo $this->Form->end() ?>
+					    
+						    </div>
+
+								
+							</section>
+							
+						</section>
+
+						</div>
+
+						</div>
+						
+<!--------------------------------------Modal view Comprovante ----------------------------------------------------->
+
+					    <div class="modal fade" id="myModal_add-comprovanteView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							    
+					    <div class="modal-body">
+					    <img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+
+					    <header id="cabecalho">
+						    
+						    <img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Visualizar</h1>
+						     
+					    </header>
+
+					     <script>
+						$(document).ready(function(){
+						    $('.zoomImagem').zoomer();
+						});
+					    </script>
+
+					    <section>
+						    <header class="header">Comprovante</header>
+
+							<div class='zoomImagem'>
+							   <img src="/lifecare/app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
+							</div>
+
+						    
+					    </section>
+
+
+					    </div>
+
+					    </div>
+
+
+						
 						<?php $j=$j+1;?>
 					<?php endforeach; ?>	
 			</table>
