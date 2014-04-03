@@ -386,12 +386,10 @@ $(document).ready(function(){
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
-	$('span[class^="Msg"]').css('display','none');
-	$('span[class^="DinamicaMsg"]').remove();
-	$('input,select').removeClass('shadow-vermelho');
-	$('.ui-widget').removeClass('shadow-vermelho');
-	
-	
+		$('span[class^="Msg"]').css('display','none');
+		$('span[class^="DinamicaMsg"]').remove();
+		$('input,select').removeClass('shadow-vermelho');
+		$('.ui-widget').removeClass('shadow-vermelho');	
     });
 
 

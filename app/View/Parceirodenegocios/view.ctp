@@ -44,8 +44,8 @@
 			echo $this->Form->input('tipo',array('value'=>h($parceirodenegocio['Parceirodenegocio']['tipo']),'label' => 'Classificação:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
 			
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-grande tel borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
-				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-grande tel borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
+				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-grande borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
 			}			
 			
 		?>
@@ -58,7 +58,7 @@
 			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
 
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-grande tel borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
+				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
 				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-grande borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
 
 			}
@@ -69,10 +69,10 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-grande maskcpf borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-grande borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
 
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-grande tel borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
+				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-grande borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
 			}	
 		?>
 
@@ -170,7 +170,7 @@
 
 				<?php
 					echo $this->Form->input('Dadosbancario.nome_agencia',array('value'=>h($dadosbancario['nome_agencia']),'label' => 'Nome da Agência:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Dadosbancario.telefone_banco',array('value'=>h($dadosbancario['telefone_banco']),'label' => 'Telefone:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande tel borderZero'));
+					echo $this->Form->input('Dadosbancario.telefone_banco',array('value'=>h($dadosbancario['telefone_banco']),'label' => 'Telefone:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
 				?>
 
 			</section>

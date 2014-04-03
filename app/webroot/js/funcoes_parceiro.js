@@ -580,6 +580,27 @@ $(document).ready(function() {
 			}
 		}
     });
+    
+    $("#DadoscreditoValidadeLimite").focusout(function(){
+		var dfuturoSaida = $("#DadoscreditoValidadeLimite").val();
+		var dataFutura = new Date();
+
+		var anoDigitado = dfuturoSaida.split("/")[2];
+		var mesDigitado = dfuturoSaida.split("/")[1];
+		var diaDigitado = dfuturoSaida.split("/")[0];
+
+		if(dfuturoSaida != ''){
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){
+				$("#validaValidade3").css("display","block");
+				$("input[id='DadoscreditoValidadeLimite']").addClass('shadow-vermelho');
+				$("#DadoscreditoValidadeLimite").val("");
+			}else{
+				$("#DadoscreditoValidadeLimite").removeClass('shadow-vermelho');
+				$("#validaValidade3").css("display","none");
+			}
+		}
+    });
+
 
 
 /*** Mascara **********************************************************/
