@@ -127,7 +127,7 @@ $(document).ready(function() {
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
 
 		if((cep) && (logradouro) && (uf) && (cidade) && (bairro)){			
-			$('.area-endereco').append('<div class="bloco-area-end'+ contadorBlocoEndereco +'">\
+			$('.area-endereco').append('<div class="enderecoLength bloco-area-end'+ contadorBlocoEndereco +'" style="margin-top:20px;margin-bottom:120px;"">\
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
@@ -336,9 +336,9 @@ $(document).ready(function() {
 
 /*** Validação Parceiro EDIT ******************************************/
 	
-	$('#bt-salvarParceiro').on('click',function(){
+	$('#bt-salvarParceiroEdit').on('click',function(){
 		
-		var fieldLength = 0;
+		fieldLength = 0;
 		$(".enderecoLength").each(function(){
 			fieldLength = fieldLength + 1;
 		});
@@ -351,7 +351,23 @@ $(document).ready(function() {
 				valorCidade = $('#Endereco'+i+'Cidade').val();
 				valorBairro = $('#Endereco'+i+'Bairro').val();
 				
-				if(valorCep== ''){
+				if($('#ParceirodenegocioNome').val() == ''){
+					$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+					$('#validaNome').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					$('#validaCPF').css('display','block');
+					break;
+				}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+					$('#ParceirodenegocioCpfCnpj').focus();
+					$('#validaCPFTamanho').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioTelefone1').val() == ''){
+					$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+					$('#validaTelefone').css('display','block');
+					break;
+				}else if(valorCep== ''){
 					idval= $('#Endereco'+i+'Cep').attr('id');
 					$('#'+idval).addClass('shadow-vermelho');
 					$('#valida'+i+'Cep1').css('display','block');
@@ -383,20 +399,8 @@ $(document).ready(function() {
 					$('#'+idval).addClass('shadow-vermelho');
 					$('#valida'+i+'Bairro').css('display','block');
 					break;
-				}else if($('#ParceirodenegocioTelefone1').val() == ''){
-					$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-					$('#validaTelefone').css('display','block');
-					break;
-				}else if($('#ParceirodenegocioNome').val() == ''){
-					$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-					$('#validaNome').css('display','block');
-					break;
-				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-					$('#validaCPF').css('display','block');
-					break;
 				}else{
-					//$('#ParceirodenegocioEditForm').submit();
+					$('#ParceirodenegocioEditForm').submit();
 				}
 		}
 		
@@ -405,161 +409,120 @@ $(document).ready(function() {
 
 
 /*** Validação Parceiro ADD *******************************************/
-
-	$('#ParceirodenegocioAddForm').submit(function(){
-	    var email = $("#Contato0Email").val();
-	    var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-
-		if($('#ParceirodenegocioClassificacao').val() == 0){
-			$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
-			$('#validaClassificacao').css('display','block');
-			return false;
-		}else if($('#ParceirodenegocioNome').val() == ''){
-			$('#ParceirodenegocioNome').addClass('shadow-vermelho');
-			$('#ParceirodenegocioNome').on('focus',function(){
-				if($('#ParceirodenegocioNome').val() == ''){
+		var email = $("#Contato0Email").val();
+		var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			
+	$('#bt-salvarParceiroAdd').on('click',function(){
+			
+		fieldLength = 0 ;	
+		$(".enderecoLength").each(function(){
+			fieldLength = fieldLength + 1;
+		});
+		
+		valorTipo = '';
+		for(i=0; i < fieldLength; i++){
+			
+				valorTipo = $('#tipo'+i).val();
+				valorCep =$('#Endereco'+i+'Cep').val();
+				valorLogradouro = $('#Endereco'+i+'Logradouro').val();
+				valorUf = $('#Endereco'+i+'Uf').val();
+				valorCidade = $('#Endereco'+i+'Cidade').val();
+				valorBairro = $('#Endereco'+i+'Bairro').val();
+				
+				
+				if($('#ParceirodenegocioClassificacao').val() == ''){
+					$('#ParceirodenegocioClassificacao').addClass('shadow-vermelho');
+					$('#ParceirodenegocioClassificacao').focus();
+					$('#validaClassificacao').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioNome').val() == ''){
+					$('#ParceirodenegocioNome').addClass('shadow-vermelho');
+					$('#ParceirodenegocioNome').focus();
 					$('#validaNome').css('display','block');
-				}
-			});
-			$('#ParceirodenegocioNome').focus();
-			$('#ParceirodenegocioNome').focusout(function(){
-				$('#validaNome').css('display','none');
-			});
-			return false;
-		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-			$('#validaCPF').css('display','block');
-			return false;
-			
-		}else if(!emailValido.test(email)){
-			$('#Contato0Email').focus().css('border-color','pink');
-			$('#validaEmail').css('display','block');
-			$('#Contato0Email').focusout(function(){
-			    $('#validaEmail').css('display','none');
-			});
-
-			return false;
-		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-			$('#ParceirodenegocioCpfCnpj').focus();
-			$('#validaCPFTamanho').css('display','block');
-			$('#ParceirodenegocioCpfCnpj').focusout(function(){
-			    $('#validaCPFTamanho').css('display','none');
-			});
-			return false;
-		}else if($('#ParceirodenegocioTelefone1').val() == ''){
-			$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
-			$('#ParceirodenegocioTelefone1').on('focus',function(){
-				if($('#ParceirodenegocioTelefone1').val() == ''){
+					break;
+				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					$('#ParceirodenegocioCpfCnpj').focus();
+					$('#validaCPF').css('display','block');
+					break;
+				}else if(!emailValido.test(email)){
+					$('#Contato0Email').focus().css('border-color','pink');
+					$('#Contato0Email').focus();
+					$('#validaEmail').css('display','block');
+					break;
+				}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+					$('#ParceirodenegocioCpfCnpj').focus();
+					$('#validaCPFTamanho').css('display','block');
+					break;
+				}else if($('#ParceirodenegocioTelefone1').val() == ''){
+					$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
+					$('#ParceirodenegocioTelefone1').focus();
 					$('#validaTelefone').css('display','block');
-				}
-			});
-			$('#ParceirodenegocioTelefone1').focus();
-			$('#ParceirodenegocioTelefone1').focusout(function(){
-				$('#validaTelefone').css('display','none');
-			});
-			return false;
-		}else if($('#tipo'+ (contadorBlocoEndereco-1) ).val() == ''){
-			$('#tipo'+ (contadorBlocoEndereco-1) ).addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Tipo').css('display','block');
-			$('#tipo'+ (contadorBlocoEndereco-1) ).on('focus',function(){
-				if($('#tipo'+ (contadorBlocoEndereco-1)).val() == ''){
-				    $('#valida'+ (contadorBlocoEndereco-1) +'Tipo').css('display','none');
-				}
-			});
-
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').addClass('shadow-vermelho');
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').on('focus',function(){
-				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val() == ''){
-					$('#valida'+ (contadorBlocoEndereco-1) +'Cep1').css('display','block');
-				}
-			});
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focus();
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
-				$('#valida'+ (contadorBlocoEndereco-1) +'Cep1').css('display','none');
-			});
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').val().length < 9){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focus();
-			$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','block');
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').focusout(function(){
-				$('#valida'+ (contadorBlocoEndereco-1) +'Cep2').css('display','none');
-			});
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').addClass('shadow-vermelho');
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').on('focus',function(){
-				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').val() == ''){
-					$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','block');
-				}
-			});
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focus();
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').focusout(function(){
-				$('#valida'+ (contadorBlocoEndereco-1) +'Logradouro').css('display','none');
-			});
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').val() == 0){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Uf').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Uf').css('display','block');
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').val() == ''){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Cidade').addClass('shadow-vermelho');
-			$('#valida'+ (contadorBlocoEndereco-1) +'Cidade').css('display','block');
-			return false;
-		}else if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').addClass('shadow-vermelho');
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').on('focus',function(){
-				if($('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').val() == ''){
-					$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','block');
-				}
-			});
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focus();
-			$('#Endereco'+ (contadorBlocoEndereco-1) +'Bairro').focusout(function(){
-				$('#valida'+ (contadorBlocoEndereco-1) +'Bairro').css('display','none');
-			});
-			return false;
-		}else if(($('#Dadoscredito0Limite').val() == '')){
-			$('#Dadoscredito0Limite').addClass('shadow-vermelho');
-			$('#Dadoscredito0Limite').on('focus',function(){
-				if($('#Dadoscredito0Limite').val() == ''){
+					break;
+				}else if(valorTipo== ''){
+					$('#tipo'+i).addClass('shadow-vermelho');
+					$('#tipo'+i).focus();
+					$('#valida'+i+'Tipo').css('display','block');
+					break;
+				}else if(valorCep== ''){
+					idval= $('#Endereco'+i+'Cep').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Cep1').css('display','block');
+					break;					
+				}else if(valorCep.length < 9){
+					idval= $('#Endereco'+i+'Cep').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Cep2').css('display','block');
+					break;					
+				}else if(valorLogradouro == ''){
+					idval= $('#Endereco'+i+'Logradouro').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Logradouro').css('display','block');
+					break;				
+				}else if(valorUf == ''){
+					idval= $('#Endereco'+i+'Uf').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Uf').css('display','block');
+					break;
+				}else if(valorCidade == ''){
+					idval= $('#Endereco'+i+'Cidade').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Cidade').css('display','block');
+					break;
+				}else if(valorBairro == ''){
+					idval= $('#Endereco'+i+'Bairro').attr('id');
+					$('#'+idval).addClass('shadow-vermelho');
+					$('#'+idval).focus();
+					$('#valida'+i+'Bairro').css('display','block');
+					break;
+				}else if($('#Dadoscredito0Limite').val() == '' || $('#Dadoscredito0Limite').val() == '0,00'){
+					$('#Dadoscredito0Limite').addClass('shadow-vermelho');
+					$('#Dadoscredito0Limite').focus();
 					$('#validaLimite').css('display','block');
-				}
-			});
-			$('#Dadoscredito0Limite').focus();
-			$('#Dadoscredito0Limite').focusout(function(){
-				$('#validaLimite').css('display','none');
-			});
-			return false;
-		}else if(($('#Dadoscredito0ValidadeLimite').val() == '')){
-			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-			$('#Dadoscredito0ValidadeLimite').on('focus',function(){
-				if($('#Dadoscredito0ValidadeLimite').val() == ''){
+					break;
+				}else if($('#Dadoscredito0ValidadeLimite').val() == ''){
+					$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
+					$('#Dadoscredito0ValidadeLimite').focus();
 					$('#validaValidade1').css('display','block');
+					break;
+				}else if($('#ParceirodenegociosBloqueado').val() == ''){
+					$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
+					$('#ParceirodenegociosBloqueado').focus();
+					$('#validaBloqueado').css('display','block');
+					break;
+				}else{
+					$('#ParceirodenegocioAddForm').submit();
 				}
-			});
-			$('#Dadoscredito0ValidadeLimite').focus();
-			$('#Dadoscredito0ValidadeLimite').focusout(function(){
-				$('#validaValidade1').css('display','none');
-			});
-			return false;
-		}else if(($('#ParceirodenegociosBloqueado').val() == '')){
-			$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
-			$('#validaBloqueado').css('display','block');
-			return false;
-		}else{
-			
-			var valorLimite = $('.dinheiro_duasCasas').val();
-			
-			valorLimite = valorLimite.replace(/\./g, '');
-			valorLimite = valorLimite.replace(',', '.');
-			
-			$('.dinheiro_duasCasas').val(valorLimite);
-			
-			return true;
 		}
+		
 	});
-
+	
+	
 	$('#Dadoscredito0ValidadeLimite').change(function(){
 		var hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var selecionado = $('#Dadoscredito0ValidadeLimite').datepicker('getDate').getTime();

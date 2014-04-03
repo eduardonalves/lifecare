@@ -287,7 +287,7 @@ $(document).ready(function(){
 <footer>
 
     <?php
-   		echo $this->html->image('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvarParceiro','class'=>'bt-salvar'));
+   		echo $this->html->image('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvarParceiroEdit','class'=>'bt-salvar'));
 		//echo $this->Form->submit('botao-salvar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvarParceiro','controller' =>'Parceirodenegocio','action' => 'edit'));
 		echo $this->Form->end();
     ?>

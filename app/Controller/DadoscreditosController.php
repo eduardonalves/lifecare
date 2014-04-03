@@ -56,7 +56,7 @@ class DadoscreditosController extends AppController {
 				$this->Dadoscredito->save($updateUltimoLimite);
 				$ultimoDadoscredito = $this->Dadoscredito->find('first', array('order' => array('Dadoscredito.id' => 'desc'), 'recursive' =>-1));
 				$userid = $this->Session->read('Auth.User.id');
-				$dadosCreditoUser= array( 'id' =>$ultimoDadoscredito['Dadoscredito']['id'], 'user_id' => $userid, 'bloqueado' => 'Não');
+				$dadosCreditoUser= array( 'id' =>$ultimoDadoscredito['Dadoscredito']['id'], 'user_id' => $userid, 'bloqueado' => 'Não', 'limite_usado' =>$ultimoDadoscreditoAtivo['Dadoscredito']['limite_usado']);
 				$this->Dadoscredito->save($dadosCreditoUser);
 				
 				$this->set(compact('ultimoDadoscredito'));
