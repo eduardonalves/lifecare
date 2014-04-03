@@ -934,7 +934,6 @@ class ContasController extends AppController {
 		$this->loadModel('Parcela');
 		$this->loadModel('Pagamento');
 		$this->Conta->id = $id;
-		
 		if (!$this->Conta->exists()) {
 			throw new NotFoundException(__('Conta inválida'));
 		}
