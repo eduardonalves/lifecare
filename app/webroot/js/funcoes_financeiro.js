@@ -128,7 +128,7 @@ $(document).ready(function() {
 
 /*** Validação de Datas Contas ****************************************/
 
-    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento').addClass('validaDataContas');
+    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento, #DadoscreditoValidadeLimite').addClass('validaDataContas');
     
     $(".validaDataContas").change(function(){
 	    

@@ -54,29 +54,19 @@ function findCEP(ind) {
 	
 
 $(document).ready(function(){
-	  
-	//alert($('#ParceirodenegocioCpfCnpj').val().length);
 	
 	$('#ParceirodenegocioCpfCnpj').val($('#ParceirodenegocioCpfCnpj').attr('value'));
-	/*
-	if( $('#ParceirodenegocioCpfCnpj').val().length == 10){
-		
-		var campoValor = $('#ParceirodenegocioCpfCnpj').attr('value') .replace(/[^0-9]/gi, '');
-		
-		$('#ParceirodenegocioCpfCnpj').val(campoValor);
-		$('#ParceirodenegocioCpfCnpj').mask("999.999.999-99");
-	}
-	*/
 	$('#ParceirodenegocioCpfCnpj').unmask();
-	
-	teste = $('#ParceirodenegocioCpfCnpj').val();
-	$('#ParceirodenegocioCpfCnpj').val(teste);
 	
 	var	indice = 0;
 	$(".buscaCep").click(function(){		
 		indiceAux = $(this).attr("id");
 		indice = indiceAux.substring(11,12);
 		findCEP(indice);		
+	});
+	
+	$("#Endereco0Tipo").change(function(event) {
+		$(this).val($(this).find("option").first().val());
 	});
 
 });
@@ -105,7 +95,7 @@ $(document).ready(function(){
 			$p=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$p.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio tel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+				echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-medio maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
 				echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
 				echo $this->Form->input('Contato.'.$p.'.fax',array('class' => 'tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
 				$p++;
@@ -125,7 +115,7 @@ $(document).ready(function(){
 			$l=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio tel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
 				echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'tamanho-medio','label' => 'Email:'));
 				$l++;
 			}
@@ -137,7 +127,7 @@ $(document).ready(function(){
 
 		<?php
 		
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','style'=>'background:#EBEAFC;','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','readonly'=>'readonly','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
 			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
 				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
@@ -258,7 +248,7 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Dadosbancario.'.$i.'.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno'));
-					echo $this->Form->input('Dadosbancario.'.$i.'.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio tel'));
+					echo $this->Form->input('Dadosbancario.'.$i.'.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio maskTel'));
 				?>
 
 			</section>

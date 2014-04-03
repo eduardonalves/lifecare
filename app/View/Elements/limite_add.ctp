@@ -97,6 +97,7 @@ $(document).ready(function(){
 			
 			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'forma-data tamanho-pequeno'));
 			echo '<span id="validaValidadeModal" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
+			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display: none;">Preencha corretamente a data</span>';
 			
 			echo $this->Form->input('Dadoscredito.parceirodenegocio_id',array('type' => 'hidden', 'value' => $parceirodenegocio['Parceirodenegocio']['id']));
 			
