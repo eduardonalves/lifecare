@@ -52,22 +52,7 @@
 	</div>	
 	
 		</fieldset>
-		
-
-	
+	<?php $y++; }?>
 	<span style="display:none;" id="quantiaCreditos"><?php echo $y; ?></span>
-	
-
-	
-	<?php $y++;} ?>
-
-	<a href="add-novo_limite" class="bt-showmodal">
-				
-	<?php	
-		echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Limite de Crédito','id'=>'bt-addLimite','class'=>'bt-direita'));
-	?>	
-	</a>
-	
-</section>	
-
-
+		
+</section>
