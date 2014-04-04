@@ -106,7 +106,7 @@
  * included primarily as a development convenience - and
  * thus not recommended for production applications.
  */
-	Configure::write('App.baseUrl', env('SCRIPT_NAME'));
+//	Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 
 /**
  * To configure CakePHP to use a particular domain URL
@@ -121,19 +121,19 @@
  * Web path to the public images directory under webroot.
  * If not set defaults to 'img/'
  */
-	Configure::write('App.imageBaseUrl', 'img/');
+	//Configure::write('App.imageBaseUrl', 'img/');
 
 /**
  * Web path to the CSS files directory under webroot.
  * If not set defaults to 'css/'
  */
-	Configure::write('App.cssBaseUrl', 'css/');
+	//Configure::write('App.cssBaseUrl', 'css/');
 
 /**
  * Web path to the js files directory under webroot.
  * If not set defaults to 'js/'
  */
-	Configure::write('App.jsBaseUrl', 'js/');
+	//Configure::write('App.jsBaseUrl', 'js/');
 
 /**
  * Uncomment the define below to use CakePHP prefix routes.

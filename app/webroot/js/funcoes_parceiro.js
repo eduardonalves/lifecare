@@ -342,6 +342,7 @@ $(document).ready(function() {
 		$(".enderecoLength").each(function(){
 			fieldLength = fieldLength + 1;
 		});
+		
 		var erro = 0;
 		for(i=0; i < fieldLength; i++){
 				
@@ -413,9 +414,10 @@ $(document).ready(function() {
 					break;
 				}				
 		}
-		if(erro==0){
-			$('#ParceirodenegocioEditForm').submit();
-		}
+			if(erro==0){
+				$('#ParceirodenegocioEditForm').submit();
+			}
+
 	});
 
 
@@ -719,5 +721,24 @@ $(document).ready(function() {
 /*** Função Tabualção *************************************************/	
 	
 	tabularDadosGerais();
+
+/*** TESTE SALVAR EDIT *************************************************/	
+	var testeTrue = 0;
+	$(".mudancaInput").change(function(){
+		testeTrue = 1;
+	});
+	
+	$("#bt-addLimite").click(function(){
+		if(testeTrue == 0){
+			$("#myModal_add-novo_limite").modal('show');
+		}else{
+			$("#salvarAntes").show();
+
+		}
+		
+	});
+	
+		
+	
 	
 });

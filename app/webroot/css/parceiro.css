@@ -202,3 +202,14 @@ span[id$="Logradouro"]{
     position: absolute;
     width: 40%;
 }
+
+#salvarAntes{
+	right: 80px;
+}
+#salvarAntes:after{
+	float: right;
+	margin-left: 165px;
+	top: 1px;
+}
+
+
