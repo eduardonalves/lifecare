@@ -22,7 +22,21 @@
 	$mesTexto = array("Jan" => "Janeiro", "Feb" => "Fevereiro", "Mar" => "Março", "Apr" => "Abril", "May" => "Maio", "Jun" => "Junho", "Jul" => "Julho", "Aug" => "Agosto", "Nov" => "Novembro", "Sep" => "Setembro", "Oct" => "Outubro", "Dec" => "Dezembro");
 ?>
 
-
+<script type="text/javascript">
+$(document).ready(function(){
+/** DATEPICKER ********************************************************/
+	$("[class*='forma-data']").datepicker({
+		dateFormat: 'dd/mm/yy',
+		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+		dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+		nextText: 'Próximo',
+		prevText: 'Anterior'
+	});
+});
+</script>
 <header>
 	<h1 class="menuOption12">Dashboard</h1>
 </header>
