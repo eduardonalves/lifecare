@@ -52,7 +52,7 @@
 		echo $this->Html->script('jquery.price_format.1.8.min.js');
 		
 		echo $this->Html->script('bootstrap');
-		echo $this->Html->script('funcoes_globais.js');
+		//echo $this->Html->script('funcoes_globais.js');
 		echo $this->fetch('script');
 	?>
 </head>
