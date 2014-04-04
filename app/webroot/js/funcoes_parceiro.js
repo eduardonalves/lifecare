@@ -127,7 +127,8 @@ $(document).ready(function() {
 		var idCidade = "Endereco"+ contadorBlocoEndereco +"Cidade";
 
 		if((cep) && (logradouro) && (uf) && (cidade) && (bairro)){			
-			$('.area-endereco').append('<div class="enderecoLength bloco-area-end'+ contadorBlocoEndereco +'" style="margin-top:20px;margin-bottom:120px;"">\
+			$('.area-endereco').append('<div class="enderecoLength bloco-area-end'+ contadorBlocoEndereco +'" style="clear:both;margin-bottom:120px;"">\
+				<br />\
 				<hr>\
 					<section class="coluna-esquerda">\
 						<div class="input select">\
