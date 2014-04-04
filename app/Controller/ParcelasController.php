@@ -128,9 +128,9 @@ class ParcelasController extends AppController {
 		if($this->request->data['Parcela']['doc_file']['size'] < 2097152 ){
 		    if(($w >= 700 && $w <=2200) && ($h >= 700 && $h <=2200)){
 			$fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
-			if(file_exists($fileAntigo)){
+			/*if(file_exists($fileAntigo)){
 			    unlink($fileAntigo);
-			}
+			}*/
 			
 			$fileSeparado = split ('[.]',$filename,2);
 			if($fileSeparado[1]=='jpeg' || $fileSeparado[1]=='jpg' || $fileSeparado[1]=='png' ){
@@ -156,8 +156,8 @@ class ParcelasController extends AppController {
 	    }
 	    
 
-	    //$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' =>0, 'conditions' => array('Parcela.id' => $this->request->data['Parcela']['id'] )));
+	    $ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' =>0, 'conditions' => array('Parcela.id' => $this->request->data['Parcela']['id'] )));
 	    ////debug($this->request->data['Parcela']['id']);
-	    //$this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaParcela['_Conta']['id']));
+	    $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaParcela['_Conta']['id']));
 	}
 }
