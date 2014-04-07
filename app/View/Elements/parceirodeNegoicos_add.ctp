@@ -421,6 +421,7 @@ $(document).ready(function(){
 		<?php
 			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio','tabindex'=>'27'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
+			echo $this->Form->input('Dadoscredito.0.user_id', array('type'=> 'hidden', 'value' => $userid));
 		?>
 
 	</section>
