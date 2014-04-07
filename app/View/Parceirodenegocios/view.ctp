@@ -24,7 +24,7 @@
 </script>
 
 <header>
-    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+    <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <h1 class="menuOption31">Visualizar Parceiro</h1>

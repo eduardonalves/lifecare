@@ -73,7 +73,7 @@ $(document).ready(function(){
 </script>
 
 <header>
-    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+    <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Editar', 'title' => 'Editar')); ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <h1 class="menuOption31">Editar Parceiro</h1>
