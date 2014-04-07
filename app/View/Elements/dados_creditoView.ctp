@@ -137,11 +137,13 @@
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['valor'];															
+
+					echo number_format($parcela['valor'], 2, ',', '.');															
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['desconto'];
+					echo number_format($parcela['desconto'], 2, ',', '.');
+
 				echo "</td>";
 				
 				echo "<td>";
