@@ -362,7 +362,7 @@ class ContasController extends AppController {
 	        array(
 	            'identificacao' => array(
 	                'Conta.identificacao' => array(
-	                    'operator' => 'LIKE'
+	                    'operator' => '='
 
 	                )
 	            ),
@@ -375,14 +375,14 @@ class ContasController extends AppController {
 	            ),
 	            'cpf_cnpj' => array(
 	                'Parceirodenegocio.cpf_cnpj' => array(
-	                    'operator' => 'LIKE'
+	                    'operator' => '='
 
 	                )
 	            ),
 	            'statusParceiro' => array(
 	                'Parceirodenegocio.status' => array(
 	                    'operator' => 'LIKE',
-						'select' => array(''=>'', 'BLOQUEADO'=>'BLOQUEADO', 'LIBERADO'=>'LIBERADO')
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
 	                )
 	            ),
 		        'data_emissao' => array(
@@ -932,6 +932,7 @@ class ContasController extends AppController {
 	public function cancelarConta($id = null) {
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadModel('Parcela');
+		$this->loadModel('Pagamento');
 		$this->Conta->id = $id;
 		
 		if (!$this->Conta->exists()) {
@@ -941,6 +942,7 @@ class ContasController extends AppController {
 		$hoje= date("Y-m-d");
 		$updateConta = array('id' => $id, 'status' => 'CANCELADO', 'canceladopor' => $userid, 'data_cancelamento' => $hoje);
 		$conta = $this->Conta->find('first', array('conditions'=> array('Conta.id' => $id)));
+		$ultimoPagamento = $this->Pagamento->find('first', array('conditions' => array('Pagamento.conta_id' => $id), 'recursive' => -1));
 		if($conta['Conta']['status'] != 'CANCELADO'){
 			if($this->Conta->save($updateConta)){
 				
@@ -951,7 +953,8 @@ class ContasController extends AppController {
 					$this->Parcela->save($updateParcela);
 				}
 				
-				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
+				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+				//$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
 				
 				
 				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'), 'default', array('class' => 'success-flash'));

@@ -29,7 +29,7 @@
 		<?php
 			formatDateToView($dadoscredito['validade_limite']);
 			echo $this->Form->input('Dadoscredito.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 
 	</section>
@@ -137,11 +137,13 @@
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['valor'];															
+
+					echo number_format($parcela['valor'], 2, ',', '.');															
 				echo "</td>";
 				
 				echo "<td>";
-					echo $parcela['desconto'];
+					echo number_format($parcela['desconto'], 2, ',', '.');
+
 				echo "</td>";
 				
 				echo "<td>";

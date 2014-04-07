@@ -12,7 +12,9 @@
 
 
 /* CLASS **************************************************************/
-.divTipoParceiro{margin-bottom:50px;}
+.divTipoParceiro{
+	margin-bottom:50px;
+}
 
 div[class^="bloco-area"]{
 	display:inline-block;

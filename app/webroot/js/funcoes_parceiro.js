@@ -148,7 +148,7 @@ $(document).ready(function() {
 						\
 						<div class="input text">\
 							<label for="Endereco'+ contadorBlocoEndereco +'Bairro">Bairro<span class="campo-obrigatorio">*</span>:</label>\
-							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="150" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro" />\
+							<input name="data[Endereco]['+ contadorBlocoEndereco +'][bairro]" class="tamanho-medio obrigatorio" maxlength="50" type="text" id="Endereco'+ contadorBlocoEndereco +'Bairro" />\
 						</div>\
 						<span id="valida'+ contadorBlocoEndereco +'Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>\
 					</section>\
@@ -238,31 +238,31 @@ $(document).ready(function() {
 						\
 						<div class="input text">\
 							<label for="DadosbancarioGerente">Gerente:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'Gerente" />\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][gerente]" class="tamanho-pequeno" maxlength="50" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'Gerente" />\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-central" >\
 						<div class="input text">\
 							<label for="DadosbancarioNumeroBanco">Número do Banco:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroBanco" />\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][numero_banco]" class="tamanho-medio" maxlength="25" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NumeroBanco" />\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioConta'+ contadorBlocoDadosBanc +'">Conta:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="110" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'" />\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][conta]" class="tamanho-pequeno" maxlength="25" type="text" id="DadosbancarioConta'+ contadorBlocoDadosBanc +'" />\
 						</div>\
 					</section>\
 					\
 					<section class="coluna-direita" >\
 						<div class="input text">\
 							<label for="DadosbancarioNomeAgencia">Nome da Agência:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="100" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeAgencia" />\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][nome_agencia]" class="tamanho-pequeno" maxlength="50" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'NomeAgencia" />\
 						</div>\
 						\
 						<div class="input text">\
 							<label for="DadosbancarioTelefoneBanco">Telefone:</label>\
-							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno maskTel" maxlength="30" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco" />\
+							<input name="data[Dadosbancario]['+ contadorBlocoDadosBanc +'][telefone_banco]" class="tamanho-pequeno maskTel" maxlength="15" type="text" id="Dadosbancario'+ contadorBlocoDadosBanc +'TelefoneBanco" />\
 						</div>\
 					</section>\
 				<div>');

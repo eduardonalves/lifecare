@@ -179,11 +179,13 @@ class ParceirodenegociosController extends AppController {
  */
 	public function add() {
 		$this->layout = 'contas';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$i=0;
 			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
 				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Dadoscredito'][$i]['limite']);
+				$this->request->data['Dadoscredito'][$i]['parceirodenegocio_id']=$userid;
 				$i++;
 			}
 			
@@ -224,7 +226,7 @@ class ParceirodenegociosController extends AppController {
 		//$this->Session->delete('Message.flash');
 		
 		
-		$this->set(compact('ultimoParceiro'));
+		$this->set(compact('ultimoParceiro','userid'));
 	}
 
 /**

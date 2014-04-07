@@ -281,8 +281,6 @@ $(document).ready(function(){
 					echo '<span id="valida0tipo" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
 
 					echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
-
-
 					
 					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'15'));
 					echo '<span id="valida0Bairro" class="Msg-tooltipDireita" style="display:none">Preencha o Bairro</span>';
@@ -296,17 +294,16 @@ $(document).ready(function(){
 					echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
 					
 					echo $this->html->image('consultas.png',array('id'=>'consultaCEP0','class'=>'buscarCEP','style'=>'margin-left:10px;cursor:pointer;'));
-				
 					echo '<span id="valida0Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
 					echo '<span id="valida0Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>';
 					echo '<span id="valida0Cep3" class="Msg-tooltipDireita" style="display:none">Endereço não encontrado para o cep digitado.</span>';
 
 					
-					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','maxlength'=>'25','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
 
 					echo '<span id="valida0Uf" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estado</span>';
 					
-					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','class' => 'tamanho-medio','tabindex'=>'16'));
+					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','maxlength'=>'25','class' => 'tamanho-medio','tabindex'=>'16'));
 				?>
 
 			</section>
@@ -322,7 +319,7 @@ $(document).ready(function(){
 					echo '<span id="valida0Cidade" class="Msg-tooltipAbaixo" style="display:none">Preencha o campo Cidade</span>';
 
 					
-					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','type' => 'textarea','tabindex'=>'17'));
+					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','maxlength'=>'50','type' => 'textarea','tabindex'=>'17'));
 				?>
 
 			</section>
@@ -351,11 +348,11 @@ $(document).ready(function(){
 			<section class="coluna-esquerda">
 
 				<?php 
-					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio','tabindex'=>'18','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio','tabindex'=>'18','maxlength' => '50'));
 
-					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno agencia','tabindex'=>'21','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno agencia','tabindex'=>'21','maxlength' => '25'));
 
-					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno','tabindex'=>'24','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno','tabindex'=>'24','maxlength' => '50'));
 				?>
 
 			</section>
@@ -363,9 +360,9 @@ $(document).ready(function(){
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.0.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio','tabindex'=>'19','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio','tabindex'=>'19','maxlength' => '25'));
 
-					echo $this->Form->input('Dadosbancario.0.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0','tabindex'=>'22','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0','tabindex'=>'22','maxlength' => '25'));
 				?>
 
 			</section>
@@ -373,9 +370,9 @@ $(document).ready(function(){
 			<section class="coluna-direita" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.0.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno','tabindex'=>'20'));
+					echo $this->Form->input('Dadosbancario.0.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno','tabindex'=>'50'));
 
-					echo $this->Form->input('Dadosbancario.0.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio maskTel','tabindex'=>'23','maxlength' => '150'));
+					echo $this->Form->input('Dadosbancario.0.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio maskTel','tabindex'=>'23','maxlength' => '15'));
 				?>
 
 			</section>
@@ -422,8 +419,9 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio','tabindex'=>'27'));
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio','tabindex'=>'27'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
+			echo $this->Form->input('Dadoscredito.0.user_id', array('type'=> 'hidden', 'value' => $userid));
 		?>
 
 	</section>
