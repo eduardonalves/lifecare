@@ -362,7 +362,7 @@ class ContasController extends AppController {
 	        array(
 	            'identificacao' => array(
 	                'Conta.identificacao' => array(
-	                    'operator' => 'LIKE'
+	                    'operator' => '='
 
 	                )
 	            ),
@@ -375,14 +375,14 @@ class ContasController extends AppController {
 	            ),
 	            'cpf_cnpj' => array(
 	                'Parceirodenegocio.cpf_cnpj' => array(
-	                    'operator' => 'LIKE'
+	                    'operator' => '='
 
 	                )
 	            ),
 	            'statusParceiro' => array(
 	                'Parceirodenegocio.status' => array(
 	                    'operator' => 'LIKE',
-						'select' => array(''=>'', 'BLOQUEADO'=>'BLOQUEADO', 'LIBERADO'=>'LIBERADO')
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
 	                )
 	            ),
 		        'data_emissao' => array(
