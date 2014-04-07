@@ -29,7 +29,7 @@
 		<?php
 			formatDateToView($dadoscredito['validade_limite']);
 			echo $this->Form->input('Dadoscredito.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.bloqueado',array('value'=>h($dadoscredito['bloqueado']),'label' => 'Bloqueado:','type' => 'text','class' => 'tamanho-pequeno borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 
 	</section>
@@ -49,12 +49,14 @@
 	<?php $y++;} ?>
 </section>	
 
-<section> <!---section Baixo--->	
-<header class="">Dados das Contas</header>
+
 <?php
 		$z=0;
 		foreach($contasParceiros as $dadoscontas){
 	?>
+
+<section> <!---section Baixo--->	
+<header class="">Dados das Contas</header>
 	<fieldset class="dadosRepetidos">
 		<legend>Dados da Conta  <?php echo $z+1; ?></legend>
 		<div class="area-dadosbanc">
@@ -94,88 +96,86 @@
 		
 		
 		<table style="width:98%;margin-left:1%;" >
-															<thead>
-																	<tr>
-																		<th>Identificação do Documento</th>
-																		<th>Data de Vencimento</th>
-																		<th>Data de Pagamento</th>
-																		<th>Período Crítico</th>
-																		<th>Valor</th>
-																		<th>Desconto</th>																	
-																		<th>Código de Barras</th>																	
-																		<th>Parcela</th>																	
-																		<th>Banco</th>																	
-																		<th>Agência</th>																	
-																		<th>Conta</th>																	
-																		<th>Status</th>		
-													
-																	</tr>											
-																</thead>
-																
-																<?php
-																	
-																	foreach($dadoscontas['Parcela'] as $parcela){
-																		
-																		echo "<tr><td>";
-																			echo $parcela['identificacao_documento'];															
-																		echo "</td>";	
-																		
-																		echo "<td>";
-																			formatDateToView($parcela['data_vencimento']);
-																			echo $parcela['data_vencimento'];															
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			formatDateToView($parcela['data_pagamento']);
-																			echo $parcela['data_pagamento'];															
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['periodocritico'];															
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['valor'];															
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['desconto'];
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['codigodebarras'];
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['parcela'];
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['banco'];
-																		echo "</td>";
-																	
-																		echo "<td>";
-																			echo $parcela['agencia'];
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $parcela['conta'];
-																		echo "</td>";
-																		
-																		echo "<td>";
-																			echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
-																		echo "</td>";
-																		
-																		echo "</tr>";																																	
-																	}
-																?>
-																
-															</table>
+		<thead>
+			<tr>
+				<th>Identificação do Documento</th>
+				<th>Data de Vencimento</th>
+				<th>Data de Pagamento</th>
+				<th>Período Crítico</th>
+				<th>Valor</th>
+				<th>Desconto</th>																	
+				<th>Código de Barras</th>																	
+				<th>Parcela</th>																	
+				<th>Banco</th>																	
+				<th>Agência</th>																	
+				<th>Conta</th>																	
+				<th>Status</th>		
+
+			</tr>											
+		</thead>
+
+		<?php
+			
+			foreach($dadoscontas['Parcela'] as $parcela){
+				
+				echo "<tr><td>";
+					echo $parcela['identificacao_documento'];															
+				echo "</td>";	
+				
+				echo "<td>";
+					formatDateToView($parcela['data_vencimento']);
+					echo $parcela['data_vencimento'];															
+				echo "</td>";
+				
+				echo "<td>";
+					formatDateToView($parcela['data_pagamento']);
+					echo $parcela['data_pagamento'];															
+				echo "</td>";
+				
+				echo "<td>";
+					echo $parcela['periodocritico'];															
+				echo "</td>";
+				
+				echo "<td>";
+					echo number_format($parcela['valor'], 2, ',', '.');															
+				echo "</td>";
+				
+				echo "<td>";
+					echo number_format($parcela['desconto'], 2, ',', '.');
+				echo "</td>";
+				
+				echo "<td>";
+					echo $parcela['codigodebarras'];
+				echo "</td>";
+				
+				echo "<td>";
+					echo $parcela['parcela'];
+				echo "</td>";
+				
+				echo "<td>";
+					echo $parcela['banco'];
+				echo "</td>";
+			
+				echo "<td>";
+					echo $parcela['agencia'];
+				echo "</td>";
+				
+				echo "<td>";
+					echo $parcela['conta'];
+				echo "</td>";
+				
+				echo "<td>";
+					echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
+				echo "</td>";
+				
+				echo "</tr>";																																	
+			}
+		?>
+
+		</table>
 	</fieldset>
-<?php $z++;} ?>
-
 </section>	
-
+	<?php $z++;} ?>
 
 
 

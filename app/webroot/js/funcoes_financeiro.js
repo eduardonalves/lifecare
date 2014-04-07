@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    
+    $(".ui-autocomplete-input").css({
+	"border-bottom-right-radius": "4px",
+	"border-top-right-radius":" 4px",
+	"height":"17px"    
+    });
 
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
     $(".inputSearchData input[id*='between']").before("<span>a</span>");
@@ -128,7 +134,7 @@ $(document).ready(function() {
 
 /*** Validação de Datas Contas ****************************************/
 
-    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento').addClass('validaDataContas');
+    $('#ContasreceberDataEmissao,#dataVencimento-receber,#ContaspagarDataEmissao,#ContaspagarDataVencimento, #DadoscreditoValidadeLimite').addClass('validaDataContas');
     
     $(".validaDataContas").change(function(){
 	    
