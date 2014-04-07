@@ -140,17 +140,6 @@
 						<span class="label">Cadastrar Conta a Pagar</span>
 					</a>
 				</li>
-				
-				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"cobrancas","action"=>"index"),true);?>'>
-						
-						<?php 
-							echo $this->Html->image('saida.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
-						?>
-
-						<span class="label">Cobranças</span>
-					</a>
-				</li>
 			
 				<!--
 					<li class="item">
