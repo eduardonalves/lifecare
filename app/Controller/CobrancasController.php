@@ -21,6 +21,7 @@ class CobrancasController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Cobranca->recursive = 0;
 		$this->set('cobrancas', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class CobrancasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Cobranca->exists($id)) {
 			throw new NotFoundException(__('Invalid cobranca'));
 		}
@@ -46,6 +48,7 @@ class CobrancasController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Cobranca->create();
 			if ($this->Cobranca->save($this->request->data)) {
@@ -68,6 +71,7 @@ class CobrancasController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Cobranca->exists($id)) {
 			throw new NotFoundException(__('Invalid cobranca'));
 		}
