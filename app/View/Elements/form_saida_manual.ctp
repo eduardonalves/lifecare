@@ -194,7 +194,7 @@
 
 		<section id="campoSaidaNome" class="coluna-central">
 			<?php
-			    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio limpa borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório'));
+			    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','onFocus' => 'this.blur()','class'=>'tamanho-medio limpa borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório'));
 			?>
 			<div class="tela-resultado">
 			    <?php	

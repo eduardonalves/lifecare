@@ -470,6 +470,10 @@ $(document).ready(function() {
 	}
     });
 
+    $('.clickValor').mousedown(function(){
+	return false;
+    });
+
 /******************** Mensagem extensão *********************************/
     $( "#valorUpload, #bt-buscar" ).hover(function(){
 	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg.<br/>Tamanho máximo permitido 2mb.<br/>Resolução mímima 700px x 700px.<br/>Resolução máxima 2200px x 2200px.</span>');
@@ -485,5 +489,8 @@ $(document).ready(function() {
     
     /**************************Autocomplete consulta************************************/
   $( "#filterNome" ).combobox();
+
+
+
 
  });
