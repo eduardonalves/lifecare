@@ -105,6 +105,7 @@
 		<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 			<thead>
 				<th><?php echo ('Ações'); ?></th>
+				<th><?php echo ('Negociar'); ?></th>
 				<th><?php echo ('Parcela'); ?></th>
 				<th><?php echo ('Código de Barras'); ?></th>
 				<th><?php echo ('Data Vencimento'); ?></th>
@@ -133,12 +134,15 @@
 							//echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
 							
 							echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
-							echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Conta' ));
+							echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
+
 							echo "</a>";
-							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar'),'title' => __('Cancelar'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
+							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
+
 
 						?>
 					</td>
+					<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','data-parcelaId'=>$parcelas['id'])); ?></td>
 					<td><?php echo $parcelas['parcela']; ?></td>
 					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
@@ -293,6 +297,10 @@
 		echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
 	?>
 </footer>
+
+<?php
+	echo $this->element('cobrancasView');
+?>
 
 <!--
 <footer>
