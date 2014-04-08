@@ -11,7 +11,7 @@
 	$this->end();
 
 	$this->start('script');
-		//echo $this->Html->script('funcoes_parceiro.js');
+		echo $this->Html->script('funcoes_modal_negociacao.js');
 	$this->end();
 ?>
 
@@ -34,36 +34,25 @@
 	    <header>Dados Gerais da Movimentação</header>
 	    
 	    <section class="coluna-esquerda">
-		<?php 
-		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
-		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
-		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
-		   
-		?>
-
 		<?php
-		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103'));
-		?>
-		
+			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
+			echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas','type' => 'text'));
+		?>		
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php 
 		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
-		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
-		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		    
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+			echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio','title'=>'Campo Obrigatório'));
+
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
-			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
 	    </section>
 
