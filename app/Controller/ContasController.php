@@ -784,11 +784,33 @@ class ContasController extends AppController {
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
-		$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
+		$conta=$this->Conta->find('first',array('conditions' => array('Conta.id' => $id)));
+		//$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
 		//$parcelas = $this->ParcelasConta->Parcela->find('list');
-		$this->set('conta', $this->Conta->find('first', $options));
+		//$this->set('conta', $this->Conta->find('first', $options));
 		$parcelas = $this->Conta->Parcela->find('all');
-		$this->set(compact('parcelas'));
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		$i=0;
+		foreach($conta['ObsCobranca'] as $i => $obscobranca){
+			
+			$this->loadModel('User');
+			$user = $this->User->find('first' , array('conditions' => array('User.id' => $obscobranca['user_id']),'recursive' => -1));
+			
+			if(!empty($user)){
+				
+				if($user['User']['username'] == null){
+					$nome = "";
+				}else{
+					$nome = $user['User']['username'];
+				}
+				$conta['ObsCobranca'][$i]['user_id'] = $nome;
+			}
+			$i++;
+		}
+		
+		$this->set(compact('parcelas','conta','userid','username'));
 	}
 
 /**
