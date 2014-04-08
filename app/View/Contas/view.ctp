@@ -6,12 +6,14 @@
 	echo $this->Html->css('comprovante_view');
 	echo $this->Html->css('zoomer');
     $this->end();
+
+	
 	$this->start('modais');
-		echo $this->element('negociacao_add',array('modal'=>'negociacao'));
-		//echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
-		
-		//echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
-		// echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
+	  //  echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
+	   // echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
+	   echo $this->element('negociacao_add',array('modal'=>'negociacao'));
+	   echo $this->element('cobranca_add', array('modal'=>'add-cobranca'));
+
 	$this->end();
     $this->start('script');
 	echo $this->Html->script('zoomer.js');
@@ -99,38 +101,65 @@
 	</section>
 </section><!---Fim section superior--->
 
-<div>
-	<?php if (!empty($conta['Pagamento'])): ?>
-		<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
-			<thead>
-				<th><?php echo ('Ações'); ?></th>
-				<th><?php echo ('Negociar'); ?></th>
-				<th><?php echo ('Parcela'); ?></th>
-				<th><?php echo ('Código de Barras'); ?></th>
-				<th><?php echo ('Data Vencimento'); ?></th>
-				<th><?php echo ('Valor'); ?></th>
-				<th><?php echo ('Identificação'); ?></th>
-				<th><?php echo ('Período Crítico'); ?></th>
-				<th><?php echo ('Desconto'); ?></th>
-				<th><?php echo ('Agência'); ?></th>
-				<th><?php echo ('Conta'); ?></th>
-				<th><?php echo ('Banco'); ?></th>
 
-				<th><?php echo ('Status'); ?></th>
-			</thead>
-			
-			<?php $j =0; ?>
-			
-			<?php foreach ($conta['Parcela'] as $parcelas): ?>
-				<tr>
-					<td>
-						<?php
-							echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
-							echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
-							echo "</a>";
-							echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
-						   
-							//echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
+	<div>
+		<?php if (!empty($conta['Pagamento'])): ?>
+			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
+					<thead>
+						<th><?php echo ('Ações'); ?></th>
+						<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociar'); ?></th><?php }?>
+						<th><?php echo ('Parcela'); ?></th>
+						<th><?php echo ('Código de Barras'); ?></th>
+						<th><?php echo ('Data Vencimento'); ?></th>
+						<th><?php echo ('Valor'); ?></th>
+						<th><?php echo ('Identificação'); ?></th>
+						<th><?php echo ('Período Crítico'); ?></th>
+						<th><?php echo ('Desconto'); ?></th>
+						<th><?php echo ('Agência'); ?></th>
+						<th><?php echo ('Conta'); ?></th>
+						<th><?php echo ('Banco'); ?></th>
+						
+						
+						
+						<th><?php echo ('Status'); ?></th>
+					</thead>
+					<?php $j =0; ?>
+					<?php foreach ($conta['Parcela'] as $parcelas): ?>
+						<tr>
+						    
+						    <td>
+							<?php
+							    echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
+								echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
+							    echo "</a>";
+							    echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
+							   
+							    //echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
+							    
+							    echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
+							    echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
+							    echo "</a>";
+							    echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
+
+							?>
+
+
+						    </td>
+							<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){ ?><td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','data-parcelaId'=>$parcelas['id']));?></td> <?php } ?>
+							<td><?php echo $parcelas['parcela']; ?></td>
+							<td><?php echo $parcelas['codigodebarras']; ?></td>
+							<td><?php formatDateToView($parcelas['data_vencimento']);
+									  echo $parcelas['data_vencimento']; ?></td>
+							<td><?php echo number_format($parcelas['valor'], 2, ',', '.'); ?></td>
+							<td><?php echo $parcelas['identificacao_documento']; ?></td>
+							<td><?php echo $parcelas['periodocritico']; ?></td>
+							<td><?php echo number_format($parcelas['desconto'], 2, ',', '.'); ?></td>
+							<td><?php echo $parcelas['agencia']; ?></td>
+							<td><?php echo $parcelas['conta']; ?></td>
+							<td><?php echo $parcelas['banco']; ?></td>
+
+							
+							<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 							
 							echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
 							echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
@@ -291,15 +320,26 @@
 	<?php endif; ?>
 </div>
 
-<footer>
-	<?php
-		echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
-	?>
-</footer>
 
-<?php
-	echo $this->element('cobrancasView');
-?>
+    <?php
+	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
+    ?>	
+	    <section>
+	    <header>Dados das Cobranças</header>
+		<?php
+		    echo $this->element('cobrancasView');
+		?>
+		
+		<a href='add-cobranca' class='bt-showmodal'>
+		    <?php echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar Cobrança','title'=>'Adicionar Cobrança','id'=>'bt-corbanca','class'=>'bt-direita')); ?>
+		</a>
+
+
+		
+	    </section>
+    <?php
+	}
+    ?>		
 
 <!--
 <footer>
@@ -320,5 +360,6 @@
 	</form> 
 	</section> 
 </footer>
+
 
 

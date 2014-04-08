@@ -46,15 +46,17 @@
 </header>
 
 <section>
-	<header class="header">Observação de Cobrança</header>
+	<header class="header">Observação da Cobrança</header>
 	
 	<section>
 	    <?php
-		echo $this->Form->create('ObsCobranca'); 
+		$data_atual = date("d/m/Y", strtotime("now"));
+		
+		echo $this->Form->create('ObsCobranca',array('controller' => 'ObsCobrancas','action' => 'add')); 
 		echo $this->Form->input('parcela_id',array('type' => 'hidden'));
 		echo $this->Form->input('conta_id',array('type' => 'hidden','value' =>$conta['Conta']['id']));
-		echo $this->Form->input('user_id',array('type' => 'hidden','value' =>$conta['Conta']['user_id']));
-		echo $this->Form->input('data',array('label' => 'Data:', 'type' => 'text', 'id' => 'datObsCobranca', 'class' => 'tamanho-pequeno forma-data'));
+		echo $this->Form->input('user_id',array('type' => 'hidden','value' =>$userid));
+		echo $this->Form->input('data',array('label' => 'Data:', 'type' => 'hidden', 'id' => 'datObsCobranca','value' =>$data_atual));
 		echo $this->Form->input('obs',array('label' => 'Observação:', 'type' => 'textarea','id' => 'obsCobranca', 'class' => 'tamanho-medio'));
 		
 		echo $this->form->submit( 'botao-salvar.png' ,  array('class' => 'bt-direita','id' => 'bt-salvarCobranca', 'alt' => 'Salvar', 'title' => 'Salvar')); 
