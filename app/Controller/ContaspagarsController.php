@@ -90,7 +90,23 @@ class ContaspagarsController extends ContasController {
 		}
 		
 	
-	}						
+	}	
+	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
+		$this->loadModel('Conta');
+		$this->loadModel('Parcela');
+			
+		$hoje = date("Y-m-d");	
+		$diasCritico = 3; // configurar data critica
+		$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$data_vencimento.'')));
+		
+		if($dataCritica < $hoje){
+			$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
+			$this->Conta->save($uptadeConta);
+			
+			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
+			$this->Parcela->save($uptadeConta);	
+		}
+	}					
 	public function setStatusConta(&$idConta){
 		$this->loadModel('Parcela');
 		$this->loadModel('Conta');
@@ -125,7 +141,7 @@ class ContaspagarsController extends ContasController {
 						$this->Parcela->save($updatevencimento);
 					}
 				}
-							
+					$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);		
 			}
 		}
 	}
