@@ -291,11 +291,24 @@
 	<?php endif; ?>
 </div>
 
+<?php
+	//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
+		echo $this->element('negociacao_view');
+	//}
+	
+	//Botão para Add Novo Limite
+	echo "<footer>";
+	echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
+	echo "</footer>";
+?>
+
+<!--
 <footer>
 	<?php
 		echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
 	?>
 </footer>
+-->
 
 <?php
 	echo $this->element('cobrancasView');

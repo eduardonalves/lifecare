@@ -134,7 +134,7 @@
 		echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio','tabindex' => '109'));
 		echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita','tabindex' => '112'));
-		echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio','id' =>'PagarPeriodocritico','tabindex' => '115'));
+		echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '115','maxlength' => '25'));
 		echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';	
 	    ?>
 	</section>
@@ -155,7 +155,7 @@
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';	
 		    echo $this->Form->input('desconto_parcela',array('type'=>'text','label'=>'Desconto:','id' => 'ContaspagarDesconto','class'=>'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '111'));	
-		    echo $this->Form->input('banco_parcela',array('type'=>'text','label'=>'Banco:','id' => 'ContaspagarBanco','class'=>'tamanho-medio desabilita','tabindex' => '114'));					
+		    echo $this->Form->input('banco_parcela',array('type'=>'text','label'=>'Banco:','id' => 'ContaspagarBanco','class'=>'tamanho-medio desabilita','tabindex' => '114','maxlength' => '50'));					
 		?>
 	</section>
 	<?php
