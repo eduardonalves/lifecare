@@ -87,21 +87,7 @@ class Parcela extends AppModel {
 	  
 	);
 	
-	public $hasMany = array(
-		'ObsCobranca' => array(
-			'className' => 'ObsCobranca',
-			'foreignKey' => 'parcela_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-	);
+	
 
 /**
  * Define relacionamentos "Contém um"

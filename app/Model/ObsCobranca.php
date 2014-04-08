@@ -13,7 +13,7 @@ class ObsCobranca extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'parcela_id' => array(
+		'conta_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -53,9 +53,9 @@ class ObsCobranca extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Parcela' => array(
-			'className' => 'Parcela',
-			'foreignKey' => 'parcela_id',
+		'Conta' => array(
+			'className' => 'Conta',
+			'foreignKey' => 'conta_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
