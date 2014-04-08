@@ -23,6 +23,13 @@ class Negociacao extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Conta' => array(
+			'className' => 'Conta',
+			'foreignKey' => 'conta_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 

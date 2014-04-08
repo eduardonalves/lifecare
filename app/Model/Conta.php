@@ -56,7 +56,20 @@ class Conta extends AppModel {
 		),
 		'ObsCobranca' => array(
 			'className' => 'ObsCobranca',
-			'foreignKey' => 'parcela_id',
+			'foreignKey' => 'conta_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Negociacao' => array(
+			'className' => 'Negociacao',
+			'foreignKey' => 'conta_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
