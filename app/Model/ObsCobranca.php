@@ -68,4 +68,6 @@ class ObsCobranca extends AppModel {
 			'order' => ''
 		)
 	);
+
+	
 }

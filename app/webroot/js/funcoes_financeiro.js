@@ -488,9 +488,14 @@ $(document).ready(function() {
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
     
     /**************************Autocomplete consulta************************************/
-  $( "#filterNome" ).combobox();
+    $( "#filterNome" ).combobox();
 
-
-
+    i=0;
+    $('textarea').each(function(){
+	valTextArea= $('#ObsCobranca'+i+'Obs').text();
+	$('#ObsCobranca'+i+'Obs').hide();
+	$('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('#ObsCobranca'+i+'Obs');
+	i++;
+    });
 
  });

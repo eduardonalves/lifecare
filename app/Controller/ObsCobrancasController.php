@@ -13,7 +13,7 @@ class ObsCobrancasController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'lifecareDataFuncs');
 
 /**
  * index method
@@ -47,16 +47,17 @@ class ObsCobrancasController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+		    $this->lifecareDataFuncs->formatDateToBD($this->request->data['ObsCobranca']['data']);
 			$this->ObsCobranca->create();
 			if ($this->ObsCobranca->save($this->request->data)) {
-				$this->Session->setFlash(__('The obs cobranca has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('Observação foi salva.'), 'default', array('class' => 'success-flash'));
 			} else {
-				$this->Session->setFlash(__('The obs cobranca could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Observação não foi salva. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
-		$parcelas = $this->ObsCobranca->Parcela->find('list');
-		$this->set(compact('parcelas'));
+		$contas = $this->ObsCobranca->Conta->find('list');
+		$this->set(compact('contas'));
+		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['ObsCobranca']['conta_id']));
 	}
 
 /**

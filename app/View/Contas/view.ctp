@@ -11,6 +11,7 @@
 $this->start('modais');
 	  //  echo $this->element('uploadConta',array('modal'=>'add-uploadConta'));
 	   // echo $this->element('comprovanteView',array('modal'=>'add-comprovanteView'));
+	   echo $this->element('cobranca_add', array('modal'=>'add-cobranca'));
 	$this->end();
     $this->start('script');
 	echo $this->Html->script('zoomer.js');
@@ -107,7 +108,7 @@ function formatDateToView(&$data){
 			<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 					<thead>
 						<th><?php echo ('Ações'); ?></th>
-						<th><?php echo ('Negociar'); ?></th>
+						<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociar'); ?></th><?php }?>
 						<th><?php echo ('Parcela'); ?></th>
 						<th><?php echo ('Código de Barras'); ?></th>
 						<th><?php echo ('Data Vencimento'); ?></th>
@@ -145,7 +146,7 @@ function formatDateToView(&$data){
 
 
 						    </td>
-							<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','data-parcelaId'=>$parcelas['id'])); ?></td>
+							<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){ ?><td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','data-parcelaId'=>$parcelas['id']));?></td> <?php } ?>
 							<td><?php echo $parcelas['parcela']; ?></td>
 							<td><?php echo $parcelas['codigodebarras']; ?></td>
 							<td><?php formatDateToView($parcelas['data_vencimento']);
@@ -314,10 +315,25 @@ function formatDateToView(&$data){
 		<?php endif; ?>
 	</div>
 
-	<?php
-	    echo $this->element('cobrancasView');
-	?>
-	
+    <?php
+	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
+    ?>	
+	    <section>
+	    <header>Dados das Cobranças</header>
+		<?php
+		    echo $this->element('cobrancasView');
+		?>
+		
+		<a href='add-cobranca' class='bt-showmodal'>
+		    <?php echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar Cobrança','title'=>'Adicionar Cobrança','id'=>'bt-corbanca','class'=>'bt-direita')); ?>
+		</a>
+
+
+		
+	    </section>
+    <?php
+	}
+    ?>		
 <!--
 <footer>
 		
@@ -340,4 +356,5 @@ function formatDateToView(&$data){
 </footer>
 
 -->
+
 
