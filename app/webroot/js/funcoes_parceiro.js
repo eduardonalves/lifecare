@@ -644,7 +644,7 @@ $(document).ready(function() {
 
 
 /*** Mascara Telefone/Celular *************************************************/
-	$(".maskTel,maskCel").on('focusin',function(){
+	$(".maskTel,.maskCel").on('focusin',function(){
 		var numeroTel = $(this).val().replace(/[^0-9]/gi, '');
 		
 		$(this).val(numeroTel);
@@ -694,7 +694,9 @@ $(document).ready(function() {
 		
 		numeroTel = $(this).val().replace(/[^0-9]/gi, '');
 		
-		if(numeroTel.length == 11){
+		if(numeroTel.charAt(0) == '0'){
+			$(this).val('');
+		}else if(numeroTel.length == 11){
 			telPart1 = numeroTel.substring(0,2);
 			telPart2 = numeroTel.substring(2,7);
 			telPart3 = numeroTel.substring(7,11);

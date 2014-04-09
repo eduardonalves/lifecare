@@ -73,3 +73,7 @@
 .sectionNegociacao{
 	clear:both;
 }
+
+.sectionNegociacao fieldset{
+	padding:5px 0px;
+}

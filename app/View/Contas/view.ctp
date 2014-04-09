@@ -292,9 +292,9 @@
 	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
 		echo $this->element('negociacao_view');
 
-		echo "<footer>";
-		echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
-		echo "</footer>";	
+		echo "<div class='fake-footer'>";
+		echo $this->html->image('adicionar-negociacao.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
+		echo "</div>";
 	}
 ?>
 
@@ -309,7 +309,7 @@
 	?>
 
 	<a href='add-cobranca' class='bt-showmodal'>
-		<?php echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar Cobrança','title'=>'Adicionar Cobrança','id'=>'bt-corbanca','class'=>'bt-direita')); ?>
+		<?php echo $this->html->image('adicionar-cobranca.png',array('alt'=>'Adicionar Cobrança','title'=>'Adicionar Cobrança','id'=>'bt-corbanca','class'=>'bt-direita')); ?>
 	</a>
 </section>
 
