@@ -284,7 +284,7 @@
 
 /*********** Botão excluir uma parcela da tabela ***********/	
     $("body").on("click",'.btnExcluir', function(e){
-	
+
 	$('.tela-resultado-field').show();
 	
 	//pega id da linha
@@ -433,6 +433,16 @@
 	    
 	    $('#ContasreceberParcela').val(numeroParcela)	
 	    $('#Pagamento0NumeroParcela').val(numParcela);
+	    
+	    if($('#parcelaCont0').length){
+			$('#ContasreceberDataEmissao').prop('readonly',true);
+			$('#ContasreceberDataEmissao').addClass('borderZero');
+			$('#ContasreceberDataEmissao').prop('disabled', true);
+		}else{
+			$('#ContasreceberDataEmissao').prop('readonly',false);
+			$('#ContasreceberDataEmissao').removeClass('borderZero');
+			$('#ContasreceberDataEmissao').prop('disabled', false);
+		}
 	});
 	
 	contadorDiv=0;
@@ -649,5 +659,26 @@
 	    
 	    //retira a virgula
 	    $('input[id="ContasreceberValor"]').val(ContaValorAux.split('.').join('').replace(',','.'));
+	    
+	    $('#ContasreceberDataEmissao').prop('disabled', false);
 	});
+	
+/*********** Desabilitar Data de Emissão ***********/	
+	$('#bt-adicionarConta-receber').on('click',function(){
+		
+		if($('#ContasreceberDataEmissao').val() == ''){
+			$('#msgDataEmissao').css('display','block');
+			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
+			$('html, body').animate({scrollTop:0}, 'slow');
+		}else if($('#parcelaCont0').length){
+			$('#ContasreceberDataEmissao').prop('readonly',true);
+			$('#ContasreceberDataEmissao').addClass('borderZero');
+			$('#ContasreceberDataEmissao').prop('disabled', true);
+		}else{
+			$('#ContasreceberDataEmissao').prop('readonly',false);
+			$('#ContasreceberDataEmissao').removeClass('borderZero');
+			$('#ContasreceberDataEmissao').prop('disabled', false);
+		}
+	});
+	
 });

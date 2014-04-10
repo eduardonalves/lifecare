@@ -443,6 +443,16 @@
 	    
 	    $('#ContaspagarParcela').val(numeroParcela)	
 	    $('#Pagamento0NumeroParcela').val(numParcela);
+	
+		if($('#parcelaCont0').length){
+			$('#ContaspagarDataEmissao').prop('readonly',true);
+			$('#ContaspagarDataEmissao').addClass('borderZero');
+			$('#ContaspagarDataEmissao').prop('disabled', true);
+		}else{
+			$('#ContaspagarDataEmissao').prop('readonly',false);
+			$('#ContaspagarDataEmissao').removeClass('borderZero');
+			$('#ContaspagarDataEmissao').prop('disabled', false);
+		}
 	});
 	
 	contadorDiv=0;
@@ -659,5 +669,25 @@
 	    
 	    //retira a virgula
 	    $('input[id="ContaspagarValor"]').val(ContaValorAux.split('.').join('').replace(',','.'));
+	    
+	    $('#ContaspagarDataEmissao').prop('disabled', false);
+	});
+	
+/*********** Desabilitar Data de Emissão ***********/	
+	$('#bt-adicionarConta-pagar').on('click',function(){		
+		
+		if($('#ContaspagarDataEmissao').val() == ''){
+			$('#msgDataEmissao').css('display','block');
+			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
+			$('html, body').animate({scrollTop:0}, 'slow');
+		}else if($('#parcelaCont0').length){
+			$('#ContaspagarDataEmissao').prop('readonly',true);
+			$('#ContaspagarDataEmissao').addClass('borderZero');
+			$('#ContaspagarDataEmissao').prop('disabled', true);
+		}else{
+			$('#ContaspagarDataEmissao').prop('readonly',false);
+			$('#ContaspagarDataEmissao').removeClass('borderZero');
+			$('#ContaspagarDataEmissao').prop('disabled', false);
+		}
 	});
 });
