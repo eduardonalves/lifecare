@@ -627,7 +627,7 @@
 	    $('[id*="bt-adicionarConta"]').show();
 	    $('.tela-resultado-field').show();
 	    $('#Pagamento0NumeroParcela').val(0);
-	    $('#ContaspagarParcela').val(1);
+	    $('#ContasreceberParcela').val(1);
 	    $('.btnExcluir').trigger('click');
 	    
     });    

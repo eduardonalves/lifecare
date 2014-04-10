@@ -57,7 +57,7 @@
 		echo $this->Form->input('conta_id',array('type' => 'hidden','value' =>$conta['Conta']['id']));
 		echo $this->Form->input('user_id',array('type' => 'hidden','value' =>$userid));
 		echo $this->Form->input('data',array('label' => 'Data:', 'type' => 'hidden', 'id' => 'datObsCobranca','value' =>$data_atual));
-		echo $this->Form->input('obs',array('label' => 'Observação:', 'type' => 'textarea','id' => 'obsCobranca', 'class' => 'tamanho-medio'));
+		echo $this->Form->input('obs',array('label' => 'Observação:', 'type' => 'textarea','id' => 'obsCobranca', 'class' => 'tamanho-medio','maxlength' => '1000'));
 		
 		echo $this->form->submit( 'botao-salvar.png' ,  array('class' => 'bt-direita','id' => 'bt-salvarCobranca', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 		

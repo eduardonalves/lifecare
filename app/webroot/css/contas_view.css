@@ -54,7 +54,7 @@
 .modalQuitar section.coluna-central label{
 	margin-top: 0px;
 }
-.dadosRepetidos{
+.clearBoth{
     clear:both;
     padding:5px;
 }

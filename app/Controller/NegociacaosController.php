@@ -13,7 +13,7 @@ class NegociacaosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs');
 
 /**
  * index method
@@ -47,23 +47,54 @@ class NegociacaosController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->loadModel('Pagamento');
+			$this->loadModel('ParcelasConta');
 			$this->loadModel('Parcela');
 			$this->Negociacao->create();
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Negociacao']['data']);
+			
 			if ($this->Negociacao->save($this->request->data)) {
+				$parcelasids =$this->request->data['parcelasids'];
 				
-				$parcelasids = array('0'=> '1');
-				
+				debug($this->request->data);
 				foreach($parcelasids as $parcelasid){
 					$updateParcelas = array('id' => $parcelasid, 'status' => 'RENEGOCIADO');
 					$this->Parcela->save($updateParcelas);
+					debug($parcelasid);
 				}
 				
-				$this->Session->setFlash(__('The negociacao has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$parcelasEnviadas = $this->request->data['Parcela'];
+				$ultimaConta = $this->Negociacao->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+
+				$cont=0;
+				foreach($parcelasEnviadas as $parcelasEnviada){
+				    $ultimaNegociacao = $this->Negociacao->find('first', array('order' => array('Negociacao.id' => 'desc'), 'recursive' => -1));
+				    $parcelasEnviada['negociacao_id'] = $ultimaNegociacao['Negociacao']['id'];
+				    $this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+				    
+				    $this->Parcela->create();
+				    $this->Parcela->save($parcelasEnviada);
+				    $ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+				    
+				    $this->ParcelasConta->create();
+				  
+				    $parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
+				    $this->ParcelasConta->save($parcela_conta);
+
+				}
+
+				//foreach( $this->request->data['Pagamento'] as $pagamento){
+				    //$this->Pagamento->create();
+				    //$this->Pagamento->save($pagamento);
+				//}
+				
+				$this->Session->setFlash(__('A negociação foi salva.'), 'default', array('class' => 'success-flash'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The negociacao could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A negociação não foi salva. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
+		//$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}
