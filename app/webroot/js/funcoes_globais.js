@@ -305,18 +305,15 @@ $(document).ready(function(){
 
 
 /** BOTÃO UPLOAD ******************************************************/
-	$(document).ready(function() {
-	    $('#teste').bind("click" , function () {
-			$('#doc_file').click();
-	    });
-
-		$('input[type=file]').change(function(e){
-			var arquivo = $('#doc_file').val();
-
-			$('#valor').attr('value',arquivo);
-		});
+	$('#teste').bind("click" , function () {
+		$('#doc_file').click();
 	});
 
+	$('input[type=file]').change(function(e){
+		var arquivo = $('#doc_file').val();
+
+		$('#valor').attr('value',arquivo);
+	});
 
 /** MÁSCARAS **********************************************************/
 	jQuery(function($){
@@ -371,18 +368,15 @@ $(document).ready(function(){
 		});
 	}
 
-
 /** ROLAGEM DA TELA DO BOTÃO SALVAR ***********************************/
 	$('.bt-salvar, .bt-salvar1').bind('click',function(){
 		$('html, body').animate({scrollTop:0},0);
 	});
 
-
 /** LOGIN *************************************************************/
 	$(".loginEntrar").click(function(){
 		$("input[type=submit]").trigger("click");
 	});
-
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
@@ -392,7 +386,6 @@ $(document).ready(function(){
 		$('.ui-widget').removeClass('shadow-vermelho');	
     });
 
-
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(7000);
 
@@ -400,8 +393,6 @@ $(document).ready(function(){
 	$(".Nao-Letras").on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
-		//if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
-		//if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==46)|| (charCode==37)|| (charCode==39))){return false;}else{return true}
 		if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==9))){return false;}else{return true}
 	});
 

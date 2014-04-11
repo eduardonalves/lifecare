@@ -8,8 +8,8 @@ input{
 
 label{
 	min-width:127px !important;
-	margin-bottom: 10px !important;
-	margin-left: -13px !important;
+	margin-bottom:10px !important;
+	margin-left:-13px !important;
 }
 
 textarea{
@@ -32,8 +32,8 @@ textarea{
 }
 
 .tamanho-status{
-	width: 140px !important;
-	margin-left: -1px;
+	width:140px !important;
+	margin-left:-1px;
 }
 
 .tamanho-medio{
@@ -60,29 +60,63 @@ textarea{
 /* ID *****************************************************************/
 #input-codigo{
 	background-color:transparent;
-	border: 0px;
+	border:0px;
 	width:150px !important;
 }
 
-#spanEstoqueMinimoZero{	left: 231px; top: 20px; width: 110px; }
-#spanEstoqueMinimo{	left: 231px; top: 20px; width: 110px; }
+#spanEstoqueMinimoZero{
+	left:231px;
+	top:20px;
+	width:110px;
+}
 
-#btnLeft,#btnRight{	padding:4px; line-height:15px;}
+#spanEstoqueMinimo{	
+	left:231px;
+	top:20px;
+	width:110px;
+}
 
-#validaNome{ left: 293px; top: -5px; width: 100px; }
-#validaNome, x:-moz-any-link, x:default{ top: 3px; }
+#btnLeft, #btnRight{
+	padding:4px;
+	line-height:15px;
+}
 
-#validaUnid{ left: 260px; top: -13px; }
-#validaUnid, x:-moz-any-link, x:default{ top: -13px; left: 253px;}
+#validaNome{
+	left:293px;
+	top:-5px;
+	width:100px;
+}
 
-#validaNcm{	left: 232px; top: 20px;  width: 125px; }
+#validaUnid{
+	left:260px;
+	top:-13px;
+}
 
-#validaCfop{ left: 234px; top: -9px; width: 110px; }
+#validaNcm{
+	left:232px;
+	top:20px;
+	width:125px;
+}
+
+#validaCfop{
+	left:234px;
+	top:-9px;
+	width:110px;
+}
 
 /* HERANÇA ************************************************************/
 
 
 /* HACK ***************************************************************/
+#validaNome, x:-moz-any-link, x:default{
+	top: 3px;
+}
+
+#validaUnid, x:-moz-any-link, x:default{
+	top: -13px;
+	left: 253px;
+}
+
 #ajusteColunaEsquerda, x:-moz-any-link, x:default{
 	margin-top:-10px;
 }

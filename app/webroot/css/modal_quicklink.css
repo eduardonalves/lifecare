@@ -1,12 +1,5 @@
 @charset "utf-8";
 
-
-/* TAG ****************************************************************/
-
-
-/* CLASS **************************************************************/
-
-
 /* ID *****************************************************************/
 #LoadAjaxQuickLink{
 	left:161px;
@@ -34,7 +27,7 @@
     color:#D40000;
     display:block;
     font-size:13px;
-    left:345px;
+    left:380px;
     padding:3px;
     position:absolute;
     text-align:center;
@@ -42,7 +35,7 @@
     width:108px;
 }
 
-#myModal_add-quicklink #spanQuicklink:after {
+#myModal_add-quicklink #spanQuicklink:after{
 	border-color:rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style:solid;
     border-width:10px;

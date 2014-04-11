@@ -1,23 +1,21 @@
-$(document).ready(function() {
+$(document).ready(function(){
 
-	var total=0;
-	var i=0;
-	var total=0;
-/*********************** Consulta ***********************/
-function get()
-{
-var get = new Object();
-var parameters = window.location.toString().split("?").pop().split("&");
+	var total = 0;
+	var i = 0;
 
-for (var i in parameters)
-{
-var parts = parameters[i].split("=");
+/*** CONSULTA *********************************************************/
+	function get(){
+		var get = new Object();
+		var parameters = window.location.toString().split("?").pop().split("&");
 
-get[""+parts[0]+""] = parts[1];
-}
+		for (var i in parameters){
+			var parts = parameters[i].split("=");
 
-return get;
-}
+			get[""+parts[0]+""] = parts[1];
+		}
+
+		return get;
+	}
 
 	function TrocaConsulta(){
 		var opConsulta = "";
@@ -30,15 +28,15 @@ return get;
 			opConsulta = opConsulta.concat($("#checkes").val());
 		}
 
-        switch(opConsulta) {
+        switch(opConsulta){
             case ('lote'):
-		window.open(urlPadrao+"parametro=lotes"+limit,"_self");
+				window.open(urlPadrao+"parametro=lotes"+limit,"_self");
                 break;
             case ('es'):
-		    window.open(urlPadrao+"parametro=itensdoproduto"+limit,"_self");
+				window.open(urlPadrao+"parametro=itensdoproduto"+limit,"_self");
                 break;
             case ('lotees'):
-		window.open(urlPadrao+"parametro=itensdolote"+limit,"_self");
+				window.open(urlPadrao+"parametro=itensdolote"+limit,"_self");
                 break;
             case (''):
                 window.open(urlPadrao+"parametro=produtos"+limit,"_self");
@@ -54,10 +52,6 @@ return get;
 
 	if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }
 
-/*(	if(parametro){
-		parametro = parametro.replace("&ql", '');
-	}
-	*/
 	if(parametro == 'produtos'){
 		$("#filtro-lote").css({"background-color":"#ebebeb","border-color":"#ccc"});
 		$("#filtro-es").css({"background-color":"#ebebeb","border-color":"#ccc"});
@@ -92,8 +86,6 @@ return get;
 		$("label[for='filterProdutoCategoria']").css('display','none');
 		$("#ConfigprodutoCategoria").css('display','none');
 		$("label[for='ConfigprodutoCategoria']").css('display','none');
-
-
 
 		$("#filtro-lote input[type=text]").prop('disabled', true);
 		$("#filterStatusLote").prop('disabled', true);
@@ -138,7 +130,6 @@ return get;
 		$("#filtro-es").css({"background-color":"#C9F0E8","border-color":"#37C8AB"});
 	}
 
-
 	$('#checklote').on('click', function(){
 		TrocaConsulta();
 	});
@@ -146,61 +137,44 @@ return get;
 	$('#checkes').on('click', function(){
 		TrocaConsulta();
 	});
-/******** Carregar filtro no select Quick link ***********************/
 
+/*** CARREGAR FILTRO NO SELECT QUICK LINK *****************************/
 	$("#quick-select").change(function(){
-
 		var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
 
 		$("#quick-editar").css("display", "none");
 		
-		if(urlQuickLink!='')
-		{
+		if(urlQuickLink!=''){
 		    window.location.href=urlQuickLink;
 		    $("#quick-select option").text($(this).children('option:selected').text());
 		}
-
 	});
-/************************ Salvar Quicklink******************************************/
+
+/*** SALVAR QUICKLINK *************************************************/
     $("#bt-salvar-quicklink").click(function(event){
-	event.preventDefault();
-	
-	nomequick = $('.nome-quicklink').val();
-	
-	if(nomequick  !=''){
-		$("#formCadQuicklink").submit();
-		$("#quick-select").val(nomequick);
-		$('#quick-select').find('option[text="'+nomequick+'"]').val();
-	}else{
-		 $('#spanQuicklink').show();
-	}
+		event.preventDefault();
+		
+		nomequick = $('.nome-quicklink').val();
+		
+		if(nomequick != ''){
+			$("#formCadQuicklink").submit();
+			$("#quick-select").val(nomequick);
+			$('#quick-select').find('option[text="'+nomequick+'"]').val();
+		}else{
+			$('#QuicklinkNome').focus();
+			$('#spanQuicklink').show();
+		}
     });
     
 /************************************ Limpa QuickLink *********************************/		
 	$('input, select').on('focusin',function(){
 	    $('#quick-select').val('');
-	    $("#quick-editar").css("display", "none");
-	   
+	    $("#quick-editar").css("display", "none"); 
 	});
-	
-	//alert($("#quick-select option:selected").val());
 
-	$("#quick-filtrar").click(function(){
-	 /* 
-		var urlQuickLink = $(this).children('option:selected').attr('data-url').val();
-
-		$("#quick-editar").css("display", "none");
-		
-		if(urlQuickLink!='')
-		{
-		    window.location.href=urlQuickLink;
-		}
-	*/
-	});	
 /*********** FUNÇÃO PARA CHECK BOX DO FILTRO *************/
 	var valorAux=$('#filterNotaTipoEntrada').val();
 	if(valorAux  != undefined){
-
 		var valorEntrada=valorAux.substr(0,7);
 		var valorSaida1=valorAux.substr(0,5);
 		var valorSaida2 =valorAux.substr(8,5);
@@ -213,12 +187,15 @@ return get;
 	if(valorEntrada =='ENTRADA'){
 		$('#NotaTipoEntradaENTRADA').attr('checked', true);
 	}
+	
 	if(valorSaida1 == 'SAIDA'){
 		$('#NotaTipoEntradaSAIDA').attr('checked', true);
 	}
+	
 	if(valorSaida2 == 'SAIDA'){
 		$('#NotaTipoEntradaSAIDA').attr('checked', true);
 	}
+
 	$("#NotaTipoEntradaENTRADA, #NotaTipoEntradaSAIDA").bind('click', function(){
 		if($('#NotaTipoEntradaENTRADA').is(':checked')){
 			if($('#NotaTipoEntradaSAIDA').is(':checked')){
@@ -233,30 +210,28 @@ return get;
 				$('#filterNotaTipoEntrada').val(' ');
 			}
 		}
-
 	});
-/***##___FUNCOES DE MANIPULACA0 DA DATA DO FILTRO CONSULTA___##***/
+
+/*** FUNCOES DE MANIPULACA0 DA DATA DO FILTRO CONSULTA ****************/
 	var form = $("form[id='form-filter-results']");
 	form.addClass('dados-produto');
 
-/******** Mensagem de erro Quicklink *********/
+/*** MENSAGEM DE ERRO QUICKLINK ***************************************/
 	var temClasse = $('h1').hasClass('menuOption21');
 
-			//alert(temClasse);
-
-			if(temClasse){
-				$('.error-message').removeClass('error-message').addClass('error-message-quicklink');
-			}
+	if(temClasse){
+		$('.error-message').removeClass('error-message').addClass('error-message-quicklink');
+	}
 
 	$('#quick-salvar').bind('click',function(){
 		$('.error-message').remove();
 	});
-/************* VALIDAR CONFIGURAÇÃO DO FILTRO *****************/
-	/*** Modal Config Produto ***/
 
+/*** VALIDAR CONFIGURAÇÃO DO FILTRO ***********************************/
+	/*** MODAL CONFIG PRODUTO ***/
 		$("#ConfigprodutoNome").prop('checked', true);
 		$('#ConfigprodutoNome').click(false);
-		$("input[id='ConfigprodutoNome']").mouseenter(function() {
+		$("input[id='ConfigprodutoNome']").mouseenter(function(){
 			$('#msgModalProd').css('display','inherit');
 		}).mouseleave(function() {
 			$('#msgModalProd').css('display','none');
@@ -264,7 +239,7 @@ return get;
 
 		$("label[for='ConfigprodutoNome']").mouseenter(function() {
 			$('#msgModalProd').css('display','inherit');
-		}).mouseleave(function() {
+		}).mouseleave(function(){
 			$('#msgModalProd').css('display','none');
 		});
 
@@ -281,8 +256,8 @@ return get;
 		}).mouseleave(function() {
 			$('#msgModalProd').css('display','none');
 		});
-	/*** Modal Config Lote ***/
-
+	
+	/*** MODAL CONFIG LOTE ***/
 		$("#ConfigloteNumeroLote").prop('checked', true);
 		$('#ConfigloteNumeroLote').click(false);
 		$("input[id='ConfigloteNumeroLote']").mouseenter(function() {
@@ -310,8 +285,8 @@ return get;
 		}).mouseleave(function() {
 			$('#msgModalLot').css('display','none').css('top','200px');
 		});
-	/*** Modal Config Nota ***/
 
+	/*** MODAL CONFIG NOTA ***/
 		$("#ConfignotaTipo").prop('checked', true);
 		$('#ConfignotaTipo').click(false);
 		$("input[id='ConfignotaTipo']").mouseenter(function() {
@@ -353,7 +328,8 @@ return get;
 		}).mouseleave(function() {
 			$('#msgModalNot').css('display','none');
 		});
-/************* Inicio Seta de Ordenação da tabela *****************/
+
+/*** INICIO SETA DE ORDENAÇÃO DA TABELA *******************************/
 	$(".colunaProduto a.asc + div").addClass("seta-cima");
 	$(".colunaProduto a.desc + div").addClass("seta-baixo");
 	
@@ -366,82 +342,70 @@ return get;
 	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
 	$("td."+idcol).addClass("highlight");	
 	
-/************* Data validação dados da nota *****************/
-
+/*** DATA VALIDAÇÃO DADOS DA NOTA *************************************/
     $("input[id*='filterDataLote']").addClass('forma-data1 validaLote');
 
-
-	/**Data Lote**/
-
+	/*** DATA LOTE ***/
 	$(".validaLote").focusout(function(){
 	    var texto = $(this).val();
+		
 		if(texto.length == 0){
-				$( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
-			}
-		else{
-				$( "input[id='filterDataLote-between']" ).removeClass('shadow-vermelho');
+			$( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
+		}else{
+			$( "input[id='filterDataLote-between']" ).removeClass('shadow-vermelho');
 		}
 	});
-
 
 	$(".validaLote").change(function(){
 	    var dataInicialLote = $("input[id='filterDataLote']").datepicker('getDate');
 	    var dataFinalLote = $("input[id='filterDataLote-between']").datepicker('getDate');
-
 	    var daysLote = (dataFinalLote - dataInicialLote) / 1000 / 60 / 60 / 24;
 
 	    if(daysLote < 0){
-		if(dataFinalLote != null){
-		    $('span[id="spanDataInicialLote"]').remove();
-		    $('<span id="spanDataInicialLote" class="DinamicaMsg">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataLote-between"]');
-		    //alert('A data Final não pode ser menor que a inicial');
-		    $("input[id='filterDataLote-between']").val(" ");
-		    $( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
-		}
-	    }else{
-		$('span[id="spanDataInicialLote"]').remove();
+			if(dataFinalLote != null){
+				$('span[id="spanDataInicialLote"]').remove();
+				$('<span id="spanDataInicialLote" class="DinamicaMsg">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataLote-between"]');
+				$("input[id='filterDataLote-between']").val(" ");
+				$( "input[id='filterDataLote-between']" ).addClass('shadow-vermelho');
+			}
+		}else{
+			$('span[id="spanDataInicialLote"]').remove();
 	    }
 	});
 
-		/**Data Nota**/
-
+	/*** DATA NOTA ***/
 	$("input[id='filterDataNota-between']").addClass('validaNota');
 	$("input[id='filterDataNota']").addClass('validaNota');
 
 	$(".validaNota").focusout(function(){
-		 var texto = $(this).val();
-			if(texto.length == 0){
-					$( "input[id='filterDataNota-between']" ).addClass('shadow-vermelho');
-				}
-			else{
-					$( "input[id='filterDataNota-between']" ).removeClass('shadow-vermelho');
-				}
-		});
+		var texto = $(this).val();
+		
+		if(texto.length == 0){
+			$( "input[id='filterDataNota-between']" ).addClass('shadow-vermelho');
+		}else{
+			$( "input[id='filterDataNota-between']" ).removeClass('shadow-vermelho');
+		}
+	});
 
 	$(".validaNota").change(function(){
-
 		var dataInicialNota = $("input[id='filterDataNota']").datepicker('getDate');
 		var dataFinalNota = $("input[id='filterDataNota-between']").datepicker('getDate');
-
 		var daysNota = (dataFinalNota - dataInicialNota) / 1000 / 60 / 60 / 24;
 
 		if(daysNota < 0){
 			$('span[id="spanDataInicialNota"]').remove();
+			
 			if(dataFinalNota != null){
 			    $('<span id="spanDataInicialNota" class="DinamicaMsg">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataNota-between"]');
-			    //alert('A data Final não pode ser menor que a inicial');
 			    $("input[id='filterDataNota-between']").val("");
 			    $("input[id='filterDataNota-between']").addClass('shadow-vermelho');
 			}    
 		}else{
 		    $('span[id="spanDataInicialNota"]').remove();
 		}
-
 	});
-	
-	
-	
-    /****************** Chamada DatePicker lote e nota ****************************************/
+
+/*** CHAMADA DATEPICKER LOTE E NOTA ***********************************/
     $("#filterDataLote-between, #filterDataNota-between").datepicker({
 		dateFormat: 'dd/mm/yy',
 		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
@@ -452,6 +416,5 @@ return get;
 		nextText: 'Próximo',
 		prevText: 'Anterior'
 	});
-	
-	
+
 });
