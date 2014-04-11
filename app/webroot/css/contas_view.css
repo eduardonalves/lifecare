@@ -73,3 +73,19 @@
 .sectionNegociacao{
 	clear:both;
 }
+
+#msgNegociacaoDesabilitada{
+    background-color:#D9EDF7;
+    color:#317396;
+    left: 930px;
+    top: 173px;
+    width:136px;
+    z-index:6;
+    position:absolute;
+}
+
+#msgNegociacaoDesabilitada:after{
+    border-color:transparent  transparent #D9EDF7 transparent; 
+    left: 60px;
+    top: -20px;
+}

@@ -386,10 +386,19 @@ $(document).ready(function(){
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
-		$('span[class^="Msg"]').css('display','none');
-		$('span[class^="DinamicaMsg"]').remove();
-		$('input,select').removeClass('shadow-vermelho');
-		$('.ui-widget').removeClass('shadow-vermelho');	
+	if($(this).val() !=''){
+	    $('span[class^="Msg"]').css('display','none');
+	    $('span[class^="DinamicaMsg"]').remove();
+	    $('input,select').removeClass('shadow-vermelho');
+	    $('.ui-widget').removeClass('shadow-vermelho');
+	}
+    });
+
+    $('[class*="Msg"]').on('click', function(){
+	$('span[class^="Msg"]').css('display','none');
+	$('span[class^="DinamicaMsg"]').remove();
+	$('input,select').removeClass('shadow-vermelho');
+	$('.ui-widget').removeClass('shadow-vermelho');
     });
 
 

@@ -292,13 +292,12 @@
 	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
 		
 ?>
-<section class="clearBoth sectionNegociacao">
-    <header>Dados da Negociação</header>
+
 	<?php
 	    echo $this->element('negociacao_view');
-	    echo $this->html->image('botao-adicionar2.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
+	    
 	?>
-</section>    
+
 
 <?php
 	}

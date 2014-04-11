@@ -50,21 +50,22 @@ class NegociacaosController extends AppController {
 			$this->loadModel('Pagamento');
 			$this->loadModel('ParcelasConta');
 			$this->loadModel('Parcela');
+			$this->loadModel('Conta');
 			$this->Negociacao->create();
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Negociacao']['data']);
 			
 			if ($this->Negociacao->save($this->request->data)) {
 				$parcelasids =$this->request->data['parcelasids'];
 				
-				debug($this->request->data);
+				//debug($this->request->data);
 				foreach($parcelasids as $parcelasid){
 					$updateParcelas = array('id' => $parcelasid, 'status' => 'RENEGOCIADO');
 					$this->Parcela->save($updateParcelas);
-					debug($parcelasid);
+					
 				}
 				
 				$parcelasEnviadas = $this->request->data['Parcela'];
-				$ultimaConta = $this->Negociacao->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+	    
 
 				$cont=0;
 				foreach($parcelasEnviadas as $parcelasEnviada){
@@ -78,23 +79,25 @@ class NegociacaosController extends AppController {
 				    
 				    $this->ParcelasConta->create();
 				  
-				    $parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
+				    $parcela_conta = array('conta_id' => $this->request->data['Negociacao']['conta_id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
 				    $this->ParcelasConta->save($parcela_conta);
 
 				}
 
-				//foreach( $this->request->data['Pagamento'] as $pagamento){
-				    //$this->Pagamento->create();
-				    //$this->Pagamento->save($pagamento);
-				//}
+				$this->Conta->create();
+				$statusConta = array('id' => $this->request->data['Negociacao']['conta_id'], 'status' => 'VERDE');
+
+				$this->Conta->save($statusConta);
 				
+				
+				    				
 				$this->Session->setFlash(__('A negociação foi salva.'), 'default', array('class' => 'success-flash'));
 				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A negociação não foi salva. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
-		//$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
+		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}

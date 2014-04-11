@@ -479,7 +479,7 @@ $(document).ready(function() {
     $( "#valorUpload, #bt-buscar" ).hover(function(){
 	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg.<br/>Tamanho máximo permitido 2mb.<br/>Resolução mímima 700px x 700px.<br/>Resolução máxima 2200px x 2200px.</span>');
 	},function(){
-	    $('#msgExtensoes').remove();
+	  //  $('#msgExtensoes').remove();
 	}
     );
 
@@ -501,9 +501,10 @@ $(document).ready(function() {
 	i++;
     });
 
+/*************** Negociação *********************/
     $('#negociacao').click(function(){
 	contId=0;
-	$('input[type="checkbox"]').each(function(){
+	$('.checkClasse').each(function(){
 	    $('[id*="parcelasids"]').remove();
 	    if(this.checked) {
 		parcelaId=$(this).attr('data-parcelaid');
@@ -517,16 +518,33 @@ $(document).ready(function() {
 	$('[id*="parcelasids"]').remove();
     });
 
-    $('.sectionNegociacao').hide();
+
     $('.checkClasse').click(function(){
-	$('input[type="checkbox"]').each(function(){
+	var contCheck=0;
+	$('.checkClasse').each(function(){
 	    if(this.checked) {
-		$('.sectionNegociacao').show();
-	    }else{
-		$('.sectionNegociacao').hide();
+		contCheck =1;
+		
+		
 	    }
 	});
 
+	if(contCheck ==0) {
+	    $('#bt-negociacaoDesabilitado').show();
+	    $('#negociacao').hide();
+	    
+	}else{
+	    $('#negociacao').show();
+	    $('#bt-negociacaoDesabilitado').hide();
+	}
+    });
+
+
+
+    $( "#bt-negociacaoDesabilitado" ).hover(function(){
+	$(this).after('<span id="msgNegociacaoDesabilitada" class="DinamicaMsg Msg-tooltipEsquerda">Escolha ao menos uma parcela para negociar.</span>');
+    },function(){
+	$('#msgNegociacaoDesabilitada').remove();
     });
 
 });

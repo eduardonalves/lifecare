@@ -810,6 +810,26 @@ class ContasController extends AppController {
 			$i++;
 		}
 		
+		$z=0;
+		foreach($conta['Negociacao'] as $z => $negociacao){
+			
+			$this->loadModel('User');
+			$user = $this->User->find('first' , array('conditions' => array('User.id' => $negociacao['user_id']),'recursive' => -1));
+			
+			if(!empty($user)){
+				
+				if($user['User']['username'] == null){
+					$nome = "";
+				}else{
+					$nome = $user['User']['username'];
+				}
+				$conta['Negociacao'][$z]['user_id'] = $nome;
+			}
+			$z++;
+			
+		}
+		
+		
 		$this->set(compact('parcelas','conta','userid','username'));
 	}
 
