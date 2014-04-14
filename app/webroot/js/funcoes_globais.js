@@ -19,13 +19,15 @@ $(document).ready(function(){
 		prefix: '',
 		centsSeparator: ',',
 		thousandsSeparator: '',
-		centsLimit: 5
+		centsLimit: 5,
+	    limit: 15
 	});
 	
 	$(".dinheiro_duasCasas").priceFormat({
 	    prefix: '',
 	    centsSeparator: ',',
-	    thousandsSeparator: '.'
+	    thousandsSeparator: '.',
+	    limit: 15
 	});
 
 /** PREÇO VENDA *******************************************************/
