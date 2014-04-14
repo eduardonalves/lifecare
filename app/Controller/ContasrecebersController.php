@@ -26,6 +26,148 @@ class ContasrecebersController extends ContasController {
 		$this->Contasreceber->recursive = 0;
 		$this->set('Contasreceber', $this->Paginator->paginate());
 	}
+	
+	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
+		$this->loadModel('Conta');
+		$this->loadModel('Parcela');
+			
+		$hoje = date("Y-m-d");	
+		$diasCritico = 3; // configurar data critica
+		$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$data_vencimento.'')));
+		
+		if($dataCritica < $hoje){
+			$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
+			$this->Conta->save($uptadeConta);
+			
+			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
+			$this->Parcela->save($uptadeConta);	
+			
+		}
+		
+	}
+	
+	public function setStatusParceiro(&$ideParceiro){
+ 		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Conta');
+		$hoje= date("Y-m-d");
+		$parceiros = $this->Parceirodenegocio->find('all',array('conditions' => array('Parceirodenegocio.id' => $ideParceiro), 'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*')));
+		
+		
+		if(!empty($parceiros)){
+			foreach($parceiros as $parceiro){
+			
+				if(isset($parceiro['Dadoscredito'])){
+					if(!empty($parceiro['Dadoscredito'])){
+						foreach($parceiro['Dadoscredito'] as $dadosCredito){
+							
+							if($dadosCredito['bloqueado'] != 'Sim'){
+								$vencimento= $dadosCredito['validade_limite'];
+								$diasCritico = 10;
+								$hoje= date("Y-m-d");
+								$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+								
+								$valorLimite = $dadosCredito['limite'];
+								if($valorLimite =='' or $valorLimite=='NULL'){
+								
+									$valorLimite=0;	
+									
+								}
+								$valorLimiteUsado = $dadosCredito['limite_usado'];
+								
+								if($valorLimiteUsado =='' or $valorLimiteUsado=='NULL'){
+									$valorLimiteUsado=0;
+								}
+								
+								$pocentagem=0;
+								$pocentagem = ($dadosCredito['limite'] * 80)/100;
+								
+								
+								
+								if($vencimento < $hoje){
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+									
+								}else if( $dataCritica < $hoje ){
+										
+										$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
+										$this->Parceirodenegocio->save($updateParceiro);
+										
+										
+								
+								}else{
+									
+										if($pocentagem < $valorLimite){
+											$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
+											$this->Parceirodenegocio->save($updateParceiro);
+										}
+										
+									
+								} 
+								
+								if($valorLimite < $valorLimiteUsado){
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERMELHO', 'bloqueado' => 'Sim');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+								}else if($pocentagem < $valorLimiteUsado){
+									
+										
+										
+										$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'AMARELO');
+										$this->Parceirodenegocio->save($updateParceiro);
+									
+								}else{
+										
+									$updateParceiro= array('id' => $parceiro['Parceirodenegocio']['id'], 'status' => 'VERDE');
+									$this->Parceirodenegocio->save($updateParceiro);
+									
+								}
+								
+							}
+						}
+					}	
+				}
+
+
+
+
+				$contasEmAtraso2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'VERMELHO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAtraso =count($contasEmAtraso2);
+				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'OR' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAberto= count($contasEmAberto2);
+				$contasPrestesAVencer2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'AMARELO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'))); 
+				$contasPrestesAVencer=count($contasPrestesAVencer2);
+				
+					
+				if($contasEmAtraso >= 1){
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO');
+					$this->Parceirodenegocio->save($updateParceirodenegocio);
+					
+				}else if($contasPrestesAVencer >= 1){
+					
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'AMARELO');
+					$this->Parceirodenegocio->save($updateParceirodenegocio);
+					$contasPrestesAVencer =count($contasPrestesAVencer2);
+					
+					
+					
+				}else{
+					if(isset($valorLimite)){
+						if($pocentagem < $valorLimite){
+							$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'VERDE');
+							$this->Parceirodenegocio->save($updateParceirodenegocio);
+						}
+					}else{
+						$updateParceirodenegocio= array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'VERDE');
+						$this->Parceirodenegocio->save($updateParceirodenegocio);
+					}
+					
+				}
+					
+				
+			}
+		}	
+ 	}
 
 /**
  * view method
@@ -42,22 +184,7 @@ class ContasrecebersController extends ContasController {
 		$this->set('Contasreceber', $this->Contasreceber->find('first', $options));
 	}
 
-	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
-		$this->loadModel('Conta');
-		$this->loadModel('Parcela');
-			
-		$hoje = date("Y-m-d");	
-		$diasCritico = 3; // configurar data critica
-		$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$data_vencimento.'')));
-		
-		if($dataCritica < $hoje){
-			$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
-			$this->Conta->save($uptadeConta);
-			
-			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
-			$this->Parcela->save($uptadeConta);	
-		}
-	}
+	
 
 	public function setStatusConta(&$idConta){
 		$this->loadModel('Parcela');
@@ -86,7 +213,7 @@ class ContasrecebersController extends ContasController {
 						$this->Parcela->save($updatevencimento);
 					} 
 				}else{
-					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
 					}else{
@@ -104,15 +231,23 @@ class ContasrecebersController extends ContasController {
 			$this->loadModel('Parcela');
 			$this->loadModel('Conta');
 			
-			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'AND' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status NOT LIKE' => '%COBRANCA%')))));
+			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'OR' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status LIKE' => '%COBRANCA%')))));
 		
-			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 , 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%COBRANCA%')))));
+			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 , 'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
-				
+			
+			$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $idConta2)));
+			
 			if(!empty($contasEmAtraso)){
 				
-					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
-					$this->Conta->save($updateConta);
+					if($conta['Conta']['status'] == "COBRANCA"){
+						$updateConta = array('id' => $idConta2, 'parcelas_atraso' => $contasEmAtraso, 'status' =>'COBRANCA');
+						$this->Conta->save($updateConta);
+					}else{
+						$updateConta = array('id' => $idConta2, 'parcelas_atraso' => $contasEmAtraso, 'status' =>'VERMELHO');
+						$this->Conta->save($updateConta);
+					}
+					
 				
 				
 			}else{
@@ -170,7 +305,7 @@ class ContasrecebersController extends ContasController {
 		
 		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
 		
-		debug($clienteId);
+		
 		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
 		
 		
@@ -212,69 +347,73 @@ class ContasrecebersController extends ContasController {
 		$this->layout = 'contas';
 		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
-		
-			
-			
-			$this->Contasreceber->create();
+			$this->loadModel('Parceirodenegocio');
+			$paceiro= $this->Parceirodenegocio->find('first', array('conditions' => array('id' => $this->request->data['Contasreceber']['parceirodenegocio_id'])));
+			if($paceiro['Parceirodenegocio']['bloqueado'] == 'Sim' && $this->request->data['Pagamento'][0]['tipo_pagamento'] != "A Vista"){
+				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. O usuário está bloqueado para operações.'), 'default', array('class' => 'error-flash'));
+			}else{
+				$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
 				foreach( $this->request->data['Pagamento'] as $pagamento){
 					$formaPagamento = $pagamento['forma_pagamento'];
 					$pagamentoTipo = $pagamento['tipo_pagamento'];
 				}
-			
-			if($this->verificaLimiteUsado($this->request->data['Contasreceber']['parceirodenegocio_id'], $this->request->data['Contasreceber']['valor'], $pagamentoTipo,  $formaPagamento)){
-					if ($this->Contasreceber->saveAll($this->request->data)) {
-					$this->loadModel('Pagamento');
-					$this->loadModel('Parcela');
-					$this->loadModel('ParcelasConta');
-					$this->loadModel('Conta');
-					$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
-					$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
-					$parcelasEnviadas = $this->request->data['Parcela'];
-					//debug($parcelasEnviadas);
-					$cont=0;
-					foreach($parcelasEnviadas as $parcelasEnviada){
-						//$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
-						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+				
+				if($this->verificaLimiteUsado($this->request->data['Contasreceber']['parceirodenegocio_id'], $this->request->data['Contasreceber']['valor'], $pagamentoTipo,  $formaPagamento)){
+						if ($this->Contasreceber->saveAll($this->request->data)) {
+						$this->loadModel('Pagamento');
+						$this->loadModel('Parcela');
+						$this->loadModel('ParcelasConta');
+						$this->loadModel('Conta');
+						$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
+						$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+						$parcelasEnviadas = $this->request->data['Parcela'];
+						//debug($parcelasEnviadas);
+						$cont=0;
+						foreach($parcelasEnviadas as $parcelasEnviada){
+							//$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
+							$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+							
+							$this->Parcela->create();
+							$this->Parcela->save($parcelasEnviada);
+							$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+							
+							$this->ParcelasConta->create();
+							$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
+							$this->ParcelasConta->save($parcela_conta);
+							$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
+						}
 						
-						$this->Parcela->create();
-						$this->Parcela->save($parcelasEnviada);
-						$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
+						$this->setStatusConta($ultimaConta['Conta']['id']);
+						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+						$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+						//$this->setStatusParceiro($ultimaConta['Conta']['parceirodenegocio_id']);
+						$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 						
-						$this->ParcelasConta->create();
-						$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
-						$this->ParcelasConta->save($parcela_conta);
+						
+						
+						return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
+						//debug($ultimaConta['Conta']['parceirodenegocio_id']);
+					} else {
+						$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
+						$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
+		
+						//return $this->redirect(array('action' => 'index'));
 						
 					}
-					$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' =>-1));
-					$this->setStatusConta($ultimaConta['Conta']['id']);
-					$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
-					$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-					
-					$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
-					
-					
-					
-					return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
-					//debug($ultimaConta['Conta']['parceirodenegocio_id']);
-				} else {
+				}else{
 					$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
-					$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));
-	
-					return $this->redirect(array('action' => 'index'));
-					
+					$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Limite de crédito excedido.'), 'default', array('class' => 'error-flash'));
+		
+					//return $this->redirect(array('action' => 'index'));
 				}
-			}else{
-				$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
-				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Limite de crédito excedido.'), 'default', array('class' => 'error-flash'));
-	
-				//return $this->redirect(array('action' => 'index'));
-			}	
+			}
+				
 
 			
 		
 		}
-		$this->loadModel('Parceirodenegocio');
+		
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		$this->set(compact('parceirodenegocios','userid'));
 	}
