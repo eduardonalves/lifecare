@@ -6,7 +6,6 @@
 			<th><?php echo $this->Paginator->sort('data'); ?></th>
 			<th><?php echo $this->Paginator->sort('obs'); ?></th>
 			<th><?php echo $this->Paginator->sort('parceirodenegocio_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('cobranca_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('status'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -17,9 +16,6 @@
 		<td><?php echo h($negociacao['Negociacao']['obs']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($negociacao['Parceirodenegocio']['nome'], array('controller' => 'parceirodenegocios', 'action' => 'view', $negociacao['Parceirodenegocio']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($negociacao['Cobranca']['id'], array('controller' => 'cobrancas', 'action' => 'view', $negociacao['Cobranca']['id'])); ?>
 		</td>
 		<td><?php echo h($negociacao['Negociacao']['status']); ?>&nbsp;</td>
 		<td class="actions">
@@ -50,7 +46,7 @@
 		<li><?php echo $this->Html->link(__('New Negociacao'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cobrancas'), array('controller' => 'cobrancas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cobranca'), array('controller' => 'cobrancas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Parcelas'), array('controller' => 'parcelas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Parcela'), array('controller' => 'parcelas', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

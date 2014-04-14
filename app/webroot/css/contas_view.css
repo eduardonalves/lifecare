@@ -54,10 +54,22 @@
 .modalQuitar section.coluna-central label{
 	margin-top: 0px;
 }
+.dadosRepetidos{
+    clear:both;
+    padding:5px;
+}
 
 #bt-upload{
     padding: 2px; 
 }
 #bt-visualizarComprovante{
     padding:2px; 
+}
+
+#checkNegociacao{
+    margin-left: 24px;
+}
+
+.sectionNegociacao{
+	clear:both;
 }

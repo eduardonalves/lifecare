@@ -5,7 +5,7 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('parcela_id');
-		echo $this->Form->input('parceirodenegocio_id');
+		echo $this->Form->input('negociacao_id');
 		echo $this->Form->input('data_inicio');
 		echo $this->Form->input('data_fim');
 		echo $this->Form->input('status');

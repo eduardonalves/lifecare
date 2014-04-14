@@ -46,8 +46,7 @@ class NegociacaosControllerTest extends ControllerTestCase {
 		'app.parcelas_conta',
 		'app.quicklink',
 		'app.pagamento',
-		'app.dadosbancario',
-		'app.cobranca'
+		'app.dadosbancario'
 	);
 
 /**

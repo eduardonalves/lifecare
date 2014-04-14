@@ -4,7 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('parcela_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('parceirodenegocio_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('negociacao_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('data_inicio'); ?></th>
 			<th><?php echo $this->Paginator->sort('data_fim'); ?></th>
 			<th><?php echo $this->Paginator->sort('status'); ?></th>
@@ -16,9 +16,7 @@
 		<td>
 			<?php echo $this->Html->link($cobranca['Parcela']['id'], array('controller' => 'parcelas', 'action' => 'view', $cobranca['Parcela']['id'])); ?>
 		</td>
-		<td>
-			<?php echo $this->Html->link($cobranca['Parceirodenegocio']['nome'], array('controller' => 'parceirodenegocios', 'action' => 'view', $cobranca['Parceirodenegocio']['id'])); ?>
-		</td>
+		<td><?php echo h($cobranca['Cobranca']['negociacao_id']); ?>&nbsp;</td>
 		<td><?php echo h($cobranca['Cobranca']['data_inicio']); ?>&nbsp;</td>
 		<td><?php echo h($cobranca['Cobranca']['data_fim']); ?>&nbsp;</td>
 		<td><?php echo h($cobranca['Cobranca']['status']); ?>&nbsp;</td>

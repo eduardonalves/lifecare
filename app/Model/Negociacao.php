@@ -4,7 +4,7 @@ App::uses('AppModel', 'Model');
  * Negociacao Model
  *
  * @property Parceirodenegocio $Parceirodenegocio
- * @property Cobranca $Cobranca
+ * @property Parcela $Parcela
  */
 class Negociacao extends AppModel {
 
@@ -24,12 +24,34 @@ class Negociacao extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Cobranca' => array(
-			'className' => 'Cobranca',
-			'foreignKey' => 'cobranca_id',
+		'Conta' => array(
+			'className' => 'Conta',
+			'foreignKey' => 'conta_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		)
 	);
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(
+		'Parcela' => array(
+			'className' => 'Parcela',
+			'foreignKey' => 'negociacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 }

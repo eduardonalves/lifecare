@@ -1,33 +1,31 @@
-<?php	    
+<?php 
+	if(isset($modal))
+	{
+		$this->extend('/Common/modal');
+		$this->assign('modal', $modal);
+	}
+
 	$this->start('css');
-	   // echo $this->Html->css('contas_receber');
-	    echo $this->Html->css('table');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	    echo $this->Html->css('modal_negociacao');
+	    echo $this->Html->css('parceiro');
 	$this->end();
 
 	$this->start('script');
-	    echo $this->Html->script('funcoes_contas_receber.js');
-	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+		echo $this->Html->script('funcoes_modal_negociacao.js');
 	$this->end();
-
-	$this->start('modais');
-	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
-	$this->end();	
 ?>
-    
-<header>
 
+<script>
+</script>
+
+<header>
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
      
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption33">Cadastrar Conta a Receber</h1>
-    
-    
-
+    <h1 class="menuOption33">Negociação</h1>
 </header>
 
-<?php echo $this->Form->create('Contasreceber'); ?>
+<?php echo $this->Form->create('Negociacao'); ?>
 
 <div class="fieldset-total" style="border:none">
     
@@ -36,60 +34,25 @@
 	    <header>Dados Gerais da Movimentação</header>
 	    
 	    <section class="coluna-esquerda">
-		<?php 
-		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
-		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
-		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
-		   
-		?>
-	<div class="tela-resultado">   
 		<?php
-		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-										 'title'=>'Preencher',
-										     'class'=>'bt-preencherConta',
-										     'id'=>'bt-preencherCliente'
-										     ));
-		?>
-		
-		<div class="input autocompleteCliente contas">
-		    <label>Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-		    <select class="tamanho-medio" id="add-cliente">
-			    <option id="optvazioForn"></option>
-			    <option value="add-parceiroCliente">Cadastrar</option>
-			    <?php
-			       foreach($parceirodenegocios as $parceirodenegocio)
-				{
-				    echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
-				    echo $parceirodenegocio['Parceirodenegocio']['nome'];
-				    echo "</option>";
-				}
-			    ?>
-		    </select>
-		</div>
-	</div>
-		<?php
-		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103','maxlength' => '100'));
-		?>
-		
+			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
+			echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas','type' => 'text'));
+		?>		
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php 
 		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
-		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
-		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		    
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+			echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio','title'=>'Campo Obrigatório'));
+
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
-			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
 	    </section>
 
@@ -132,7 +95,7 @@
 		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text','tabindex' => '108'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita','tabindex' => '111'));
-		     echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '114','maxlength' => '25'));
+		     echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita','tabindex' => '114'));
 		     echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		?>    
 	    </section>
@@ -142,7 +105,7 @@
 		    echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '106'));
 		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '109'));		   
 		    
-		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
+		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '112'));
 		?>
 	    </section>
 
@@ -154,29 +117,26 @@
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '110'));
-		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','id' =>'ContasreceberBanco','class' => 'tamanho-medio desabilita','tabindex' => '113','maxlength' => '50'));
+		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','id' =>'ContasreceberBanco','class' => 'tamanho-medio desabilita','tabindex' => '113'));
 		   
 		?>
-		
 	    </section>
 	    
 	    <?php
-		echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
-								 'title'=>'Adicionar Conta',
-								 'id'=>'bt-adicionarConta-receber',
+			echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
+									 'title'=>'Adicionar Conta',
+									 'id'=>'bt-adicionarConta-receber',
+									 'class'=>'bt-direita'
+			));
+
+			echo $this->html->image('botao-concluir-edicao.png',array('alt'=>'Editar',
+								 'title'=>'Editar Conta',
+								 'id'=>'bt-editarConta-receber',
 								 'class'=>'bt-direita'
-		));
+			));
 
-		echo $this->html->image('botao-concluir-edicao.png',array('alt'=>'Editar',
-						     'title'=>'Editar Conta',
-						     'id'=>'bt-editarConta-receber',
-						     'class'=>'bt-direita'
-		));
-
-		echo '<span id="msgCpfCnpj" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
+			echo '<span id="msgCpfCnpj" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
 	    ?>
-	    
-
     </div>
     
 </div>
@@ -197,16 +157,11 @@
 		<th class="actions"><?php echo __('Ações'); ?></th>
 	    </thead>
 	</table>
-	
-	
 </div>
 
-
-<footer>
-    	
+<footer>    	
 	<?php
-	
-	    echo $this->form->submit( 'botao-salvar.png',array(
+	    echo $this->form->submit('botao-salvar.png',array(
 							    'class'=>'bt-salvarConta',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',

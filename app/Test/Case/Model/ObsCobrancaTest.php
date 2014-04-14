@@ -1,11 +1,11 @@
 <?php
-App::uses('Cobranca', 'Model');
+App::uses('ObsCobranca', 'Model');
 
 /**
- * Cobranca Test Case
+ * ObsCobranca Test Case
  *
  */
-class CobrancaTest extends CakeTestCase {
+class ObsCobrancaTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,7 +13,7 @@ class CobrancaTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.cobranca',
+		'app.obs_cobranca',
 		'app.parcela',
 		'app.user',
 		'app.funcionario',
@@ -46,8 +46,7 @@ class CobrancaTest extends CakeTestCase {
 		'app.notas_lote',
 		'app.posicaoestoque',
 		'app.posicaoestoques_lote',
-		'app.quicklink',
-		'app.negociacao'
+		'app.quicklink'
 	);
 
 /**
@@ -57,7 +56,7 @@ class CobrancaTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Cobranca = ClassRegistry::init('Cobranca');
+		$this->ObsCobranca = ClassRegistry::init('ObsCobranca');
 	}
 
 /**
@@ -66,7 +65,7 @@ class CobrancaTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Cobranca);
+		unset($this->ObsCobranca);
 
 		parent::tearDown();
 	}

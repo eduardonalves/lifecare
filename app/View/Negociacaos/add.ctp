@@ -6,7 +6,6 @@
 		echo $this->Form->input('data');
 		echo $this->Form->input('obs');
 		echo $this->Form->input('parceirodenegocio_id');
-		echo $this->Form->input('cobranca_id');
 		echo $this->Form->input('status');
 	?>
 	</fieldset>
@@ -19,7 +18,7 @@
 		<li><?php echo $this->Html->link(__('List Negociacaos'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cobrancas'), array('controller' => 'cobrancas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cobranca'), array('controller' => 'cobrancas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Parcelas'), array('controller' => 'parcelas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Parcela'), array('controller' => 'parcelas', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

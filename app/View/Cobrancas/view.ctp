@@ -11,9 +11,9 @@
 			<?php echo $this->Html->link($cobranca['Parcela']['id'], array('controller' => 'parcelas', 'action' => 'view', $cobranca['Parcela']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parceirodenegocio'); ?></dt>
+		<dt><?php echo __('Negociacao Id'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($cobranca['Parceirodenegocio']['nome'], array('controller' => 'parceirodenegocios', 'action' => 'view', $cobranca['Parceirodenegocio']['id'])); ?>
+			<?php echo h($cobranca['Cobranca']['negociacao_id']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Data Inicio'); ?></dt>
@@ -57,7 +57,6 @@
 		<th><?php echo __('Data'); ?></th>
 		<th><?php echo __('Obs'); ?></th>
 		<th><?php echo __('Parceirodenegocio Id'); ?></th>
-		<th><?php echo __('Cobranca Id'); ?></th>
 		<th><?php echo __('Status'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -67,7 +66,6 @@
 			<td><?php echo $negociacao['data']; ?></td>
 			<td><?php echo $negociacao['obs']; ?></td>
 			<td><?php echo $negociacao['parceirodenegocio_id']; ?></td>
-			<td><?php echo $negociacao['cobranca_id']; ?></td>
 			<td><?php echo $negociacao['status']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'negociacaos', 'action' => 'view', $negociacao['id'])); ?>

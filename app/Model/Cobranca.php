@@ -4,8 +4,8 @@ App::uses('AppModel', 'Model');
  * Cobranca Model
  *
  * @property Parcela $Parcela
- * @property Parceirodenegocio $Parceirodenegocio
  * @property Negociacao $Negociacao
+ * @property ObsCobranca $ObsCobranca
  */
 class Cobranca extends AppModel {
 
@@ -25,9 +25,9 @@ class Cobranca extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Parceirodenegocio' => array(
-			'className' => 'Parceirodenegocio',
-			'foreignKey' => 'parceirodenegocio_id',
+		'Negociacao' => array(
+			'className' => 'Negociacao',
+			'foreignKey' => 'negociacao_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -40,8 +40,8 @@ class Cobranca extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Negociacao' => array(
-			'className' => 'Negociacao',
+		'ObsCobranca' => array(
+			'className' => 'ObsCobranca',
 			'foreignKey' => 'cobranca_id',
 			'dependent' => false,
 			'conditions' => '',

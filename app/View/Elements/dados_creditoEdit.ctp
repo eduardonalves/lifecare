@@ -8,7 +8,7 @@
 
 	?>
 	<fieldset class="dadosRepetidos">
-				<legend>Dados de Crédito  <?php echo $y+1; ?></legend>
+	    <legend>Dados de Crédito  <?php echo $y+1; ?></legend>
 	<div class="area-dadosbanc">
 		<div class="bloco-area">
 	<section class="coluna-esquerda">

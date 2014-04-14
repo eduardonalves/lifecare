@@ -17,18 +17,18 @@ class User extends AppModel {
         'username' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'O campo usuário é requerido!'
+                'message' => 'O campo usuï¿½rio ï¿½ requerido!'
             ),
 			'unique' => array(
 				'rule' => 'isUnique',
-				'message' => 'Este nome de usuário já existe.'
+				'message' => 'Este nome de usuï¿½rio jï¿½ existe.'
 			)
 			
         ),
         'password' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'O senha usuário é requerido!'
+                'message' => 'O senha usuï¿½rio ï¿½ requerido!'
             )
         ),
     );
@@ -156,6 +156,19 @@ class User extends AppModel {
 		),
 		'Quicklink' => array(
 			'className' => 'Quicklink',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'ObsCobranca' => array(
+			'className' => 'ObsCobranca',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
 			'conditions' => '',

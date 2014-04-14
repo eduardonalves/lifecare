@@ -24,6 +24,14 @@ class Parcela extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		
+		'Negociacao' => array(
+			'className' => 'Negociacao',
+			'foreignKey' => 'negociacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 
@@ -78,6 +86,8 @@ class Parcela extends AppModel {
 	  
 	  
 	);
+	
+	
 
 /**
  * Define relacionamentos "Contém um"

@@ -177,6 +177,7 @@ label{
 	border: 1px solid rgb(171, 200, 55);
 	border-radius: 8px;
 	height: 162px;
+	-webkit-logical-height: 175px;
 	margin: 5px 0px 0px -5px;
 	padding: 6px;
 	width: 350px;
@@ -196,6 +197,7 @@ label{
 	border:1px solid #37c8ab;
 	border-radius: 8px;
 	height:162px;
+	-webkit-logical-height: 175px;
 	margin-top:5px;
 	padding:5px;
 	width:333px;
@@ -206,6 +208,7 @@ label{
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
 	height:162px;
+	-webkit-logical-height: 175px;
 	margin:5px 0px 0px 7px;
 	padding:5px;
 	width:335px;

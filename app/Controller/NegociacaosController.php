@@ -47,8 +47,17 @@ class NegociacaosController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->loadModel('Parcela');
 			$this->Negociacao->create();
 			if ($this->Negociacao->save($this->request->data)) {
+				
+				$parcelasids = array('0'=> '1');
+				
+				foreach($parcelasids as $parcelasid){
+					$updateParcelas = array('id' => $parcelasid, 'status' => 'RENEGOCIADO');
+					$this->Parcela->save($updateParcelas);
+				}
+				
 				$this->Session->setFlash(__('The negociacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -56,8 +65,7 @@ class NegociacaosController extends AppController {
 			}
 		}
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
-		$cobrancas = $this->Negociacao->Cobranca->find('list');
-		$this->set(compact('parceirodenegocios', 'cobrancas'));
+		$this->set(compact('parceirodenegocios'));
 	}
 
 /**
@@ -83,8 +91,7 @@ class NegociacaosController extends AppController {
 			$this->request->data = $this->Negociacao->find('first', $options);
 		}
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
-		$cobrancas = $this->Negociacao->Cobranca->find('list');
-		$this->set(compact('parceirodenegocios', 'cobrancas'));
+		$this->set(compact('parceirodenegocios'));
 	}
 
 /**
