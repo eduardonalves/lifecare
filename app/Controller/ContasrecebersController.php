@@ -71,14 +71,14 @@ class ContasrecebersController extends ContasController {
 			$diasCritico = $parcela['Parcela']['periodocritico'];
 			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
 			
-			if($parcela['Parcela']['status'] != 'CINZA'){
+			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 				if($diasCritico !=''){
-					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
 						//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
 						//$this->Conta->save($updateConta);
-					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
 						$this->Parcela->save($updatevencimento);
 					}else{
@@ -104,9 +104,9 @@ class ContasrecebersController extends ContasController {
 			$this->loadModel('Parcela');
 			$this->loadModel('Conta');
 			
-			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'VERMELHO')));
+			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'AND' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status NOT LIKE' => '%COBRANCA%')))));
 		
-			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status NOT LIKE' => 'CINZA')));
+			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 , 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%COBRANCA%')))));
 			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
 				
 			if(!empty($contasEmAtraso)){
@@ -170,6 +170,7 @@ class ContasrecebersController extends ContasController {
 		
 		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
 		
+		debug($clienteId);
 		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
 		
 		

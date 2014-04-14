@@ -107,7 +107,7 @@ class ContasController extends AppController {
 
 				$contasEmAtraso2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'VERMELHO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
 				$contasEmAtraso =count($contasEmAtraso2);
-				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'AND' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'AND' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'), array('Conta.status NOT LIKE' => '%COBRANCA%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
 				$contasEmAberto= count($contasEmAberto2);
 				$contasPrestesAVencer2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'AMARELO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'))); 
 				$contasPrestesAVencer=count($contasPrestesAVencer2);
@@ -202,7 +202,7 @@ class ContasController extends AppController {
 				if(isset($conta) && !empty($conta)){
 											
 					if($conta['Conta']['status'] !='CANCELADO'){
-						if($parcela['Parcela']['status'] != 'CINZA'){
+						if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 								if($diasCritico !=''){
 									if($vencimento < $hoje){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
@@ -220,7 +220,7 @@ class ContasController extends AppController {
 										
 									} 
 								}else{
-									if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+									if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] !='RENEGOCIADO'){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 										$this->Parcela->save($updatevencimento);	
 									}else{
@@ -236,9 +236,9 @@ class ContasController extends AppController {
 						
 					
 					
-					$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $parcela['_Conta']['id'], 'Parcela.status' => 'VERMELHO')));
+					$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $parcela['_Conta']['id'], 'AND' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status NOT LIKE' => '%COBRANCA%')))));
 				
-					$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $parcela['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
+					$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $parcela['_Conta']['id'], 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 					$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $parcela['_Conta']['id'], 'Parcela.status' => 'AMARELO'))); 
 						
 							if(!empty($contasEmAtraso)){
@@ -298,9 +298,9 @@ class ContasController extends AppController {
 			$diasCritico = $parcela['Parcela']['periodocritico'];
 			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
 			
-			if($parcela['Parcela']['status'] != 'CINZA'){
+			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 				if($diasCritico !=''){
-					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
 						//$updateConta = array('id' => $Parcela['_Conta']['id'], 'status' => 'VERMELHO');
@@ -314,7 +314,7 @@ class ContasController extends AppController {
 						
 					} 
 				}else{
-					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA'){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
 					}else{
@@ -938,7 +938,7 @@ class ContasController extends AppController {
 			$conta =  $this->Conta->find('first', array('conditions' => array('Conta.id' => $pacelas['_Conta']['id']), 'recursive' => -1));
 			
 			if($this->Parcela->save($updatePacela)){
-				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'Parcela.status NOT LIKE' => 'CINZA')));
+				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 				
 				
 				if(empty($parcelasEmAbertos)){
