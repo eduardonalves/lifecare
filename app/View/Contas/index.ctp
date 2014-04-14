@@ -95,7 +95,14 @@ $(document).ready(function() {
 				echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar'));
 			?>
 		
-		</a>	
+		</a>
+		<?php
+			    echo $this->Form->end();
+
+			    if(isset($_GET['ql']) && $_GET['ql']!=''){
+				    echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
+			    }
+			?>
 			
 		<div class="content-filtros">
 

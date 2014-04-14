@@ -18,9 +18,10 @@ $(document).ready(function(){
 	$('.dinheiro').priceFormat({
 		prefix: '',
 		centsSeparator: ',',
-		thousandsSeparator: '',
+		thousandsSeparator: '.',
 		centsLimit: 5,
 	    limit: 15
+
 	});
 	
 	$(".dinheiro_duasCasas").priceFormat({
@@ -396,6 +397,13 @@ $(document).ready(function(){
 	$('input,select').removeClass('shadow-vermelho');
 	$('.ui-widget').removeClass('shadow-vermelho');
     });
+/***** Substituição URL *****/
+
+    urlAux = window.location.toString().split("%3").pop().substring(0,1);
+
+    if (urlAux == 'D'){
+	window.location = window.location.toString().split("%3").join('').replace(',','').replace('F','?').replace('D','=');
+    }    
 
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(7000);

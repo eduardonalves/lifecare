@@ -484,7 +484,7 @@ $(document).ready(function() {
 	$("body").on("click",'.btnExcluir', function(e){
 		e.preventDefault();
 
-		minuendo=$('#qtdTotalProduto').val().replace(",", ".");
+		minuendo=$('#qtdTotalProduto').val().split('.').join('').replace(',','.');
 		subtraendo=$(this).attr('data-qtde');
 
 		if(!isNaN( minuendo)){
@@ -514,10 +514,10 @@ $(document).ready(function() {
 	function calcularValorTotal(){
 	    
 		var valorTotalProduto;
-		var quantidadeProduto = $('#qtdTotalProduto').val().replace(",", ".");
-		var valorUnitario =  $('#ProdutoitenValorUnitario').val().replace(",", ".");
+		var quantidadeProduto = $('#qtdTotalProduto').val().split('.').join('').replace(',','.');
+		var valorUnitario =  $('#ProdutoitenValorUnitario').val().split('.').join('').replace(',','.');
 
-	//	valorUnitario = valorUnitario.replace(",", ".");
+	//	valorUnitario = valorUnitario.split('.').join('').replace(',','.');
 		valorUnitario = parseFloat(valorUnitario);
 		
 		if(isNaN(valorUnitario)){
@@ -584,7 +584,7 @@ var princ_cont = 0;
 	    descricao=$('#ProdutoDescricao').val();
 	    qtde=$('#qtdTotalProduto').val();
 	    valor_unitario=$('#ProdutoitenValorUnitario').val();
-	    valor_totalAux=$('#ProdutoitenValorTotal').val().replace(",", ".");
+	    valor_totalAux=$('#ProdutoitenValorTotal').val().split('.').join('').replace(',','.');
 	    cfop=$('#ProdutoitenCfop').val();
 	    valor_icms=$('#ProdutoitenValorIcms').val();
 	    valor_ipi=$('#ProdutoitenValorIpi').val();
@@ -597,7 +597,7 @@ var princ_cont = 0;
 	    acumuladorTotalAux = acumuladorTotal + valor_total;
 	    acumuladorTotal=parseFloat(acumuladorTotalAux);
 	    
-	    vlTotalProdAux= $("#EntradaValorTotalProdutos").val().replace(",", ".");
+	    vlTotalProdAux= $("#EntradaValorTotalProdutos").val().split('.').join('').replace(',','.');
 	    vlTotal= parseFloat(vlTotalProdAux);
 	    
 	    if(isNaN(vlTotal)){
@@ -616,7 +616,7 @@ var princ_cont = 0;
 	    });;
 	    
 	    
-	    totNota= $("#EntradaValorTotal").val().replace(",", ".");
+	    totNota= $("#EntradaValorTotal").val().split('.').join('').replace(',','.');
 	    floatTotNota=parseFloat(totNota);
 	    if(isNaN(floatTotNota)){
 		    floatTotNota=0;
@@ -680,17 +680,17 @@ var princ_cont = 0;
 		if(auxtipodoc=='Nota'){
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][produto_id] step="any"  id="ProdutoitenProduto_id'+princ_cont+'produto_id" value="'+produtoId+'" type="hidden"></div> ');
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][qtde] step="any"  id="ProdutoitenQtde'+princ_cont+'qtde" value="'+qtde+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_total] step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.replace(",", ".")+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_total] step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][cfop] step="any"  id="ProdutoitenCfop'+princ_cont+'cfop" value="'+cfop+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][percentual_icms] step="any"  id="ProdutoitenPercentual_icms'+princ_cont+'percentual_icms" value="'+valor_icms.replace(",", ".")+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][percentual_ipi] step="any"  id="ProdutoitenPercentual_ipi'+princ_cont+'percentual_ipi" value="'+valor_ipi.replace(",", ".")+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_unitario] step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.replace(",", ".")+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][percentual_icms] step="any"  id="ProdutoitenPercentual_icms'+princ_cont+'percentual_icms" value="'+valor_icms.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][percentual_ipi] step="any"  id="ProdutoitenPercentual_ipi'+princ_cont+'percentual_ipi" value="'+valor_ipi.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_unitario] step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][tipo] step="any"  id="ProdutoitenTipo'+princ_cont+'tipo" value="ENTRADA" type="hidden"></div> ');
 		}else{
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][produto_id] step="any"  id="ProdutoitenProduto_id'+princ_cont+'produto_id" value="'+produtoId+'" type="hidden"></div> ');
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][qtde] step="any"  id="ProdutoitenQtde'+princ_cont+'qtde" value="'+qtde+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_total] step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.replace(",", ".")+'" type="hidden"></div> ');
-			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_unitario] step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.replace(",", ".")+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_total] step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
+			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_unitario] step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
 			$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][tipo] step="any"  id="ProdutoitenTipo'+princ_cont+'tipo" value="ENTRADA" type="hidden"></div> ');		
 		
 		}
@@ -727,37 +727,37 @@ var princ_cont = 0;
 
     function calcValorNota(){
  
-		outrosAux= $("#EntradaValorOutros").val().replace(",", ".");
+		outrosAux= $("#EntradaValorOutros").val().split('.').join('').replace(',','.');
 		outros=parseFloat(outrosAux);
 		 if(isNaN(outros)){
 			outros=0;
 		}
 		
-		suguroAux = $("#EntradaValorSeguro").val().replace(",", ".");
+		suguroAux = $("#EntradaValorSeguro").val().split('.').join('').replace(',','.');
 		seguro=parseFloat(suguroAux);
 		if(isNaN(seguro)){
 			seguro=0;
 		}
 		
-		freteAux = $("#EntradaValorFrete").val().replace(",", ".");
+		freteAux = $("#EntradaValorFrete").val().split('.').join('').replace(',','.');
 		frete=parseFloat(freteAux);
 		if(isNaN(frete)){
 			frete=0;
 		}
 		
-		produtosAux = $("#EntradaValorTotalProdutos").val().replace(",", ".");
+		produtosAux = $("#EntradaValorTotalProdutos").val().split('.').join('').replace(',','.');
 		produtos=parseFloat(produtosAux);
 		if(isNaN(produtos)){
 			produtos=0;
 		}
 		
-		ipiAux = $("#EntradaValorIpi").val().replace(",", ".");
+		ipiAux = $("#EntradaValorIpi").val().split('.').join('').replace(',','.');
 		ipi=parseFloat(ipiAux);
 		if(isNaN(ipi)){
 			ipi=0;
 		}
 		
-		icmsAux = $("#EntradaValorIcms").val().replace(",", ".");
+		icmsAux = $("#EntradaValorIcms").val().split('.').join('').replace(',','.');
 		icms=parseFloat(icmsAux);
 		if(isNaN(icms)){
 			icms=0;
@@ -778,14 +778,14 @@ var princ_cont = 0;
 
     function somarIcmsIpi(){
 
-	icmsTxt=$("#ProdutoitenValorIcms").val().replace(",", ".");
+	icmsTxt=$("#ProdutoitenValorIcms").val().split('.').join('').replace(',','.');
 	icms=parseFloat(icmsTxt);
 	if(isNaN(icms)){
 		icms=0;
 	}
 	$("#ProdutoitenValorIcms").val(icms);
 	
-	ipiTxt=$("#ProdutoitenValorIpi").val().replace(",", ".");
+	ipiTxt=$("#ProdutoitenValorIpi").val().split('.').join('').replace(',','.');
 	ipi=parseFloat(ipiTxt);
 	if(isNaN(ipi)){
 		ipi=0;
@@ -793,7 +793,7 @@ var princ_cont = 0;
 	
 	
 	
-	vlIcmsAntigoAux= $("#EntradaValorIcms").val().replace(",", ".");
+	vlIcmsAntigoAux= $("#EntradaValorIcms").val().split('.').join('').replace(',','.');
 	vlIcmsAntigo=parseFloat(vlIcmsAntigoAux);
 	if(isNaN(vlIcmsAntigo)){
 		vlIcmsAntigo=0;
@@ -810,7 +810,7 @@ var princ_cont = 0;
 	
 	
 
-	vlIpiAntigoAux= $("#EntradaValorIpi").val().replace(",", ".");
+	vlIpiAntigoAux= $("#EntradaValorIpi").val().split('.').join('').replace(',','.');
 	vlIpiAntigo=parseFloat(vlIpiAntigoAux);
 	if(isNaN(vlIpiAntigo)){
 		vlIpiAntigo=0;
@@ -834,10 +834,10 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 	intfrete=0;
 	inttotalNotaAux=0;
 	outrosValores=0;
-  outros = $('#EntradaValorOutros').val().replace(",", ".");
-  seguro = $('#EntradaValorSeguro').val().replace(",", ".");
-  frete = $('#EntradaValorFrete').val().replace(",", ".");
-  totalNotaAux = $("#EntradaValorTotal").val().replace(",", ".");
+  outros = $('#EntradaValorOutros').val().split('.').join('').replace(',','.');
+  seguro = $('#EntradaValorSeguro').val().split('.').join('').replace(',','.');
+  frete = $('#EntradaValorFrete').val().split('.').join('').replace(',','.');
+  totalNotaAux = $("#EntradaValorTotal").val().split('.').join('').replace(',','.');
   intoutros= parseFloat(outros);
   intseguro=parseFloat(seguro);
   intfrete=parseFloat(frete);
@@ -1097,9 +1097,9 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		id= $(this).attr('id');
 		numero= id.substr(7);
 	
-		txtVal=$('.total_clonado'+numero).text().replace(",", ".");;
-		icmsClonado=$('.icms_clonado'+numero).text().replace(",", ".");
-		ipiClonado=$('.ipi_clonado'+numero).text().replace(",", ".");
+		txtVal=$('.total_clonado'+numero).text().split('.').join('').replace(',','.');;
+		icmsClonado=$('.icms_clonado'+numero).text().split('.').join('').replace(',','.');
+		ipiClonado=$('.ipi_clonado'+numero).text().split('.').join('').replace(',','.');
 
 		//$('div[class*="clonado"]').remove();
 		$('.clonadoProduto'+numero).remove();
@@ -1121,7 +1121,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 			ipi=0;
 		}
 		
-		acumuladorTotalAux = $("#EntradaValorTotalProdutos").val().replace(",", ".");
+		acumuladorTotalAux = $("#EntradaValorTotalProdutos").val().split('.').join('').replace(',','.');
 		acumuladorTotal=parseFloat(acumuladorTotalAux);
 		
 		 if(isNaN(acumuladorTotal)){
@@ -1140,7 +1140,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		
 		
 		
-		acumuladorIpiAux = $("#EntradaValorIpi").val().replace(",", ".");
+		acumuladorIpiAux = $("#EntradaValorIpi").val().split('.').join('').replace(',','.');
 		acumuladorIpiTotal=parseFloat(acumuladorIpiAux);
 		
 		 if(isNaN(acumuladorIpiTotal)){
@@ -1150,7 +1150,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		novoValIpi= acumuladorIpiTotal - ipi;
 		$("#EntradaValorIpi").val(novoValIpi.toFixed(5));
 		
-		acumuladorIcmsAux = $("#EntradaValorIcms").val().replace(",", ".");
+		acumuladorIcmsAux = $("#EntradaValorIcms").val().split('.').join('').replace(',','.');
 		acumuladorIcmsTotal=parseFloat(acumuladorIcmsAux);
 		
 		 if(isNaN(acumuladorIcmsTotal)){
