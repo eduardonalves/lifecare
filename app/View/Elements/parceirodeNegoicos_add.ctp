@@ -184,10 +184,10 @@ $(document).ready(function(){
 				    //$('#ParceirodenegocioNome').addClass('shadow-vermelho');
 				}else{
 				    
-				    $("[id*='myModal_add-parceiro']").modal('hide');
-				    $('[id*="ParceirodenegocioId"]').val(data.Parceirodenegocio.id);
-				    $('[id*="Parceiro"]').val(data.Parceirodenegocio.nome);
-				    $('[id*="CpfCnpj"]').val(data.Parceirodenegocio.cpf_cnpj);
+				    $("[id$='myModal_add-parceiro']").modal('hide');
+				    $('[id$="ParceirodenegocioId"]').val(data.Parceirodenegocio.id);
+				    $('[id$="Parceiro"]').val(data.Parceirodenegocio.nome);
+				    $('[id$="CpfCnpj"]').val(data.Parceirodenegocio.cpf_cnpj);
 				    $("#ParceirodenegocioNome").val("");
 				    $(".loaderAjaxCParceiroDIV").hide();
 				    $("#bt-salvarParceiroModal").show();
