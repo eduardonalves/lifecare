@@ -413,7 +413,7 @@ class ContasrecebersController extends ContasController {
 			
 		
 		}
-		
+		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		$this->set(compact('parceirodenegocios','userid'));
 	}
