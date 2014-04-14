@@ -70,7 +70,7 @@
 			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-			echo "<span class='statusSemaforo'>Status: ". $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) ."</span>"
+			echo "<span class='statusSemaforo'>Status: ". $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => $conta['Conta']['status'], 'title' => $conta['Conta']['status'])) ."</span>"
 			//echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>				
 	</section>
@@ -150,7 +150,7 @@
 					<td><?php echo $parcelas['agencia']; ?></td>
 					<td><?php echo $parcelas['conta']; ?></td>
 					<td><?php echo $parcelas['banco']; ?></td>
-					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => '-'.$parcelas['status'], 'title' => $parcelas['status'])); ?></td>
+					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				</tr>
 
 				<div id="<?php echo "modal-quitar".$j; ?>" class="modal modalQuitar" style="display: none;">
