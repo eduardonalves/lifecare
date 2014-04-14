@@ -212,4 +212,9 @@ span[id$="Logradouro"]{
 	top: 1px;
 }
 
+#LoadAjaxProduto{
+    left: 450px;
+    position: absolute;
+    top: -670px;
+}
 
