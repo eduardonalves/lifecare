@@ -364,10 +364,10 @@ $(document).ready(function() {
 									
 	    foreach($configCont as $campo=>$campoLabel){							
 		if($campo=="status"){
-		    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
+		    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => $conta['Conta']['status'], 'title' => $conta['Conta']['status'])) . "&nbsp;</td>";
 		    //Monter uma tabela dentro de um modal
 		}else if($campo=="status_parceiro"){
-		    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' => '-'.$conta['Conta']['status'], 'title' => '-')) . "&nbsp;</td>";
+		    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' =>$conta['Conta']['status_parceiro'], 'title' => $conta['Conta']['status_parceiro'])) . "&nbsp;</td>";
 		    //Monter uma tabela dentro de um modal
 		}else if($campo=="parceirodenegocio_id"){
 		    //echo "<td class='statusParceiro'>"; 
