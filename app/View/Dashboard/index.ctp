@@ -254,33 +254,22 @@ $(document).ready(function(){
 				<table class="">
 
 							<tr>
-								<th>    </th>
-								<th>NFe</th>
-								<th>Fornecedor</th>
-								<th>Data Vcto</th>
-								<th>Valor</th>
+								<th> Conta Id.</th>
+								<th> Valor </th>
+								<th> Status </th>
 							</tr>
 							
-								<tr>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-										
-							
-							</tr>
-							
-							<tr>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-								<td>teste</td>
-									
-							
-							</tr>
-							
+							<?php
+								foreach($contasPagars as $contas){
+							?>							
+								<tr>									
+									<td><?php echo $contas['Conta']['identificacao'] ?></td>
+									<td><?php echo $contas['Conta']['valor'] ?></td>
+									<td><?php echo  $this->Html->image('semaforo-' . strtolower($contas['Conta']['status']) . '-12x12.png', array('alt' => $contas['Conta']['status'], 'title' => $contas['Conta']['status'])); ?></td>
+								</tr>															
+							<?php
+								}
+							?>
 				</table>
 			</div>		
 		</div>
