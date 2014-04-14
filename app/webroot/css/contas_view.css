@@ -62,11 +62,12 @@
 #bt-upload{
     padding: 2px; 
 }
+
 #bt-visualizarComprovante{
     padding:2px; 
 }
 
-#checkNegociacao{
+input[type="checkbox"][id$="checkNegociacao"]{
     margin-left: 24px;
 }
 
@@ -77,6 +78,7 @@
 
 .sectionNegociacao fieldset{
 	padding:5px 0px;
+}	
 
 #msgNegociacaoDesabilitada{
     background-color:#D9EDF7;

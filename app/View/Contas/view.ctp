@@ -138,7 +138,12 @@
 
 						?>
 					</td>
-					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){ ?><td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } ?>
+					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){
+					    if($parcelas['status'] == 'RENEGOCIADO'){
+						echo "<td>".$this->form->checkbox('',array('id' => 'checkNegociacaoDesabilidato','class' => 'checkClasse','disabled' => 'disabled'))."</td>";
+					    }else{
+					?>
+					<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } }?>
 					<td><?php echo $parcelas['parcela']; ?></td>
 					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
