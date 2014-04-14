@@ -81,6 +81,7 @@ $(document).ready(function() {
 		
 	
 		<?php
+
 		    $ql= $_GET['ql'];
 		    if($ql ==''){
 			$ql=0;
@@ -123,21 +124,17 @@ $(document).ready(function() {
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
 					
-				?>
-				
-				<?php
 					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
 				?>
 				
-				
-				<div class="inputSearchData">
+				<div class="inputSearchData divMarginLeft">
 					<?php
 						echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'', 'type' => 'text'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
 
-				<div class="inputSearchData" >
+				<div class="inputSearchData divMarginLeft" >
 					<?php
 						echo $this->Search->input('data_quitacao', array('label' => 'Quitação:','class'=>'', 'type' => 'text'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
@@ -145,7 +142,7 @@ $(document).ready(function() {
 					?>
 				</div>
 				
-				<div class="" >
+				<div class="divMarginLeft" >
 					<?php
 						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>''));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));

@@ -8,6 +8,9 @@ label{
 	margin-bottom:5px !important;
 }
 
+label[for="filterIdentificacao"]{
+	-webkit-logical-width: 145px !important;
+}
 
 /* CLASS **************************************************************/
 .statusMovimentacao{
@@ -36,6 +39,9 @@ label{
 	margin: 0px -40px;
 }
 
+.divMarginLeft{
+	-webkit-margin-start: 7px;
+}
 
 .filtros{
 	background-color:white;
