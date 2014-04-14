@@ -5,9 +5,9 @@
 
     ?>
     
-<section class="dadosRepetidos"> <!---section Superior--->	
+<section class="clearBoth"> <!---section Superior--->	
    
-    <fieldset class="dadosRepetidos">
+    <fieldset class="clearBoth">
 	<legend>Dados da Cobrança  <?php echo $y+1; ?></legend>
 	
 	<section class="coluna-esquerda">

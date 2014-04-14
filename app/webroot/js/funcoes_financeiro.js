@@ -150,7 +150,8 @@ $(document).ready(function() {
 		if(data_final != null){
 		    $("[id*='Vencimento']").val("");
 		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('input[id*="Vencimento"]');
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('#ContaspagarDataVencimento');
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('#dataVencimento-receber');
 		}     
 	    }else{
 		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
@@ -262,7 +263,7 @@ $(document).ready(function() {
 
 	var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
 	dataEmissao = $('[id*="DataEmissao"]').val();
-	CpfCnpj = $('[id*="CpfCnpj"]').val();
+	Parceiro = $('[id*="Parceiro"]').val();
 	
 	if(dataEmissao == ''){
 	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
@@ -270,7 +271,7 @@ $(document).ready(function() {
 	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
-	}else if(CpfCnpj ==''){
+	}else if(Parceiro ==''){
 	   // $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
 	    $('#msgAutoComplete').css('display','block');
 	    $('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
@@ -478,7 +479,7 @@ $(document).ready(function() {
     $( "#valorUpload, #bt-buscar" ).hover(function(){
 	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo">Extensões válidas: png, jpeg e jpg.<br/>Tamanho máximo permitido 2mb.<br/>Resolução mímima 700px x 700px.<br/>Resolução máxima 2200px x 2200px.</span>');
 	},function(){
-	    $('#msgExtensoes').remove();
+	  //  $('#msgExtensoes').remove();
 	}
     );
 
@@ -486,11 +487,13 @@ $(document).ready(function() {
 /****************** Mascara Data *************************/
 
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
-    
-    /**************************Autocomplete consulta************************************/
+
+/**************************Autocomplete consulta************************************/
     $( "#filterNome" ).combobox();
 
     i=0;
+
+/********** substituir textarea Cobranca *********/    
     $('textarea').each(function(){
 	valTextArea= $('#ObsCobranca'+i+'Obs').text();
 	$('#ObsCobranca'+i+'Obs').hide();
@@ -498,4 +501,50 @@ $(document).ready(function() {
 	i++;
     });
 
- });
+/*************** Negociação *********************/
+    $('#negociacao').click(function(){
+	contId=0;
+	$('.checkClasse').each(function(){
+	    $('[id*="parcelasids"]').remove();
+	    if(this.checked) {
+		parcelaId=$(this).attr('data-parcelaid');
+
+		$('.fieldset').append('<input name="data[parcelasids]['+contId+'] step="any"  id="parcelasids'+contId+'parcelasids" value="'+parcelaId+'" type="hidden">');
+	    }
+	});
+    });
+
+    $('.close').click(function(){
+	$('[id*="parcelasids"]').remove();
+    });
+
+
+    $('.checkClasse').click(function(){
+	var contCheck=0;
+	$('.checkClasse').each(function(){
+	    if(this.checked) {
+		contCheck =1;
+		
+		
+	    }
+	});
+
+	if(contCheck ==0) {
+	    $('#bt-negociacaoDesabilitado').show();
+	    $('#negociacao').hide();
+	    
+	}else{
+	    $('#negociacao').show();
+	    $('#bt-negociacaoDesabilitado').hide();
+	}
+    });
+
+
+
+    $( "#bt-negociacaoDesabilitado" ).hover(function(){
+	$(this).after('<span id="msgNegociacaoDesabilitada" class="DinamicaMsg Msg-tooltipEsquerda">Escolha ao menos uma parcela para negociar.</span>');
+    },function(){
+	$('#msgNegociacaoDesabilitada').remove();
+    });
+
+});

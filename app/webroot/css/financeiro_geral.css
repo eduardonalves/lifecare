@@ -55,7 +55,7 @@ table{margin-top: 20px;}
 /** Classes **/
 .textAreaConta{height: 40px !important; width: 186px !important;margin-bottom:5px;}
 
-#spanTextArea{display:block;font-size:13px;min-width:100px;margin-left: 153px;}
+#spanTextArea{display:block;font-size:13px;min-width:100px;margin-left: 153px;padding-top: 3px;}
 
 [class*="autocomplete"] .custom-combobox-input {width: 153px;}
 

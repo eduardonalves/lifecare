@@ -25,7 +25,7 @@
     <h1 class="menuOption33">Negociação</h1>
 </header>
 
-<?php echo $this->Form->create('Negociacao'); ?>
+<?php echo $this->Form->create('Negociacao',array('controller' => 'Negociacao','action' => 'add')); ?>
 
 <div class="fieldset-total" style="border:none">
     
@@ -35,24 +35,28 @@
 	    
 	    <section class="coluna-esquerda">
 		<?php
-			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
-			echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas','type' => 'text'));
+			echo $this->Form->input('conta_id',array('type' => 'hidden','value' => $conta['Conta']['id']));
+			echo $this->Form->input('valor',array('label' => 'Valor Total:','onFocus' => 'this.blur()','class' => 'tamanho-medio clickValor borderZero','readonly' => 'readonly','type' => 'text'));
+			
 		?>		
 	    </section>
 
 	    <section class="coluna-central" >
-		<?php 
-		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
-		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
+		<?php
+		    $data_atual = date("d/m/Y", strtotime("now"));
+		    echo $this->Form->input('data',array('label' => 'Data Negociação<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno borderZero','id'=> 'negociacaoDataEmissao','readonly' => 'readonly','onFocus' => 'this.blur()','tabindex' => '101','value'=>$data_atual));
+		    echo $this->Form->input('status',array('label' => 'Tipo:','type' => 'hidden','value'=>'ABERTO'));
 		    
 		?>
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-			echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio','title'=>'Campo Obrigatório'));
-
-		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
+		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly' => 'readonly','title'=>'Campo Obrigatório','onFocus' => 'this.blur()','value'=>h($conta['Parceirodenegocio']['nome'])));
+		    echo $this->Form->input('parceirodenegocio_id',array('type' => 'hidden','value' => $conta['Parceirodenegocio']['id']));
+		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
+		    
+		   
 		?>
 	    </section>
 
@@ -65,7 +69,7 @@
 		    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio desabilidado','tabindex' => '104', 'options'=> array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
+		    echo $this->Form->input('tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio desabilidado','tabindex' => '104', 'options'=> array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
 		    echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';
 		?>
 	    </section>
@@ -73,14 +77,15 @@
 	    <section class="coluna-central" >
 		<?php
 
-		    echo $this->Form->input('Pagamento.0.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno desabilita', 'type' => 'select' ,'tabindex' => '105', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale')));
+		    echo $this->Form->input('forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno desabilita', 'type' => 'select' ,'tabindex' => '105', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale')));
 
 		    ?>    
 	    </section>
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('Pagamento.0.numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text','value' => '0'));
+		    echo $this->Form->input('numero_parcela',array('label' => 'Número de Parcelas:','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()', 'type' => 'text','value' => '0'));
+		    
 		?>
 	    </section>
 	    
@@ -97,6 +102,9 @@
 		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita','tabindex' => '111'));
 		     echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita','tabindex' => '114'));
 		     echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
+		    echo $this->Form->input('Parcela.0.status',array('label' => 'Tipo:','type' => 'hidden','value'=>'VERDE'));
+		     
+		     
 		?>    
 	    </section>
 
@@ -182,6 +190,7 @@
 							    'class'=>'bt-confirmar'
 	    ));
 
-	    echo $this->Form->end();	
+	    echo $this->Form->end();
+	    
 	?>
 </footer>

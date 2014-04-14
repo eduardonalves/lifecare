@@ -101,10 +101,10 @@
 		<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 			<thead>
 				<th><?php echo ('Ações'); ?></th>
-				<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociar'); ?></th><?php }?>
+				<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociação'); ?></th><?php }?>
 				<th><?php echo ('Parcela'); ?></th>
 				<th><?php echo ('Código de Barras'); ?></th>
-				<th><?php echo ('Data Vencimento'); ?></th>
+				<th><?php echo ('Vencimento'); ?></th>
 				<th><?php echo ('Valor'); ?></th>
 				<th><?php echo ('Identificação'); ?></th>
 				<th><?php echo ('Período Crítico'); ?></th>
@@ -138,7 +138,7 @@
 
 						?>
 					</td>
-					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){ ?><td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','data-parcelaId'=>$parcelas['id']));?></td> <?php } ?>
+					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){ ?><td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } ?>
 					<td><?php echo $parcelas['parcela']; ?></td>
 					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
@@ -290,31 +290,30 @@
 
 <?php
 	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
+
 		echo $this->element('negociacao_view');
 
-		echo "<div class='fake-footer'>";
-		echo $this->html->image('adicionar-negociacao.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
-		echo "</div>";
-	}
+		//echo "<div class='fake-footer'>";
+		//echo $this->html->image('adicionar-negociacao.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'negociacao','class'=>'bt-direita'));
+		//echo "</div>";
+	
+
 ?>
+	
 
-<?php
-	if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA' ){
-?>	
-
-<section>
+	<section class="clearBoth">
 	<header>Dados das Cobranças</header>
 	<?php
+
 		echo $this->element('cobrancasView');
 	?>
 
 	<a href='add-cobranca' class='bt-showmodal'>
 		<?php echo $this->html->image('adicionar-cobranca.png',array('alt'=>'Adicionar Cobrança','title'=>'Adicionar Cobrança','id'=>'bt-corbanca','class'=>'bt-direita')); ?>
 	</a>
-</section>
+
+	</section>
 
 <?php
 	}
-?>		
-
-
+?>

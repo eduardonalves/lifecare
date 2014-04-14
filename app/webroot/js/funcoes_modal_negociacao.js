@@ -25,16 +25,16 @@
 		banco = $('#ContasreceberBanco').val();
 		codigodebarras=$('#ContasreceberCodigodeBarras').val();
 
-		tipoPagamento=$('#Pagamento0TipoPagamento').val();
+		tipoPagamento=$('#NegociacaoTipoPagamento').val();
 		
 		//soluciona problema de apagar contagem
 		princ_cont = numParcela;
 
 		if(tipoPagamento == ''){
 			//alert('Tipo Pagamento vazio');
-			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
+			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#NegociacaoTipoPagamento');
 			$('#msgTipoPagamento').css('display','block');
-			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
+			$('#NegociacaoTipoPagamento').addClass('shadow-vermelho').focus();
 			
 		}else if(dataVencimento == ''){
 			//alert('valor vazio');
@@ -87,7 +87,7 @@
 			
 			//incrementa 1 a parcela
 			$('#ContasreceberParcela').val(numeroParcela)	
-			$('#Pagamento0NumeroParcela').val(numParcela);
+			$('#NegociacaoNumeroParcela').val(numParcela);
 		}
 
     });
@@ -150,7 +150,7 @@
 /****************** Altera linha da tabela *********************/
     $('#bt-editarConta-receber').click(function(){
 	$('.btnEditar').show();
-	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+	if($('#NegociacaoTipoPagamento').val() == 'A Vista'){
 	    $('.tela-resultado-field').hide();
 	}
 	//percorre a td
@@ -424,7 +424,7 @@
 	    numParcela = contadortext;
 	    
 	    $('#ContasreceberParcela').val(numeroParcela)	
-	    $('#Pagamento0NumeroParcela').val(numParcela);
+	    $('#NegociacaoNumeroParcela').val(numParcela);
 	});
 	
 	contadorDiv=0;
@@ -620,19 +620,45 @@
 	
     });
 /****************** Tipo de pagamento *************************/
-    $('#Pagamento0TipoPagamento').change(function(){
+    $('#NegociacaoTipoPagamento').change(function(){
 	    $('input[name*="parcela"]').val('');
-	    $('#Pagamento0FormaPagamento').val('');
+	    $('#NegociacaoFormaPagamento').val('');
 	    $('[id*="editarConta"]').hide();
 	    $('[id*="bt-adicionarConta"]').show();
 	    $('.tela-resultado-field').show();
-	    $('#Pagamento0NumeroParcela').val(0);
-	    $('#ContaspagarParcela').val(1);
+	    $('#NegociacaoNumeroParcela').val(0);
+	    $('#ContasreceberParcela').val(1);
 	    $('.btnExcluir').trigger('click');
 	    
     });    
 	      
 
+/*** Validação de Datas Contas Modal ****************************************/
+
+    $('#negociacaoDataEmissao,#dataVencimento-receber').addClass('validaDataContasModal');
+    
+    $(".validaDataContasModal").change(function(){
+	   
+	    var data_inicial = $("#negociacaoDataEmissao").val();
+	    var data_final = $("input[id*='Vencimento']").val();
+	    
+	    var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
+	    var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+
+	   // var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+
+	    
+	    if(Compara01 > Compara02){
+		if(data_final != null){
+		    $("[id*='Vencimento']").val("");
+		    $("input[id*='Vencimento']").addClass("shadow-vermelho");
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('#ContaspagarDataVencimento');
+		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipDireita">A data vencimento não pode ser menor que a emissão</span>').insertAfter('#dataVencimento-receber');
+		}     
+	    }else{
+		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+	    }			
+    });
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaReceber').click(function(){
 	    
