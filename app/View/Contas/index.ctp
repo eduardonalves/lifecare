@@ -81,7 +81,6 @@ $(document).ready(function() {
 		
 	
 		<?php
-
 		    $ql= $_GET['ql'];
 		    if($ql ==''){
 			$ql=0;
@@ -124,8 +123,12 @@ $(document).ready(function() {
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
 					
+				?>
+				
+				<?php
 					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
 				?>
+				
 				
 				<div class="inputSearchData">
 					<?php
