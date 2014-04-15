@@ -140,7 +140,7 @@ class ContasrecebersController extends ContasController {
 				
 					
 				if($contasEmAtraso >= 1){
-					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO');
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO', 'bloqueado' => 'Sim');
 					$this->Parceirodenegocio->save($updateParceirodenegocio);
 					
 				}else if($contasPrestesAVencer >= 1){

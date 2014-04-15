@@ -184,7 +184,7 @@ class ContasController extends AppController {
 			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
 			$this->Parcela->save($uptadeParcela);	
 			
-			//debug($uptadeParcela);
+			
 			
 		}
 		
