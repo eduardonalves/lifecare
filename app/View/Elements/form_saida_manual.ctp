@@ -93,7 +93,7 @@
 				<div>
 
 					<?php 
-						echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao limpa'));
+						echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao limpa','maxlength' => '1000'));
 						echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsSaida'));
 					?>
 

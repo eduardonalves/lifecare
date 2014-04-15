@@ -113,7 +113,7 @@
 			
 			<div>
 				<?php 
-					echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'desabilita  retiraBorda campo-observacao limpa'));
+					echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'desabilita  retiraBorda campo-observacao limpa','maxlength' => '1000'));
 					echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsEntrada'));
 				?>
 			</div>
@@ -365,7 +365,7 @@
 					<div id="divQtdProduto"></div>
 
 					<?php
-						echo $this->Form->input('vunitario', array('type'=>'text','maxlength'=>'20','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+						echo $this->Form->input('vunitario', array('type'=>'text','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 					?>
 
 				<!--	<input id='valor-qtde' type='hidden'/>
