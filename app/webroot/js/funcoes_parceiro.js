@@ -60,10 +60,16 @@ $(document).ready(function() {
 		$('#Contato0Fax').attr('tabindex', inicioTab + 9);
 		$('#Contato0Email').attr('tabindex',inicioTab + 10);
 		
-		inicioTab = inicioTab + 10;
+		
+		inicioTab = inicioTab + 11;
 		
 		tabularEndereco(inicioTab);
 	}
+
+	//adicionar tabindex no bloqueado parceiro
+	$('input').focus(function(){
+	    $('#ParceirodenegocioBloqueado').attr('tabindex','11');
+	});    
 
 /*** Busca do CEP *****************************************************/
 	function findCEP(indexCep) {
