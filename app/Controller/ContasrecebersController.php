@@ -349,9 +349,9 @@ class ContasrecebersController extends ContasController {
 		if ($this->request->is('post')) {
 			$this->loadModel('Parceirodenegocio');
 			$paceiro= $this->Parceirodenegocio->find('first', array('conditions' => array('id' => $this->request->data['Contasreceber']['parceirodenegocio_id'])));
-			if($paceiro['Parceirodenegocio']['bloqueado'] == 'Sim' && $this->request->data['Pagamento'][0]['tipo_pagamento'] != "A Vista"){
-				$this->Session->setFlash(__('Não foi possível cadastrar a Conta. O usuário está bloqueado para operações.'), 'default', array('class' => 'error-flash'));
-			}else{
+			//if($paceiro['Parceirodenegocio']['bloqueado'] == 'Sim' && $this->request->data['Pagamento'][0]['tipo_pagamento'] != "A Vista"){
+				//$this->Session->setFlash(__('Não foi possível cadastrar a Conta. O usuário está bloqueado para operações.'), 'default', array('class' => 'error-flash'));
+			//}else{
 				$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
 				foreach( $this->request->data['Pagamento'] as $pagamento){
@@ -407,7 +407,7 @@ class ContasrecebersController extends ContasController {
 		
 					//return $this->redirect(array('action' => 'index'));
 				}
-			}
+			//}
 				
 
 			
