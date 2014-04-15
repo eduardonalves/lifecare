@@ -347,34 +347,8 @@ $(document).ready(function() {
 	    $('.tela-resultado-field').show();
 	}
     });
-/****************** Marca em vermelho o campo ***********/
-    $('[class*="obrigatorio"]').focusin(function(){
-	$(this).attr('required','required');
-	
-    }).focusout(function(){
-	if($(this).val()==''){
-	    $(this).removeAttr('required','required');
-	}
-    });
 
-    $('[class*="autocomplete"]').click(function(){
-	$('.contas .ui-widget').attr('required',true);
-	
-    }).focusout(function(){
-	if($('input[class*="ui-widget"]').val()==''){
-	    $('.ui-widget').removeAttr('required');
-	    
-	}
-    });
-
-    $('input').focusin(function(){
-	valrInput=$('input').val();
-	if(valrInput!=''){
-	    $('input').removeClass('shadow-vermelho');
-	}
-    });
-    
-    /*********************Checkbox A Pagar e a Receber***********************/
+/*********************Checkbox A Pagar e a Receber***********************/
    
    	var valorAux= $('#filterTipoMovimentacao').val();
    	

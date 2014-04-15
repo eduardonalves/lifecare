@@ -30,16 +30,16 @@ $(document).ready(function(){
 
         switch(opConsulta){
             case ('lote'):
-				window.open(urlPadrao+"parametro=lotes"+limit,"_self");
+				window.open(urlPadrao+"&parametro=lotes"+limit,"_self");
                 break;
             case ('es'):
-				window.open(urlPadrao+"parametro=itensdoproduto"+limit,"_self");
+				window.open(urlPadrao+"&parametro=itensdoproduto"+limit,"_self");
                 break;
             case ('lotees'):
-				window.open(urlPadrao+"parametro=itensdolote"+limit,"_self");
+				window.open(urlPadrao+"&parametro=itensdolote"+limit,"_self");
                 break;
             case (''):
-                window.open(urlPadrao+"parametro=produtos"+limit,"_self");
+                window.open(urlPadrao+"&parametro=produtos"+limit,"_self");
                 break;
         }
 	};
