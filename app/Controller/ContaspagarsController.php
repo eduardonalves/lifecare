@@ -26,7 +26,7 @@ class ContaspagarsController extends ContasController {
 		$this->Contaspagar->recursive = 0;
 		$this->set('contaspagars', $this->Paginator->paginate());
 	}
-	public function setStatusParceiro(&$ideParceiro){
+	 	public function setStatusParceiro(&$ideParceiro){
  		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Conta');
 		$hoje= date("Y-m-d");
@@ -113,6 +113,9 @@ class ContaspagarsController extends ContasController {
 
 				$contasEmAtraso2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'VERMELHO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
 				$contasEmAtraso =count($contasEmAtraso2);
+				$contasEmAtrasoCobranca = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'COBRANCA'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
+				$contasEmAtrasoCobranca2 =count($contasEmAtrasoCobranca);
+				
 				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'OR' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
 				$contasEmAberto= count($contasEmAberto2);
 				$contasPrestesAVencer2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'AMARELO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'))); 
@@ -120,10 +123,13 @@ class ContaspagarsController extends ContasController {
 				
 					
 				if($contasEmAtraso >= 1){
-					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO');
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO', 'bloqueado' => 'Sim');
 					$this->Parceirodenegocio->save($updateParceirodenegocio);
 					
-				}else if($contasPrestesAVencer >= 1){
+				}else if($contasEmAtrasoCobranca2 >= 1){
+					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'], 'status' =>'VERMELHO' , 'bloqueado' => 'Sim');
+					$this->Parceirodenegocio->save($updateParceirodenegocio);
+				} else if($contasPrestesAVencer >= 1){
 					
 					$updateParceirodenegocio = array('id' => $parceiro['Parceirodenegocio']['id'],  'status' =>'AMARELO');
 					$this->Parceirodenegocio->save($updateParceirodenegocio);
@@ -147,7 +153,7 @@ class ContaspagarsController extends ContasController {
 				
 			}
 		}	
- 	}	
+ 	}
 	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
 		$this->loadModel('Conta');
 		$this->loadModel('Parcela');
@@ -161,7 +167,7 @@ class ContaspagarsController extends ContasController {
 			$this->Conta->save($uptadeConta);
 			
 			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
-			$this->Parcela->save($uptadeConta);	
+			$this->Parcela->save($uptadeParcela);	
 			
 		}
 		
@@ -252,7 +258,8 @@ class ContaspagarsController extends ContasController {
 				if($diasCritico !=''){
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
-						$this->Parcela->save($updatevencimento);	
+						$this->Parcela->save($updatevencimento);
+						$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);	
 						
 					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
@@ -265,12 +272,13 @@ class ContaspagarsController extends ContasController {
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 						$this->Parcela->save($updatevencimento);	
+						$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);
 					}else{
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
 						$this->Parcela->save($updatevencimento);
 					}
 				}
-					$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);		
+							
 			}
 		}
 	}

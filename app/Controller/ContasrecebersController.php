@@ -40,7 +40,7 @@ class ContasrecebersController extends ContasController {
 			$this->Conta->save($uptadeConta);
 			
 			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
-			$this->Parcela->save($uptadeConta);	
+			$this->Parcela->save($uptadeParcela);	
 			
 		}
 		

@@ -182,7 +182,9 @@ class ContasController extends AppController {
 			$this->Conta->save($uptadeConta);
 			
 			$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
-			$this->Parcela->save($uptadeConta);	
+			$this->Parcela->save($uptadeParcela);	
+			
+			//debug($uptadeParcela);
 			
 		}
 		
@@ -214,7 +216,7 @@ class ContasController extends AppController {
 									if($vencimento < $hoje){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
 										$this->Parcela->save($updatevencimento);
-										
+										$this->setCobranca($conta['Conta']['id'], $parcela['Parcela']['id'], $vencimento);
 									}else if( $dataCritica < $hoje){
 										$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
 										$this->Parcela->save($updatevencimento);
@@ -289,7 +291,7 @@ class ContasController extends AppController {
 						}
 					
 					if(isset($conta['Conta']['parceirodenegocio_id'])){
-								$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
+						$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
 					}
 				}//aqui
 				
@@ -635,7 +637,9 @@ class ContasController extends AppController {
 			
 				if(isset($parceirodenegocio)){
 						if(!empty($parceirodenegocio)){
-							
+							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
+								$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+							}
 							
 							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
 							$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
@@ -951,10 +955,12 @@ class ContasController extends AppController {
 			$conta =  $this->Conta->find('first', array('conditions' => array('Conta.id' => $pacelas['_Conta']['id']), 'recursive' => -1));
 			
 			if($this->Parcela->save($updatePacela)){
-				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 				
-				debug($parcelasEmAbertos);
+				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
+				
+				
 				if(empty($parcelasEmAbertos)){
+					
 					$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
 					$this->Conta->save($updateConta);
 				}else{
