@@ -6,14 +6,22 @@
  * #Padrao{tamanho; posição; forma; etc;}*/
 
 /*** Centro de Custo*/
-.autocompleteCentroCusto{
-	
+.centrocusto{
+	margin: 55px 0px 0px 0px;
 }
 
 .bt-centroCusto{
 	display: block;
 	float: left;
 	margin: 0 0 0 345px;
+	position: absolute;
+	z-index: 1;
+}
+
+.bt-TipoConta{
+	display: block;
+	float: left;
+	margin: 56px 0 0 107px;	
 	position: absolute;
 	z-index: 1;
 }

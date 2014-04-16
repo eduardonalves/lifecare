@@ -420,7 +420,10 @@ class ContasrecebersController extends ContasController {
 		$this->loadModel('Centrocusto');
 		$centrocusto = $this->Centrocusto->find('all');
 		
-		$this->set(compact('parceirodenegocios','userid','centrocusto'));
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','centrocusto','tipoconta'));
 	}
 
 /**

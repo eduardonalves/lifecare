@@ -14,6 +14,7 @@
 	$this->start('modais');
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
 	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
+	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
 	$this->end();	
 ?>
     
@@ -43,10 +44,12 @@
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 		   
 		?>
+		
+<!-- CLIENTE -->	
 	<div class="tela-resultado">   
 		<?php
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-										 'title'=>'Preencher',
+										 'title'=>'Preencher Cliente',
 										     'class'=>'bt-preencherConta',
 										     'id'=>'bt-preencherCliente'
 										     ));
@@ -68,11 +71,39 @@
 		    </select>
 		</div>
 	</div>
-	
+
+<!-- Tipo de Conta -->	
 	<div class="tela-resultado">   
 		<?php
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-										 'title'=>'Preencher',
+										 'title'=>'Preencher Tipo de Conta',
+										     'class'=>'bt-TipoConta',
+										     'id'=>'bt-preencherTipoConta'
+										     ));
+		?>
+		
+		<div class="input autocompleteTipoConta contas">
+		    <label>Tipo de Conta:<span class="campo-obrigatorio">*</span>:</label>
+		    <select class="tamanho-medio" id="add-tipoConta">
+			    <option id="optvazioForn"></option>
+			    <option value="add-tipodeConta">Cadastrar</option>
+			    <?php
+			       foreach($tipoconta as $tipoConta)
+				{
+				    echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+				    echo $tipoConta['Tipodeconta']['tipo'];
+				    echo "</option>";
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
+	
+<!-- CENTRO DE CUSTO -->
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher Centro de Custo',
 										     'class'=>'bt-centroCusto',
 										     'id'=>'bt-preencherCentreCusto'
 										     ));
@@ -107,8 +138,11 @@
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
 		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		   echo  $this->Form->input('tipoconta_id', array('type' => 'hidden'));
+		    echo $this->Form->input('tipoconta', array('id'=>'tipoConta','type'=>'text','label'=>'Tipo Conta:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo $this->Form->input('centrocusto', array('id'=>'nomeCusto','type'=>'text','label'=>'N. Custo:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		?>
+	
 	    </section>
 
 	    <section class="coluna-direita" >
@@ -117,11 +151,15 @@
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
-			echo  $this->Form->input('centrocusto', array('type' => 'hidden'));
+		?>
+		<div class="centrocusto">
+		<?php
+			echo  $this->Form->input('centrocusto_id', array('type' => 'hidden'));
 		    echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo $this->Form->input('centrocusto', array('id'=>'limiteAtual','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 
 		?>
+		</div>
 	    </section>
 
     </section><!---Fim section superior--->

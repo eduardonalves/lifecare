@@ -569,8 +569,19 @@
 
     });
     
-/**************** Modal Centro Custo *****************/
+  /**************** Modal Tipo Conta *****************/
     $('body').on('click', '#ui-id-2 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteTipoConta input").val('');
+	    $("#myModal_add-tipodeConta").modal('show');
+	  //$("#spanClienteCPFExistente").hide();
+	}
+
+    });
+    
+/**************** Modal Centro Custo *****************/
+    $('body').on('click', '#ui-id-3 a',function(){
 	valorCad= $(this).text();
 	if(valorCad=="Cadastrar"){
 	    $(".autocompleteCentroCusto input").val('');
@@ -579,6 +590,8 @@
 	}
 
     });
+    
+
     
 /********************* Preencher Dados Cliente *********************/
 
@@ -602,6 +615,28 @@
 	}
 
     });
+    
+/********************* Preencher tipo de conta *********************/
+
+    $("#bt-preencherTipoConta").click(function(){
+	valortipoconta = $("#add-tipoConta option:selected" ).val();
+	valorNome= $("#add-tipoConta option:selected" ).attr('id');
+
+	if(!valortipoconta==""){
+		if(valortipoconta=="add-tipodeConta"){
+			//chama modal cliente
+			//$("#myModal_add-cliente").modal('show');
+		}else{
+		    $(".autocompleteTipoConta input").val('');
+		    $(".autocompleteTipoConta input").removeAttr('required','required');
+		    
+		    $("#ContasreceberTipocontaId").val(valortipoconta);
+		    $("#tipoConta").val(valorNome);
+		}
+	}
+
+    });
+    
     
     
 /********************* Preencher Dados Custo *********************/
@@ -636,6 +671,12 @@
 
     });
     
+/********************* Autocomplete Tipo de Conta *********************/
+    $(function() {
+	$( "#add-tipoConta" ).combobox();
+
+    });
+ 
 /********************* Autocomplete Centro Custo *********************/
     $(function() {
 	$( "#add-custo" ).combobox();

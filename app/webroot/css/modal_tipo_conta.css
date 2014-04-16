@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* ID *****************************************************************/
+#LoadAjaxQuickLink{
+	left:161px;
+	position:absolute;
+	top:-110px;
+}
+
+#QuicklinkNome{
+	margin-top:15px;
+}
+
+/* HERANÇA ************************************************************/
+.ui-widget .error-message-quicklink{
+	display:none;
+}
+
+#myModal_add-tipodeConta .modal-body{
+	height:235px !important;
+}
+
+#myModal_add-tipodeConta footer{
+	margin: 15px 0px 0px 0px;
+}
+
+#myModal_add-tipodeConta .coluna-modal{
+	margin: 40px 0px 0px 75px;
+	top: 10px;
+
+}
+
+#myModal_add-tipodeConta #loaderAjax{
+	margin: 47px 0px 0px 155px;
+	position: absolute;
+	display: none;
+}
