@@ -32,6 +32,21 @@ class Conta extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		
+		'Tipodeconta' => array(
+			'className' => 'Tipodeconta',
+			'foreignKey' => 'tipodeconta_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Centrocusto' => array(
+			'className' => 'Centrocusto',
+			'foreignKey' => 'centrocusto_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 
