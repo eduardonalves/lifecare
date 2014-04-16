@@ -147,6 +147,7 @@ $(document).ready(function(){
 				$('#valida'+i+'Bairro').css('display','block');
 				erro = erro + 1;
 				break;
+/*			Não é obrigatorio a pedido do cliente	
 			}else if($('#Dadoscredito0Limite').val() == '' || $('#Dadoscredito0Limite').val() == '0,00'){
 				$('#Dadoscredito0Limite').addClass('shadow-vermelho');
 				$('#Dadoscredito0Limite').focus();
@@ -165,6 +166,7 @@ $(document).ready(function(){
 				$('#validaBloqueado').css('display','block');
 				erro = erro + 1;
 				break;
+*/
 			}
 		}
 		if(erro==0){
@@ -407,7 +409,7 @@ $(document).ready(function(){
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-medio obrigatorio dinheiro_duasCasas','tabindex'=>'25'));
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio  dinheiro_duasCasas','tabindex'=>'25'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 		?>
 
@@ -416,7 +418,7 @@ $(document).ready(function(){
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio forma-data','tabindex'=>'26'));
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno  forma-data','tabindex'=>'26'));
 			echo '<span id="validaValidade1" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 			echo '<span id="validaValidade2" class="Msg-tooltipDireita" style="display:none">Nao é possivel selecionar data passada</span>';
 			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display:none">Preencha corretamente a data</span>';
@@ -427,7 +429,7 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado<span class="campo-obrigatorio">*</span>:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio','tabindex'=>'29'));
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => '','tabindex'=>'29'));
 			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
 			echo $this->Form->input('Dadoscredito.0.user_id', array('type'=> 'hidden', 'value' => $userid));
 		?>

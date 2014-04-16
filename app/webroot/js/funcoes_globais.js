@@ -417,14 +417,24 @@ $(document).ready(function(){
 	}
     });
 
-  
-
     $('[class*="autocomplete"]').focusin(function(){
-	$(this).attr('required',true);
+	$('.contas .ui-autocomplete-input').attr('required',true);
+
     }).focusout(function(){
 	if($(this).val()==''){
-	    $(this).removeAttr('required');
-	    
+	    $('.contas .ui-autocomplete-input').removeAttr('required');
+	    $('.conta .ui-autocomplete-input').removeAttr('required');
+	}
+    });
+
+    //campo produtos estoque
+    $('.campo-superior-produto [class*="autocomplete"]').focusin(function(){
+	$('.campo-superior-produto .ui-autocomplete-input').attr('required',true);
+	
+    }).focusout(function(){
+	if($(this).val()==''){
+	   
+	    $('.campo-superior-produto .ui-autocomplete-input').removeAttr('required');
 	}
     });
 
