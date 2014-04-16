@@ -262,16 +262,10 @@ $(document).ready(function() {
 	e.preventDefault();
 
 	var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
-	dataEmissao = $('[id*="DataEmissao"]').val();
+	
 	Parceiro = $('[id*="Parceiro"]').val();
 	
-	if(dataEmissao == ''){
-	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
-	    $('#msgDataEmissao').css('display','block');
-	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	    
-	}else if(Parceiro ==''){
+	 if(Parceiro ==''){
 	   // $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
 	    $('#msgAutoComplete').css('display','block');
 	    $('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
@@ -418,8 +412,7 @@ $(document).ready(function() {
 		$("#cpf_cnpj").mask("99.999.999/9999-99");//cnpj
 	}
     });
-
-
+    
 /******************** Botão Upload *********************************/
 
     $('#doc_file').change(function(){

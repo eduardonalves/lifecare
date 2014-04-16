@@ -127,9 +127,9 @@ $(document).ready(function(){
 
 		<?php
 		
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'mudancaInput tamanho-medio obrigatorio','readonly'=>'readonly','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'mudancaInput tamanho-medio','readonly'=>'readonly','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
 			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
+				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 

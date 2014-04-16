@@ -72,23 +72,27 @@ $(document).ready(function(){
 				$('#validaNome').css('display','block');
 				erro = erro + 1;
 				break;
+		    /*	Não é obrigatorio a pedido do cliente	
 			}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 				$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 				$('#ParceirodenegocioCpfCnpj').focus();
 				$('#validaCPF').css('display','block');
 				erro = erro + 1;
 				break;
+		    */				
+			}else if(($('#ParceirodenegocioCpfCnpj').val() != '') && ($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+			    $('#ParceirodenegocioCpfCnpj').focus();
+			    $('#validaCPFTamanho').css('display','block');
+			    erro = erro + 1;
+			    break;
+
 			}else if(!emailValido.test(email)){
 				$('#Contato0Email').focus().css('border-color','pink');
 				$('#Contato0Email').focus();
 				$('#validaEmail').css('display','block');
 				erro = erro + 1;
 				break;
-			}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-				$('#ParceirodenegocioCpfCnpj').focus();
-				$('#validaCPFTamanho').css('display','block');
-				erro = erro + 1;
-				break;
+			
 			}else if($('#ParceirodenegocioTelefone1').val() == ''){
 				$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
 				$('#ParceirodenegocioTelefone1').focus();
@@ -258,9 +262,9 @@ $(document).ready(function(){
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio obrigatorio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
 			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ<span class='campo-obrigatorio'>*</span>:</label></div>";
+				  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 

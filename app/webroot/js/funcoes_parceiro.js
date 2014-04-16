@@ -364,12 +364,13 @@ $(document).ready(function() {
 					$('#validaNome').css('display','block');
 					erro = erro + 1;
 					break;
-				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-					$('#validaCPF').css('display','block');
-					erro = erro + 1;
-					break;
-				}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+				//cpf não é mais obrigatorio a pedido do cliente
+				//}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+					//$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					//$('#validaCPF').css('display','block');
+					//erro = erro + 1;
+					//break;
+				}else if(($('#ParceirodenegocioCpfCnpj').val() != '') && ($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 					$('#ParceirodenegocioCpfCnpj').focus();
 					$('#validaCPFTamanho').css('display','block');
 					erro = erro + 1;
@@ -462,23 +463,25 @@ $(document).ready(function() {
 					$('#validaNome').css('display','block');
 					erro = erro + 1;
 					break;
-				}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-					$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					//Não é obrigatorio a pedido do cliente	
+				//}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+					//$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
+					//$('#ParceirodenegocioCpfCnpj').focus();
+					//$('#validaCPF').css('display','block');
+					//erro = erro + 1;
+					////break;
+				}else if(($('#ParceirodenegocioCpfCnpj').val() != '') && ($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 					$('#ParceirodenegocioCpfCnpj').focus();
-					$('#validaCPF').css('display','block');
+					$('#validaCPFTamanho').css('display','block');
 					erro = erro + 1;
-					break;
+					break;	
 				}else if(!emailValido.test(email)){
 					$('#Contato0Email').focus().css('border-color','pink');
 					$('#Contato0Email').focus();
 					$('#validaEmail').css('display','block');
 					erro = erro + 1;
 					break;
-				}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
-					$('#ParceirodenegocioCpfCnpj').focus();
-					$('#validaCPFTamanho').css('display','block');
-					erro = erro + 1;
-					break;
+				
 				}else if($('#ParceirodenegocioTelefone1').val() == ''){
 					$('#ParceirodenegocioTelefone1').addClass('shadow-vermelho');
 					$('#ParceirodenegocioTelefone1').focus();

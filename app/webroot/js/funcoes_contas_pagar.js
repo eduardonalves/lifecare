@@ -36,11 +36,18 @@
 	codigodebarras=$('#ContaspagarCodigodeBarras').val();
 
 	tipoPagamento=$('#Pagamento0TipoPagamento').val();
+	dataEmissao = $('[id*="DataEmissao"]').val();
 	
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
 
-	if(tipoPagamento == ''){
+	if(dataEmissao == ''){
+	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
+	    $('#msgDataEmissao').css('display','block');
+	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
+	    $('html, body').animate({scrollTop:0}, 'slow');
+	    
+	}else if(tipoPagamento == ''){
 	    //alert('Tipo Pagamento vazio');
 	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
 	    $('#msgTipoPagamento').css('display','block');
@@ -356,7 +363,7 @@
 		contadortd4++;
 	    });
 	    
-	    contadort5 = 0;
+	    contadortd5 = 0;
 	    var tabelatd5 = $('#tabela-conta-pagar tbody tr td:nth-child(5)');
 	    
 	    tabelatd5.each(function(){

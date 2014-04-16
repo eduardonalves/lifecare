@@ -428,14 +428,6 @@ $(document).ready(function(){
 	}
     });
 
-///***** Substituição URL *****/
-
-    urlAux = window.location.toString().split("%3").pop().substring(0,1);
-
-    if (urlAux == 'D'){
-	window.location = window.location.toString().replace('%3F','?').replace('%3D','=');
-    }    
-
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(7000);
 
