@@ -338,7 +338,7 @@
 		contadortd4++;
 	    });
 	    
-	    contadort5 = 0;
+	    contadortd5 = 0;
 	    var tabelatd5 = $('#tabela-conta-receber tbody tr td:nth-child(5)');
 	    
 	    tabelatd5.each(function(){
