@@ -98,3 +98,12 @@
 		</ul>
 	</div>
 </div>
+
+
+<pre>
+<?php 
+
+	print_r($conta);
+	
+?>
+</pre>

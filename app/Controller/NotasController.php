@@ -454,7 +454,7 @@ class NotasController extends AppController {
 
 		//$notas = $this->Nota->find('all');
 		//$notas= $this->Paginator->paginate();
-		
+		//debug($this->request->data['filter']);
 		if($this->request['url']['parametro'] == 'produtos'){
 
 			$this->loadModel('Produto');

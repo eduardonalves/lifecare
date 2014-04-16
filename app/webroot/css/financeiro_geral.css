@@ -5,6 +5,19 @@
  * .Padrao{tamanho; posição; forma; etc;}
  * #Padrao{tamanho; posição; forma; etc;}*/
 
+/*** Centro de Custo*/
+.autocompleteCentroCusto{
+	
+}
+
+.bt-centroCusto{
+	display: block;
+	float: left;
+	margin: 0 0 0 345px;
+	position: absolute;
+	z-index: 1;
+}
+
 select{
 	height:23px !important;
 }
