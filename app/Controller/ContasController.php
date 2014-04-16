@@ -155,17 +155,18 @@ class ContasController extends AppController {
 			$this->loadModel('Dadoscredito');
 			
 			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
-			
-			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
-			
-			$novoLimiteUsado =  $limiteUsado - $valorParcela;
-			
-			if($novoLimiteUsado < 0){
-				$novoLimiteUsado=0;	
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+				
+				$novoLimiteUsado =  $limiteUsado - $valorParcela;
+				
+				if($novoLimiteUsado < 0){
+					$novoLimiteUsado=0;	
+				}
+				$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+				$this->Dadoscredito->save($updateDadosCredito);
+				//debug($clienteId);
 			}
-			$updateDadosCredito = array('id' => $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
-			$this->Dadoscredito->save($updateDadosCredito);
-			//debug($clienteId);
 		}
 	
 	}

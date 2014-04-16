@@ -230,13 +230,14 @@ class ContaspagarsController extends ContasController {
 			$this->loadModel('Dadoscredito');
 		
 			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
-		
-			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
-		
-			$novoLimiteUsado =  $limiteUsado + $valorConta;
-			$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
-		
-			$this->Dadoscredito->save($updateDadosCredito);
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+				$novoLimiteUsado =  $limiteUsado + $valorConta;
+				$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			
+				$this->Dadoscredito->save($updateDadosCredito);
+			}
 		}
 		
 	

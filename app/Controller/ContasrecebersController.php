@@ -288,13 +288,14 @@ class ContasrecebersController extends ContasController {
 			$this->loadModel('Dadoscredito');
 		
 			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
-		
-			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
-		
-			$novoLimiteUsado =  $limiteUsado + $valorConta;
-			$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
-		
-			$this->Dadoscredito->save($updateDadosCredito);
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+				$novoLimiteUsado =  $limiteUsado + $valorConta;
+				$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			
+				$this->Dadoscredito->save($updateDadosCredito);
+			}
 		}
 		
 	
@@ -304,36 +305,36 @@ class ContasrecebersController extends ContasController {
 		$this->loadModel('Dadoscredito');
 		
 		$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
-		
-		
-		$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
-		
-		
-		if($limiteUsado == 'null' || $limiteUsado ==''){
-			$limiteUsado=0;
-		}
-		
-		
-		$limite = $dadosCredito['Dadoscredito']['limite'];
-		if($limite == 'null' || $limite ==''){
-			$limite=0;	
-		}
-		
-		
-		if($pagamentoTipo == "A Vista"){
-			return true;
-		}else if($pagamentoForma == "CREDITO"){
-			return true;
-		}else{	
-			$saldo = $limite - $limiteUsado;
-		
-			if( $saldo < $valorConta){
-				
-				return false;
-			}else{
+		if(isset($dadosCredito) && !empty($dadosCredito)){
+			$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			if($limiteUsado == 'null' || $limiteUsado ==''){
+				$limiteUsado=0;
+			}
+			
+			
+			$limite = $dadosCredito['Dadoscredito']['limite'];
+			if($limite == 'null' || $limite ==''){
+				$limite=0;	
+			}
+			
+			
+			if($pagamentoTipo == "A Vista"){
 				return true;
-			}			
+			}else if($pagamentoForma == "CREDITO"){
+				return true;
+			}else{	
+				$saldo = $limite - $limiteUsado;
+			
+				if( $saldo < $valorConta){
+					
+					return false;
+				}else{
+					return true;
+				}			
+			}
 		}
+		
+		
 	
 		
 	}
