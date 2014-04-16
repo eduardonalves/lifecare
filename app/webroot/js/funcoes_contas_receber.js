@@ -569,6 +569,17 @@
 
     });
     
+/**************** Modal Centro Custo *****************/
+    $('body').on('click', '#ui-id-2 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteCentroCusto input").val('');
+	    $("#myModal_add-centro_custo").modal('show');
+	  //$("#spanClienteCPFExistente").hide();
+	}
+
+    });
+    
 /********************* Preencher Dados Cliente *********************/
 
     $("#bt-preencherCliente").click(function(){
@@ -592,9 +603,42 @@
 
     });
     
+    
+/********************* Preencher Dados Custo *********************/
+
+    $("#bt-preencherCentreCusto").click(function(){
+	valorCusto =	$("#add-custo option:selected" ).val();
+	limiteCusto = $("#add-custo option:selected" ).attr('class');
+	atualCusto = $("#add-custo option:selected" ).attr('rel');	
+	nomeCusto = $("#add-custo option:selected" ).attr('id');
+
+	if(!valorCusto==""){
+		if(valorCusto=="add-centroCusto"){
+			//chama modal cliente
+			//$("#myModal_add-centro_custo").modal('show');
+		}else{
+		    $(".autocompleteCentroCusto input").val('');
+		    $(".autocompleteCentroCusto input").removeAttr('required','required');
+		    
+		    $("#ContasreceberCentrocusto").val(valorCusto);
+		    $("#nomeCusto").val(nomeCusto);
+		    $("#limitecusto").val(limiteCusto);
+		    $("#limiteAtual").val(atualCusto);
+		}
+	}
+
+    });
+    
+
 /********************* Autocomplete Cliente *********************/
     $(function() {
 	$( "#add-cliente" ).combobox();
+
+    });
+    
+/********************* Autocomplete Centro Custo *********************/
+    $(function() {
+	$( "#add-custo" ).combobox();
 
     });
 

@@ -13,6 +13,7 @@
 
 	$this->start('modais');
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
+	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
 	$this->end();	
 ?>
     
@@ -67,6 +68,31 @@
 		    </select>
 		</div>
 	</div>
+	
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher',
+										     'class'=>'bt-centroCusto',
+										     'id'=>'bt-preencherCentreCusto'
+										     ));
+		?>		
+		<div class="input autocompleteCentroCusto contas">
+		    <label>Centro de Custo:</label>
+		    <select class="tamanho-medio" id="add-custo">
+			    <option id="optvazioForn"></option>
+			    <option value="add-centroCusto">Cadastrar</option>
+			    <?php
+			       foreach($centrocusto as $centro)
+				{
+				    echo "<option id='".$centro['Centrocusto']['nome']."' class='".$centro['Centrocusto']['limite']."' rel='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['id']."' >";
+				    echo $centro['Centrocusto']['nome'];
+				    echo "</option>";
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
 		<?php
 		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103','maxlength' => '100'));
@@ -81,6 +107,7 @@
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
 		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('centrocusto', array('id'=>'nomeCusto','type'=>'text','label'=>'N. Custo:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		?>
 	    </section>
 
@@ -90,6 +117,10 @@
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
+			echo  $this->Form->input('centrocusto', array('type' => 'hidden'));
+		    echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('centrocusto', array('id'=>'limiteAtual','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+
 		?>
 	    </section>
 
@@ -230,3 +261,11 @@
 	    echo $this->Form->end();	
 	?>
 </footer>
+
+<pre>
+<?php 
+
+	print_r($centrocusto);
+	
+?>
+</pre>
