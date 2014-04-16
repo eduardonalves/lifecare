@@ -536,24 +536,25 @@ $(document).ready(function() {
 					$('#valida'+i+'Bairro').css('display','block');
 					erro = erro + 1;
 					break;
-				}else if($('#Dadoscredito0Limite').val() == '' || $('#Dadoscredito0Limite').val() == '0,00'){
-					$('#Dadoscredito0Limite').addClass('shadow-vermelho');
-					$('#Dadoscredito0Limite').focus();
-					$('#validaLimite').css('display','block');
-					erro = erro + 1;
-					break;
-				}else if($('#Dadoscredito0ValidadeLimite').val() == ''){
-					$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-					$('#Dadoscredito0ValidadeLimite').focus();
-					$('#validaValidade1').css('display','block');
-					erro = erro + 1;
-					break;
-				}else if($('#ParceirodenegociosBloqueado').val() == ''){
-					$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
-					$('#ParceirodenegociosBloqueado').focus();
-					$('#validaBloqueado').css('display','block');
-					erro = erro + 1;
-					break;
+					//Não é obrigatorio a pedido do cliente	
+				//}else if($('#Dadoscredito0Limite').val() == '' || $('#Dadoscredito0Limite').val() == '0,00'){
+					//$('#Dadoscredito0Limite').addClass('shadow-vermelho');
+					//$('#Dadoscredito0Limite').focus();
+					//$('#validaLimite').css('display','block');
+					//erro = erro + 1;
+					//break;
+				//}else if($('#Dadoscredito0ValidadeLimite').val() == ''){
+					//$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
+					//$('#Dadoscredito0ValidadeLimite').focus();
+					//$('#validaValidade1').css('display','block');
+					//erro = erro + 1;
+					//break;
+				//}else if($('#ParceirodenegociosBloqueado').val() == ''){
+					//$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
+					//$('#ParceirodenegociosBloqueado').focus();
+					//$('#validaBloqueado').css('display','block');
+					//erro = erro + 1;
+					//break;
 				}
 		}
 		if(erro==0){
