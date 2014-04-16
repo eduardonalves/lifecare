@@ -147,7 +147,7 @@ $(document).ready(function(){
 	    $('#spanAdicionarLote').css('display','none');
 
 	    if($('#ProdutoNome').val() ==''){
-			$(".campo-superior-produto input").addClass('shadow-vermelho');
+			$(".campo-superior-produto input").addClass('shadow-vermelho').focus();
 			$('#spanValProduto').css('display','block');
 	    }else{
 		    showModal('myModal_' + 'add-lote');
@@ -156,89 +156,89 @@ $(document).ready(function(){
 
 
 /** FOCUS-IN EM PRODUTOS **********************************************/	
-	$('#ProdutoNome').focusin(function(){
-	    $('#ProdutoNome').attr('required','required');
-	});
+	//$('#ProdutoNome').focusin(function(){
+	    //$('#ProdutoNome').attr('required','required');
+	//});
 
-	$('#ProdutoUnidade').focusin(function(){
-	    $('#ProdutoUnidade').attr('required','required');
-	});
+	//$('#ProdutoUnidade').focusin(function(){
+	    //$('#ProdutoUnidade').attr('required','required');
+	//});
 
-	$('[id*=Ncm]').focusin(function(){
-	    $('[id*=Ncm]').attr('required','required');
-	});
+	//$('[id*=Ncm]').focusin(function(){
+	    //$('[id*=Ncm]').attr('required','required');
+	//});
 
-	$('[id*=Cfop]').focusin(function(){
-	    $('[id*=Cfop]').attr('required','required');
-	});
+	//$('[id*=Cfop]').focusin(function(){
+	    //$('[id*=Cfop]').attr('required','required');
+	//});
 
-	$('#ProdutoEstoqueMinimo').focusin(function(){
-	    $('#ProdutoEstoqueMinimo').attr('required','required');
-	});
+	//$('#ProdutoEstoqueMinimo').focusin(function(){
+	    //$('#ProdutoEstoqueMinimo').attr('required','required');
+	//});
 
-	$('#estoqueIdeal').focusin(function(){
-	    $('#estoqueIdeal').attr('required','required');
-	});
+	//$('#estoqueIdeal').focusin(function(){
+	    //$('#estoqueIdeal').attr('required','required');
+	//});
 
-	$('#ProdutoUnidade').removeAttr('required','required');
-	$('input[class*="valida"]').focusout(function(){
-	    $('#ProdutoNome').removeAttr('required','required');
-	    $('#ProdutoUnidade').removeAttr('required','required');
-	    $('[id*=Ncm]').removeAttr('required','required');
-	    $('[id*=Cfop]').removeAttr('required','required');
-	    $('#ProdutoEstoqueMinimo').removeAttr('required','required');
-	    $('#estoqueIdeal').removeAttr('required','required');
-	});
+	//$('#ProdutoUnidade').removeAttr('required','required');
+	//$('input[class*="valida"]').focusout(function(){
+	    //$('#ProdutoNome').removeAttr('required','required');
+	    //$('#ProdutoUnidade').removeAttr('required','required');
+	    //$('[id*=Ncm]').removeAttr('required','required');
+	    //$('[id*=Cfop]').removeAttr('required','required');
+	    //$('#ProdutoEstoqueMinimo').removeAttr('required','required');
+	    //$('#estoqueIdeal').removeAttr('required','required');
+	//});
 
 
 /** AJUSTAR FUNÇÃO ABAIXO PARA CADASTRO DE PRODUTOS SEM SER NO MODAL **/
-	$('body').on("focusin , click", "[class*=valida], #ProdutoEstoqueMinimo", function(){
-		$('.validaCodigo').removeClass('shadow-vermelho');
-		$('#validaCodi').css('display','none');
+	//$('body').on("focusin , click", "[class*=valida], #ProdutoEstoqueMinimo", function(){
+		//$('.validaCodigo').removeClass('shadow-vermelho');
+		//$('#validaCodi').css('display','none');
 
-		$('.validaNome').removeClass('shadow-vermelho');
-		$('#validaNome').css('display','none');
+		//$('.validaNome').removeClass('shadow-vermelho');
+		//$('#validaNome').css('display','none');
 
-		$('.validaUnidade').removeClass('shadow-vermelho');
-		$('#validaUnidade').css('display','none');
+		//$('.validaUnidade').removeClass('shadow-vermelho');
+		//$('#validaUnidade').css('display','none');
 
-		$('span[id="spanEstoqueMinimo"]').css('display','none');
-		$('span[id="spanEstoqueMinimoZero"]').css('display','none');
-		$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
-		$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
+		//$('span[id="spanEstoqueMinimo"]').css('display','none');
+		//$('span[id="spanEstoqueMinimoZero"]').css('display','none');
+		//$('#ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
+		//$('.SpanEstoqueMinimo').removeClass('shadow-vermelho');
 
-		$('.validaNcm').removeClass('shadow-vermelho');
-		$('#validaNcm').css('display','none');
+		//$('.validaNcm').removeClass('shadow-vermelho');
+		//$('#validaNcm').css('display','none');
 
-		$('.validaCfop').removeClass('shadow-vermelho');
-		$('#validaCfop').css('display','none');
+		//$('.validaCfop').removeClass('shadow-vermelho');
+		//$('#validaCfop').css('display','none');
 
-		$('.validaEstoqueIdeal').removeClass('shadow-vermelho');
-		$('#validaEstoqueIdeal').css('display','none');
-	});
+		//$('.validaEstoqueIdeal').removeClass('shadow-vermelho');
+		//$('#validaEstoqueIdeal').css('display','none');
+	//});
 
 	$('#bt-edit-salvar').click(function(event) {
 		event.preventDefault();
 
 	    if($('.validaNome').val() ==''){	    
-			$('.validaNome').addClass('shadow-vermelho');
+			$('.validaNome').addClass('shadow-vermelho').focus();
 			$('#validaNome').css('display','block');
 	    }else if($('.validaUnidade').val() ==''){
-			$('.validaUnidade').addClass('shadow-vermelho');
+			$('.validaUnidade').addClass('shadow-vermelho').focus();
 			$('#validaUnidade').css('display','block');
 	    }else if($('.validaNcm').val() ==''){	    
-			$('.validaNcm').addClass('shadow-vermelho');
+			$('.validaNcm').addClass('shadow-vermelho').focus();
 			$('#validaNcm').css('display','block');
 	    }else if($('.validaCfop').val() ==''){	    
-			$('.validaCfop').addClass('shadow-vermelho');
+			$('.validaCfop').addClass('shadow-vermelho').focus();
 			$('#validaCfop').css('display','block');
 	    }else if($('.SpanEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
-			$('.SpanEstoqueMinimo').addClass('shadow-vermelho');
+			$('.SpanEstoqueMinimo').addClass('shadow-vermelho').focus();
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="SpanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 	    }else if($('.valiEstoqueIdeal').val() ==''){	    
-			$('.valiEstoqueIdeal').addClass('shadow-vermelho');
+			$('.valiEstoqueIdeal').addClass('shadow-vermelho').focus();
 			$('#valiEstoqueIdeal').css('display','block');
 	    }else{
 			$('#FormEditSubmit').submit();
@@ -249,28 +249,28 @@ $(document).ready(function(){
 		event.preventDefault();
 
 	    if($('.validaCodigo').val() ==''){
-			$('.validaCodigo').addClass('shadow-vermelho');
+			$('.validaCodigo').addClass('shadow-vermelho').focus();
 			$('#validaCodi').css('display','block');
 	    }else if($('.validaNome').val() ==''){	    
-			$('.validaNome').addClass('shadow-vermelho');
+			$('.validaNome').addClass('shadow-vermelho').focus();
 			$('#validaNome').css('display','block');
 	    }else if($('.validaUnidade').val() ==''){
-			$('.validaUnidade').addClass('shadow-vermelho');
+			$('.validaUnidade').addClass('shadow-vermelho').focus();
 			$('#validaUnid').css('display','block');
 	    }else if($('.validaNcm').val() ==''){	    
-			$('.validaNcm').addClass('shadow-vermelho');
+			$('.validaNcm').addClass('shadow-vermelho').focus();
 			$('#validaNcm').css('display','block');
 	    }else if($('.validaCfop').val() ==''){	    
-			$('.validaCfop').addClass('shadow-vermelho');
+			$('.validaCfop').addClass('shadow-vermelho').focus();
 			$('#validaCfop').css('display','block');
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
-			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
 			$('#spanEstoqueMinimo').css('display:block');
 			$('<span id="spanEstoqueMinimo"  class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 			$('<span id="spanEstoqueMinimoZero"  class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 	    }else if($('.validaEstoqueIdeal').val() ==''){	    
-			$('.validaEstoqueIdeal').addClass('shadow-vermelho');
+			$('.validaEstoqueIdeal').addClass('shadow-vermelho').focus();
 			$('#validaEstoqueIdeal').css('display','block');
 	    }else{
 			$('#ProdutoAddForm').submit();
@@ -290,17 +290,17 @@ $(document).ready(function(){
 				    $('#spanEstoqueMinimo').css('display:block');
 				    $('<span id="spanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
 				    $('#estoqueIdeal').val('');
-				    $('#estoqueIdeal').addClass('shadow-vermelho');
+				    $('#estoqueIdeal').addClass('shadow-vermelho').focus();
 				    $('#ProdutoEstoqueMinimo').val('');
-				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
 				if((estoqueMinimo > estoqueDesejado) > 0){
 				    $('span[id="spanEstoqueMinimo"]').css("display","block");
 				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
-				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
 				}
 				else{
 					$('span[id="spanEstoqueMinimo"]').css("display","none");
-					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
+					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho').focus();
 				}
 			}
 		}
@@ -384,35 +384,66 @@ $(document).ready(function(){
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
 	if($(this).val() !=''){
-	    $('span[class^="Msg"]').css('display','none');
-	    $('span[class^="DinamicaMsg"]').remove();
+	    $('span[class*="Msg"]').css('display','none');
+	    $('span[class*="DinamicaMsg"]').remove();
 	    $('input,select').removeClass('shadow-vermelho');
 	    $('.ui-widget').removeClass('shadow-vermelho');
 	}
     });
 
     $('[class*="Msg"]').on('click', function(){
-	$('span[class^="Msg"]').css('display','none');
-	$('span[class^="DinamicaMsg"]').remove();
+	$('span[class*="Msg"]').css('display','none');
+	$('span[class*="DinamicaMsg"]').remove();
 	$('input,select').removeClass('shadow-vermelho');
 	$('.ui-widget').removeClass('shadow-vermelho');
     });
-/***** Substituição URL *****/
+
+    $('input').keydown(function(){
+	valrInput=$('input').val();
+	if(valrInput!=''){
+	    $('span[class*="Msg"]').css('display','none');
+	    $('span[class*="DinamicaMsg"]').remove();
+	    $('input,select').removeClass('shadow-vermelho');
+	    $('.ui-widget').removeClass('shadow-vermelho');
+	}
+    });
+    
+/****************** Marca em vermelho o campo ***********/
+    $('.campo-obrigatorio').parent().siblings().focusin(function(){
+	$(this).attr('required','required');
+    }).focusout(function(){
+	if($(this).val()==''){
+	    $(this).removeAttr('required','required');
+	}
+    });
+
+  
+
+    $('[class*="autocomplete"]').focusin(function(){
+	$(this).attr('required',true);
+    }).focusout(function(){
+	if($(this).val()==''){
+	    $(this).removeAttr('required');
+	    
+	}
+    });
+
+///***** Substituição URL *****/
 
     urlAux = window.location.toString().split("%3").pop().substring(0,1);
 
     if (urlAux == 'D'){
-	window.location = window.location.toString().split("%3").join('').replace(',','').replace('F','?').replace('D','=');
+	window.location = window.location.toString().replace('%3F','?').replace('%3D','=');
     }    
 
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
     $('#flashMessage').fadeOut(7000);
 
 /** FUNÇÃO QUE IMPEDE DIGITAR LETRAS NA INPUT *************************/
-	$(".Nao-Letras").on("keypress",function(event){
-		var charCode = event.keyCode || event.which;
+    $(".Nao-Letras").on("keypress",function(event){
+	    var charCode = event.keyCode || event.which;
 
-		if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==9))){return false;}else{return true}
-	});
+	    if (!((charCode>47)&&(charCode<58) || (charCode==8) || (charCode==9))){return false;}else{return true}
+    });
 
 });

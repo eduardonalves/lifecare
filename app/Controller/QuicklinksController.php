@@ -96,21 +96,22 @@ class QuicklinksController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		//$this->Quicklink->id = $id;
-		//if (!$this->Quicklink->exists()) {
-			//throw new NotFoundException(__('Pesquisa Rápida Inválido.'),'default',array('class'=>'error-flash'));
-		//}
-		//$this->request->onlyAllow('post', 'delete');
-		//if ($this->Quicklink->delete()) {
+		$this->Quicklink->id = $id;
+		if (!$this->Quicklink->exists()) {
+			throw new NotFoundException(__('Pesquisa Rápida Inválido.'),'default',array('class'=>'error-flash'));
+		}
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->Quicklink->delete()) {
 			
-			//$this->Session->setFlash(__('Pesquisa Rápida Deletada.'),'default',array('class'=>'success-flash'));
-		//} else {
-			//$this->Session->setFlash(__('Pesquisa Rápida não pode ser deletada. Tente novamente.'),'default',array('class'=>'error-flash'));
+			$this->Session->setFlash(__('Pesquisa Rápida Deletada.'),'default',array('class'=>'success-flash'));
+		} else {
+			$this->Session->setFlash(__('Pesquisa Rápida não pode ser deletada. Tente novamente.'),'default',array('class'=>'error-flash'));
 			
-		//}
+		}
   
 		$redirecionar = split ('[/]',$this->referer(),6);
 		if($redirecionar[4] == 'Contas'){
+		    $this->layout = 'contas';
 		    $this->redirect(array('controller'=> 'contas', 'action' => 'index','?parametro=contas'));
 		   
 		}else{
