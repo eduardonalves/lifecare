@@ -2,7 +2,7 @@
 
 
 
-echo json_encode($ultimoCentroCusto);
+echo json_encode($ultimoCentrocusto);
 
 
 ?>

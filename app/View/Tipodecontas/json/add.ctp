@@ -2,7 +2,7 @@
 
 
 
-echo json_encode($ultimoTipoConta);
+echo json_encode($ultimoTipodeconta);
 
 
 ?>
