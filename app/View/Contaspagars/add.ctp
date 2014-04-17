@@ -16,6 +16,7 @@
 	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
 	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
 	$this->end();
+	$this->end();
 
 ?>
 

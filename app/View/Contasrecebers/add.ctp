@@ -1,6 +1,6 @@
 <?php	    
 	$this->start('css');
-	   // echo $this->Html->css('contas_receber');
+	    //echo $this->Html->css('contas_receber');
 	    echo $this->Html->css('table');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
@@ -15,7 +15,8 @@
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
 	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
 	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
-	$this->end();	
+	$this->end();
+	
 ?>
     
 <header>
@@ -26,7 +27,6 @@
     <h1 class="menuOption33">Cadastrar Conta a Receber</h1>
     
     
-
 </header>
 
 <?php echo $this->Form->create('Contasreceber'); ?>
@@ -45,7 +45,8 @@
 		   
 		?>
 		
-<!-- CLIENTE -->	
+		
+<!-- CLIENTE -->
 	<div class="tela-resultado">   
 		<?php
 		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
