@@ -28,8 +28,7 @@
 			<?php
 				echo $this->Form->create('Tipodeconta');
 				echo $this->Form->input('nome',array('label' => 'Nome:','type'=>'text', 'class' => 'tamanho-medio'));
-				echo $this->Form->input('tipo',array('type'=>'TEXT', 'value' => 'RECEBER'));
-
+				echo $this->Form->input('tipo',array('type'=>'hidden'));
 			?>	
 
 		</div>	

@@ -7,6 +7,11 @@
       $("body").on('focus','.ui-autocomplete-input',function(){
 		$('.ui-autocomplete-input').attr({required:true});
 	});
+	
+/********** INPUT HIDDEN DO TIPO DE CONTA ****************/
+	
+	$('#TipodecontaTipo').val("RECEITA");
+
 
 /********** Adicionar na tabela Principal ****************/
     

@@ -16,7 +16,7 @@
 	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
 	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
 	$this->end();
-	$this->end();
+	
 
 ?>
 
@@ -85,6 +85,8 @@
 										     ));
 		?>
 		
+		
+		
 		<div class="input autocompleteTipoConta contas">
 		    <label>Tipo de Conta:<span class="campo-obrigatorio">*</span>:</label>
 		    <select class="tamanho-medio" id="add-tipoConta">
@@ -93,16 +95,18 @@
 			    <?php
 			       foreach($tipoconta as $tipoConta)
 				{
-				    echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
-				    echo $tipoConta['Tipodeconta']['tipo'];
-				    echo "</option>";
+					if($tipoConta['Tipodeconta']['tipo'] == "DESPESA"){
+							
+						echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+						echo $tipoConta['Tipodeconta']['nome'];
+						echo "</option>";
+					}
 				}
 			    ?>
 		    </select>
 		</div>
 	</div>
-	
-	
+		
 <!-- CENTRO DE CUSTO -->
 	<div class="tela-resultado">   
 		<?php
