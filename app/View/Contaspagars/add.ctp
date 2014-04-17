@@ -6,14 +6,17 @@
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 	
-	$this->start('script');	
+	$this->start('script');
 	    echo $this->Html->script('funcoes_contas_pagar.js');
-	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');	
+	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 	$this->end();
 
 	$this->start('modais');
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroFornecedor'));
-	$this->end();	
+	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
+	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
+	$this->end();
+	$this->end();
 
 ?>
 
@@ -39,7 +42,6 @@
 		<?php
 		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
-
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 
 		?>
@@ -71,6 +73,62 @@
 		    </select>
 		</div>
 	    </div>    
+	    
+	    
+<!-- Tipo de Conta -->
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher Tipo de Conta',
+										     'class'=>'bt-TipoConta',
+										     'id'=>'bt-preencherTipoConta'
+										     ));
+		?>
+		
+		<div class="input autocompleteTipoConta contas">
+		    <label>Tipo de Conta:<span class="campo-obrigatorio">*</span>:</label>
+		    <select class="tamanho-medio" id="add-tipoConta">
+			    <option id="optvazioForn"></option>
+			    <option value="add-tipodeConta">Cadastrar</option>
+			    <?php
+			       foreach($tipoconta as $tipoConta)
+				{
+				    echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+				    echo $tipoConta['Tipodeconta']['tipo'];
+				    echo "</option>";
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
+	
+	
+<!-- CENTRO DE CUSTO -->
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher Centro de Custo',
+										     'class'=>'bt-centroCusto',
+										     'id'=>'bt-preencherCentreCusto'
+										     ));
+		?>		
+		<div class="input autocompleteCentroCusto contas">
+		    <label>Centro de Custo:</label>
+		    <select class="tamanho-medio" id="add-custo">
+			    <option id="optvazioForn"></option>
+			    <option value="add-centroCusto">Cadastrar</option>
+			    <?php
+			       foreach($centrocusto as $centro)
+				{
+				    echo "<option id='".$centro['Centrocusto']['nome']."' class='".$centro['Centrocusto']['limite']."' rel='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['id']."' >";
+				    echo $centro['Centrocusto']['nome'];
+				    echo "</option>";
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
+	    
 		<?php
 		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '104'));
@@ -85,6 +143,9 @@
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A PAGAR'));
 		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));		
+		    echo  $this->Form->input('tipoconta_id', array('type' => 'hidden'));
+		    echo $this->Form->input('tipoconta', array('id'=>'tipoConta','type'=>'text','label'=>'Tipo Conta:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('centrocusto', array('id'=>'nomeCusto','type'=>'text','label'=>'N. Custo:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		?>		
 	</section>
 	
@@ -97,6 +158,15 @@
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
 		
+		<div class="centrocusto">
+		<?php
+			echo  $this->Form->input('centrocusto_id', array('type' => 'hidden'));
+		    echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('centrocusto', array('id'=>'limiteAtual','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		
+		?>
+		</div>
+	
 	</section>
 </section><!---Fim section superior--->
 

@@ -576,6 +576,79 @@
 	}
 
     });
+    
+  /**************** Modal Tipo Conta *****************/
+    $('body').on('click', '#ui-id-2 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteTipoConta input").val('');
+	    $("#myModal_add-tipodeConta").modal('show');
+	  //$("#spanClienteCPFExistente").hide();
+	}
+
+    });
+    
+/**************** Modal Centro Custo *****************/
+    $('body').on('click', '#ui-id-3 a',function(){
+	valorCad= $(this).text();
+	if(valorCad=="Cadastrar"){
+	    $(".autocompleteCentroCusto input").val('');
+	    $("#myModal_add-centro_custo").modal('show');
+	  //$("#spanClienteCPFExistente").hide();
+	}
+
+    });
+    
+
+    
+/********************* Preencher tipo de conta *********************/
+
+    $("#bt-preencherTipoConta").click(function(){
+	valortipoconta = $("#add-tipoConta option:selected" ).val();
+	valorNome= $("#add-tipoConta option:selected" ).attr('id');
+
+	if(!valortipoconta==""){
+		if(valortipoconta=="add-tipodeConta"){
+			//chama modal cliente
+			//$("#myModal_add-cliente").modal('show');
+		}else{
+		    $(".autocompleteTipoConta input").val('');
+		    $(".autocompleteTipoConta input").removeAttr('required','required');
+		    
+		    $("#ContaspagarTipocontaId").val(valortipoconta);
+		    $("#tipoConta").val(valorNome);
+		}
+	}
+
+    });
+    
+    
+    
+/********************* Preencher Dados Custo *********************/
+
+    $("#bt-preencherCentreCusto").click(function(){
+	valorCusto =	$("#add-custo option:selected" ).val();
+	limiteCusto = $("#add-custo option:selected" ).attr('class');
+	atualCusto = $("#add-custo option:selected" ).attr('rel');
+	nomeCusto = $("#add-custo option:selected" ).attr('id');
+
+	if(!valorCusto==""){
+		if(valorCusto=="add-centroCusto"){
+			//chama modal cliente
+			//$("#myModal_add-centro_custo").modal('show');
+		}else{
+		    $(".autocompleteCentroCusto input").val('');
+		    $(".autocompleteCentroCusto input").removeAttr('required','required');
+		    
+		    $("#ContaspagarCentrocusto").val(valorCusto);
+		    $("#nomeCusto").val(nomeCusto);
+		    $("#limitecusto").val(limiteCusto);
+		    $("#limiteAtual").val(atualCusto);
+		}
+	}
+
+    });
+    
 
 /********************* Preencher Dados Fornecedor *********************/    
     $("#bt-preencherFornecedor").click(function(){
@@ -604,6 +677,18 @@
 	$( "#add-fornecedor" ).combobox();
 
   });
+  
+/********************* Autocomplete Tipo de Conta *********************/
+    $(function() {
+	$( "#add-tipoConta" ).combobox();
+
+    });
+ 
+/********************* Autocomplete Centro Custo *********************/
+    $(function() {
+	$( "#add-custo" ).combobox();
+
+    });
 
 /****************Valida Data Emissão******************************************/
     $("#ContaspagarDataEmissao").focusout(function(){
