@@ -301,10 +301,3 @@
 	?>
 </footer>
 
-<pre>
-<?php 
-
-	print_r($centrocusto);
-	
-?>
-</pre>
