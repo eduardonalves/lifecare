@@ -24,7 +24,6 @@ $(document).ready(function(){
 			}else if($('#CentrocustoLimiteatual').val() == ""){
 				$("#spanValidaAtualCusto").show();
 			}else{			
-				
 				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"add"),true);?>";
 				var dadosForm = $("#CentrocustoAddForm").serialize();
 				$(".loaderAjax").show();
@@ -56,9 +55,13 @@ $(document).ready(function(){
 							
 						   $("add-tipodeConta").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
 						   $("#loaderAjax").hide();
+						   $("#bt-salvar").show();
+
 						}
 					}
 				});//FIM AJAX
+
+
 			}
 	});
 });
