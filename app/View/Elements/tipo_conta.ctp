@@ -40,8 +40,9 @@ $(document).ready(function(){
 				    $('#tipoConta').val(data.Tipodeconta.nome);
 				    $("#TipodecontaNome").val("");
 				    $("#myModal_add-tipodeConta").modal('hide');
-				   $("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
-				   $("#loaderAjax").hide();
+					$("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
+					$("#loaderAjax").hide();
+					$("#bt-salvar").show();
 				}
 			}
 		});
