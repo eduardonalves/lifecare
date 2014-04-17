@@ -12,8 +12,7 @@
 	}
 ?>
 
-<header id="cabecalho">
-	
+<header id="cabecalho">	
 	<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
 	<h1>Cadastrar Tipo da Conta</h1>
@@ -30,6 +29,7 @@
 				echo $this->Form->create('Tipodeconta');
 				echo $this->Form->input('nome',array('label' => 'Nome:','type'=>'text', 'class' => 'tamanho-medio'));
 				echo $this->Form->input('tipo',array('type'=>'TEXT', 'value' => 'RECEBER'));
+
 		
 			?>	
 
