@@ -53,7 +53,7 @@ class FornecedoresController extends ParceirodenegociosController {
 		if ($this->request->is('post')) {
 			$this->Fornecedore->create();
 			if ($this->Fornecedore->save($this->request->data)) {
-				$this->Session->setFlash(__('Fornecedor adicionado com sucesso.'));
+				//$this->Session->setFlash(__('Fornecedor adicionado com sucesso.'));
 				
 				$ultimoFornecedor = $this->Fornecedore->find('first', array('order' => array('Fornecedore.id' => 'desc')));
 				$this->set(compact('ultimoFornecedor'));

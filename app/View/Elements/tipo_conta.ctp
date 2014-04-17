@@ -11,7 +11,41 @@
 		$this->assign('modal', $modal);
 	}
 ?>
-
+<script>
+$(document).ready(function(){
+	$('#TipodecontaAddForm').submit(function(event){
+		event.preventDefault();
+			var urlAction = "<?php echo $this->Html->url(array("controller"=>"Tipodecontas","action"=>"add"),true);?>";
+		    var dadosForm = $("#TipodecontaAddForm").serialize();
+	     	$(".loaderAjax").show();
+	     	
+		    $.ajax({
+		    	
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+			    console.debug(data);
+			    
+				if(data.Parceirodenegocio.id == 0 || data.Parceirodenegocio.id == undefined ){
+				    $("#loaderAjax").hide();
+				    $("#bt-salvar").show();
+				
+				}else{
+				   
+				    $("#myModal_add-parceiroCliente").modal('hide');
+				    $('#tipoConta').val(data.Tipodeconta.nome);
+				    $("#TipodecontaNome").val("");
+				    $("#myModal_add-tipodeConta").modal('hide');
+				    $("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
+				    $("#loaderAjax").hide();
+				}
+			}
+		});
+	});
+});
+</script>
 <header id="cabecalho">	
 	<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
@@ -26,7 +60,7 @@
 		<div>
 			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
-				echo $this->Form->create('Tipodeconta');
+				echo $this->Form->create('Tipodeconta', array('controller' => 'Tipodecontas', 'action' => 'add'));
 				echo $this->Form->input('nome',array('label' => 'Nome:','type'=>'text', 'class' => 'tamanho-medio'));
 				echo $this->Form->input('tipo',array('type'=>'TEXT', 'value' => 'RECEBER'));
 

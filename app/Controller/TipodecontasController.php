@@ -13,7 +13,7 @@ class TipodecontasController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','RequestHandler');
 
 /**
  * index method
@@ -49,10 +49,31 @@ class TipodecontasController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Tipodeconta->create();
 			if ($this->Tipodeconta->save($this->request->data)) {
-				$this->Session->setFlash(__('The tipodeconta has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				//$this->Session->setFlash(__('The tipodeconta has been saved.'));
+				
+				
+				$ultimoTipodeconta = $this->Tipodeconta->find('first', array('order' => array('Tipodeconta.id' => 'desc')));
+				$this->set(compact('ultimoTipodeconta'));
+				
+				if(! $this->request->is('ajax'))
+				{
+					return $this->redirect(array('action' => 'index'));
+				}
+				
 			} else {
-				$this->Session->setFlash(__('The tipodeconta could not be saved. Please, try again.'));
+				$ultimoTipodeconta = array('Tipodeconta'=>array("id"=>"0"));
+
+				$errors = $this->Tipodeconta->invalidFields();
+
+				$str_erros = "Erro ao adicionar Tipodeconta. ";
+				
+				foreach ($errors as $error)
+				{
+					$str_erros .= $error[0] . "\n";
+				}
+
+				$this->Session->setFlash(__($str_erros));
+				$this->set(compact('ultimoTipodeconta'));
 			}
 		}
 	}
