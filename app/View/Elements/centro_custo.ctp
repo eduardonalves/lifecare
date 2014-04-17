@@ -45,7 +45,7 @@ $(document).ready(function(){
 				    $("#CentrocustoLimite").val("");
 				    $("#CentrocustoLimiteatual").val("");
 				    
-				   $("add-tipodeConta").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
+				   $("add-custo").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
 				   $("#loaderAjax").hide();
 				}
 			}
