@@ -15,37 +15,44 @@
 $(document).ready(function(){
 	$('#TipodecontaAddForm').submit(function(event){
 			event.preventDefault();
-			var urlAction = "<?php echo $this->Html->url(array("controller"=>"Tipodecontas","action"=>"add"),true);?>";
-		    var dadosForm = $("#TipodecontaAddForm").serialize();
-	     	$(".loaderAjax").show();
-	     	$("#bt-salvar").hide();
-	     	
-	     	
-		    $.ajax({
-		    	
-				type: "POST",
-				url: urlAction,
-				data:  dadosForm,
-				dataType: 'json',
-				success: function(data) {
-			    console.debug(data);
-			    
-				if(data.Tipodeconta.id == 0 || data.Tipodeconta.id == undefined ){
-				    $("#loaderAjax").hide();
-				    $("#bt-salvar").show();
+			
+			if($("#TipodecontaNome").val() == ""){
+				$("#spanValidaNome").show();
+			}else{
+			
 				
-				}else{
-				  // debug(data);
-				    $("#myModal_add-parceiroCliente").modal('hide');
-				    $('#tipoConta').val(data.Tipodeconta.nome);
-				    $("#TipodecontaNome").val("");
-				    $("#myModal_add-tipodeConta").modal('hide');
-					$("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
-					$("#loaderAjax").hide();
-					$("#bt-salvar").show();
-				}
+				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Tipodecontas","action"=>"add"),true);?>";
+				var dadosForm = $("#TipodecontaAddForm").serialize();
+				$(".loaderAjax").show();
+				$("#bt-salvar").hide();	     	
+				
+				$.ajax({
+					
+					type: "POST",
+					url: urlAction,
+					data:  dadosForm,
+					dataType: 'json',
+					success: function(data) {
+					console.debug(data);
+					
+					if(data.Tipodeconta.id == 0 || data.Tipodeconta.id == undefined ){
+							$("#loaderAjax").hide();
+							$("#bt-salvar").show();
+						
+						}else{
+						  // debug(data);
+							$("#myModal_add-parceiroCliente").modal('hide');
+							$('#tipoConta').val(data.Tipodeconta.nome);
+							$("#TipodecontaNome").val("");
+							$("#myModal_add-tipodeConta").modal('hide');
+							$("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
+							$("#loaderAjax").hide();
+							$("#bt-salvar").show();
+						}
+					}
+				});//FIM AJAX
+				
 			}
-		});
 	});
 });
 </script>
@@ -64,7 +71,8 @@ $(document).ready(function(){
 			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
 				echo $this->Form->create('Tipodeconta', array('controller' => 'Tipodecontas', 'action' => 'add'));
-				echo $this->Form->input('nome',array('label' => 'Nome:','type'=>'text', 'class' => 'tamanho-medio'));
+				echo $this->Form->input('nome',array('label' => 'Nome<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));
+				echo '<span id="spanValidaNome" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';	
 				echo $this->Form->input('tipo',array('type'=>'hidden'));
 			?>	
 

@@ -88,7 +88,7 @@
 		
 		
 		<div class="input autocompleteTipoConta contas">
-		    <label>Tipo de Conta:<span class="campo-obrigatorio">*</span>:</label>
+		    <label>Tipo de Conta:</label>
 		    <select class="tamanho-medio" id="add-tipoConta">
 			    <option id="optvazioForn"></option>
 			    <option value="add-tipodeConta">Cadastrar</option>

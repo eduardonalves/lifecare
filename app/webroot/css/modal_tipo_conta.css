@@ -35,3 +35,30 @@
 	position: absolute;
 	display: none;
 }
+
+
+/** VALIDAO */
+
+#myModal_add-tipodeConta  #spanValidaNome{
+	right: 0px;
+	margin-right: 26px;
+}
+
+
+#myModal_add-tipodeConta  #spanValidaNome:after{
+	top: 1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

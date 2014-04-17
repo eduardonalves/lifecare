@@ -35,3 +35,31 @@
 	position: absolute;
 	display: none;
 }
+
+/*************** VALIDACAO **/
+#myModal_add-centro_custo  #spanValidaNomeCusto{
+	right: 0px;
+	margin-right: 33px;
+	width: 95px;
+}
+
+
+#myModal_add-centro_custo  #spanValidaNomeCusto:after{
+	top: 1px;
+}
+
+#myModal_add-centro_custo  #spanValidaLimiteCusto, #spanValidaAtualCusto{
+	right: 0px;
+	margin-right: 100px;
+	width: 95px;
+}
+
+
+#myModal_add-centro_custo  #spanValidaLimiteCusto:after, #spanValidaAtualCusto:after{
+	top: 1px;
+}
+
+
+
+
+
