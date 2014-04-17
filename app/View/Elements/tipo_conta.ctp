@@ -12,8 +12,7 @@
 	}
 ?>
 
-<header id="cabecalho">
-	
+<header id="cabecalho">	
 	<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
 	<h1>Cadastrar Tipo da Conta</h1>
@@ -28,7 +27,7 @@
 			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
 				echo $this->Form->create('Tipodeconta');
-				echo $this->Form->input('tipo',array('label' => 'Tipo:','type'=>'text', 'class' => 'tamanho-medio'));
+				echo $this->Form->input('Tipodeconta.tipo',array('label' => 'Tipo:','type'=>'text', 'class' => 'tamanho-medio'));
 		
 			?>	
 
