@@ -24,6 +24,7 @@ $(document).ready(function(){
 			}else if($('#CentrocustoLimiteatual').val() == ""){
 				$("#spanValidaAtualCusto").show();
 			}else{			
+				
 				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"add"),true);?>";
 				var dadosForm = $("#CentrocustoAddForm").serialize();
 				$(".loaderAjax").show();
@@ -43,26 +44,24 @@ $(document).ready(function(){
 							$("#loaderAjax").hide();
 							$("#bt-salvar").show();
 						
-						}else{
-						  // debug(data);
+						}else{  // debug(data);
 							$("#myModal_add-centro_custo").modal('hide');
 							$('#nomeCusto').val(data.Centrocusto.nome);
-							$('#limitecusto').val(data.Centrocusto.nome);
-							$('#limiteAtual').val(data.Centrocusto.nome);
+							$('#limitecusto').val(data.Centrocusto.limite);
+							$('#limiteAtual').val(data.Centrocusto.limiteatual);
 							$("#CentrocustoNome").val("");
 							$("#CentrocustoLimite").val("");
 							$("#CentrocustoLimiteatual").val("");
 							
 						   $("add-tipodeConta").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
 						   $("#loaderAjax").hide();
-						   $("#bt-salvar").show();
-
+							$("#bt-salvar").show();
+						   
 						}
 					}
 				});//FIM AJAX
-
-
 			}
+		
 	});
 });
 </script>
