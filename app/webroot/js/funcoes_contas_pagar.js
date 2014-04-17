@@ -1,4 +1,6 @@
  $(document).ready(function() {
+	
+	
 
     $('input').focus(function(){
 	$('.ui-autocomplete-input').attr('tabindex','102');
@@ -9,6 +11,10 @@
 		$('.ui-autocomplete-input').attr({required:true});
 	});
 
+
+/********** INPUT HIDDEN DO TIPO DE CONTA ****************/
+	
+	$('#TipodecontaTipo').val("DESPESA");
 
     
 /********** Adicionar na tabela Principal ****************/

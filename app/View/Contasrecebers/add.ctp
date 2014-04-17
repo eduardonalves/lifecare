@@ -90,10 +90,13 @@
 			    <option value="add-tipodeConta">Cadastrar</option>
 			    <?php
 			       foreach($tipoconta as $tipoConta)
-				{
-				    echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
-				    echo $tipoConta['Tipodeconta']['tipo'];
-				    echo "</option>";
+				{	
+					if($tipoConta['Tipodeconta']['tipo'] == "RECEITA"){
+								
+						echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+						echo $tipoConta['Tipodeconta']['nome'];
+						echo "</option>";
+					}
 				}
 			    ?>
 		    </select>

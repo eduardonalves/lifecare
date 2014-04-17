@@ -69,9 +69,9 @@ $(document).ready(function(){
 			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
 				echo $this->Form->create('Centrocusto');
-				echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome Custo:','type'=>'text', 'class' => 'tamanho-medio'));
-				echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));
-				echo $this->Form->input('Centrocusto.limiteatual',array('label' => 'Limite Atual:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));			
+				echo $this->Form->input('nome',array('label' => 'Nome Custo:','type'=>'text', 'class' => 'tamanho-medio'));
+				echo $this->Form->input('limite',array('label' => 'Limite:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));
+				echo $this->Form->input('limiteatual',array('label' => 'Limite Atual:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));			
 			?>	
 		</div>	
 	</section>
