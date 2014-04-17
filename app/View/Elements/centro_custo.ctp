@@ -12,6 +12,48 @@
 	}
 ?>
 
+<script>
+$(document).ready(function(){
+	$('#CentrocustoAddForm').submit(function(event){
+			event.preventDefault();
+			var urlAction = "<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"add"),true);?>";
+		    var dadosForm = $("#CentrocustoAddForm").serialize();
+	     	$(".loaderAjax").show();
+	     	$("#bt-salvar").hide();
+	     	
+	     	
+		    $.ajax({
+		    	
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+			    console.debug(data);
+			    
+				if(data.Centrocusto.id == 0 || data.Centrocusto.id == undefined ){
+				    $("#loaderAjax").hide();
+				    $("#bt-salvar").show();
+				
+				}else{
+				  // debug(data);
+				    $("#myModal_add-centro_custo").modal('hide');
+				    $('#nomeCusto').val(data.Centrocusto.nome);
+			      	$('#limitecusto').val(data.Centrocusto.nome);
+			      	$('#limiteAtual').val(data.Centrocusto.nome);
+				    $("#CentrocustoNome").val("");
+				    $("#CentrocustoLimite").val("");
+				    $("#CentrocustoLimiteatual").val("");
+				    
+				   $("add-tipodeConta").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
+				   $("#loaderAjax").hide();
+				}
+			}
+		});
+	});
+});
+</script>
+
 <header id="cabecalho">
 	
 	<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
