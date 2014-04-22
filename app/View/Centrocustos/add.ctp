@@ -5,7 +5,7 @@
 	<?php
 		echo $this->Form->input('nome');
 		echo $this->Form->input('limite');
-		echo $this->Form->input('limiteatual');
+		echo $this->Form->input('limite_usado');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

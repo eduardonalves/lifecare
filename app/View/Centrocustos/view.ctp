@@ -16,9 +16,9 @@
 			<?php echo h($centrocusto['Centrocusto']['limite']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Limiteatual'); ?></dt>
+		<dt><?php echo __('limite_usado'); ?></dt>
 		<dd>
-			<?php echo h($centrocusto['Centrocusto']['limiteatual']); ?>
+			<?php echo h($centrocusto['Centrocusto']['limite_usado']); ?>
 			&nbsp;
 		</dd>
 	</dl>

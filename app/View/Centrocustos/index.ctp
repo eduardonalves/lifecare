@@ -5,7 +5,7 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nome'); ?></th>
 			<th><?php echo $this->Paginator->sort('limite'); ?></th>
-			<th><?php echo $this->Paginator->sort('limiteatual'); ?></th>
+			<th><?php echo $this->Paginator->sort('limite_usado'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($centrocustos as $centrocusto): ?>
@@ -13,7 +13,7 @@
 		<td><?php echo h($centrocusto['Centrocusto']['id']); ?>&nbsp;</td>
 		<td><?php echo h($centrocusto['Centrocusto']['nome']); ?>&nbsp;</td>
 		<td><?php echo h($centrocusto['Centrocusto']['limite']); ?>&nbsp;</td>
-		<td><?php echo h($centrocusto['Centrocusto']['limiteatual']); ?>&nbsp;</td>
+		<td><?php echo h($centrocusto['Centrocusto']['limite_usado']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $centrocusto['Centrocusto']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $centrocusto['Centrocusto']['id'])); ?>

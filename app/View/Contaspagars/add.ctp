@@ -124,7 +124,7 @@
 			    <?php
 			       foreach($centrocusto as $centro)
 				{
-				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limiteatual='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['nome']."' >";
+				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limite_usado='".$centro['Centrocusto']['limite_usado']."' value='".$centro['Centrocusto']['nome']."' >";
 				    echo $centro['Centrocusto']['nome'];
 				    echo "</option>";
 				}
@@ -166,7 +166,7 @@
 		<?php
 			echo  $this->Form->input('centrocusto_id', array('type' => 'hidden'));
 		    echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
-		   // echo $this->Form->input('centrocusto', array('id'=>'limiteAtual','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		   // echo $this->Form->input('centrocusto', array('id'=>'limite_usado','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		
 		?>
 		</div>

@@ -178,14 +178,14 @@ class ContasController extends AppController {
 			
 			$centrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustId), 'order' => array('Centrocusto.id' => 'desc')));
 			if(isset($centrocusto) && !empty($centrocusto)){
-				$limiteUsado = $centrocusto['Centrocusto']['limiteatual'];
+				$limiteUsado = $centrocusto['Centrocusto']['limite_usado'];
 				
 				$limiteUsado =  $limiteUsado - $valorParcela;
 				
 				if($limiteUsado < 0){
 					$limiteUsado=0;	
 				}
-				$updateCentrocusto = array('id' => $centrocusto['Centrocusto']['id'],'limiteatual' => $limiteUsado);
+				$updateCentrocusto = array('id' => $centrocusto['Centrocusto']['id'],'limite_usado' => $limiteUsado);
 				$this->Centrocusto->save($updateCentrocusto);
 				//debug($clienteId);
 			}
@@ -1026,7 +1026,7 @@ class ContasController extends AppController {
 				}
 				
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->setLimiteCentroCustoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor']);
+				$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $pacelas['Parcela']['valor']);
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				
@@ -1069,8 +1069,12 @@ class ContasController extends AppController {
 					$this->Parcela->save($updateParcela);
 				}
 				
-				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $conta['Conta']['valor']);
+				
+				if($conta['Conta']['status'] != 'CINZA'){
+					$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+					$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $conta['Conta']['valor']);
+				}
+				
 				
 				
 				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'), 'default', array('class' => 'success-flash'));

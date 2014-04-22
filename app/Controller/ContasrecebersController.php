@@ -309,12 +309,12 @@ class ContasrecebersController extends ContasController {
 			$centroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustoId), 'order' => array('Centrocusto.id' => 'desc')));
 			
 			if(isset($centroCusto) && !empty($centroCusto)){
-				$limiteUsado = $centroCusto['Centrocusto']['limiteatual'];
+				$limiteUsado = $centroCusto['Centrocusto']['limite_usado'];
 			
 				$novoLimiteUsado =  $limiteUsado + $valorConta;
-				$updateLimiteAtual = array('id' =>  $centroCusto['Centrocusto']['id'],'limiteatual' => $novoLimiteUsado);
+				$updatelimite_usado = array('id' =>  $centroCusto['Centrocusto']['id'],'limite_usado' => $novoLimiteUsado);
 			
-				$this->Centrocusto->save($updateLimiteAtual);
+				$this->Centrocusto->save($updatelimite_usado);
 			}
 		}
 		

@@ -13,7 +13,7 @@ class CentrocustosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','RequestHandler');
+	public $components = array('Paginator','RequestHandler','lifecareFuncs');
 
 /**
  * index method
@@ -48,6 +48,7 @@ class CentrocustosController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Centrocusto->create();
+			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Centrocusto']['limite']);
 			if ($this->Centrocusto->save($this->request->data)) {
 				//$this->Session->setFlash(__('The centrocusto has been saved.'));
 				
