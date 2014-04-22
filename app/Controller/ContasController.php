@@ -601,6 +601,8 @@ class ContasController extends AppController {
 							'valor' => 'Valor',
 							'periodocritico' => 'Período Crítico',	
 							'obs' => 'Observação',
+							'centrocusto_id' => 'Centro de Custo',
+							'tipodeconta_id' => 'Tipod de Receita / Despesa ',
 							'parceirodenegocio_id' => 'Parceiro de Negócio',
 							'cnpj_cpf' => 'CPF / CNPJ',	
 							'desconto' => 'Desconto',
@@ -685,13 +687,22 @@ class ContasController extends AppController {
 				
 				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
 				
+				$nomeCentroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $contas[$id]['Conta']['centrocusto_id']), 'recursive' => -1));
 				
-				
+				$nomeTipodeconta = $this->Tipodeconta->find('first', array('conditions' => array('Tipodeconta.id' => $contas[$id]['Conta']['tipodeconta_id']), 'recursive' => -1));
 			
 				$contas[$id]['Conta']['nome_parceiro']="";
 				
-				
-			
+				if(isset($nomeCentroCusto)){
+						if(!empty($nomeCentroCusto)){
+							$contas[$id]['Conta']['centrocusto_id'] = $nomeCentroCusto['Centrocusto']['nome'];
+						}
+				}
+				if(isset($nomeTipodeconta)){
+						if(!empty($nomeTipodeconta)){
+							$contas[$id]['Conta']['tipodeconta_id'] = $nomeTipodeconta['Tipodeconta']['nome'];
+						}
+				}
 				if(isset($parceirodenegocio)){
 						if(!empty($parceirodenegocio)){
 							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){

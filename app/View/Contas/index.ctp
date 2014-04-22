@@ -499,7 +499,14 @@ $(document).ready(function() {
 									   echo "<td class=\"$campo\">" . $conta['Conta']['nome_parceiro'] . "&nbsp;</td>";
 									}else if($campo=="cnpj_cpf"){
 										echo "<td class=\"$campo\">" . $conta['Conta']['cnpj_parceiro'] . "&nbsp;</td>";   
-									}else if($campo=="parcelas"){
+									}else if($campo=="obs"){
+										echo "<td class=\"$campo\">" . $conta['Conta']['descricao'] . "&nbsp;</td>";   
+									}else if($campo=="obs"){
+										echo "<td class=\"$campo\">" . $conta['Conta']['descricao'] . "&nbsp;</td>";   
+									}else if($campo=="tipodeconta_id"){
+										echo "<td class=\"$campo\">" . $conta['Conta']['tipodeconta_id'] . "&nbsp;</td>";   
+									}else if($campo=="centrocusto_id"){
+										echo "<td class=\"$campo\">" . $conta['Conta']['centrocusto_id'] . "&nbsp;</td>";   
 									}else if($campo=="valor"){
 										echo "<td class=\"$campo\">" . number_format($parcela[$campo], 2, ',', '.') . "&nbsp;</td>";
 									}else{
