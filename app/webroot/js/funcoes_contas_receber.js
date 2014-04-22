@@ -635,7 +635,7 @@
 		    $(".autocompleteTipoConta input").val('');
 		    $(".autocompleteTipoConta input").removeAttr('required','required');
 		    
-		    $("#ContasreceberTipocontaId").val(valortipoconta);
+		    $("#ContasreceberTipodecontaId").val(valortipoconta);
 		    $("#tipoConta").val(valorNome);
 		}
 	}
@@ -649,7 +649,6 @@
     $("#bt-preencherCentreCusto").click(function(){
 	valorCusto =	$("#add-custo option:selected" ).attr('id');
 	limiteCusto = $("#add-custo option:selected" ).attr('data-limite');
-	atualCusto = $("#add-custo option:selected" ).attr('data-limiteatual');	
 	nomeCusto = $("#add-custo option:selected" ).val();
 
 	if(!valorCusto==""){
@@ -663,7 +662,7 @@
 		    $("#ContasreceberCentrocustoId").val(valorCusto);
 		    $("#nomeCusto").val(nomeCusto);
 		    $("#limitecusto").val(limiteCusto);
-		    $("#limiteAtual").val(atualCusto);
+
 		}
 	}
 
