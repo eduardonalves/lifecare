@@ -245,7 +245,7 @@ class ContaspagarsController extends ContasController {
 		
 	public function setLimiteCentroCustoAdd(&$centrocustoId, &$valorConta){
 		
-		if($centrocustoId != 'NULL' && $contaId !=''){
+		if($centrocustoId != 'NULL' && $centrocustoId !=''){
 			$this->loadModel('Centrocusto');
 		
 			$centroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustoId), 'order' => array('Centrocusto.id' => 'desc')));
