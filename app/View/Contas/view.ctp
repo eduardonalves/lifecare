@@ -81,7 +81,14 @@
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			//echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
-		?>		
+			?>
+		<fieldset>
+			<legend>Tipo de Conta</legend>
+		<?php
+			echo $this->Form->input('Tipodeconta.nome',array('label' => 'Nome:','value'=>h($conta['Tipodeconta']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
+			echo $this->Form->input('Tipodeconta.tipo',array('label' => 'Tipo de Conta:','value'=>h($conta['Tipodeconta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+		?>	
+		</fieldset>	
 	</section>
 	
 	<section class="coluna-direita" >
@@ -92,7 +99,15 @@
 				//print_r($pagamento);
 			}
 			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+		?>
+		<fieldset>
+			<legend>Centro de Cusuto</legend>
+		<?php
+			echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome:','value'=>h($conta['Centrocusto']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
+			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h($conta['Centrocusto']['limite']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
+			echo $this->Form->input('Centrocusto.limiteatual',array('label' => 'Limite Atual:','value'=>h($conta['Centrocusto']['limiteatual']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 		?>		
+		</fieldset>
 	</section>
 </section><!---Fim section superior--->
 
@@ -322,3 +337,7 @@
 <?php
 	}
 ?>
+
+<pre>
+<?php print_r($conta); ?>
+</pre>
