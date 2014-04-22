@@ -168,6 +168,12 @@ $(document).ready(function() {
 					?>
 				</div>
 				
+				<div class="divMarginLeft" >
+					<?php
+						echo $this->Search->input('descricao', array('label' => 'Obs:','class'=>''));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+					?>
+				</div>
 			</section>
 			
 			

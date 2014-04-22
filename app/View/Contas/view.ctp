@@ -105,7 +105,7 @@
 		<?php
 			echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome:','value'=>h($conta['Centrocusto']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h($conta['Centrocusto']['limite']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
-			echo $this->Form->input('Centrocusto.limiteatual',array('label' => 'Limite Atual:','value'=>h($conta['Centrocusto']['limiteatual']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
+			echo $this->Form->input('Centrocusto.limite_usado',array('label' => 'Limite Usado:','value'=>h($conta['Centrocusto']['limite_usado']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 		?>		
 		</fieldset>
 	</section>

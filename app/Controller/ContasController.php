@@ -528,7 +528,13 @@ class ContasController extends AppController {
 	                    'select' => array(''=> '', $listaTipodeconta)
 
 	                )
-	            )
+	            ),
+	             'descricao' => array(
+	                'Conta.descricao' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
 	            
 	        )
 			
