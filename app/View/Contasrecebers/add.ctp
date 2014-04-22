@@ -130,7 +130,7 @@
 	</div>
 		<?php
 		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103','maxlength' => '100'));
+		    echo $this->Form->input('descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103','maxlength' => '100'));
 		?>
 		
 	    </section>

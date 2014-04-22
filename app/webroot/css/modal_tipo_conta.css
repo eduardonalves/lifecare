@@ -30,10 +30,11 @@
 
 }
 
-#myModal_add-tipodeConta #loaderAjax{
-	margin: 47px 0px 0px 155px;
+#myModal_add-tipodeConta #loaderAjaxTipo{
+	margin: 46px 0px 0px -60px;
 	position: absolute;
 	display: none;
+	width: 100px;
 }
 
 

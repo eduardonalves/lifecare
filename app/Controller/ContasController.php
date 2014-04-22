@@ -503,7 +503,7 @@ class ContasController extends AppController {
 		
 							
 							'identificacao' => 'Identificacao',
-							'descricao' => 'Descrição',
+							'descricao' => 'Observação',
 							'data_quitacao' => 'Data de Quitação ',
 							'data_emissao' => 'Data da emissão',
 							'data_quitacao' => 'Data de Quitação ',

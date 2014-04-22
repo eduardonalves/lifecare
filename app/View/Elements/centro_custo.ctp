@@ -27,12 +27,21 @@ $(document).ready(function(){
 				
 				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"add"),true);?>";
 				var dadosForm = $("#CentrocustoAddForm").serialize();
-				$(".loaderAjax").show();
+				$("#loaderAjaxCusto").show();
 				$("#bt-salvar").hide();
 				
+				 //pega valor
+					centroLimite = $('#CentrocustoLimite').val();
+					limiteCusto = centroLimite.split('.').join('').replace(',','.'); 
+										
+					centroLimiteAtual = $('#CentrocustoLimiteatual').val();	   
+					atualCusto = centroLimiteAtual.split('.').join('').replace(',','.');
+			
+					//retira a virgula
+					$('input[id="CentrocustoLimite"]').val(limiteCusto);	 
+					$('input[id="CentrocustoLimiteatual"]').val(atualCusto);	 
 				
-				$.ajax({
-					
+				$.ajax({									
 						type: "POST",
 						url: urlAction,
 						data:  dadosForm,
@@ -41,7 +50,7 @@ $(document).ready(function(){
 						console.debug(data);
 						
 						if(data.Centrocusto.id == 0 || data.Centrocusto.id == undefined ){
-							$("#loaderAjax").hide();
+							$("#loaderAjaxCusto").hide();
 							$("#bt-salvar").show();
 						
 						}else{  // debug(data);
@@ -54,9 +63,8 @@ $(document).ready(function(){
 							$("#CentrocustoLimiteatual").val("");
 							
 						   $("add-tipodeConta").append("<option value='"+data.Centrocusto.id+"' class='"+data.Centrocusto.nome+"' id='"+data.Centrocusto.nome+"' rel='Tipodeconta'>"+data.Centrocusto.nome+"</option>");						
-						   $("#loaderAjax").hide();
-							$("#bt-salvar").show();
-						   
+						   $("#loaderAjaxCusto").hide();
+							$("#bt-salvar").show();						   
 						}
 					}
 				});//FIM AJAX
@@ -78,7 +86,7 @@ $(document).ready(function(){
 
 	<section class="coluna-modal">
 		<div>
-			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
+			<div id="loaderAjaxCusto"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
 				echo $this->Form->create('Centrocusto');
 				echo $this->Form->input('nome',array('label' => 'Nome Custo<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));

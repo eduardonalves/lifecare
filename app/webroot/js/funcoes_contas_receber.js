@@ -660,7 +660,7 @@
 		    $(".autocompleteCentroCusto input").val('');
 		    $(".autocompleteCentroCusto input").removeAttr('required','required');
 		    
-		    $("#ContasreceberCentrocusto").val(valorCusto);
+		    $("#ContasreceberCentrocustoId").val(valorCusto);
 		    $("#nomeCusto").val(nomeCusto);
 		    $("#limitecusto").val(limiteCusto);
 		    $("#limiteAtual").val(atualCusto);

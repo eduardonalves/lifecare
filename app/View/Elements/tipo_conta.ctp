@@ -18,12 +18,10 @@ $(document).ready(function(){
 			
 			if($("#TipodecontaNome").val() == ""){
 				$("#spanValidaNome").show();
-			}else{
-			
-				
+			}else{				
 				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Tipodecontas","action"=>"add"),true);?>";
 				var dadosForm = $("#TipodecontaAddForm").serialize();
-				$(".loaderAjax").show();
+				$("#loaderAjaxTipo").show();
 				$("#bt-salvar").hide();	     	
 				
 				$.ajax({
@@ -36,7 +34,7 @@ $(document).ready(function(){
 					console.debug(data);
 					
 					if(data.Tipodeconta.id == 0 || data.Tipodeconta.id == undefined ){
-							$("#loaderAjax").hide();
+							$("#loaderAjaxTipo").hide();
 							$("#bt-salvar").show();
 						
 						}else{
@@ -46,7 +44,7 @@ $(document).ready(function(){
 							$("#TipodecontaNome").val("");
 							$("#myModal_add-tipodeConta").modal('hide');
 							$("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
-							$("#loaderAjax").hide();
+							$("#loaderAjaxTipo").hide();
 							$("#bt-salvar").show();
 						}
 					}
@@ -68,7 +66,7 @@ $(document).ready(function(){
 
 	<section class="coluna-modal">
 		<div>
-			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
+			<div id="loaderAjaxTipo"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoaderTipo', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 			<?php
 				echo $this->Form->create('Tipodeconta', array('controller' => 'Tipodecontas', 'action' => 'add'));
 				echo $this->Form->input('nome',array('label' => 'Nome<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));

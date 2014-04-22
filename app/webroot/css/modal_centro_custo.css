@@ -1,15 +1,5 @@
 @charset "utf-8";
 
-/* ID *****************************************************************/
-#LoadAjaxQuickLink{
-	left:161px;
-	position:absolute;
-	top:-110px;
-}
-
-#QuicklinkNome{
-	margin-top:15px;
-}
 
 /* HERANÇA ************************************************************/
 .ui-widget .error-message-quicklink{
@@ -30,9 +20,10 @@
 
 }
 
-#myModal_add-centro_custo #loaderAjax{
-	margin: 47px 0px 0px 155px;
+#myModal_add-centro_custo #loaderAjaxCusto{
+	margin: 45px 0px 0px 155px;
 	position: absolute;
+	width: 100px;
 	display: none;
 }
 
