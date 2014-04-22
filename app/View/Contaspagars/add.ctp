@@ -97,7 +97,7 @@
 				{
 					if($tipoConta['Tipodeconta']['tipo'] == "DESPESA"){
 							
-						echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+						echo "<option id='".$tipoConta['Tipodeconta']['id']."'value='".$tipoConta['Tipodeconta']['nome']."' data-tipo='".$tipoConta['Tipodeconta']['tipo']."' >";
 						echo $tipoConta['Tipodeconta']['nome'];
 						echo "</option>";
 					}
@@ -124,7 +124,7 @@
 			    <?php
 			       foreach($centrocusto as $centro)
 				{
-				    echo "<option id='".$centro['Centrocusto']['nome']."' class='".$centro['Centrocusto']['limite']."' rel='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['id']."' >";
+				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limiteatual='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['nome']."' >";
 				    echo $centro['Centrocusto']['nome'];
 				    echo "</option>";
 				}
@@ -135,7 +135,7 @@
 	    
 		<?php
 		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
-		    echo $this->Form->input('descricao',array('label' => 'Descrição:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '104'));
+		    echo $this->Form->input('descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '104'));
 		?>
 				
 	</section>
