@@ -28,14 +28,6 @@ $(document).ready(function(){
 				$("#loaderAjaxCusto").show();
 				$("#bt-salvar").hide();
 				
-				 //pega valor
-					centroLimite = $('#CentrocustoLimite').val();
-					limiteCusto = centroLimite.split('.').join('').replace(',','.'); 
-										
-					//retira a virgula
-					$('input[id="CentrocustoLimite"]').val(limiteCusto);	 
-					
-				
 				$.ajax({									
 						type: "POST",
 						url: urlAction,

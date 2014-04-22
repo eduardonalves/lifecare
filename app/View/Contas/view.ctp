@@ -101,7 +101,7 @@
 			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>
 		<fieldset>
-			<legend>Centro de Cusuto</legend>
+			<legend>Centro de Custo</legend>
 		<?php
 			echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome:','value'=>h($conta['Centrocusto']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h($conta['Centrocusto']['limite']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
@@ -337,7 +337,3 @@
 <?php
 	}
 ?>
-
-<pre>
-<?php print_r($conta); ?>
-</pre>
