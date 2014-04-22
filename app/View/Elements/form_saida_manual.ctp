@@ -65,13 +65,13 @@
 	<div class="campo-superior-total tela-resultado">
 		<div class="campo-superior-esquerdo">
 
-			<?php echo $this->Form->input('forma_de_entrada', array('id'=>'vale','options'=>array('Nota', 'Vale'), 'label' => 'Forma de Saída')); ?>
+			<?php echo $this->Form->input('forma_de_entrada', array('id'=>'vale','options'=>array('Nota', 'Vale'), 'label' => 'Forma de Saída','tabindex'=>'1')); ?>
 
 		</div>
 
 		<div class="campo-superior-direito">
 
-			<?php echo $this->Form->input('devolucao', array('label'=>'Saída de uma Devolução')); ?>
+			<?php echo $this->Form->input('devolucao', array('label'=>'Saída de uma Devolução','tabindex'=>'2')); ?>
 
 		</div>
 
@@ -87,13 +87,13 @@
 			<section id="ajusteCampoObs" class="coluna-esquerda">
 				<div class="imposto">
 
-					<?php echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'tamanho-medio desabilita','label'=>'Chave de Acesso:','maxlength' => '50')); ?>
+					<?php echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'tamanho-medio desabilita','label'=>'Chave de Acesso:','maxlength' => '50','tabindex'=>'3')); ?>
 
 				</div>
 				<div>
 
 					<?php 
-						echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao limpa','maxlength' => '1000'));
+						echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao limpa','maxlength' => '1000','tabindex'=>'6'));
 						echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsSaida'));
 					?>
 
@@ -103,13 +103,13 @@
 
 			<section id="ajusteNumeroVale" class="coluna-central">
 
-				<?php echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'nfiscal nvale tamanho-medio desabilita validacao-saida','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório')); ?>
+				<?php echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'nfiscal nvale tamanho-medio desabilita validacao-saida','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'4')); ?>
 
 			</section>
 
 			<section class="coluna-direita" id="campo-direita">
 
-				<?php echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'tamanho-pequeno forma-data desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:')); ?>
+				<?php echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'tamanho-pequeno forma-data desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:','tabindex'=>'5')); ?>
 
 				<span id="spanDataFuturoSaida" style="display:none" class="MsgData">Data Emissão Não Pode ser um Dia Futuro</span>
 				<span id="spanDataInvalidaSaida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>
