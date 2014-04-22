@@ -21,8 +21,6 @@ $(document).ready(function(){
 				$("#spanValidaNomeCusto").show();
 			}else if($('#CentrocustoLimite').val() == ""){
 				$("#spanValidaLimiteCusto").show();
-			}else if($('#CentrocustoLimiteatual').val() == ""){
-				$("#spanValidaAtualCusto").show();
 			}else{			
 				
 				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"add"),true);?>";
@@ -34,12 +32,9 @@ $(document).ready(function(){
 					centroLimite = $('#CentrocustoLimite').val();
 					limiteCusto = centroLimite.split('.').join('').replace(',','.'); 
 										
-					centroLimiteAtual = $('#CentrocustoLimiteatual').val();	   
-					atualCusto = centroLimiteAtual.split('.').join('').replace(',','.');
-			
 					//retira a virgula
 					$('input[id="CentrocustoLimite"]').val(limiteCusto);	 
-					$('input[id="CentrocustoLimiteatual"]').val(atualCusto);	 
+					
 				
 				$.ajax({									
 						type: "POST",
@@ -57,7 +52,6 @@ $(document).ready(function(){
 							$("#myModal_add-centro_custo").modal('hide');
 							$('#nomeCusto').val(data.Centrocusto.nome);
 							$('#limitecusto').val(data.Centrocusto.limite);
-							$('#limiteAtual').val(data.Centrocusto.limiteatual);
 							if($('#TipodecontaTipo').val() == "RECEITA"){
 								$('#ContasreceberCentrocustoId').val(data.Centrocusto.id);
 							}else{
@@ -65,7 +59,6 @@ $(document).ready(function(){
 							}
 							$("#CentrocustoNome").val("");
 							$("#CentrocustoLimite").val("");
-							$("#CentrocustoLimiteatual").val("");
 							
 						   $("add-centroCusto").append("<option value='"+data.Centrocusto.nome+"'  id='"+data.Centrocusto.id+"'>"+data.Centrocusto.nome+"</option>");						
 						   $("#loaderAjaxCusto").hide();
@@ -97,9 +90,7 @@ $(document).ready(function(){
 				echo $this->Form->input('nome',array('label' => 'Nome Custo<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));
 				echo '<span id="spanValidaNomeCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';	
 				echo $this->Form->input('limite',array('label' => 'Limite<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));
-				echo '<span id="spanValidaLimiteCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Limite</span>';	
-				echo $this->Form->input('limiteatual',array('label' => 'Limite Atual<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));			
-				echo '<span id="spanValidaAtualCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo limite Atual</span>';				
+				echo '<span id="spanValidaLimiteCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Limite</span>';					
 			?>	
 		</div>	
 	</section>
