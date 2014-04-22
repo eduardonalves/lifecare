@@ -609,9 +609,9 @@
     
 /********************* Preencher tipo de conta *********************/
 
-    $("#bt-preencherTipoConta").click(function(){
-	valortipoconta = $("#add-tipoConta option:selected" ).val();
-	valorNome= $("#add-tipoConta option:selected" ).attr('id');
+     $("#bt-preencherTipoConta").click(function(){
+	valorNome = $("#add-tipoConta option:selected" ).val();
+	valortipoconta = $("#add-tipoConta option:selected" ).attr('id');
 
 	if(!valortipoconta==""){
 		if(valortipoconta=="add-tipodeConta"){
@@ -629,14 +629,12 @@
     });
     
     
-    
 /********************* Preencher Dados Custo *********************/
-
-    $("#bt-preencherCentreCusto").click(function(){
-	valorCusto =	$("#add-custo option:selected" ).val();
-	limiteCusto = $("#add-custo option:selected" ).attr('class');
-	atualCusto = $("#add-custo option:selected" ).attr('rel');
-	nomeCusto = $("#add-custo option:selected" ).attr('id');
+  $("#bt-preencherCentreCusto").click(function(){
+	valorCusto =	$("#add-custo option:selected" ).attr('id');
+	limiteCusto = $("#add-custo option:selected" ).attr('data-limite');
+	atualCusto = $("#add-custo option:selected" ).attr('data-limiteatual');	
+	nomeCusto = $("#add-custo option:selected" ).val();
 
 	if(!valorCusto==""){
 		if(valorCusto=="add-centroCusto"){
@@ -646,7 +644,7 @@
 		    $(".autocompleteCentroCusto input").val('');
 		    $(".autocompleteCentroCusto input").removeAttr('required','required');
 		    
-		    $("#ContaspagarCentrocusto").val(valorCusto);
+		    $("#ContaspagarCentrocustoId").val(valorCusto);
 		    $("#nomeCusto").val(nomeCusto);
 		    $("#limitecusto").val(limiteCusto);
 		    $("#limiteAtual").val(atualCusto);
@@ -654,7 +652,6 @@
 	}
 
     });
-    
 
 /********************* Preencher Dados Fornecedor *********************/    
     $("#bt-preencherFornecedor").click(function(){

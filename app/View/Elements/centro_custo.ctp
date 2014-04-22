@@ -58,6 +58,11 @@ $(document).ready(function(){
 							$('#nomeCusto').val(data.Centrocusto.nome);
 							$('#limitecusto').val(data.Centrocusto.limite);
 							$('#limiteAtual').val(data.Centrocusto.limiteatual);
+							if($('#TipodecontaTipo').val() == "RECEITA"){
+								$('#ContasreceberCentrocustoId').val(data.Centrocusto.id);
+							}else{
+								$('#ContaspagarCentrocustoId').val(data.Centrocusto.id);							
+							}
 							$("#CentrocustoNome").val("");
 							$("#CentrocustoLimite").val("");
 							$("#CentrocustoLimiteatual").val("");

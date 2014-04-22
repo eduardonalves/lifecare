@@ -40,7 +40,13 @@ $(document).ready(function(){
 						}else{
 							//debug(data);
 							$("#myModal_add-parceiroCliente").modal('hide');
-							$('#tipoConta').val(data.Tipodeconta.id);
+							$('#tipoConta').val(data.Tipodeconta.nome);
+							alert($('#TipodecontaTipo').val());
+							if($('#TipodecontaTipo').val() == "RECEITA"){
+								$('#ContasreceberTipocontaId').val(data.Tipodeconta.id);
+							}else{
+								$('#ContaspagarTipocontaId').val(data.Tipodeconta.id);
+							}
 							$("#TipodecontaNome").val("");
 							$("#myModal_add-tipodeConta").modal('hide');
 							$("add-tipodeConta").append("<option value='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.id+"'>"+data.Tipodeconta.nome+"</option>");						
