@@ -93,7 +93,7 @@
 				{	
 					if($tipoConta['Tipodeconta']['tipo'] == "RECEITA"){
 								
-						echo "<option id='".$tipoConta['Tipodeconta']['tipo']."'value='".$tipoConta['Tipodeconta']['id']."' >";
+						echo "<option id='".$tipoConta['Tipodeconta']['id']."'value='".$tipoConta['Tipodeconta']['nome']."' data-tipo='".$tipoConta['Tipodeconta']['tipo']."' >";
 						echo $tipoConta['Tipodeconta']['nome'];
 						echo "</option>";
 					}
@@ -120,7 +120,7 @@
 			    <?php
 			       foreach($centrocusto as $centro)
 				{
-				    echo "<option id='".$centro['Centrocusto']['nome']."' class='".$centro['Centrocusto']['limite']."' rel='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['id']."' >";
+				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limiteatual='".$centro['Centrocusto']['limiteatual']."' value='".$centro['Centrocusto']['nome']."' >";
 				    echo $centro['Centrocusto']['nome'];
 				    echo "</option>";
 				}

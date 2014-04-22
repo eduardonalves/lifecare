@@ -38,12 +38,12 @@ $(document).ready(function(){
 							$("#bt-salvar").show();
 						
 						}else{
-						  // debug(data);
+							//debug(data);
 							$("#myModal_add-parceiroCliente").modal('hide');
-							$('#tipoConta').val(data.Tipodeconta.nome);
+							$('#tipoConta').val(data.Tipodeconta.id);
 							$("#TipodecontaNome").val("");
 							$("#myModal_add-tipodeConta").modal('hide');
-							$("add-tipodeConta").append("<option value='"+data.Tipodeconta.id+"' class='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.nome+"' rel='Tipodeconta'>"+data.Tipodeconta.nome+"</option>");						
+							$("add-tipodeConta").append("<option value='"+data.Tipodeconta.nome+"' id='"+data.Tipodeconta.id+"'>"+data.Tipodeconta.nome+"</option>");						
 							$("#loaderAjaxTipo").hide();
 							$("#bt-salvar").show();
 						}
