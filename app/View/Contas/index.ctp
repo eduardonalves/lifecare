@@ -6,14 +6,12 @@
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
-	//$this->start('script');
-	//$this->end();
+	$this->start('script');
+		echo $this->Html->script('funcoes_consulta_financeiro.js');
+	$this->end();
 
 	$this->start('modais');
 		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
-
-		//echo $this->element('view_parcelas', array('modal'=>'add-view_parcelas'));
-
 		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
 		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
 		echo $this->element('quicklink_addfinanceiro', array('modal'=>'add-quicklink'));
@@ -160,8 +158,21 @@ $(document).ready(function() {
 			
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
+				
+				<?php
+					echo $this->Form->input('', array('type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
+					?>
+				
 				<span id="titulo">Dados das Parcelas</span>
-										
+				
+					<a href="add-config_parcela" class="bt-showmodal">
+				
+						<?php
+							echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração Parcela', 'title' => 'Configuração Parcela'));
+						?>
+				
+					</a>
+				
 				<div class="formaPagamento">
 					<?php
 						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
@@ -177,7 +188,7 @@ $(document).ready(function() {
 						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));									
 					?>
 				</div>
-				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+				<div id="msgFiltroParcela" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 
 			<!------------------ FILTRO Do Parceiro ------------------>
@@ -197,7 +208,7 @@ $(document).ready(function() {
 					
 				?>
 				</div>
-				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
 		
