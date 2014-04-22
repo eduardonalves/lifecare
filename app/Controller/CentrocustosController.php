@@ -13,7 +13,7 @@ class CentrocustosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','RequestHandler');
 
 /**
  * index method
@@ -49,10 +49,30 @@ class CentrocustosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Centrocusto->create();
 			if ($this->Centrocusto->save($this->request->data)) {
-				$this->Session->setFlash(__('The centrocusto has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				//$this->Session->setFlash(__('The centrocusto has been saved.'));
+				
+				
+				$ultimoCentrocusto = $this->Centrocusto->find('first', array('order' => array('Centrocusto.id' => 'desc')));
+				$this->set(compact('ultimoCentrocusto'));
+				
+				if(! $this->request->is('ajax'))
+				{
+					return $this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The centrocusto could not be saved. Please, try again.'));
+				$ultimoCentrocusto = array('Centrocusto'=>array("id"=>"0"));
+
+				$errors = $this->Centrocusto->invalidFields();
+
+				$str_erros = "Erro ao adicionar Centrocusto. ";
+				
+				foreach ($errors as $error)
+				{
+					$str_erros .= $error[0] . "\n";
+				}
+
+				$this->Session->setFlash(__($str_erros));
+				$this->set(compact('ultimoCentrocusto'));
 			}
 		}
 	}

@@ -360,7 +360,14 @@ class ContaspagarsController extends ContasController {
 		}
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
-		$this->set(compact('parceirodenegocios','userid'));
+		
+		$this->loadModel('Centrocusto');
+		$centrocusto = $this->Centrocusto->find('all');
+		
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','tipoconta','centrocusto'));
 	}
 
 /**

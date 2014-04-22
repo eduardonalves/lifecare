@@ -43,7 +43,6 @@
 							
 							echo "<td class='colunaLote'>". $this->Paginator->sort($campo, $campoLabel) ."</td>";
 						
-						}
 						
 					}
 						
