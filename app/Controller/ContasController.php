@@ -413,11 +413,17 @@ class ContasController extends AppController {
 	}	
 	
 	$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+	
 	$listaParceiros = array();
 	foreach($parceirodenegocios as $parceirodenegocio){
 		array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
 		
 	}
+	
+	$this->loadModel('Centrocusto');
+	$this->loadModel('Tipodeconta');
+	$listaCentroCusto = $this->Centrocusto->find('list',array( 'recursive' => -1, 'fields' => array('Centrocusto.id','Centrocusto.nome'), 'order' => array('Centrocusto.nome ASC')));
+	$listaTipodeconta = $this->Tipodeconta->find('list',array( 'recursive' => -1, 'fields' => array('Tipodeconta.id','Tipodeconta.nome'), 'order' => array('Tipodeconta.nome ASC')));
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
 	        array(
@@ -509,7 +515,23 @@ class ContasController extends AppController {
 	               		 )
 					)
 	            ),
+	            'nomeCentroCusto' => array(
+	                'Conta.centrocusto_id' => array(
+	                    'operator' => '=', 
+	                    'select' => array(''=> '', $listaCentroCusto)
+
+	                )
+	            ),
+	            'nomeTipodeconta' => array(
+	                'Conta.tipodeconta_id' => array(
+	                    'operator' => '=', 
+	                    'select' => array(''=> '', $listaTipodeconta)
+
+	                )
+	            )
+	            
 	        )
+			
 		);
 
 /*-------Filtros da consulta fim---------*/
@@ -531,6 +553,8 @@ class ContasController extends AppController {
 							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',	
 							'tipo' => 'Tipo de Conta',
+							'centrocusto_id' => 'Centro de Custo',
+							'tipodeconta_id' => 'Tipod de Receita / Despesa ',
 							'status' => 'Status da Conta',
 							'parcelas' => 'Parcelas',	
 							'parceirodenegocio_id' => 'Código do Parceiro',

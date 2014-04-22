@@ -154,7 +154,22 @@ $(document).ready(function() {
 					?>
 				</div>
 				
+				<div class="divMarginLeft" >
+					<?php
+						echo $this->Search->input('nomeCentroCusto', array('label' => 'Centro de Custo:','class'=>''));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+					?>
+				</div>
+				
+				<div class="divMarginLeft" >
+					<?php
+						echo $this->Search->input('nomeTipodeconta', array('label' => 'Receita/Despesa:','class'=>''));
+						//echo $this->html->tag('span','a',array('class'=>'a-data'));
+					?>
+				</div>
+				
 			</section>
+			
 			
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
