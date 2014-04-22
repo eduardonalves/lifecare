@@ -28,6 +28,14 @@ $(document).ready(function(){
 			opConsulta = opConsulta.concat($("#checkes").val());
 		}
 
+		if($("#checkes").prop("checked")){
+			opConsulta = opConsulta.concat($("#checkes").val());
+		}
+		
+		if($("#checkparcela").prop("checked")){
+			opConsulta = opConsulta.concat($("#checkparcela").val());
+		}
+
         switch(opConsulta){
             case ('lote'):
 				window.open(urlPadrao+"&parametro=lotes"+limit,"_self");
@@ -37,6 +45,9 @@ $(document).ready(function(){
                 break;
             case ('lotees'):
 				window.open(urlPadrao+"&parametro=itensdolote"+limit,"_self");
+                break;
+            case ('checkparcela'):
+				window.open(urlPadrao+"&parametro=parcelas"+limit,"_self");
                 break;
             case (''):
                 window.open(urlPadrao+"&parametro=produtos"+limit,"_self");
@@ -131,6 +142,10 @@ $(document).ready(function(){
 	}
 
 	$('#checklote').on('click', function(){
+		TrocaConsulta();
+	});
+
+	$('#checkparcela').on('click', function(){
 		TrocaConsulta();
 	});
 
