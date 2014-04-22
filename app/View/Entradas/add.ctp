@@ -44,8 +44,8 @@
 <!--Div primeiro Campo--> 	
 	<div class="campo-superior-direito">
 		<?php
-			echo $this->Form->input('Forma de Entrada', array('name'=>'vale','id'=>'vale','options'=>array('Notas', 'Vale')));
-			echo $this->Form->input('', array('label'=>'Entrada de uma devolução','type'=>'checkbox'));
+			echo $this->Form->input('Forma de Entrada', array('name'=>'vale','id'=>'vale','options'=>array('Notas', 'Vale'),'tabindex'=>'1'));
+			echo $this->Form->input('', array('label'=>'Entrada de uma devolução','type'=>'checkbox','tabindex'=>'2'));
 		?>
 
 	</div>
@@ -60,21 +60,21 @@
 		
 		<section class="lateral-a-esquerda">
 			<?php
-				echo $this->Form->input('Nota.nota_fiscal', array('type'=>'text','class'=>'tamanho-medio','label'=>'Nota Fiscal:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Fornecedor.nome', array('type'=>'select','class'=>'tamanho-medio select','options'=>array('','add-fornecedor'=>'cadastrar',1,2,3),'label'=>'Fornecedor:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('Nota.nota_fiscal', array('type'=>'text','class'=>'tamanho-medio','label'=>'Nota Fiscal:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'3'));
+				echo $this->Form->input('Fornecedor.nome', array('type'=>'select','class'=>'tamanho-medio select','options'=>array('','add-fornecedor'=>'cadastrar',1,2,3),'label'=>'Fornecedor:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'6'));
 			?>
 		</section>
 		
 		<section class="lateral-central">
 			<?php
-				echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_frete', array('type'=>'text','label'=>'Valor de Frete:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'4'));
+				echo $this->Form->input('Nota.valor_frete', array('type'=>'text','label'=>'Valor de Frete:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'7'));
 			?>			
 		</section>
 		
 		<section class="lateral-a-direita" id="campo-direita">
 			<?php
-				echo $this->Form->input('Nota.valor_total', array('type'=>'text','class'=>'tamanho-medio','label'=>'Valor Total:'));
+				echo $this->Form->input('Nota.valor_total', array('type'=>'text','class'=>'tamanho-medio','label'=>'Valor Total:','tabindex'=>'5'));
 			?>
 		</section>
 	

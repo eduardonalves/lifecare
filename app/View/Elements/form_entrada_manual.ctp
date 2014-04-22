@@ -83,13 +83,13 @@
 		<div class="campo-superior-esquerdo">
 			<?php
 
-				echo $this->Form->input('forma_de_entrada', array('id'=>'vale','options'=>array('Nota', 'Vale')));
+				echo $this->Form->input('forma_de_entrada', array('id'=>'vale','options'=>array('Nota', 'Vale'),'tabindex'=>'1'));
 			?>
 		</div>
 
 		<div class="campo-superior-direito">
 			<?php
-				echo $this->Form->input('devolucao', array('label'=>'Entrada de uma devolução'));
+				echo $this->Form->input('devolucao', array('label'=>'Entrada de uma devolução','tabindex'=>'2'));
 			?>
 		</div>
 
@@ -106,14 +106,14 @@
 		<section id="ajusteCampoObs" class="coluna-esquerda">
 			<div class="imposto">
 				<?php
-					echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'retiraBorda tamanho-medio desabilita limpa','label'=>'Chave de Acesso:','maxlength' => '50'));
+					echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'retiraBorda tamanho-medio desabilita limpa','label'=>'Chave de Acesso:','maxlength' => '50','tabindex'=>'3'));
 					//echo $this->Form->input('Fornecedore.nome', array('type'=>'select','class'=>'tamanho-medio select desabilita','options'=>array('','add-fornecedor'=>'cadastrar',1,2,3),'label'=>'Fornecedor:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 				?>
 			</div>
 			
 			<div>
 				<?php 
-					echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'desabilita  retiraBorda campo-observacao limpa','maxlength' => '1000'));
+					echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'desabilita  retiraBorda campo-observacao limpa','maxlength' => '1000','tabindex'=>'6'));
 					echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsEntrada'));
 				?>
 			</div>
@@ -122,7 +122,7 @@
 
 		<section id="ajusteNumeroVale" class="coluna-central">
 			<?php
-				echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'retiraBorda nfiscal nvale tamanho-medio desabilita limpa validacao-entrada','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('nota_fiscal', array('type'=>'text','class'=>'retiraBorda nfiscal nvale tamanho-medio desabilita limpa validacao-entrada','label'=>'Número NF<span class="campo-obrigatorio">*</span>:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'4'));
 				//echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno desabilita' ,'required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 				//echo $this->Form->input('Nota.valor_frete', array('type'=>'text','label'=>'Valor de Frete:','class'=>'tamanho-pequeno desabilita','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
 			?>
@@ -132,7 +132,7 @@
 
 		<section class="coluna-direita" id="campo-direita">
 			<?php
-				echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'retiraBorda tamanho-pequeno limpa forma-data desabilita validacao-entrada','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:'));
+				echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'retiraBorda tamanho-pequeno limpa forma-data desabilita validacao-entrada','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:','tabindex'=>'5'));
 			?>
 			<span id="dataEmi" class="Msg-tooltipDireita" style="display:none">Data Emissão Não Pode ser um Dia Futuro</span>
 			<span id="spanDataInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>
@@ -152,7 +152,7 @@
 			?>
 			<div class="input autocompleteFornecedor tela-resultado">
 				<label id="SpanPesquisarFornecedor">Pesquisar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
-				<select class="tamanho-medio limpa" id="add-fornecedor">
+				<select class="tamanho-medio limpa" id="add-fornecedor" tabindex="7">
 					<option id="optvazioForn"></option>
 					<option value="add-Fornecedor">Cadastrar</option>
 					<?php
@@ -254,7 +254,7 @@
 			?>
 			<div class="imposto">
 			<?php
-				echo $this->Form->input('valor_outros', array('type'=>'text','maxlength'=>'20', 'label'=>'Outras Despesas:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('valor_outros', array('type'=>'text','maxlength'=>'20', 'label'=>'Outras Despesas:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'10'));
 			?>
 			</div>
 		</section>
@@ -267,7 +267,7 @@
 				?>
 			<div class="imposto">
 			<?php
-				echo $this->Form->input('valor_seguro', array('type'=>'text','maxlength'=>'20','label'=>'Valor Seguro:','class'=>'retiraBorda dinheiro limpa tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('valor_seguro', array('type'=>'text','maxlength'=>'20','label'=>'Valor Seguro:','class'=>'retiraBorda dinheiro limpa tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'8'));
 
 			?>
 			</div>
@@ -282,7 +282,7 @@
 			?>
 			<div class="imposto">
 			<?php
-				echo $this->Form->input('valor_frete', array('type'=>'text','label'=>'Valor Frete:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+				echo $this->Form->input('valor_frete', array('type'=>'text','label'=>'Valor Frete:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'9'));
 			?>
 			</div>
 		</section>
@@ -297,7 +297,7 @@
 		<div class="campo-superior-produto">
 			<div class="input">
 				<label id="pesquisaProdutos">Pesquisar produtos<span class="campo-obrigatorio">*</span>:</label>
-				<select class="tamanho-medio select selectProduto combo-autocomplete">
+				<select class="tamanho-medio select selectProduto combo-autocomplete" tabindex="11">
 					<option id="optvazioProd"></option>
 					<option value="add-produtos" class="testechange">Cadastrar</option>
 					<?php
@@ -365,7 +365,7 @@
 					<div id="divQtdProduto"></div>
 
 					<?php
-						echo $this->Form->input('vunitario', array('type'=>'text','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+						echo $this->Form->input('vunitario', array('type'=>'text','id'=>'ProdutoitenValorUnitario','label'=>'Valor Unitário<span class="campo-obrigatorio">*</span>:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desativados vu desabilita validacao-entrada ','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'12'));
 					?>
 
 				<!--	<input id='valor-qtde' type='hidden'/>
@@ -383,8 +383,8 @@
 
 							<?php
 								echo $this->Form->input('cfo', array('type'=>'text','id'=>'ProdutoitenCfop','label'=>'CFOP:', 'onfocus'=>'this.blur()', 'class'=>' limpa borderZero tamanho-pequeno ativos','readonly'=>'readonly'));
-								echo $this->Form->input('vicm', array('type'=>'text','id'=>'ProdutoitenValorIcms','label'=>'Valor ICMS:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-								echo $this->Form->input('vip', array('type'=>'text','id'=>'ProdutoitenValorIpi', 'label'=>'Valor IPI:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
+								echo $this->Form->input('vicm', array('type'=>'text','id'=>'ProdutoitenValorIcms','label'=>'Valor ICMS:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'13'));
+								echo $this->Form->input('vip', array('type'=>'text','id'=>'ProdutoitenValorIpi', 'label'=>'Valor IPI:','class'=>'retiraBorda limpa dinheiro tamanho-pequeno ativos desabilita','allowEmpty' => 'false','title'=>'Campo Obrigatório','tabindex'=>'14'));
 							?>
 					</div>
 
