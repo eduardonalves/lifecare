@@ -71,6 +71,7 @@
 						echo $this->Form->input('valor', array('label' => ' Valor'));
 					}
 				
+				
 			?>
 		</div>
 		
@@ -84,5 +85,5 @@
 	<?php
 		echo $this->form->end( 'botao-salvar.png' ,  array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 		
-	?>			
+	?>
 </footer>

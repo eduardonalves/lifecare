@@ -176,16 +176,16 @@ class ContasController extends AppController {
 		if($centrocustId !="NULL"  && $centrocustId !=""){
 			$this->loadModel('Centrocusto');
 			
-			$centrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustId), 'order' => array('Dadoscredito.id' => 'desc')));
+			$centrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustId), 'order' => array('Centrocusto.id' => 'desc')));
 			if(isset($centrocusto) && !empty($centrocusto)){
-				$limiteUsado = $centrocusto['Dadoscredito']['limiteatual'];
+				$limiteUsado = $centrocusto['Centrocusto']['limiteatual'];
 				
 				$limiteUsado =  $limiteUsado - $valorParcela;
 				
-				if($novoLimiteUsado < 0){
-					$novoLimiteUsado=0;	
+				if($limiteUsado < 0){
+					$limiteUsado=0;	
 				}
-				$updateCentrocusto = array('id' => $centrocusto['Dadoscredito']['id'],'limiteatual' => $novoLimiteUsado);
+				$updateCentrocusto = array('id' => $centrocusto['Centrocusto']['id'],'limiteatual' => $limiteUsado);
 				$this->Centrocusto->save($updateCentrocusto);
 				//debug($clienteId);
 			}
