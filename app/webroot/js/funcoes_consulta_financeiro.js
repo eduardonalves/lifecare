@@ -3,6 +3,61 @@ $(document).ready(function(){
 	var total = 0;
 	var i = 0;
 
+/*** EXPANDIR FILTRO **************************************************/
+	
+	var expandido = false;
+	
+	$('label[for="filterNomeCentroCusto"]').css('display','none');
+	$('#filterNomeCentroCusto').css('display','none');
+	
+	$('label[for="filterNomeTipodeconta"]').css('display','none');
+	$('#filterNomeTipodeconta').css('display','none');
+	
+	$('label[for="filterDescricao"]').css('display','none');
+	$('#filterDescricao').css('display','none');
+	
+	$('#bt-expandir').css('top','160px');
+	
+	$('#bt-expandir').click(function(){
+		
+		if(!expandido){
+			expandido = true;
+			
+			$('label[for="filterNomeCentroCusto"]').css('display','initial');
+			$('#filterNomeCentroCusto').css('display','initial');
+			
+			$('label[for="filterNomeTipodeconta"]').css('display','initial');
+			$('#filterNomeTipodeconta').css('display','initial');
+			
+			$('label[for="filterDescricao"]').css('display','initial');
+			$('#filterDescricao').css('display','initial');
+			
+			$('#bt-expandir').css('top','215px');
+			
+			$('#bt-expandir').css('transform','rotate(180deg)');
+			$('#bt-expandir').css('-ms-transform','rotate(180deg)');
+			$('#bt-expandir').css('-webkit-transform','rotate(180deg)');
+		}else{
+			expandido = false;
+			
+			$('label[for="filterNomeCentroCusto"]').css('display','none');
+			$('#filterNomeCentroCusto').css('display','none');
+			
+			$('label[for="filterNomeTipodeconta"]').css('display','none');
+			$('#filterNomeTipodeconta').css('display','none');
+			
+			$('label[for="filterDescricao"]').css('display','none');
+			$('#filterDescricao').css('display','none');
+				
+			$('#bt-expandir').css('top','160px');
+			
+			$('#bt-expandir').css('transform','initial');
+			$('#bt-expandir').css('-ms-transform','initial');
+			$('#bt-expandir').css('-webkit-transform','initial');
+		}
+	});
+
+
 /*** CONSULTA *********************************************************/
 	function get(){
 		var get = new Object();
@@ -46,6 +101,8 @@ $(document).ready(function(){
 		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
 
 		$("#filtro-parceiro input[type=text]").prop('disabled', true);
+		
+		$("#filterFormaPagamento").prop('disabled', true);
 
 		$("#checkparcela").prop('checked', false);
 
