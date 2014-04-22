@@ -170,6 +170,28 @@ class ContasController extends AppController {
 		}
 	
 	}
+
+	public function setLimiteCentroCustoLess(&$centrocustId, &$valorParcela){
+		
+		if($centrocustId !="NULL"  && $centrocustId !=""){
+			$this->loadModel('Centrocusto');
+			
+			$centrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustId), 'order' => array('Dadoscredito.id' => 'desc')));
+			if(isset($centrocusto) && !empty($centrocusto)){
+				$limiteUsado = $centrocusto['Dadoscredito']['limiteatual'];
+				
+				$limiteUsado =  $limiteUsado - $valorParcela;
+				
+				if($novoLimiteUsado < 0){
+					$novoLimiteUsado=0;	
+				}
+				$updateCentrocusto = array('id' => $centrocusto['Dadoscredito']['id'],'limiteatual' => $novoLimiteUsado);
+				$this->Centrocusto->save($updateCentrocusto);
+				//debug($clienteId);
+			}
+		}
+	
+	}
 	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
 		$this->loadModel('Conta');
 		$this->loadModel('Parcela');
@@ -1004,6 +1026,7 @@ class ContasController extends AppController {
 				}
 				
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+				$this->setLimiteCentroCustoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor']);
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				
@@ -1047,7 +1070,7 @@ class ContasController extends AppController {
 				}
 				
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				//$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor']);
+				$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $conta['Conta']['valor']);
 				
 				
 				$this->Session->setFlash(__('Esta conta foi cancelada com sucesso.'), 'default', array('class' => 'success-flash'));
