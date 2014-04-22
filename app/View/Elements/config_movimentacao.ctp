@@ -46,9 +46,9 @@
 				
 					
 				if($configconta['Configconta']['descricao']==1){
-						echo $this->Form->input('descricao', array('value' => 1, 'checked' =>'checked', 'label'=>' Descrição'));
+						echo $this->Form->input('descricao', array('value' => 1, 'checked' =>'checked', 'label'=>'Observação'));
 					} else{
-						echo $this->Form->input('descricao', array('label' => ' Descrição'));
+						echo $this->Form->input('descricao', array('label' => 'Observação'));
 					}
 					
 				if($configconta['Configconta']['data_quitacao']==1){
