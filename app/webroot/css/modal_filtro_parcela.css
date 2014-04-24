@@ -6,7 +6,9 @@
 }
 
 #myModal_add-config_parcela.modal{
-	margin-left:-350px;
+	margin-left: 50%;
+	left: -326px !important;
+	width: 656px;
 }
 
 #myModal_add-config_parcela .coluna-modal{
@@ -24,7 +26,7 @@
 }
 
 #myModal_add-config_parcela div label{
-	line-height:20px;
+	line-height:13px;
 	margin-left: 5px;
     margin-right: -2px;
 	float: left;

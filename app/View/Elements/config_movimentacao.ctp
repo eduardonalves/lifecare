@@ -28,15 +28,9 @@
 			
 			<?php
 				echo $this->Form->create('Configconta');
-			?>	
-			
-			<?php
+				
 				echo $this->Form->input('id',array('type'=>'hidden','value' => $configconta['Configconta']['id']));
-				//echo $this->Form->input('identificacao',array('value' => $configconta['Configconta']['identificacao']));
-			?>
-					
-			<?php 
-						
+
 				if($configconta['Configconta']['identificacao']==1){
 						echo $this->Form->input('identificacao', array('value' => 1, 'checked' =>'checked', 'label'=>' Identificação'));
 					} else{

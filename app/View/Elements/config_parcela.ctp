@@ -27,70 +27,82 @@
 		<div class="">
 			
 			<?php
-				//echo $this->Form->create('Configlote');
-			?>	
+				echo $this->Form->create('Configparcela');
+				
+				echo $this->Form->input('id',array('type'=>'hidden','value' => $configparcela['Configparcela']['id']));
+				
+				if($configparcela['Configparcela']['parcela']==1){
+						echo $this->Form->input('parcela', array('value' => 1, 'checked' =>'checked', 'label'=>' Parcela'));
+					} else{
+						echo $this->Form->input('parcela', array('label' => ' Parcela'));
+					}
+				
+				if($configparcela['Configparcela']['identificacao_documento']==1){
+						echo $this->Form->input('identificacao_documento', array('value' => 1, 'checked' =>'checked', 'label'=>'Identificação'));
+					} else{
+						echo $this->Form->input('identificacao_documento', array('label' => ' Identificação'));
+					}
+				
+				if($configparcela['Configparcela']['data_vencimento']==1){
+						echo $this->Form->input('data_vencimento', array('value' => 1, 'checked' =>'checked', 'label'=>'Data do Vencimento'));
+					} else{
+						echo $this->Form->input('data_vencimento', array('label' => 'Data do Vencimento'));
+					}
+				
+				if($configparcela['Configparcela']['valor']==1){
+						echo $this->Form->input('valor', array('value' => 1, 'checked' =>'checked', 'label'=>'Valor'));
+					} else{
+						echo $this->Form->input('valor', array('label' => 'Valor'));
+					}
+					
+				if($configparcela['Configparcela']['periodocritico']==1){
+						echo $this->Form->input('periodocritico', array('value' => 1, 'checked' =>'checked', 'label'=>'Período Crítico'));
+					} else{
+						echo $this->Form->input('periodocritico', array('label' => 'Período Crítico'));
+					}
+					
+				if($configparcela['Configparcela']['desconto']==1){
+						echo $this->Form->input('desconto', array('value' => 1, 'checked' =>'checked', 'label'=>'Desconto'));
+					} else{
+						echo $this->Form->input('desconto', array('label' => 'Desconto'));
+					}
+					
+				if($configparcela['Configparcela']['banco']==1){
+						echo $this->Form->input('banco', array('value' => 1, 'checked' =>'checked', 'label'=>'Banco'));
+					} else{
+						echo $this->Form->input('banco', array('label' => 'Banco'));
+					}
+					
+				if($configparcela['Configparcela']['agencia']==1){
+						echo $this->Form->input('agencia', array('value' => 1, 'checked' =>'checked', 'label'=>'Agência'));
+					} else{
+						echo $this->Form->input('agencia', array('label' => 'Agência'));
+					}
+					
+				if($configparcela['Configparcela']['conta']==1){
+						echo $this->Form->input('conta', array('value' => 1, 'checked' =>'checked', 'label'=>'Conta'));
+					} else{
+						echo $this->Form->input('conta', array('label' => 'Conta'));
+					}
+					
+				if($configparcela['Configparcela']['status']==1){
+						echo $this->Form->input('status', array('value' => 1, 'checked' =>'checked', 'label'=>'Status'));
+					} else{
+						echo $this->Form->input('status', array('label' => 'Status'));
+					}
 			
-			<?php
-				//echo $this->Form->input('id',array('value' => $configlote['Configlote']['id']));
-			?>
-					
-			<div class='esconder'>	
-				<?php //echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
-			</div>
-		
-			<?php /*
-				
-				if($configlote['Configlote']['numero_lote']==1){
-						echo $this->Form->input('numero_lote', array('value' => 1, 'checked' =>'checked', 'label'=>'Número Lote'));
-					} else{
-						echo $this->Form->input('numero_lote', array('label' => 'Número Lote'));
-					}
-					
-				if($configlote['Configlote']['data_fabricacao']==1){
-						echo $this->Form->input('data_fabricacao', array('value' => 1, 'checked' =>'checked', 'label'=>'Data Fabricacao'));
-					} else{
-						echo $this->Form->input('data_fabricacao', array('label' => 'Data Fabricacao'));
-					}
-				
-					
-				if($configlote['Configlote']['estoque']==1){
-						echo $this->Form->input('estoque', array('value' => 1, 'checked' =>'checked', 'label'=>'Qtd. Atual'));
-					} else{
-						echo $this->Form->input('estoque', array('label' => 'Qtd. Estoque'));
-					}
-				
-								
-				
-				if($configlote['Configlote']['fabricante']==1){
-						echo $this->Form->input('fabricante', array('value' => 1, 'checked' =>'checked', 'label'=>'Fabricante'));
-					} else{
-						echo $this->Form->input('fabricante', array('label' => 'Fabricante'));
-					}
-				
-				if($configlote['Configlote']['data_validade']==1){
-						echo $this->Form->input('data_validade', array('value' => 1, 'checked' =>'checked', 'label'=>'Data Validade'));
-					} else{
-						echo $this->Form->input('data_validade', array('label' => 'Data Validade'));
-					}
-				
-				if($configlote['Configlote']['status']==1){
-						echo $this->Form->input('status', array('value' => 1, 'checked' =>'checked', 'label'=>'Status Validade'));
-					} else{
-						echo $this->Form->input('status', array('label' => 'Status Validade'));
-					}
-					* */
 			?>
 		</div>
 		
 	</section>
 	
 </section>
-
+	
 	<div  id="msgModalLot" class="msgModal">Campo Obrigatório.</div>
 	
 <footer>
 	<?php
 		echo $this->form->end( 'botao-salvar.png' ,  array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 		
-	?>			
+	?>
 </footer>
