@@ -12,6 +12,14 @@ label[for="filterIdentificacao"]{
 	-webkit-logical-width: 145px !important;
 }
 
+label[for="checkparcela"]{
+	color: #333;
+	display: block;
+	font-size: 15px !important;
+	text-align: left;
+	width: 170px;
+}
+
 /* CLASS **************************************************************/
 .statusMovimentacao{
 	display:block;
@@ -47,7 +55,7 @@ label[for="filterIdentificacao"]{
 	background-color:white;
 	display:block;
 	float:left;
-	height:260px;
+	height:100%;
 	margin-top:-15px;
 	padding:10px;
 	position:relative;
@@ -90,6 +98,10 @@ label[for="filterIdentificacao"]{
 	width:70px !important;
 	padding-top: 0px !important;
 	line-height:16px;
+}
+
+#filtro-movimentacao select{
+	margin-top:3px;
 }
 
 .inputSearchData span{
@@ -182,7 +194,8 @@ label[for="filterIdentificacao"]{
 	background-color: #F0F5DB;
 	border: 1px solid rgb(171, 200, 55);
 	border-radius: 8px;
-	height: 162px;
+	height: 100% !important;
+	min-height: 173px;
 	-webkit-logical-height: 175px;
 	margin: 5px 0px 0px -5px;
 	padding: 6px;
@@ -241,6 +254,13 @@ label[for="filterIdentificacao"]{
 	display:inline-block;
 	height:15px;
 	width:16px;
+}
+
+#bt-expandir{
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+	top: 160px;
 }
 
 /* HERANÇA ************************************************************/

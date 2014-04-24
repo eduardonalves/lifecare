@@ -170,10 +170,14 @@ $(document).ready(function() {
 				
 				<div class="divMarginLeft" >
 					<?php
-						echo $this->Search->input('descricao', array('label' => 'Obs:','class'=>''));
+						echo $this->Search->input('descricao', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
+				
+				<?php
+					echo $this->Html->image('expandir.png', array('id'=>'bt-expandir', 'alt'=>'', 'title'=>''));
+				?>
 			</section>
 			
 			
@@ -181,11 +185,9 @@ $(document).ready(function() {
 			<section id="filtro-parceiro" class="coluna-central">
 				
 				<?php
-					echo $this->Form->input('', array('type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
+					echo $this->Form->input('', array('label' => 'Dados das Parcelas','type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
 					?>
-				
-				<span id="titulo">Dados das Parcelas</span>
-				
+
 					<a href="add-config_parcela" class="bt-showmodal">
 				
 						<?php

@@ -354,18 +354,18 @@ $(document).ready(function() {
 	}
 
 	var statusEntrada = '';
-	
 	var statusSaida= '';
-	
 	var statusEntradaSaida='';
 	
 
 	if(valorEntrada =='RECEBER'){
 		$('#NomeREECEBER').attr('checked', true);
 	}
+	
 	if(valorSaida1 == 'PAGAR'){
 		$('#NomePAGAR').attr('checked', true);
 	}
+	
 	if(valorSaida2 == 'PAGAR'){
 		$('#NomePAGAR').attr('checked', true);
 	}
