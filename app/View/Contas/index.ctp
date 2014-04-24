@@ -70,14 +70,8 @@ $(document).ready(function() {
 
 <section> <!---section superior--->
 	<header>Consulta por Movimentação e/ou Parceiro de Negócios</header>
-	<fieldset class="filtros">
-		
-		<?php 
-			$urlQuickLink = $this->Html->url( null, true );
-			$urlQuickLink = $urlQuickLink;
-		?>
-		
 	
+	<fieldset class="filtros">
 		<?php
 
 		    $ql= $_GET['ql'];

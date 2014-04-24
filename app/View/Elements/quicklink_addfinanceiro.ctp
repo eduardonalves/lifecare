@@ -15,7 +15,7 @@
 ?>
 		<?php
 		
-		if(isset($allquiclink))
+		if(isset($allquicklink))
 		{
 		?>
 		<script type="text/javascript">
@@ -79,7 +79,7 @@
 	<?php 
 		$urlQuickLink= $this->Html->url( null, true );
 	//	$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro'].'&'.'limit='.$_GET['limit']; 
-		$urlQuickLink = $urlQuickLink.'?'; 
+		$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
 	?>
 	
 	<section class="coluna-modal">
@@ -126,7 +126,7 @@
 <!--
 <?php 
 	$urlQuickLink= $this->Html->url( null, true );
-	$urlQuickLink = $urlQuickLink.'?'; 
+	$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
 
 ?> 
 	<div class="quicklinks form">

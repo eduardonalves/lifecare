@@ -28,15 +28,9 @@
 			
 			<?php
 				echo $this->Form->create('Configconta');
-			?>	
-			
-			<?php
+				
 				echo $this->Form->input('id',array('type'=>'hidden','value' => $configconta['Configconta']['id']));
-				//echo $this->Form->input('identificacao',array('value' => $configconta['Configconta']['identificacao']));
-			?>
-					
-			<?php 
-						
+
 				if($configconta['Configconta']['identificacao']==1){
 						echo $this->Form->input('identificacao', array('value' => 1, 'checked' =>'checked', 'label'=>' Identificação'));
 					} else{
@@ -69,6 +63,18 @@
 						echo $this->Form->input('valor', array('value' => 1, 'checked' =>'checked', 'label'=>' Valor'));
 					} else{
 						echo $this->Form->input('valor', array('label' => ' Valor'));
+					}
+					
+				if($configconta['Configconta']['centrocusto_id']==1){
+						echo $this->Form->input('Configconta.centrocusto_id', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Centro de Custo'));
+					} else{
+						echo $this->Form->input('Configconta.centrocusto_id', array('type'=>'checkbox', 'label' => ' Centro de Custo'));
+					}
+				
+				if($configconta['Configconta']['tipodeconta_id']==1){
+						echo $this->Form->input('Configconta.tipodeconta_id', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Tipo de Conta'));
+					} else{
+						echo $this->Form->input('Configconta.tipodeconta_id', array('type'=>'checkbox', 'label' => 'Tipo de Conta'));
 					}
 				
 				
