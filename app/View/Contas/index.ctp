@@ -156,14 +156,14 @@ $(document).ready(function() {
 				
 				<div class="divMarginLeft" >
 					<?php
-						echo $this->Search->input('nomeCentroCusto', array('label' => 'Centro de Custo:','class'=>''));
+						echo $this->Search->input('nomeCentroCusto', array('label' => 'Centro de Custo:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
 				
 				<div class="divMarginLeft" >
 					<?php
-						echo $this->Search->input('nomeTipodeconta', array('label' => 'Receita/Despesa:','class'=>''));
+						echo $this->Search->input('nomeTipodeconta', array('label' => 'Receita/Despesa:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
