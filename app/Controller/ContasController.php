@@ -171,22 +171,54 @@ class ContasController extends AppController {
 	
 	}
 
-	public function setLimiteCentroCustoLess(&$centrocustId, &$valorParcela){
+	public function setLimiteCentroCustoLessPagar(&$centrocustId, &$valorParcela, &$dataconta){
 		
 		if($centrocustId !="NULL"  && $centrocustId !=""){
-			$this->loadModel('Centrocusto');
+			$this->loadModel('Orcamentocentro');
 			
-			$centrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustId), 'order' => array('Centrocusto.id' => 'desc')));
-			if(isset($centrocusto) && !empty($centrocusto)){
-				$limiteUsado = $centrocusto['Centrocusto']['limite_usado'];
+			$datacontaArray = explode('-', $dataconta);
+			$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+			$periodo=$datacontaAux;
+			
+			$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $centrocustId, 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
+			
+			if(isset($orcamentocentro) && !empty($orcamentocentro)){
+				$limiteUsado = $orcamentocentro['Orcamentocentro']['limite_usado'];
 				
 				$limiteUsado =  $limiteUsado - $valorParcela;
 				
 				if($limiteUsado < 0){
 					$limiteUsado=0;	
 				}
-				$updateCentrocusto = array('id' => $centrocusto['Centrocusto']['id'],'limite_usado' => $limiteUsado);
-				$this->Centrocusto->save($updateCentrocusto);
+				$updateCentrocusto = array('id' => $orcamentocentro['Orcamentocentro']['id'],'limite_usado' => $limiteUsado);
+				$this->Orcamentocentro->save($updateCentrocusto);
+				//debug($clienteId);
+			}
+		}
+	
+	}
+
+	public function setLimiteCentroCustoLessReceber(&$centrocustId, &$valorParcela, &$dataconta){
+		
+		if($centrocustId !="NULL"  && $centrocustId !=""){
+			$this->loadModel('Orcamentocentro');
+			
+			$datacontaArray = explode('-', $dataconta);
+			$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+			$periodo=$datacontaAux;
+			
+			$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $centrocustId, 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
+			
+			if(isset($orcamentocentro) && !empty($orcamentocentro)){
+				$receitaGerada = $orcamentocentro['Orcamentocentro']['receita_gerada'];
+				
+				$receitaGerada =  $receitaGerada - $valorParcela;
+				
+				if($receitaGerada < 0){
+					$receitaGerada=0;	
+				}
+				$updateCentrocusto = array('id' => $orcamentocentro['Orcamentocentro']['id'],'receita_gerada' => $receitaGerada);
+				$this->Orcamentocentro->save($updateCentrocusto);
 				//debug($clienteId);
 			}
 		}
@@ -385,7 +417,7 @@ class ContasController extends AppController {
 	//$this->setStatusContasParcelas();	
 	public function beforeRender(){
 		parent::beforeRender();
-		$this->setStatusContasParcelas();
+		//$this->setStatusContasParcelas();
 		
 	}
 		
@@ -1067,7 +1099,7 @@ class ContasController extends AppController {
 				}
 				
 				$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $pacelas['Parcela']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $pacelas['Parcela']['valor']);
+				//$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $pacelas['Parcela']['valor']);
 				$this->Session->setFlash(__('A parcela foi quitada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 				
@@ -1113,7 +1145,16 @@ class ContasController extends AppController {
 				
 				if($conta['Conta']['status'] != 'CINZA'){
 					$this->setLimiteUsadoLess($conta['Conta']['parceirodenegocio_id'], $conta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-					$this->setLimiteCentroCustoLess($conta['Conta']['centrocusto_id'], $conta['Conta']['valor']);
+					
+					if($conta['Conta']['tipo'] =='A PAGAR'){
+						$this->setLimiteCentroCustoLessPagar($conta['Conta']['centrocusto_id'], $conta['Conta']['valor'], $conta['Conta']['data_emissao']);	
+						
+					}
+					
+					if($conta['Conta']['tipo'] =='A RECEBER'){
+						$this->setLimiteCentroCustoLessReceber($conta['Conta']['centrocusto_id'], $conta['Conta']['valor'], $conta['Conta']['data_emissao']);
+					}
+					
 				}
 				
 				

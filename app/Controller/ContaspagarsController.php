@@ -243,25 +243,29 @@ class ContaspagarsController extends ContasController {
 	
 	}	
 		
-	public function setLimiteCentroCustoAdd(&$centrocustoId, &$valorConta){
+		
+	public function setLimiteCentroCustoAdd(&$centrocustoId, &$valorConta, &$dataconta){
 		
 		if($centrocustoId != 'NULL' && $centrocustoId !=''){
-			$this->loadModel('Centrocusto');
-		
-			$centroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustoId), 'order' => array('Centrocusto.id' => 'desc')));
 			
-			if(isset($centroCusto) && !empty($centroCusto)){
-				$limiteUsado = $centroCusto['Centrocusto']['limite_usado'];
+			$this->loadModel('Orcamentocentro');
+			$datacontaArray = explode('-', $dataconta);
+			$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+			$periodo=$datacontaAux;
+			$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $centrocustoId, 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
+			
+			if(isset($orcamentocentro) && !empty($orcamentocentro)){
+				$limiteUsado = $orcamentocentro['Orcamentocentro']['limite_usado'];
 			
 				$novoLimiteUsado =  $limiteUsado + $valorConta;
-				$updatelimite_usado = array('id' =>  $centroCusto['Centrocusto']['id'],'limite_usado' => $novoLimiteUsado);
+				$updatelimite_usado = array('id' =>  $orcamentocentro['Orcamentocentro']['id'],'limite_usado' => $novoLimiteUsado);
 			
-				$this->Centrocusto->save($updatelimite_usado);
+				$this->Orcamentocentro->save($updatelimite_usado);
 			}
 		}
 		
 	
-	}			
+	}	
 	public function setStatusConta(&$idConta){
 		$this->loadModel('Parcela');
 		$this->loadModel('Conta');
@@ -361,7 +365,7 @@ class ContaspagarsController extends ContasController {
 				$this->setStatusConta($ultimaConta['Conta']['id']);
 				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'],  $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['Centrocusto_id'], $ultimaConta['Conta']['valor']);
+				$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
 				
 				$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 				
