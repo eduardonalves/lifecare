@@ -21,6 +21,7 @@ class CentrocustosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'contas';
 		$this->Centrocusto->recursive = 0;
 		$this->set('centrocustos', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class CentrocustosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Centrocusto->exists($id)) {
 			throw new NotFoundException(__('Invalid centrocusto'));
 		}
@@ -46,6 +48,7 @@ class CentrocustosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'contas';
 		if ($this->request->is('post')) {
 			$this->Centrocusto->create();
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Centrocusto']['limite']);
@@ -86,6 +89,7 @@ class CentrocustosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Centrocusto->exists($id)) {
 			throw new NotFoundException(__('Invalid centrocusto'));
 		}
