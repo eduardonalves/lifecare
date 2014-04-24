@@ -20,7 +20,7 @@
 <script>
     $(document).ready(function() {
 	var usoPhp = '<?php ?>' ;
-	var usoGet = '$_GET["ql"]';	
+	var usoGet = '$_GET["ql"]';
     });
 </script>
 <?php 

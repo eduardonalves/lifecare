@@ -594,7 +594,7 @@ class ContasController extends AppController {
 							'centrocusto_id' => 'Centro de Custo',
 							'tipodeconta_id' => 'Tipod de Receita / Despesa ',
 							'status' => 'Status da Conta',
-							'parcelas' => 'Parcelas',	
+							'parcelas' => 'Parcelas',
 							'parceirodenegocio_id' => 'Código do Parceiro',
 							'nome_parceiro' => 'Nome do Parceiro',
 							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
