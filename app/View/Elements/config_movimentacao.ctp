@@ -64,6 +64,18 @@
 					} else{
 						echo $this->Form->input('valor', array('label' => ' Valor'));
 					}
+					
+				if($configconta['Configconta']['centrocusto_id']==1){
+						echo $this->Form->input('Configconta.centrocusto_id', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Centro de Custo'));
+					} else{
+						echo $this->Form->input('Configconta.centrocusto_id', array('type'=>'checkbox', 'label' => ' Centro de Custo'));
+					}
+				
+				if($configconta['Configconta']['tipodeconta_id']==1){
+						echo $this->Form->input('Configconta.tipodeconta_id', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Tipo de Conta'));
+					} else{
+						echo $this->Form->input('Configconta.tipodeconta_id', array('type'=>'checkbox', 'label' => 'Tipo de Conta'));
+					}
 				
 				
 			?>
