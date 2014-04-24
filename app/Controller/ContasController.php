@@ -345,9 +345,9 @@ class ContasController extends AppController {
 				
 						}
 					
-					if(isset($conta['Conta']['parceirodenegocio_id'])){
-						$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
-					}
+					//if(isset($conta['Conta']['parceirodenegocio_id'])){
+						//$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
+					//}
 				}//aqui
 				
 				
@@ -417,7 +417,17 @@ class ContasController extends AppController {
 	//$this->setStatusContasParcelas();	
 	public function beforeRender(){
 		parent::beforeRender();
-		//$this->setStatusContasParcelas();
+		$this->setStatusContasParcelas();
+		$this->loadModel('Parceirodenegocio');
+		$paceiros = $this->Parceirodenegocio->find('all', array('recursive' => -1));
+		if(!empty($paceiros)){
+			foreach($paceiros as $parceiro){
+				$this->setStatusParceiro($paceiro['Parceirodenegocio']['id']);
+			}
+			
+		}
+		
+		
 		
 	}
 		
@@ -717,6 +727,16 @@ class ContasController extends AppController {
 			$contas = $this->Paginator->paginate('Conta');
 			foreach ($contas as $id => $conta) {
 				
+				if(isset($contas[$id]['Parcela'])){
+					$j=0;
+					foreach($contas[$id]['Parcela'] as $parcela){
+						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_vencimento']);
+						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_pagamento']);
+						$j= $j+1;
+						
+					}
+					
+				}
 				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
 				
 				$nomeCentroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $contas[$id]['Conta']['centrocusto_id']), 'recursive' => -1));
