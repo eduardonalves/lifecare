@@ -560,7 +560,7 @@ class ContasController extends AppController {
 							'valor' => 'Valor',	
 							'tipo' => 'Tipo de Conta',
 							'centrocusto_id' => 'Centro de Custo',
-							'tipodeconta_id' => 'Tipod de Receita / Despesa ',
+							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
 							'status' => 'Status da Conta',
 							'parcelas' => 'Parcelas',
 							'parceirodenegocio_id' => 'Código do Parceiro',
@@ -602,7 +602,7 @@ class ContasController extends AppController {
 							'periodocritico' => 'Período Crítico',	
 							'obs' => 'Observação',
 							'centrocusto_id' => 'Centro de Custo',
-							'tipodeconta_id' => 'Tipod de Receita / Despesa ',
+							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
 							'parceirodenegocio_id' => 'Parceiro de Negócio',
 							'cnpj_cpf' => 'CPF / CNPJ',	
 							'desconto' => 'Desconto',
@@ -823,8 +823,8 @@ class ContasController extends AppController {
 			if(isset($this->request->data['Configparcela'])){
 				$this->Configparcela->create();
 				if ($this->Configparcela->save($this->request->data)) {
-					$this->Session->setFlash(__('The configparcela has been saved.'));
-					return $this->redirect(array('action' => 'index'));
+					$this->Session->setFlash(__('As configurações da parcela Foram Salvas.'));
+					return $this->redirect($this->referer());
 				} else {
 					$this->Session->setFlash(__('The configparcela could not be saved. Please, try again.'));
 				}
@@ -835,8 +835,8 @@ class ContasController extends AppController {
 			if(isset($this->request->data['Configparceiro'])){
 				$this->Configparceiro->create();
 				if ($this->Configparceiro->save($this->request->data)) {
-					$this->Session->setFlash(__('The configparceiro has been saved.'));
-					return $this->redirect(array('action' => 'index'));
+					$this->Session->setFlash(__('As configurações do parceiro de negócios Foram Salvas.'));
+					return $this->redirect($this->referer());
 				} else {
 					$this->Session->setFlash(__('The configparceiro could not be saved. Please, try again.'));
 				}
@@ -848,7 +848,7 @@ class ContasController extends AppController {
 				$this->Configconta->create();
 				if ($this->Configconta->save($this->request->data)) {
 					$this->Session->setFlash(__('As configurações da movimentação Foram Salvas.'),'default',array('class'=>'success-flash'));
-					return $this->redirect(array('action' => 'index'));
+					return $this->redirect($this->referer());
 				} else {
 					$this->Session->setFlash(__('As configurações da movimentação Foram Salvas.Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
 				}
