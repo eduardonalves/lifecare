@@ -301,25 +301,28 @@ class ContasrecebersController extends ContasController {
 	
 	}
 	
-	public function setLimiteCentroCustoAdd(&$centrocustoId, &$valorConta){
+	public function setLimiteCentroReceitaAdd(&$centrocustoId, &$valorConta, &$dataconta){
 		
 		if($centrocustoId != 'NULL' && $centrocustoId !=''){
-			$this->loadModel('Centrocusto');
-		
-			$centroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $centrocustoId), 'order' => array('Centrocusto.id' => 'desc')));
 			
-			if(isset($centroCusto) && !empty($centroCusto)){
-				$limiteUsado = $centroCusto['Centrocusto']['limite_usado'];
+			$this->loadModel('Orcamentocentro');
+			$datacontaArray = explode('-', $dataconta);
+			$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+			$periodo=$datacontaAux;
+			$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $centrocustoId, 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
 			
-				$novoLimiteUsado =  $limiteUsado + $valorConta;
-				$updatelimite_usado = array('id' =>  $centroCusto['Centrocusto']['id'],'limite_usado' => $novoLimiteUsado);
+			if(isset($orcamentocentro) && !empty($orcamentocentro)){
+				$receitaGerada = $orcamentocentro['Orcamentocentro']['receita_gerada'];
 			
-				$this->Centrocusto->save($updatelimite_usado);
+				$novaReceitaGerada=  $receitaGerada + $valorConta;
+				$updateReceitaGerada = array('id' =>  $orcamentocentro['Orcamentocentro']['id'],'receita_gerada' => $novaReceitaGerada);
+			
+				$this->Orcamentocentro->save($updateReceitaGerada);
 			}
 		}
 		
 	
-	}
+	}	
 	public function verificaLimiteUsado(&$clienteId, &$valorConta, &$pagamentoTipo, &$pagamentoForma){
 		$this->loadModel('Dadoscredito');
 		
@@ -407,12 +410,12 @@ class ContasrecebersController extends ContasController {
 						$this->setStatusConta($ultimaConta['Conta']['id']);
 						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 						$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-						$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor']);
-						$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
+						$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
+						//$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 						
 						
 						
-						return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
+						//return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 						//debug($ultimaConta['Conta']['parceirodenegocio_id']);
 					} else {
 						$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);

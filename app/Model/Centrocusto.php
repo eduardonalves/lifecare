@@ -28,7 +28,21 @@ class Centrocusto extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'Orcamentocentro' => array(
+			'className' => 'Orcamentocentro',
+			'foreignKey' => 'centrocusto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		
 	);
 
 }
