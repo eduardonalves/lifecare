@@ -56,6 +56,17 @@
 	top: 1px;
 }
 
+#validaBloco{
+	width: 150px;
+	right: 65px;
+	margin-top: -5px;
+	z-index: 1;
+	position: absolute;
+}
+
+#btn-remove{
+	display:none;
+}
 
 
 
