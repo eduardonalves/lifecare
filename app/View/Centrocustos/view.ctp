@@ -48,4 +48,15 @@
 	
 	<header>Lista de Centro de Custo</header>
 	
+	<?php
+		foreach($recdesp as $recdes){
+			echo $recdes['receita'];
+			echo "<br />";
+			echo $recdes['despesa'];
+		}
+	?>
+	
 </section>
+<pre>
+	<?php 	print_r($recdesp);?>
+</pre>

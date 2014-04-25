@@ -33,13 +33,73 @@ class CentrocustosController extends AppController {
  * @param string $id
  * @return void
  */
+ 
+ 	public function getReceitasDespesas(&$idContaid, &$mes, $ano) {
+ 		$contas = $this->Conta->find('all', array('recursive' => -1,'conditions' => array('Conta.centrocusto_id' => $idContaid, 'AND' => array('Conta.data_emissao LIKE' => '%'.$ano.'-'.$mes.'%'))));
+		
+		if(!empty($contas)){
+			$resultadoGetRD = array();
+			$resultadoGetRD['receita']=0;
+			$resultadoGetRD['despesa']=0;
+	 		foreach($contas as $conta){
+	 			
+	 			if($conta['Conta']['tipo'] == 'A RECEBER'){
+	 				$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
+	 				$resultadoGetRD['receita'] =$resultadoGetRD['receita'] + $conta['Conta']['valor'];
+					
+	 			}
+			
+				if($conta['Conta']['tipo'] == 'A PAGAR'){
+					$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
+	 				$resultadoGetRD['despesa'] = $resultadoGetRD['despesa'] + $conta['Conta']['valor'];
+	 			}
+	 		}
+			return $resultadoGetRD;
+		}
+		
+	}
+	
 	public function view($id = null) {
 		$this->layout = 'contas';
+		
+		$this->loadModel('Conta');
+		if(!isset($_GET['y'])){
+			$mes = date('m');
+			$ano = date('Y');
+		}else{
+			$mes = $_GET['m'];
+			$ano = $_GET['y'];
+		}
+		$recdespAux= array();
+		$recdesp =array();
+		for($i = 1; $i <= 12; $i++){
+			
+			if($i < 10){
+				$mes ='0'.$i;	
+			}else{
+				$mes =$i;
+			}
+			
+			
+			$recdespAux = $this->getReceitasDespesas($id, $mes, $ano);	
+			
+			array_push($recdesp, $recdespAux);
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+	
 		if (!$this->Centrocusto->exists($id)) {
 			throw new NotFoundException(__('Invalid centrocusto'));
 		}
 		$options = array('conditions' => array('Centrocusto.' . $this->Centrocusto->primaryKey => $id));
 		$this->set('centrocusto', $this->Centrocusto->find('first', $options));
+		$this->set(compact('contas', 'recdesp','ano', 'mes'));
 	}
 
 /**
