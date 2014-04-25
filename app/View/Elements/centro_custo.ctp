@@ -16,10 +16,43 @@
 $(document).ready(function(){
 	
 	$('.selectMes').on('change', function(){
-		valor = $(this).val();
-		id=  $(this).attr('id');
-		numero= id.substr.(10);
-		alert(numero);
+		mes = $(this).val();
+		
+		var id=  $(this).attr('id');
+		var expReg01 = /\D+/gi;
+		numero= id.replace(expReg01,'');
+		
+		ano = $("#Orcamentocentro"+numero+"Ano").val();
+		
+		resultado = ano+'-'+mes+'-30';
+		
+		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
+	});
+	
+	var contador=0;
+	$("#btn-add").click(function(){
+		contador = contador +1;
+		valorInicial = $('#Orcamentocentro0PeriodoFinal').val();
+		$("#clone").append('<div class="input select"><label for="Orcamentocentro'+contador+'Mes">Mês: </label><select name="data[Orcamentocentro]['+contador+'][mes]" class="selectMes" id="Orcamentocentro'+contador+'Mes"><option value="01">Janeiro</option><option value="02">Fevereiro</option><option value="03">Março</option><option value="04">Abril</option><option value="05">Maio</option><option value="06">Junho</option><option value="07">Julho</option><option value="08">Agosto</option><option value="09">Setembro</option><option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option></select></div>');
+		$("#clone").append('<div class="input select"><label for="Orcamentocentro'+contador+'Ano">Ano: </label><select name="data[Orcamentocentro]['+contador+'][ano]" class="selectAno" id="Orcamentocentro'+contador+'Ano"></select></div>');
+		$('#clone').append('<div class="input text"><label for="Orcamentocentro'+contador+'Limite">Valor Limite: </label><input name="data[Orcamentocentro]['+contador+'][limite]" type="text" id="Orcamentocentro'+contador+'Limite"></div>');
+		$('#clone').append('<input type="hidden" name="data[Orcamentocentro]['+contador+'][periodo_final]" value="'+valorInicial+'" id="Orcamentocentro'+contador+'PeriodoFinal">');
+		var cloneOptions = $("#Orcamentocentro0Ano > option").clone();	
+		$('#Orcamentocentro'+contador+'Ano').append(cloneOptions);
+	});
+	
+	$('.selectAno').on('change', function(){
+		ano = $(this).val();
+		
+		var id=  $(this).attr('id');
+		var expReg01 = /\D+/gi;
+		numero= id.replace(expReg01,'');
+		
+		mes = $("#Orcamentocentro"+numero+"Mes").val();
+		
+		resultado = ano+'-'+mes+'-30';
+		
+		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
 	});
 	
 	$('#CentrocustoAddForm').submit(function(event){
@@ -109,6 +142,9 @@ $(document).ready(function(){
 				
 				echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text'));				
 			?>	
+			<div id="clone"></div>
+			<button type="button" class="btn btn-inverse btn-add" id="btn-add" >Adicionar</button>
+			
 		</div>	
 		
 	</section>
