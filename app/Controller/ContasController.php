@@ -1004,7 +1004,7 @@ class ContasController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Conta->save($this->request->data)) {
-				$this->Session->setFlash(__('Observação editada com sucesso.'));
+				$this->Session->setFlash(__('Observação editada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
@@ -1024,7 +1024,7 @@ class ContasController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Conta->save($this->request->data)) {
-				$this->Session->setFlash(__('Observação editada com sucesso.'));
+				$this->Session->setFlash(__('Observação editada com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view', $id));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
