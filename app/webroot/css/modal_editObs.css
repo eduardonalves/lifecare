@@ -23,11 +23,11 @@
 	display:none;
 }
 
-#myModal_add-novo_limite .modal-body{
+#myModal_edit-obs .modal-body{
 	height:230px !important;
 }
 
-#myModal_add-novo_limite #spanQuicklink{
+#myModal_edit-obs #spanQuicklink{
 	background-color:#FFD5D5;
     border:1px solid #AAAAAA;
     border-radius:5px;
@@ -42,7 +42,7 @@
     width:108px;
 }
 
-#myModal_add-novo_limite #spanQuicklink:after {
+#myModal_edit-obs #spanQuicklink:after {
 	border-color:rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style:solid;
     border-width:10px;
@@ -54,38 +54,38 @@
     width:0;
 }
 
-#myModal_add-novo_limite footer{
+#myModal_edit-obs footer{
 	height: 26px;
 	margin-bottom: 0px;
 	margin-top: 30px;
 }
 
-#myModal_add-novo_limite .coluna-modal{
+#myModal_edit-obs .coluna-modal{
 	margin-left: 70px;
 }
 
-#myModal_add-novo_limite #validaLimiteModal{
+#myModal_edit-obs #validaLimiteModal{
 	float: right;
 	position: relative;
 	margin-right: 25px;
 }
 
-#myModal_add-novo_limite #validaLimiteModal:after{
+#myModal_edit-obs #validaLimiteModal:after{
 	margin-top: -6px;
 }
 
 
-#myModal_add-novo_limite #validaValidadeModal{
+#myModal_edit-obs #validaValidadeModal{
 	float: right;
 	position: relative;
 	margin-right: 80px;
 }
 
-#myModal_add-novo_limite #validaValidadeModal:after{
+#myModal_edit-obs #validaValidadeModal:after{
 	margin-top: -6px;
 }
 
-#myModal_add-novo_limite .loaderAjaxDadoscreditoDIV{
+#myModal_edit-obs .loaderAjaxDadoscreditoDIV{
 	position: absolute;
 	margin-left: 180px;
 }

@@ -3,6 +3,7 @@
 	echo $this->Html->css('contas_view');
 	echo $this->Html->css('table');
 	echo $this->Html->css('modal_uploadConta');
+	echo $this->Html->css('modal_editObs');
 	echo $this->Html->css('comprovante_view');
 	echo $this->Html->css('zoomer');
     $this->end();
@@ -12,7 +13,7 @@
 	$this->end();
     $this->start('script');
 	echo $this->Html->script('zoomer.js');
-    $this->end();	
+    $this->end();
 	
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
@@ -50,6 +51,12 @@
 				$('.'+form).submit();
 			}	
 		});
+		
+	    $(".bt-showmodal").click(function(){
+			nome = $(this).attr('href');
+			$('#myModal_'+nome).modal('show'); 
+	    });
+		
 	});
 </script>
 
@@ -69,7 +76,22 @@
 			//echo $this->Form->input('id',array('label' => 'Id:','value'=>h($conta['Conta']['id']),'class' => 'tamanho-grande','disabled'=>'disabled'));
 			echo $this->Form->input('identificacao',array('label' => 'Identificação:','value'=>h($conta['Conta']['identificacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			echo $this->Form->input('Parceirodenegocio.Nome',array('label' => 'Parceiro:','value'=>h($conta['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-			echo $this->Form->input('descricao',array('label' => 'Descrição:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			?>
+			<div style="float: left; position: relative; display: inline;">
+			
+			<?php
+			echo $this->Form->input('descricao',array('label' => 'Observação:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			?>
+			
+			<a href="edit-obs" class="bt-showmodal">
+			<?php
+				echo $this->html->image('botao-editar.png',array('id' => 'bt-edit', 'alt' => 'Editar Observação', 'title' => 'Editar Observação'));
+			?>
+			
+			</a>
+			</div>
+			
+    <?php
 			echo "<span class='statusSemaforo'>Status: ". $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => $conta['Conta']['status'], 'title' => $conta['Conta']['status'])) ."</span>"
 			//echo $this->Form->input('status',array('label' => 'Status:','value'=>h($conta['Conta']['status']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>				
@@ -79,7 +101,7 @@
 		<?php
 			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h(number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-   			echo $this->Form->input('data_quitacao',array('label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+   			echo $this->Form->input('data_quitacao',array('type' => 'text', 'label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			//echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
 			?>
 		<fieldset>
@@ -302,8 +324,49 @@
 					</div>
 				</div>
 
+				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-body">
+						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+
+						<header id="cabecalho">
+							
+							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" />	 <h1>Editar Observação</h1>
+							
+							</header>
+							
+							<section>
+								<header>Observação</header>
+								<section class="coluna-modal">
+									<div>
+									
+										<?php
+											//echo $conta['Conta']['id'];
+											
+											echo $this->Form->create('Conta', array('id' => 'modal_editObs', 'action' => 'editobs/'.$conta['Conta']['id']));
+											
+											echo $this->Form->input('Conta.descricao',array('label' => 'Observação:','type' => 'text','value' => $conta['Conta']['descricao']));
+											
+											echo $this->Form->input('Conta.id',array('type' => 'hidden', 'value' => $conta['Conta']['id']));
+											
+										?>
+									</div>
+							
+							</section>
+							<footer>
+								<?php
+									echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-editar-obs','class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
+									echo $this->Form->end();
+								?>
+						</footer>
+							 
+						</header>
+					</div>
+				</div>
+
+
+
 				<?php $j=$j+1;?>
-			<?php endforeach; ?>	
+			<?php endforeach; ?>
 		</table>
 	<?php endif; ?>
 </div>
