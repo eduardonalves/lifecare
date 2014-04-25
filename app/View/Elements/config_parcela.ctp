@@ -56,15 +56,15 @@
 					}
 					
 				if($configparcela['Configparcela']['periodocritico']==1){
-						echo $this->Form->input('periodocritico', array('value' => 1, 'checked' =>'checked', 'label'=>'Período Crítico'));
+						echo $this->Form->input('periodocritico', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>'Período Crítico'));
 					} else{
-						echo $this->Form->input('periodocritico', array('label' => 'Período Crítico'));
+						echo $this->Form->input('periodocritico', array('type'=>'checkbox', 'label' => 'Período Crítico'));
 					}
 					
 				if($configparcela['Configparcela']['desconto']==1){
-						echo $this->Form->input('desconto', array('value' => 1, 'checked' =>'checked', 'label'=>'Desconto'));
+						echo $this->Form->input('desconto', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Desconto'));
 					} else{
-						echo $this->Form->input('desconto', array('label' => 'Desconto'));
+						echo $this->Form->input('desconto', array('type'=>'checkbox','label' => 'Desconto'));
 					}
 					
 				if($configparcela['Configparcela']['banco']==1){
@@ -80,14 +80,19 @@
 					}
 					
 				if($configparcela['Configparcela']['conta']==1){
-						echo $this->Form->input('Configparcela.conta', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Conta'));
-					} else{
-						echo $this->Form->input('Configparcela.conta', array('type'=>'checkbox', 'label' => 'Conta'));
+						
+						echo $this->Form->checkbox('Configparcela.conta', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Conta'));
+						echo $this->Form->label('Configparcela.conta', 'Conta');
+				} else{
+						
+						echo $this->Form->checkbox('Configparcela.conta', array('type'=>'checkbox', 'label' => 'Conta'));
+						echo $this->Form->label('Configparcela.conta', 'Conta');
 					}
 					
 				if($configparcela['Configparcela']['status']==1){
 						echo $this->Form->input('status', array('value' => 1, 'checked' =>'checked', 'label'=>'Status'));
 					} else{
+						
 						echo $this->Form->input('status', array('label' => 'Status'));
 					}
 			

@@ -14,6 +14,14 @@
 
 <script>
 $(document).ready(function(){
+	
+	$('.selectMes').on('change', function(){
+		valor = $(this).val();
+		id=  $(this).attr('id');
+		numero= id.substr.(10);
+		alert(numero);
+	});
+	
 	$('#CentrocustoAddForm').submit(function(event){
 			event.preventDefault();
 			
@@ -81,10 +89,28 @@ $(document).ready(function(){
 				echo $this->Form->create('Centrocusto');
 				echo $this->Form->input('nome',array('label' => 'Nome Custo<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));
 				echo '<span id="spanValidaNomeCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';	
-				echo $this->Form->input('limite',array('label' => 'Limite<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));
-				echo '<span id="spanValidaLimiteCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Limite</span>';					
+				//echo $this->Form->input('limite',array('label' => 'Limite<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-pequeno dinheiro_duasCasas'));
+				//echo '<span id="spanValidaLimiteCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Limite</span>';	
+				echo $this->Form->input('Orcamentocentro.0.mes', array('label' => 'Mês: ','class' => 'selectMes', 'type' => 'select', 'options' => array('01' => 'Janeiro', '02' => 'Fevereiro', '03' => 'Março', '04' => 'Abril', '05' => 'Maio', '06' => 'Junho', '07' => 'Julho', '08' =>'Agosto', '09' => 'Setembro', '10' => 'Outubro', '11' => 'Novembro', '12'=> 'Dezembro')));
+				$ano= array();
+				$anoAtual= date('Y');
+				
+				
+				for($i = 1900; $i < 3000; $i++){
+					
+					$ano[$i] = $i;
+					
+					
+				}	
+				
+				echo $this->Form->input('Orcamentocentro.0.ano', array('label' => 'Ano: ', 'class' => 'selectAno', 'type' => 'select', 'options' => $ano,  'default' => $anoAtual));
+				$ano = $ano[$anoAtual]."-01-30";
+				echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $ano));
+				
+				echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text'));				
 			?>	
 		</div>	
+		
 	</section>
 </section>
 

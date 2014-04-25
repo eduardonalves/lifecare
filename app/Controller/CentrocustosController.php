@@ -52,7 +52,7 @@ class CentrocustosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Centrocusto->create();
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Centrocusto']['limite']);
-			if ($this->Centrocusto->save($this->request->data)) {
+			if ($this->Centrocusto->saveAll($this->request->data)) {
 				//$this->Session->setFlash(__('The centrocusto has been saved.'));
 				
 				

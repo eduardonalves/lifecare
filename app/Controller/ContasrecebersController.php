@@ -411,11 +411,11 @@ class ContasrecebersController extends ContasController {
 						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 						$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 						$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
-						//$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
+						$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
 						
 						
 						
-						//return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
+						return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
 						//debug($ultimaConta['Conta']['parceirodenegocio_id']);
 					} else {
 						$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);

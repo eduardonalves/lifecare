@@ -495,8 +495,7 @@ $(document).ready(function() {
 									   echo "<td class=\"$campo\">" . $conta['Conta']['nome_parceiro'] . "&nbsp;</td>";
 									}else if($campo=="cnpj_cpf"){
 										echo "<td class=\"$campo\">" . $conta['Conta']['cnpj_parceiro'] . "&nbsp;</td>";   
-									}else if($campo=="obs"){
-										echo "<td class=\"$campo\">" . $conta['Conta']['descricao'] . "&nbsp;</td>";   
+									  
 									}else if($campo=="obs"){
 										echo "<td class=\"$campo\">" . $conta['Conta']['descricao'] . "&nbsp;</td>";   
 									}else if($campo=="tipodeconta_id"){
