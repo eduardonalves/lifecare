@@ -244,7 +244,6 @@ $(document).ready(function() {
 
 	//$("#quick-filtrar").click(function(){
 	  
-	 ///* 
 		//var urlQuickLink = $(this).children('option:selected').attr('data-url').val();
 
 		//$("#quick-editar").css("display", "none");
@@ -515,3 +514,10 @@ $(document).ready(function() {
     });
 
 });
+
+/************************ Editar Obs ******************************************/
+    $("#bt-editar-obs").click(function(event){
+	event.preventDefault();
+
+		$("#modal_editObs").submit();
+    });

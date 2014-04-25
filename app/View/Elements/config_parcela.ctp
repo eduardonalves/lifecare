@@ -81,11 +81,10 @@
 					
 				if($configparcela['Configparcela']['conta']==1){
 						
-						echo $this->Form->checkbox('Configparcela.conta', array('type'=>'checkbox', 'value' => 1, 'checked' =>'checked', 'label'=>'Conta'));
+						echo $this->Form->checkbox('Configparcela.conta', array('value' => 1, 'checked' =>'checked'));
 						echo $this->Form->label('Configparcela.conta', 'Conta');
 				} else{
-						
-						echo $this->Form->checkbox('Configparcela.conta', array('type'=>'checkbox', 'label' => 'Conta'));
+						echo $this->Form->checkbox('Configparcela.conta');
 						echo $this->Form->label('Configparcela.conta', 'Conta');
 					}
 					

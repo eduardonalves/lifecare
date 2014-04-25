@@ -1004,8 +1004,28 @@ class ContasController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Conta->save($this->request->data)) {
-				$this->Session->setFlash(__('The conta has been saved.'));
+				$this->Session->setFlash(__('Observação editada com sucesso.'));
 				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Conta.' . $this->Conta->primaryKey => $id));
+			$this->request->data = $this->Conta->find('first', $options);
+			$this->set('conta', $this->Conta->find('first', $options));
+		}
+		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
+		$this->set(compact('parceirodenegocios'));
+	}
+
+	public function editobs($id = null) {
+		if (!$this->Conta->exists($id)) {
+			throw new NotFoundException(__('Invalid conta'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Conta->save($this->request->data)) {
+				$this->Session->setFlash(__('Observação editada com sucesso.'));
+				return $this->redirect(array('action' => 'view', $id));
 			} else {
 				$this->Session->setFlash(__('The conta could not be saved. Please, try again.'));
 			}
