@@ -25,6 +25,99 @@ class CentrocustosController extends AppController {
 		$this->Centrocusto->recursive = 0;
 		$this->set('centrocustos', $this->Paginator->paginate());
 	}
+	
+	public function getMes(&$numero) {
+		
+		
+		switch ($numero){
+			case '01':
+			$meuMes="Janeiro";
+			return $meuMes;
+		
+			break;
+			
+			case '02':
+			
+			$meuMes="Fevereiro";
+			return $meuMes;
+			
+			break;
+			
+			case '03':
+			
+			$meuMes="Março";
+			return $meuMes;
+			
+			break;
+			
+			case '04':
+			
+			$meuMes="Abril";
+			return $meuMes;
+			
+			break;
+			
+			case '05':
+		
+			$meuMes="Maio";
+			return $meuMes;
+		
+		
+			break;
+			
+			case '06':
+		
+			$meuMes="Junho";
+			return $meuMes;
+			
+		
+			break;
+			
+			case '07':
+		
+			$meuMes="Julho";
+			return $meuMes;
+			
+			
+			case '08':
+		
+			$meuMes="Agosto";
+			return $meuMes;
+			
+			
+			break;
+			
+			case '09':
+			$meuMes= "Setembro";
+			return $meuMes;
+			break;
+			
+			case '10':
+		
+			$meuMes="Outubro";
+			return $meuMes;
+			//código se var1 for 4
+		
+			break;
+			
+			case '11':
+		
+			$meuMes="Novembro";
+			return $meuMes;
+			//código se var1 for 4
+		
+			break;
+			
+			case '12':
+		
+			$meuMes="Dezembro";
+			return $meuMes;
+			//código se var1 for 4
+		
+			break;
+		
+		}
+	}
 
 /**
  * view method
@@ -36,7 +129,10 @@ class CentrocustosController extends AppController {
  
  	public function getReceitasDespesas(&$idCentro, &$mes, &$ano) {
  		$contas = $this->Conta->find('all', array('recursive' => -1,'conditions' => array('Conta.centrocusto_id' => $idCentro, 'AND' => array('Conta.data_emissao LIKE' => '%'.$ano.'-'.$mes.'%'))));
+		
+		
 		$this->loadModel('Orcamentocentro');
+		
 		$orcamento= $this->Orcamentocentro->find('first', array('recursive' => -1,'conditions' => array('Orcamentocentro.centrocusto_id' => $idCentro, 'AND' => array('Orcamentocentro.periodo_final Like' => '%'.$ano.'-'.$mes.'%'))));
 		 
 		if(!empty($contas)){
@@ -49,6 +145,7 @@ class CentrocustosController extends AppController {
 	 				$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['receita'] =$resultadoGetRD['receita'] + $conta['Conta']['valor'];
 					
+					$resultadoGetRD['mes']= $this->getMes($mes);
 					
 	 			}
 			
@@ -56,6 +153,7 @@ class CentrocustosController extends AppController {
 					$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['despesa'] = $resultadoGetRD['despesa'] + $conta['Conta']['valor'];
 					$resultadoGetRD['limite'] = $orcamento['Orcamentocentro']['limite'];
+					$resultadoGetRD['mes']= $this->getMes($mes);
 	 			}
 	 		}
 			return $resultadoGetRD;
@@ -68,10 +166,10 @@ class CentrocustosController extends AppController {
 		
 		$this->loadModel('Conta');
 		if(!isset($_GET['y'])){
-			$mes = date('m');
+		
 			$ano = date('Y');
 		}else{
-			$mes = $_GET['m'];
+			
 			$ano = $_GET['y'];
 		}
 			
@@ -89,6 +187,11 @@ class CentrocustosController extends AppController {
 			
 			$recdespAux = $this->getReceitasDespesas($id, $mes, $ano);	
 			
+			
+			
+		
+			//$recdespAux['mes']=$nomeMes;
+			
 			array_push($recdesp, $recdespAux);
 			
 			
@@ -96,7 +199,7 @@ class CentrocustosController extends AppController {
 		
 		
 		
-		
+		$anos= $this->Conta->find('all', array('recursive' => -1,'fields' => 'DISTINCT YEAR(Conta.data_emissao)','conditions' => array('Conta.centrocusto_id' => $id)));
 		
 		
 	
@@ -105,7 +208,7 @@ class CentrocustosController extends AppController {
 		}
 		$options = array('conditions' => array('Centrocusto.' . $this->Centrocusto->primaryKey => $id));
 		$this->set('centrocusto', $this->Centrocusto->find('first', $options));
-		$this->set(compact('contas', 'recdesp','ano', 'mes'));
+		$this->set(compact('contas', 'recdesp','ano', 'mes','anos'));
 	}
 
 /**
