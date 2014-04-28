@@ -49,10 +49,32 @@
 	<header>Lista de Centro de Custo</header>
 	
 	<?php
+		$anosConta= array();
+		foreach($anos as $an){
+			//echo $an['YEAR(`Conta`.`data_emissao`)'];
+			foreach ($an as $a){
+				
+				$anosContaAux=$a['YEAR(`Conta`.`data_emissao`)'];
+				$anosConta[''.$anosContaAux.'']= $anosContaAux;
+				
+			}
+		}
+		echo $this->form->Create('Centrocusto',array('type' =>'get'));
+		$anAtual=date('Y'); 
+		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano));
+		
+		echo $this->form->end('Enviar');
+	?>
+	
+	<?php
+		$i=0;
 		foreach($recdesp as $recdes){
 			echo $recdes['receita'];
 			echo "<br />";
 			echo $recdes['despesa'];
+			
+			echo $i;
+			$i++;
 		}
 	?>
 	
