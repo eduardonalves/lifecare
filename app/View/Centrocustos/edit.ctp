@@ -23,7 +23,23 @@
 	<header>Dados do Centro de Custo</header>
 	
 <div class="centrocustos form">
-	
+<?php
+		$anosConta= array();
+		foreach($anos as $an){
+			//echo $an['YEAR(`Conta`.`data_emissao`)'];
+			foreach ($an as $a){
+				
+				$anosContaAux=$a['YEAR(`Conta`.`data_emissao`)'];
+				$anosConta[''.$anosContaAux.'']= $anosContaAux;
+				
+			}
+		}
+		echo $this->form->Create('CentrocustoGet',array('type' =>'get'));
+		$anAtual=date('Y'); 
+		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano));
+		
+		echo $this->form->end('Enviar');
+?>	
 <?php echo $this->Form->create('Centrocusto'); ?>
 
 	<?php
@@ -34,6 +50,22 @@
 		echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 		echo $this->Form->input('limite_usado',array('label' => 'Limite Usado:','type' => 'text'));
 		echo '<span id="validaLimiteUsado" class="Msg-tooltipDireita" style="display:none">Preencha o Limite Usado</span>';
+		
+		
+		$i=0;
+		foreach($recdesp as $recdes){
+			if(!empty($recdes)){
+				//echo "<br/>";
+				if(isset($recdes['IdOrcamento'])){
+					echo $recdes['mes'].'<br/>';
+					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
+					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('label' => 'Limite:','type' => 'text', 'value' => $recdes['limite']));
+					$i++;
+				}
+				
+			}
+			
+		}
 	?>
 
 </div>
@@ -46,3 +78,6 @@
     ?>
 
 </footer>
+<pre>
+	<?php print_r($recdesp);?>
+</pre>
