@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	$('#bt-salvarCentroCustoEdit').click(function(e){
 				e.preventDefault();
-				alert('aa');
 				
 				var erro = 0;
 				

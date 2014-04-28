@@ -142,10 +142,17 @@ class CentrocustosController extends AppController {
 	 		foreach($contas as $conta){
 	 			
 	 			if($conta['Conta']['tipo'] == 'A RECEBER'){
+	 				
+					
 	 				$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['receita'] =$resultadoGetRD['receita'] + $conta['Conta']['valor'];
 					
 					$resultadoGetRD['mes']= $this->getMes($mes);
+					
+					if(!empty($orcamento['Orcamentocentro']['id'])){
+						$resultadoGetRD['IdOrcamento']=$orcamento['Orcamentocentro']['id'];
+					}
+					
 					
 	 			}
 			
@@ -259,11 +266,53 @@ class CentrocustosController extends AppController {
  */
 	public function edit($id = null) {
 		$this->layout = 'contas';
+		
+		$this->loadModel('Conta');
+		if(!isset($_GET['y'])){
+		
+			$ano = date('Y');
+		}else{
+			
+			$ano = $_GET['y'];
+		}
+			
+			
+		$recdespAux= array();
+		$recdesp =array();
+		for($i = 1; $i <= 12; $i++){
+			
+			if($i < 10){
+				$mes ='0'.$i;	
+			}else{
+				$mes =$i;
+			}
+			
+			
+			$recdespAux = $this->getReceitasDespesas($id, $mes, $ano);	
+			
+			
+			
+		
+			//$recdespAux['mes']=$nomeMes;
+			
+			array_push($recdesp, $recdespAux);
+			
+			
+		}
+		
+		
+		
+		$anos = $this->Conta->find('all', array('recursive' => -1,'fields' => 'DISTINCT YEAR(Conta.data_emissao)','conditions' => array('Conta.centrocusto_id' => $id)));
+		
+		$this->set(compact('contas', 'recdesp','ano', 'mes','anos'));
+		
 		if (!$this->Centrocusto->exists($id)) {
 			throw new NotFoundException(__('Invalid centrocusto'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Centrocusto->save($this->request->data)) {
+			
+			
+			if ($this->Centrocusto->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The centrocusto has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
