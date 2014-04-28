@@ -34,9 +34,11 @@ class CentrocustosController extends AppController {
  * @return void
  */
  
- 	public function getReceitasDespesas(&$idContaid, &$mes, $ano) {
- 		$contas = $this->Conta->find('all', array('recursive' => -1,'conditions' => array('Conta.centrocusto_id' => $idContaid, 'AND' => array('Conta.data_emissao LIKE' => '%'.$ano.'-'.$mes.'%'))));
-		
+ 	public function getReceitasDespesas(&$idCentro, &$mes, &$ano) {
+ 		$contas = $this->Conta->find('all', array('recursive' => -1,'conditions' => array('Conta.centrocusto_id' => $idCentro, 'AND' => array('Conta.data_emissao LIKE' => '%'.$ano.'-'.$mes.'%'))));
+		$this->loadModel('Orcamentocentro');
+		$orcamento= $this->Orcamentocentro->find('first', array('recursive' => -1,'conditions' => array('Orcamentocentro.centrocusto_id' => $idCentro, 'AND' => array('Orcamentocentro.periodo_final Like' => '%'.$ano.'-'.$mes.'%'))));
+		 
 		if(!empty($contas)){
 			$resultadoGetRD = array();
 			$resultadoGetRD['receita']=0;
@@ -47,11 +49,13 @@ class CentrocustosController extends AppController {
 	 				$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['receita'] =$resultadoGetRD['receita'] + $conta['Conta']['valor'];
 					
+					
 	 			}
 			
 				if($conta['Conta']['tipo'] == 'A PAGAR'){
 					$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['despesa'] = $resultadoGetRD['despesa'] + $conta['Conta']['valor'];
+					$resultadoGetRD['limite'] = $orcamento['Orcamentocentro']['limite'];
 	 			}
 	 		}
 			return $resultadoGetRD;
@@ -70,6 +74,8 @@ class CentrocustosController extends AppController {
 			$mes = $_GET['m'];
 			$ano = $_GET['y'];
 		}
+			
+			
 		$recdespAux= array();
 		$recdesp =array();
 		for($i = 1; $i <= 12; $i++){
