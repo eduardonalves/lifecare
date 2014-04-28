@@ -1,6 +1,6 @@
 <?php
 	$this->start('css');
-		echo $this->Html->css('parceiro');
+		echo $this->Html->css('centrocusto');
 		echo $this->Html->css('table');
 	$this->end();
 ?>
@@ -13,18 +13,17 @@
 <header>
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?>
 
-    <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption31">Visualizar Centro Custo</h1>
+    <h1 class="menuOption31">Visualizar Centros de Custo</h1>
 </header>
 
 <section> <!---section superior--->
 
-	<header>Dados Gerias</header>
+	<header>Dados Gerais</header>
 	
 	<section class="coluna-esquerda">
 
 		<?php	
-			echo $this->Form->input('tipo',array('value'=>h($centrocusto['Centrocusto']['nome']),'label' => 'Status:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
+			echo $this->Form->input('tipo',array('value'=>h($centrocusto['Centrocusto']['nome']),'label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
 		?>
 
 	</section>
@@ -46,12 +45,11 @@
 	</section>
 	
 	
-	<header>Lista de Centro de Custo</header>
+	<header>Lista de Centros de Custo</header>
 	
 	<?php
 		$anosConta= array();
 		foreach($anos as $an){
-			//echo $an['YEAR(`Conta`.`data_emissao`)'];
 			foreach ($an as $a){
 				
 				$anosContaAux=$a['YEAR(`Conta`.`data_emissao`)'];
@@ -65,20 +63,50 @@
 		
 		echo $this->form->end('Enviar');
 	?>
-	
-	<?php
+	<table>
+		<tr>
+			<th class="colunaConta">
+			Mês
+			</th>
+			<th class="colunaConta">
+			Receita
+			</th>
+			<th class="colunaConta">
+			Despesa
+			</th>
+			<th class="colunaConta">
+			Limite
+			</th>
+		</tr>
+		<?php
 		$i=0;
 		foreach($recdesp as $recdes){
-			echo $recdes['receita'];
-			echo "<br />";
-			echo $recdes['despesa'];
-			
-			echo $i;
-			$i++;
-		}
-	?>
-	
+			?>
+		<tr>
+			<td><?php	if($i == 0){ echo 'Janeiro'; }
+						if($i == 1){ echo 'Fevereiro'; }
+						if($i == 2){ echo 'Março'; }
+						if($i == 3){ echo 'Abril'; }
+						if($i == 4){ echo 'Maio'; }
+						if($i == 5){ echo 'Junho'; }
+						if($i == 6){ echo 'Julho'; }
+						if($i == 7){ echo 'Agosto'; }
+						if($i == 8){ echo 'Setembro'; }
+						if($i == 9){ echo 'Outubro'; }
+						if($i == 10){ echo 'Novembro'; }
+						if($i == 11){ echo 'Dezembro'; }?>
+			</td>
+			<td>
+				<?php echo $recdes['receita']; ?>
+			</td>
+			<td>
+				<?php echo $recdes['despesa']; ?>
+			</td>
+			<td>
+				<?php echo $recdes['limite']; ?>
+			</td>
+		</tr>
+		<?php $i++; } ?>
+	</table>
+
 </section>
-<pre>
-	<?php 	print_r($recdesp);?>
-</pre>
