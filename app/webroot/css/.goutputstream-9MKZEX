@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+/* ID *****************************************************************/
+
+/* CLASS **************************************************************/
+
+div[class^="bloco-area"]{
+	display:inline-block;
+	margin-top:20px;
+	width:100%;
+}
+
+div[class^="bloco-area"]:first-child{
+	display:inline-block;
+	margin-top:0px !important;
+}
+
+/* TAG ****************************************************************/
+hr{
+	margin-top:-15px !important;
+	margin-bottom:10px !important;
+}
+
+textarea{
+	width:184px !important;
+}
+
+/* VALIDAR CAMPOS *****************************************************/
+
+#validaNome, #validaLimite, #validaLimiteUsado,span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
+	width:85px;
+	top:-5px;
+	left:314px !important;
+	z-index:9991;
+}
+
+[id*="Tipo"]:after{
+    top:0px;
+}
+
+[id*="Tipo"]{
+    left: 239px;
+    top: -4px;
+    top:0px;
+}
+
+#loaderCep{
+    margin-left: 225px;
+    margin-top: -43px;
+    position: absolute;
+    width: 40%;
+}
+
+#salvarAntes{
+	right: 80px;
+}
+#salvarAntes:after{
+	float: right;
+	margin-left: 165px;
+	top: 1px;
+}
+
+#LoadAjaxProduto{
+    left: 450px;
+    position: absolute;
+    top: -670px;
+}
+
