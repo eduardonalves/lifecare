@@ -186,7 +186,7 @@ $(document).ready(function(){
 					echo $this->Form->input('nome',array('label' => 'Nome Custo<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));
 					echo '<span id="spanValidaNomeCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';
 
-					echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $ano));
+					echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $anoAtual));
 					echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text', 'class' =>'tamanho-medio dinheiro_duasCasas'));
 				?>
 
