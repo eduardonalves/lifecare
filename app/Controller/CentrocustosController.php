@@ -22,8 +22,19 @@ class CentrocustosController extends AppController {
  */
 	public function index() {
 		$this->layout = 'contas';
-		$this->Centrocusto->recursive = 0;
-		$this->set('centrocustos', $this->Paginator->paginate());
+		$this->Paginator->settings = array(
+				'Centrocusto' => array(
+					'fields' => array('DISTINCT Centrocusto.id', 'Centrocusto.*'),
+					'fields_toCount' => 'DISTINCT Centrocusto.id',
+					'limit' => $this->request['url']['limit'],
+					'order' => 'Centrocusto.nome ASC',
+					'conditions' => $this->Filter->getConditions()
+				)
+			);
+		$centrocustos = $this->Centrocusto->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Centrocusto.id', 'Centrocusto.*'), 'order' => 'Centrocusto.nome ASC'));
+		$centrocustos = $this->Paginator->paginate('Centrocusto');
+		
+		$this->set(compact('centrocustos'));
 	}
 	
 	public function getMes(&$numero) {
@@ -172,6 +183,8 @@ class CentrocustosController extends AppController {
 		$this->layout = 'contas';
 		
 		$this->loadModel('Conta');
+		
+		
 		if(!isset($_GET['y'])){
 		
 			$ano = date('Y');

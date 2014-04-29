@@ -1,5 +1,6 @@
 <?php
 	$this->start('css');
+		echo $this->Html->css('table');
 		echo $this->Html->css('centrocusto');
 	$this->end();
 
@@ -45,29 +46,60 @@
 	<?php
 		echo $this->Form->input('Centrocusto.id');
 		echo $this->Form->input('nome', array('label' => 'Nome:','type' => 'text'));
-		echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
-		echo $this->Form->input('limite',array('label' => 'Limite:','type' => 'text'));
-		echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
-		echo $this->Form->input('limite_usado',array('label' => 'Limite Usado:','type' => 'text'));
-		echo '<span id="validaLimiteUsado" class="Msg-tooltipDireita" style="display:none">Preencha o Limite Usado</span>';
+	
 		
-		
+	?>
+<table>
+		<tr>
+			<th class="colunaConta">
+			Mês
+			</th>
+			<th class="colunaConta">
+			Receita
+			</th>
+			<th class="colunaConta">
+			Despesa
+			</th>
+			<th class="colunaConta">
+			Limite
+			</th>
+		</tr>
+		<?php
 		$i=0;
 		foreach($recdesp as $recdes){
-			if(!empty($recdes)){
-				//echo "<br/>";
-				if(isset($recdes['IdOrcamento'])){
-					echo $recdes['mes'].'<br/>';
-					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
-					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('label' => 'Limite:','type' => 'text', 'value' => $recdes['limite']));
-					$i++;
-				}
+			?>
+		<tr>
+			<td><?php	if($i == 0){ echo 'Janeiro'; }
+						if($i == 1){ echo 'Fevereiro'; }
+						if($i == 2){ echo 'Março'; }
+						if($i == 3){ echo 'Abril'; }
+						if($i == 4){ echo 'Maio'; }
+						if($i == 5){ echo 'Junho'; }
+						if($i == 6){ echo 'Julho'; }
+						if($i == 7){ echo 'Agosto'; }
+						if($i == 8){ echo 'Setembro'; }
+						if($i == 9){ echo 'Outubro'; }
+						if($i == 10){ echo 'Novembro'; }
+						if($i == 11){ echo 'Dezembro'; }?>
+			</td>
+			<td>
+				<?php echo $recdes['receita']; ?>
+			</td>
+			<td>
+				<?php echo $recdes['despesa']; ?>
+			</td>
+			<td>
+				<?php 
+					if(isset($recdes['IdOrcamento'])){
 				
-			}
-			
-		}
-	?>
-
+					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
+					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('label' => false,'type' => 'text', 'value' => $recdes['limite']));
+					$i++;
+				} ?>
+			</td>
+		</tr>
+		<?php $i++; } ?>
+	</table>
 </div>
 
 <footer>
@@ -78,6 +110,3 @@
     ?>
 
 </footer>
-<pre>
-	<?php print_r($recdesp);?>
-</pre>
