@@ -13,7 +13,7 @@
 <header>
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?>
 
-    <h1 class="menuOption31">Visualizar Centros de Custo</h1>
+    <h1 class="menuOption31">Visualizar Centro de Custo</h1>
 </header>
 
 <section> <!---section superior--->
@@ -32,7 +32,7 @@
 		}
 		echo $this->form->Create('Centrocusto',array('type' =>'get'));
 		$anAtual=date('Y'); 
-		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano, 'onclick' => 'submit()'));
+		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano, 'onchange' => 'submit()'));
 		
 		echo $this->form->end();
 	?>
