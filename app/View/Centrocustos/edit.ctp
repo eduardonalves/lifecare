@@ -14,9 +14,9 @@
 ?>
 
 <header>
-    <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Editar', 'title' => 'Editar')); ?>
+    <?php echo $this->Html->image('centro-custo-titulo.png', array('id' => 'cadastrar-titulo', 'alt' => 'Editar', 'title' => 'Editar')); ?>
 
-    <h1 class="menuOption31">Editar Centro de Custo</h1>
+    <h1 class="menuOption35">Editar Centro de Custo</h1>
 </header>
 
 <section> <!---section superior--->
