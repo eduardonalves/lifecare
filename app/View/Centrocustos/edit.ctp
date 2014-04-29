@@ -37,9 +37,9 @@
 		}
 		echo $this->form->Create('CentrocustoGet',array('type' =>'get'));
 		$anAtual=date('Y'); 
-		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano));
+		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano, 'onclick' => 'submit()'));
 		
-		echo $this->form->end('Enviar');
+		echo $this->form->end();
 ?>	
 <?php echo $this->Form->create('Centrocusto'); ?>
 
@@ -93,7 +93,9 @@
 					if(isset($recdes['IdOrcamento'])){
 				
 					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
-					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('label' => false,'type' => 'text', 'value' => $recdes['limite']));
+					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite', 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none; width: 50px;'));
+					echo '<div id="textLimite">'.$recdes['limite'].'</div>';
+					echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Limite','title'=>'Editar Limite','onclick'=>'editLimite()'));
 					$i++;
 				} ?>
 			</td>
