@@ -100,9 +100,7 @@
 				<li class="item">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'>
 						
-						<?php 
-							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
-						?>
+						<?php echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
 						<span class="label">Consultas</span>
 					</a>
@@ -111,9 +109,7 @@
 				<li class="item">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>'>
 						
-						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-						?>
+						<?php echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar Parceiro', 'title' => 'Cadastrar Parceiro')); ?>
 
 						<span class="label">Cadastrar Parceiro</span>
 					</a>
@@ -122,9 +118,7 @@
 				<li class="item abaMenuLateral">
 					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Contasrecebers","action"=>"add"),true);?>'>
 						
-						<?php 
-							echo $this->Html->image('financeiro_lateral.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
-						?>
+						<?php echo $this->Html->image('financeiro_lateral.png', array('id' => 'entrada-icon', 'alt' => 'Cadastrar Conta a Receber', 'title' => 'Cadastrar Conta a Receber')); ?>
 
 						<span class="label">Cadastrar Conta a Receber</span>
 					</a>
@@ -133,24 +127,22 @@
 				<li class="item abaMenuLateral">
 					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Contaspagars","action"=>"add"),true);?>'>
 						
-						<?php 
-							echo $this->Html->image('emitir.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
-						?>
+						<?php echo $this->Html->image('emitir.png', array('id' => 'saida-icon', 'alt' => 'Cadastrar Conta a Pagar', 'title' => 'Cadastrar Conta a Pagar')); ?>
 
 						<span class="label">Cadastrar Conta a Pagar</span>
 					</a>
 				</li>
-			
-				<!--
-					<li class="item">
 
-						<?php 
-							echo $this->Html->image('estoque.png', array('id' => 'estoque-icon', 'alt' => 'Estoque', 'title' => 'Estoque'));
-						?>
-
-						<span class="label">Estoque<br />(N&iacute;vel)</span>
-					</li>
+				<li class="item">
+					<a class="menuLink textMenuLateral" href='<?php echo $this->Html->url(array("controller"=>"Centrocustos","action"=>"index"),true);?>/?limit=15'>
 						
+						<?php echo $this->Html->image('centro-custo.png', array('id' => 'estoque-icon', 'alt' => 'Centro de Custo', 'title' => 'Centro de Custo')); ?>
+
+						<span class="label">Centro de Custo</span>
+					</a>
+				</li>
+					
+				<!--	
 					<li class="item">
 
 						<?php 

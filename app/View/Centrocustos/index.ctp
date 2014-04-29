@@ -59,14 +59,14 @@ $(document).ready(function() {
 
 <header> <!---header--->
 
-	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
+	<?php echo $this->Html->image('centro-custo-titulo.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
-	<h1 class="menuOption31">Consultas</h1>
+	<h1 class="menuOption35">Centro de Custo</h1>
 
 </header> <!---Fim header--->
 
 <section> <!---section superior--->
-	<header>Centros de Custo</header>
+	<header>Lista de Centros de Custos</header>
 
 <div class="areaTabela">
 	
