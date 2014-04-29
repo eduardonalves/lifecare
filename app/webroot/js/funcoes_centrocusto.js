@@ -24,3 +24,8 @@ $(document).ready(function() {
 					}
 			});
 });
+
+function editLimite(){
+	$('#textLimite').hide();
+	$('#inputLimite').show();
+	}

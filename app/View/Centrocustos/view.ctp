@@ -17,35 +17,8 @@
 </header>
 
 <section> <!---section superior--->
-
+	
 	<header>Dados Gerais</header>
-	
-	<section class="coluna-esquerda">
-
-		<?php	
-			echo $this->Form->input('tipo',array('value'=>h($centrocusto['Centrocusto']['nome']),'label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
-		?>
-
-	</section>
-	
-	<section class="coluna-central" >
-
-		<?php
-			echo $this->Form->input('nome',array('value'=>h($centrocusto['Centrocusto']['limite']),'label' => 'Limite:','class' => 'tamanho-grande borderZero','label' => 'Limite	:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
-		?>
-
-	</section>
-	
-	<section class="coluna-direita" >
-
-		<?php
-			echo $this->Form->input('cpf_cnpj',array('value'=>h($centrocusto['Centrocusto']['limite_usado']),'class' => 'tamanho-grande borderZero','label' => 'Limite Usado:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-		?>
-
-	</section>
-	
-	
-	<header>Lista de Centros de Custo</header>
 	
 	<?php
 		$anosConta= array();
@@ -59,10 +32,20 @@
 		}
 		echo $this->form->Create('Centrocusto',array('type' =>'get'));
 		$anAtual=date('Y'); 
-		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano));
+		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano, 'onclick' => 'submit()'));
 		
-		echo $this->form->end('Enviar');
+		echo $this->form->end();
 	?>
+	
+	<section class="coluna-esquerda" >
+
+		<?php
+			echo $this->Form->input('nome',array('value'=>h($centrocusto['Centrocusto']['nome']),'label' => 'Nome:','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
+		?>
+
+	</section>
+
+	
 	<table>
 		<tr>
 			<th class="colunaConta">

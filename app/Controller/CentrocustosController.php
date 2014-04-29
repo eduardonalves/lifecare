@@ -326,10 +326,10 @@ class CentrocustosController extends AppController {
 			
 			
 			if ($this->Centrocusto->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('The centrocusto has been saved.'));
+				$this->Session->setFlash(__('O Centro de Custo foi salvo.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The centrocusto could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O Centro de Custo não pode ser salvo. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Centrocusto.' . $this->Centrocusto->primaryKey => $id));
@@ -351,9 +351,9 @@ class CentrocustosController extends AppController {
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Centrocusto->delete()) {
-			$this->Session->setFlash(__('The centrocusto has been deleted.'));
+			$this->Session->setFlash(__('O Centro de Custo foi excluído.'),'default',array('class'=>'success-flash'));
 		} else {
-			$this->Session->setFlash(__('The centrocusto could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('O Centro de Custo não pode ser excluído. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect($this->referer());
 	}}
