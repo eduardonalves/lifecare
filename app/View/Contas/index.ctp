@@ -352,7 +352,7 @@ $(document).ready(function() {
 										echo $parcela['periodocritico'];															
 									echo "</td>";
 									
-									echo "<td>";
+									echo "<td>R$ ";
 										echo number_format($parcela['valor'], 2, ',', '.');  															
 									echo "</td>";
 									
@@ -413,7 +413,7 @@ $(document).ready(function() {
 						    //echo "</a></td>";
 						}else if($campo=="parcelas"){
 						}else if($campo=="valor"){
-							echo "<td class=\"$campo\">" . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
+							echo "<td class=\"$campo\">R$ " . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
 						}else{
 							echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 						}
@@ -503,7 +503,7 @@ $(document).ready(function() {
 									}else if($campo=="centrocusto_id"){
 										echo "<td class=\"$campo\">" . $conta['Conta']['centrocusto_id'] . "&nbsp;</td>";   
 									}else if($campo=="valor"){
-										echo "<td class=\"$campo\">" . number_format($parcela[$campo], 2, ',', '.') . "&nbsp;</td>";
+										echo "<td class=\"$campo\">R$ " . number_format($parcela[$campo], 2, ',', '.') . "&nbsp;</td>";
 									}else{
 										echo "<td class=\"$campo\">" . $parcela[$campo] . "&nbsp;</td>";
 									}

@@ -99,7 +99,7 @@
 		
 	<section class="coluna-central" >
 		<?php
-			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h(number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h("R$ ".number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('type' => 'text', 'label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			//echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
@@ -125,9 +125,10 @@
 		<fieldset>
 			<legend>Centro de Custo</legend>
 		<?php
+			$limite = number_format($conta['Centrocusto']['limite'], 2, ',', '.');  
 			echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome:','value'=>h($conta['Centrocusto']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
-			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h($conta['Centrocusto']['limite']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
-			echo $this->Form->input('Centrocusto.limite_usado',array('label' => 'Limite Usado:','value'=>h($conta['Centrocusto']['limite_usado']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
+			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h("R$ ".$limite),'class' => 'tamanho-grande borderZero','disabled'=>'disabled', 'type'=>'text'));				
+			//echo $this->Form->input('Centrocusto.limite_usado',array('label' => 'Limite Usado:','value'=>h($conta['Centrocusto']['limite_usado']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 		?>		
 		</fieldset>
 	</section>
@@ -185,10 +186,10 @@
 					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
 							  echo $parcelas['data_vencimento']; ?></td>
-					<td><?php echo number_format($parcelas['valor'], 2, ',', '.'); ?></td>
+					<td><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></td>
 					<td><?php echo $parcelas['identificacao_documento']; ?></td>
 					<td><?php echo $parcelas['periodocritico']; ?></td>
-					<td><?php echo number_format($parcelas['desconto'], 2, ',', '.'); ?></td>
+					<td><?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?></td>
 					<td><?php echo $parcelas['agencia']; ?></td>
 					<td><?php echo $parcelas['conta']; ?></td>
 					<td><?php echo $parcelas['banco']; ?></td>

@@ -15,7 +15,7 @@
 
 		<?php
 			echo $this->Form->input('Dadoscredito.'.$y.'.id', array('value'=>$dadoscredito['id']));
-			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h(number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.limite',array('value'=>h("R$ ".number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-medio dinheiro_duasCasas borderZero'));
 			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 		?>
 

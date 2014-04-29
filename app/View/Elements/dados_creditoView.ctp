@@ -17,9 +17,9 @@
 		<?php
 			$limiteDisponivel = $dadoscredito['limite'] - $dadoscredito['limite_usado'];
 				
-			echo $this->Form->input('Dadoscredito.limite',array('value'=>h(number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','type' => 'text','class' => 'limite'.$y.'  tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('Dadoscredito.limite_usado',array('value'=>h(number_format($dadoscredito['limite_usado'], 2, ',', '.')),'label' => 'Limite Usado:','type' => 'text','class' => 'usado'.$y.'  tamanho-medio dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			echo $this->Form->input('creditoDisponivel',array('value' =>h(number_format($limiteDisponivel, 2, ',', '.')),'id'=>'creditoDisponivel','label' => 'Disponível:','type' => 'text','class' => 'disponivel'.$y.'  tamanho-medio borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.limite',array('value'=>h("R$ ".number_format($dadoscredito['limite'], 2, ',', '.')),'label' => 'Limite de Crédito:','type' => 'text','class' => 'limite'.$y.'  tamanho-medio  borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('Dadoscredito.limite_usado',array('value'=>h("R$ ".number_format($dadoscredito['limite_usado'], 2, ',', '.')),'label' => 'Limite Usado:','type' => 'text','class' => 'usado'.$y.'  tamanho-medio  borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			echo $this->Form->input('creditoDisponivel',array('value' =>h("R$ ".number_format($limiteDisponivel, 2, ',', '.')),'id'=>'creditoDisponivel','label' => 'Disponível:','type' => 'text','class' => 'disponivel'.$y.'  tamanho-medio borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		?>
 		
 	</section>
@@ -138,11 +138,11 @@
 				
 				echo "<td>";
 
-					echo number_format($parcela['valor'], 2, ',', '.');															
+					echo "R$ ".number_format($parcela['valor'], 2, ',', '.');															
 				echo "</td>";
 				
 				echo "<td>";
-					echo number_format($parcela['desconto'], 2, ',', '.');
+					echo "R$ ".number_format($parcela['desconto'], 2, ',', '.');
 
 				echo "</td>";
 				
