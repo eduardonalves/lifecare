@@ -33,7 +33,15 @@ $(document).ready(function() {
 		var mes = parseInt(numero) + 1;
 		mes = mes.toString();
 		$('#limite'+numero).html('<input type="hidden" name="data[Orcamentocentro]['+numero+'][periodo_final]" value="'+$('#CentrocustoGetY').val()+'-'+mes+'-'+'30" id="periodo_final" >');
-		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id" class="tamanho-medio">');
+		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id" class="tamanho-medio dinheiro_duasCasas Nao-Letras">');
+		
+		$(".dinheiro_duasCasas").priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: '.',
+	    limit: 15
+	});
+	
 	});
 	
 	$('.btneditar').click(function(e){
