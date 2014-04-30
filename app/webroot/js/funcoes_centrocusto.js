@@ -2,25 +2,26 @@ $(document).ready(function() {
 	$('#bt-salvarCentroCustoEdit').click(function(e){
 				e.preventDefault();
 				
-				var erro = 0;
-				
-				if($('#CentroCustoNome').val() == ''){
-					$('#CentroCustoNome').addClass('shadow-vermelho');
+				var i, erro = 0;
+				if($('#nome').val() == ''){
+					$('#nome').addClass('shadow-vermelho');
 					$('#validaNome').css('display','block');
-					erro = erro + 1;
+					erro++;
 					}
-				else if($('#CentroCustoLimite').val() == ''){
-					$('#CentroCustoLimite').addClass('shadow-vermelho');
-					$('#validaLimite').css('display','block');
-					erro = erro + 1;
-					}
-				else if($('#CentroCustoLimiteUsado').val() == ''){
-					$('#CentroCustoLimiteUsado').addClass('shadow-vermelho');
-					$('#validaLimiteUsado').css('display','block');
-					erro = erro + 1;
+				for(i=0;i<11;i++){ // Percorre os meses para verificar todas as inputs
+					if($('#Orcamentocentro'+i+'limite').val() == '' && !($('#Orcamentocentro'+i+'limite').is(':hidden'))){
+						$('#Orcamentocentro'+i+'limite').addClass('shadow-vermelho');
+						$('#validaAddLimite').css('display','block');
+						erro++;
+						}
+					else if($('#inputLimite'+i).val() == '' && !($('#inputLimite'+i).is(':hidden'))){
+						$('#inputLimite'+i).addClass('shadow-vermelho');
+						$('#validaEditLimite').css('display','block');
+						erro++;
+						}
 					}
 				if(erro==0){
-						$('#CentrocustoEditForm').submit();
+					$('#CentrocustoEditForm').submit();
 					}
 			});
 			
@@ -33,7 +34,9 @@ $(document).ready(function() {
 		var mes = parseInt(numero) + 1;
 		mes = mes.toString();
 		$('#limite'+numero).html('<input type="hidden" name="data[Orcamentocentro]['+numero+'][periodo_final]" value="'+$('#CentrocustoGetY').val()+'-'+mes+'-'+'30" id="periodo_final" >');
-		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id">');
+		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'limite">');
+		$('#limite'+numero).append('<span id="validaAddLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>');
+
 	});
 	
 	$('.btneditar').click(function(e){
