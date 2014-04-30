@@ -14,7 +14,7 @@
 
 <script>
 $(document).ready(function(){
-
+	var anoAtual = "<?php $anoAtual= date('Y')."-01"."-30"; echo $anoAtual;?>";
 	function botaoRemover(){		
 		if(contador > 0){
 			$("#btn-remove").css('display','block');
@@ -34,9 +34,23 @@ $(document).ready(function(){
 		
 		resultado = ano+'-'+mes+'-30';
 		
+		
+		
 		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
 	});
-	
+	$('.selectAno').on('change', function(){
+		ano = $(this).val();
+		
+		var id=  $(this).attr('id');
+		var expReg01 = /\D+/gi;
+		numero= id.replace(expReg01,'');
+		
+		mes = $("#Orcamentocentro"+numero+"Mes").val();
+		
+		resultado = ano+'-'+mes+'-30';
+		
+		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
+	});
 	var contador=0;
 	$("#btn-add").click(function(){		
 		
@@ -62,6 +76,7 @@ $(document).ready(function(){
 				<section class="coluna-direita" >\
 					<div class="input select"><label for="Orcamentocentro'+contador+'Ano">Ano: </label><select name="data[Orcamentocentro]['+contador+'][ano]" class="selectAno" id="Orcamentocentro'+contador+'Ano"></select></div>\
 				</section>\
+				<input type="hidden" name="data[Orcamentocentro]['+contador+'][periodo_final]" value="'+anoAtual+'" id="Orcamentocentro'+contador+'PeriodoFinal">\
 			');
 			
 			$(".dinheiro_duasCasas").priceFormat({
@@ -89,19 +104,7 @@ $(document).ready(function(){
 		botaoRemover();
 	});
 	
-	$('.selectAno').on('change', function(){
-		ano = $(this).val();
-		
-		var id=  $(this).attr('id');
-		var expReg01 = /\D+/gi;
-		numero= id.replace(expReg01,'');
-		
-		mes = $("#Orcamentocentro"+numero+"Mes").val();
-		
-		resultado = ano+'-'+mes+'-30';
-		
-		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
-	});
+	
 	
 	$('#CentrocustoAddForm').submit(function(event){
 			event.preventDefault();
@@ -185,8 +188,8 @@ $(document).ready(function(){
 				
 					echo $this->Form->input('nome',array('label' => 'Nome Custo<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class' => 'tamanho-medio'));
 					echo '<span id="spanValidaNomeCusto" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';
-
-					echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $anoAtual));
+					$dataAtual = $ano[$anoAtual]."-01-30";
+					echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $dataAtual));
 					echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text', 'class' =>'tamanho-medio dinheiro_duasCasas'));
 				?>
 
@@ -205,21 +208,14 @@ $(document).ready(function(){
 				<?php
 					echo $this->Form->input('Orcamentocentro.0.ano', array('label' => 'Ano: ', 'class' => 'selectAno', 'type' => 'select', 'options' => $ano,  'default' => $anoAtual));
 					$ano = $ano[$anoAtual]."-01-30";
+					
 				?>
 
 			</section>
 		</div>
 	</div>
 	
-	<div class="fake-footer">
-
-		<?php
-			echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco Dados Bancários','id'=>'btn-add','class'=>'bt-direita'));
-			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'btn-remove','class'=>'bt-direita'));
-		?>
-		<span id="validaBloco" class="Msg-tooltipEsquerda" style="display:none">São necessarios os campos Nome Custo e Valor Limite para adicionar novo bloco</span>
-
-	</div>
+	
 </section>
 
 <footer>
