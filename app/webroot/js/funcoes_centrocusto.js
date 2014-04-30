@@ -39,7 +39,15 @@ $(document).ready(function() {
 		$('#limite'+numero).html('<input name="data[Orcamentocentro]['+numero+'][periodo_final]" value="'+$('#CentrocustoGetY').val()+'-'+mes+'-'+'01" type="hidden" id="Orcamentocentro'+numero+'PeriodoFinal">');
 		
 		$('#limite'+numero).append('<span id="validaAddLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>');
-		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id" class="tamanho-medio">');
+		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id" class="tamanho-medio Nao-Letras dinheiro_duasCasas">');
+
+		$(".dinheiro_duasCasas").priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: '.',
+	    limit: 15
+	});
+
 
 	});
 	

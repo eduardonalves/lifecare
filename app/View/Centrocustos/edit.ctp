@@ -49,7 +49,7 @@
 
 	<?php
 		echo $this->Form->input('Centrocusto.id');
-		echo $this->Form->input('nome', array('label' => 'Nome:','type' => 'text','id' => 'nome'));
+		echo $this->Form->input('nome', array('label' => 'Nome:','type' => 'text','id' => 'nome','class'=>'tamanho-medio'));
 		echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 	
 		
@@ -102,8 +102,9 @@
 					if(isset($recdes['IdOrcamento'])){
 				
 					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
-						
-					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite'.$i, 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none'));
+
+					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite'.$i, 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none', 'class' => 'tamanho-medio Nao-Letras dinheiro_duasCasas'));
+
 					echo '<span id="validaEditLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 					echo '<div id="textLimite'.$i.'">'.$recdes['limite'].'</div>';
 					

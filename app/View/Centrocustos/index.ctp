@@ -80,11 +80,11 @@ $(document).ready(function() {
 	<?php foreach ($centrocustos as $centrocusto): ?>
 	<tr>
 		<td class="actions">
-						<?php 
-							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Centro de Custo','title'=>'Visualizar Centro de Custo','url'=>array('controller' => 'centrocustos','action' => 'view', $centrocusto['Centrocusto']['id'])));
-							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Centro de Custo','title'=>'Editar Centro de Custo','url'=>array('controller' => 'centrocustos','action' => 'edit', $centrocusto['Centrocusto']['id'])));
-							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_centrocusto','alt' =>__('Delete'),'title' => 'Excluir Centro de Custo')), array('controller' => 'centrocustos','action' => 'delete', $centrocusto['Centrocusto']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Centro de Custo '.$centrocusto['Centrocusto']['id'].'?')));
-						?>
+			<?php 
+				echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Centro de Custo','title'=>'Visualizar Centro de Custo','url'=>array('controller' => 'centrocustos','action' => 'view', $centrocusto['Centrocusto']['id'])));
+				echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Centro de Custo','title'=>'Editar Centro de Custo','url'=>array('controller' => 'centrocustos','action' => 'edit', $centrocusto['Centrocusto']['id'])));
+				echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_centrocusto','alt' =>__('Delete'),'title' => 'Excluir Centro de Custo')), array('controller' => 'centrocustos','action' => 'delete', $centrocusto['Centrocusto']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Centro de Custo '.$centrocusto['Centrocusto']['id'].'?')));
+			?>
 		</td>
 		<td><?php echo h($centrocusto['Centrocusto']['id']); ?>&nbsp;</td>
 		<td><?php echo h($centrocusto['Centrocusto']['nome']); ?>&nbsp;</td>

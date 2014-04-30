@@ -7,10 +7,15 @@
 	width: 50%;
 }
 
-input[id^="Orcamentocentro"]{
+input[id^="Orcamentocentro"], input[id^="inputLimite"]{
 	position: relative;
 	margin-left: 50%;
 	left: -75px;
+}
+
+#validaNome{
+	width: 60px;
+	left: 375px;
 }
 
 /* CLASS **************************************************************/
