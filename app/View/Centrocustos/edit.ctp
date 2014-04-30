@@ -21,9 +21,10 @@
 
 <section> <!---section superior--->
 
-	<header>Dados do Centro de Custo</header>
+	<header>Dados Gerais</header>
 	
 <div class="centrocustos form">
+
 <?php
 		$anosConta= array();
 		foreach($anos as $an){
@@ -49,6 +50,7 @@
 	<?php
 		echo $this->Form->input('Centrocusto.id');
 		echo $this->Form->input('nome', array('label' => 'Nome:','type' => 'text'));
+		echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 	
 		
 	?>
@@ -66,13 +68,17 @@
 			<th class="colunaConta">
 			Limite
 			</th>
+			<th class="colunaConta">
+			Ações
+			</th>
 		</tr>
 		<?php
 		$i=0;
 		foreach($recdesp as $recdes){
 			?>
 		<tr>
-			<td><?php	if($i == 0){ echo 'Janeiro'; }
+			<td class="mes" id="mes<?php echo $i; ?>">
+				<?php	if($i == 0){ echo 'Janeiro'; }
 						if($i == 1){ echo 'Fevereiro'; }
 						if($i == 2){ echo 'Março'; }
 						if($i == 3){ echo 'Abril'; }
@@ -91,16 +97,23 @@
 			<td>
 				<?php echo $recdes['despesa']; ?>
 			</td>
-			<td>
+			<td class="limite" id="limite<?php echo $i; ?>">
 				<?php 
 					if(isset($recdes['IdOrcamento'])){
 				
 					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
-					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite', 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none; width: 50px;'));
-					echo '<div id="textLimite">'.$recdes['limite'].'</div>';
-					echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Limite','title'=>'Editar Limite','onclick'=>'editLimite()'));
-					$i++;
+					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite'.$i, 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none'));
+					echo '<div id="textLimite'.$i.'">'.$recdes['limite'].'</div>';
+					
 				} ?>
+			</td>
+			<td>
+				<?php
+					if(isset($recdes['IdOrcamento']) && $recdes['IdOrcamento'] != ''){
+						echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Limite','title'=>'Editar Limite', 'class' => 'btneditar', 'id' => 'btneditar'.$i));}
+					else{
+						echo $this->Html->image('botao-formulario-adicionar.png',array('alt'=>'Adicionar Limite','title'=>'Adicionar Limite', 'class' => 'btnadd', 'id' => 'btnadd'.$i));}
+				?>
 			</td>
 		</tr>
 		<?php $i++; } ?>

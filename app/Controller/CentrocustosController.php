@@ -281,6 +281,7 @@ class CentrocustosController extends AppController {
 		$this->layout = 'contas';
 		
 		$this->loadModel('Conta');
+		$this->loadModel('Orcamentocentro');
 		if(!isset($_GET['y'])){
 		
 			$ano = date('Y');
@@ -301,7 +302,7 @@ class CentrocustosController extends AppController {
 			}
 			
 			
-			$recdespAux = $this->getReceitasDespesas($id, $mes, $ano);	
+			$recdespAux = $this->getReceitasDespesas($id, $mes, $ano);
 			
 			
 			
@@ -311,9 +312,42 @@ class CentrocustosController extends AppController {
 			array_push($recdesp, $recdespAux);
 			
 			
+			
+			
 		}
-		
-		
+		$j=0;
+			$jaux =1;
+			foreach($recdesp as $recdes){
+				
+				if($jaux < 10){
+				$mes ='0'.$jaux;	
+				}else{
+					$mes =$jaux;
+				}
+				
+				if(empty($recdes)){
+					$anoMes = "%".$ano."-".$mes."%";
+					
+					$orcmento= $this->Orcamentocentro->find('first', array('recursive' => -1, 'conditions' => array('Orcamentocentro.centrocusto_id' => $id, 'AND' => array('Orcamentocentro.periodo_final LIKE' => $anoMes))));
+					if(!empty($orcmento)){
+						$recdesp[$j]['limite']= $orcmento['Orcamentocentro']['limite'];
+						$recdesp[$j]['IdOrcamento']= $orcmento['Orcamentocentro']['id'];
+						$recdesp[$j]['despesa']= "";
+						$recdesp[$j]['receita']= "";
+						$recdesp[$j]['mes']= $this->getMes($mes);
+					}
+					else{
+						$recdesp[$j]['limite']= "";
+						$recdesp[$j]['IdOrcamento']= "";
+						$recdesp[$j]['despesa']= "";
+						$recdesp[$j]['receita']= "";
+						$recdesp[$j]['mes']= $this->getMes($mes);
+					}
+					
+				}
+				$j++;
+				$jaux++;
+			}
 		
 		$anos = $this->Conta->find('all', array('recursive' => -1,'fields' => 'DISTINCT YEAR(Conta.data_emissao)','conditions' => array('Conta.centrocusto_id' => $id)));
 		
