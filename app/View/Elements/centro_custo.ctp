@@ -32,7 +32,7 @@ $(document).ready(function(){
 		
 		ano = $("#Orcamentocentro"+numero+"Ano").val();
 		
-		resultado = ano+'-'+mes+'-30';
+		resultado = ano+'-'+mes+'-01';
 		
 		
 		
@@ -47,7 +47,7 @@ $(document).ready(function(){
 		
 		mes = $("#Orcamentocentro"+numero+"Mes").val();
 		
-		resultado = ano+'-'+mes+'-30';
+		resultado = ano+'-'+mes+'-01';
 		
 		$('#Orcamentocentro'+numero+'PeriodoFinal').val(resultado);
 	});

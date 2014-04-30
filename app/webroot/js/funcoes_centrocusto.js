@@ -33,7 +33,11 @@ $(document).ready(function() {
 		numero = id.replace(expReg01,'');
 		var mes = parseInt(numero) + 1;
 		mes = mes.toString();
-		$('#limite'+numero).html('<input type="hidden" name="data[Orcamentocentro]['+numero+'][periodo_final]" value="'+$('#CentrocustoGetY').val()+'-'+mes+'-'+'30" id="periodo_final" >');
+		if(mes < 10){
+			mes="0"+mes;
+		}
+		$('#limite'+numero).html('<input name="data[Orcamentocentro]['+numero+'][periodo_final]" value="'+$('#CentrocustoGetY').val()+'-'+mes+'-'+'01" type="hidden" id="Orcamentocentro'+numero+'PeriodoFinal">');
+		
 		$('#limite'+numero).append('<span id="validaAddLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>');
 		$('#limite'+numero).append('<input type="text" name="data[Orcamentocentro]['+numero+'][limite]" value="0.00" id="Orcamentocentro'+numero+'Id" class="tamanho-medio">');
 

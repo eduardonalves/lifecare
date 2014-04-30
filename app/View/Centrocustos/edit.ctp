@@ -102,6 +102,7 @@
 					if(isset($recdes['IdOrcamento'])){
 				
 					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
+						
 					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite'.$i, 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none'));
 					echo '<span id="validaEditLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 					echo '<div id="textLimite'.$i.'">'.$recdes['limite'].'</div>';
