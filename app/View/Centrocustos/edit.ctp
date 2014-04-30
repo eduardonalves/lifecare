@@ -37,6 +37,9 @@
 		}
 		echo $this->form->Create('CentrocustoGet',array('type' =>'get'));
 		$anAtual=date('Y'); 
+		if(empty($anosConta)){
+			 $anosConta[''.$anAtual.'']= $anAtual;
+		}
 		echo $this->form->input('y', array('type' => 'select','label'=> 'Selecione o ano', 'options' => array($anosConta), 'default' => $ano, 'onchange' => 'submit()'));
 		
 		echo $this->form->end();
