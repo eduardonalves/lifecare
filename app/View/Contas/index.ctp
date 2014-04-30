@@ -383,13 +383,12 @@ $(document).ready(function() {
 									echo "<td>";
 										echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
 									echo "</td>";
-									
-									
-									
+
+
 									echo "</tr>";												
 									}
 								?>
-													
+
 								</table>
 							</section>
 							</section>
@@ -436,27 +435,19 @@ $(document).ready(function() {
 				<tr>
 				    <th class="colunaConta">Ações</th>									
 					<?php 
-				     
-					    foreach($configparc as $campo=>$campoLabel)
-					    {
-						if($campo=='parcelas'){
-							 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-						}else if($campo == 'parceirodenegocio_id' ){
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-			
-						}else if($campo == 'cnpj_cpf' ){
-							
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";			
-						
-						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-			
-						}else{
-							 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+					    foreach($configparc as $campo=>$campoLabel){
+							if($campo=='parcelas'){
+								 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else if($campo == 'parceirodenegocio_id' ){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else if($campo == 'cnpj_cpf' ){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else{
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}
 						}
-					     
-					    }
-			
 					?>
 				</tr>
 			
@@ -479,7 +470,7 @@ $(document).ready(function() {
 								</td>
 								    
 								<?php 
-															
+
 							    foreach($configparc as $campo=>$campoLabel){							
 									if($campo=="status"){
 									    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => $parcela['status'], 'title' => $parcela['status'])) . "&nbsp;</td>";
@@ -546,13 +537,13 @@ $(document).ready(function() {
 	<h2 class="legendEffect"><span>Contas A Receber</span></h2>
 	<?php
 	    if(isset($contasAtrasadasREceber)){
-	    echo "Valor total das contas atrasadas a receber: R$ ".number_format($contasAtrasadasREceber, 2, ',', '.')."<br />";
+			echo "Valor total das contas atrasadas a receber: R$ ".number_format($contasAtrasadasREceber, 2, ',', '.')."<br />";
 	    }	
 	    if(isset($contasRecebidas)){
-		    echo "Valor total das contas recebidas: R$ ".number_format($contasRecebidas, 2, ',', '.')."<br />";
+			echo "Valor total das contas recebidas: R$ ".number_format($contasRecebidas, 2, ',', '.')."<br />";
 	    }
 	    if(isset($contasVencerParaREceber)){
-	    echo "Valor total das contas a vencer para receber: R$ ".number_format($contasVencerParaREceber, 2, ',', '.')."<br />";
+			echo "Valor total das contas a vencer para receber: R$ ".number_format($contasVencerParaREceber, 2, ',', '.')."<br />";
 	    }
 	    if(isset($totalAreceber)){
 		    echo "Valor total das contas a receber: R$".number_format($totalAreceber, 2, ',', '.')."<br />";
