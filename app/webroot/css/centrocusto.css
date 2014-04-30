@@ -7,6 +7,12 @@
 	width: 50%;
 }
 
+input[id^="Orcamentocentro"]{
+	position: relative;
+	margin-left: 50%;
+	left: -75px;
+}
+
 /* CLASS **************************************************************/
 
 div[class^="bloco-area"]{
