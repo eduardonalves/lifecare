@@ -57,6 +57,21 @@
 			$('#myModal_'+nome).modal('show'); 
 	    });
 		
+		 $(".checkClasse").click(function(){
+		 	idparcela=$(this).attr('data-parcelaid');
+		 	
+		 	var idcheck=  $(this).attr('id');
+			var expReg01 = /\D+/gi;
+			var numero= idcheck.replace(expReg01,'');
+		 	if($(this).is(':checked')){
+		 		
+		 		$("#NegociacaoAddForm").prepend('<input name="data[Parc]['+numero+'][parcelasids] step=" any"="" id="Parc'+numero+'Parcelasids" value="'+idparcela+'" type="hidden">');
+		 		
+		 	}else{
+		 		$('#Parc'+numero+'Parcelasids').remove();	
+		 	}
+			
+	    });
 	});
 </script>
 
@@ -154,7 +169,7 @@
 				<th><?php echo ('Status'); ?></th>
 			</thead>
 			
-			<?php $j =0; ?>
+			<?php $j =0;  $z =0;?>
 			
 			<?php foreach ($conta['Parcela'] as $parcelas): ?>
 				<tr>
@@ -181,7 +196,8 @@
 						echo "<td>".$this->form->checkbox('',array('id' => 'checkNegociacaoDesabilidato','class' => 'checkClasse','disabled' => 'disabled'))."</td>";
 					    }else{
 					?>
-					<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao','class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } }?>
+					<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao'.$z,'class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } }?>
+					<?php $z++;?>
 					<td><?php echo $parcelas['parcela']; ?></td>
 					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);

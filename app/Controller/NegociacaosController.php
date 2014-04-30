@@ -55,11 +55,11 @@ class NegociacaosController extends AppController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Negociacao']['data']);
 			
 			if ($this->Negociacao->save($this->request->data)) {
-				$parcelasids =$this->request->data['parcelasids'];
+				$parcelasids =$this->request->data['Parc'];
 				
-				//debug($this->request->data);
-				foreach($parcelasids as $parcelasid){
-					$updateParcelas = array('id' => $parcelasid, 'status' => 'RENEGOCIADO');
+				
+				foreach($this->request->data['Parc'] as $parcelasid){
+					$updateParcelas = array('id' => $parcelasid['parcelasids'], 'status' => 'RENEGOCIADO');
 					$this->Parcela->save($updateParcelas);
 					
 				}
@@ -97,7 +97,7 @@ class NegociacaosController extends AppController {
 				$this->Session->setFlash(__('A negociação não foi salva. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
-		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
+		//$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}

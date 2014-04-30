@@ -85,13 +85,13 @@
 						if($i == 11){ echo 'Dezembro'; }?>
 			</td>
 			<td>
-				<?php echo $recdes['receita']; ?>
+				<?php if(!empty($recdes['receita'])){echo "R$ ".number_format($recdes['receita'], 2, ',', '.');}else{ echo "R$ 0,00";} ?>
 			</td>
 			<td>
-				<?php echo $recdes['despesa']; ?>
+				<?php if(!empty($recdes['despesa'])){echo "R$ ".number_format( $recdes['despesa'], 2, ',', '.');}else{ echo "R$ 0,00";}?>
 			</td>
 			<td>
-				<?php echo $recdes['limite']; ?>
+				<?php if(!empty($recdes['limite'])){echo "R$ ".number_format( $recdes['limite'], 2, ',', '.');}else{ echo "R$ 0,00";} ?>	
 			</td>
 		</tr>
 		<?php $i++; } ?>

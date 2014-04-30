@@ -394,11 +394,12 @@ class CentrocustosController extends AppController {
 			if ($this->Centrocusto->save($this->request->data)) {
 				
 				$ultimoCentrocusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $id)));
+				
 				if(isset($this->request->data['Orcamentocentro'] )){
 				
 					foreach($this->request->data['Orcamentocentro'] as $orcamento){
 						
-						
+						$this->lifecareFuncs->converterMoedaToBD($orcamento['limite']);
 						if(isset($orcamento['id'])){
 							$update= array('id'=> $orcamento['id'], 'limite' => $orcamento['limite']);
 							$this->Orcamentocentro->save($update);

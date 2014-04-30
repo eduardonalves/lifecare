@@ -100,9 +100,9 @@
 			<td class="limite" id="limite<?php echo $i; ?>">
 				<?php 
 					if(isset($recdes['IdOrcamento'])){
-				
+					
 					echo $this->Form->input('Orcamentocentro.'.$i.'.id',array('type' => 'hidden', 'value' => $recdes['IdOrcamento']));
-
+					if(!empty($recdes['limite'])){$recdes['limite']= number_format($recdes['limite'], 2, ',', '.');}else{ $recdes['limite']= "0,00";} 
 					echo $this->Form->input('Orcamentocentro.'.$i.'.limite',array('id' => 'inputLimite'.$i, 'label' => false, 'type' => 'text', 'value' => $recdes['limite'], 'style' => 'display: none', 'class' => 'tamanho-medio Nao-Letras dinheiro_duasCasas'));
 
 					echo '<span id="validaEditLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
