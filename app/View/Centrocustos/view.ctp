@@ -14,7 +14,7 @@
     <?php echo $this->Html->image('centro-custo-titulo.png', array('id' => 'cadastrar-titulo', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?>
 
 
-    <h1 class="menuOption31">Visualizar Centro de Custo</h1>
+    <h1 class="menuOption35">Visualizar Centro de Custo</h1>
 
 </header>
 
