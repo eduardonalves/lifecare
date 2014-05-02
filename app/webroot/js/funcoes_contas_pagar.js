@@ -35,11 +35,7 @@
 	agencia = $('#ContaspagarAgencia').val();
 	conta = $('#ContaspagarConta').val();
 	banco = $('#ContaspagarBanco').val();
-	codigodebarras = $('#ContaspagarCodigodeBarras').val();
-	
-	fornecedor = $('#ContaspagarParceiro').val();
-	tipoConta = $('#tipoConta').val();
-	centroCusto = $('#nomeCusto').val();
+	codigodebarras = $('#ContaspagarCodigodeBarras').val();	
 	
 	tipoPagamento=$('#Pagamento0TipoPagamento').val();
 	dataEmissao = $('[id*="DataEmissao"]').val();

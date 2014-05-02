@@ -262,16 +262,24 @@ $(document).ready(function() {
 
 	var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
 	
-	Parceiro = $('[id*="Parceiro"]').val();
+	parceiro = $('[id*="Parceiro"]').val();
+	tipoConta = $('#tipoConta').val();
+	centroCusto = $('#nomeCusto').val();
 	
-	 if(Parceiro ==''){
-	   // $('<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo">Preencha o campo Fornecedor</span>').insertAfter('.ui-widget');
-	    $('#msgAutoComplete').css('display','block');
-	    $('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
+	if(parceiro ==''){
+	    $('#msgValidaParceiro').css('display','block');
+	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
+	}else if(tipoConta ==''){
+		$('#msgValidaTipoConta').css('display','block');
+	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
+	    $('html, body').animate({scrollTop:0}, 'slow');
+	}else if(centroCusto ==''){
+		$('#msgValidaCentroCusto').css('display','block');
+	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
+	    $('html, body').animate({scrollTop:0}, 'slow');
 	}else if(!temclasvalbtconf){
-	  //  $('<span id="msgCpfCnpj" class="Msg-tooltipDireita">Adicione parcelas a tabela</span>').insertAfter('.bt-direita');
 	    $('#msgCpfCnpj').css('display','block');
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    

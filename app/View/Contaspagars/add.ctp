@@ -55,6 +55,7 @@
 		?>
 
 		<div class="input autocompleteFornecedor conta">
+			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
 		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 		    <select class="tamanho-medio limpa" id="add-fornecedor">
 			<option id="optvazioForn"></option>
@@ -87,6 +88,7 @@
 		
 		
 		<div class="input autocompleteTipoConta contas">
+		    <span id="msgValidaTipoConta" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Tipo Conta</span>
 		    <label>Tipo de Conta:</label>
 		    <select class="tamanho-medio" id="add-tipoConta">
 			    <option id="optvazioForn"></option>
@@ -116,6 +118,7 @@
 										     ));
 		?>		
 		<div class="input autocompleteCentroCusto contas">
+		    <span id="msgValidaCentroCusto" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Centro Custo</span>
 		    <label>Centro de Custo:</label>
 		    <select class="tamanho-medio" id="add-custo">
 			    <option id="optvazioForn"></option>
@@ -133,7 +136,6 @@
 	</div>
 	    
 	<?php
-		echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		echo $this->Form->input('descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '104'));
 	?>
 
