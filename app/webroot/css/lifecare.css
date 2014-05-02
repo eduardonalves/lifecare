@@ -893,9 +893,9 @@ img.semaforo-nulo {
 	border-width:10px;
 	content:"";
 	height:0;
-	left:48px;
+	left:48px !important;
 	position:absolute;
-	top:51px;
+	top:51px !important;
 	width:0;
 }
 

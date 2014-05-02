@@ -33,3 +33,11 @@
 	text-align: left;
 }
 
+#myModal_add-config_parcela #ConfigparcelaConta{
+	margin-left:50px;
+	margin-top: 5px;
+}
+
+#myModal_add-config_parcela label[for='ConfigparcelaConta']{
+	margin-top: 6px;
+}

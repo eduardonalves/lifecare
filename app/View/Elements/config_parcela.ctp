@@ -80,13 +80,12 @@
 					}
 					
 				if($configparcela['Configparcela']['conta']==1){
-						
-						echo $this->Form->checkbox('Configparcela.conta', array('value' => 1, 'checked' =>'checked'));
-						echo $this->Form->label('Configparcela.conta', 'Conta');
-				} else{
-						echo $this->Form->checkbox('Configparcela.conta');
-						echo $this->Form->label('Configparcela.conta', 'Conta');
-					}
+					echo $this->Form->checkbox('Configparcela.conta', array('value' => 1, 'checked' =>'checked'));
+					echo $this->Form->label('Configparcela.conta', 'Conta');
+				}else{
+					echo $this->Form->checkbox('Configparcela.conta');
+					echo $this->Form->label('Configparcela.conta', 'Conta');
+				}
 					
 				if($configparcela['Configparcela']['status']==1){
 						echo $this->Form->input('status', array('value' => 1, 'checked' =>'checked', 'label'=>'Status'));

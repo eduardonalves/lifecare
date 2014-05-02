@@ -6,3 +6,8 @@
 
 /** Dados da Parcela **/
 
+#msgValidaParceiro, #msgValidaTipoConta, #msgValidaCentroCusto{
+	margin-top: -95px;
+	width: 105px;
+	left: 175px;
+}
