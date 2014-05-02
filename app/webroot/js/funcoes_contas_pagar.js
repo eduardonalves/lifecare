@@ -1,16 +1,12 @@
  $(document).ready(function() {
-	
-	
 
     $('input').focus(function(){
-	$('.ui-autocomplete-input').attr('tabindex','102');
-	
+		$('.ui-autocomplete-input').attr('tabindex','102');
     });
     
     $("body").on('focus','.ui-autocomplete-input',function(){
 		$('.ui-autocomplete-input').attr({required:true});
 	});
-
 
 /********** INPUT HIDDEN DO TIPO DE CONTA ****************/
 	
@@ -39,15 +35,19 @@
 	agencia = $('#ContaspagarAgencia').val();
 	conta = $('#ContaspagarConta').val();
 	banco = $('#ContaspagarBanco').val();
-	codigodebarras=$('#ContaspagarCodigodeBarras').val();
-
+	codigodebarras = $('#ContaspagarCodigodeBarras').val();
+	
+	fornecedor = $('#ContaspagarParceiro').val();
+	tipoConta = $('#tipoConta').val();
+	centroCusto = $('#nomeCusto').val();
+	
 	tipoPagamento=$('#Pagamento0TipoPagamento').val();
 	dataEmissao = $('[id*="DataEmissao"]').val();
 	
 	//soluciona problema de apagar contagem
 	princ_cont = numParcela;
 
-	if(dataEmissao == ''){
+	if(dataEmissao == ''){		
 	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 	    $('#msgDataEmissao').css('display','block');
 	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
@@ -306,21 +306,21 @@
 
 
 /*********** Botão excluir uma parcela da tabela ***********/	
-     $("body").on("click",'.btnExcluir', function(e){
-	
+	$("body").on("click",'.btnExcluir', function(e){
+
 	$('.tela-resultado-field').show();
 	
 	//pega id da linha
 	var td = $(this).parent();
-        var trPar = td.parent();
-        var trId = trPar.attr('id');
-        var tr = trId.substr(11);
+	var trPar = td.parent();
+	var trId = trPar.attr('id');
+	var tr = trId.substr(11);
 
 	numero=tr;
 	subtrairValorConta(numero);
 	$('.clonadoProduto'+tr).remove();
 
-        //Remove a linha
+	//Remove a linha
 	trPar.fadeOut(400, function(){	
 	    trPar.remove();
 	    
@@ -566,7 +566,6 @@
 	    contadorInput9++;
 	});
 
-	
 	//troca botões qd clicado em editar e depois remover
 	$('#bt-editarConta-pagar').hide();
 	$('#bt-adicionarConta-pagar').show();     
