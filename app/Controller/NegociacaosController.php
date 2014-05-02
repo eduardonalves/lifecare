@@ -39,12 +39,55 @@ class NegociacaosController extends AppController {
 		$options = array('conditions' => array('Negociacao.' . $this->Negociacao->primaryKey => $id));
 		$this->set('negociacao', $this->Negociacao->find('first', $options));
 	}
+	
+	
+	public function setStatusConta(&$idConta){
+		$this->loadModel('Parcela');
+		$this->loadModel('Conta');
+		$parcelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $idConta)));
+		
+		$hoje= date("Y-m-d");
+		foreach($parcelas as $parcela){
+			
+			$vencimento= $parcela['Parcela']['data_vencimento'];
+			$diasCritico = $parcela['Parcela']['periodocritico'];
+			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
+			
+			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
+				if($diasCritico !=''){
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);
+						$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);	
+						
+					}else if( $dataCritica < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
+						$this->Parcela->save($updatevencimento);
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					} 
+				}else{
+					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
+						$this->Parcela->save($updatevencimento);	
+						$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);
+					}else{
+						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
+						$this->Parcela->save($updatevencimento);
+					}
+				}
+							
+			}
+		}
+	}	
 
 /**
  * add method
  *
  * @return void
  */
+ 
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->loadModel('Pagamento');
@@ -89,6 +132,7 @@ class NegociacaosController extends AppController {
 
 				$this->Conta->save($statusConta);
 				
+				$this->setStatusConta($this->request->data['Negociacao']['conta_id']);
 				
 				    				
 				$this->Session->setFlash(__('A negociação foi salva.'), 'default', array('class' => 'success-flash'));
@@ -97,7 +141,7 @@ class NegociacaosController extends AppController {
 				$this->Session->setFlash(__('A negociação não foi salva. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
-		//$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
+		$this->redirect(array('controller'=> 'contas', 'action' => 'view', $this->request->data['Negociacao']['conta_id']));
 		$parceirodenegocios = $this->Negociacao->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
 	}

@@ -621,7 +621,7 @@
     });
 /****************** Tipo de pagamento *************************/
     $('#NegociacaoTipoPagamento').change(function(){
-	    $('input[name*="parcela"]').val('');
+	  //  $('input[name*="parcela"]').val('');
 	    $('#NegociacaoFormaPagamento').val('');
 	    $('[id*="editarConta"]').hide();
 	    $('[id*="bt-adicionarConta"]').show();

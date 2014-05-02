@@ -125,12 +125,12 @@ class ParcelasController extends AppController {
 	if($this->request->data['Parcela']['doc_file']['size'] < 2097152 ){
 	    if($w <= 700 || $h <= 700 ){
 		if(file_exists($filename)){
-		    unlink($filename);
+		    //unlink($filename);
 		}
 		$this->Session->setFlash(__('Resolução mínima permitida é de 700 pixels. Tente novamente.'), 'default', array('class' => 'error-flash'));		
 	    }else if($w >=2200 || $h >=2200){
 		if(file_exists($filename)){
-		    unlink($filename);
+		    //unlink($filename);
 		}
 		$this->Session->setFlash(__('Resolução máxima permitida é de 2200 pixels. Tente novamente.'), 'default', array('class' => 'error-flash'));
 
@@ -141,7 +141,7 @@ class ParcelasController extends AppController {
 		    if ($this->Parcela->save($this->request->data)) {
 			$fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
 			if(file_exists($fileAntigo)){
-			    unlink($fileAntigo);
+			   // unlink($fileAntigo);
 			}
 			$this->Session->setFlash(__('Upload realizado com sucesso.'), 'default', array('class' => 'success-flash'));
 		    } else {

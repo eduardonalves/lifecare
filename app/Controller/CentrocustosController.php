@@ -416,7 +416,7 @@ class CentrocustosController extends AppController {
 				}
 				
 				$this->Session->setFlash(__('O Centro de Custo foi salvo.'),'default',array('class'=>'success-flash'));
-				return $this->redirect(array('action' => 'index','?limit=15'));
+				return $this->redirect(array('action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('O Centro de Custo não pode ser salvo. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
 			}

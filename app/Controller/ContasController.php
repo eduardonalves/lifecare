@@ -446,7 +446,22 @@ class ContasController extends AppController {
 		foreach($this->request->data['filter'] as $key=>$value){
 			if(isset($this->request->data['filter']['data_vencimento'])){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento']);
+			}
+			
+			if(isset($this->request->data['filter']['data_emissao'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_emissao']);
 			}	
+			if(isset($this->request->data['filter']['data_emissao'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_emissao']);
+			}
+			if(isset($this->request->data['filter']['data_emissao-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_emissao-between']);
+			}
+			
+			if(isset($this->request->data['filter']['data_vencimento'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento']);
+			}	
+				
 			if(isset($this->request->data['filter']['data_vencimento-between'])){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento-between']);
 			}	
@@ -732,6 +747,7 @@ class ContasController extends AppController {
 					foreach($contas[$id]['Parcela'] as $parcela){
 						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_vencimento']);
 						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_pagamento']);
+						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_emissao']);
 						$j= $j+1;
 						
 					}

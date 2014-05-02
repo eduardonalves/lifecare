@@ -114,7 +114,12 @@ class QuicklinksController extends AppController {
 		    $this->layout = 'contas';
 		    $this->redirect(array('controller'=> 'contas', 'action' => 'index','?parametro=contas'));
 		   
+		}if($redirecionar[4] == 'contas'){
+		    $this->layout = 'contas';
+		    $this->redirect(array('controller'=> 'contas', 'action' => 'index','?parametro=contas'));
+		   
 		}else{
+		
 		    //igual a notas
 		    $this->redirect(array('controller' => 'notas', 'action' => 'index','?parametro=notas'));
 		    
