@@ -472,7 +472,9 @@ $(document).ready(function() {
 		<td class="actions">
 		    <?php 
 				echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $parcela['Conta'][0]['id'])));
-			
+				
+				echo "<hr />";
+				
 				echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
 				'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parcela['Conta'][0]['parceirodenegocio_id'])));
 			?>
