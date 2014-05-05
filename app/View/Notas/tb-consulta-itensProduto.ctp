@@ -58,6 +58,9 @@
 				<tr>
 					<td class="actions">
 							<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'produtos','action' => 'view', $produtoiten['Produto']['id']))); ?>
+							
+							<?php echo "<hr />"; ?>
+
 							<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar','url'=>array('controller' => 'produtos','action' => 'edit', $produtoiten['Produto']['id']))); ?>
 					</td>
 					
