@@ -199,7 +199,7 @@ $(document).ready(function(){
 			<section class="coluna-central" >
 
 				<?php
-					//echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text', 'class' =>'tamanho-medio dinheiro_duasCasas','tabindex'=>'2'));
+					echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text', 'class' =>'tamanho-medio dinheiro_duasCasas','tabindex'=>'2'));
 					echo $this->Form->input('Orcamentocentro.0.ano', array('label' => 'Ano: ', 'class' => 'selectAno', 'type' => 'select', 'options' => $ano,  'default' => $anoAtual,'tabindex'=>'4'));
 					$ano = $ano[$anoAtual]."-01-30";	
 				?>
