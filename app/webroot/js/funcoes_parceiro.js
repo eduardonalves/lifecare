@@ -462,6 +462,8 @@ $(document).ready(function() {
 			}
 
 	});
+	
+/*** Verificação da quantia de digitos nos telefone *******************************************/
 
 
 

@@ -601,6 +601,7 @@
 /********************* Preencher Dados Cliente *********************/
 
     $("#bt-preencherCliente").click(function(){
+	$("#msgValidaParceiro").hide();
 	valorForncedor=	$("#add-cliente option:selected" ).val();
 	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 	valorNome= $("#add-cliente option:selected" ).attr('id');

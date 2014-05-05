@@ -287,25 +287,22 @@ $(document).ready(function() {
 
 	var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
 	
-	parceiro = $('[id*="Parceiro"]').val();
-	tipoConta = $('#tipoConta').val();
-	centroCusto = $('#nomeCusto').val();
+	parceiro = $('.nomeParceiro').val();
+	parceiroCpf = $('.cpfParceiro').val();
+
 	
 	if(parceiro ==''){
+		$('#msgValidaParceiro').css('display','block');
+	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
+	    $('html, body').animate({scrollTop:0}, 'slow');
+	    
+	}else if(parceiroCpf == ''){
 	    $('#msgValidaParceiro').css('display','block');
 	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
-	}else if(tipoConta ==''){
-		$('#msgValidaTipoConta').css('display','block');
-	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	}else if(centroCusto ==''){
-		$('#msgValidaCentroCusto').css('display','block');
-	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
-	    $('html, body').animate({scrollTop:0}, 'slow');
 	}else if(!temclasvalbtconf){
-	    $('#msgCpfCnpj').css('display','block');
+	    $('#msgValidaParcela').css('display','block');
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
 	}else{    	
@@ -353,24 +350,25 @@ $(document).ready(function() {
 /********** Voltar tela de resultado Contas ****************/
 
     $('.bt-voltar').click(function(){
-	$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
-	$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
-	$('.forma-data').removeAttr('disabled','disabled')
-	$('select[class*="desabilita"] + input ').remove();
-	$('#spanTextArea').remove();
-	$('.textAreaConta').show();
-	$('.ui-widget').removeAttr('readonly','readonly').removeClass('borderZero');
-	$("[class*='ui-button']").css('display','inherit');
-	$('html, body').animate({scrollTop:0}, 'slow');
-	$('.bt-salvarConta').hide();
-	$('.bt-voltar').hide();
-	$('.bt-confirmar').show();
-	$('table td:nth-last-child(1), th:nth-last-child(1)').show();
-	$('input').removeAttr('required');
+		$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
+		$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
+		$('.forma-data').removeAttr('disabled','disabled')
+		$('select[class*="desabilita"] + input ').remove();
+		$('#spanTextArea').remove();
+		$('.textAreaConta').show();
+		$('.ui-widget').removeAttr('readonly','readonly').removeClass('borderZero');
+		$("[class*='ui-button']").css('display','inherit');
+		$('html, body').animate({scrollTop:0}, 'slow');
+		$('.bt-salvarConta').hide();
+		$('.bt-voltar').hide();
+		$('.bt-confirmar').show();
+		$('table td:nth-last-child(1), th:nth-last-child(1)').show();
+		$('input').removeAttr('required');
 
 	tipo_pagamento = $('#Pagamento0TipoPagamento').val();
 	if(tipo_pagamento != 'CLIENTE'){
 	    $('.tela-resultado-field').show();
+	    $('.tela-resultado').show();
 	}
     });
 
