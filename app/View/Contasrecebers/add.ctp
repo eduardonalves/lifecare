@@ -159,7 +159,6 @@
 		<div class="centrocusto">
 		<?php
 			echo  $this->Form->input('centrocusto_id', array('type' => 'hidden'));
-		    echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		   // echo $this->Form->input('centrocusto', array('id'=>'limite_usado','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 
 		?>

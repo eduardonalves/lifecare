@@ -100,7 +100,9 @@
 			
 			<a href="edit-obs" class="bt-showmodal">
 			<?php
+				if($conta['Conta']['status'] != 'CANCELADO'){
 				echo $this->html->image('botao-editar.png',array('id' => 'bt-edit', 'alt' => 'Editar Observação', 'title' => 'Editar Observação'));
+			}
 			?>
 			
 			</a>
@@ -140,9 +142,9 @@
 		<fieldset>
 			<legend>Centro de Custo</legend>
 		<?php
-			$limite = number_format($conta['Centrocusto']['limite'], 2, ',', '.');  
+			//$limite = number_format($conta['Centrocusto']['limite'], 2, ',', '.');  
 			echo $this->Form->input('Centrocusto.nome',array('label' => 'Nome:','value'=>h($conta['Centrocusto']['nome']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
-			echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h("R$ ".$limite),'class' => 'tamanho-grande borderZero','disabled'=>'disabled', 'type'=>'text'));				
+			//echo $this->Form->input('Centrocusto.limite',array('label' => 'Limite:','value'=>h("R$ ".$limite),'class' => 'tamanho-grande borderZero','disabled'=>'disabled', 'type'=>'text'));				
 			//echo $this->Form->input('Centrocusto.limite_usado',array('label' => 'Limite Usado:','value'=>h($conta['Centrocusto']['limite_usado']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));				
 		?>		
 		</fieldset>
@@ -178,17 +180,19 @@
 							echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
 							echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
 							echo "</a>";
-							echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
-						   
-							//echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
 							
-							echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
-							echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
-
-							echo "</a>";
-							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));		    
-
-
+							if($conta['Conta']['status'] != 'CANCELADO'){
+								
+								echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
+								
+								//echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
+								
+								echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
+								echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
+								
+								echo "</a>";
+								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+							}
 						?>
 					</td>
 					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){
@@ -346,9 +350,7 @@
 						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
 
 						<header id="cabecalho">
-							
-							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" />	 <h1>Editar Observação</h1>
-							
+							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" /><h1>Editar Observação</h1>
 							</header>
 							
 							<section>
