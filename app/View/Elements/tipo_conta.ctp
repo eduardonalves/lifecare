@@ -44,7 +44,7 @@ $(document).ready(function(){
 							if($('#TipodecontaTipo').val() == "RECEITA"){
 								$('#ContasreceberTipocontaId').val(data.Tipodeconta.id);
 							}else{
-								$('#ContaspagarTipocontaId').val(data.Tipodeconta.id);
+								$('#ContaspagarTipodecontaId').val(data.Tipodeconta.id);
 							}
 							$("#TipodecontaNome").val("");
 							$("#myModal_add-tipodeConta").modal('hide');
