@@ -464,7 +464,8 @@ class ContasController extends AppController {
 				
 			if(isset($this->request->data['filter']['data_vencimento-between'])){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_vencimento-between']);
-			}	
+			}
+	
 		}
 		
 	}	
@@ -607,7 +608,7 @@ class ContasController extends AppController {
 		$this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
-	                'Conta.identificacao' => array(
+	                '_Conta.identificacao' => array(
 	                    'operator' => '='
 
 	                )
@@ -632,7 +633,7 @@ class ContasController extends AppController {
 	                )
 	            ),
 		        'data_emissao' => array(
-		            'Conta.data_emissao' => array(
+		            '_Conta.data_emissao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -640,7 +641,7 @@ class ContasController extends AppController {
 		            )
 		        ),
 	            'data_quitacao' => array(
-		            'Conta.data_quitacao' => array(
+		            '_Conta.data_quitacao' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -648,7 +649,7 @@ class ContasController extends AppController {
 		            )
 		        ),
 		         'valor' => array(
-		            '_Parcela.valor' => array(
+		            'Parcela.valor' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -656,7 +657,7 @@ class ContasController extends AppController {
 		            )
 		        ),
 		        'data_vencimento' => array(
-		            '_Parcela.data_vencimento' => array(
+		            'Parcela.data_vencimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -665,7 +666,7 @@ class ContasController extends AppController {
 		        ),
 		       
 	            'forma_pagamento' => array(
-	                '_Pagamento.forma_pagamento' => array(
+	                'Pagamento.forma_pagamento' => array(
 	                    'operator' => 'LIKE',
                          /*  'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -677,7 +678,7 @@ class ContasController extends AppController {
 	            ),
 	            
 				'status_conta' => array(
-	                'Conta.status' => array(
+	                '_Conta.status' => array(
 	                    'operator' => 'LIKE',
                         /* 'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -687,7 +688,7 @@ class ContasController extends AppController {
 	            ),
 	            
 		        'tipoMovimentacao' => array(
-	                'Conta.tipo' => array(
+	                '_Conta.tipo' => array(
 	                    'operator' => 'LIKE',
                          'explode' => array(
 	                    	'concatenate' => 'OR'
@@ -695,21 +696,21 @@ class ContasController extends AppController {
 					)
 	            ),
 	            'nomeCentroCusto' => array(
-	                'Conta.centrocusto_id' => array(
+	                '_Conta.centrocusto_id' => array(
 	                    'operator' => '=', 
 	                    'select' => array(''=> '', $listaCentroCusto)
 
 	                )
 	            ),
 	            'nomeTipodeconta' => array(
-	                'Conta.tipodeconta_id' => array(
+	                '_Conta.tipodeconta_id' => array(
 	                    'operator' => '=', 
 	                    'select' => array(''=> '', $listaTipodeconta)
 
 	                )
 	            ),
 	             'descricao' => array(
-	                'Conta.descricao' => array(
+	                '_Conta.descricao' => array(
 	                    'operator' => 'LIKE'
 
 	                )

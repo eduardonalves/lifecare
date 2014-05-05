@@ -139,6 +139,19 @@ class Parceirodenegocio extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Parcela' => array(
+			'className' => 'Parcela',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Nota' => array(
 			'className' => 'Nota',
 			'foreignKey' => 'parceirodenegocio_id',

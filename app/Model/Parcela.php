@@ -32,7 +32,14 @@ class Parcela extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
+		'Parceirodenegocio' => array(
+			'className' => 'Parceirodenegocio',
+			'foreignKey' => 'parceirodenegocio_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 	);
 
 
