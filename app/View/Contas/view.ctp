@@ -175,27 +175,23 @@
 			
 			<?php foreach ($conta['Parcela'] as $parcelas): ?>
 				<tr>
-					<td class="actions">
+					<td>
 						<?php
 							echo "<a href='add-comprovanteView' class='bt-showmodal'>"; 
 							echo $this->Html->image('botao-tabela-visualizar.png',array('class' => 'bt-visualizar', 'id' => 'bt-visualizarComprovante','alt' => 'Visualizar Comprovante ','title' => 'Visualizar Comprovante ' ));
 							echo "</a>";
 							
-							echo "<hr />";
-							
 							if($conta['Conta']['status'] != 'CANCELADO'){
 								
 								echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
-								
-								echo "<hr />";
+
 								//echo $this->Form->postLink(__('Quitar'), array('action' => 'quitarParcela', $parcelas['id']), null, __('Tem certeza que deseja quitar esta parcela # %s?', $parcelas['id']));
 								
 								echo "<a href='add-uploadConta' class='bt-showmodal'>"; 
 								echo $this->Html->image('upload.png',array('class' => 'bt-upload', 'id' => 'bt-upload','alt' => 'Upload Conta','title' => 'Upload Comprovante' ));
 								
 								echo "</a>";
-								
-								echo "<hr />";
+
 								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
 							}
 						?>
