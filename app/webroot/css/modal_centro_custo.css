@@ -10,11 +10,15 @@
 	height: 100px;
 }
 
+#myModal_add-centro_custo label{
+	width: 100px;
+}
+
 #myModal_add-centro_custo .modal-body{
-	height:500px !important;
-	width:1100px;
-	left:-280px;
-	top:-30px;
+	height: 230px !important;
+	width: 650px;
+	left: -80px;
+	top: -3px;
 }
 
 #myModal_add-centro_custo footer{
@@ -24,6 +28,16 @@
 #myModal_add-centro_custo .coluna-modal{
 	margin: 40px 0px 0px 75px;
 	top: 10px;
+} 
+
+#myModal_add-centro_custo .coluna-esquerda{
+	width: 305px;
+	margin-left: 35px;
+}
+
+#myModal_add-centro_custo .coluna-central{
+	width: 250px;
+	margin-left: 8px;
 }
 
 #myModal_add-centro_custo #loaderAjaxCusto{
@@ -36,7 +50,7 @@
 /* VALIDACAO **********************************************************/
 #myModal_add-centro_custo  #spanValidaNomeCusto{
 	right: 0px;
-	margin-right: 33px;
+	margin-right: -70px;
 	width: 95px;
 }
 

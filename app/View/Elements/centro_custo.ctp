@@ -199,19 +199,13 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Orcamentocentro.0.mes', array('label' => 'Mês: ','class' => 'selectMes', 'type' => 'select', 'options' => array('01' => 'Janeiro', '02' => 'Fevereiro', '03' => 'Março', '04' => 'Abril', '05' => 'Maio', '06' => 'Junho', '07' => 'Julho', '08' =>'Agosto', '09' => 'Setembro', '10' => 'Outubro', '11' => 'Novembro', '12'=> 'Dezembro')));
-				?>
-
-			</section>
-			
-			<section class="coluna-direita" >
-
-				<?php
 					echo $this->Form->input('Orcamentocentro.0.ano', array('label' => 'Ano: ', 'class' => 'selectAno', 'type' => 'select', 'options' => $ano,  'default' => $anoAtual));
 					$ano = $ano[$anoAtual]."-01-30";
 					
 				?>
 
 			</section>
+			
 		</div>
 	</div>
 	
