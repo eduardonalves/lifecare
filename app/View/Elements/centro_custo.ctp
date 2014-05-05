@@ -192,6 +192,7 @@ $(document).ready(function(){
 					echo $this->Form->input('Orcamentocentro.0.periodo_final', array('type' => 'hidden', 'value' => $dataAtual));
 					echo $this->Form->input('Orcamentocentro.0.limite', array('label' => 'Valor Limite: ', 'type' => 'text', 'class' =>'tamanho-medio dinheiro_duasCasas'));
 				?>
+				
 
 			</section>
 
