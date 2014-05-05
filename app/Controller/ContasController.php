@@ -501,6 +501,8 @@ class ContasController extends AppController {
 							'data_quitacao' => 'Data de Quitação ',
 							'valor' => 'Valor',	
 							'tipo' => 'Tipo de Conta',
+							'forma_pagamento' => 'Forma de Pagamento',
+							'tipo_pagamento' => 'Tipo de Pagamento',
 							'centrocusto_id' => 'Centro de Custo',
 							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
 							'status' => 'Status da Conta',
@@ -762,7 +764,9 @@ class ContasController extends AppController {
 					
 					if(isset($conta['Centrocusto']['nome'])){
 								if(!empty($conta['Centrocusto']['nome'])){
+									$nome= $conta['Centrocusto']['nome'];
 									$parcelas[$i]['Parcela']['centrocusto_id'] = $conta['Centrocusto']['nome'];
+
 								}
 						}
 						if(isset($conta['Tipodeconta']['nome'])){
@@ -792,8 +796,22 @@ class ContasController extends AppController {
 									$parcelas[$i]['Parcela']['status_parceiro'] = $conta['Parceirodenegocio']['status'];
 								}
 						}
+						$parcelas[$i]['Parcela']['tipo_pagamento']="";
+						if(isset($conta['Pagamento'][0]['tipo_pagamento'])){
+								if(!empty($conta['Pagamento'][0]['tipo_pagamento'])){
+									$parcelas[$i]['Parcela']['tipo_pagamento'] = $conta['Pagamento'][0]['tipo_pagamento'];
+								}
+
+						}
 						
+						$parcelas[$i]['Parcela']['forma_pagamento']="";
+						if(isset($conta['Pagamento'][0]['forma_pagamento'])){
+								if(!empty($conta['Pagamento'][0]['forma_pagamento'])){
+									$parcelas[$i]['Parcela']['forma_pagamento'] = $conta['Pagamento'][0]['forma_pagamento'];
+								}
+						}
 					$i= $i+1;	
+					//debug($conta['Pagamento'][0]['forma_pagamento']);
 				}
 				$this->set(compact('parcelas'));
 				//$this->set(compact('contas', 'cntContas','contasAtrasadasREceber', 'contasRecebidas','contasVencerParaREceber', 'totalAreceber', 'totalGeralReceber', 'contasAtrasadasPagar'));
@@ -952,7 +970,7 @@ class ContasController extends AppController {
 						$nomeCentroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $contas[$id]['Conta']['centrocusto_id']), 'recursive' => -1));
 						
 						$nomeTipodeconta = $this->Tipodeconta->find('first', array('conditions' => array('Tipodeconta.id' => $contas[$id]['Conta']['tipodeconta_id']), 'recursive' => -1));
-					
+						
 						$contas[$id]['Conta']['nome_parceiro']="";
 						
 						if(isset($nomeCentroCusto)){
@@ -965,6 +983,24 @@ class ContasController extends AppController {
 									$contas[$id]['Conta']['tipodeconta_id'] = $nomeTipodeconta['Tipodeconta']['nome'];
 								}
 						}
+						
+						$contas[$id]['Conta']['tipo_pagamento'] ="";
+						if(isset($conta['Pagamento'][0])){
+								if(!empty($conta['Pagamento'][0])){
+									$contas[$id]['Conta']['tipo_pagamento'] = $conta['Pagamento'][0]['tipo_pagamento'];
+								}
+						}
+						
+						$contas[$id]['Conta']['forma_pagamento'] ="";
+						if(isset($conta['Pagamento'][0])){
+								if(!empty($conta['Pagamento'][0])){
+									$contas[$id]['Conta']['forma_pagamento'] = $conta['Pagamento'][0]['forma_pagamento'];
+								}
+						}
+						
+						
+						
+						
 						if(isset($parceirodenegocio)){
 								if(!empty($parceirodenegocio)){
 									if(isset($parceirodenegocio['Parceirodenegocio']['id'])){

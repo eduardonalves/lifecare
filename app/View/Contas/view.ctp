@@ -255,10 +255,10 @@
 				<div class="modal fade" id="myModal_add-uploadConta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 					<div class="modal-body">
-						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
 			
 						<header id="cabecalho">
-							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Upload comprovante</h1>
+							<img src="/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Upload comprovante</h1>
 						</header>
 				
 						<script>
@@ -302,13 +302,13 @@
 											<?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id'])); ?>
 											<input type="text" id="valorUpload" name="data[Parcela][comprovante]"/>
 											<input type="hidden" name="data[Parcela][arquivoAntigo]" value="<?php echo $parcelas['comprovante'] ?>"/>
-											<a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
+											<a id="teste" href="#"><img id="bt-buscar" src="/app/webroot/img/botao-buscar.png"/></a>
 										</div>
 										<span id="msgImagemvazia" class="Msg-tooltipAbaixo msgImagem" style="display:none">Escolha uma imagem</span>
 										<span id="msgImagemErro" class="Msg-tooltipAbaixo msgImagem" style="display:none">Extensão inválida</span>
 
 										<div class="submit">
-											<input id="bt-confirmarUpload" type="image" src="/lifecare/app/webroot/img/botao-confirmar.png"/>
+											<input id="bt-confirmarUpload" type="image" src="/app/webroot/img/botao-confirmar.png"/>
 										</div>
 									<?php echo $this->Form->end() ?>
 								</div>
@@ -322,11 +322,11 @@
 <!--------------------------------------Modal view Comprovante ----------------------------------------------------->
 				<div class="modal fade" id="myModal_add-comprovanteView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
-						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
 
 						<header id="cabecalho">
 							
-							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Visualizar</h1>
+							<img src="/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Visualizar</h1>
 							 
 						</header>
 
@@ -340,7 +340,7 @@
 							<header class="header">Comprovante</header>
 
 							<div class='zoomImagem'>
-							   <img src="/lifecare/app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
+							   <img src="/app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
 							</div>
 						</section>
 					</div>
@@ -348,10 +348,10 @@
 
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
-						<img src="/lifecare/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
 
 						<header id="cabecalho">
-							<img src="/lifecare/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" /><h1>Editar Observação</h1>
+							<img src="/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" /><h1>Editar Observação</h1>
 							</header>
 							
 							<section>
@@ -420,3 +420,5 @@
 <?php
 	}
 ?>
+
+

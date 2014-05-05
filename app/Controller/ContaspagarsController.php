@@ -343,13 +343,14 @@ class ContaspagarsController extends ContasController {
 				$this->loadModel('ParcelasConta');
 				$this->loadModel('Conta');
 				$ultimoPagamento = $this->Pagamento->find('first', array('order' => array('Pagamento.id' => 'desc'), 'recursive' => -1));
-				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => -1));
+				$ultimaConta = $this->Conta->find('first', array('order' => array('Conta.id' => 'desc'), 'recursive' => 1));
 				$parcelasEnviadas = $this->request->data['Parcela'];
 				
 				
 				$cont=0;
 				foreach($parcelasEnviadas as $parcelasEnviada){
 					$parcelasEnviada['parceirodenegocio_id'] = $ultimaConta['Conta']['parceirodenegocio_id'];
+					$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
 					$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
 					
 					$this->Parcela->create();

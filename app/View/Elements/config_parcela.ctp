@@ -24,7 +24,8 @@
 	<header>Campos da Tabela</header>
 
 	<section class="coluna-modal">
-		<div class="">
+		<div>
+			
 			
 			<?php
 				echo $this->Form->create('Configparcela');
@@ -32,21 +33,32 @@
 				echo $this->Form->input('id',array('type'=>'hidden','value' => $configparcela['Configparcela']['id']));
 				
 				if($configparcela['Configparcela']['parcela']==1){
-						echo $this->Form->input('parcela', array('value' => 1, 'checked' =>'checked', 'label'=>' Parcela'));
-					} else{
-						echo $this->Form->input('parcela', array('label' => ' Parcela'));
+						//echo $this->Form->input('parcela', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>' Parcela'));
+						echo "<div class='input checkbox'>
+								<input type='hidden' name='data[Configparcela][parcela]' id='ConfigparcelaIdentificacaoDocumento' value='0'/>
+								<input type='checkbox' name='data[Configparcela][parcela]'  value='1' checked='checked' id='ConfigparcelaParcela'/>
+								<label for='ConfigparcelaParcela'>Parcela</label>
+							  </div>";
+					}else{
+						//echo $this->Form->input('parcela', array('type'=>'checkbox','label' => 'Parcela'));
+						echo "<div class='input checkbox'>
+								<input type='hidden' name='data[Configparcela][parcela]' id='ConfigparcelaIdentificacaoDocumento' value='0'/>
+								<input type='checkbox' name='data[Configparcela][parcela]' value='1'  id='ConfigparcelaParcela'/>
+								<label for='ConfigparcelaParcela'>Parcela</label>
+							  </div>";
 					}
+					
 				
 				if($configparcela['Configparcela']['identificacao_documento']==1){
-						echo $this->Form->input('identificacao_documento', array('value' => 1, 'checked' =>'checked', 'label'=>'Identificação'));
+						echo $this->Form->input('identificacao_documento', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>'Identificação'));
 					} else{
-						echo $this->Form->input('identificacao_documento', array('label' => ' Identificação'));
+						echo $this->Form->input('identificacao_documento', array('type'=>'checkbox','label' => ' Identificação'));
 					}
 				
 				if($configparcela['Configparcela']['data_vencimento']==1){
-						echo $this->Form->input('data_vencimento', array('value' => 1, 'checked' =>'checked', 'label'=>'Data do Vencimento'));
+						echo $this->Form->input('data_vencimento', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>'Data do Vencimento'));
 					} else{
-						echo $this->Form->input('data_vencimento', array('label' => 'Data do Vencimento'));
+						echo $this->Form->input('data_vencimento', array('type'=>'checkbox','label' => 'Data do Vencimento'));
 					}
 				
 				if($configparcela['Configparcela']['valor']==1){
@@ -109,3 +121,4 @@
 		
 	?>
 </footer>
+

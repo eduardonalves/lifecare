@@ -40,6 +40,13 @@ class Parcela extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Pagamento' => array(
+			'className' => 'Pagamento',
+			'foreignKey' => 'pagamento_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 	);
 
 
