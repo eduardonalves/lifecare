@@ -481,6 +481,128 @@ class ContasController extends AppController {
 	$this->loadModel('Tipodeconta');
 	$listaCentroCusto = $this->Centrocusto->find('list',array( 'recursive' => -1, 'fields' => array('Centrocusto.id','Centrocusto.nome'), 'order' => array('Centrocusto.nome ASC')));
 	$listaTipodeconta = $this->Tipodeconta->find('list',array( 'recursive' => -1, 'fields' => array('Tipodeconta.id','Tipodeconta.nome'), 'order' => array('Tipodeconta.nome ASC')));
+
+
+	
+/*--------CONFIG Contas----------*/
+		$this->loadModel('Configconta');
+		$configconta=$this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));
+		
+		$configCont = array();
+		
+		$configContasLabels = array(
+		
+							
+							'identificacao' => 'Identificacao',
+							'descricao' => 'Observação',
+							'data_quitacao' => 'Data de Quitação ',
+							'data_emissao' => 'Data da emissão',
+							'data_quitacao' => 'Data de Quitação ',
+							'valor' => 'Valor',	
+							'tipo' => 'Tipo de Conta',
+							'centrocusto_id' => 'Centro de Custo',
+							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
+							'status' => 'Status da Conta',
+							'parceirodenegocio_id' => 'Código do Parceiro',
+							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
+							'nome_parceiro' => 'Nome do Parceiro',
+							'status_parceiro' => 'Status do Parceiro'					
+																															
+							);
+		
+		//if($this->request->query['parametro']!='Contas') { unset($configContasLabels['categoria']); }
+		
+		foreach ($configconta['Configconta'] as $key => $value)
+		{
+			if($value!=1)
+			{
+				if (isset($configContasLabels[$key]))
+				{
+					unset($configContasLabels[$key]);
+				}
+			}
+		}
+		
+		$configCont = $configContasLabels;
+		$this->set(compact('configCont','configconta'));
+/*--------FIM configContas----------*/
+		
+/*--------CONFIG Parcelas----------*/
+		$this->loadModel('Configparcela');
+		$configparcela= $this->Configparcela->find('first', array('conditions' => array('Configparcela.user_id' => $userid), 'recursive' => -1));
+		
+		$configparc = array();
+		
+		$configParcelasLabels = array(
+							'parcela' => 'Parcela',
+							'identificacao_documento' => 'Identificacao',
+							'data_vencimento' => 'Data do vencimento',
+							'data_pagamento' => 'Data do pagamento',
+							'valor' => 'Valor',
+							'periodocritico' => 'Período Crítico',	
+							'obs' => 'Observação',
+							'desconto' => 'Desconto',
+							'banco' => 'Banco',
+							'agencia' => 'Agência',
+							'conta' => 'Conta',
+							'status' => 'Status'																								
+							);
+		
+	//if($this->request->query['parametro']!='Contas') { unset($configParcelasLabels['categoria']); }
+		
+		foreach ($configparcela['Configparcela'] as $key => $value)
+		{
+			if($value!=1)
+			{
+				if (isset($configParcelasLabels[$key]))
+				{
+					unset($configParcelasLabels[$key]);
+				}
+			}
+		}
+		
+		$configparc = $configParcelasLabels;
+		$this->set(compact('configparc','configparcela'));
+/*--------FIM configContas----------*/		
+
+/*--------CONFIG Configparceiros----------*/
+		$this->loadModel('Configparceiro');
+		$configparceiro=$this->Configparceiro->find('first', array('conditions' => array('Configparceiro.user_id' => $userid), 'recursive' => -1));
+		
+		$configparcei = array();
+		
+		$configParceirosLabels = array(
+							'nome' => 'Nome',
+							'cnpj' => 'CNPJ',
+							'endereco' => 'Endereco',
+							'telefone' => 'Telefone'																								
+							);
+		
+	//if($this->request->query['parametro']!='Contas') { unset($configParceirosLabels['categoria']); }
+		
+		foreach ($configparceiro['Configparceiro'] as $key => $value)
+		{
+			if($value!=1)
+			{
+				if (isset($configParceirosLabels[$key]))
+				{
+					unset($configParceirosLabels[$key]);
+				}
+			}
+		}
+		
+		$configparcei = $configParceirosLabels;
+		
+		$this->set(compact('configparcei','configparceiro'));
+/*--------FIM configContas----------*/		
+
+		
+				
+			
+	
+		
+
+			if($_GET['parametro']=='parcelas'){
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
 	        array(
@@ -598,262 +720,336 @@ class ContasController extends AppController {
 		);
 
 /*-------Filtros da consulta fim---------*/
-
-	
-/*--------CONFIG Contas----------*/
-		$this->loadModel('Configconta');
-		$configconta=$this->Configconta->find('first', array('conditions' => array('Configconta.user_id' => $userid), 'recursive' => -1));
-		
-		$configCont = array();
-		
-		$configContasLabels = array(
-		
-							
-							'identificacao' => 'Identificacao',
-							'descricao' => 'Observação',
-							'data_quitacao' => 'Data de Quitação ',
-							'data_emissao' => 'Data da emissão',
-							'data_quitacao' => 'Data de Quitação ',
-							'valor' => 'Valor',	
-							'tipo' => 'Tipo de Conta',
-							'centrocusto_id' => 'Centro de Custo',
-							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
-							'status' => 'Status da Conta',
-							'parcelas' => 'Parcelas',
-							'parceirodenegocio_id' => 'Código do Parceiro',
-							'nome_parceiro' => 'Nome do Parceiro',
-							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
-							'status_parceiro' => 'Status do Parceiro'					
-																															
-							);
-		
-		//if($this->request->query['parametro']!='Contas') { unset($configContasLabels['categoria']); }
-		
-		foreach ($configconta['Configconta'] as $key => $value)
-		{
-			if($value!=1)
-			{
-				if (isset($configContasLabels[$key]))
-				{
-					unset($configContasLabels[$key]);
-				}
-			}
-		}
-		
-		$configCont = $configContasLabels;
-		$this->set(compact('configCont','configconta'));
-/*--------FIM configContas----------*/
-		
-/*--------CONFIG Parcelas----------*/
-		$this->loadModel('Configparcela');
-		$configparcela= $this->Configparcela->find('first', array('conditions' => array('Configparcela.user_id' => $userid), 'recursive' => -1));
-		
-		$configparc = array();
-		
-		$configParcelasLabels = array(
-							'parcela' => 'Parcela',
-							'identificacao_documento' => 'Identificacao',
-							'data_vencimento' => 'Data do vencimento',
-							'data_pagamento' => 'Data do pagamento',
-							'valor' => 'Valor',
-							'periodocritico' => 'Período Crítico',	
-							'obs' => 'Observação',
-							'centrocusto_id' => 'Centro de Custo',
-							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
-							'parceirodenegocio_id' => 'Parceiro de Negócio',
-							'cnpj_cpf' => 'CPF / CNPJ',	
-							'desconto' => 'Desconto',
-							'banco' => 'Banco',
-							'agencia' => 'Agência',
-							'conta' => 'Conta',
-							'status' => 'Status'																								
-							);
-		
-	//if($this->request->query['parametro']!='Contas') { unset($configParcelasLabels['categoria']); }
-		
-		foreach ($configparcela['Configparcela'] as $key => $value)
-		{
-			if($value!=1)
-			{
-				if (isset($configParcelasLabels[$key]))
-				{
-					unset($configParcelasLabels[$key]);
-				}
-			}
-		}
-		
-		$configparc = $configParcelasLabels;
-		$this->set(compact('configparc','configparcela'));
-/*--------FIM configContas----------*/		
-
-/*--------CONFIG Configparceiros----------*/
-		$this->loadModel('Configparceiro');
-		$configparceiro=$this->Configparceiro->find('first', array('conditions' => array('Configparceiro.user_id' => $userid), 'recursive' => -1));
-		
-		$configparcei = array();
-		
-		$configParceirosLabels = array(
-							'nome' => 'Nome',
-							'cnpj' => 'CNPJ',
-							'endereco' => 'Endereco',
-							'telefone' => 'Telefone'																								
-							);
-		
-	//if($this->request->query['parametro']!='Contas') { unset($configParceirosLabels['categoria']); }
-		
-		foreach ($configparceiro['Configparceiro'] as $key => $value)
-		{
-			if($value!=1)
-			{
-				if (isset($configParceirosLabels[$key]))
-				{
-					unset($configParceirosLabels[$key]);
-				}
-			}
-		}
-		
-		$configparcei = $configParceirosLabels;
-		
-		$this->set(compact('configparcei','configparceiro'));
-/*--------FIM configContas----------*/		
-
-		
+				$this->loadModel('Parcela');
+				$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.data_vencimento ASC'));
+				$this->Paginator->settings = array(
+					'Parcela' => array(
+						'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
+						'fields_toCount' => 'DISTINCT Parcela.id',
+						'limit' => $this->request['url']['limit'],
+						'order' => 'Parcela.data_vencimento ASC',
+						'conditions' => $this->Filter->getConditions()
+					)
+				);
 				
-			
-	
-		
-
-			
-			
-			$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
-			$this->Paginator->settings = array(
-				'Conta' => array(
-					'fields' => array('DISTINCT Conta.id', 'Conta.*'),
-					'fields_toCount' => 'DISTINCT Conta.id',
-					'limit' => $this->request['url']['limit'],
-					'order' => 'Conta.identificacao ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntContas = count($contas);
-			//debug($contas);	
-			
-			$contas = $this->Paginator->paginate('Conta');
-			foreach ($contas as $id => $conta) {
+				$cntParcelas = count($parcelas);
+				//debug($contas);	
 				
-				if(isset($contas[$id]['Parcela'])){
-					$j=0;
-					foreach($contas[$id]['Parcela'] as $parcela){
-						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_vencimento']);
-						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_pagamento']);
-						$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_emissao']);
-						$j= $j+1;
-						
-					}
+				
+				$parcelas = $this->Paginator->paginate('Parcela');
+				$i=0;
+				foreach($parcelas as $i => $parcela){
+					$this->lifecareDataFuncs->formatDateToView($parcelas[$i]['Parcela']['data_vencimento']);
+					$this->lifecareDataFuncs->formatDateToView($parcelas[$i]['Parcela']['data_pagamento']);
 					
+					
+					$conta = $this->Conta->find('first',
+					  array(
+					    'contain' => array(
+					      '_ParcelasConta',
+					      '_Parcela'
+					    ),
+					    'conditions' => array(
+					      '_Parcela.id' => $parcelas[$i]['Parcela']['id']
+					    )
+					  )
+					);
+					
+					
+				
+					$parcelas[$i]['Parcela']['parceirodenegocio_id']="";
+					
+					if(isset($conta['Centrocusto']['nome'])){
+								if(!empty($conta['Centrocusto']['nome'])){
+									$parcelas[$i]['Parcela']['centrocusto_id'] = $conta['Centrocusto']['nome'];
+								}
+						}
+						if(isset($conta['Tipodeconta']['nome'])){
+								if(!empty($conta['Tipodeconta']['nome'])){
+									$parcelas[$i]['Parcela']['tipodeconta_id'] = $conta['Tipodeconta']['nome'];
+								}
+						}
+						
+						if(isset($conta['Parceirodenegocio']['nome'])){
+								if(!empty($conta['Parceirodenegocio']['nome'])){
+									$parcelas[$i]['Parcela']['nome_parceiro'] = $conta['Parceirodenegocio']['nome'];
+								}
+						}
+						if(isset($conta['Parceirodenegocio']['id'])){
+								if(!empty($conta['Parceirodenegocio']['id'])){
+									$parcelas[$i]['Parcela']['parceirodenegocio_id'] = $conta['Parceirodenegocio']['id'];
+								}
+						}
+						if(isset($conta['Parceirodenegocio']['cpf_cnpj'])){
+								if(!empty($conta['Parceirodenegocio']['cpf_cnpj'])){
+									$parcelas[$i]['Parcela']['cnpj_parceiro'] = $conta['Parceirodenegocio']['cpf_cnpj'];
+								}
+						}
+						
+						if(isset($conta['Parceirodenegocio']['status'])){
+								if(!empty($conta['Parceirodenegocio']['status'])){
+									$parcelas[$i]['Parcela']['status_parceiro'] = $conta['Parceirodenegocio']['status'];
+								}
+						}
+						
+					$i= $i+1;	
 				}
-				$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
+				$this->set(compact('parcelas'));
+				//$this->set(compact('contas', 'cntContas','contasAtrasadasREceber', 'contasRecebidas','contasVencerParaREceber', 'totalAreceber', 'totalGeralReceber', 'contasAtrasadasPagar'));
+				//$this->set(compact('contaspagas', 'contasVencerParaPagar','totalAPagar','totalGeralPagar','balancete','$totalGeralReceber','totalGeralPagar'));
+				$log = $this->Parcela->getDataSource()->getLog(false, false);
 				
-				$nomeCentroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $contas[$id]['Conta']['centrocusto_id']), 'recursive' => -1));
-				
-				$nomeTipodeconta = $this->Tipodeconta->find('first', array('conditions' => array('Tipodeconta.id' => $contas[$id]['Conta']['tipodeconta_id']), 'recursive' => -1));
+			}else{
+	
+/*--------Filtros da consulta início-----*/
+		$this->Filter->addFilters(
+	        array(
+	            'identificacao' => array(
+	                'Conta.identificacao' => array(
+	                    'operator' => '='
+
+	                )
+	            ),
+		        'nome' => array(
+	                'Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE', 
+	                    'select' => array(''=> '', $listaParceiros)
+
+	                )
+	            ),
+	            'cpf_cnpj' => array(
+	                'Parceirodenegocio.cpf_cnpj' => array(
+	                    'operator' => '='
+
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),
+		        'data_emissao' => array(
+		            'Conta.data_emissao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'data_quitacao' => array(
+		            'Conta.data_quitacao' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		         'valor' => array(
+		            '_Parcela.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_vencimento' => array(
+		            '_Parcela.data_vencimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		       
+	            'forma_pagamento' => array(
+	                '_Pagamento.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+                         /*  'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),*/
+
+	               		 'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+
+					)
+	            ),
+	            
+				'status_conta' => array(
+	                'Conta.status' => array(
+	                    'operator' => 'LIKE',
+                        /* 'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),*/
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+					)
+	            ),
+	            
+		        'tipoMovimentacao' => array(
+	                'Conta.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+	            'nomeCentroCusto' => array(
+	                'Conta.centrocusto_id' => array(
+	                    'operator' => '=', 
+	                    'select' => array(''=> '', $listaCentroCusto)
+
+	                )
+	            ),
+	            'nomeTipodeconta' => array(
+	                'Conta.tipodeconta_id' => array(
+	                    'operator' => '=', 
+	                    'select' => array(''=> '', $listaTipodeconta)
+
+	                )
+	            ),
+	             'descricao' => array(
+	                'Conta.descricao' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            
+	        )
 			
-				$contas[$id]['Conta']['nome_parceiro']="";
-				
-				if(isset($nomeCentroCusto)){
-						if(!empty($nomeCentroCusto)){
-							$contas[$id]['Conta']['centrocusto_id'] = $nomeCentroCusto['Centrocusto']['nome'];
-						}
-				}
-				if(isset($nomeTipodeconta)){
-						if(!empty($nomeTipodeconta)){
-							$contas[$id]['Conta']['tipodeconta_id'] = $nomeTipodeconta['Tipodeconta']['nome'];
-						}
-				}
-				if(isset($parceirodenegocio)){
-						if(!empty($parceirodenegocio)){
-							if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
-								$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+		);
+
+/*-------Filtros da consulta fim---------*/
+				$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+					$this->Paginator->settings = array(
+						'Conta' => array(
+							'fields' => array('DISTINCT Conta.id', 'Conta.*'),
+							'fields_toCount' => 'DISTINCT Conta.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Conta.identificacao ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntContas = count($contas);
+					//debug($contas);	
+					
+					$contas = $this->Paginator->paginate('Conta');
+					foreach ($contas as $id => $conta) {
+						
+						if(isset($contas[$id]['Parcela'])){
+							$j=0;
+							foreach($contas[$id]['Parcela'] as $parcela){
+								$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_vencimento']);
+								$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_pagamento']);
+								$this->lifecareDataFuncs->formatDateToView($contas[$id]['Parcela'][$j]['data_emissao']);
+								$j= $j+1;
+								
 							}
 							
-							$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
-							$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
-							$contas[$id]['Conta']['status_parceiro'] = $parceirodenegocio['Parceirodenegocio']['status'];	
-							$this->lifecareDataFuncs->formatDateToView($contas[$id]['Conta']['data_quitacao']); 
-							$this->lifecareDataFuncs->formatDateToView($contas[$id]['Conta']['data_emissao']);
-						}	
-				}
-				
-			}
-			
-			$contasAtrasadasREceber=0;
-			$contasRecebidas=0;
-			$contasVencerParaREceber=0;
-			$totalAreceber=0;
-			$totalGeralReceber=0;
-			
-			$contasAtrasadasPagar=0;
-			$contaspagas=0;
-			$contasVencerParaPagar=0;
-			$totalAPagar=0;
-			$totalGeralPagar=0;
-			
-			foreach($contas as $conta){
-				if($conta['Conta']['tipo']== 'A RECEBER'){
-					foreach($conta['Parcela'] as $parcela){
-						if($parcela['status']=="VERMELHO"){
-							$contasAtrasadasREceber = $contasAtrasadasREceber +  $parcela['valor'];
 						}
-		
-						if($parcela['status']=="CINZA"){
-							$contasRecebidas = $contasRecebidas +  $parcela['valor'];
+						$parceirodenegocio = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $contas[$id]['Conta']['parceirodenegocio_id']), 'recursive' => -1));
+						
+						$nomeCentroCusto = $this->Centrocusto->find('first', array('conditions' => array('Centrocusto.id' => $contas[$id]['Conta']['centrocusto_id']), 'recursive' => -1));
+						
+						$nomeTipodeconta = $this->Tipodeconta->find('first', array('conditions' => array('Tipodeconta.id' => $contas[$id]['Conta']['tipodeconta_id']), 'recursive' => -1));
+					
+						$contas[$id]['Conta']['nome_parceiro']="";
+						
+						if(isset($nomeCentroCusto)){
+								if(!empty($nomeCentroCusto)){
+									$contas[$id]['Conta']['centrocusto_id'] = $nomeCentroCusto['Centrocusto']['nome'];
+								}
+						}
+						if(isset($nomeTipodeconta)){
+								if(!empty($nomeTipodeconta)){
+									$contas[$id]['Conta']['tipodeconta_id'] = $nomeTipodeconta['Tipodeconta']['nome'];
+								}
+						}
+						if(isset($parceirodenegocio)){
+								if(!empty($parceirodenegocio)){
+									if(isset($parceirodenegocio['Parceirodenegocio']['id'])){
+										$this->setStatusParceiro($parceirodenegocio['Parceirodenegocio']['id']);
+									}
+									
+									$contas[$id]['Conta']['nome_parceiro'] = $parceirodenegocio['Parceirodenegocio']['nome'];
+									$contas[$id]['Conta']['cnpj_parceiro'] = $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];
+									$contas[$id]['Conta']['status_parceiro'] = $parceirodenegocio['Parceirodenegocio']['status'];	
+									$this->lifecareDataFuncs->formatDateToView($contas[$id]['Conta']['data_quitacao']); 
+									$this->lifecareDataFuncs->formatDateToView($contas[$id]['Conta']['data_emissao']);
+								}	
 						}
 						
-						if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
-							$contasVencerParaREceber = $contasVencerParaREceber +  $parcela['valor'];
+					}
+					
+					$contasAtrasadasREceber=0;
+					$contasRecebidas=0;
+					$contasVencerParaREceber=0;
+					$totalAreceber=0;
+					$totalGeralReceber=0;
+					
+					$contasAtrasadasPagar=0;
+					$contaspagas=0;
+					$contasVencerParaPagar=0;
+					$totalAPagar=0;
+					$totalGeralPagar=0;
+					
+					foreach($contas as $conta){
+						if($conta['Conta']['tipo']== 'A RECEBER'){
+							foreach($conta['Parcela'] as $parcela){
+								if($parcela['status']=="VERMELHO"){
+									$contasAtrasadasREceber = $contasAtrasadasREceber +  $parcela['valor'];
+								}
+				
+								if($parcela['status']=="CINZA"){
+									$contasRecebidas = $contasRecebidas +  $parcela['valor'];
+								}
+								
+								if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
+									$contasVencerParaREceber = $contasVencerParaREceber +  $parcela['valor'];
+									
+								}
+								
+								$totalAreceber = $contasAtrasadasREceber + $contasVencerParaREceber;
+								
+								$totalGeralReceber=  $totalAreceber + $contasRecebidas;
+							}
+							
+						}else{
+							
+							
+							foreach($conta['Parcela'] as $parcela){
+								if($parcela['status']=="VERMELHO"){
+									$contasAtrasadasPagar = $contasAtrasadasPagar +  $parcela['valor'];
+								}
+				
+								if($parcela['status']=="CINZA"){
+									$contaspagas = $contaspagas +  $parcela['valor'];
+								}
+								
+								if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
+									$contasVencerParaPagar = $contasVencerParaPagar +  $parcela['valor'];
+									
+								}
+								
+								$totalAPagar = $contasAtrasadasPagar + $contasVencerParaPagar;
+								
+								$totalGeralPagar=  $totalAPagar + $contaspagas;
+							}
 							
 						}
 						
-						$totalAreceber = $contasAtrasadasREceber + $contasVencerParaREceber;
 						
-						$totalGeralReceber=  $totalAreceber + $contasRecebidas;
 					}
 					
-				}else{
 					
 					
-					foreach($conta['Parcela'] as $parcela){
-						if($parcela['status']=="VERMELHO"){
-							$contasAtrasadasPagar = $contasAtrasadasPagar +  $parcela['valor'];
-						}
-		
-						if($parcela['status']=="CINZA"){
-							$contaspagas = $contaspagas +  $parcela['valor'];
-						}
-						
-						if($parcela['status']=="AMARELO" || $parcela['status']=="VERDE"){
-							$contasVencerParaPagar = $contasVencerParaPagar +  $parcela['valor'];
+					$balancete =$totalGeralReceber-$totalGeralPagar;
 							
-						}
-						
-						$totalAPagar = $contasAtrasadasPagar + $contasVencerParaPagar;
-						
-						$totalGeralPagar=  $totalAPagar + $contaspagas;
-					}
-					
-				}
-				
-				
+					$this->set(compact('contas', 'cntContas','contasAtrasadasREceber', 'contasRecebidas','contasVencerParaREceber', 'totalAreceber', 'totalGeralReceber', 'contasAtrasadasPagar'));
+					$this->set(compact('contaspagas', 'contasVencerParaPagar','totalAPagar','totalGeralPagar','balancete','$totalGeralReceber','totalGeralPagar'));
+					$log = $this->Conta->getDataSource()->getLog(false, false);
 			}
 			
 			
-			
-			$balancete =$totalGeralReceber-$totalGeralPagar;
-					
-			$this->set(compact('contas', 'cntContas','contasAtrasadasREceber', 'contasRecebidas','contasVencerParaREceber', 'totalAreceber', 'totalGeralReceber', 'contasAtrasadasPagar'));
-			$this->set(compact('contaspagas', 'contasVencerParaPagar','totalAPagar','totalGeralPagar','balancete','$totalGeralReceber','totalGeralPagar'));
-			$log = $this->Conta->getDataSource()->getLog(false, false);
 			
 		
 		

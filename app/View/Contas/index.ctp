@@ -410,7 +410,7 @@ $(document).ready(function() {
 						    //echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
 							//'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
 						    //echo "</a></td>";
-						}else if($campo=="parcelas"){
+						
 						}else if($campo=="valor"){
 							echo "<td class=\"$campo\">R$ " . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
 						}else{
@@ -435,11 +435,9 @@ $(document).ready(function() {
 				<tr>
 				    <th class="colunaConta">Ações</th>									
 					<?php 
-					    foreach($configparc as $campo=>$campoLabel){
+					    foreach($configparc as $campo => $campoLabel){
 							if($campo=='parcelas'){
 								 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-							}else if($campo == 'parceirodenegocio_id' ){
-								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else if($campo == 'cnpj_cpf' ){
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
@@ -448,63 +446,83 @@ $(document).ready(function() {
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}
 						}
+						foreach($configCont as $campo=>$campoLabel){
+							if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+				
+							}else{
+								 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}
+						     
+					    }
 					?>
 				</tr>
 			
-				<?php 
-				$j=0;
+	<?php } ?>
+	<?php
+		$j=0;
+		foreach ($parcelas as $parcela): 
+			
+	?>
+	<tr>
+		<td class="actions">
+		    <?php 
+				echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $parcela['Conta'][0]['id'])));
+			
+				echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
+				'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parcela['Conta'][0]['parceirodenegocio_id'])));
+			?>
+			
+		</td>
+		<?php
+		
+		    foreach($configparc as $campo=>$campoLabel){
+		    	if($campo=="status"){
+				    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => $parcela['Parcela']['status'], 'title' => $parcela['Parcela']['status'])) . "&nbsp;</td>";
+				    //Monter uma tabela dentro de um modal
+				}else if($campo=="obs"){
+					echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";   
+				}else{
+					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
+				}
 				
-					foreach ($contas as $conta): 
-						
-						foreach($conta['Parcela'] as $parcela){
-						?>
-						    <tr>
-								<td class="actions">
-								    <?php 
-										echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
-									
-										echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
-										'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
-									?>
-									
-								</td>
+		    	
+			}
+			foreach($configCont as $campo=>$campoLabel){							
+						if($campo=="status"){
+						    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Conta'][0]['status']) . '-12x12.png', array('alt' => $parcela['Conta'][0]['status'], 'title' => $parcela['Conta'][0]['status'])) . "&nbsp;</td>";
+						    //Monter uma tabela dentro de um modal
+						}else if($campo=="cnpj_parceiro "){
+						 	echo "<td class=\"$campo\">" . $parcela['Parcela']['cnpj_parceiro'] . "&nbsp;</td>";   
+						}else if($campo=="parceirodenegocio_id"){
+						   echo "<td class=\"$campo\">" . $parcela['Parcela']['parceirodenegocio_id'] . "&nbsp;</td>"; 
+						}else if($campo=="cnpj_parceiro"){
+						   echo "<td class=\"$campo\">" . $parcela['Parcela']['cnpj_parceiro'] . "&nbsp;</td>"; 
+						}else if($campo=="nome_parceiro"){
+						   echo "<td class=\"$campo\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
+						}else if($campo=="status_parceiro"){
+						   
+						   echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status_parceiro'] ) . '-12x12.png', array('alt' => $parcela['Parcela']['status_parceiro'] , 'title' => $parcela['Parcela']['status_parceiro'] )) . "&nbsp;</td>";
+						}else if($campo=="tipodeconta_id"){
+							 echo "<td class=\"$campo\">" . $parcela['Parcela']['tipodeconta_id'] . "&nbsp;</td>"; 
+						}else if($campo=="centrocusto_id"){
+							 echo "<td class=\"$campo\">" . $parcela['Parcela']['centrocusto_id'] . "&nbsp;</td>"; 
+						}else if($campo=="parcela"){
+							 
+						}else if($campo=="valor"){
+							echo "<td class=\"$campo\">R$ " . number_format($parcela['Conta'][0][$campo], 2, ',', '.') . "&nbsp;</td>";
+						}else{
+							
+							echo "<td class=\"$campo\">" . $parcela['Conta'][0][$campo] . "&nbsp;</td>";
+						}
+							
+							
+			}
+		?>
+	</tr>	
 								    
-								<?php 
-
-							    foreach($configparc as $campo=>$campoLabel){							
-									if($campo=="status"){
-									    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => $parcela['status'], 'title' => $parcela['status'])) . "&nbsp;</td>";
-									    //Monter uma tabela dentro de um modal
-									}else if($campo=="status_parceiro"){
-									    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' => $conta['Conta']['status_parceiro'], 'title' => $conta['Conta']['status_parceiro'])) . "&nbsp;</td>";
-									    //Monter uma tabela dentro de um modal
-									}else if($campo=="parceirodenegocio_id"){
-									    //echo "<td class='statusParceiro'>"; 
-									    //echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
-										//'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
-									    //echo "</a></td>";
-									   echo "<td class=\"$campo\">" . $conta['Conta']['nome_parceiro'] . "&nbsp;</td>";
-									}else if($campo=="cnpj_cpf"){
-										echo "<td class=\"$campo\">" . $conta['Conta']['cnpj_parceiro'] . "&nbsp;</td>";   
-									  
-									}else if($campo=="obs"){
-										echo "<td class=\"$campo\">" . $conta['Conta']['descricao'] . "&nbsp;</td>";   
-									}else if($campo=="tipodeconta_id"){
-										echo "<td class=\"$campo\">" . $conta['Conta']['tipodeconta_id'] . "&nbsp;</td>";   
-									}else if($campo=="centrocusto_id"){
-										echo "<td class=\"$campo\">" . $conta['Conta']['centrocusto_id'] . "&nbsp;</td>";   
-									}else if($campo=="valor"){
-										echo "<td class=\"$campo\">R$ " . number_format($parcela[$campo], 2, ',', '.') . "&nbsp;</td>";
-									}else{
-										echo "<td class=\"$campo\">" . $parcela[$campo] . "&nbsp;</td>";
-									}
-										$j=$j+1;
-								}						
-								?>
-							</tr>
-						<?php } ?>
-			<?php endforeach; ?>
-		<? } ?>
+	<?php endforeach; ?>
+	
 
 <?php
     }
@@ -515,7 +533,7 @@ $(document).ready(function() {
 	    </div>
 							
 	
-		
+	
 
 </div>
 <script type="text/javascript">
@@ -529,55 +547,4 @@ $(document).ready(function() {
 	});
 </script>
 
-<br />
-<br />
-<br />
-<br />
-    <div id="totalReceber" class="coluna-esquerda fieldset">
-	<h2 class="legendEffect"><span>Contas A Receber</span></h2>
-	<?php
-	    if(isset($contasAtrasadasREceber)){
-			echo "Valor total das contas atrasadas a receber: R$ ".number_format($contasAtrasadasREceber, 2, ',', '.')."<br />";
-	    }	
-	    if(isset($contasRecebidas)){
-			echo "Valor total das contas recebidas: R$ ".number_format($contasRecebidas, 2, ',', '.')."<br />";
-	    }
-	    if(isset($contasVencerParaREceber)){
-			echo "Valor total das contas a vencer para receber: R$ ".number_format($contasVencerParaREceber, 2, ',', '.')."<br />";
-	    }
-	    if(isset($totalAreceber)){
-		    echo "Valor total das contas a receber: R$".number_format($totalAreceber, 2, ',', '.')."<br />";
-	    }
-	    if(isset($totalGeralReceber)){
-		    echo "Valor total das contas a receber/recebidas: R$ ".number_format($totalGeralReceber, 2, ',', '.')."<br />";
-	    }	
-	?>
-    </div>
-
-    <div id="totalPagar" class="coluna-direita fieldset">
-	<h2 class="legendEffect"><span>Contas A Pagar</span></h2>
-	<?php
-	    if(isset($contasAtrasadasPagar)){
-		    echo "Valor total das contas atrasadas a pagar: R$ ".number_format($contasAtrasadasPagar, 2, ',', '.')."<br />";
-	    }
-	    if(isset($contaspagas)){
-		    echo "Valor total das contas pagas: R$ ".number_format($contaspagas, 2, ',', '.')."<br />";
-	    }
-	    if(isset($contasVencerParaPagar)){
-		    echo "Valor total das contas a vencer para pagar: R$ ".number_format($contasVencerParaPagar, 2, ',', '.')."<br />";
-	    }	
-	    if(isset($totalAPagar)){
-		    echo "Valor total das contas a pagar: R$".number_format($totalAPagar, 2, ',', '.')."<br />";
-	    }
-	    if(isset($totalGeralPagar)){
-		    echo "Valor total das contas a pagar/pagas: R$ ".number_format($totalGeralPagar, 2, ',', '.')."<br />";
-	    }	
-    
-	    if(isset($balancete)){
-		    echo "Balancete R$ ".number_format($balancete, 2, ',', '.')."<br />";
-	    }
-	
-			
-	?>
-    </div>
-
+   
