@@ -6,8 +6,34 @@
 
 /** Dados da Parcela **/
 
-#msgValidaParceiro, #msgValidaTipoConta, #msgValidaCentroCusto{
+ #msgValidaTipoConta, #msgValidaCentroCusto{
 	margin-top: -95px;
 	width: 105px;
 	left: 175px;
+}
+
+#msgValidaParceiro{
+		
+	margin-top: -60px;
+	width: 106px;
+	left: 175px;
+	position: absolute;
+	z-index: 13;
+	clear: both;
+	
+}
+
+#msgValidaParcela{
+	float: right;
+	margin-right: 251px;
+	top: 10px;
+	width: 107px;
+	z-index: 1;
+	position: relative;
+}
+
+#msgValidaParcela:after{
+	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)rgba(0, 0, 0, 0) #FFD5D5;
+	left: 113px;
+	top: 2px;
 }

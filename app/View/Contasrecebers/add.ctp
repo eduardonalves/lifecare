@@ -1,6 +1,6 @@
 <?php	    
 	$this->start('css');
-	    //echo $this->Html->css('contas_receber');
+	    echo $this->Html->css('contas_receber');
 	    echo $this->Html->css('table');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
@@ -57,6 +57,7 @@
 		?>
 		
 		<div class="input autocompleteCliente contas">
+			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Cliente</span>
 		    <label>Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
 		    <select class="tamanho-medio" id="add-cliente">
 			    <option id="optvazioForn"></option>
@@ -129,7 +130,7 @@
 		</div>
 	</div>
 		<?php
-		    echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
+		    //echo '<span id="msgAutoComplete" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>';
 		    echo $this->Form->input('descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '103','maxlength' => '100'));
 		?>
 		
@@ -141,7 +142,7 @@
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
-		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('parceiro', array('type'=>'text','label'=>'Nome:','class'=>'nomeParceiro tamanho-medio borderZero','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));
 		   echo  $this->Form->input('tipodeconta_id', array('type' => 'hidden'));
 		    echo $this->Form->input('tipoconta', array('id'=>'tipoConta','type'=>'text','label'=>'Tipo Conta:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo $this->Form->input('centrocusto', array('id'=>'nomeCusto','type'=>'text','label'=>'N. Custo:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
@@ -152,7 +153,7 @@
 	    <section class="coluna-direita" >
 		<?php
 		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
-		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'cpfParceiro borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
@@ -246,7 +247,7 @@
 						     'class'=>'bt-direita'
 		));
 
-		echo '<span id="msgCpfCnpj" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
+		echo '<span id="msgValidaParcela" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
 	    ?>
 	    
 

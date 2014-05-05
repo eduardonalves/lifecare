@@ -648,6 +648,7 @@
 
 /********************* Preencher Dados Fornecedor *********************/    
     $("#bt-preencherFornecedor").click(function(){
+		$("#msgValidaParceiro").hide();
 	valorForncedor=	$("#add-fornecedor option:selected" ).val();
 	valorCpfCnpj= $("#add-fornecedor option:selected" ).attr('class');
 	valorNome= $("#add-fornecedor option:selected" ).attr('id');
