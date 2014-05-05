@@ -26,6 +26,7 @@
 	<section class="coluna-modal">
 		<div>
 			
+			
 			<?php
 				echo $this->Form->create('Configparcela');
 				
