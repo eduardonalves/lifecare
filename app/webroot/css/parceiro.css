@@ -99,9 +99,11 @@ span[id$="Uf"]{
 }
 
 span[id$="Bairro"]{
-	width:85px;
-	top: 87px;
-	left: 200px;
+	width: 85px;
+	top: 50px;
+	left: 313px;
+	clear: both;
+	position: absolute;
 }
 
 #validaTelefone{
