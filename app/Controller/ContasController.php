@@ -764,7 +764,9 @@ class ContasController extends AppController {
 					
 					if(isset($conta['Centrocusto']['nome'])){
 								if(!empty($conta['Centrocusto']['nome'])){
+									$nome= $conta['Centrocusto']['nome'];
 									$parcelas[$i]['Parcela']['centrocusto_id'] = $conta['Centrocusto']['nome'];
+
 								}
 						}
 						if(isset($conta['Tipodeconta']['nome'])){

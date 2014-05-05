@@ -486,6 +486,8 @@ $(document).ready(function() {
 				    //Monter uma tabela dentro de um modal
 				}else if($campo=="obs"){
 					echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";   
+				}else if($campo=="valor"){
+					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else{
 					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
 				}
@@ -507,8 +509,8 @@ $(document).ready(function() {
 						}else if($campo=="status_parceiro"){
 						   
 						   echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status_parceiro'] ) . '-12x12.png', array('alt' => $parcela['Parcela']['status_parceiro'] , 'title' => $parcela['Parcela']['status_parceiro'] )) . "&nbsp;</td>";
-						}else if($campo=="tipodeconta_id"){
-							 echo "<td class=\"$campo\">" . $parcela['Parcela']['tipodeconta_id'] . "&nbsp;</td>"; 
+						}else if($campo=="centrocusto_id"){
+							 echo "<td class=\"$campo\">" . $parcela['Parcela']['centrocusto_id'] . "&nbsp;</td>"; 
 						}else if($campo=="tipodeconta_id"){
 							 echo "<td class=\"$campo\">" . $parcela['Parcela']['tipodeconta_id'] . "&nbsp;</td>"; 
 						}else if($campo=="forma_pagamento"){
