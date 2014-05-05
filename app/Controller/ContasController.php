@@ -769,33 +769,40 @@ class ContasController extends AppController {
 
 								}
 						}
+						$parcelas[$i]['Parcela']['tipodeconta_id']="";
 						if(isset($conta['Tipodeconta']['nome'])){
 								if(!empty($conta['Tipodeconta']['nome'])){
 									$parcelas[$i]['Parcela']['tipodeconta_id'] = $conta['Tipodeconta']['nome'];
 								}
 						}
 						
+						$parcelas[$i]['Parcela']['nome_parceiro'] ="";
 						if(isset($conta['Parceirodenegocio']['nome'])){
 								if(!empty($conta['Parceirodenegocio']['nome'])){
 									$parcelas[$i]['Parcela']['nome_parceiro'] = $conta['Parceirodenegocio']['nome'];
 								}
 						}
+						$parcelas[$i]['Parcela']['parceirodenegocio_id']="";
 						if(isset($conta['Parceirodenegocio']['id'])){
 								if(!empty($conta['Parceirodenegocio']['id'])){
 									$parcelas[$i]['Parcela']['parceirodenegocio_id'] = $conta['Parceirodenegocio']['id'];
 								}
 						}
+						
+						$parcelas[$i]['Parcela']['cnpj_parceiro'] ="";
 						if(isset($conta['Parceirodenegocio']['cpf_cnpj'])){
 								if(!empty($conta['Parceirodenegocio']['cpf_cnpj'])){
 									$parcelas[$i]['Parcela']['cnpj_parceiro'] = $conta['Parceirodenegocio']['cpf_cnpj'];
 								}
 						}
 						
+						$parcelas[$i]['Parcela']['status_parceiro'] ="";
 						if(isset($conta['Parceirodenegocio']['status'])){
 								if(!empty($conta['Parceirodenegocio']['status'])){
 									$parcelas[$i]['Parcela']['status_parceiro'] = $conta['Parceirodenegocio']['status'];
 								}
 						}
+						$parcelas[$i]['Parcela']['tipo_pagamento'] ="";
 						$parcelas[$i]['Parcela']['tipo_pagamento']="";
 						if(isset($conta['Pagamento'][0]['tipo_pagamento'])){
 								if(!empty($conta['Pagamento'][0]['tipo_pagamento'])){
@@ -803,7 +810,7 @@ class ContasController extends AppController {
 								}
 
 						}
-						
+						$parcelas[$i]['Parcela']['forma_pagamento'] ="";
 						$parcelas[$i]['Parcela']['forma_pagamento']="";
 						if(isset($conta['Pagamento'][0]['forma_pagamento'])){
 								if(!empty($conta['Pagamento'][0]['forma_pagamento'])){
