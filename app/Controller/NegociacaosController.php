@@ -113,7 +113,9 @@ class NegociacaosController extends AppController {
 				$cont=0;
 				foreach($parcelasEnviadas as $parcelasEnviada){
 				    $ultimaNegociacao = $this->Negociacao->find('first', array('order' => array('Negociacao.id' => 'desc'), 'recursive' => -1));
+					$ultimaConta= $this->Conta->find('first', array('conditions' => array('Conta.id'=> $this->request->data['Negociacao']['conta_id'])));
 				    $parcelasEnviada['negociacao_id'] = $ultimaNegociacao['Negociacao']['id'];
+					$parcelasEnviada['parceirodenegocio_id'] = $ultimaConta['Conta']['parceirodenegocio_id'];
 				    $this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
 				    
 				    $this->Parcela->create();
