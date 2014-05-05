@@ -289,9 +289,13 @@ $(document).ready(function() {
 					    <?php 
 							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
 							
+							echo "<hr />";
+							
 							echo "<a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
-							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Parcelas','class' => 'bt-visualizarParcela','title'=>'Visualizar Lista de Parcelas'));
+							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Parcelas','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Parcelas'));
 							echo "</a>";
+						
+							echo "<hr />";
 						
 							echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
 							'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));

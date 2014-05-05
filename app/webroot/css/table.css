@@ -134,11 +134,39 @@ p.table-counter {
 }
 
 .actions{
-	min-width:70px
+	min-width:80px
 }
 
 .actions img{
-	margin-left:5px
+	margin-left:5px;
+	position: relative;
+	float: left;
+}
+
+.actions hr{
+	width:1px;
+	height:20px;
+	border:0;
+	background-image:-webkit-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-moz-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-ms-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-o-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	margin:0 0 0 5px;
+	display: inline-block;
+	position: relative;
+	float: left;
+}
+
+#delete_centrocusto{
+	margin-top:4px;
+}
+
+.img-edit{
+	margin-top:3px;
+}
+
+.actions .img-lista{
+	margin-top:4px;
 }
 
 .seta-cima{
