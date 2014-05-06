@@ -11,11 +11,7 @@
 	$this->end();
 
 	$this->start('modais');
-		echo $this->element('config_movimentacao', array('modal'=>'add-config_movimentacao'));
-		echo $this->element('config_parceiro', array('modal'=>'add-config_parceiro'));
-		echo $this->element('config_parcela', array('modal'=>'add-config_parcela'));
 		echo $this->element('quicklink_addfinanceiro', array('modal'=>'add-quicklink'));
-
 	$this->end();
 	
 	function formatDateToView(&$data){
@@ -35,11 +31,10 @@
 <script>
 $(document).ready(function() {
 	var usoInicioPhp = '<?php ?>' ;
-	var usoGet = '$_GET["ql"]';
-
-	
+	var usoGet = '$_GET["ql"]';	
     });
 </script>
+
 <?php
 	if(isset($pageReload)){
 		if($pageReload=='Reload'){
@@ -49,7 +44,6 @@ $(document).ready(function() {
 	    setTimeout(function(){
 		    location.reload();
 	    }, 2000);
-
     });	
 </script>
 
@@ -101,15 +95,7 @@ $(document).ready(function() {
 			<!------------------ Dados da Movimentação ------------------>
 			<section id="filtro-movimentacao" class="coluna-esquerda">
 				<span id="titulo">Dados da Movimentação</span>
-				
-				<a href="add-config_movimentacao" class="bt-showmodal">
-				
-					<?php
-						echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração Movimentação', 'title' => 'Configuração Movimentação'));
-					?>
-				
-				</a>
-				
+	
 				<?php	
 					echo $this->Search->create();
 					echo "<div class='tipoMovimentacao'>";	
@@ -123,7 +109,7 @@ $(document).ready(function() {
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
 					
-					echo $this->Search->input('identificacao', array('label' => 'Número do Documento:','class'=>'tamanho-medio input-alinhamento'));
+					echo $this->Search->input('identificacao', array('label' => 'Ident. Documento:','class'=>'tamanho-medio input-alinhamento'));
 				?>
 				
 				<div class="inputSearchData divMarginLeft">
@@ -181,14 +167,6 @@ $(document).ready(function() {
 				<?php
 					echo $this->Form->input('', array('label' => 'Dados das Parcelas','type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
 					?>
-
-					<a href="add-config_parcela" class="bt-showmodal">
-				
-						<?php
-							echo $this->Html->image('botao-tabela-configuracao.png', array('id' => 'bt-configuracao', 'alt' => 'Configuração Parcela', 'title' => 'Configuração Parcela'));
-						?>
-				
-					</a>
 				
 				<div class="formaPagamento">
 					<?php
@@ -218,8 +196,8 @@ $(document).ready(function() {
 					
 				<?php
 					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento combo-autocomplete'));
-					echo $this->Search->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio ','id' => 'cpf_cnpj','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj')));
-					echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div><div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+					//echo $this->Search->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio ','id' => 'cpf_cnpj','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj')));
+					//echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div><div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
 					//echo $this->Search->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
 					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 					
@@ -443,6 +421,15 @@ $(document).ready(function() {
 				<tr>
 				    <th class="colunaConta">Ações</th>									
 					<?php 
+						
+						foreach($configCont as $campo=>$campoLabel){
+							if($campo == 'nome_parceiro'){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+				
+							}
+						     
+					    }
+						
 					    foreach($configparc as $campo => $campoLabel){
 							if($campo=='parcelas'){
 								 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
@@ -453,16 +440,7 @@ $(document).ready(function() {
 							}else{
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}
-						}
-						foreach($configCont as $campo=>$campoLabel){
-							if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
-								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-				
-							}else{
-								 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-							}
-						     
-					    }
+						}						
 					?>
 				</tr>
 			
@@ -484,6 +462,12 @@ $(document).ready(function() {
 		</td>
 		<?php
 		
+			foreach($configCont as $campo=>$campoLabel){							
+					if($campo=="nome_parceiro"){
+						   echo "<td class=\"$campo\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
+						}							
+			}
+		
 		    foreach($configparc as $campo=>$campoLabel){
 		    	if($campo=="status"){
 				    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => $parcela['Parcela']['status'], 'title' => $parcela['Parcela']['status'])) . "&nbsp;</td>";
@@ -494,44 +478,9 @@ $(document).ready(function() {
 					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else{
 					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
-				}
-				
-		    	
+				}		    	
 			}
-			foreach($configCont as $campo=>$campoLabel){							
-						if($campo=="status"){
-						    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Conta'][0]['status']) . '-12x12.png', array('alt' => $parcela['Conta'][0]['status'], 'title' => $parcela['Conta'][0]['status'])) . "&nbsp;</td>";
-						    //Monter uma tabela dentro de um modal
-						}else if($campo=="cnpj_parceiro "){
-						 	echo "<td class=\"$campo\">" . $parcela['Parcela']['cnpj_parceiro'] . "&nbsp;</td>";   
-						}else if($campo=="parceirodenegocio_id"){
-						   echo "<td class=\"$campo\">" . $parcela['Parcela']['parceirodenegocio_id'] . "&nbsp;</td>"; 
-						}else if($campo=="cnpj_parceiro"){
-						   echo "<td class=\"$campo\">" . $parcela['Parcela']['cnpj_parceiro'] . "&nbsp;</td>"; 
-						}else if($campo=="nome_parceiro"){
-						   echo "<td class=\"$campo\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
-						}else if($campo=="status_parceiro"){
-						   
-						   echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status_parceiro'] ) . '-12x12.png', array('alt' => $parcela['Parcela']['status_parceiro'] , 'title' => $parcela['Parcela']['status_parceiro'] )) . "&nbsp;</td>";
-						}else if($campo=="centrocusto_id"){
-							 echo "<td class=\"$campo\">" . $parcela['Parcela']['centrocusto_id'] . "&nbsp;</td>"; 
-						}else if($campo=="tipodeconta_id"){
-							 echo "<td class=\"$campo\">" . $parcela['Parcela']['tipodeconta_id'] . "&nbsp;</td>"; 
-						}else if($campo=="forma_pagamento"){
-							 echo "<td class=\"$campo\">" . $parcela['Parcela']['forma_pagamento'] . "&nbsp;</td>"; 
-						}else if($campo=="tipo_pagamento"){
-							 echo "<td class=\"$campo\">" . $parcela['Parcela']['tipo_pagamento'] . "&nbsp;</td>"; 
-						}else if($campo=="parcela"){
-							 
-						}else if($campo=="valor"){
-							echo "<td class=\"$campo\">R$ " . number_format($parcela['Conta'][0][$campo], 2, ',', '.') . "&nbsp;</td>";
-						}else{
-							
-							echo "<td class=\"$campo\">" . $parcela['Conta'][0][$campo] . "&nbsp;</td>";
-						}
-							
-							
-			}
+			
 		?>
 	</tr>	
 								    
