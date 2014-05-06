@@ -80,10 +80,13 @@ $(document).ready(function() {
 
 /***************Valida Data*******************************************/
 
-	$("#SaidaData").focusout(function(){
+	$("#SaidaData").on("change",function(){
 
-	    var dfuturoSaida = $("#SaidaData").val();
+
+		var dfuturoSaida = $("#SaidaData").val();
 	    var dataFutura = new Date();
+	    
+	    $("#spanSaidaData").hide();
 	    
 	    dataFutura.setYear(dfuturoSaida.split("/")[2]);
 	    dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
@@ -97,12 +100,12 @@ $(document).ready(function() {
 	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
 					
 	    if(dataFutura.getTime() > dataAtual.getTime()){
-		$('#spanDataFuturoSaida').css("display","block");
-		$("#SaidaData").addClass('shadow-vermelho').focus();
+		$('#spanDataFuturoSaida').css("display","block").focus();
+		$("#SaidaData").addClass('shadow-vermelho');
 		$("#SaidaData").val("");
 	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-		$("#spanDataInvalidaSaida").css("display","block");   
-		$("#SaidaData").addClass('shadow-vermelho').focus();
+		$("#spanDataInvalidaSaida").css("display","block").focus();   
+		$("#SaidaData").addClass('shadow-vermelho');
 		$("#SaidaData").val("");   
 		
 	    }else{
@@ -110,6 +113,7 @@ $(document).ready(function() {
 		$("#SaidaData").removeClass('shadow-vermelho');
 		$("#spanDataFuturoSaida").hide();
 	    }
+	   
 	});
 	
 /***************Troca Vale ~ Nota*******************************************/	
