@@ -36,12 +36,12 @@
 				}else if($('.validaUnidade').val() ==''){
 					$('.validaUnidade').addClass('shadow-vermelho');
 					$('#validaUnid').css('display','block');
-				}else if($('.validaNcm').val() == ''){
-					$('.validaNcm').addClass('shadow-vermelho');
-					$('#validaNcm').css('display','block');	
 				}else if($('.validaCfop').val() == ''){
 					$('.validaCfop').addClass('shadow-vermelho');
 					$('#validaCfop').css('display','block');	
+				}else if($('.validaNcm').val() == ''){
+					$('.validaNcm').addClass('shadow-vermelho');
+					$('#validaNcm').css('display','block');	
 				}else if($('#ProdutoEstoqueMinimo').val() == 0){
 					$('span[id="spanEstoqueMinimo"]').remove();
 					$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
@@ -118,7 +118,7 @@
 	<h1 class="menuOption22">Cadastrar</h1>
 
 	<script>
-		$(document).ready(function(){
+		/*$(document).ready(function(){
 			$('.btn-salvarProduto').click(function(e){
 				e.preventDefault();
 				
@@ -130,7 +130,7 @@
 					$('#validaCfop').css('display','none');
 				}
 			});
-		});
+		});*/
 	</script>
 </header>
 
