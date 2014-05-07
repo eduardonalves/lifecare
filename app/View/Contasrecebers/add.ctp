@@ -197,7 +197,7 @@
 
 	    <section class="coluna-direita" >
 		<?php
-		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
+		    echo $this->Form->input('valor',array('label' => 'Valor Total:','class' => 'tamanho-medio clickValor dinheiro_duasCasas borderZero ContasreceberValor','readonly'=>'readonly','onFocus'=>'this.blur();', 'type' => 'text'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'cpfParceiro borderZero tamanho-medio','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
@@ -250,17 +250,19 @@
 		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text','tabindex' => '108'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita','tabindex' => '111','maxlength' => '25'));
-		     echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '114','maxlength' => '25'));
-		     echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		?>    
 	    </section>
 
 	    <section class="coluna-central" >
 		<?php
-		    echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '106'));
-		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '109','maxlength'=>'50'));		   
+		    //echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '106'));
+		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '106','maxlength'=>'50'));		   
 		    
-		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
+		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '109','maxlength' => '25'));
+		    
+		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Período Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '112','maxlength' => '25'));
+		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
+		    
 		?>
 	    </section>
 
@@ -303,7 +305,6 @@
 	<table id="tabela-conta-receber" cellpadding="0" cellspacing="0">
 	    <thead>
 		<th><?php echo ('Parcela'); ?></th>
-		<th><?php echo ('Código de Barras'); ?></th>
 		<th><?php echo ('Data de Vencimento'); ?></th>
 		<th><?php echo ('Valor'); ?></th>
 		<th><?php echo ('Identificação'); ?></th>
@@ -321,7 +322,22 @@
 
 
 <footer>
-    	
+    
+    <div style="border:none; dispĺay: block;">
+		<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero ContasreceberValor','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			
+			echo $this->html->image('botao-confirmar.png',array(
+							    'alt'=>'Confirmar',
+							    'title'=>'Confirmar',
+							    'id'=>'bt-confirmarReceber',
+							    'class'=>'bt-confirmar'
+			));
+		?>
+		</section>
+	</div>
+    
 	<?php
 	
 	    echo $this->form->submit( 'botao-salvar.png',array(
@@ -336,16 +352,9 @@
 						    'title'=>'Voltar',
 						    'id'=>'bt-voltarReceber',
 						    'class'=>'bt-voltar voltar'
-	    ));
-	
-	    echo $this->html->image('botao-confirmar.png',array(
-							    'alt'=>'Confirmar',
-							    'title'=>'Confirmar',
-							    'id'=>'bt-confirmarReceber',
-							    'class'=>'bt-confirmar'
-	    ));
+		));
 
-	    echo $this->Form->end();	
+		echo $this->Form->end();
 	?>
 </footer>
 
