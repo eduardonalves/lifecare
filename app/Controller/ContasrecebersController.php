@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller','RequestHandler');
+App::uses('AppController', 'Controller');
 /**
  * Contas Controller
  *
@@ -14,7 +14,7 @@ class ContasrecebersController extends ContasController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs');
+	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs','RequestHandler');
 
 /**
  * index method
@@ -494,5 +494,16 @@ class ContasrecebersController extends ContasController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-	
+	public function verificaidentificacao(){
+		if($this->request->is('ajax')){
+			$idententificacao = $this->request->data['Contasreceber']['identificacao'];
+			$existe = $this->Contasreceber->find('first', array('conditions' => array('Contasreceber.identificacao' => $idententificacao, 'AND' => array('Contasreceber.tipo' => 'A RECEBER'))));
+			if(!empty($existe)){
+				$resposta="existe";
+			}else{
+				$resposta="naoExiste";
+			}
+			$this->set(compact('resposta'));
+		}
+	}
 }

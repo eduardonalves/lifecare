@@ -22,12 +22,7 @@
 
 <script>
 	 $(document).ready(function() {
-	 	$('.forma-data').change(function(){
-	 		
-	 		var dataAtual=<?php echo date('Y');?>
-	 		
-	 		//alert(dataAtual);
-	 	});
+	 	
 	 	$("#ContaspagarIdentificacao").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contaspagars", "action" => "verificaidentificacao"),true);?>";
@@ -47,6 +42,7 @@
 					if(data == 'existe'){
 					   
 					    $('#msgValidaIdentificacao').show();
+					    
 					}else{
 						$('#msgValidaIdentificacao2').show();
 						
@@ -206,7 +202,7 @@
 	<section class="coluna-direita" >
 		<?php
 		    //echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio desabilita'));
-		    echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+		    echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero ContaspagarValor','readonly'=>'readonly','onFocus'=>'this.blur();'));
 		    echo $this->Form->input('cpf_cnpj', array('type'=>'text','class'=>'cpfParceiro borderZero tamanho-medio ','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
@@ -257,16 +253,15 @@
 			echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio','tabindex' => '109'));
 			echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 			echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
-			echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '115','maxlength' => '25'));
-			echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';	
 			?>
 		</section>
 
 		<section class="coluna-central">
 			<?php
-			   echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContaspagarCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '107'));
-				echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita','tabindex' => '110'));
-				echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita','tabindex' => '113'));
+				echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita','tabindex' => '107'));
+				echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita','tabindex' => '110'));
+				echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '113','maxlength' => '25'));
+				echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 			?>	
 		</section>
 
@@ -301,7 +296,6 @@
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
 			<thead>
 					<th><?php echo ('Parcela'); ?></th>
-					<th><?php echo ('Código de Barras'); ?></th>
 					<th><?php echo ('Data de Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>
@@ -316,31 +310,41 @@
 	</div>
 
 <footer>
-		
-	<?php
 	
-	    echo $this->form->submit( 'botao-salvar.png',array(
+	    <div style="border:none; dispĺay: block;">
+			<section class="coluna-direita">
+			<?php
+				echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero ContaspagarValor','readonly'=>'readonly','onFocus'=>'this.blur();'));
+				
+				echo $this->html->image('botao-confirmar.png',array(
+										'alt'=>'Confirmar',
+										'title'=>'Confirmar',
+										'id'=>'bt-confirmarPagar',
+										'class'=>'bt-confirmar'
+				));
+			?>
+			</section>
+	    </div>
+	    
+	    <?php
+	
+	    echo $this->form->submit('botao-salvar.png',array(
 							    'class'=>'bt-salvarConta',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
 							    'id'=>'btn-salvarContaPagar'
 	    ));
-
+	
 	    echo $this->html->image('voltar.png',array(
 						    'alt'=>'Voltar',
 						    'title'=>'Voltar',
 						    'id'=>'bt-voltarPagar',
 						    'class'=>'bt-voltar voltar'
 	    ));
-
-	    echo $this->html->image('botao-confirmar.png',array(
-							    'alt'=>'Confirmar',
-							    'title'=>'Confirmar',
-							    'id'=>'bt-confirmarPagar',
-							    'class'=>'bt-confirmar'
-	    ));
+	    ?>
 	
-	    echo $this->Form->end();	
+	    <?php
+	    echo $this->Form->end();
 	?>	
 
 	<!-- </form> 
