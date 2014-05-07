@@ -779,4 +779,8 @@
 			$('#ContaspagarDataEmissao').prop('disabled', false);
 		}
 	});
+/*********** Desabilitar Data de Emissão ***********/	
+	
+	
+	
 });
