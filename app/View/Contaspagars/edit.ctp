@@ -228,6 +228,7 @@
 					<th><?php echo ('Parcela'); ?></th>
 					<th><?php echo ('Data de Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
+					<th><?php echo ('Juros'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>
 					<th><?php echo ('Periodo Crítico'); ?></th>
 					<th><?php echo ('Desconto'); ?></th>
@@ -249,6 +250,10 @@
 						
 						echo "<td>";
 							echo $this->Form->input('valor_parcela',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";
+						
+						echo "<td>";
+							echo $this->Form->input('juros',array('value'=>number_format( $parcelaspagar['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
