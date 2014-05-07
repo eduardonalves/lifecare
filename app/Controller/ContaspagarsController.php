@@ -402,6 +402,7 @@ class ContaspagarsController extends ContasController {
  * @return void
  */
 	public function edit($id = null) {
+		$userid = $this->Session->read('Auth.User.id');
 		$this->layout = 'contas';
 		if (!$this->Contaspagar->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
@@ -414,11 +415,22 @@ class ContaspagarsController extends ContasController {
 				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
-			$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id));
+			$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id),'recursive' => 1);
 			$this->request->data = $this->Contaspagar->find('first', $options);
 		}
-		$parceirodenegocios = $this->Contaspagar->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios'));
+	
+		$contapagar =  $this->Contaspagar->find('first', $options);
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all');
+		
+		$this->loadModel('Centrocusto');
+		$centrocusto = $this->Centrocusto->find('all');
+		
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','centrocusto','tipoconta','contapagar'));
 	}
 
 /**
