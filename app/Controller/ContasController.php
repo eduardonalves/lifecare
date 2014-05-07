@@ -1241,6 +1241,7 @@ class ContasController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
@@ -1256,8 +1257,20 @@ class ContasController extends AppController {
 			$this->request->data = $this->Conta->find('first', $options);
 			$this->set('conta', $this->Conta->find('first', $options));
 		}
-		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios'));
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all');
+		
+		$this->loadModel('Centrocusto');
+		$centrocusto = $this->Centrocusto->find('all');
+		
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','tipoconta','centrocusto'));
+		
+		
+		
 	}
 
 	public function editobs($id = null) {
@@ -1329,15 +1342,19 @@ class ContasController extends AppController {
 		
 		$obs= $this->request->data['Parcela']['descricao'];
 		
+		$juros=$this->request->data['Parcela']['juros'];
+		if($juros ==''){
+			$juros=0;
+		}
 		$this->lifecareDataFuncs->formatDateToBD($dataPagamento);
 		
 		
 		if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
-			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $dataPagamento, 'user_id' => $userid, 'descricao' => $obs);
+			$updatePacela = array('id' => $id, 'status' => 'CINZA', 'data_pagamento' => $dataPagamento, 'user_id' => $userid, 'descricao' => $obs, 'juros' => $juros);
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
 			$ultimoPagamento = $this->Pagamento->find('first', array('conditions' => array('Pagamento.conta_id' => $pacelas['_Conta']['id']), 'recursive' => -1));
 			$conta =  $this->Conta->find('first', array('conditions' => array('Conta.id' => $pacelas['_Conta']['id']), 'recursive' => -1));
-			
+			$novoValor = $conta['Conta']['valor'] + $juros;
 			if($this->Parcela->save($updatePacela)){
 				
 				$parcelasEmAbertos= $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('_Conta.id' => $pacelas['_Conta']['id'], 'AND' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
@@ -1345,7 +1362,7 @@ class ContasController extends AppController {
 				
 				if(empty($parcelasEmAbertos)){
 					
-					$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA');
+					$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'CINZA', 'valor'=> $novoValor);
 					$this->Conta->save($updateConta);
 				}else{
 					foreach($parcelasEmAbertos as $parcelasEmAberto){
@@ -1366,16 +1383,16 @@ class ContasController extends AppController {
 						}
 						
 						if(isset($verm)){
-							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERMELHO');
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERMELHO', 'valor'=> $novoValor);
 							$this->Conta->save($updateConta);
 						}else if(isset($ama)){
-							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'AMARELO');
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'AMARELO', 'valor'=> $novoValor);
 							$this->Conta->save($updateConta);
 						}else if(isset($verd)){
-							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERDE');
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'VERDE', 'valor'=> $novoValor);
 							$this->Conta->save($updateConta);
 						}else if(isset($cobr)){
-							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'COBRANCA');
+							$updateConta = array('id' => $pacelas['_Conta']['id'], 'status' => 'COBRANCA', 'valor'=> $novoValor);
 							$this->Conta->save($updateConta);
 						}
 					

@@ -41,7 +41,8 @@
 	
 				echo $this->Form->create('Quitar', array('id' => 'quitar'.$j.''));
 				echo "<div class=\"ui-widget\">";
-				echo $this->Form->input('Quitar.data_pagamento', array('class'=>'data_pagamento','type'=>'text', 'label'=>'Datata <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+				echo $this->Form->input('Quitar.data_pagamento', array('class'=>'data_pagamento','type'=>'text', 'label'=>'Data <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+				echo $this->Form->input('Quitar.juros', array('class'=>'juros','type'=>'text', 'label'=>'Juros :', 'div' => false , ));
 				echo "<span id='spanQuitarData' class='Msg' style='display:none'>Preencha o Campo Data do pagamento</span>";
 				echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 			?>

@@ -95,7 +95,9 @@
 			<div style="float: left; position: relative; display: inline;">
 			
 			<?php
-			echo $this->Form->input('descricao',array('label' => 'Observação:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+				echo $this->Form->input('descricao',array('label' => 'Observação:','value'=>h($conta['Conta']['descricao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+				
+				
 			?>
 			
 			<a href="edit-obs" class="bt-showmodal">
@@ -233,7 +235,11 @@
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 									echo "<div class=\"ui-widget\">";
 									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','type' => 'text','value' => $parcelas['descricao'], 'style'=>'display: inline'));
+									
+									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
+									
 									echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 								?>
 								<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>
