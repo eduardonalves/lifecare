@@ -236,9 +236,9 @@
 									echo "<div class=\"ui-widget\">";
 									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
 									
-									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','type' => 'text','value' => $parcelas['descricao'], 'style'=>'display: inline'));
+									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									
-									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
+									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 								?>
