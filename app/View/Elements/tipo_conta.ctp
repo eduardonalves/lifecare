@@ -42,9 +42,10 @@ $(document).ready(function(){
 							$("#myModal_add-parceiroCliente").modal('hide');
 							$('#tipoConta').val(data.Tipodeconta.nome);
 							if($('#TipodecontaTipo').val() == "RECEITA"){
-								$('#ContasreceberTipocontaId').val(data.Tipodeconta.id);
+								$('#ContasreceberTipodecontaId').val(data.Tipodeconta.id);
 							}else{
 								$('#ContaspagarTipodecontaId').val(data.Tipodeconta.id);
+								
 							}
 							$("#TipodecontaNome").val("");
 							$("#myModal_add-tipodeConta").modal('hide');

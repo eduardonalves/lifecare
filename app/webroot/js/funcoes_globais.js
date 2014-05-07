@@ -257,12 +257,12 @@ $(document).ready(function(){
 	    }else if($('.validaUnidade').val() ==''){
 			$('.validaUnidade').addClass('shadow-vermelho').focus();
 			$('#validaUnid').css('display','block');
-	    }else if($('.validaNcm').val() ==''){	    
-			$('.validaNcm').addClass('shadow-vermelho').focus();
-			$('#validaNcm').css('display','block');
 	    }else if($('.validaCfop').val() ==''){	    
 			$('.validaCfop').addClass('shadow-vermelho').focus();
 			$('#validaCfop').css('display','block');
+	    }else if($('.validaNcm').val() ==''){	    
+			$('.validaNcm').addClass('shadow-vermelho').focus();
+			$('#validaNcm').css('display','block');
 	    }else if($('#ProdutoEstoqueMinimo').val() == 0){
 			$('span[id="spanEstoqueMinimoZero"]').css('display','none');
 			$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
@@ -284,26 +284,17 @@ $(document).ready(function(){
 		estoqueDesejado= $('#estoqueIdeal').val();
 
 			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
-
 				if((estoqueMinimo - estoqueDesejado) > 0){
-				    $('span[id="spanEstoqueMinimo"]').remove();
-				    $('#spanEstoqueMinimo').css('display:block');
-				    $('<span id="spanEstoqueMinimo" class="DinamicaMsg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-				    $('#estoqueIdeal').val('');
-				    $('#estoqueIdeal').addClass('shadow-vermelho').focus();
-				    $('#ProdutoEstoqueMinimo').val('');
-				    $('#ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
-				if((estoqueMinimo > estoqueDesejado) > 0){
-				    $('span[id="spanEstoqueMinimo"]').css("display","block");
-				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
-				    $('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
-				}
-				else{
+						//$('span[id="spanEstoqueMinimo"]').remove();
+						$('<span id="spanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+						$('span[id="spanEstoqueMinimo"]').css("display","block");
+						$('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
+						$('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
+				}else{
 					$('span[id="spanEstoqueMinimo"]').css("display","none");
-					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho').focus();
+					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
 				}
 			}
-		}
 	});
 
 

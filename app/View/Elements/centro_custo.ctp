@@ -116,7 +116,7 @@ $(document).ready(function(){
 			
 			if($('#CentrocustoNome').val() == ""){
 				$("#spanValidaNomeCusto").show();
-			}else if($('#CentrocustoLimite').val() == ""){
+			}else if($('#Orcamentocentro0Limite').val() == ""){
 				$("#spanValidaLimiteCusto").show();
 			}else{			
 				
@@ -147,11 +147,18 @@ $(document).ready(function(){
 								$('#ContaspagarCentrocustoId').val(data.Centrocusto.id);							
 							}
 							$("#CentrocustoNome").val("");
-							$("#CentrocustoLimite").val("");
+							$("#Orcamentocentro0Limite").val("");
 							
 							$("add-centroCusto").append("<option value='"+data.Centrocusto.nome+"'  id='"+data.Centrocusto.id+"'>"+data.Centrocusto.nome+"</option>");						
 							$("#loaderAjaxCusto").hide();
 							$("#bt-salvar").show();						   
+							
+							$(".dinheiro_duasCasas").priceFormat({
+								prefix: '',
+								centsSeparator: ',',
+								thousandsSeparator: '.',
+								limit: 15
+							});
 						}
 					}
 				});//FIM AJAX

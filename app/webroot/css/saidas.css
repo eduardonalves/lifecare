@@ -22,7 +22,7 @@
 
 #spanSaidaCpfCnpj:after{
 	left: 45px;
-	top: 36px;
+	top: 36px !important;
 }
 
 #spanProdutoitenValorUnitario{
@@ -231,8 +231,8 @@
 }
 
 .campo-superior-direito label{
-
-	 width:170px !important;
+	width: 150px !important;
+	margin-top: -4px;
 }
 
 .campo-superior-esquerdo{

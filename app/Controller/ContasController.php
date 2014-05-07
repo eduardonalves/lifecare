@@ -492,24 +492,16 @@ class ContasController extends AppController {
 		$configCont = array();
 		
 		$configContasLabels = array(
-		
 							
-							'identificacao' => 'Identificacao',
+							'nome_parceiro' => 'Nome Parceiro',
+							'data_emissao' => 'Data emissão',
+							'data_quitacao' => 'Data Quitação ',
+							'valor' => 'Valor',
+							'tipo_pagamento' => 'Tipo Pagamento',
+							'forma_pagamento' => 'Forma Pagamento',
+							'tipo' => 'Tipo Conta',
 							'descricao' => 'Observação',
-							'data_quitacao' => 'Data de Quitação ',
-							'data_emissao' => 'Data da emissão',
-							'data_quitacao' => 'Data de Quitação ',
-							'valor' => 'Valor',	
-							'tipo' => 'Tipo de Conta',
-							'forma_pagamento' => 'Forma de Pagamento',
-							'tipo_pagamento' => 'Tipo de Pagamento',
-							'centrocusto_id' => 'Centro de Custo',
-							'tipodeconta_id' => 'Tipo de Receita / Despesa ',
-							'status' => 'Status da Conta',
-							'parceirodenegocio_id' => 'Código do Parceiro',
-							'cnpj_parceiro' => 'CPF/CNPJ do Parceiro',
-							'nome_parceiro' => 'Nome do Parceiro',
-							'status_parceiro' => 'Status do Parceiro'					
+							'status' => 'Status Conta'							
 																															
 							);
 		
@@ -537,17 +529,11 @@ class ContasController extends AppController {
 		$configparc = array();
 		
 		$configParcelasLabels = array(
-							'parcela' => 'Parcela',
-							'identificacao_documento' => 'Identificacao',
-							'data_vencimento' => 'Data do vencimento',
-							'data_pagamento' => 'Data do pagamento',
+							'identificacao_documento' => 'Ident. Documento',
+							'data_vencimento' => 'Data vencimento',
+							'data_pagamento' => 'Data pagamento',
 							'valor' => 'Valor',
-							'periodocritico' => 'Período Crítico',	
 							'obs' => 'Observação',
-							'desconto' => 'Desconto',
-							'banco' => 'Banco',
-							'agencia' => 'Agência',
-							'conta' => 'Conta',
 							'status' => 'Status'																								
 							);
 		
