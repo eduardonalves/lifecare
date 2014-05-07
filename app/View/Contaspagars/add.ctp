@@ -22,12 +22,7 @@
 
 <script>
 	 $(document).ready(function() {
-	 	$('.forma-data').change(function(){
-	 		
-	 		var dataAtual=<?php echo date('Y');?>
-	 		
-	 		//alert(dataAtual);
-	 	});
+	 	
 	 	$("#ContaspagarIdentificacao").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contaspagars", "action" => "verificaidentificacao"),true);?>";
@@ -44,9 +39,10 @@
 				success: function(data) {
 				    console.debug(data);
 				     $('.loaderAjaxIdentificacao').hide();
-					if(data.resposta == 'existe'){
+					if(data == 'existe'){
 					   
 					    $('#msgValidaIdentificacao').show();
+					    
 					}else{
 						$('#msgValidaIdentificacao2').show();
 						
