@@ -97,6 +97,14 @@ input[type="checkbox"][id$="checkNegociacao"]{
 
 }
 
-#ParcelaDescricao{
+.modalQuitar{
+	height:300px;
+}
 
+#ParcelaDescricao{
+	margin-bottom:5px;
+}
+
+#bt-salvar-quitar0{
+	margin-top:75px;
 }
