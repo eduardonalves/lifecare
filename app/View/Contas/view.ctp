@@ -158,7 +158,6 @@
 				<th><?php echo ('Ações'); ?></th>
 				<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociação'); ?></th><?php }?>
 				<th><?php echo ('Parcela'); ?></th>
-				<th><?php echo ('Código de Barras'); ?></th>
 				<th><?php echo ('Vencimento'); ?></th>
 				<th><?php echo ('Valor'); ?></th>
 				<th><?php echo ('Identificação'); ?></th>
@@ -204,7 +203,6 @@
 					<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao'.$z,'class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> <?php } }?>
 					<?php $z++;?>
 					<td><?php echo $parcelas['parcela']; ?></td>
-					<td><?php echo $parcelas['codigodebarras']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
 							  echo $parcelas['data_vencimento']; ?></td>
 					<td><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></td>
@@ -235,6 +233,7 @@
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 									echo "<div class=\"ui-widget\">";
 									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','type' => 'text','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 								?>
 								<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>
@@ -255,10 +254,10 @@
 				<div class="modal fade" id="myModal_add-uploadConta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 					<div class="modal-body">
-						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
-			
+						<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
 						<header id="cabecalho">
-							<img src="/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Upload comprovante</h1>
+							<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Quitar')); ?>
+							<h1>Upload Comprovante</h1>
 						</header>
 				
 						<script>
@@ -299,20 +298,23 @@
 										<div class="input file">
 											<label for="doc_file">Buscar Arquivo:</label>
 											<input id="doc_file" class="campo-buscar" type="file" name="data[Parcela][doc_file]"/>
-											<?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id'])); ?>
+											<a id="teste" href="#">
+											<?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$parcelas['id']));
+												  echo $this->Html->image('botao-buscar.png',array('id'=>'bt-buscar', 'title' => 'Buscar', 'class' => 'bt-buscar'));?>
+											</a>
 											<input type="text" id="valorUpload" name="data[Parcela][comprovante]"/>
 											<input type="hidden" name="data[Parcela][arquivoAntigo]" value="<?php echo $parcelas['comprovante'] ?>"/>
-											<a id="teste" href="#"><img id="bt-buscar" src="/app/webroot/img/botao-buscar.png"/></a>
 										</div>
 										<span id="msgImagemvazia" class="Msg-tooltipAbaixo msgImagem" style="display:none">Escolha uma imagem</span>
 										<span id="msgImagemErro" class="Msg-tooltipAbaixo msgImagem" style="display:none">Extensão inválida</span>
 
-										<div class="submit">
-											<input id="bt-confirmarUpload" type="image" src="/app/webroot/img/botao-confirmar.png"/>
-										</div>
-									<?php echo $this->Form->end() ?>
+										<?php 
+										echo $this->Html->image('botao-confirmar.png',array('id'=>'bt-confirmarUpload', 'title' => 'Confirmar', 'class' => 'bt-confirmar'));
+										
+										echo $this->Form->end()
+										?>
 								</div>
-							</section>							
+							</section>
 						</section>
 				
 					</div>
@@ -322,11 +324,11 @@
 <!--------------------------------------Modal view Comprovante ----------------------------------------------------->
 				<div class="modal fade" id="myModal_add-comprovanteView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
-						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+						<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
 
 						<header id="cabecalho">
 							
-							<img src="/app/webroot/img/cadastrar-titulo.png" id="cadastrar" alt="Cadastrar" title="Cadastrar" />	 <h1>Visualizar</h1>
+							<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'visualizar', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?> <h1>Visualizar</h1>
 							 
 						</header>
 
@@ -348,10 +350,10 @@
 
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
-						<img src="/app/webroot/img/botao-fechar.png" class="close" aria-hidden="true" data-dismiss="modal" style="position:relative;z-index:9;" alt="" />	
+						<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
 
 						<header id="cabecalho">
-							<img src="/app/webroot/img/cadastrar-titulo.png" id="editar" alt="Editar" title="Editar" /><h1>Editar Observação</h1>
+							<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'editar', 'alt' => 'Editar', 'title' => 'Editar')); ?><h1>Editar Observação</h1>
 							</header>
 							
 							<section>

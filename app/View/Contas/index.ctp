@@ -282,7 +282,7 @@ $(document).ready(function() {
 						<div class="modal fade" id="myModal_add-view_parcelas<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-body">
 						<?php
-							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); 
+							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
 						?>
 							<header id="cabecalho">
 							<?php 
@@ -304,7 +304,6 @@ $(document).ready(function() {
 									<th>Período Crítico</th>
 									<th>Valor</th>
 									<th>Desconto</th>																	
-									<th>Código de Barras</th>																	
 									<th>Parcela</th>																	
 									<th>Banco</th>																	
 									<th>Agência</th>																	
@@ -340,10 +339,6 @@ $(document).ready(function() {
 									
 									echo "<td>";
 										echo number_format($parcela['desconto'], 2, ',', '.');
-									echo "</td>";
-									
-									echo "<td>";
-										echo $parcela['codigodebarras'];
 									echo "</td>";
 									
 									echo "<td>";

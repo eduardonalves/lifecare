@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 [id*="myModal_add-uploadConta"] .modal-body{
-    height:240px;
+    height:220px;
 }
 [id*="myModal_add-uploadConta"] #bt-buscar{
 	padding-left:10px;
@@ -11,6 +11,11 @@
 [id*="myModal_add-uploadConta"] .bt-upload{
 	width:86px;
 	height:22px;
+}
+
+[id*="myModal_add-uploadConta"] .bt-confirmar{
+	display: block;
+	margin-top: 50px;
 }
 
 [id*="myModal_add-uploadConta"] #doc_file{
