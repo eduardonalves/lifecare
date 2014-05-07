@@ -275,17 +275,25 @@
 		$('#btnEditar'+id).show();
 		$("#btnEditarOk"+id).hide();
 	
-		var n = 1;
-		var valorTotal = 0;
 		
+		var valorTotal = 0;
 		$('.valorParcelaSoma').each(function(){
 			valorAux = $(this).val().split('.').join('').replace(',','.');
 			valorAux = parseFloat(valorAux);
 			valorTotal += valorAux;		
 		});
 		
-	
-		$('#ContaspagarValor').val(valorTotal.toFixed(2)).priceFormat({
+		var valorJuros = 0;
+		$('.valorJurosSoma').each(function(){
+			valorAux = $(this).val().split('.').join('').replace(',','.');
+			valorAux = parseFloat(valorAux);
+			valorJuros += valorAux;		
+		});
+		
+		var valorFinal = valorTotal+valorJuros;
+		
+			
+		$('#ContaspagarValor').val(valorFinal.toFixed(2)).priceFormat({
 						prefix: '',
 						centsSeparator: ',',
 						thousandsSeparator: '.',
