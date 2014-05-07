@@ -44,7 +44,7 @@
 				success: function(data) {
 				    console.debug(data);
 				     $('.loaderAjaxIdentificacao').hide();
-					if(data.resposta == 'existe'){
+					if(data == 'existe'){
 					   
 					    $('#msgValidaIdentificacao').show();
 					}else{
