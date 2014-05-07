@@ -14,7 +14,7 @@ class ContaspagarsController extends ContasController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'lifecareDataFuncs');
+	public $components = array('Paginator', 'lifecareDataFuncs','RequestHandler');
 
 /**
  * index method
@@ -440,5 +440,19 @@ class ContaspagarsController extends ContasController {
 			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+	
+	public function verificaidentificacao() {
+		
+		if($this->request->is('ajax')){
+			$idententificacao = $this->request->data['Contaspagar']['identificacao'];
+			$existe = $this->Contaspagar->find('first', array('conditions' => array('Contaspagar.identificacao' => $idententificacao, 'AND' => array('Contaspagar.tipo' => 'A PAGAR'))));
+			if(!empty($existe)){
+				$resposta="existe";
+			}else{
+				$resposta="naoExiste";
+			}
+			$this->set(compact('resposta'));
+		}
 	}
 }

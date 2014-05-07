@@ -20,7 +20,42 @@
 
 ?>
 
-
+<script>
+	 $(document).ready(function() {
+	 	$('.forma-data').change(function(){
+	 		
+	 		var dataAtual=<?php echo date('Y');?>
+	 		
+	 		//alert(dataAtual);
+	 	});
+	 	$("#ContaspagarIdentificacao").change(function(){
+		
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contaspagars", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ContaspagarAddForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data.resposta == 'existe'){
+					   
+					    $('#msgValidaIdentificacao').show();
+					}else{
+						$('#msgValidaIdentificacao2').show();
+						
+					}
+				}
+			});
+		});	
+	 });
+</script>
 <header>
 
 	<?php echo $this->Html->image('emitir-title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
@@ -40,6 +75,20 @@
 	<section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
+		?>
+		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
+		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
+		<div class="loaderAjaxIdentificacao" style="display:none">
+				<?php
+					
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				?>
+				<span>Verificando aguarde...</span>
+		</div>	
+		<?php
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 
