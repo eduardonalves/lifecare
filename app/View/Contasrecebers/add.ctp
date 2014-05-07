@@ -18,7 +18,38 @@
 	$this->end();
 	
 ?>
-    
+<script>
+	 $(document).ready(function() {
+	 	
+	 	$("#ContasreceberIdentificacao").change(function(){
+		
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contasrecebers", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ContasreceberAddForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data == 'existe'){
+					   
+					    $('#msgValidaIdentificacao').show();
+					    
+					}else{
+						$('#msgValidaIdentificacao2').show();
+						
+					}
+				}
+			});
+		});	
+	 });
+</script>
 <header>
 
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
@@ -40,6 +71,20 @@
 	    <section class="coluna-esquerda">
 		<?php 
 		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
+		 ?>
+		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
+		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
+		<div class="loaderAjaxIdentificacao" style="display:none">
+				<?php
+					
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				?>
+				<span>Verificando aguarde...</span>
+		</div>
+		 <?php
 		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
 		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 		   
