@@ -244,9 +244,9 @@
 /********* Função Editar da tabela ******************/    
     
 	var id=0;
-	
+	var flag =0;
     $("body").on("click",'.btnEditar', function(e){
-
+		flag = 1;
 		var id = $(this).attr('id');
 		id = id.substr(9);
 		$('.linhaParcela'+id).each(function(){			
@@ -275,7 +275,7 @@
 		$('#btnEditar'+id).show();
 		$("#btnEditarOk"+id).hide();
 	
-		
+		//CALCULO PARCELAs
 		var valorTotal = 0;
 		$('.valorParcelaSoma').each(function(){
 			valorAux = $(this).val().split('.').join('').replace(',','.');
@@ -283,11 +283,20 @@
 			valorTotal += valorAux;		
 		});
 		
+		//CALCULO JUROS
 		var valorJuros = 0;
 		$('.valorJurosSoma').each(function(){
 			valorAux = $(this).val().split('.').join('').replace(',','.');
 			valorAux = parseFloat(valorAux);
 			valorJuros += valorAux;		
+		});
+		
+		//CALCULO DESCONTO
+		var valorDesconto = 0;
+		$('.valorDesconto').each(function(){
+			valorAux = $(this).val().split('.').join('').replace(',','.');
+			valorAux = parseFloat(valorAux);
+			valorDesconto += valorAux;		
 		});
 		
 		var valorFinal = valorTotal+valorJuros;
@@ -298,6 +307,7 @@
 						centsSeparator: ',',
 						thousandsSeparator: '.',
 					});
+		flag = 0;
 		
     });
 

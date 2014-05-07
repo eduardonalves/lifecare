@@ -70,7 +70,33 @@ class Parcela extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
-		)
+		),
+		'Contaspagar' => array(
+			'className' => 'Contaspagar',
+			'joinTable' => 'parcelas_contas',
+			'foreignKey' => 'parcela_id',
+			'associationForeignKey' => 'conta_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
+		'Contasreceber' => array(
+			'className' => 'Contasreceber',
+			'joinTable' => 'parcelas_contas',
+			'foreignKey' => 'parcela_id',
+			'associationForeignKey' => 'conta_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
 	);
 //Hack Hasone
 /**
