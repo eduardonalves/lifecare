@@ -18,5 +18,30 @@ class Contasreceber extends Conta {
  *
  * @var array
  */
+ 
+ public $belongsTo = array(
+		'Parceirodenegocio' => array(
+			'className' => 'Parceirodenegocio',
+			'foreignKey' => 'parceirodenegocio_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Tipodeconta' => array(
+			'className' => 'Tipodeconta',
+			'foreignKey' => 'tipodeconta_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Centrocusto' => array(
+			'className' => 'Centrocusto',
+			'foreignKey' => 'centrocusto_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
 
 }

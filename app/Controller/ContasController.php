@@ -1241,6 +1241,7 @@ class ContasController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'contas';
 		if (!$this->Conta->exists($id)) {
 			throw new NotFoundException(__('Invalid conta'));
 		}
@@ -1256,8 +1257,20 @@ class ContasController extends AppController {
 			$this->request->data = $this->Conta->find('first', $options);
 			$this->set('conta', $this->Conta->find('first', $options));
 		}
-		$parceirodenegocios = $this->Conta->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios'));
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all');
+		
+		$this->loadModel('Centrocusto');
+		$centrocusto = $this->Centrocusto->find('all');
+		
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','tipoconta','centrocusto'));
+		
+		
+		
 	}
 
 	public function editobs($id = null) {

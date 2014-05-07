@@ -41,6 +41,7 @@ $(document).ready(function(){
 							//debug(data);
 							$("#myModal_add-parceiroCliente").modal('hide');
 							$('#tipoConta').val(data.Tipodeconta.nome);
+							
 							if($('#TipodecontaTipo').val() == "RECEITA"){
 								$('#ContasreceberTipodecontaId').val(data.Tipodeconta.id);
 							}else{

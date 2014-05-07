@@ -456,7 +456,8 @@ class ContasrecebersController extends ContasController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Contasrecebe->exists($id)) {
+		$this->layout = 'contas';
+		if (!$this->Contasreceber->exists($id)) {
 			throw new NotFoundException(__('Invalid Contasreceber'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
@@ -472,6 +473,17 @@ class ContasrecebersController extends ContasController {
 		}
 		$parceirodenegocios = $this->Contasreceber->Parceirodenegocio->find('list');
 		$this->set(compact('parceirodenegocios'));
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
+		
+		$this->loadModel('Centrocusto');
+		$centrocusto = $this->Centrocusto->find('all');
+		
+		$this->loadModel('Tipodeconta');
+		$tipoconta = $this->Tipodeconta->find('all');
+		
+		$this->set(compact('parceirodenegocios','userid','centrocusto','tipoconta'));
 	}
 
 /**
