@@ -118,7 +118,7 @@
 		
 	<section class="coluna-central" >
 		<?php
-			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h("R$ ".number_format($conta['Conta']['valor'], 2, ',', '.')),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h("R$ ".h(number_format($conta['Conta']['valor'], 2, ',', '.'))),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
    			echo $this->Form->input('data_quitacao',array('type' => 'text', 'label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 			//echo '<div class="input text" ><label>Cancelar Conta:</label></div>';
@@ -425,8 +425,24 @@
 
 	</section>
 
+
 <?php
+}
+	$tipo = $conta['Conta']['tipo'];
+	if($tipo == "A RECEBER"){
+		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('controller'=>'Contasrecebers','action'=>'edit', $conta['Conta']['id'])));	
+	}else{
+		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('controller'=>'Contaspagars','action'=>'edit', $conta['Conta']['id'])));			
 	}
+
+	
+
 ?>
 
 
