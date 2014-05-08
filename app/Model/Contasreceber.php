@@ -43,5 +43,25 @@ class Contasreceber extends Conta {
 		)
 	);
 
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+	public $hasAndBelongsToMany = array(
+		'Parcela' => array(
+			'className' => 'Parcela',
+			'joinTable' => 'parcelas_contas',
+			'foreignKey' => 'conta_id',
+			'associationForeignKey' => 'parcela_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
 
 }

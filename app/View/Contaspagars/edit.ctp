@@ -52,7 +52,7 @@
 		<?php
 			
 			echo $this->Form->create('Contaspagar');
-			echo $this->Form->input('Contaspagar.id',array('type' => 'hidden'));
+			echo $this->Form->input('Contaspagar.id',array('value'=> $contapagar['Contaspagar']['id'],'type' => 'hidden'));
 			echo $this->Form->input('Contaspagar.identificacao',array('value'=>h($contapagar['Contaspagar']['identificacao']),'type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
 		    echo $this->Form->input('Contaspagar.status',array('label' => 'Status:','value' => h($contapagar['Contaspagar']['status']),'type' => 'hidden'));
 			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
@@ -241,45 +241,46 @@
 			<?php
 			$princ_cont = 0;
 				foreach($contapagar['Parcela'] as $parcelaspagar){
+					echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelaspagar['id'],'type'=>'hidden'));
 					echo "<tr class=\"linhaParcela$princ_cont\">";
 						echo "<td>". $parcelaspagar['parcela']."</td>";
 							formatDateToView($parcelaspagar['data_vencimento']);
 						echo "<td>";
-							echo $this->Form->input('data_vencimento_parcela',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
-							echo $this->Form->input('valor_parcela',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.valor_parcela',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
-							echo $this->Form->input('juros',array('value'=>number_format( $parcelaspagar['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.juros',array('value'=>number_format( $parcelaspagar['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
-							echo $this->Form->input('identificacao_documento_parcela',array('value'=> $parcelaspagar['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao',array('value'=> $parcelaspagar['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 
 						echo "<td>";
-							echo $this->Form->input('periodocritico_parcela',array('value'=> $parcelaspagar['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
+							echo $this->Form->input('Parcela.'.$princ_cont.'.periodocritico',array('value'=> $parcelaspagar['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
 						echo "</td>";
 						
 						
 						echo "<td>";
-							echo $this->Form->input('desconto_parcela',array('value'=>number_format( $parcelaspagar['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
+							echo $this->Form->input('Parcela.'.$princ_cont.'.desconto',array('value'=>number_format( $parcelaspagar['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'valorDesconto tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
 						echo "</td>";
 						
 						
 						echo "<td>";
-							echo $this->Form->input('agencia_parcela',array('value'=>$parcelaspagar['agencia'],'type'=>'text','label'=>'','id' => 'agencia'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.agencia',array('value'=>$parcelaspagar['agencia'],'type'=>'text','label'=>'','id' => 'agencia'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";	
 						
 						echo "<td>";
-							echo $this->Form->input('conta_parcela',array('value'=>$parcelaspagar['conta'],'type'=>'text','label'=>'','id' => 'conta'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.conta',array('value'=>$parcelaspagar['conta'],'type'=>'text','label'=>'','id' => 'conta'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";	
 						
 						echo "<td>";
-							echo $this->Form->input('banco_parcela',array('value'=>$parcelaspagar['banco'],'type'=>'text','label'=>'','id' => 'banco'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.banco',array('value'=>$parcelaspagar['banco'],'type'=>'text','label'=>'','id' => 'banco'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";	
 			
 						echo "<td>";
