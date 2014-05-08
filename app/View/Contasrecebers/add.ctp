@@ -15,9 +15,9 @@
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
 	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
 	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
-	$this->end();
-	
+	$this->end();	
 ?>
+
 <script>
 	 $(document).ready(function() {
 	 	
@@ -50,6 +50,7 @@
 		});	
 	 });
 </script>
+
 <header>
 
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
@@ -315,9 +316,7 @@
 		<th><?php echo ('Banco'); ?></th>
 		<th class="actions"><?php echo __('Ações'); ?></th>
 	    </thead>
-	</table>
-	
-	
+	</table>	
 </div>
 
 
@@ -327,7 +326,6 @@
 		<section class="coluna-direita">
 		<?php
 			echo $this->Form->input('valor',array('type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero ContasreceberValor','readonly'=>'readonly','onFocus'=>'this.blur();'));
-			
 			echo $this->html->image('botao-confirmar.png',array(
 							    'alt'=>'Confirmar',
 							    'title'=>'Confirmar',
@@ -340,7 +338,7 @@
     
 	<?php
 	
-	    echo $this->form->submit( 'botao-salvar.png',array(
+	    echo $this->form->submit('botao-salvar.png',array(
 							    'class'=>'bt-salvarConta',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
@@ -357,4 +355,3 @@
 		echo $this->Form->end();
 	?>
 </footer>
-
