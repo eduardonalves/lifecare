@@ -1,17 +1,15 @@
  $(document).ready(function() {
 
-    $('input').focus(function(){
-	$('.ui-autocomplete-input').attr('tabindex','102');
-    });
+	$('input').focus(function(){
+		$('.ui-autocomplete-input').attr('tabindex','102');
+	});
 
-      $("body").on('focus','.ui-autocomplete-input',function(){
+	$("body").on('focus','.ui-autocomplete-input',function(){
 		$('.ui-autocomplete-input').attr({required:true});
 	});
-	
-/********** INPUT HIDDEN DO TIPO DE CONTA ****************/
-	
-	$('#TipodecontaTipo').val("RECEITA");
 
+/********** INPUT HIDDEN DO TIPO DE CONTA ****************/	
+	$('#TipodecontaTipo').val("RECEITA");
 
 /********** Adicionar na tabela Principal ****************/
     
@@ -24,90 +22,89 @@
     
     $('#bt-adicionarConta-receber').click(function(e){
 
-	e.preventDefault();
-	
-	//recebe valores digitados
-	identificacao = $('#ContasreceberIdentificacaoDocumento').val();
-	dataVencimento = $('#dataVencimento-receber').val();
-	valor = $('#valorConta-receber').val();
-	periodocritico = $('#ContasreceberPeriodocritico').val();
-	
-	desconto = $('#ContasreceberDesconto').val();
-	agencia = $('#ContasreceberAgencia').val();
-	conta = $('#ContasreceberConta').val();
-	banco = $('#ContasreceberBanco').val();
+		e.preventDefault();
+		
+		//recebe valores digitados
+		identificacao = $('#ContasreceberIdentificacaoDocumento').val();
+		dataVencimento = $('#dataVencimento-receber').val();
+		valor = $('#valorConta-receber').val();
+		periodocritico = $('#ContasreceberPeriodocritico').val();
+		
+		desconto = $('#ContasreceberDesconto').val();
+		agencia = $('#ContasreceberAgencia').val();
+		conta = $('#ContasreceberConta').val();
+		banco = $('#ContasreceberBanco').val();
 
-	tipoPagamento=$('#Pagamento0TipoPagamento').val();
-	dataEmissao = $('[id*="DataEmissao"]').val();
-	
-	//soluciona problema de apagar contagem
-	princ_cont = numParcela;
+		tipoPagamento=$('#Pagamento0TipoPagamento').val();
+		dataEmissao = $('[id*="DataEmissao"]').val();
+		
+		//soluciona problema de apagar contagem
+		princ_cont = numParcela;
 
-	if(dataEmissao == ''){
-	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
-	    $('#msgDataEmissao').css('display','block');
-	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	    
-	}else if(tipoPagamento == ''){
-	    //alert('Tipo Pagamento vazio');
-	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
-	    $('#msgTipoPagamento').css('display','block');
-	    $('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
-	    
-	}else if(dataVencimento == ''){
-	    //alert('valor vazio');
-	    //$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
-	    $('#msgDataVencimento').css('display','block');
-	    $('#dataVencimento-receber').addClass('shadow-vermelho').focus();
-	
-	}else if(valor == ''){
-	    //alert('valor vazio');
-	   //$('<span id="msgContaValor" class="DinamicaMsg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
-	    $('#msgContaValor').css('display','block');
-	    $('#valorConta-receber').addClass('shadow-vermelho').focus();
-	    
-	}else if(periodocritico == ''){
-	    //alert('periodocritico vazio');
-	    //$('<span id="msgPeriodoCritico" class="DinamicaMsg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
-	    $('#msgPeriodoCritico').css('display','block');
-	    $('#ContasreceberPeriodocritico').addClass('shadow-vermelho').focus();
+		if(dataEmissao == ''){
+		   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
+			$('#msgDataEmissao').css('display','block');
+			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
+			$('html, body').animate({scrollTop:0}, 'slow');
+			
+		}else if(tipoPagamento == ''){
+			//alert('Tipo Pagamento vazio');
+			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
+			$('#msgTipoPagamento').css('display','block');
+			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
+			
+		}else if(dataVencimento == ''){
+			//alert('valor vazio');
+			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
+			$('#msgDataVencimento').css('display','block');
+			$('#dataVencimento-receber').addClass('shadow-vermelho').focus();
+		
+		}else if(valor == ''){
+			//alert('valor vazio');
+		   //$('<span id="msgContaValor" class="DinamicaMsg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
+			$('#msgContaValor').css('display','block');
+			$('#valorConta-receber').addClass('shadow-vermelho').focus();
+			
+		}else if(periodocritico == ''){
+			//alert('periodocritico vazio');
+			//$('<span id="msgPeriodoCritico" class="DinamicaMsg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
+			$('#msgPeriodoCritico').css('display','block');
+			$('#ContasreceberPeriodocritico').addClass('shadow-vermelho').focus();
 
-	}else{
-	    //adiciona a tabela
+		}else{
+			//adiciona a tabela
 
-	    $('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
-	    $('input').removeAttr('required');
-	    
-	    calcularValorConta();
-	    
-	    //limpa campos
-	    $('#ContasreceberIdentificacaoDocumento').val('');
-	    $('#dataVencimento-receber').val('');
-	    $('#valorConta-receber').val('');
-	    $('#ContasreceberPeriodocritico').val('');
-	    $('#ContasreceberDesconto').val('');
-	    $('#ContasreceberAgencia').val('');
-	    $('#ContasreceberConta').val('');
-	    $('#ContasreceberBanco').val('');
-		    
-	    //campos hidden
-	    $('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoReceber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaReceber'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
+			$('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+			$('input').removeAttr('required');
+			
+			calcularValorConta();
+			
+			//limpa campos
+			$('#ContasreceberIdentificacaoDocumento').val('');
+			$('#dataVencimento-receber').val('');
+			$('#valorConta-receber').val('');
+			$('#ContasreceberPeriodocritico').val('');
+			$('#ContasreceberDesconto').val('');
+			$('#ContasreceberAgencia').val('');
+			$('#ContasreceberConta').val('');
+			$('#ContasreceberBanco').val('');
+				
+			//campos hidden
+			$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoReceber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaReceber'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
 
-	    if(tipoPagamento == 'A Vista'){
-		$('.tela-resultado-field').hide();
-	    }else{
-		numeroParcela++;
-	    }
-	    
-	    princ_cont++;
-	    numParcela++;
-	    
-	    //incrementa 1 a parcela
-	    $('#ContasreceberParcela').val(numeroParcela)	
-	    $('#Pagamento0NumeroParcela').val(numParcela);
-	}
-
+			if(tipoPagamento == 'A Vista'){
+				$('.tela-resultado-field').hide();
+			}else{
+				numeroParcela++;
+			}
+			
+			princ_cont++;
+			numParcela++;
+			
+			//incrementa 1 a parcela
+			$('#ContasreceberParcela').val(numeroParcela)	
+			$('#Pagamento0NumeroParcela').val(numParcela);
+		}
     });
 
 /****************** Soma valor conta *********************/        
@@ -167,10 +164,12 @@
     
 /****************** Altera linha da tabela *********************/
     $('#bt-editarConta-receber').click(function(){
-	$('.btnEditar').show();
-	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
-	    $('.tela-resultado-field').hide();
-	}
+		$('.btnEditar').show();
+
+		if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+			$('.tela-resultado-field').hide();
+		}
+	
 	//percorre a td
 	$('#numParc'+numero).each(function(){
 	   
