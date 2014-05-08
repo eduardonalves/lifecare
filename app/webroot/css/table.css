@@ -1,68 +1,14 @@
 @charset "utf-8";
 
 
-table {
-
-	position:relative;
+/* TAGS ***************************************************************/
+table{
+	border:#CCCCCC 1px solid;
 	float:left;
-	
-	width:100%;
-	
-	border: #CCCCCC 1px solid;
-	
 	font-size:13px;
+	position:relative;
 	text-align:center;
-
-}
-
-table a, a:hover, a:visited {
-
-	text-decoration:none;
-	color:inherit;
-
-}
-
-table tr {
-
-	height:35px;
-	
-
-}
-
-table thead tr:first-child {
-
-background: #e8e8e8; /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U4ZThlOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkMGQwZDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top,  #e8e8e8 0%, #d0d0d0 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e8e8), color-stop(100%,#d0d0d0)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #e8e8e8 0%,#d0d0d0 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#d0d0d0',GradientType=0 ); /* IE6-8 */
-
-
-}
-
-table tr:nth-child(odd) {
-
-	background-color:#FEFEFD;
-
-}
-
-table tr:last-child td {
-
-	border-bottom:0px;
-
-}
-
-
-table tr th, td {
-
-	border-right: #CCCCCC 1px solid;
-	
-
+	width:100%;
 }
 
 th, td{
@@ -70,63 +16,36 @@ th, td{
 	padding-right:7px;
 }
 
-table tr th:last-child, td:last-child {
 
-	border-right: 0px;
-
-}
-
-p.table-counter {
-
-	font-size:13px;
-	padding-top:10px;
-	
-	line-height:30px;
-
-
-}
-
-.colunaConta{
+/* CLASS **************************************************************/
+.colunaConta, .colunaProduto{
 	background-color:#F0F5DB;
 }
 
-.colunaParcela{
+.colunaParcela, .colunaLote{
 	background-color:#FFFAE7;
 }
 
-.colunaProduto{
-	background-color:#F0F5DB;
-}
-.colunaLote{
-	background-color:#FFFAE7;
-}
 .colunaES{
 	background-color:#C9F0E8;
 }
 
-.composicao{
+.composicao, .dosagem{
 	max-width:110px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.dosagem{
-	max-width:110px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }
 
 .descricao{
 	max-width:145px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }
 
 .comprimentoMinimo{
-	/*min-width:200px;*/
+	/* min-width:200px; */
 }
 
 .setaOrdena{
@@ -137,61 +56,108 @@ p.table-counter {
 	min-width:80px
 }
 
-.actions img{
-	margin-left:5px;
-	position: relative;
-	float: left;
+.img-edit{
+	margin-top:3px;
 }
 
-.actions hr{
-	width:1px;
-	height:20px;
-	border:0;
-	background-image:-webkit-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
-	background-image:-moz-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
-	background-image:-ms-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
-	background-image:-o-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
-	margin:0 0 0 5px;
-	display: inline-block;
-	position: relative;
-	float: left;
+.seta-cima{
+	border-color:rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #808080 rgba(0, 0, 0, 0);
+	border-style:solid;
+	border-width:10px;
 }
 
+.seta-baixo{
+	border-color:#808080 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+	border-style:solid;
+	border-width:10px;
+	margin-top:4px !important;
+}
+
+.posicao-seta{
+	float:right;
+	margin-top:-7px;
+
+	-moz-margin-start:-20px;
+}
+
+.highlight{
+	background-image:url(../img/fundinho.png);
+	background-repeat:repeat;
+}
+
+
+/* ID *****************************************************************/
 #delete_centrocusto{
 	margin-top:4px;
 }
 
-.img-edit{
-	margin-top:3px;
+
+/* HERANÇA ************************************************************/
+table thead tr:first-child {
+	background:#e8e8e8; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U4ZThlOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkMGQwZDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background:-moz-linear-gradient(top,  #e8e8e8 0%, #d0d0d0 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e8e8), color-stop(100%,#d0d0d0)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* Opera 11.10+ */
+	background:-ms-linear-gradient(top,  #e8e8e8 0%,#d0d0d0 100%); /* IE10+ */
+	background:linear-gradient(to bottom,  #e8e8e8 0%,#d0d0d0 100%); /* W3C */
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#d0d0d0',GradientType=0 ); /* IE6-8 */
+}
+
+table tr{
+	height:35px;
+}
+
+table tr:nth-child(odd) {
+	background-color:#FEFEFD;
+}
+
+table tr th, td {
+	border-right:#CCCCCC 1px solid;
+}
+
+table a, a:hover, a:visited{
+	color:inherit;
+	text-decoration:none;
+}
+
+table tr:last-child td{
+	border-bottom:0px;
+}
+
+table tr th:last-child, td:last-child{
+	border-right:0px;
+}
+
+p.table-counter{
+	font-size:13px;
+	line-height:30px;
+	padding-top:10px;
+}
+
+.actions img{
+	float:left;
+	margin-left:5px;
+	position:relative;
+}
+
+.actions hr{
+	border:0;
+	display:inline-block;
+	float:left;
+	height:20px;
+	margin:0 0 0 5px;
+	position:relative;
+	width:1px;
+
+	background-image:-webkit-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-moz-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-ms-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
+	background-image:-o-linear-gradient(top, rgba(0,0,0,0), rgba(100,100,100,0.75), rgba(0,0,0,0));
 }
 
 .actions .img-lista{
 	margin-top:4px;
 }
-
-.seta-cima{
-	border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #808080 rgba(0, 0, 0, 0);
-    border-style: solid;
-    border-width: 10px;
-}
-
-.seta-baixo{
-	border-color:  #808080 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-    border-style: solid;
-    border-width: 10px;
-    margin-top: 4px !important;
-}
-
-
-.posicao-seta{
-	float: right;
-	margin-top: -7px;
-	-moz-margin-start: -20px;
-}
-
-.highlight{
-	background-image: url(../img/fundinho.png);
-	background-repeat: repeat;
-}
-
-
