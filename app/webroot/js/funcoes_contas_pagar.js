@@ -168,10 +168,6 @@
     $('#bt-editarConta-pagar').click(function(){
 	$('.btnEditar').show();
 	
-	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
-	    $('.tela-resultado-field').hide();
-	}
-	
 	//percorre a td
 	$('#numParc'+numero).each(function(){
 	   
@@ -225,10 +221,6 @@
 	    $('#ContaspagarBanco').val('');
 	   
 	});
-
-	if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
-	    $('.tela-resultado').hide();
-	}
 
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');

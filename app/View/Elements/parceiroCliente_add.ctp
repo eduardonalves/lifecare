@@ -50,11 +50,11 @@ $(document).ready(function(){
 				$('#validaNome').css('display','none');
 			});
 			return false;
-		}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
+		}/*else if($('#ParceirodenegocioCpfCnpj').val() == ''){
 			$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
 			$('#validaCPF').css('display','block');
 			return false;
-		}else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
+		}*/else if(($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 			$('#ParceirodenegocioCpfCnpj').focus();
 			$('#validaCPFTamanho').css('display','block');
 			$('#ParceirodenegocioCpfCnpj').focusout(function(){
