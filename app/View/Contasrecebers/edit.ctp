@@ -1,30 +1,315 @@
-<div class="contas form">
-<?php echo $this->Form->create('Conta'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Conta'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('identificacao');
-		echo $this->Form->input('descricao');
-		echo $this->Form->input('valor');
-		echo $this->Form->input('data_emissao');
-		echo $this->Form->input('data_quitacao');
-		echo $this->Form->input('imagem');
-		echo $this->Form->input('status');
-		echo $this->Form->input('parceirodenegocio_id');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php	    
+	$this->start('css');
+	    echo $this->Html->css('contas_pagar');
+	    echo $this->Html->css('table');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	$this->end();
+	
+	$this->start('script');
+	    echo $this->Html->script('funcoes_contas_pagar_edit.js');
+	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+	$this->end();
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Conta.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Conta.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Contas'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pagamentos'), array('controller' => 'pagamentos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pagamento'), array('controller' => 'pagamentos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+	$this->start('modais');
+	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroFornecedor'));
+	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
+	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
+	$this->end();
+	
+	
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
+
+?>
+
+<div class="fieldset-total" style="border:none">
+	
+<header>
+
+	<?php echo $this->Html->image('emitir-title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+	 
+	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
+	<h1 class="menuOption33">Editar Conta a Receber</h1>
+</header>
+
+<section> <!---section superior--->
+
+	<header>Editar Dados Gerais da Movimentação</header>
+
+	<section class="coluna-esquerda">
+		<?php
+			
+			echo $this->Form->create('Contaspagar');
+			echo $this->Form->input('Contaspagar.id',array('value'=> $contareceber['Contasreceber']['id'],'type' => 'hidden'));
+			echo $this->Form->input('Contaspagar.identificacao',array('value'=>h($contareceber['Contasreceber']['identificacao']),'type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
+		    echo $this->Form->input('Contaspagar.status',array('label' => 'Status:','value' => h($contareceber['Contasreceber']['status']),'type' => 'hidden'));
+			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
+
+		?>
+
+	    <div class="tela-resultado">	    
+		<?php	
+		     echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+									     'title'=>'Preencher',
+										 'class'=>'bt-preencherConta',
+										 'id'=>'bt-preencherFornecedor'
+										 ));
+		?>
+
+		<div class="input autocompleteFornecedor conta">
+			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
+		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+		    <select class="tamanho-medio limpa" id="add-fornecedor">
+			<option id="optvazioForn"></option>
+			<option value="add-parceiroFornecedor">Cadastrar</option>
+
+			<?php
+			    foreach($parceirodenegocios as $parceirodenegocio)
+				{
+				    echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
+				    echo $parceirodenegocio['Parceirodenegocio']['nome'];
+				    echo "</option>";
+				}
+			?>
+
+		    </select>
+		</div>
+	    </div>    
+	    
+	    
+<!-- Tipo de Conta -->
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher Tipo de Conta',
+										     'class'=>'bt-TipoConta',
+										     'id'=>'bt-preencherTipoConta'
+										     ));
+		?>
+		
+		
+		
+		<div class="input autocompleteTipoConta contas">
+		    <span id="msgValidaTipoConta" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Tipo Conta</span>
+		    <label>Tipo de Conta:</label>
+		    <select class="tamanho-medio" id="add-tipoConta">
+			    <option id="optvazioForn"></option>
+			    <option value="add-tipodeConta">Cadastrar</option>
+			    <?php
+			       foreach($tipoconta as $tipoConta)
+				{
+					if($tipoConta['Tipodeconta']['tipo'] == "RECEITA"){
+							
+						echo "<option id='".$tipoConta['Tipodeconta']['id']."'value='".$tipoConta['Tipodeconta']['nome']."' data-tipo='".$tipoConta['Tipodeconta']['tipo']."' >";
+						echo $tipoConta['Tipodeconta']['nome'];
+						echo "</option>";
+					}
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
+		
+<!-- CENTRO DE CUSTO -->
+	<div class="tela-resultado">   
+		<?php
+		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+										 'title'=>'Preencher Centro de Custo',
+										     'class'=>'bt-centroCusto',
+										     'id'=>'bt-preencherCentreCusto'
+										     ));
+		?>		
+		<div class="input autocompleteCentroCusto contas">
+		    <span id="msgValidaCentroCusto" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Centro Custo</span>
+		    <label>Centro de Custo:</label>
+		    <select class="tamanho-medio" id="add-custo">
+			    <option id="optvazioForn"></option>
+			    <option value="add-centroCusto">Cadastrar</option>
+			    <?php
+			       foreach($centrocusto as $centro)
+				{
+				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limite_usado='".$centro['Centrocusto']['limite_usado']."' value='".$centro['Centrocusto']['nome']."' >";
+				    echo $centro['Centrocusto']['nome'];
+				    echo "</option>";
+				}
+			    ?>
+		    </select>
+		</div>
+	</div>
+	    
+	<?php
+		echo $this->Form->input('descricao',array('value'=>h($contareceber['Contasreceber']['descricao']),'label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '104'));
+	?>
+
+	</section>
+		
+	<section class="coluna-central" >
+		<?php		
+			formatDateToView($contareceber['Contasreceber']['data_emissao']);
+			
+		    echo $this->Form->input('data_emissao',array('value'=>h($contareceber['Contasreceber']['data_emissao']),'type'=>'text','label'=>'Data de Emissão<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
+		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
+		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
+		  
+		    echo $this->Form->input('tipo',array('value'=>h($contareceber['Contasreceber']['tipo']),'label' => 'Tipo:','type' => 'hidden'));
+		    echo $this->Form->input('nome', array('value'=>h($contareceber['Parceirodenegocio']['nome']),'type'=>'text','label'=>'Nome:','class'=>'nomeParceiro tamanho-medio borderZero','allowEmpty' => 'false','readonly'=>'readonly','title'=>'Campo Obrigatório','onfocus' => 'this.blur()'));		
+		    echo $this->Form->input('tipoconta', array('value'=>h($contareceber['Tipodeconta']['nome']),'id'=>'tipoConta','type'=>'text','label'=>'Tipo Conta:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('centrocusto', array('value'=>h($contareceber['Centrocusto']['nome']),'id'=>'nomeCusto','type'=>'text','label'=>'N. Custo:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+			
+			//CAMPOS HIDDEN ID
+			echo  $this->Form->input('tipodeconta_id', array('type' => 'hidden'));
+		    echo  $this->Form->input('centrocusto_id', array('type' => 'hidden'));
+		?>		
+	</section>
+	
+	<section class="coluna-direita" >
+		<?php
+		  	
+		    //echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio desabilita'));
+		    echo $this->Form->input('valor',array('value'=>h(number_format($contareceber['Contasreceber']['valor'], 2, ',', '.')),'type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
+		    echo $this->Form->input('cpf_cnpj', array('value'=>h($contareceber['Parceirodenegocio']['cpf_cnpj']),'type'=>'text','class'=>'cpfParceiro borderZero tamanho-medio ','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
+			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
+		?>
+		
+		<div class="centrocusto">
+		<?php
+			
+		   // echo $this->Form->input('centrocusto', array('id'=>'limitecusto','type'=>'text','label'=>'Limite:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		   // echo $this->Form->input('centrocusto', array('id'=>'limite_usado','type'=>'text','label'=>'Limite Atual:','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		
+		?>
+		</div>
+	
+	</section>
+</section><!---Fim section superior--->
+
+<section> <!---section meio--->
+
+	<header>Editar Dados da(s) Parcela(s)</header>
+
+	<section class="coluna-esquerda">
+		<?php
+		echo $this->Form->input('Pagamento.0.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','tabindex' => '105','options'=>array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
+		echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';	
+		?>
+	</section>
+	
+	<section class="coluna-central">
+		<?php
+
+		echo $this->Form->input('Pagamento.0.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','tabindex' => '106', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+
+		?>	
+	</section>
+	
+	<section class="coluna-direita">
+		<?php
+		echo $this->Form->input('Pagamento.0.numero_parcela',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','value' => '0'));	
+		?>
+	</section>
+</section><!--fim Meio-->
+	
+	<div>
+		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
+			<thead>
+					<th><?php echo ('Parcela'); ?></th>
+					<th><?php echo ('Data de Vencimento'); ?></th>
+					<th><?php echo ('Valor'); ?></th>
+					<th><?php echo ('Juros'); ?></th>
+					<th><?php echo ('Identificação'); ?></th>
+					<th><?php echo ('Periodo Crítico'); ?></th>
+					<th><?php echo ('Desconto'); ?></th>
+					<th><?php echo ('Agência'); ?></th>
+					<th><?php echo ('Conta'); ?></th>
+					<th><?php echo ('Banco'); ?></th>
+					<th class="actions"><?php echo __('Ações'); ?></th>
+			</thead>
+			
+			<?php
+			$princ_cont = 0;
+				foreach($contareceber['Parcela'] as $parcelaspagar){
+					echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelaspagar['id'],'type'=>'hidden'));
+					echo "<tr class=\"linhaParcela$princ_cont\">";
+						echo "<td>". $parcelaspagar['parcela']."</td>";
+							formatDateToView($parcelaspagar['data_vencimento']);
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.valor_parcela',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.juros',array('value'=>number_format( $parcelaspagar['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao',array('value'=> $parcelaspagar['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";
+
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.periodocritico',array('value'=> $parcelaspagar['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
+						echo "</td>";
+						
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.desconto',array('value'=>number_format( $parcelaspagar['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'valorDesconto tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
+						echo "</td>";
+						
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.agencia',array('value'=>$parcelaspagar['agencia'],'type'=>'text','label'=>'','id' => 'agencia'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";	
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.conta',array('value'=>$parcelaspagar['conta'],'type'=>'text','label'=>'','id' => 'conta'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";	
+						
+						echo "<td>";
+							echo $this->Form->input('Parcela.'.$princ_cont.'.banco',array('value'=>$parcelaspagar['banco'],'type'=>'text','label'=>'','id' => 'banco'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => '112','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+						echo "</td>";	
+			
+						echo "<td>";
+							echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditar'.$princ_cont, 'class'=>'btnEditar', 'alt' => 'Editar', 'title' => 'Editar'));
+							echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditarOk'.$princ_cont, 'class'=>'btnEditarOk', 'alt' => 'Concluir', 'title' => 'Concluir','style'=>'display:none'));							
+						echo "</td>";
+						$princ_cont++;					
+					echo "</tr>";
+				}			
+			?>			
+			
+		</table>
+	</div>
+
+<footer>
+		
+	<?php
+	
+	    echo $this->form->submit('botao-salvar.png',array(
+							    'class'=>'',
+							    'alt'=>'Salvar Edição',
+							    'title'=>'Salvar Edição',
+							    'id'=>'btn-salvarEditPagar'
+	    ));
+
+	    echo $this->Form->end();	
+	?>	
+
+	<!-- </form> 
+	</section> -->
+</footer>
+
