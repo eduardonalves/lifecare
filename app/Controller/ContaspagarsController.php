@@ -408,11 +408,41 @@ class ContaspagarsController extends ContasController {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Contaspagar->save($this->request->data)) {
-				$this->Session->setFlash(__('A conta não pode ser salva.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'index'));
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contaspagar']['data_emissao']);
+			$parcelasEnviadas = $this->request->data['Parcela'];
+				
+				
+			$cont=0;
+			foreach($parcelasEnviadas as $parcelasEnviada){
+
+
+				$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+
+				$this->setCobranca($this->request->data['Conta']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+
+			}
+			if ($this->Contaspagar->saveAll($this->request->data)) {
+				$this->loadModel('Pagamento');
+				$this->loadModel('Parcela');
+				$this->loadModel('ParcelasConta');
+				$this->loadModel('Conta');
+				
+				
+				
+				$this->setStatusConta($this->request->data['Conta']['id']);
+				$this->setStatusContaPrincipal($this->request->data['Conta']['id']);
+				//$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'],  $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+				//$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
+				
+				
+				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
+				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
+				
+				
 			} else {
 				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
+				//return $this->redirect(array('action' => 'index'));
+				debug($this->request->data);
 			}
 		} else {
 			$options = array('conditions' => array('Contaspagar.' . $this->Contaspagar->primaryKey => $id),'recursive' => 1);
