@@ -294,15 +294,8 @@ $(document).ready(function() {
 	
 	if(parceiro ==''){
 		$('#msgValidaParceiro').css('display','block');
-	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
 	    $('html, body').animate({scrollTop:0}, 'slow');
-	    
-	}/*else if(parceiroCpf == ''){
-	    $('#msgValidaParceiro').css('display','block');
-	    //$('.ui-autocomplete-input').addClass('shadow-vermelho').focus();
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	    
-	}*/else if(!temclasvalbtconf){
+	}else if(!temclasvalbtconf){
 	    $('#msgValidaParcela').css('display','block');
 	    $('html, body').animate({scrollTop:0}, 'slow');
 	    
