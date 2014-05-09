@@ -14,7 +14,7 @@ class ContaspagarsController extends ContasController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'lifecareDataFuncs','RequestHandler');
+	public $components = array('Paginator', 'lifecareDataFuncs', 'lifecareFuncs', 'RequestHandler');
 
 /**
  * index method
@@ -337,6 +337,7 @@ class ContaspagarsController extends ContasController {
 		if ($this->request->is('post')) {
 				$this->Contaspagar->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contaspagar']['data_emissao']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Contaspagar']['valor']);
 			if ($this->Contaspagar->saveAll($this->request->data)) {
 				$this->loadModel('Pagamento');
 				$this->loadModel('Parcela');

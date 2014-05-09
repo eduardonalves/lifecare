@@ -1,5 +1,6 @@
 $(document).ready(function() {
     
+    
     $(".ui-autocomplete-input").css({
 	"border-bottom-right-radius": "4px",
 	"border-top-right-radius":" 4px",

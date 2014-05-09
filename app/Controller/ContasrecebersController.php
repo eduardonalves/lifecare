@@ -377,6 +377,7 @@ class ContasrecebersController extends ContasController {
 			//}else{
 				$this->Contasreceber->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Contasreceber']['valor']);
 				foreach( $this->request->data['Pagamento'] as $pagamento){
 					$formaPagamento = $pagamento['forma_pagamento'];
 					$pagamentoTipo = $pagamento['tipo_pagamento'];
