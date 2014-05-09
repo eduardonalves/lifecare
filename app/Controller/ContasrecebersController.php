@@ -464,8 +464,62 @@ class ContasrecebersController extends ContasController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Contasreceber->save($this->request->data)) {
-				$this->Session->setFlash(__('A conta foi salva.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->loadModel('Pagamento');
+				$this->loadModel('Parcela');
+				$this->loadModel('ParcelasConta');
+				$this->loadModel('Conta');
+				
+				
+				
+				$this->setStatusConta($this->request->data['Contasreceber']['id']);
+				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
+				
+				if(isset($this->request->data['Parcela'])){
+					$parcelasEnviadas = $this->request->data['Parcela'];
+					$cont=0;
+					foreach($parcelasEnviadas as $parcelasEnviada){
+						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
+						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);
+						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['juros']);
+						$this->setCobranca($this->request->data['Contasreceber']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+						$this->Parcela->save($parcelasEnviada);
+						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
+						$this->ParcelasConta->create();
+						$this->ParcelasConta->save($updateParcelasConta);
+						
+					}	
+				}
+				
+				
+				if(isset($this->request->data['Pagamento'])){
+					$pagamentoEnviadas = $this->request->data['Pagamento'];
+					
+					foreach($pagamentoEnviadas as $pagamentoEnviada){
+						//$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						
+						$this->Pagamento->save($pagamentoEnviada);
+						//$this->setCobranca($this->request->data['Conta']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+						
+					}
+				
+				}
+				
+				
+				if(isset($this->request->data['Negociacao'])){
+					$negociacaoEnviadas = $this->request->data['Negociacao'];
+					foreach($negociacaoEnviadas as $negociacaoEnviada){
+						//$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						
+						$this->Negociacao->save($negociacaoEnviada);
+						//$this->setCobranca($this->request->data['Conta']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+						
+					}
+				}
+				
+				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
+				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
+				
 			} else {
 				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'));
 			}
