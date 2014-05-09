@@ -70,7 +70,7 @@
 
 		<div class="input autocompleteFornecedor conta">
 			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
-		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor:</label>
 		    <select class="tamanho-medio limpa" id="add-fornecedor">
 			<option id="optvazioForn"></option>
 			<option value="add-parceiroFornecedor">Cadastrar</option>
@@ -179,7 +179,7 @@
 		  	
 		    //echo $this->Form->input('imagem',array('label'=>'Imagem','class'=>'tamanho-medio desabilita'));
 		    echo $this->Form->input('valor',array('value'=>h(number_format($contareceber['Contasreceber']['valor'], 2, ',', '.')),'type'=>'text','label'=>'Valor Total:','class'=>'tamanho-medio clickValor dinheiro_duasCasas borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));
-		    echo $this->Form->input('cpf_cnpj', array('value'=>h($contareceber['Parceirodenegocio']['cpf_cnpj']),'type'=>'text','class'=>'cpfParceiro borderZero tamanho-medio ','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
+		    echo $this->Form->input('cpf_cnpj', array('value'=>h($contareceber['Parceirodenegocio']['cpf_cnpj']),'type'=>'text','class'=>' borderZero tamanho-medio ','label'=>'CPF/CNPJ:','readonly'=>'readonly','onfocus' => 'this.blur()'));
 		    echo  $this->Form->input('parceirodenegocio_id', array('type' => 'hidden'));
 			echo  $this->Form->input('status', array('type' => 'hidden', 'value' => 'VERDE'));
 		?>
@@ -303,7 +303,7 @@
 	<?php
 	
 	    echo $this->form->submit('botao-salvar.png',array(
-							    'class'=>'',
+							    'class'=>'bt-salvarEditConta',
 							    'alt'=>'Salvar Edição',
 							    'title'=>'Salvar Edição',
 							    'id'=>'btn-salvarEditPagar'
@@ -316,3 +316,8 @@
 	</section> -->
 </footer>
 
+<pre>
+<?php
+	print_r($contareceber);
+?>
+</pre>
