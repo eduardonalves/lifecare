@@ -1,101 +1,77 @@
-
 @charset "utf-8";
 
-/* TAGS ************************************/
+
+/* TAGS ***************************************************************/
 input{
-	margin-top: -4px !important;
-	border: 0px !important;
-	background-color: transparent;
-	float: left;
-	width: 90px !important;
+	background-color:transparent;
+	border:0px !important;
+	float:left;
+	margin-top:-6px !important;
+	width:90px !important;
 }
 
 table{
-	font-size: 13px;
-	 margin-top: 40px;
-	 margin-bottom: 25px;
-	  
+	font-size:13px;
+	margin-bottom:25px;
+	margin-top:40px;
 }
 
 th{
-	text-align: center;
-	  
+	text-align:center;
 }
 
 td{
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-top: 5px;
+	padding:5px 10px inherit 10px;
 }
 
-span{
-	font-size:13px;
-	float: left;
-	
-}
 
-/* CLASS ************************************/
+/* CLASS **************************************************************/
 .linha{
-width:100px;
-float:left;
+	float:left;
+	width:100px;
 }
 
 .linha2{
 	margin-top:12px;
-
-}
-.segmento-esquerdo{
-	/*float: left;
-   width: 81px; */
 }
 
 .segmento-direito{
-	float: right;
-    height: 270px;
-    margin-right: 0;
-    margin-top: 0;
-    width: 252px;
-	
-}
-
-.teste{
-	text-align: right;
-	margin-left: 10px;
+	float:right;
+	height:270px;
+	margin-right:0;
+	margin-top:0;
+	width:252px;
 }
 
 .titulo{
-	
 	font-size: 13px;
 	text-align: right;		
 }
 
 .valor{
-	float: rigth;
-	margin-left: 110px;
-	color: black;
-	font-size: 13px;
-	width: 230px;
-	
+	color:black;
+	float:rigth;
+	font-size:13px;
+	margin-left:110px;
+	width:230px;
 }
 
 .valor-descricao{
-	float: rigth;
-	margin-left: 110px;
-	margin-top: 10px;
-	color: #000000;
-	font-size: 13px;
-	width: 230px;
-
+	color:#000000;
+	float:rigth;
+	font-size:13px;
+	margin-left:110px;
+	margin-top:10px;
+	width:230px;
 }
 
 .conteudo-linha{
-	min-height: 15px;
-    width: 346px;
-    display: block;
-    margin-top: 10px;
-    
-    
+	display:block;
+	margin-top:10px;
+	min-height:15px;
+	width:346px;
 }
+
 .span-semaforo{
 	float:left !important;
 }
@@ -105,10 +81,8 @@ float:left;
 }
 
 .coluna-categorias{
-
 	float:left;
 	margin-bottom:5px;
-
 }
 
 .textarea-view{
@@ -116,14 +90,8 @@ float:left;
 	width:195px
 }
 
+
+/* HERANÇA ************************************************************/
 .conteudo-principal section label{
-	line-height: 12px !important; 
+	line-height:12px !important; 
 }
-
-/* ID ************************************/
-
-
-
-
-
-

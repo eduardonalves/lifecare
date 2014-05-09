@@ -64,18 +64,19 @@
 				echo $this->Form->create('Quicklink', array('id' => 'formCadQuicklink'));
 				echo "<div class=\"ui-widget\">";
 					echo $this->Form->input('Quicklink.nome', array('class'=>'nome-quicklink','type'=>'text', 'label'=>'Nome<span class="campo-obrigatorio">*</span>:', 'div' => false , 'maxlength' => '50' ));
-					echo "<span id='spanQuicklink' class='Msg' style='display:none'>Preencha o Campo Nome</span>";
+					echo "<span id='spanQuicklink' class='msg erroRight' style='display:none'>Preencha o Campo Nome</span>";
 			?>
 
-				<div class='esconder'>
+					<div class='esconder'>
 
-					<?php
-						echo $this->Form->input('url',array('value' => $urlQuickLink));
-						echo $this->Form->input('user_id',array('value' => $configproduto['Configproduto']['user_id']));
-						echo $this->Form->input('tipo',array('value' => 'ESTOQUE', 'type' => 'hidden'));
-					?>	
+						<?php
+							echo $this->Form->input('url',array('value' => $urlQuickLink));
+							echo $this->Form->input('user_id',array('value' => $configproduto['Configproduto']['user_id']));
+							echo $this->Form->input('tipo',array('value' => 'ESTOQUE', 'type' => 'hidden'));
+						?>	
 
-				</div>	
+					</div>
+					
 			<?php echo "</div>"; ?>
 
 		</div>	

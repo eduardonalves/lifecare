@@ -1,5 +1,47 @@
 @charset "utf-8";
 
+
+/* TAG ****************************************************************/
+hr{
+	margin-bottom:10px !important;
+	margin-top:-15px !important;
+}
+
+textarea{
+	width:184px !important;
+}
+
+
+/* CLASS **************************************************************/
+.divTipoParceiro{
+	margin-bottom:50px;
+}
+
+.ajusteAlignSection{
+	clear:both;
+}
+
+.dadosRepetidos{
+	clear:both;
+	margin-bottom:10px;
+	padding-top:10px;
+}
+
+.label-cpf{
+	float:right;
+	font-size:13px;
+	margin-left: -291px;
+	margin-top:-4px;
+	width:65px !important;
+}
+
+.label-cnpj{
+	margin-left:-217px;
+	margin-top:-4px;
+	width:50px !important;
+}
+
+
 /* ID *****************************************************************/
 #remove-area-endereco, #remove-area-dadosbanc{
 	display:none;
@@ -10,12 +52,115 @@
 	margin-right:10px;
 }
 
-
-/* CLASS **************************************************************/
-.divTipoParceiro{
-	margin-bottom:50px;
+#validaClassificacao, #validaValidade1, #validaStatus, #Dadoscredito0Bloqueado{
+	left:253px !important;
+	top:-5px;
+	width:85px;
 }
 
+#validaValidade2, #validaValidade3{
+	left:260px;
+	top:-5px;	
+	width:145px;
+}
+
+#validaEndBloco,#validaBancBloco{
+	margin-top:-15px;
+	position:absolute;
+	right:200px;
+	width:150px;
+	z-index:1;
+}
+
+#validaNome, #validaLimite, #validaTelefone22{
+	left:314px !important;
+	top:-5px;
+	width:85px;
+	z-index:9991;
+}
+
+#validaTelefone22{
+	left:325px;
+	top:22px;
+	width:85px;
+	z-index:9991;
+}
+
+#validaTelefone{
+	left:316px;
+	top:25px;
+	width:85px;
+}
+
+#validaCPF, #validaCPFTamanho, #validaCelular{
+	left:185px;
+	top:30px;
+	width:85px;
+}
+
+#validaCelular{
+	left:185px;
+	top:60px;
+	width:85px;
+}
+
+#idcpf, #idcnpj{
+	float:left;
+	margin-top:2px;
+	position:relative;
+
+}
+
+#validaCPF:after,#validaCPFTamanho:after{
+	left:35px;
+}
+
+#inputcnpj{
+	margin-left:-224px;   
+	position:absolute;
+}
+
+#inputcpf{
+	margin-left:-274px;
+	position:absolute;
+	z-index:1;
+}
+
+#ClienteCpfCnpj{
+	height:16px;
+	position:relative;
+}
+
+#validaEmail{
+    left:135px;
+    top:88px;
+}
+
+#loaderCep{
+    margin-left:225px;
+    margin-top:-43px;
+    position:absolute;
+    width:40%;
+}
+
+#salvarAntes{
+	right:80px;
+}
+
+#salvarAntes:after{
+	float:right;
+	margin-left:165px;
+	top:1px;
+}
+
+#LoadAjaxProduto{
+    left:450px;
+    position:absolute;
+    top:-670px;
+}
+
+
+/* HERANÇA ************************************************************/
 div[class^="bloco-area"]{
 	display:inline-block;
 	margin-top:20px;
@@ -27,196 +172,45 @@ div[class^="bloco-area"]:first-child{
 	margin-top:0px !important;
 }
 
-.ajusteAlignSection{
-	clear:both;
-}
-
-.dadosRepetidos{
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	padding-top: 10px;
-	clear: both;
-}
-/* TAG ****************************************************************/
-hr{
-	margin-top:-15px !important;
-	margin-bottom:10px !important;
-}
-
-textarea{
-	width:184px !important;
-}
-
-
-/* VALIDAR CAMPOS *****************************************************/
-#validaClassificacao, #validaValidade1, #validaStatus, #Dadoscredito0Bloqueado{
-	width: 85px;
-	top: -5px;
-	left: 253px !important;	
-}
-
-#validaValidade2, #validaValidade3{
-	width: 145px;
-	top: -5px;
-	left: 260px;	
-}
-
-#validaEndBloco{
-	width: 150px;
-	right: 200px;
-	margin-top: -15px;
-	z-index:1;
-	position:absolute;
-}
-
-#validaBancBloco{
-	width: 150px;
-	right: 200px;
-	margin-top: -15px;
-	z-index:1;
-	position:absolute;
-}
-
-#validaNome, #validaLimite, #validaTelefone22,span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
+span[id*="Cep3"], span[id*="Cep1"], span[id*="Cep2"]{
 	width:85px;
 	top:-5px;
 	left:314px !important;
 	z-index:9991;
 }
 
-#validaTelefone22{
-	width:85px;
-	top:22px;
-	left:325px;
-	z-index:9991;
-}
-
 span[id$="Uf"]{
-	width:85px;
-	top:25px;
 	left:245px;
+	top:25px;
+	width:85px;
 	z-index:10;
 }
 
 span[id$="Bairro"]{
-	width: 85px;
-	top: 50px;
-	left: 313px;
-	clear: both;
-	position: absolute;
-}
-
-#validaTelefone{
+	clear:both;
+	left:313px;
+	top:50px;
 	width:85px;
-	top:25px;
-	left:316px;
-}
-
-#validaCPF, #validaCPFTamanho, #validaCelular{
-	width:85px;
-	top:30px;
-	left:185px;
-}
-
-#validaCelular{
-width:85px;
-	top:60px;
-	left:185px;
+	position:absolute;
 }
 
 span[id$="Cidade"]{
-	width:85px;
-	top:60px;
 	left:185px;
+	top:60px;
+	width:85px;
 }
 
 span[id$="Logradouro"]{
-	width:85px;
-	top:32px;
 	left:169px;
+	top:32px;
+	width:85px;
 }
 
-#validaCPF:after,#validaCPFTamanho:after{
-	left:35px;
-}
-
-#idcpf{
-	float: left;
-	position:relative;
-	margin-top: 2px;
-}
-
-#idcnpj{
-	float: left;
-	position:relative;
-	margin-top: 2px;
-}
-
-.label-cpf{
-	float:right;
-	font-size:13px;
-	margin-top:-4px;
-	margin-left: -291px;
-	width:65px !important;
-}
-
-.label-cnpj{
-	margin-left:-217px;
-	margin-top:-4px;
-	width:50px !important;
-}
-
-#inputcnpj{
-	position:absolute;
-	margin-left:-224px;   
-	
-}
-
-#inputcpf{
-	position:absolute;
-	z-index: 1;
-	margin-left:-274px;
-}
-
-#ClienteCpfCnpj{
-	position:relative;
-	height:16px;
-}
-
-#validaEmail{
-    left: 135px;
-    top: 88px;
+[id*="Tipo"]{
+    left: 238px;
+    top:0px;
 }
 
 [id*="Tipo"]:after{
     top:0px;
 }
-
-[id*="Tipo"]{
-    left: 238px;
-    top: -4px;
-    top:0px;
-}
-
-#loaderCep{
-    margin-left: 225px;
-    margin-top: -43px;
-    position: absolute;
-    width: 40%;
-}
-
-#salvarAntes{
-	right: 80px;
-}
-#salvarAntes:after{
-	float: right;
-	margin-left: 165px;
-	top: 1px;
-}
-
-#LoadAjaxProduto{
-    left: 450px;
-    position: absolute;
-    top: -670px;
-}
-

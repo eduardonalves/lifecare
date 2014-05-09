@@ -4,107 +4,106 @@
 		$this->assign('modal',$modal);
 ?>
 
-	<script>
-		$(document).ready(function(){
-		
-			$('.validaNome').focusin(function(){
-				$('.validaNome').attr('required','required');
-			});  
-			
-			$('.validaNome').focusout(function(){
-				$('.validaNome').removeAttr('required','required');
-			});  
-			
-			$('.validaUnidade').focusin(function(){
-				$('.validaUnidade').attr('required','required');
-			});  
-			
-			$('.validaUnidade').on('focusout, click',function(){
-				$('.validaUnidade').removeAttr('required','required');
-			});  
+		<script>
+			$(document).ready(function(){
 
-		
-			$('.formAddProdutoModal').submit(function(event){
-				event.preventDefault();
+				$('.validaNome').focusin(function(){
+					$('.validaNome').attr('required','required');
+				});  
 
-				if($('.validaCodigo').val() ==''){
-					$('.validaCodigo').addClass('shadow-vermelho');
-					$('#validaCodi').css('display','block');
-				}else if($('.validaNome').val() == ''){
-					$('.validaNome').addClass('shadow-vermelho');
-					$('#validaNome').css('display','block');
-				}else if($('.validaUnidade').val() ==''){
-					$('.validaUnidade').addClass('shadow-vermelho');
-					$('#validaUnid').css('display','block');
-				}else if($('.validaCfop').val() == ''){
-					$('.validaCfop').addClass('shadow-vermelho');
-					$('#validaCfop').css('display','block');	
-				}else if($('.validaNcm').val() == ''){
-					$('.validaNcm').addClass('shadow-vermelho');
-					$('#validaNcm').css('display','block');	
-				}else if($('#ProdutoEstoqueMinimo').val() == 0){
-					$('span[id="spanEstoqueMinimo"]').remove();
-					$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
-					$('<span id="spanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-				}else if($('.validaEstoqueIdeal').val() == ''){
-					$('.validaEstoqueIdeal').addClass('shadow-vermelho');
-					$('#validaEstoqueIdeal').css('display','block');
-				}else{
-					var urlAction = "<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"add"),true);?>";
-					var dadosForm = $("#ProdutoAddForm").serialize();
+				$('.validaNome').focusout(function(){
+					$('.validaNome').removeAttr('required','required');
+				});  
 
-					$(".loaderAjax").show();
-					$(".btn-salvarProduto").hide();
+				$('.validaUnidade').focusin(function(){
+					$('.validaUnidade').attr('required','required');
+				});  
 
-					$.ajax({
-						type: "POST",
-						url: urlAction,
-						data:  dadosForm,
-						dataType: 'json',
-						success: function(data){
-							console.debug(data.Tributo);
+				$('.validaUnidade').on('focusout, click',function(){
+					$('.validaUnidade').removeAttr('required','required');
+				});  
 
-							$(".loaderAjax").hide();
-							$(".bt-salvar-Produto").show();
+				$('.formAddProdutoModal').submit(function(event){
+					event.preventDefault();
 
-							$("#ProdutoCodigo").val('');
-							$("#ProdutoNome").val('');
-							$("#ProdutoCodigoEan").val('');
+					if($('.validaCodigo').val() ==''){
+						$('.validaCodigo').addClass('shadow-vermelho');
+						$('#validaCodi').css('display','block');
+					}else if($('.validaNome').val() == ''){
+						$('.validaNome').addClass('shadow-vermelho');
+						$('#validaNome').css('display','block');
+					}else if($('.validaUnidade').val() ==''){
+						$('.validaUnidade').addClass('shadow-vermelho');
+						$('#validaUnid').css('display','block');
+					}else if($('.validaCfop').val() == ''){
+						$('.validaCfop').addClass('shadow-vermelho');
+						$('#validaCfop').css('display','block');	
+					}else if($('.validaNcm').val() == ''){
+						$('.validaNcm').addClass('shadow-vermelho');
+						$('#validaNcm').css('display','block');	
+					}else if($('#ProdutoEstoqueMinimo').val() == 0){
+						$('span[id="spanEstoqueMinimo"]').remove();
+						$('#ProdutoEstoqueMinimo').addClass('shadow-vermelho');
+						$('<span id="spanEstoqueMinimo" class="msg erroRight">Estoque Mínimo não pode ser menor que 1</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+					}else if($('.validaEstoqueIdeal').val() == ''){
+						$('.validaEstoqueIdeal').addClass('shadow-vermelho');
+						$('#validaEstoqueIdeal').css('display','block');
+					}else{
+						var urlAction = "<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"add"),true);?>";
+						var dadosForm = $("#ProdutoAddForm").serialize();
 
-							$("#btnRight").trigger("click");
-							$("#ProdutoComposicao").val("");
-							$("#ProdutoDosagem").val("");
-							$("#ProdutoUnidade").val("");
-							$("#ProdutoDescricao").val("");
-							$("#Tributo0Ncm").val("");
-							$("#Tributo0Cfop").val("");
-							$("#Tributo0AlIcms").val("");
-							$("#Tributo0CodigoSeloIpi").val("");
-							$("#Tributo0QtdeSeloIpi").val("");
-							$("#Tributo0AlIpi").val("");
-							$("#Tributo0AlCst").val("");
-							$("#Tributo0AlConfins").val("");
-							$("#Tributo0AlPis").val("");
-							$("#ProdutoEstoqueMinimo").val("");
-							$("#estoqueIdeal").val("");
-							$("#ProdutoPeriodocriticovalidade").val("");
+						$(".loaderAjax").show();
+						$(".btn-salvarProduto").hide();
 
-							$("#myModal_add-produtos").modal('hide');
-							$(".campo-superior-produto input").val('');
-							$(".selectProduto").prepend("<option value='"+data.Produto.id+"' id='"+data.Produto.id+"' class='"+data.Produto.unidade+"' rel='"+data.Produto.descricao+"' selected='selected'  >"+data.Produto.nome+"</option>");
-							$(".testechange").remove();
-							$('.selectProduto').prepend('<option value="add-produtos">Cadastrar</option>');	
-							$('.campo-superior-produto .input .ui-widget-content').val(data.Produto.nome);	
-						}
-					});
-				}
+						$.ajax({
+							type: "POST",
+							url: urlAction,
+							data:  dadosForm,
+							dataType: 'json',
+							success: function(data){
+								console.debug(data.Tributo);
+
+								$(".loaderAjax").hide();
+								$(".bt-salvar-Produto").show();
+
+								$("#ProdutoCodigo").val('');
+								$("#ProdutoNome").val('');
+								$("#ProdutoCodigoEan").val('');
+
+								$("#btnRight").trigger("click");
+								$("#ProdutoComposicao").val("");
+								$("#ProdutoDosagem").val("");
+								$("#ProdutoUnidade").val("");
+								$("#ProdutoDescricao").val("");
+								$("#Tributo0Ncm").val("");
+								$("#Tributo0Cfop").val("");
+								$("#Tributo0AlIcms").val("");
+								$("#Tributo0CodigoSeloIpi").val("");
+								$("#Tributo0QtdeSeloIpi").val("");
+								$("#Tributo0AlIpi").val("");
+								$("#Tributo0AlCst").val("");
+								$("#Tributo0AlConfins").val("");
+								$("#Tributo0AlPis").val("");
+								$("#ProdutoEstoqueMinimo").val("");
+								$("#estoqueIdeal").val("");
+								$("#ProdutoPeriodocriticovalidade").val("");
+
+								$("#myModal_add-produtos").modal('hide');
+								$(".campo-superior-produto input").val('');
+								$(".selectProduto").prepend("<option value='"+data.Produto.id+"' id='"+data.Produto.id+"' class='"+data.Produto.unidade+"' rel='"+data.Produto.descricao+"' selected='selected'  >"+data.Produto.nome+"</option>");
+								$(".testechange").remove();
+								$('.selectProduto').prepend('<option value="add-produtos">Cadastrar</option>');	
+								$('.campo-superior-produto .input .ui-widget-content').val(data.Produto.nome);	
+							}
+						});
+					}
+				});
 			});
-		});
-	</script>
+		</script>
 
 <?php	    
 	}	
-	
+
 	$this->start('css');
 		echo $this->Html->css('modal_produto');
 	$this->end();	
@@ -116,22 +115,6 @@
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
 	<h1 class="menuOption22">Cadastrar</h1>
-
-	<script>
-		/*$(document).ready(function(){
-			$('.btn-salvarProduto').click(function(e){
-				e.preventDefault();
-				
-				if($('.validaCfop').val() == ''){
-					$('.validaCfop').addClass('shadow-vermelho');
-					$('#validaCfop').css('display','block');	
-				}else{
-					$('.validaCfop').removeClass('shadow-vermelho');
-					$('#validaCfop').css('display','none');
-				}
-			});
-		});*/
-	</script>
 </header>
 
 <section>
@@ -148,7 +131,7 @@
 				}
 
 				echo $this->Form->input('Produto.nome',array('required'=>'false','class'=>'tamanho-medio validacao-cadastrar validaNome','label'=>'Nome<span class="campo-obrigatorio">*</span>:','maxlength'=>'255','tabindex'=>'1'));
-				echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o campo Nome</span>';
+				echo '<span id="validaNome" class="msg erroRight" style="display:none">Preencha o campo Nome</span>';
 				echo $this->Form->input('Produto.composicao', array('class'=>'tamanho-medio','label'=>'Composição: ','maxlength'=>'1000','tabindex'=>'4'));
 			?>
 
@@ -179,6 +162,7 @@
 				</section>
 			</div>
 			<!--------------- FIM PICK-LIST --------------->
+
 		</div>
 	</section>
 
@@ -198,7 +182,7 @@
 
 			<?php
 				echo $this->Form->input('Produto.unidade', array('class'=>'validaUnidade validacao-cadastrar','required'=>'false','type'=>'select','label'=>'Unidade<span class="campo-obrigatorio">*</span>:','options'=>$tiposUnidades,'tabindex'=>'3'));
-				echo '<span id="validaUnid" class="Msg-tooltipDireita" style="display:none">Selecione a Unidade</span>';
+				echo '<span id="validaUnid" class="msg erroRight" style="display:none">Selecione a Unidade</span>';
 				echo $this->Form->input('Produto.descricao', array('label'=>'Descrição:','type'=>'textarea','rows' => '3', 'cols' => '4', 'maxlength' => '1000','tabindex'=>'6'));
 			?>
 
@@ -227,9 +211,9 @@
 
 			<?php
 				echo $this->Form->input('Tributo.0.cfop',array('class'=>'tamanho-pequeno cfop validaCfop','type'=>'text', 'label'=>'CFOP<span class="campo-obrigatorio">*</span>:', 'maxlength' => '7','tabindex'=>'12'));
-				echo '<span id="validaCfop" class="Msg-tooltipDireita" style="display:none">Preencha o campo CFOP</span>';
+				echo '<span id="validaCfop" class="msg erroRight" style="display:none">Preencha o campo CFOP</span>';
 				echo $this->Form->input('Tributo.0.ncm',array('class'=>'tamanho-pequeno ncm validaNcm','type'=>'text', 'label'=>'NCM<span class="campo-obrigatorio">*</span>:', 'maxlength' => '7','tabindex'=>'15'));
-				echo '<span id="validaNcm" class="Msg-tooltipDireita" style="display:none">Preencha o campo NCM</span>';
+				echo '<span id="validaNcm" class="msg erroRight" style="display:none">Preencha o campo NCM</span>';
 				echo $this->Form->input('Tributo.0.al_confins',array('class'=>'tamanho-pequeno ipi','type'=>'text', 'label'=>'COFINS:', 'maxlength' => '5','after' => '<span class="afterInput">&nbsp;%</span>','tabindex'=>'18'));
 			?>
 
@@ -263,12 +247,12 @@
 
 			<?php
 				echo $this->Form->input('Produto.estoque_minimo', array('label'=>'Estoque Mínimo<span class="campo-obrigatorio">*</span>:','id'=>'ProdutoEstoqueMinimo','type'=>'text','class'=>'tamanho-pequeno validacao-cadastrar numberMask', 'maxlength' => '10','tabindex'=>'24' )); 
-				echo '<span id="spanEstoqueMinimo" class="Msg-tooltipDireita" style="display:none">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>';
+				echo '<span id="spanEstoqueMinimo" class="msg erroRight" style="display:none">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>';
 			?>
 
 		</div>
 	</section>
-	
+
 	<section class="coluna-central">
 		<div class="status">
 
@@ -279,7 +263,7 @@
 
 			<?php
 				echo $this->Form->input('Produto.estoque_desejado', array('label'=>'Estoque Ideal<span class="campo-obrigatorio">*</span>:','type'=>'text','id'=>'estoqueIdeal','class'=>'tamanho-pequeno validacao-cadastrar numberMask validaEstoqueIdeal',  'maxlength' => '10','tabindex'=>'25'));
-				echo '<span id="validaEstoqueIdeal" class="Msg-tooltipDireita" style="display:none">Preencha o campo Estoque Ideal</span>';
+				echo '<span id="validaEstoqueIdeal" class="msg erroRight" style="display:none">Preencha o campo Estoque Ideal</span>';
 			?>
 
 		</div>

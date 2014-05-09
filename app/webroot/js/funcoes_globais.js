@@ -375,14 +375,14 @@ $(document).ready(function(){
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
 	if($(this).val() !=''){
-	    $('span[class*="Msg"]').css('display','none');
+	    $('span[class*="Msg"], span[class*="msg"]').css('display','none');
 	    $('span[class*="DinamicaMsg"]').remove();
 	    $('input,select').removeClass('shadow-vermelho');
 	    $('.ui-widget').removeClass('shadow-vermelho');
 	}
     });
 
-    $('[class*="Msg"]').on('click', function(){
+    $('[class*="Msg"], span[class*="msg"]').on('click', function(){
 	$('span[class*="Msg"]').css('display','none');
 	$('span[class*="DinamicaMsg"]').remove();
 	$('input,select').removeClass('shadow-vermelho');
@@ -392,7 +392,7 @@ $(document).ready(function(){
     $('input').keydown(function(){
 	valrInput=$('input').val();
 	if(valrInput!=''){
-	    $('span[class*="Msg"]').css('display','none');
+	    $('span[class*="Msg"], span[class*="msg"]').css('display','none');
 	    $('span[class*="DinamicaMsg"]').remove();
 	    $('input,select').removeClass('shadow-vermelho');
 	    $('.ui-widget').removeClass('shadow-vermelho');
