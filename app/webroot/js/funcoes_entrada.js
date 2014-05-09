@@ -1051,7 +1051,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		    //entrada
 		    $('span[id="spanEntradaNotaFiscal"]').remove();
 		    $("input[id='EntradaNotaFiscal']").addClass('shadow-vermelho').focus().focus();
-		    $('<span id="spanEntradaNotaFiscal" class="MsgNotaFiscal">Preencha o campo Numero NF</span>').insertAfter('input[id="EntradaNotaFiscal"]');
+		    $('<span id="spanEntradaNotaFiscal" class="msg erroTop">Preencha o campo Numero NF</span>').insertAfter('input[id="EntradaNotaFiscal"]');
 		    
 		    //saida
 		    $('span[id="spanSaidaNotaFiscal"]').remove();
@@ -1066,7 +1066,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		    $('span[id="spanDataFuturo"]').remove();
 		    
 		    //entrada
-		    $('<span id="spanEntradaData" class="MsgData tooltipMensagemErroDireta">Preencha o campo Data Emissão</span>').insertAfter('input[id="EntradaData"]');
+		    $('<span id="spanEntradaData" class="msg erroRight">Preencha o campo Data Emissão</span>').insertAfter('input[id="EntradaData"]');
 		    $("input[id='EntradaData']").addClass('shadow-vermelho').focus();
 		    
 		    //saida
@@ -1088,7 +1088,7 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		    return false;
 		}else if(!temclasvalbtconf){
 		    $('#spanVaBtConf').remove();
-		    $('<span id="spanVaBtConf" class="MsgVaBtConf">Adicione produtos e lotes a tabela.</span>').insertAfter('.campo-superior-produto').css('float','left');
+		    $('<span id="spanVaBtConf" class="msg erroRight">Adicione produtos e lotes a tabela.</span>').insertAfter('.campo-superior-produto').css('float','left');
 		    return false;
 		}else{
 		    return true;
