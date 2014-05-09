@@ -1,14 +1,7 @@
 @charset "utf-8";
-[id*="myModal_add-comprovanteView"] .modal-body{
-    height: auto;
-    margin-top: -35px;
-}
 
-[id*="myModal_add-comprovanteView"].modal{
-    width:690px;
-    top:55px !important;
-}
 
+/* CLASS **************************************************************/
 .zoomer-holder{
     opacity:1 !important;
 }
@@ -22,11 +15,23 @@
 }
 
 .msgImagem{
-    left: 166px;
-    top: 144px;
+    left:166px;
+    top:144px;
 }
 
 .msgImagem:after{
-    left: 54px;
-    top: -20px;
+    left:54px;
+    top:-20px;
+}
+
+
+/* HERANÇA ************************************************************/
+[id*="myModal_add-comprovanteView"] .modal-body{
+    height:auto;
+    margin-top:-35px;
+}
+
+[id*="myModal_add-comprovanteView"].modal{
+    top:55px !important;
+    width:690px;
 }

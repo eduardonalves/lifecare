@@ -1,12 +1,10 @@
 @charset "utf-8";
 
-/* TESTE ************************************************************/
-
-
 /* TAG ****************************************************************/
 label{
 	margin-bottom:5px !important;
 }
+
 
 /* CLASS **************************************************************/
 .filtros{
@@ -145,6 +143,7 @@ label{
 	background:linear-gradient(135deg, #f0f5db 0%,#f0f5db 44%,#c9f0e8 50%,#c9f0e8 100%); /* W3C */
 	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f5db', endColorstr='#c9f0e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
 
 /* ID *****************************************************************/
 #quick-select{
