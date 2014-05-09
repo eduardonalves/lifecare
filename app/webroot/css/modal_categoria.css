@@ -1,49 +1,42 @@
+@charset "utf-8";
 
+
+/* HERANÇA ************************************************************/
 #myModal_add-categoria header h1 {
-    color: #008000;
-    float: left;
-    font-size: 30px;
-    left: 10px;
-    margin-top: -6px;
-    position: relative;
+    color:#008000;
+    float:left;
+    font-size:30px;
+    left:10px;
+    margin-top:-6px;
+    position:relative;
 }
 
 #myModal_add-categoria header img {
-    float: left;
-    /*height: 24px;*/
-    position: relative;
+    float:left;
+    position:relative;
+}
+
+#myModal_add-categoria footer{
+	display:block;
+	float:left;
+	margin-top:4px;
+	position:relative;
+	width:100%;
 }
 
 #myModal_add-categoria section .header {
-    border-bottom: 3px solid #CCCCCC;
-    color: #008000;
-    float: left;
-    font-family: arial;
-    font-size: 20px;
-    margin: 20px 0;
-    margin-bottom: 40px;
-    position: relative;
-    text-align: right;
-    width: 100%;
+    border-bottom:3px solid #CCCCCC;
+    color:#008000;
+    float:left;
+    font-size:20px;
+    margin-bottom:40px;
+    position:relative;
+    text-align:right;
+    width:100%;
 }
 
 #myModal_add-categoria .bt-salvar{
-	margin-top: 15px;
-}
-
-#myModal_add-categoria label[for=CategoriaNome]{
-	display:block;
-	font-size:13px;
-	margin-left:37px !important;
-	margin-top:5px;
-	line-height:2px;
-}
-
-#myModal_add-categoria input[id=CategoriaNome]{
-	display:block;
-	margin-left:188px;
-	margin-top:-36px;
-	height:16px;
+	margin-top:15px;
 }
 
 #myModal_add-categoria .centro{
@@ -59,69 +52,48 @@
 	height:220px !important;
 }
 
+#myModal_add-categoria .loaderAjaxCategoriaDIV{
+	left:200px;
+    position:absolute;
+    top:-68px;
+}
 
 #myModal_add-categoria #spanMsgCategoria{
-
-	background-color: #FFD5D5;
-    border: 1px solid #AAAAAA;
-    border-radius: 5px;
-    color: #D40000;
-    display: block;
-    font-size: 13px;
-    left: 400px;
-    padding: 3px;
-    position: absolute;
-    text-align: center;
-    top: 121px;
-    width: 110px;
+    left:400px;
+    top:121px;
+    width:110px;
 }
 
 #myModal_add-categoria #spanMsgCateNomeInvalido{
-    left: 390px;
-    top: 125px;
-    width: 110px;
+    left:390px;
+    top:125px;
+    width:110px;
 }
 
-#myModal_add-categoria .loaderAjaxCategoriaDIV{
-	left: 200px;
-    position: absolute;
-    top: -68px;
- }
-
-
 #myModal_add-categoria #spanMsgCateNomeInvalido{
-    background-color: #ffd5d5;
-    border: 1px solid #AAAAAA;
-    border-radius: 5px;
-    color: #d40000;
-    display: block;
-    font-size: 13px;
-    left: 375px;
-    padding: 3px;
-    position: absolute;
-    text-align: center;
-    top: 121px;
-    width: 110px;
+    left:405px;
+    top:121px;
+    width:110px;
 }
 
 #myModal_add-categoria #spanMsgCateNomeInvalido:after {
-	content: "";
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-width: 10px;
-	border-style: solid;
-	border-color: transparent #ffd5d5 transparent transparent;
-	left: -20px;
-	top: 9px;
+	height:0;
+	left:-20px;
+	top:9px;
+	width:0;
 }
 
+#myModal_add-categoria label[for=CategoriaNome]{
+	display:block;
+	font-size:13px;
+	margin-left:37px !important;
+	margin-top:5px;
+	line-height:2px;
+}
 
-#myModal_add-categoria footer{
-
-	position: relative;
-	float: left;
-	display: block;
-	width: 100%;
-	margin-top: 4px;
+#myModal_add-categoria input[id=CategoriaNome]{
+	display:block;
+	margin-left:188px;
+	margin-top:-36px;
+	height:16px;
 }
