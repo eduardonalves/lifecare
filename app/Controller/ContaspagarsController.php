@@ -409,8 +409,10 @@ class ContaspagarsController extends ContasController {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contaspagar']['data_emissao']);
-			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Contaspagar']['valor']);
+			$this->request->data['Contaspagar']['valor'] = $this->lifecareFuncs->converterMoedaToBD($this->request->data['Contaspagar']['valor']);
+//debug($this->request->data['Contaspagar']['valor']);
 			
 
 
