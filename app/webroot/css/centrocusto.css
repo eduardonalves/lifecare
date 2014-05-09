@@ -1,24 +1,35 @@
 @charset "utf-8";
 
-/* ID *****************************************************************/
 
-#inputLimite{
-	position: relative;
-	width: 50%;
+/* TAG ****************************************************************/
+hr{
+	margin-bottom:10px !important;
+	margin-top:-15px !important;
 }
 
-input[id^="Orcamentocentro"], input[id^="inputLimite"]{
-	position: relative;
-	margin-left: 50%;
-	left: -75px;
+textarea{
+	width:184px !important;
+}
+
+
+/* ID *****************************************************************/
+#inputLimite{
+	position:relative;
+	width:50%;
 }
 
 #validaNome{
-	width: 60px;
-	left: 375px;
+	left:375px;
+	width:60px;
 }
 
-/* CLASS **************************************************************/
+
+/* HERANÇA ************************************************************/
+input[id^="Orcamentocentro"], input[id^="inputLimite"]{
+	left:-75px;
+	margin-left:50%;
+	position:relative;
+}
 
 div[class^="bloco-area"]{
 	display:inline-block;
@@ -29,14 +40,4 @@ div[class^="bloco-area"]{
 div[class^="bloco-area"]:first-child{
 	display:inline-block;
 	margin-top:0px !important;
-}
-
-/* TAG ****************************************************************/
-hr{
-	margin-top:-15px !important;
-	margin-bottom:10px !important;
-}
-
-textarea{
-	width:184px !important;
 }

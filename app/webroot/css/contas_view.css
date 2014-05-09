@@ -1,104 +1,64 @@
+@charset "utf-8";
 
 
-/*  Padrao{tamanho; posição; forma; etc;}
- * .Padrao{tamanho; posição; forma; etc;}
- * #Padrao{tamanho; posição; forma; etc;}*/
-
-/** Dados da Parcela **/
-
-/**** Tabela das Parcelas*****/
-#tabelaParcelas{
-	margin-top: 25px;
-}
-
+/* CLASS **************************************************************/
 .statusSemaforo{
-	float: left;
-	font-size: 13px;
-	margin-left: 95px;
-	clear: both;
-}
-
-.statusSemaforo img{
-	margin-left:15px;
+	clear:both;
+	float:left;
+	font-size:13px;
+	margin-left:95px;
 }
 
 .quitar{
-	cursor: pointer;
+	cursor:pointer;
 }
+
 .modalQuitar{
-	border-radius: 0px !important;
-	padding: 10px;
+	border-radius:0px !important;
+	padding:10px;
 }
 
-.modalQuitar  .Msg-tooltipDireita{
-	float: left;
-	left: 314px;
-	margin-top: -5px;
-	width: 120px;
-}
-
-.modalQuitar section{
-	clear: both;
-	position: relative;
-}
-
-.modalQuitar section.coluna-central{
-	margin: 15px 0px 0px 95px;
-	height: 50px;	
-}
-.modalQuitar footer{
-	margin-bottom: 50px;
-	margin-top: 20px;
-}
-
-.modalQuitar section.coluna-central label{
-	margin-top: 0px;
-}
 .clearBoth{
     clear:both;
     padding:5px;
-}
-
-#bt-upload{
-    padding: 2px; 
-}
-
-#bt-visualizarComprovante{
-    padding:2px; 
-}
-
-input[type="checkbox"][id$="checkNegociacao"]{
-    margin-left: 24px;
 }
 
 .sectionNegociacao{
 	clear:both;
 }
 
+.modalQuitar{
+	height:300px;
+}
 
-.sectionNegociacao fieldset{
-	padding:5px 0px;
-}	
+
+/* ID *****************************************************************/
+#tabelaParcelas{
+	margin-top:25px;
+}
+
+#bt-upload{
+	padding:2px; 
+}
+
+#bt-visualizarComprovante{
+	padding:2px; 
+}
 
 #msgNegociacaoDesabilitada{
-    background-color:#D9EDF7;
-    color:#317396;
-    left: 930px;
-    top: 173px;
-    width:136px;
-    z-index:6;
-    position:absolute;
+	background-color:#D9EDF7;
+	color:#317396;
+	left:930px;
+	position:absolute;
+	top:173px;
+	width:136px;
+	z-index:6;
 }
 
 #msgNegociacaoDesabilitada:after{
-    border-color:transparent  transparent #D9EDF7 transparent; 
-    left: 60px;
-    top: -20px;
-
-}
-
-.modalQuitar{
-	height:300px;
+	border-color:transparent  transparent #D9EDF7 transparent; 
+	left:60px;
+	top:-20px;
 }
 
 #ParcelaDescricao{
@@ -107,4 +67,44 @@ input[type="checkbox"][id$="checkNegociacao"]{
 
 #bt-salvar-quitar0{
 	margin-top:75px;
+}
+
+
+/* HERANÇA ************************************************************/
+.statusSemaforo img{
+	margin-left:15px;
+}
+
+.modalQuitar section{
+	clear:both;
+	position:relative;
+}
+
+.sectionNegociacao fieldset{
+	padding:5px 0px;
+}	
+
+.modalQuitar footer{
+	margin-bottom:50px;
+	margin-top:20px;
+}
+
+.modalQuitar section.coluna-central label{
+	margin-top:0px;
+}
+
+.modalQuitar  .Msg-tooltipDireita{
+	float:left;
+	left:314px;
+	margin-top:-5px;
+	width:120px;
+}
+
+.modalQuitar section.coluna-central{
+	height:50px;
+	margin:15px 0px 0px 95px;	
+}
+
+input[type="checkbox"][id$="checkNegociacao"]{
+    margin-left:24px;
 }
