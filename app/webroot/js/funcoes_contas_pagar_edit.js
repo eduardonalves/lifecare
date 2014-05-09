@@ -91,6 +91,9 @@
 			$("#msgDataEmissao").show();
 			$('#ContaspagarDataEmissao').focus();			
 			return false;
+		}else if(flag==1){
+			$("#msgFlag").show();
+			return false;
 		}else{
 			return true;
 		}			

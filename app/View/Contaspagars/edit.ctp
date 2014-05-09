@@ -31,6 +31,8 @@
 		}
 		return $data;
 	}
+	
+	
 
 ?>
 
@@ -227,6 +229,7 @@
 </section><!--fim Meio-->
 	
 	<div>
+		
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
 			<thead>
 					<th><?php echo ('Parcela'); ?></th>
@@ -239,7 +242,7 @@
 					<th><?php echo ('Agência'); ?></th>
 					<th><?php echo ('Conta'); ?></th>
 					<th><?php echo ('Banco'); ?></th>
-					<th class="actions"><?php echo __('Ações'); ?></th>
+					<th class="actions"><span id='msgFlag' class='Msg tooltipMensagemErroTopo' style='display:none'>Conclua as Ediçoes</span> <?php echo __('Ações'); ?></th>
 			</thead>
 			
 			<?php
@@ -254,7 +257,7 @@
 						echo "</td>";
 						
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.valor_parcela',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.valor',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
@@ -288,6 +291,7 @@
 						echo "</td>";	
 			
 						echo "<td>";
+						
 							echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditar'.$princ_cont, 'class'=>'btnEditar', 'alt' => 'Editar', 'title' => 'Editar'));
 							echo $this->Html->image('bt-confirm.png', array('id' => 'btnEditarOk'.$princ_cont, 'class'=>'btnEditarOk', 'alt' => 'Concluir', 'title' => 'Concluir','style'=>'display:none'));							
 						echo "</td>";

@@ -5,6 +5,18 @@
  * #Padrao{tamanho; posição; forma; etc;}*/
 
 /** Dados da Parcela **/
+#msgFlag{
+clear: both;
+margin-left: -6px;
+left: auto;
+top: -46px;
+
+}
+
+#msgFlag:after{
+	margin-top: -15px;
+margin-left: -15px;
+}
 
 #msgValidaTipoConta, #msgValidaCentroCusto{
 	margin-top: -95px;
