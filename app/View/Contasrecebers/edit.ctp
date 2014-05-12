@@ -213,8 +213,8 @@
 				$idPagamento = $pagamento['id'];
 				echo $this->Form->input('Pagamento.'.$idPagamento.'.id',array('value'=>$pagamento['id'],'type'=>'hidden'));
 				echo $this->Form->input('Pagamento.'.$idPagamento.'.parceirodenegocio_id',array('value'=>$contareceber['Contasreceber']['parceirodenegocio_id'],'type'=>'hidden'));
-				echo $this->Form->input('Pagamento.'.$idPagamento.'.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','tabindex' => '105','options'=>array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
-				echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';	
+				//echo $this->Form->input('Pagamento.'.$idPagamento.'.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','tabindex' => '105','options'=>array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
+				echo $this->Form->input('tipo',array('label'=>'Tipo de Pagamento:','type' => 'text','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus' => 'this.blur()','value'=>$pagamento['tipo_pagamento']));
 				?>
 			</section>
 			
@@ -240,7 +240,7 @@
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
 			<thead>
 					<th><?php echo ('Parcela'); ?></th>
-					<th><?php echo ('Data de Vencimento'); ?></th>
+					<th><?php echo ('Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
 					<th><?php echo ('Juros'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>

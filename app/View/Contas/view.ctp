@@ -134,7 +134,7 @@
 				echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','value'=>h($pagamento['forma_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 				//print_r($pagamento);
 			}
-			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			//echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>
 		
 		<fieldset>
@@ -163,6 +163,7 @@
 				<th><?php echo ('Parcela'); ?></th>
 				<th><?php echo ('Vencimento'); ?></th>
 				<th><?php echo ('Valor'); ?></th>
+				<th><?php echo ('Juros'); ?></th>
 				<th><?php echo ('Identificação'); ?></th>
 				<th><?php echo ('Período Crítico'); ?></th>
 				<th><?php echo ('Desconto'); ?></th>
@@ -221,6 +222,7 @@
 					<td><?php formatDateToView($parcelas['data_vencimento']);
 							  echo $parcelas['data_vencimento']; ?></td>
 					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['juros'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['juros'], 2, ',', '.'); ?></span></td>
 					<td class="whiteSpace"><span title="<?php echo $parcelas['identificacao_documento']; ?>"><?php echo $parcelas['identificacao_documento']; ?></span></td>
 					<td><?php echo $parcelas['periodocritico']; ?></td>
 					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?></span></td>

@@ -179,7 +179,7 @@ $(document).ready(function(){
 	<header>Dados do Centro de Custo</header>
 
 	<!-- <?php //echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span> -->
-	<?php echo $this->Form->create('Centrocusto'); ?>
+	<?php echo $this->Form->create('Centrocusto',array('id'=>'CentrocustoAddForm')); ?>
 	
 	<div class="area-custo">
 		<div class="bloco-area0">

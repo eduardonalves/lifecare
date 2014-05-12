@@ -175,13 +175,17 @@ class ContaspagarsController extends ContasController {
 	public function setStatusContaPrincipal(&$idConta2){
 			$this->loadModel('Parcela');
 			$this->loadModel('Conta');
-			
+			$this->loadModel('ParcelasConta');
 			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'OR' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status LIKE' => '%COBRANCA%')))));
 		
 			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2,  'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
+			
+			
 			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
 			
 			$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $idConta2)));	
+			
+						
 			if(!empty($contasEmAtraso)){
 				
 					if($conta['Conta']['status'] == "COBRANCA"){
@@ -425,7 +429,8 @@ class ContaspagarsController extends ContasController {
 				
 				
 				$this->setStatusConta($this->request->data['Contaspagar']['id']);
-				$this->setStatusContaPrincipal($this->request->data['Contaspagar']['id']);
+				
+				//$this->setStatusContaPrincipal($this->request->data['Contaspagar']['id']);
 				if(isset($this->request->data['Parcela'])){
 					$parcelasEnviadas = $this->request->data['Parcela'];
 					$cont=0;
@@ -434,7 +439,7 @@ class ContaspagarsController extends ContasController {
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['juros']);
-						$this->setCobranca($this->request->data['Contaspagar']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+						$this->setCobranca($this->request->data['Contaspagar']['id'],  $parcelasEnviada['id'], $parcelasEnviada['data_vencimento']);
 						$this->Parcela->save($parcelasEnviada);
 						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
 						$this->ParcelasConta->create();
@@ -456,7 +461,7 @@ class ContaspagarsController extends ContasController {
 					}
 				
 				}
-				debug($this->request->data);
+				
 				
 				if(isset($this->request->data['Negociacao'])){
 					$negociacaoEnviadas = $this->request->data['Negociacao'];
@@ -468,6 +473,8 @@ class ContaspagarsController extends ContasController {
 						
 					}
 				}
+				
+				//debug($this->request->data);
 				
 				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
