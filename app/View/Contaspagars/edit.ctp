@@ -40,6 +40,12 @@
 	
 <header>
 
+<script>
+	$(document).ready(function(){			
+		$('#TipodecontaTipo').val("DESPESA");		
+	});
+</script>
+
 	<?php echo $this->Html->image('emitir-title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 	 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
@@ -206,7 +212,8 @@
 		<?php
 		foreach($contapagar['Pagamento'] as $pagamento){
 				$idPagamento = $pagamento['id'];
-		}
+		echo $this->Form->input('Pagamento.'.$idPagamento.'.id',array('value'=>$pagamento['id'],'type'=>'hidden'));
+		echo $this->Form->input('Pagamento.'.$idPagamento.'.parceirodenegocio_id',array('value'=>$contapagar['Contaspagar']['parceirodenegocio_id'],'type'=>'hidden'));
 	
 		echo $this->Form->input('Pagamento.'.$idPagamento.'.tipo_pagamento',array('label'=>'Tipo de Pagamento<span class="campo-obrigatorio">*</span>:','type' => 'select','class'=>'desabilita obrigatorio','tabindex' => '105','options'=>array('A Vista' =>'A Vista' ,'A Prazo' =>'A Prazo')));
 		echo '<span id="msgTipoPagamento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo Pagamento</span>';	
@@ -216,16 +223,18 @@
 	<section class="coluna-central">
 		<?php
 
-		echo $this->Form->input('Pagamento.'.$idPagamento.'.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','tabindex' => '106', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+		echo $this->Form->input('Pagamento.'.$idPagamento.'.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','default'=> $pagamento['forma_pagamento'],'tabindex' => '106', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 
 		?>	
 	</section>
 	
 	<section class="coluna-direita">
 		<?php
-		echo $this->Form->input('Pagamento.'.$idPagamento.'.numero_parcela',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','value' => '0'));	
+		echo $this->Form->input('Pagamento.'.$idPagamento.'.numero_parcela',array('type'=>'text','label'=>'Numero de Parcelas:','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','value' => $pagamento['numero_parcela']));	
 		?>
 	</section>
+	
+	<?php } ?>
 </section><!--fim Meio-->
 	
 	<div>

@@ -10,8 +10,6 @@
 
 /********** INPUT HIDDEN DO TIPO DE CONTA ****************/
 	
-	$('#TipodecontaTipo').val("DESPESA");
-
      
 /********* Função Editar da tabela ******************/    
     
@@ -73,12 +71,23 @@
 		
 		var valorFinal = valorTotal+valorJuros;
 		
+		if($('#TipodecontaTipo').val()=="RECEITA"){
 			
-		$('#ContaspagarValor').val(valorFinal.toFixed(2)).priceFormat({
-						prefix: '',
-						centsSeparator: ',',
-						thousandsSeparator: '.',
-					});
+			$('#ContasreceberValor').val(valorFinal.toFixed(2)).priceFormat({
+							prefix: '',
+							centsSeparator: ',',
+							thousandsSeparator: '.',
+						});
+			
+			
+		}else{
+			
+			$('#ContaspagarValor').val(valorFinal.toFixed(2)).priceFormat({
+							prefix: '',
+							centsSeparator: ',',
+							thousandsSeparator: '.',
+						});
+		}
 		flag = 0;
 		
     });

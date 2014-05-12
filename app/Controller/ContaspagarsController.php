@@ -456,7 +456,7 @@ class ContaspagarsController extends ContasController {
 					}
 				
 				}
-				
+				debug($this->request->data);
 				
 				if(isset($this->request->data['Negociacao'])){
 					$negociacaoEnviadas = $this->request->data['Negociacao'];

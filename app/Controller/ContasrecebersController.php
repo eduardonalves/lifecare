@@ -515,9 +515,16 @@ class ContasrecebersController extends ContasController {
 		$userid = $this->Session->read('Auth.User.id');
 		$this->layout = 'contas';
 		if (!$this->Contasreceber->exists($id)) {
-			throw new NotFoundException(__('Invalid Contasreceber'));
+			throw new NotFoundException(__('Invalid conta'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Contasreceber']['data_emissao']);
+			$this->request->data['Contasreceber']['valor'] = $this->lifecareFuncs->converterMoedaToBD($this->request->data['Contasreceber']['valor']);
+//debug($this->request->data['Contasreceber']['valor']);
+			
+
+
 			if ($this->Contasreceber->save($this->request->data)) {
 				$this->loadModel('Pagamento');
 				$this->loadModel('Parcela');
@@ -526,9 +533,8 @@ class ContasrecebersController extends ContasController {
 				
 				
 				
-				
-				$this->setLimiteUsadoMenos($this->request->data['Contasreceber']['id']);
-				$this->setLimiteCentroReceitaLess($this->request->data['Contasreceber']['id']);
+				$this->setStatusConta($this->request->data['Contasreceber']['id']);
+				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
 				if(isset($this->request->data['Parcela'])){
 					$parcelasEnviadas = $this->request->data['Parcela'];
 					$cont=0;
@@ -543,17 +549,12 @@ class ContasrecebersController extends ContasController {
 						$this->ParcelasConta->create();
 						$this->ParcelasConta->save($updateParcelasConta);
 						
+						
 					}	
+					
 				}
 				
 				
-				$ultimoPagamento = $this->Pagamento->find('first', array('consdition' => array('Pagamento.conta_id' => $id), 'recursive' => -1));
-				$ultimaConta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $id), 'recursive' => -1));
-				
-				$this->setStatusConta($ultimaConta['Conta']['id']);
-				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
-				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
-				$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
 				if(isset($this->request->data['Pagamento'])){
 					$pagamentoEnviadas = $this->request->data['Pagamento'];
 					
@@ -582,21 +583,22 @@ class ContasrecebersController extends ContasController {
 				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
 				
+				
 			} else {
-				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'));
+				$this->Session->setFlash(__('A conta não pode ser salva. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
+				//return $this->redirect(array('action' => 'index'));
+				
 			}
 		} else {
-			$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id));
+			$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id),'recursive' => 1);
 			$this->request->data = $this->Contasreceber->find('first', $options);
+			$contareceber =  $this->Contasreceber->find('first', $options);
 		}
+	
 		
-		$contareceber =  $this->Contasreceber->find('first', $options);
-		
-		$parceirodenegocios = $this->Contasreceber->Parceirodenegocio->find('all');
-		$this->set(compact('parceirodenegocios'));
 		
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all');
 		
 		$this->loadModel('Centrocusto');
 		$centrocusto = $this->Centrocusto->find('all');
