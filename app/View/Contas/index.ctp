@@ -470,7 +470,7 @@ $(document).ready(function() {
 				    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => $parcela['Parcela']['status'], 'title' => $parcela['Parcela']['status'])) . "&nbsp;</td>";
 				    //Monter uma tabela dentro de um modal
 				}else if($campo=="obs"){
-					echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";   
+					echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
 				}else if($campo=="valor"){
 					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else{
