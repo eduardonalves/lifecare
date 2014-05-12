@@ -178,27 +178,14 @@ class ContaspagarsController extends ContasController {
 			$this->loadModel('ParcelasConta');
 			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'OR' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status LIKE' => '%COBRANCA%')))));
 		
-			//$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2,  'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
+			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2,  'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 			
 			
 			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
 			
 			$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $idConta2)));	
 			
-			
-			
-			$contasEmAberto = $this->Parcela->find('all',
-			  array(
-			    'contain' => array(
-			      '_ParcelasConta',
-			      '_Parcela'
-			    ),
-			    'conditions' => array(
-			      '_Conta.id' => $idConta2
-			    )
-			  )
-			);
-			debug($contasEmAberto);
+						
 			if(!empty($contasEmAtraso)){
 				
 					if($conta['Conta']['status'] == "COBRANCA"){
@@ -487,8 +474,10 @@ class ContaspagarsController extends ContasController {
 					}
 				}
 				
+				//debug($this->request->data);
+				
 				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
-				//return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
+				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
 				
 				
 			} else {
