@@ -471,10 +471,28 @@
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
 													 'url'=>array('controller'=>'Contasrecebers','action'=>'edit', $conta['Conta']['id'])));	
+													 
+		
+		echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array(
+														'alt' => __('Delete'),
+														'title' => __('Delete'),
+														'class'=>'bt-excluir' )), 
+														array('controller' => 'Contasrecebers','action' => 'delete',  $conta['Conta']['id']),
+														array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+	
 	}else{
 		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
-													 'url'=>array('controller'=>'Contaspagars','action'=>'edit', $conta['Conta']['id'])));			
+													 'url'=>array('controller'=>'Contaspagars','action'=>'edit', $conta['Conta']['id'])));
+		
+		echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array(
+														'alt' => __('Delete'),
+														'title' => __('Delete'),
+														'class'=>'bt-excluir' )), 
+														array('controller' => 'Contaspagars','action' => 'delete',  $conta['Conta']['id']),
+														array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+		
 	}
+	
 ?>

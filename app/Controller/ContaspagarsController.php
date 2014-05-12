@@ -511,12 +511,12 @@ class ContaspagarsController extends ContasController {
 			throw new NotFoundException(__('Invalid conta'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Contaspagar->delete()) {
+		if ($this->Contaspagar->deleteAll(array('Contaspagar.id'=>$id))) {
 			$this->Session->setFlash(__('A conta foi ser deletada.'), 'default', array('class' => 'success-flash'));
 		} else {
 			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('controller'=>'contas','action' => 'index'));
 	}
 	
 	public function verificaidentificacao() {

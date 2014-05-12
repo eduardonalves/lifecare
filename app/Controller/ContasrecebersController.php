@@ -558,7 +558,7 @@ class ContasrecebersController extends ContasController {
 			throw new NotFoundException(__('Invalid Contasreceber'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Contasreceber->delete()) {
+		if ($this->Contasreceber->deleteAll(array('Contaspagar.id'=>$id),true)) {
 			$this->Session->setFlash(__('A conta foi ser deletada.'));
 		} else {
 			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'));

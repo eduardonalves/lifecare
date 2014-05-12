@@ -51,7 +51,7 @@
 	<section class="coluna-esquerda">
 		<?php
 			
-			echo $this->Form->create('Contaspagar');
+			echo $this->Form->create('Contasreceber');
 			echo $this->Form->input('Contaspagar.id',array('value'=> $contareceber['Contasreceber']['id'],'type' => 'hidden'));
 			echo $this->Form->input('Contaspagar.identificacao',array('value'=>h($contareceber['Contasreceber']['identificacao']),'type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
 		    echo $this->Form->input('Contaspagar.status',array('label' => 'Status:','value' => h($contareceber['Contasreceber']['status']),'type' => 'hidden'));
@@ -316,8 +316,3 @@
 	</section> -->
 </footer>
 
-<pre>
-<?php
-	print_r($contareceber);
-?>
-</pre>
