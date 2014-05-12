@@ -12,6 +12,17 @@ select{
 
 
 /* CLASS **************************************************************/
+
+.Nofloat{
+	float: inherit;
+}
+
+.whiteSpace{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 110px;
+}
 .msg{
 	border-radius:5px;
 	display:block;

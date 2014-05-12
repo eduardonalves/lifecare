@@ -204,11 +204,11 @@
 
 					<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){
 					    if($parcelas['status'] == 'RENEGOCIADO'){
-							echo "<td>".$this->form->checkbox('',array('id' => 'checkNegociacaoDesabilidato','class' => 'checkClasse','disabled' => 'disabled'))."</td>";
+							echo "<td>".$this->form->checkbox('',array('id' => 'checkNegociacaoDesabilidato','class' => 'checkClasse Nofloat','disabled' => 'disabled'))."</td>";
 					    }else{
 					?>
 
-							<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao'.$z,'class' => 'checkClasse','data-parcelaId'=>$parcelas['id']));?></td> 
+							<td><?php echo $this->form->checkbox('',array('id' => 'checkNegociacao'.$z,'class' => 'checkClasse Nofloat','data-parcelaId'=>$parcelas['id']));?></td> 
 					
 					<?php
 						}
@@ -220,13 +220,13 @@
 					<td><?php echo $parcelas['parcela']; ?></td>
 					<td><?php formatDateToView($parcelas['data_vencimento']);
 							  echo $parcelas['data_vencimento']; ?></td>
-					<td><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></td>
-					<td><?php echo $parcelas['identificacao_documento']; ?></td>
+					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['identificacao_documento']; ?>"><?php echo $parcelas['identificacao_documento']; ?></span></td>
 					<td><?php echo $parcelas['periodocritico']; ?></td>
-					<td><?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?></td>
-					<td><?php echo $parcelas['agencia']; ?></td>
-					<td><?php echo $parcelas['conta']; ?></td>
-					<td><?php echo $parcelas['banco']; ?></td>
+					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['agencia']; ?>"><?php echo $parcelas['agencia']; ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['conta']; ?>"><?php echo $parcelas['conta']; ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['banco']; ?>"><?php echo $parcelas['banco']; ?></span></td>
 					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				
 				</tr>
