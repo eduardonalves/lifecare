@@ -533,8 +533,8 @@ class ContasrecebersController extends ContasController {
 				
 				
 				
-				$this->setStatusConta($this->request->data['Contasreceber']['id']);
-				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
+				//$this->setStatusConta($this->request->data['Contasreceber']['id']);
+				//$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
 				if(isset($this->request->data['Parcela'])){
 					$parcelasEnviadas = $this->request->data['Parcela'];
 					$cont=0;
@@ -543,7 +543,7 @@ class ContasrecebersController extends ContasController {
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['juros']);
-						$this->setCobranca($this->request->data['Contasreceber']['id'], $this->request->data['Parcela']['id'], $this->request->data['Parcela']['data_vencimento']);
+						$this->setCobranca($this->request->data['Contasreceber']['id'], $parcelasEnviada['id'], $parcelasEnviada['data_vencimento']);
 						$this->Parcela->save($parcelasEnviada);
 						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
 						$this->ParcelasConta->create();
