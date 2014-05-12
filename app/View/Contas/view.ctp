@@ -254,7 +254,7 @@
 									
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									
-									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
+									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 								?>
