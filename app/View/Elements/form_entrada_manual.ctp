@@ -1,5 +1,4 @@
 <?php
-	
 	$this->start('modais');
 		echo $this->element('produtos_add', array('modal'=>'add-produtos'));
 		echo $this->element('lote_add', array('modal'=>'add-lote'));
@@ -8,7 +7,6 @@
 		echo $this->element('cliente_add', array('modal'=>'add-cliente'));
 		echo $this->element('categoria_add', array('modal'=>'add-categoria'));
 	$this->end();
-
 ?>
 
 <script>
