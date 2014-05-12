@@ -507,16 +507,52 @@ class ContaspagarsController extends ContasController {
  */
 	public function delete($id = null) {
 		$this->Contaspagar->id = $id;
+		
+		$this->loadModel('Parcela');
+		$this->loadModel('Pagamento');
+		$this->loadModel('Negociacao');
+		
 		if (!$this->Contaspagar->exists()) {
-			throw new NotFoundException(__('Invalid conta'));
+			throw new NotFoundException(__('Invalid Contaspagar'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Contaspagar->deleteAll(array('Contaspagar.id'=>$id))) {
-			$this->Session->setFlash(__('A conta foi ser deletada.'), 'default', array('class' => 'success-flash'));
-		} else {
-			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
+		
+		$parcelas = $this->Parcela->find('all',
+		  array(
+		    'contain' => array(
+		      'ParcelasConta',
+		      '_Parcela'
+		    ),
+		    'conditions' => array(
+		      '_Conta.id' => $id
+		    )
+		  )
+		);
+		
+		
+		$this->setLimiteUsadoMenos($id);
+		$this->setLimiteCentroReceitaLess($id);
+		
+		foreach($parcelas as $parcela){
+			
+			$negociacao = $this->Negociacao->find('first', array('conditions' => array('Negociacao.id' => $parcela['Negociacao']['id'])));
+			if(!empty($negociacao)){
+				$this->Negociacao->delete($parcela['Negociacao']['id']);
+			}
+			
+			$pagamento = $this->Pagamento->find('first', array('conditions' => array('Pagamento.id' => $parcela['Pagamento']['id'])));
+			if(!empty($pagamento)){
+				$this->Pagamento->delete($pagamento['Pagamento']['id']);
+			}
+			$this->Parcela->delete($parcela['Parcela']['id']);
 		}
-		return $this->redirect(array('controller'=>'contas','action' => 'index'));
+		
+		if ($this->Contaspagar->deleteAll(array('Contaspagar.id'=>$id),true)) {
+			$this->Session->setFlash(__('A conta foi ser deletada.'));
+		} else {
+			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'));
+		}
+		return $this->redirect(array('action' => 'index'));
 	}
 	
 	public function verificaidentificacao() {
@@ -531,5 +567,61 @@ class ContaspagarsController extends ContasController {
 			}
 			$this->set(compact('resposta'));
 		}
+	}
+	
+	public function setLimiteCentroReceitaLess(&$contaid){
+			
+		$this->loadModel('Cliente');	
+		$conta= $this->Conta->find('first', array('conditions' => array('Conta.id' => $contaid)));
+		
+		if(!empty($conta)){
+			if($conta['Conta']['centrocusto_id'] != 'NULL' && $conta['Conta']['centrocusto_id'] !=''){
+				
+				$this->loadModel('Orcamentocentro');
+				$datacontaArray = explode('-', $conta['Conta']['data_emissao'] );
+				$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+				$periodo=$datacontaAux;
+				$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $conta['Conta']['centrocusto_id'], 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
+				
+				if(isset($orcamentocentro) && !empty($orcamentocentro)){
+					$receitaGerada = $orcamentocentro['Orcamentocentro']['receita_gerada'];
+				
+					$novaReceitaGerada=  $receitaGerada - $conta['Conta']['valor'];
+					if($novaReceitaGerada < 0){
+						$novaReceitaGerada=0;	
+					}
+					$updateReceitaGerada = array('id' =>  $orcamentocentro['Orcamentocentro']['id'],'receita_gerada' => $novaReceitaGerada);
+				
+					$this->Orcamentocentro->save($updateReceitaGerada);
+				}
+			}	
+		}
+		
+		
+	
+	}	
+	
+	
+	public function setLimiteUsadoMenos(&$contaid){
+				
+		$this->loadModel('Conta');	
+		$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $contaid)));
+		
+		if(!empty($conta)){
+			if($conta['Pagamento'][0]['tipo_pagamento'] !="A Vista"  && $conta['Pagamento'][0]['forma_pagamento']  !="CREDITO"){
+				$this->loadModel('Dadoscredito');
+			
+				$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $conta['Conta']['parceirodenegocio_id'] ), 'order' => array('Dadoscredito.id' => 'desc')));
+				if(isset($dadosCredito) && !empty($dadosCredito)){
+					$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+				
+					$novoLimiteUsado =  $limiteUsado - $valorConta;
+					$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+				
+					$this->Dadoscredito->save($updateDadosCredito);
+				}
+			}
+		}	
+			
 	}
 }
