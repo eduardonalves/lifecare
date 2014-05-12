@@ -382,11 +382,8 @@ $(document).ready(function() {
 						}else if($campo=="status_parceiro"){
 						    echo "<td class='status_parceiro'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status_parceiro']) . '-12x12.png', array('alt' =>$conta['Conta']['status_parceiro'], 'title' => $conta['Conta']['status_parceiro'])) . "&nbsp;</td>";
 						    //Monter uma tabela dentro de um modal
-						}else if($campo=="parceirodenegocio_id"){
-						    //echo "<td class='statusParceiro'>"; 
-						    //echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar','title'=>'Visualizar',
-							//'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
-						    //echo "</a></td>";
+						}else if($campo=="nome_parceiro"){
+						   echo "<td class=\"$campo whiteSpace\"><span title=\"" . $conta['Conta'][$campo] . "\">" . $conta['Conta'][$campo] . "&nbsp;</span></td>";
 						
 						}else if($campo=="valor"){
 							echo "<td class=\"$campo\">R$ " . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
@@ -400,8 +397,7 @@ $(document).ready(function() {
 							$j=$j+1;
 					}						
 					?>
-			</tr>
-			
+			</tr>			
 				<?php endforeach; ?>
 		<? } ?>
 
@@ -506,5 +502,9 @@ $(document).ready(function() {
 		
 	});
 </script>
+
+
+
+
 
    
