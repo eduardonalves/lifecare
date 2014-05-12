@@ -134,7 +134,7 @@
 				echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','value'=>h($pagamento['forma_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 				//print_r($pagamento);
 			}
-			echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+			//echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>
 		
 		<fieldset>

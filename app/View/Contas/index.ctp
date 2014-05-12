@@ -303,6 +303,7 @@ $(document).ready(function() {
 									<th>Data de Pagamento</th>
 									<th>Período Crítico</th>
 									<th>Valor</th>
+									<th>Juros</th>
 									<th>Desconto</th>																	
 									<th>Parcela</th>																	
 									<th>Banco</th>																	
@@ -335,6 +336,10 @@ $(document).ready(function() {
 									
 									echo "<td>R$ ";
 										echo number_format($parcela['valor'], 2, ',', '.');  															
+									echo "</td>";
+									
+									echo "<td>R$ ";
+										echo number_format($parcela['juros'], 2, ',', '.');  															
 									echo "</td>";
 									
 									echo "<td>";
@@ -466,12 +471,19 @@ $(document).ready(function() {
 				    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => $parcela['Parcela']['status'], 'title' => $parcela['Parcela']['status'])) . "&nbsp;</td>";
 				    //Monter uma tabela dentro de um modal
 				}else if($campo=="obs"){
-					echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
+					
+						
+						echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
+					
 				}else if($campo=="valor"){
+					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+				}else if($campo=="juros"){
 					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else{
 					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
 				}		    	
+				
+				
 			}
 			
 		?>
@@ -502,6 +514,7 @@ $(document).ready(function() {
 		
 	});
 </script>
+
 
 
 
