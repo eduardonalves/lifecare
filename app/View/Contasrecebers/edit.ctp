@@ -240,7 +240,7 @@
 		<table id="tabela-conta-pagar" cellpadding="0" cellspacing="0">
 			<thead>
 					<th><?php echo ('Parcela'); ?></th>
-					<th><?php echo ('Data de Vencimento'); ?></th>
+					<th><?php echo ('Vencimento'); ?></th>
 					<th><?php echo ('Valor'); ?></th>
 					<th><?php echo ('Juros'); ?></th>
 					<th><?php echo ('Identificação'); ?></th>
