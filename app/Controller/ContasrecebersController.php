@@ -301,6 +301,29 @@ class ContasrecebersController extends ContasController {
 	
 	}
 	
+	public function setLimiteUsadoMenos(&$contaid){
+				
+		$this->loadModel('Conta');	
+		$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $contaid)));
+		
+		if(!empty($conta)){
+			if($conta['Pagamento'][0]['tipo_pagamento'] !="A Vista"  && $conta['Pagamento'][0]['forma_pagamento']  !="CREDITO"){
+				$this->loadModel('Dadoscredito');
+			
+				$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $conta['Conta']['parceirodenegocio_id'] ), 'order' => array('Dadoscredito.id' => 'desc')));
+				if(isset($dadosCredito) && !empty($dadosCredito)){
+					$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+				
+					$novoLimiteUsado =  $limiteUsado - $valorConta;
+					$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+				
+					$this->Dadoscredito->save($updateDadosCredito);
+				}
+			}
+		}	
+			
+	}
+	
 	public function setLimiteCentroReceitaAdd(&$centrocustoId, &$valorConta, &$dataconta){
 		
 		if($centrocustoId != 'NULL' && $centrocustoId !=''){
@@ -320,6 +343,38 @@ class ContasrecebersController extends ContasController {
 				$this->Orcamentocentro->save($updateReceitaGerada);
 			}
 		}
+		
+	
+	}	
+	
+	public function setLimiteCentroReceitaLess(&$contaid){
+			
+		$this->loadModel('Cliente');	
+		$conta= $this->Conta->find('first', array('conditions' => array('Conta.id' => $contaid)));
+		
+		if(!empty($conta)){
+			if($conta['Conta']['centrocusto_id'] != 'NULL' && $conta['Conta']['centrocusto_id'] !=''){
+				
+				$this->loadModel('Orcamentocentro');
+				$datacontaArray = explode('-', $conta['Conta']['data_emissao'] );
+				$datacontaAux = $datacontaArray[0]."-".$datacontaArray[1];
+				$periodo=$datacontaAux;
+				$orcamentocentro = $this->Orcamentocentro->find('first', array('conditions' => array('Orcamentocentro.centrocusto_id' => $conta['Conta']['centrocusto_id'], 'AND' => array('Orcamentocentro.periodo_final LIKE' => '%'.$periodo.'%')), 'order' => array('Orcamentocentro.centrocusto_id' => 'desc'), 'recursive' => -1));
+				
+				if(isset($orcamentocentro) && !empty($orcamentocentro)){
+					$receitaGerada = $orcamentocentro['Orcamentocentro']['receita_gerada'];
+				
+					$novaReceitaGerada=  $receitaGerada - $conta['Conta']['valor'];
+					if($novaReceitaGerada < 0){
+						$novaReceitaGerada=0;	
+					}
+					$updateReceitaGerada = array('id' =>  $orcamentocentro['Orcamentocentro']['id'],'receita_gerada' => $novaReceitaGerada);
+				
+					$this->Orcamentocentro->save($updateReceitaGerada);
+				}
+			}	
+		}
+		
 		
 	
 	}	
@@ -471,9 +526,9 @@ class ContasrecebersController extends ContasController {
 				
 				
 				
-				$this->setStatusConta($this->request->data['Contasreceber']['id']);
-				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
 				
+				$this->setLimiteUsadoMenos($this->request->data['Contasreceber']['id']);
+				$this->setLimiteCentroReceitaLess($this->request->data['Contasreceber']['id']);
 				if(isset($this->request->data['Parcela'])){
 					$parcelasEnviadas = $this->request->data['Parcela'];
 					$cont=0;
@@ -492,6 +547,13 @@ class ContasrecebersController extends ContasController {
 				}
 				
 				
+				$ultimoPagamento = $this->Pagamento->find('first', array('consdition' => array('Pagamento.conta_id' => $id), 'recursive' => -1));
+				$ultimaConta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $id), 'recursive' => -1));
+				
+				$this->setStatusConta($ultimaConta['Conta']['id']);
+				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
+				$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
 				if(isset($this->request->data['Pagamento'])){
 					$pagamentoEnviadas = $this->request->data['Pagamento'];
 					
@@ -554,17 +616,54 @@ class ContasrecebersController extends ContasController {
  */
 	public function delete($id = null) {
 		$this->Contasreceber->id = $id;
+		
+		$this->loadModel('Parcela');
+		$this->loadModel('Pagamento');
+		$this->loadModel('Negociacao');
+		
 		if (!$this->Contasreceber->exists()) {
 			throw new NotFoundException(__('Invalid Contasreceber'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Contasreceber->deleteAll(array('Contaspagar.id'=>$id),true)) {
+		
+		$parcelas = $this->Parcela->find('all',
+		  array(
+		    'contain' => array(
+		      'ParcelasConta',
+		      '_Parcela'
+		    ),
+		    'conditions' => array(
+		      '_Conta.id' => $id
+		    )
+		  )
+		);
+		
+		
+		$this->setLimiteUsadoMenos($id);
+		$this->setLimiteCentroReceitaLess($id);
+		
+		foreach($parcelas as $parcela){
+			
+			$negociacao = $this->Negociacao->find('first', array('conditions' => array('Negociacao.id' => $parcela['Negociacao']['id'])));
+			if(!empty($negociacao)){
+				$this->Negociacao->delete($parcela['Negociacao']['id']);
+			}
+			
+			$pagamento = $this->Pagamento->find('first', array('conditions' => array('Pagamento.id' => $parcela['Pagamento']['id'])));
+			if(!empty($pagamento)){
+				$this->Pagamento->delete($pagamento['Pagamento']['id']);
+			}
+			$this->Parcela->delete($parcela['Parcela']['id']);
+		}
+		
+		if ($this->Contasreceber->deleteAll(array('Contasreceber.id'=>$id),true)) {
 			$this->Session->setFlash(__('A conta foi ser deletada.'));
 		} else {
 			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	
 	public function verificaidentificacao(){
 		if($this->request->is('ajax')){
 			$idententificacao = $this->request->data['Contasreceber']['identificacao'];
