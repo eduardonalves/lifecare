@@ -35,7 +35,6 @@
 			}
 		});
 	});
-
 </script>
 
 <header >
@@ -90,6 +89,7 @@
 					<?php echo $this->Form->input('chave_acesso', array('type'=>'text','class'=>'tamanho-medio desabilita','label'=>'Chave de Acesso:','maxlength' => '50','tabindex'=>'3')); ?>
 
 				</div>
+				
 				<div>
 
 					<?php 
@@ -98,6 +98,7 @@
 					?>
 
 				</div>
+				
 				<div class="texto-obs"></div>
 			</section>
 
@@ -268,8 +269,7 @@
 						<?php
 							$produtosFilter = array();
 
-							foreach($allProdutos as $produto)
-							{
+							foreach($allProdutos as $produto){
 								foreach($produto['Tributo'] as $tributo){
 									$cfop=$tributo['cfop'];
 								}
@@ -335,7 +335,7 @@
 				</section>
 			</div>
 
-	<!--Fieldset Dados do lote-->
+			<!--Fieldset Dados do lote-->
 			<div class="fieldsetLote">
 				<h2 class="legendEffect"><span>Dados do Lote</span></h2>
 
@@ -367,7 +367,7 @@
 
 			<?php echo $this->Form->input('tipo',array('value'=>'SAIDA','type'=>'hidden')); ?>
 
-	<!--Fim Fieldset Dados do lote-->
+			<!--Fim Fieldset Dados do lote-->
 			<?php 
 				echo $this->html->image('bt-limpar.png',array('alt'=>'Limpar Dados do Produto','title'=>'Limpar Dados do Produto','class'=>'bt-limpar','id'=>'bt-limparSaida'));
 				echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar','title'=>'Adicionar Produto','class'=>'bt-adicionar calcularProdutos',));
