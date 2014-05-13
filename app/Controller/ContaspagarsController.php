@@ -555,11 +555,11 @@ class ContaspagarsController extends ContasController {
 		}
 		
 		if ($this->Contaspagar->deleteAll(array('Contaspagar.id'=>$id),true)) {
-			$this->Session->setFlash(__('A conta foi ser deletada.'));
+			$this->Session->setFlash(__('A conta foi deletada com sucesso.'), 'default', array('class' => 'success-flash'));
 		} else {
-			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'));
+			$this->Session->setFlash(__('A conta não pode ser deletadda. Por favor, Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
 	}
 	
 	public function verificaidentificacao() {

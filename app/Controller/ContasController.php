@@ -1413,7 +1413,7 @@ class ContasController extends AppController {
 			}
 		}else{
 			$pacelas = $this->Parcela->find('first', array('contain' => array('_ParcelasConta', '_Parcela'), 'conditions' => array('Parcela.id' => $id)));
-			$this->Session->setFlash(__('Esta parcela já foi quitada ou está cancelada.'));
+			$this->Session->setFlash(__('Esta parcela já foi quitada ou está cancelada.'), 'default', array('class' => 'error-flash'));
 			return $this->redirect(array('action' => 'view', $pacelas['_Conta']['id']));
 		}
 		

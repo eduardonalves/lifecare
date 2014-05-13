@@ -493,7 +493,7 @@
 														'title' => __('Delete'),
 														'class'=>'bt-excluir' )), 
 														array('controller' => 'Contaspagars','action' => 'delete',  $conta['Conta']['id']),
-														array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+														array('escape' => false, 'confirm' => __('Tem certeza que deseja excluir esta Conta # %s?', $conta['Conta']['id'])));
 		
 	}
 	
