@@ -480,7 +480,7 @@
 														'title' => __('Delete'),
 														'class'=>'bt-excluir' )), 
 														array('controller' => 'Contasrecebers','action' => 'delete',  $conta['Conta']['id']),
-														array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+														array('escape' => false, 'confirm' => __('Tem certeza que deseja Excluir esta Conta # %s?', $conta['Conta']['id'])));
 	
 	}else{
 		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
@@ -493,7 +493,7 @@
 														'title' => __('Delete'),
 														'class'=>'bt-excluir' )), 
 														array('controller' => 'Contaspagars','action' => 'delete',  $conta['Conta']['id']),
-														array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+														array('escape' => false, 'confirm' => __('Tem certeza que deseja Excluir esta Conta # %s?', $conta['Conta']['id'])));
 		
 	}
 	
