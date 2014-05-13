@@ -112,16 +112,16 @@ class QuicklinksController extends AppController {
 		$redirecionar = split ('[/]',$this->referer(),6);
 		if($redirecionar[4] == 'Contas'){
 		    $this->layout = 'contas';
-		    $this->redirect($this->referer());
+		    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
 		   
 		}if($redirecionar[4] == 'contas'){
 		    $this->layout = 'contas';
-		    $this->redirect($this->referer());
+		    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
 		   
 		}else{
 		
 		    //igual a notas
-		    $this->redirect($this->referer());
+		    $this->redirect(array('controller' => 'notas', 'action' => 'index' . '?parametro=produtos'));
 		    
 		}
 
