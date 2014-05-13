@@ -127,5 +127,49 @@ $(document).ready(function(){
 	$('#checkparcela').on('click', function(){
 		TrocaConsulta();
 	});
+	
+/***************************Checkbobx Pagar E Receber***********/
+var valorAux=$('#filterTipoMovimentacao').val();
+	if(valorAux  != undefined){
+		var valorEntrada=valorAux.substr(0,7);
+		var valorSaida1=valorAux.substr(0,5);
+		var valorSaida2 =valorAux.substr(8,5);
+	}
+
+	var statusEntrada = '';
+	var statusSaida= '';
+	var statusEntradaSaida='';
+
+	if(valorEntrada =='RECEBER'){
+		$('#QuicklinkNomeREECEBER').attr('checked', true);
+	}
+	
+	if(valorSaida1 == 'PAGAR'){
+		$('#QuicklinkNomePAGAR').attr('checked', true);
+	}
+	
+	
+	if(valorSaida2 != ''){
+			
+		$('#QuicklinkNomePAGAR').attr('checked', true);
+		$('#QuicklinkNomeREECEBER').attr('checked', true);
+	}
+
+	$("#QuicklinkNomeREECEBER, #QuicklinkNomePAGAR").bind('click', function(){
+		if($('#QuicklinkNomeREECEBER').is(':checked')){
+			if($('#QuicklinkNomePAGAR').is(':checked')){
+				$('#filterTipoMovimentacao').val('A PAGAR  A RECEBER');
+			}else{
+				$('#filterTipoMovimentacao').val('RECEBER');
+			}
+		}else{
+			if($('#QuicklinkNomePAGAR').is(':checked')){
+				$('#filterTipoMovimentacao').val('PAGAR');
+			}else{
+				$('#filterTipoMovimentacao').val(' ');
+			}
+		}
+	});
+
 
 });
