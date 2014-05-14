@@ -193,13 +193,13 @@ class ParceirodenegociosController extends AppController {
 			
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				$ultimoParceiro = $this->Parceirodenegocio->find('first', array('order' => array('Parceirodenegocio.id' => 'desc'), 'recursive' =>-1));
 				
 				$this->setStatusParceiro($ultimoParceiro['Parceirodenegocio']['id']);
 				$this->set(compact('ultimoParceiro'));
 				if(! $this->request->is('ajax')){
 					return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id']));
+					$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				}
 				
 			} else {
