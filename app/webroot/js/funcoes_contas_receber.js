@@ -36,12 +36,16 @@
 		banco = $('#ContasreceberBanco').val();
 
 		tipoPagamento=$('#Pagamento0TipoPagamento').val();
+		idConta=$('#ContasreceberIdentificacaoConta').val();
 		dataEmissao = $('[id*="DataEmissao"]').val();
 		
 		//soluciona problema de apagar contagem
 		princ_cont = numParcela;
-
-		if(dataEmissao == ''){
+		if(idConta == ''){
+			$('#msgIdentificacaoConta').css('display','block');
+			$('#ContasreceberIdentificacaoConta').addClass('shadow-vermelho').focus();
+		}
+		else if(dataEmissao == ''){
 		   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 			$('#msgDataEmissao').css('display','block');
 			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
@@ -53,7 +57,12 @@
 			$('#msgTipoPagamento').css('display','block');
 			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
 			
-		}else if(dataVencimento == ''){
+		}
+		else if(identificacao == ''){
+			$('#msgIdentificacaoParcela').css('display','block');
+			$('#ContasreceberIdentificacaoDocumento').addClass('shadow-vermelho').focus();
+		}
+		else if(dataVencimento == ''){
 			//alert('valor vazio');
 			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
 			$('#msgDataVencimento').css('display','block');

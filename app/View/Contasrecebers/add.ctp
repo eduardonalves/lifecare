@@ -71,7 +71,8 @@
 	    
 	    <section class="coluna-esquerda">
 		<?php 
-		    echo $this->Form->input('identificacao',array('label' => 'Identificação:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
+		    echo $this->Form->input('identificacao',array('id' => 'ContasreceberIdentificacaoConta', 'label' => 'Identificação<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
+		    echo '<span id="msgIdentificacaoConta" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
 		 ?>
 		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
 		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
@@ -257,7 +258,8 @@
 	    <section class="coluna-central" >
 		<?php
 		    //echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '106'));
-		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '106','maxlength'=>'50'));		   
+		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '106','maxlength'=>'50'));		   
+		    echo '<span id="msgIdentificacaoParcela" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
 		    
 		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '109','maxlength' => '25'));
 		    

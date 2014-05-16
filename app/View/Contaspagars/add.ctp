@@ -70,7 +70,8 @@
 
 	<section class="coluna-esquerda">
 		<?php
-		    echo $this->Form->input('identificacao',array('type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
+		    echo $this->Form->input('identificacao',array('id' => 'ContaspagarIdentificacaoConta', 'type'=>'text','label'=>'Identificação<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
+		    echo '<span id="msgIdentificacaoConta" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
 		?>
 		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
 		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
@@ -258,7 +259,8 @@
 
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita','tabindex' => '107'));
+				echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação<span class="campo-obrigatorio">*</span>:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita','tabindex' => '107'));
+				echo '<span id="msgIdentificacaoParcela" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
 				echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita','tabindex' => '110'));
 				echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '113','maxlength' => '25'));
 				echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
