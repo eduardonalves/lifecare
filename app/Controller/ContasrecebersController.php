@@ -30,10 +30,14 @@ class ContasrecebersController extends ContasController {
 	public function setCobranca(&$contaId, &$parcelaId, &$data_vencimento){
 		$this->loadModel('Conta');
 		$this->loadModel('Parcela');
-			
+		
+		
+		
 		$hoje = date("Y-m-d");	
 		$diasCritico = 3; // configurar data critica
-		$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$data_vencimento.'')));
+		$dataCritica = date('Y-m-d', strtotime("+".$diasCritico." days",strtotime(''.$data_vencimento.'')));
+		
+		
 		
 		if($dataCritica < $hoje){
 			$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
@@ -209,8 +213,10 @@ class ContasrecebersController extends ContasController {
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'AMARELO');
 						$this->Parcela->save($updatevencimento);
 					}else{
+						
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERDE');
 						$this->Parcela->save($updatevencimento);
+						
 					} 
 				}else{
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
@@ -540,11 +546,12 @@ class ContasrecebersController extends ContasController {
 					$cont=0;
 					foreach($parcelasEnviadas as $parcelasEnviada){
 						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['juros']);
-						$this->setCobranca($this->request->data['Contasreceber']['id'], $parcelasEnviada['id'], $parcelasEnviada['data_vencimento']);
 						$this->Parcela->save($parcelasEnviada);
+						
 						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
 						$this->ParcelasConta->create();
 						$this->ParcelasConta->save($updateParcelasConta);
@@ -553,6 +560,7 @@ class ContasrecebersController extends ContasController {
 					}	
 					
 				}
+				
 				
 				
 				if(isset($this->request->data['Pagamento'])){
@@ -580,6 +588,13 @@ class ContasrecebersController extends ContasController {
 					}
 				}
 				
+				
+				
+				$this->setStatusConta($this->request->data['Contasreceber']['id']);
+				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
+				
+					
+						
 				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));
 				

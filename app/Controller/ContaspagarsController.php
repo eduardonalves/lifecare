@@ -160,7 +160,7 @@ class ContaspagarsController extends ContasController {
 			
 		$hoje = date("Y-m-d");	
 		$diasCritico = 3; // configurar data critica
-		$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$data_vencimento.'')));
+		$dataCritica = date('Y-m-d', strtotime("+".$diasCritico." days",strtotime(''.$data_vencimento.'')));
 		
 		if($dataCritica < $hoje){
 			$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
