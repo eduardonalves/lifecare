@@ -251,6 +251,7 @@
 		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text','tabindex' => '108'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita','tabindex' => '111','maxlength' => '25'));
+			echo $this->Form->input('parcela_descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '114','maxlength' => '254'));
 		?>    
 	    </section>
 
@@ -314,6 +315,7 @@
 		<th><?php echo ('Agência'); ?></th>
 		<th><?php echo ('Conta'); ?></th>
 		<th><?php echo ('Banco'); ?></th>
+		<th><?php echo ('Obs'); ?></th>
 		<th class="actions"><?php echo __('Ações'); ?></th>
 	    </thead>
 	</table>	

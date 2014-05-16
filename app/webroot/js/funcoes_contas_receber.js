@@ -34,7 +34,8 @@
 		agencia = $('#ContasreceberAgencia').val();
 		conta = $('#ContasreceberConta').val();
 		banco = $('#ContasreceberBanco').val();
-
+		obs  = $('#ContasreceberParcelaDescricao').val();
+		
 		tipoPagamento=$('#Pagamento0TipoPagamento').val();
 		dataEmissao = $('[id*="DataEmissao"]').val();
 		
@@ -74,7 +75,7 @@
 		}else{
 			//adiciona a tabela
 
-			$('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+			$('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td id="obsTabela'+princ_cont+'">'+obs+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 			$('input').removeAttr('required');
 			
 			calcularValorConta();
@@ -88,9 +89,10 @@
 			$('#ContasreceberAgencia').val('');
 			$('#ContasreceberConta').val('');
 			$('#ContasreceberBanco').val('');
+			$('#ContasreceberParcelaDescricao').val('');
 				
 			//campos hidden
-			$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela] step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento] step="any"  id="ParceladataVencimentoReceber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor] step="any"  id="ParcelavalorContaReceber'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto] step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia] step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta] step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco] step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"></div>');
+			$('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela]" step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento]" step="any"  id="ParceladataVencimentoReceber'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor]" step="any"  id="ParcelavalorContaReceber'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto]" step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia]" step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta]" step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco]" step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][obs]" step="any"  id="parcelaObs'+princ_cont+'" value="'+obs+'" type="hidden"></div>');
 
 			if(tipoPagamento == 'A Vista'){
 				$('.tela-resultado-field').hide();
@@ -162,7 +164,7 @@
 	});
     };
     
-/****************** Altera linha da tabela *********************/
+/****************** Altera linha da tabela(Cloncluir edição) *********************/
     $('#bt-editarConta-receber').click(function(){
 		$('.btnEditar').show();
 
@@ -183,6 +185,7 @@
 	    agencia = $('#ContasreceberAgencia').val();
 	    conta = $('#ContasreceberConta').val();
 	    banco = $('#ContasreceberBanco').val();
+	    obs  = $('#ContasreceberParcelaDescricao').val();
 	    
 	    //certifica que parcelas são iguais
 	    if($(this).text() == $('#ContasreceberParcela').val()){
@@ -196,12 +199,13 @@
 		$('#agenciaTabela'+numero).text(agencia);
 		$('#contaTabela'+numero).text(conta);
 		$('#bancoTabela'+numero).text(banco);
+		$('#obsTabela'+numero).text(obs);
 		
 		//remove campos hidden
 		$('.clonadoProduto'+numero).remove();
 		
 		//substitui campos hidden
-		$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela] step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento] step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento] step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor] step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico] step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto] step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][agencia] step="any"  id="ParcelaAgencia'+numero+'agencia" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+numero+'][conta] step="any"  id="ParcelaConta'+numero+'conta" value="'+conta+'" type="hidden"><input name="data[Parcela]['+numero+'][banco] step="any"  id="ParcelaBanco'+numero+'banco" value="'+banco+'" type="hidden"></div> ');
+		$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][agencia]" step="any"  id="ParcelaAgencia'+numero+'agencia" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+numero+'][conta]" step="any"  id="ParcelaConta'+numero+'conta" value="'+conta+'" type="hidden"><input name="data[Parcela]['+numero+'][banco]" step="any"  id="ParcelaBanco'+numero+'banco" value="'+banco+'" type="hidden"><input name="data[Parcela]['+numero+'][obs]" step="any"  id="parcelaObs'+numero+'" value="'+obs+'" type="hidden"></div> ');
 
 	    }
 
@@ -219,6 +223,7 @@
 	    $('#ContasreceberAgencia').val('');
 	    $('#ContasreceberConta').val('');
 	    $('#ContasreceberBanco').val('');
+	    $('#ContasreceberParcelaDescricao').val('');
 	   
 	});
 	
@@ -228,7 +233,7 @@
 	
     });
     
-/********* Função Editar da tabela ******************/
+/********* Função Editar da tabela (lapis tabela)******************/
     
     var parcelaAtual;
     var numeroAnt;
@@ -256,6 +261,7 @@
 	agenciaAnt = $('#agenciaTabela'+numero).text();
 	contaAnt = $('#contaTabela'+numero).text();
 	bancoAnt = $('#bancoTabela'+numero).text();
+	obsAnt = $('#obsTabela'+numero).text();
 	
 	//adiciona devolta na input
 	$('#ContasreceberParcela').val(parcelaAnt);
@@ -267,6 +273,7 @@
 	$('#ContasreceberAgencia').val(agenciaAnt);
 	$('#ContasreceberConta').val(contaAnt);
 	$('#ContasreceberBanco').val(bancoAnt);
+	$('#ContasreceberParcelaDescricao').val(obsAnt);
 
 	//troca botoes
 	$('#bt-adicionarConta-receber').hide();
