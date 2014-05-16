@@ -71,7 +71,7 @@
 	<section class="coluna-esquerda">
 		<?php
 		    echo $this->Form->input('identificacao',array('id' => 'ContaspagarIdentificacaoConta', 'type'=>'text','label'=>'Identificação<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
-		    echo '<span id="msgIdentificacaoConta" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
+		    echo '<span id="msgIdentificacaoConta" class="msg erroTop" style="display:none">Preencha o campo Identificação</span>';
 		?>
 		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
 		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
