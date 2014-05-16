@@ -170,6 +170,7 @@
 				<th><?php echo ('Agência'); ?></th>
 				<th><?php echo ('Conta'); ?></th>
 				<th><?php echo ('Banco'); ?></th>
+				<th><?php echo ('Obs'); ?></th>
 				<th><?php echo ('Status'); ?></th>
 
 			</thead>
@@ -229,6 +230,7 @@
 					<td class="whiteSpace"><span title="<?php echo $parcelas['agencia']; ?>"><?php echo $parcelas['agencia']; ?></span></td>
 					<td class="whiteSpace"><span title="<?php echo $parcelas['conta']; ?>"><?php echo $parcelas['conta']; ?></span></td>
 					<td class="whiteSpace"><span title="<?php echo $parcelas['banco']; ?>"><?php echo $parcelas['banco']; ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['obs']; ?>"><?php echo $parcelas['obs']; ?></span></td>
 					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				
 				</tr>
@@ -467,35 +469,38 @@
 	}
 	
 	$tipo = $conta['Conta']['tipo'];
-	
+?>	
+
+<div class="fakeFooter">
+<?php
 	if($tipo == "A RECEBER"){
 		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
-												     'title'=>'Editar',
+												     'title'=>'Editar Conta',
 													 'class'=>'bt-editar',
 													 'url'=>array('controller'=>'Contasrecebers','action'=>'edit', $conta['Conta']['id'])));	
 													 
 		
 		echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array(
 														'alt' => __('Delete'),
-														'title' => __('Delete'),
+														'title' => __('Deletar Conta'),
 														'class'=>'bt-excluir' )), 
 														array('controller' => 'Contasrecebers','action' => 'delete',  $conta['Conta']['id']),
 														array('escape' => false, 'confirm' => __('Tem certeza que deseja Excluir esta Conta # %s?', $conta['Conta']['id'])));
 	
 	}else{
 		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
-												     'title'=>'Editar',
+												     'title'=>'Editar Conta',
 													 'class'=>'bt-editar',
 													 'url'=>array('controller'=>'Contaspagars','action'=>'edit', $conta['Conta']['id'])));
 		
 		echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array(
 														'alt' => __('Delete'),
-														'title' => __('Delete'),
+														'title' => __('Deletar Conta'),
 														'class'=>'bt-excluir' )), 
 														array('controller' => 'Contaspagars','action' => 'delete',  $conta['Conta']['id']),
 
 														array('escape' => false, 'confirm' => __('Tem certeza que deseja Excluir esta Conta # %s?', $conta['Conta']['id'])));
 
-	}
-	
+	}	
 ?>
+</div>

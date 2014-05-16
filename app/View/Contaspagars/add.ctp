@@ -250,10 +250,11 @@
 	<div class="fieldset tela-resultado-field">	
 		<section class="coluna-esquerda">
 			<?php
-			echo $this->Form->input('parcela_parcela',array('type'=>'text','label'=>'Parcela:','id' => 'ContaspagarParcela','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
-			echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio','tabindex' => '109'));
-			echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
-			echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
+				echo $this->Form->input('parcela_parcela',array('type'=>'text','label'=>'Parcela:','id' => 'ContaspagarParcela','class'=>'tamanho-pequeno desabilita borderZero','readonly'=>'readonly','onFocus'=>'this.blur();'));	
+				echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio','tabindex' => '109'));
+				echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
+				echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
+				echo $this->Form->input('parcela_descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '114','maxlength' => '254'));
 			?>
 		</section>
 
@@ -306,6 +307,7 @@
 					<th><?php echo ('Agência'); ?></th>
 					<th><?php echo ('Conta'); ?></th>
 					<th><?php echo ('Banco'); ?></th>
+					<th><?php echo ('Obs'); ?></th>
 					<th class="actions"><?php echo __('Ações'); ?></th>
 			</thead>
 		</table>

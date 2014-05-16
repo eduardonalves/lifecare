@@ -57,7 +57,7 @@ select[id^='Endereco']{
 
 
 /** Botões **/
-.bt-direita{float: right !important; margin: 10px 10px 5px 3px !important;}
+.bt-direita{float: right !important; margin: 24px 10px 5px 3px !important;}
 
 #bt-voltarPagar{display:none;}
 

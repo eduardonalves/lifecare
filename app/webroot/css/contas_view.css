@@ -35,6 +35,13 @@
 	margin-left: 15px;
 }
 
+.fakeFooter{
+	display: block;
+	position: relative;
+	width: 200px;
+	top: 20px;
+}
+
 
 
 /* ID *****************************************************************/
