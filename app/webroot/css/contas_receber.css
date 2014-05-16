@@ -77,3 +77,13 @@
     width: 0;
 }
 
+#msgIdentificacaoConta{
+	left: 175px;
+	top: -65px;
+	width: 99px;
+}
+
+#msgIdentificacaoConta:after{
+    left: 43px;
+	top: 50px;
+}

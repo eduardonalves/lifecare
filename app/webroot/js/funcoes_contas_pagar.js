@@ -47,8 +47,7 @@
 	if(idConta == ''){
 			$('#msgIdentificacaoConta').css('display','block');
 			$('#ContaspagarIdentificacaoConta').addClass('shadow-vermelho').focus();
-	}
-	else if(dataEmissao == ''){		
+	}else if(dataEmissao == ''){		
 	   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 	    $('#msgDataEmissao').css('display','block');
 	    $('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
