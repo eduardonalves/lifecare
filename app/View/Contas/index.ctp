@@ -2,8 +2,6 @@
 	$this->start('css');
 		echo $this->Html->css('consulta_financeiro');
 		echo $this->Html->css('table');
-		echo $this->Html->css('jquery-ui/jquery-ui.css');
-		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
 	$this->start('script');
@@ -57,37 +55,35 @@ $(document).ready(function() {
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->	
 	<h1 class="menuOption31">Consultas</h1>
-
 </header> <!---Fim header--->
 
 <section> <!---section superior--->
 	<header>Consulta por Movimentação e/ou Parceiro de Negócios</header>
 
 	<fieldset class="filtros">
+		
 		<?php
-
 		    $ql= $_GET['ql'];
 		    if($ql ==''){
-			$ql=0;
+				$ql=0;
 		    }
 			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default'=>$ql));
 		?>
 
 		<a href="add-quicklink" class="bt-showmodal">
 
-			<?php	
-				echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar'));
-			?>
+			<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
 
 		</a>
-		<?php
-			    echo $this->Form->end();
 
-			    if(isset($_GET['ql']) && $_GET['ql']!=''){
-				    echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
-			    }
-			?>
-			
+		<?php
+			echo $this->Form->end();
+
+			if(isset($_GET['ql']) && $_GET['ql']!=''){
+				echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
+			}
+		?>
+		
 		<div class="content-filtros">
 
 			<!------------------ Dados da Movimentação ------------------>
@@ -194,12 +190,9 @@ $(document).ready(function() {
 					
 				<?php
 					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento combo-autocomplete'));
-					//echo $this->Search->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio ','id' => 'cpf_cnpj','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj')));
-					//echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div><div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
-					//echo $this->Search->input('cpf_cnpj', array('label' => 'CPF/CNPJ:','class'=>'tamanho-medio input-alinhamento'));
 					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
-					
 				?>
+
 				</div>
 				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
@@ -222,8 +215,7 @@ $(document).ready(function() {
 
 <div class="areaTabela">
 
-	
-<?php echo $this->element('paginador_superior');?>
+<?php echo $this->element('paginador_superior'); ?>
 
 <div class="tabelas" id="contas">
 
@@ -239,15 +231,14 @@ $(document).ready(function() {
 					    foreach($configCont as $campo=>$campoLabel)
 					    {
 						if($campo=='parcelas'){
-							 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-						}else if($campo == 'parceirodenegocio_id' ){
-							//echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-			
+						
+						}else if($campo == 'parceirodenegocio_id' ){		
+						
 						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 			
 						}else{
-							 echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}
 					     
 					    }
