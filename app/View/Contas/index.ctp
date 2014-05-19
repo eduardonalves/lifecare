@@ -22,8 +22,6 @@
 					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
 				}
 			}
-		}else{
-			$data= " / / ";
 		}
 		return $data;
 	}
@@ -514,6 +512,3 @@ $(document).ready(function() {
 		
 	});
 </script>
-
-
-   
