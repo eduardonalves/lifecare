@@ -499,13 +499,13 @@ class ContasrecebersController extends ContasController {
 		
 		}
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		
 		$this->loadModel('Centrocusto');
-		$centrocusto = $this->Centrocusto->find('all');
+		$centrocusto = $this->Centrocusto->find('all', array('recursive' => -1,'order' => 'Centrocusto.nome ASC'));
 		
 		$this->loadModel('Tipodeconta');
-		$tipoconta = $this->Tipodeconta->find('all');
+		$tipoconta = $this->Tipodeconta->find('all', array('recursive' => -1,'order' => 'Tipodeconta.nome ASC'));
 		
 		$this->set(compact('parceirodenegocios','userid','centrocusto','tipoconta'));
 	}
