@@ -25,6 +25,7 @@
     $('#bt-adicionarConta-pagar').click(function(e){
 	e.preventDefault();
 	
+	
 	//recebe valores digitados
 	identificacao = $('#identificacaoPagar').val();
 	dataVencimento = $('#ContaspagarDataVencimento').val();
@@ -36,7 +37,8 @@
 	conta = $('#ContaspagarConta').val();
 	banco = $('#ContaspagarBanco').val();
 	obs = $('#ContaspagarParcelaDescricao').val();
-	
+	dupliVal = $('#ContaspagarDupli :selected').val();
+	dupliText = $('#ContaspagarDupli :selected').text();
 	tipoPagamento=$('#Pagamento0TipoPagamento').val();
 	idConta=$('#ContaspagarIdentificacaoConta').val();
 	dataEmissao = $('[id*="DataEmissao"]').val();
@@ -84,7 +86,7 @@
 	}else{
 	    
 	    //adiciona a tabela
-	    $('#tabela-conta-pagar').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="agenciaTabela'+princ_cont+'">'+agencia+'</td><td id="contaTabela'+princ_cont+'">'+conta+'</td><td id="bancoTabela'+princ_cont+'">'+banco+'</td><td id="obsTabela'+princ_cont+'">'+obs+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
+	    $('#tabela-conta-pagar').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="dupliTabela'+princ_cont+'">'+dupliText+'</td><td id="obsTabela'+princ_cont+'">'+obs+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/></td></tr>');
 
 	    $('input').removeAttr('required');
 	    
@@ -100,9 +102,10 @@
 	    $('#ContaspagarConta').val('');
 	    $('#ContaspagarBanco').val('');
 	    $('#ContaspagarParcelaDescricao').val('');
+	    $('#ContaspagarDupli :selected').removeAttr('selected');
 	    
 	    //campos hidden
-	    $('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela]" step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento]" step="any"  id="ParceladataVencimentoPagar'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor]" step="any"  id="ParcelavalorContaPagar'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto]" step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][agencia]" step="any"  id="ParcelaAgencia'+princ_cont+'" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][conta]" step="any"  id="ParcelaConta'+princ_cont+'" value="'+conta+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][banco]" step="any"  id="ParcelaBanco'+princ_cont+'" value="'+banco+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][obs]" step="any"  id="parcelaObs'+princ_cont+'" value="'+obs+'" type="hidden"></div>');
+	    $('.fieldset-total').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Parcela]['+princ_cont+'][parcela]" step="any" id="Parcela'+princ_cont+'" value="'+numeroParcela+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+princ_cont+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][data_vencimento]" step="any"  id="ParceladataVencimentoPagar'+princ_cont+'" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][valor]" step="any"  id="ParcelavalorContaPagar'+princ_cont+'" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+princ_cont+'" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][desconto]" step="any"  id="ParcelaDesconto'+princ_cont+'" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][duplicata]" step="any"  id="dupliBanco'+princ_cont+'" value="'+dupliVal+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][obs]" step="any"  id="parcelaObs'+princ_cont+'" value="'+obs+'" type="hidden"></div>');
 
 	    if(tipoPagamento == 'A Vista'){
 		$('.tela-resultado-field').hide();
@@ -188,9 +191,11 @@
 	    periodocritico = $('#PagarPeriodocritico').val();
 	    
 	    desconto = $('#ContaspagarDesconto').val();
-	    agencia = $('#ContaspagarAgencia').val();
-	    conta = $('#ContaspagarConta').val();
-	    banco = $('#ContaspagarBanco').val();
+		//agencia = $('#ContaspagarAgencia').val();
+		//conta = $('#ContaspagarConta').val();
+		//banco = $('#ContaspagarBanco').val();
+	    dupliVal = $('#ContaspagarDupli :selected').val();
+		dupliText = $('#ContaspagarDupli :selected').text();
 	    obs = $('#ContaspagarParcelaDescricao').val();
 
 	    //certifica que parcelas são iguais
@@ -202,16 +207,17 @@
 		$('#valorTabela'+numero).text(valor);
 		$('#periodocrit'+numero).text(periodocritico);
 		$('#descontoTabela'+numero).text(desconto);
-		$('#agenciaTabela'+numero).text(agencia);
-		$('#contaTabela'+numero).text(conta);
-		$('#bancoTabela'+numero).text(banco);
+		//$('#agenciaTabela'+numero).text(agencia);
+		//$('#contaTabela'+numero).text(conta);
+		//$('#bancoTabela'+numero).text(banco);
 		$('#obsTabela'+numero).text(obs);
+		$('#dupliTabela'+numero).text(dupliText);
 		
 		//remove campos hidden
 		$('.clonadoProduto'+numero).remove();
 		
 		//substitui campos hidden
-		$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-pagar'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-pagar'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][agencia]" step="any"  id="ParcelaAgencia'+numero+'agencia" value="'+agencia+'" type="hidden"><input name="data[Parcela]['+numero+'][conta]" step="any"  id="ParcelaConta'+numero+'conta" value="'+conta+'" type="hidden"><input name="data[Parcela]['+numero+'][banco]" step="any"  id="ParcelaBanco'+numero+'banco" value="'+banco+'" type="hidden"><input name="data[Parcela]['+princ_cont+'][obs]" step="any"  id="parcelaObs'+numero+'" value="'+obs+'" type="hidden"></div> ');
+		$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-pagar'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-pagar'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliBanco'+numero+'" value="'+dupliVal+'" type="hidden"><input name="data[Parcela]['+numero+'][obs]" step="any"  id="parcelaObs'+numero+'" value="'+obs+'" type="hidden"></div> ');
 
 	    }
 
@@ -228,10 +234,11 @@
 	    $('#valorPagar').val('');
 	    $('#PagarPeriodocritico').val('');
 	    $('#ContaspagarDesconto').val('');
-	    $('#ContaspagarAgencia').val('');
-	    $('#ContaspagarConta').val('');
-	    $('#ContaspagarBanco').val('');
+	   // $('#ContaspagarAgencia').val('');
+	   // $('#ContaspagarConta').val('');
+	   // $('#ContaspagarBanco').val('');
 	    $('#ContaspagarParcelaDescricao').val('');
+	    $('#ContaspagarDupli :selected').removeAttr('selected');
 	   
 	});
 
@@ -241,7 +248,7 @@
 	
     });
     
-/********* Função Editar da tabela ******************/
+/********* Função Editar da tabela(Pegar da tabela para as inputs) ******************/
     
     
     var numero;
@@ -266,10 +273,19 @@
 	valorAnt = $('#valorTabela'+numero).text();
 	periodocriticoAnt = $('#periodocrit'+numero).text();
 	descontoAnt = $('#descontoTabela'+numero).text();
-	agenciaAnt = $('#agenciaTabela'+numero).text();
-	contaAnt = $('#contaTabela'+numero).text();
-	bancoAnt = $('#bancoTabela'+numero).text();
+	//agenciaAnt = $('#agenciaTabela'+numero).text();
+	//contaAnt = $('#contaTabela'+numero).text();
+	//bancoAnt = $('#bancoTabela'+numero).text();
 	obsAnt = $('#obsTabela'+numero).text();
+	
+	dupliTextAnt = $('#dupliTabela'+numero).text();
+	if(dupliTextAnt == 'Ok'){
+		dupliValAnt = 1;
+		$('#ContaspagarDupli option[value="1"]').attr('selected', true);
+	}else if(dupliTextAnt == 'Dupli'){
+		dupliValAnt = 0;
+		$('#ContaspagarDupli option[value="0"]').attr('selected', true);
+	}
 	
 	//adiciona devolta na input
 	$('#ContaspagarParcela').val(parcelaAnt);
@@ -278,11 +294,11 @@
 	$('#valorPagar').val(valorAnt);
 	$('#PagarPeriodocritico').val(periodocriticoAnt);
 	$('#ContaspagarDesconto').val(descontoAnt);
-	$('#ContaspagarAgencia').val(agenciaAnt);
-	$('#ContaspagarConta').val(contaAnt);
-	$('#ContaspagarBanco').val(bancoAnt);
+	//$('#ContaspagarAgencia').val(agenciaAnt);
+	//$('#ContaspagarConta').val(contaAnt);
+	//$('#ContaspagarBanco').val(bancoAnt);
 	$('#ContaspagarParcelaDescricao').val(obsAnt);
-
+	
 
 	//troca botoes
 	$('#bt-adicionarConta-pagar').hide();
@@ -384,6 +400,18 @@
 		contadortd7++;
 	    });
 	    
+	    
+	    contadortd8 = 0;
+	    var tabelatd8 = $('#tabela-conta-pagar tbody tr td:nth-child(8)');
+	    
+	    tabelatd8.each(function(){
+		//alert($(this).attr('id'));
+		$(this).attr('id','dupliTabela'+contadortd8);
+		contadortd8++;
+	    });
+	    
+	    
+	    /*
 	    contadortd8 = 0;
 	    var tabelatd8 = $('#tabela-conta-pagar tbody tr td:nth-child(8)');
 	    
@@ -410,6 +438,7 @@
 		$(this).attr('id','bancoTabela'+contadortd10);
 		contadortd10++;
 	    });
+	    */
 	    
 	    contadortext = 0;
 	    var tabelatext = $('#tabela-conta-pagar tbody tr td:first-child');
@@ -522,6 +551,17 @@
 	var input7 = $('div[class*="clonadoProduto"] input:nth-child(8)');
 	
 	input7.each(function(){
+	    $(this).attr('id','dupliBanco'+contadorInput7);
+	    $(this).attr('name','data[Parcela]['+contadorInput7+'][duplicata]');
+	    contadorInput7++;
+	});
+	
+	
+	/*
+	contadorInput7=0;
+	var input7 = $('div[class*="clonadoProduto"] input:nth-child(8)');
+	
+	input7.each(function(){
 	    $(this).attr('id','ParcelaAgencia'+contadorInput7);
 	    $(this).attr('name','data[Parcela]['+contadorInput7+'][agencia]');
 	    contadorInput7++;
@@ -544,6 +584,7 @@
 	    $(this).attr('name','data[Parcela]['+contadorInput9+'][banco]');
 	    contadorInput9++;
 	});
+	* */
 
 	//troca botões qd clicado em editar e depois remover
 	$('#bt-editarConta-pagar').hide();
