@@ -20,10 +20,11 @@
 		var id = $(this).attr('id');
 		id = id.substr(9);
 		$('.linhaParcela'+id).each(function(){			
-			$('.linhaParcela'+id+' input').removeAttr("allowEmpty");
-			$('.linhaParcela'+id+' input').removeAttr("readonly");
-			$('.linhaParcela'+id+' input').removeAttr("onFocus");
-			$('.linhaParcela'+id+' input').removeClass("borderZero");	
+			$('.linhaParcela'+id+' input, #dupli'+id+'').removeAttr("allowEmpty");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').removeAttr("readonly");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').removeAttr("onFocus");
+			$('.linhaParcela'+id+' #dupli'+id+'').removeAttr("disabled");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').removeClass("borderZero");	
 		});	
 		
 		$('#btnEditar'+id).hide();
@@ -36,10 +37,11 @@
 		var id = $(this).attr('id');
 		id = id.substr(11);
 		$('.linhaParcela'+id).each(function(){			
-			$('.linhaParcela'+id+' input').attr("allowEmpty","false");
-			$('.linhaParcela'+id+' input').attr("readonly","readonly");
-			$('.linhaParcela'+id+' input').attr("onFocus","this.blur();");
-			$('.linhaParcela'+id+' input').addClass("borderZero");	
+			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("allowEmpty","false");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("readonly","readonly");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("onFocus","this.blur();");
+			$('.linhaParcela'+id+' #dupli'+id+'').attr("disabled","disabled");
+			$('.linhaParcela'+id+' input, #dupli'+id+'').addClass("borderZero");	
 		});	
 		
 		$('#btnEditar'+id).show();
