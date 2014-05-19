@@ -169,7 +169,7 @@
 				<th><?php echo ('Período Crítico'); ?></th>
 				<th><?php echo ('Desconto'); ?></th>
 				<th><?php echo ('Duplicata'); ?></th>
-				<th><?php echo ('Obs'); ?></th>
+				<th><?php echo ('Obs Pagto.'); ?></th>
 				<th><?php echo ('Status'); ?></th>
 
 			</thead>
@@ -245,7 +245,7 @@
 							echo $dupli; 
 						?>
 					</td>
-					<td class="whiteSpace"><span title="<?php echo $parcelas['obs']; ?>"><?php echo $parcelas['obs']; ?></span></td>
+					<td class="whiteSpace"><span title="<?php echo $parcelas['descricao']; ?>"><?php echo $parcelas['descricao']; ?></span></td>
 					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				
 				</tr>
@@ -402,7 +402,7 @@
 						</section>
 					</div>
 				</div>
-
+<!-- ************************** MODAL QUITAR PARCELA ****************************************** -->
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 						
@@ -507,6 +507,7 @@
 												     'title'=>'Editar Conta',
 													 'class'=>'bt-editar',
 													 'url'=>array('controller'=>'Contaspagars','action'=>'edit', $conta['Conta']['id'])));
+													 
 		
 		echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array(
 														'alt' => __('Delete'),

@@ -239,7 +239,9 @@
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');
     
-	
+	    if(tipoPagamento == 'A Vista'){
+		$('.tela-resultado-field').hide();
+	    }
     });
     
 /********* Função Editar da tabela (lapis tabela)******************/
