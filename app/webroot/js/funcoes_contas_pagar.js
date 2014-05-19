@@ -222,7 +222,7 @@
 	    }
 
 	    calcularValorConta();
-	    
+			
 	    //parcela recebe numero antigo e troca botoes
 	    $('#ContaspagarParcela').val(parcelaAtual);
 	    $('#bt-adicionarConta-pagar').show();
@@ -239,12 +239,14 @@
 	   // $('#ContaspagarBanco').val('');
 	    $('#ContaspagarParcelaDescricao').val('');
 	    $('#ContaspagarDupli :selected').removeAttr('selected');
-	   
 	});
 
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');
     
+    if(tipoPagamento == 'A Vista'){
+		$('.tela-resultado-field').hide();
+	    }
 	
     });
     
