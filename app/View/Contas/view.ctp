@@ -162,14 +162,13 @@
 				<?php if($conta['Conta']['status'] != 'CANCELADO' && $conta['Conta']['status'] != 'CINZA'){?><th><?php echo ('Negociação'); ?></th><?php }?>
 				<th><?php echo ('Parcela'); ?></th>
 				<th><?php echo ('Vencimento'); ?></th>
+				<th><?php echo ('Pagamento'); ?></th>
 				<th><?php echo ('Valor'); ?></th>
 				<th><?php echo ('Juros'); ?></th>
 				<th><?php echo ('Identificação'); ?></th>
 				<th><?php echo ('Período Crítico'); ?></th>
 				<th><?php echo ('Desconto'); ?></th>
-				<th><?php echo ('Agência'); ?></th>
-				<th><?php echo ('Conta'); ?></th>
-				<th><?php echo ('Banco'); ?></th>
+				<th><?php echo ('Duplicata'); ?></th>
 				<th><?php echo ('Obs'); ?></th>
 				<th><?php echo ('Status'); ?></th>
 
@@ -200,6 +199,9 @@
 
 								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
 							}
+							
+							
+							
 						?>
 
 					</td>
@@ -220,16 +222,29 @@
 					<?php $z++;?>
 					
 					<td><?php echo $parcelas['parcela']; ?></td>
-					<td><?php formatDateToView($parcelas['data_vencimento']);
-							  echo $parcelas['data_vencimento']; ?></td>
+					<td>
+						<?php formatDateToView($parcelas['data_vencimento']);
+							  echo $parcelas['data_vencimento']; ?>
+					</td>
+					<td>
+						<?php formatDateToView($parcelas['data_pagamento']);
+							  echo $parcelas['data_pagamento']; ?>
+					</td>
 					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['valor'], 2, ',', '.'); ?></span></td>
 					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['juros'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['juros'], 2, ',', '.'); ?></span></td>
 					<td class="whiteSpace"><span title="<?php echo $parcelas['identificacao_documento']; ?>"><?php echo $parcelas['identificacao_documento']; ?></span></td>
 					<td><?php echo $parcelas['periodocritico']; ?></td>
 					<td class="whiteSpace"><span title="<?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?>"><?php echo "R$ ".number_format($parcelas['desconto'], 2, ',', '.'); ?></span></td>
-					<td class="whiteSpace"><span title="<?php echo $parcelas['agencia']; ?>"><?php echo $parcelas['agencia']; ?></span></td>
-					<td class="whiteSpace"><span title="<?php echo $parcelas['conta']; ?>"><?php echo $parcelas['conta']; ?></span></td>
-					<td class="whiteSpace"><span title="<?php echo $parcelas['banco']; ?>"><?php echo $parcelas['banco']; ?></span></td>
+					<td class="whiteSpace">
+						<?php 
+							if($parcelas['duplicata'] == 1){
+								$dupli = 'Ok';
+							}else if($parcelas['duplicata'] == 0){
+								$dupli = 'Dupli';
+							}				
+							echo $dupli; 
+						?>
+					</td>
 					<td class="whiteSpace"><span title="<?php echo $parcelas['obs']; ?>"><?php echo $parcelas['obs']; ?></span></td>
 					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				
