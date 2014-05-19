@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 <section> <!---section superior--->
 	<header>Consulta por Movimentação e/ou Parceiro de Negócios</header>
-	
+
 	<fieldset class="filtros">
 		<?php
 
@@ -74,13 +74,13 @@ $(document).ready(function() {
 		    }
 			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default'=>$ql));
 		?>
-		
+
 		<a href="add-quicklink" class="bt-showmodal">
-			
+
 			<?php	
 				echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar'));
 			?>
-		
+
 		</a>
 		<?php
 			    echo $this->Form->end();
