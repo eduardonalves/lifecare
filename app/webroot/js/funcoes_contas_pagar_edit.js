@@ -41,7 +41,10 @@
 			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("readonly","readonly");
 			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("onFocus","this.blur();");
 			$('.linhaParcela'+id+' #dupli'+id+'').attr("disabled","disabled");
-			$('.linhaParcela'+id+' input, #dupli'+id+'').addClass("borderZero");	
+			$('.linhaParcela'+id+' input, #dupli'+id+'').addClass("borderZero");
+			var dupliVal = $('.linhaParcela'+id+' #dupli'+id+' :selected').val();	
+			var dupliText = $('.linhaParcela'+id+' #dupli'+id+' :selected').text();	
+			$('#duplica'+id).val(dupliVal);
 		});	
 		
 		$('#btnEditar'+id).show();

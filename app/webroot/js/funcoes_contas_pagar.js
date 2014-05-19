@@ -98,9 +98,9 @@
 	    $('#valorPagar').val('');
 	    $('#PagarPeriodocritico').val('');
 	    $('#ContaspagarDesconto').val('');
-	    $('#ContaspagarAgencia').val('');
-	    $('#ContaspagarConta').val('');
-	    $('#ContaspagarBanco').val('');
+	    //$('#ContaspagarAgencia').val('');
+	    //$('#ContaspagarConta').val('');
+	    //$('#ContaspagarBanco').val('');
 	    //$('#ContaspagarParcelaDescricao').val('');
 	    $('#ContaspagarDupli :selected').removeAttr('selected');
 	    
@@ -180,6 +180,10 @@
 /****************** Altera linha da tabela(Concluir edição) *********************/
     $('#bt-editarConta-pagar').click(function(){
 	$('.btnEditar').show();
+		
+		if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+			$('.tela-resultado-field').hide();
+		}
 	
 	//percorre a td
 	$('#numParc'+numero).each(function(){
