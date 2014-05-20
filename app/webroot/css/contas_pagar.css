@@ -111,3 +111,16 @@ margin-left: -15px;
 	top: 50px;
 }
 
+/*** modal quitar ***/
+#myModal_add_quitar .modal-body{
+	height: 285px;
+}
+
+#myModal_add_quitar .coluna-modal{
+	margin-left: 50px;
+}
+
+#myModal_add_quitar textarea {
+	margin-bottom: 5px;
+}
+

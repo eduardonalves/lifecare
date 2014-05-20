@@ -246,7 +246,7 @@
 					<th><?php echo ('Periodo Crítico'); ?></th>
 					<th><?php echo ('Desconto'); ?></th>
 					<th><?php echo ('Duplicata'); ?></th>
-					<th><?php echo ('Obs'); ?></th>
+					<th><?php echo ('Obs Pagto.'); ?></th>
 					<th class="actions"><span id='msgFlag' class='Msg tooltipMensagemErroTopo' style='display:none'>Conclua as Ediçoes</span> <?php echo __('Ações'); ?></th>
 			</thead>
 			
@@ -291,7 +291,7 @@
 						echo "<td>";
 							if($parcelaspagar['duplicata'] == 1){
 								//echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('value'=>$parcelaspagar['duplicata'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-								echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata', array(
+								echo $this->Form->input('vazio.duplicata', array(
 																	'label' => '', 'id' => 'dupli'.$princ_cont,
 																	'type' => 'select',
 																	'class'=>'tamanho-pequeno desabilita borderZero',
@@ -299,7 +299,7 @@
 																	'default'=>array('1'=>'Ok'), 'options' => array('1' => 'Ok', '0' => 'Dupli')   
 																));
 							}else if($parcelaspagar['duplicata'] == 0){
-								echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata', array(
+								echo $this->Form->input('vazio.duplicata', array(
 																	'label' => '', 'id' => 'dupli'.$princ_cont,
 																	'type' => 'select',
 																	'class'=>'tamanho-pequeno desabilita borderZero',
@@ -307,10 +307,11 @@
 																	'default'=>array('0'=>'Dupli'), 'options' => array('0' => 'Dupli','1' => 'Ok')   
 																));
 							}
+							echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('type'=>'hidden','id'=>'duplica'.$princ_cont));
 						echo "</td>";	
 						
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.obs',array('value'=>$parcelaspagar['obs'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '254','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.descricao',array('value'=>$parcelaspagar['descricao'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '254','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";	
 								
 						echo "<td>";						
