@@ -19,12 +19,7 @@
 ?>
 
 <script>
-<<<<<<< HEAD
 	$(document).ready(function() {
-=======
-	 $(document).ready(function() {
-	
->>>>>>> 7f33e633308ef2362de3f3a8f0dcd648b4f68d94
 	 	$("#ContasreceberIdentificacao").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contasrecebers", "action" => "verificaidentificacao"),true);?>";
@@ -268,17 +263,10 @@
 
 	    <section class="coluna-direita" >
 		<?php
-
-<<<<<<< HEAD
 		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data de vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita inputData','id' => 'dataVencimento-receber','tabindex' => '107'));
-
-=======
-		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data de vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber','tabindex' => '107'));
->>>>>>> 7f33e633308ef2362de3f3a8f0dcd648b4f68d94
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
    		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Período Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '112','maxlength' => '25'));
-
 		?>
 		
 	    </section>
