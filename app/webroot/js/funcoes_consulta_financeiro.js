@@ -137,10 +137,10 @@ var valorAux=$('#filterTipoMovimentacao').val();
 	}
 
 	var statusEntrada = '';
-	var statusSaida= '';
-	var statusEntradaSaida='';
+	var statusSaida = '';
+	var statusEntradaSaida = '';
 
-	if(valorEntrada =='RECEBER'){
+	if(valorEntrada == 'RECEBER'){
 		$('#QuicklinkNomeREECEBER').attr('checked', true);
 	}
 	
@@ -148,9 +148,7 @@ var valorAux=$('#filterTipoMovimentacao').val();
 		$('#QuicklinkNomePAGAR').attr('checked', true);
 	}
 	
-	
 	if(valorSaida2 != ''){
-			
 		$('#QuicklinkNomePAGAR').attr('checked', true);
 		$('#QuicklinkNomeREECEBER').attr('checked', true);
 	}

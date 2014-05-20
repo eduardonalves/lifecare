@@ -1,27 +1,15 @@
 $(document).ready(function() {
-    
-    
+
     $(".ui-autocomplete-input").css({
-	"border-bottom-right-radius": "4px",
-	"border-top-right-radius":" 4px",
-	"height":"17px"    
+		"border-bottom-right-radius": "4px",
+		"border-top-right-radius":" 4px",
+		"height":"17px"    
     });
 
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
     $(".inputSearchData input[id*='between']").before("<span>a</span>");
     
-    $(".inputSearchData input[type='text']").datepicker({
-	    dateFormat: 'dd/mm/yy',
-	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-	    nextText: 'Próximo',
-	    prevText: 'Anterior'
-    });
 /*****************************Converte o formato das datas da consulta************************************************/
-
 	datavencimentoInicio = $('#filterDataVencimento').val();
 	
 	if(datavencimentoInicio  != undefined){
@@ -45,7 +33,6 @@ $(document).ready(function() {
 			$('#filterDataVencimento-between').val(dataFim);
 		}
 	}
-	
 	
 	datavencimentoInicio = $('#filterDataEmissao').val();
 	
@@ -72,89 +59,103 @@ $(document).ready(function() {
 	}
 
 
-/*** Validação de Datas Consultas ****************************************/
+/*** Validação de Datas Consultas *************************************/
+	$("[id*='filterData']").addClass('Nao-Letras validaConFinan');
+	
+	$('#filterDataEmissao').mask('11/11/1111');
+	$('#filterDataEmissao-between').mask('11/11/1111');
+	
+	$('.Nao-Letras').on("keypress",function(event){
+		var charCode = event.keyCode || event.which;
 
-    $("[id*='filterData']").addClass('validaConFinan');
-    
-    $(".validaConFinan").change(function(){
-	    
-	    var data_inicial = $("#filterDataEmissao").datepicker('getDate');
-	    var data_final = $("#filterDataEmissao-between").datepicker('getDate');
-	    
-	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-
-	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
-	    
-	    if(daysNota < 0){
-		if(data_final != null){
-		    $("#filterDataEmissao, #filterDataEmissao-between").val("");
-		    $("#filterDataEmissao-between").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
-		}     
-	    }else{
-		$("#filterDataEmissao-between").removeClass("shadow-vermelho");
-
-	    }			
+	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
     });
     
-    
-    $(".validaConFinan").change(function(){
-	    
-	    var data_inicial = $("#filterDataQuitacao").datepicker('getDate');
-	    var data_final = $("#filterDataQuitacao-between").datepicker('getDate');
-	    
-	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+    $(".Nao-Letras").focusout(function(){
+		var elemento =  $(this).val();
 
-	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
-	    
-	    if(daysNota < 0){
-		if(data_final != null){
-		    $("#filterDataQuitacao, #filterDataQuitacao-between").val("");
-		    $(" #filterDataQuitacao-between").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalQui" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
-		}    
-	    }else{
-		    $("#filterDataQuitacao-between").removeClass("shadow-vermelho");
+		elemento = elemento.replace("-","");
 
-	    }			
-    });
-    
-    $(".validaConFinan").change(function(){
-	    
-	    var data_inicial = $("#filterDataVencimento").datepicker('getDate');
-	    var data_final = $("#filterDataVencimento-between").datepicker('getDate');
-	    
-	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
+		var dia = elemento.substring(0,2);
+		var mes = elemento.substring(3,5);
+		var ano = elemento.substring(6,11);
 
-	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
-	    
-	    if(daysNota < 0){
-		if(data_final != null){ 
-		    $("#filterDataVencimento, #filterDataVencimento-between").val("");
-		    $("#filterDataVencimento-between").addClass("shadow-vermelho");
-		    $('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
-		}    
-	    }else{
-		$("#filterDataVencimento-between").removeClass("shadow-vermelho");
+		if(dia > 31){
+			$(this).val("");
+		}
 		
-	    }			
+		if(mes > 12){
+			$(this).val("");
+		}
+		
+		if((dia > 29) && (mes == 2)){
+			$(this).val("");
+		}
+		
+		if(ano.length == 2){
+			$(this).val().slice(0,-2);
+			$(this).val(dia +"/"+ mes +"/20"+ ano);
+		}
+	});
+	
+	$(".validaConFinan").focusout(function(){
+		var data_inicial = $("#filterDataEmissao").val();
+		var data_final = $("#filterDataEmissao-between").val();
+		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+
+		if(daysNota < 0){
+			if(data_final != null){
+				$("#filterDataEmissao, #filterDataEmissao-between").val("");
+				$("#filterDataEmissao-between").addClass("shadow-vermelho");
+				$('<span id="spanDataFinalEmi" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+			}
+		}else{
+			$("#filterDataEmissao-between").removeClass("shadow-vermelho");
+		}			
+	});
+    
+    $(".validaConFinan").change(function(){
+		var data_inicial = $("#filterDataQuitacao").datepicker('getDate');
+		var data_final = $("#filterDataQuitacao-between").datepicker('getDate');
+		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+
+		if(daysNota < 0){
+			if(data_final != null){
+				$("#filterDataQuitacao, #filterDataQuitacao-between").val("");
+				$(" #filterDataQuitacao-between").addClass("shadow-vermelho");
+				$('<span id="spanDataFinalQui" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+			}
+		}else{
+			$("#filterDataQuitacao-between").removeClass("shadow-vermelho");
+		}
     });
+    
+    $(".validaConFinan").change(function(){  
+		var data_inicial = $("#filterDataVencimento").datepicker('getDate');
+		var data_final = $("#filterDataVencimento-between").datepicker('getDate');
+		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+
+		if(daysNota < 0){
+			if(data_final != null){
+				$("#filterDataVencimento, #filterDataVencimento-between").val("");
+				$("#filterDataVencimento-between").addClass("shadow-vermelho");
+				$('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+			}
+		}else{
+			$("#filterDataVencimento-between").removeClass("shadow-vermelho");
+		}
+	});
     
     $("#filterValor-between").focusout(function(){
-	    
-	    var valor_inicial = $("#filterValor").val();
-	    var valor_final = $("#filterValor-between").val();
+		var valor_inicial = $("#filterValor").val();
+		var valor_final = $("#filterValor-between").val();
 
-	    if(valor_inicial > valor_final){ 
-		    $("#filterValor, #filterValor-between").val(' ');
-		    $("#filterValor, #filterValor-between").addClass("shadow-vermelho");
-	    }else{
-		$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
-	    
-	    }			
+		if(valor_inicial > valor_final){
+			$("#filterValor, #filterValor-between").val(' ');
+			$("#filterValor, #filterValor-between").addClass("shadow-vermelho");
+		}else{
+			$("#filterValor, #filterValor-between").removeClass("shadow-vermelho");
+		}
     });
 
 
@@ -166,10 +167,6 @@ $(document).ready(function() {
 	    
 	    var data_inicial = $("input[id*='DataEmissao']").datepicker('getDate');
 	    var data_final = $("input[id*='Vencimento']").datepicker('getDate');
-	    
-	    //var Compara01 = parseInt(data_inicial.split("/")[2].toString() + data_inicial.split("/")[1].toString() + data_inicial.split("/")[0].toString());
-	    //var Compara02 = parseInt(data_final.split("/")[2].toString() + data_final.split("/")[1].toString() + data_final.split("/")[0].toString());
-
 	    var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
 
 	    if(daysNota < 0){
@@ -185,16 +182,10 @@ $(document).ready(function() {
     });
     
 /***Input Search Para valores *****************************************/
-    $(".inputSearchValor input[id*='between']").before("<span>a</span>").priceFormat({
-										prefix: '',
-										centsSeparator: ',',
-										thousandsSeparator: '.'
-	});
-
+    $(".inputSearchValor input[id*='between']").before("<span>a</span>").priceFormat({prefix: '',centsSeparator: ',',thousandsSeparator: '.'});
 
 
 /******** Carregar filtro no select Quick link ***********************/
-
     $("#quick-select").change(function(){
 	    var urlQuickLink = $(this).children('option:selected').attr('data-url')+'&ql='+$(this).children('option:selected').val();
 
@@ -205,21 +196,15 @@ $(document).ready(function() {
 		window.location.href=urlQuickLink;
 		$("#quick-select option").text($(this).children('option:selected').text());
 	    }
-
-	    
-
     });
 
     $("#quick-filtrar").click(function(e){
 	e.preventDefault();
-	
 
 	if($('#filterDataEmissao').val()!='' && $('#filterDataEmissao-between').val()==''){
 	    $('#filterDataEmissao-between').addClass('shadow-vermelho').after('<span id="vazioDataEmissao" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
-	    	    
 	}else if($('#filterDataQuitacao').val()!='' && $('#filterDataQuitacao-between').val()==''){
 	    $('#filterDataQuitacao-between').addClass('shadow-vermelho').after('<span id="vazioDataQuitacao" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
-	      
 	}else if($('#filterDataVencimento').val()!='' && $('#filterDataVencimento-between').val()==''){
 	    $('#filterDataVencimento-between').addClass('shadow-vermelho').after('<span id="vazioDataVencimento" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
 	    
@@ -265,84 +250,68 @@ $(document).ready(function() {
 	    $("#quick-editar").css("display", "none");
 	   
 	});
-	
-	//alert($("#quick-select option:selected").val());
 
-	//$("#quick-filtrar").click(function(){
-	  
-		//var urlQuickLink = $(this).children('option:selected').attr('data-url').val();
 
-		//$("#quick-editar").css("display", "none");
-		
-		//if(urlQuickLink!='')
-		//{
-		    //window.location.href=urlQuickLink;
-		//}
-	//*/
-	//});
 /********** Avançar tela de resultado Contas ****************/
-
-
     $('.bt-confirmar').click(function(e){
-	e.preventDefault();
+		e.preventDefault();
 
-	var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
-	
-	parceiro = $('.nomeParceiro').val();
-	parceiroCpf = $('.cpfParceiro').val();
+		var temclasvalbtconf = $('tr').hasClass('valbtconfimar');
+		
+		parceiro = $('.nomeParceiro').val();
+		parceiroCpf = $('.cpfParceiro').val();
 
-	
-	if(parceiro ==''){
-		$('#msgValidaParceiro').css('display','block');
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	}else if(!temclasvalbtconf){
-	    $('#msgValidaParcela').css('display','block');
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	    
-	}else{    	
-	    $('.tela-resultado, .tela-resultado-field').hide();
-	    $('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
-	    $('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
-	    $('.forma-data').attr('disabled','disabled');
-	    $('.ui-widget').attr('readonly','readonly').addClass('borderZero');
-	    $("[class*='ui-button']").css('display','none');
-	    $('html, body').animate({scrollTop:0}, 'slow');
-	    $('.bt-salvarConta').show();
-	    $('.bt-voltar').show();
-	    $('.bt-confirmar').hide();
-	    $('table td:nth-last-child(1), th:nth-last-child(1)').hide();
+		
+		if(parceiro ==''){
+			$('#msgValidaParceiro').css('display','block');
+			$('html, body').animate({scrollTop:0}, 'slow');
+		}else if(!temclasvalbtconf){
+			$('#msgValidaParcela').css('display','block');
+			$('html, body').animate({scrollTop:0}, 'slow');
+			
+		}else{    	
+			$('.tela-resultado, .tela-resultado-field').hide();
+			$('.desabilita').attr({readonly:'readonly',onfocus:'this.blur()'}).addClass('borderZero').unbind();
+			$('select[class*="desabilita"]').attr('disabled','disabled').css('display','none');
+			$('.forma-data').attr('disabled','disabled');
+			$('.ui-widget').attr('readonly','readonly').addClass('borderZero');
+			$("[class*='ui-button']").css('display','none');
+			$('html, body').animate({scrollTop:0}, 'slow');
+			$('.bt-salvarConta').show();
+			$('.bt-voltar').show();
+			$('.bt-confirmar').hide();
+			$('table td:nth-last-child(1), th:nth-last-child(1)').hide();
 
-	    //percorre as select e transforma em input
-	    $('select[class*="desabilita"]').each(function(){
-		valorSelecionado = $(this).find('option:selected').text();
-		id=$(this).attr('id');
+			//percorre as select e transforma em input
+			$('select[class*="desabilita"]').each(function(){
+			valorSelecionado = $(this).find('option:selected').text();
+			id=$(this).attr('id');
 
-		name=$(this).attr('name');
-		    
-		//insere input depois do select
-		$('<input id="'+id+'"" name="'+name+'" class="tamanho-medio borderZero" readonly="readonly" onfocus="this.blur()" value="'+valorSelecionado+'">').insertAfter($(this));
-	    });
+			name=$(this).attr('name');
+				
+			//insere input depois do select
+			$('<input id="'+id+'"" name="'+name+'" class="tamanho-medio borderZero" readonly="readonly" onfocus="this.blur()" value="'+valorSelecionado+'">').insertAfter($(this));
+			});
 
-	    //substitui textarea por span
-	    valTextArea= $('textarea[id*="Descricao"]').val();
+			//substitui textarea por span
+			valTextArea= $('textarea[id*="Descricao"]').val();
 
-	    $('.textAreaConta').hide();
-	    $('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('.textAreaConta');
+			$('.textAreaConta').hide();
+			$('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('.textAreaConta');
 
-	    $('.forma-data').each(function(){
-		valorFormaData=$(this).val();
-		id=$(this).attr('id');
+			$('.forma-data').each(function(){
+			valorFormaData=$(this).val();
+			id=$(this).attr('id');
 
-		name=$(this).attr('name');
+			name=$(this).attr('name');
 
-		$('<input id="'+id+'" name="'+name+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
-	    });
-	}    
+			$('<input id="'+id+'" name="'+name+'" type="hidden" value="'+valorFormaData+'"/>').insertAfter($(this));
+			});
+		}    
 
     });
     
 /********** Voltar tela de resultado Contas ****************/
-
     $('.bt-voltar').click(function(){
 		$('.desabilita').removeAttr('readonly').removeAttr('onfocus').removeClass('borderZero');
 		$('select[class*="desabilita"]').removeAttr('disabled','disabled').css('display','block');
@@ -476,7 +445,6 @@ $(document).ready(function() {
 
 
 /****************** Mascara Data *************************/
-
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
 
 /**************************Autocomplete consulta************************************/
@@ -486,10 +454,10 @@ $(document).ready(function() {
 
 /********** substituir textarea Cobranca *********/    
     $('textarea').each(function(){
-	valTextArea= $('#ObsCobranca'+i+'Obs').text();
-	$('#ObsCobranca'+i+'Obs').hide();
-	$('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('#ObsCobranca'+i+'Obs');
-	i++;
+		valTextArea= $('#ObsCobranca'+i+'Obs').text();
+		$('#ObsCobranca'+i+'Obs').hide();
+		$('<span id="spanTextArea">'+valTextArea+'</span>').insertAfter('#ObsCobranca'+i+'Obs');
+		i++;
     });
 
 /*************** Negociação *********************/
