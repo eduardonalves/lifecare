@@ -60,25 +60,54 @@ $(document).ready(function() {
 
 
 /*** Validação de Datas Consultas *************************************/
-	$("[id*='filterData']").addClass('Nao-Letras validaConFinan');
+	function compararData(idCampo){	
+		var comparaAno = new Array($(idCampo).val().substring(6,11) ,$(idCampo +"-between").val().substring(6,11));
+		var comparaMes = new Array($(idCampo).val().substring(3,5) ,$(idCampo +"-between").val().substring(3,5));
+		var comparaDia = new Array($(idCampo).val().substring(0,2) ,$(idCampo +"-between").val().substring(0,2));
+
+		if(comparaAno[0] > comparaAno[1]){
+			return -1;
+		}else if((comparaMes[0] > comparaMes[1]) && (comparaAno[0] <= comparaAno[1])){
+			return -1;
+		}else if((comparaDia[0] > comparaDia[1]) && (comparaMes[0] <= comparaMes[1]) && (comparaAno[0] <= comparaAno[1])){
+			return -1;
+		}
+	}
+	
+	$("[id*='filterData']").addClass('inputData validaConFinan');
 	
 	$('#filterDataEmissao').mask('11/11/1111');
 	$('#filterDataEmissao-between').mask('11/11/1111');
 	
-	$('.Nao-Letras').on("keypress",function(event){
+	$('.inputData').on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
 	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
     });
     
-    $(".Nao-Letras").focusout(function(){
-		var elemento =  $(this).val();
+    $(".inputData").focusout(function(){
+		var elemento = $(this).val();
 
 		elemento = elemento.replace("-","");
 
 		var dia = elemento.substring(0,2);
 		var mes = elemento.substring(3,5);
 		var ano = elemento.substring(6,11);
+
+		if(ano.length == 1){
+			$(this).val().slice(0,-1);
+			$(this).val(dia +"/"+ mes +"/200"+ ano);
+		}
+		
+		if(ano.length == 2){
+			$(this).val().slice(0,-2);
+			$(this).val(dia +"/"+ mes +"/20"+ ano);
+		}
+		
+		if(ano.length == 3){
+			$(this).val().slice(0,-3);
+			$(this).val(dia +"/"+ mes +"/2"+ ano);
+		}
 
 		if(dia > 31){
 			$(this).val("");
@@ -91,17 +120,13 @@ $(document).ready(function() {
 		if((dia > 29) && (mes == 2)){
 			$(this).val("");
 		}
-		
-		if(ano.length == 2){
-			$(this).val().slice(0,-2);
-			$(this).val(dia +"/"+ mes +"/20"+ ano);
-		}
 	});
 	
-	$(".validaConFinan").focusout(function(){
-		var data_inicial = $("#filterDataEmissao").val();
+	$("#filterDataEmissao-between").focusout(function(){
 		var data_final = $("#filterDataEmissao-between").val();
-		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+		var daysNota;
+
+		daysNota = compararData("#filterDataEmissao"); 
 
 		if(daysNota < 0){
 			if(data_final != null){
@@ -111,13 +136,14 @@ $(document).ready(function() {
 			}
 		}else{
 			$("#filterDataEmissao-between").removeClass("shadow-vermelho");
-		}			
+		}		
 	});
     
-    $(".validaConFinan").change(function(){
-		var data_inicial = $("#filterDataQuitacao").datepicker('getDate');
-		var data_final = $("#filterDataQuitacao-between").datepicker('getDate');
-		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+    $("#filterDataQuitacao-between").focusout(function(){
+		var data_final = $("#filterDataQuitacao-between").val();
+		var daysNota;
+
+		daysNota = compararData("#filterDataQuitacao"); 
 
 		if(daysNota < 0){
 			if(data_final != null){
@@ -130,10 +156,11 @@ $(document).ready(function() {
 		}
     });
     
-    $(".validaConFinan").change(function(){  
-		var data_inicial = $("#filterDataVencimento").datepicker('getDate');
-		var data_final = $("#filterDataVencimento-between").datepicker('getDate');
-		var daysNota = (data_final - data_inicial) / 1000 / 60 / 60 / 24;
+    $("#filterDataVencimento-between").focusout(function(){  
+		var data_final = $("#filterDataVencimento-between").val();
+		var daysNota;
+
+		daysNota = compararData("#filterDataVencimento");
 
 		if(daysNota < 0){
 			if(data_final != null){

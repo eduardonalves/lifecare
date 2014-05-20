@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-
-/*  Padrao{tamanho; posição; forma; etc;}
- * .Padrao{tamanho; posição; forma; etc;}
- * #Padrao{tamanho; posição; forma; etc;}*/
-
 /*** Centro de Custo*/
 .centrocusto{
 	margin: 55px 0px 0px 0px;
@@ -32,7 +27,9 @@ select{
 
 /*** Menu Lateral****/
 
-.item{line-height: 15px;}
+.item{
+	line-height: 15px;
+}
 
 .abaMenuLateral{ line-height: 13px; }
 
@@ -59,19 +56,13 @@ select[id^='Endereco']{
 /** Botões **/
 .bt-direita{float: right !important; margin: 24px 10px 5px 3px !important;}
 
-#bt-voltarPagar{display:none;}
-
-#bt-voltarReceber{display:none;}
-
-[id*="bt-editarConta"]{display:none;}
-
-.bt-salvarConta{display:none;}
+#bt-voltarPagar, #bt-voltarReceber, [id*="bt-editarConta"], .bt-salvarConta{
+	display:none;
+}
 
 .bt-confirmar{float:right;}
 
 .bt-preencherConta {display:block;float: left;margin:29px 0 0 345px;position: absolute;z-index: 1;}
-
-table{margin-top: 20px;}
 
 /** Classes **/
 .textAreaConta{height: 40px !important; width: 186px !important;margin-bottom:5px;}

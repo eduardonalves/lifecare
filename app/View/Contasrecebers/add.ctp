@@ -1,26 +1,25 @@
 <?php	    
 	$this->start('css');
-	    echo $this->Html->css('contas_receber');
-	    echo $this->Html->css('table');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+		echo $this->Html->css('contas_receber');
+		echo $this->Html->css('table');
+		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 
 	$this->start('script');
-	    echo $this->Html->script('funcoes_contas_receber.js');
-	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+		echo $this->Html->script('funcoes_contas_receber.js');
+		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 	$this->end();
 
 	$this->start('modais');
-	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
-	    echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
-	    echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
+		echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroCliente'));
+		echo $this->element('centro_custo',array('modal'=>'add-centro_custo'));
+		echo $this->element('tipo_conta',array('modal'=>'add-tipodeConta'));
 	$this->end();	
 ?>
 
 <script>
-	 $(document).ready(function() {
-	 	
+	$(document).ready(function() {
 	 	$("#ContasreceberIdentificacao").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contasrecebers", "action" => "verificaidentificacao"),true);?>";
@@ -48,17 +47,15 @@
 				}
 			});
 		});	
-	 });
+	});
 </script>
 
 <header>
 
     <?php echo $this->Html->image('financeiro_title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
-     
+
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <h1 class="menuOption33">Cadastrar Conta a Receber</h1>
-    
-    
 </header>
 
 <?php echo $this->Form->create('Contasreceber'); ?>
@@ -70,38 +67,29 @@
 	    <header>Dados Gerais da Movimentação</header>
 	    
 	    <section class="coluna-esquerda">
+		
 		<?php 
-		    echo $this->Form->input('identificacao',array('id' => 'ContasreceberIdentificacaoConta', 'label' => 'Identificação<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
-		    echo '<span id="msgIdentificacaoConta" class="msg erroTop" style="display:none">Preencha o campo Identificação</span>';
-		 ?>
+			echo $this->Form->input('identificacao',array('id' => 'ContasreceberIdentificacaoConta', 'label' => 'Identificação<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'50'));
+			echo '<span id="msgIdentificacaoConta" class="msg erroTop" style="display:none">Preencha o campo Identificação</span>';
+		?>
+
 		<span id="msgValidaIdentificacao" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao existente</span>
 		<span id="msgValidaIdentificacao2" class="Msg tooltipMensagemErroTopo" style="display:none">Identificacao liberada para cadastro</span>
 		<div class="loaderAjaxIdentificacao" style="display:none">
-				<?php
-					
-					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
-																 'title'=>'Carregando',
-																 'class'=>'loaderAjaxCategoria',
-																 ));
-				?>
-				<span>Verificando aguarde...</span>
+
+			<?php echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando','title'=>'Carregando','class'=>'loaderAjaxCategoria',)); ?>
+			
+			<span>Verificando aguarde...</span>
 		</div>
-		 <?php
-		    echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
-		    echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
-		   
+
+		<?php
+			echo $this->Form->input('status',array('label' => 'Status:','value' => 'VERDE','type' => 'hidden'));
+			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 		?>
-		
 		
 <!-- CLIENTE -->
 	<div class="tela-resultado">   
-		<?php
-		    echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-										 'title'=>'Preencher Cliente',
-										     'class'=>'bt-preencherConta',
-										     'id'=>'bt-preencherCliente'
-										     ));
-		?>
+		<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher Cliente','class'=>'bt-preencherConta','id'=>'bt-preencherCliente')); ?>
 		
 		<div class="input autocompleteCliente contas">
 			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Cliente</span>
@@ -109,14 +97,16 @@
 		    <select class="tamanho-medio" id="add-cliente">
 			    <option id="optvazioForn"></option>
 			    <option value="add-parceiroCliente">Cadastrar</option>
-			    <?php
-			       foreach($parceirodenegocios as $parceirodenegocio)
-				{
-				    echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
-				    echo $parceirodenegocio['Parceirodenegocio']['nome'];
-				    echo "</option>";
-				}
-			    ?>
+
+				<?php
+				   foreach($parceirodenegocios as $parceirodenegocio)
+					{
+						echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
+						echo $parceirodenegocio['Parceirodenegocio']['nome'];
+						echo "</option>";
+					}
+				?>
+
 		    </select>
 		</div>
 	</div>
@@ -185,7 +175,7 @@
 
 	    <section class="coluna-central" >
 		<?php 
-		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
+		    echo $this->Form->input('data_emissao',array('label' => 'Data de Emissão<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita inputData','tabindex' => '101'));
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		    echo $this->Form->input('tipo',array('label' => 'Tipo:','type' => 'hidden','value'=>'A RECEBER'));
@@ -273,7 +263,7 @@
 	    <section class="coluna-direita" >
 		<?php
 
-		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data de vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber','tabindex' => '107'));
+		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data de vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita inputData','id' => 'dataVencimento-receber','tabindex' => '107'));
 
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';

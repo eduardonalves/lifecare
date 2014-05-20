@@ -371,7 +371,7 @@
 	<section class="coluna-central" >
 
 		<?php
-			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno  forma-data','tabindex'=>'26'));
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno inputData','tabindex'=>'26'));
 			echo '<span id="validaValidade1" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 			echo '<span id="validaValidade2" class="Msg-tooltipDireita" style="display:none">Nao é possivel selecionar data passada</span>';
 			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display:none">Preencha corretamente a data</span>';
