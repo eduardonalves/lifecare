@@ -20,7 +20,7 @@
 
 <script>
 	 $(document).ready(function() {
-	 	
+	
 	 	$("#ContasreceberIdentificacao").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contasrecebers", "action" => "verificaidentificacao"),true);?>";
@@ -251,8 +251,12 @@
 		    echo $this->Form->input('parcela_parcela',array('label' => 'Parcela:','id' =>'ContasreceberParcela','class' => 'tamanho-pequeno desabilita borderZero','readonly' => 'readonly', 'onfocus' => 'this.blur()'));
 		    echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text','tabindex' => '108'));
 		    echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
-		    echo $this->Form->input('agencia_parcela',array('label' => 'Agencia:','id' => 'ContasreceberAgencia','class' => 'tamanho-pequeno desabilita','tabindex' => '111','maxlength' => '25'));
-			echo $this->Form->input('parcela_descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '114','maxlength' => '254'));
+		    echo $this->Form->input('duplicata_parcela', array(
+																'label' => 'Duplicata', 'id' => 'ContasreceberDupli',
+																'type' => 'select',
+																'class'=>'tamanho-pequeno ',																	
+																'options' => array(''=>'','1' => 'Ok', '0' => 'Dupli')   
+															));
 		?>    
 	    </section>
 
@@ -260,11 +264,8 @@
 		<?php
 		    //echo $this->Form->input('codigodebarras_parcela',array('label' => 'Código de Barras:','id' => 'ContasreceberCodigodeBarras','class' => 'tamanho-medio desabilita','maxlength' => '46','tabindex' => '106'));
 		    echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberIdentificacaoDocumento','class' => 'tamanho-medio desabilita','tabindex' => '106','maxlength'=>'50'));		   
+  		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '110'));
 		    echo '<span id="msgIdentificacaoParcela" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
-		    
-		    echo $this->Form->input('conta_parcela',array('label' => 'Conta:','id' => 'ContasreceberConta','class' => 'tamanho-pequeno desabilita','tabindex' => '109','maxlength' => '25'));
-		    
-		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Período Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '112','maxlength' => '25'));
 		    echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 		    
 		?>
@@ -274,12 +275,10 @@
 		<?php
 
 		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data de vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber','tabindex' => '107'));
-
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
-		    echo $this->Form->input('desconto_parcela',array('label' => 'Desconto:','id' => 'ContasreceberDesconto','class' => 'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '110'));
-		    echo $this->Form->input('banco_parcela',array('label' => 'Banco:','id' =>'ContasreceberBanco','class' => 'tamanho-medio desabilita','tabindex' => '113','maxlength' => '50'));
-		   
+   		    echo $this->Form->input('periodocritico_parcela',array('label' => 'Período Crítico<span class="campo-obrigatorio">*</span>:','id' => 'ContasreceberPeriodocritico','class' => 'obrigatorio tamanho-pequeno desabilita Nao-Letras','tabindex' => '112','maxlength' => '25'));
+
 		?>
 		
 	    </section>
@@ -314,10 +313,7 @@
 		<th><?php echo ('Identificação'); ?></th>
 		<th><?php echo ('Periodo Crítico'); ?></th>
 		<th><?php echo ('Desconto'); ?></th>
-		<th><?php echo ('Agência'); ?></th>
-		<th><?php echo ('Conta'); ?></th>
-		<th><?php echo ('Banco'); ?></th>
-		<th><?php echo ('Obs'); ?></th>
+		<th><?php echo ('Duplicata'); ?></th>
 		<th class="actions"><?php echo __('Ações'); ?></th>
 	    </thead>
 	</table>	
@@ -359,3 +355,40 @@
 		echo $this->Form->end();
 	?>
 </footer>
+
+<!-- ************************** MODAL QUITAR PARCELA ****************************************** -->
+				<div class="modal fade" id="myModal_add_quitar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-body">
+						
+						<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
+
+						<header id="cabecalho">
+							
+							<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Quitar', 'alt' => 'Quitar', 'title' => 'Quitar')); ?><h1>Quitar Parcela</h1>
+							
+						</header>
+
+						<section>
+							<header>Dados do Pagamento da Parcela</header>
+							<section class="coluna-modal">
+								<div>
+									<?php
+										echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
+									
+										echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
+									
+										echo $this->Form->input('vazio.juros',array('id'=>'vazioJuros','label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text', 'style'=>'display: inline'));
+									
+									?>
+								</div>
+							</section>
+						
+							<footer>								
+								<?php
+									echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela', 'alt' => 'Quitar', 'title' => 'Quitar'));
+								?>								
+							</footer>
+							 
+						</section>
+					</div>
+				</div>
