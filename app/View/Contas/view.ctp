@@ -523,9 +523,3 @@
 ?>
 </div>
 
-
-<pre>
-<?php
-	print_r($username);
-?>
-</pre>
