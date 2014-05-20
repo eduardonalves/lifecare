@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(document).ready(function(){
 
 	$('input').focus(function(){
 		$('.ui-autocomplete-input').attr('tabindex','102');
@@ -30,7 +30,6 @@
 			$('#vazioDescricao').val('');
 			$('#vazioJuros').val('');			
 		}
-		
 	});	
 
 	$('#bt_quitaParcela').click(function(e){
@@ -45,7 +44,6 @@
 			$('.existe').remove();
 			//seta as hidden depois de remover as existentes
 			$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
-
 		}else{							
 			//seta as hidden para a determinada parcela se não tiver cadastrada
 			$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
@@ -57,7 +55,6 @@
 		
 		//Fecha Modal
 		$('#myModal_add_quitar').modal('hide');
-		
 	});
 
 /********** Adicionar na tabela Principal ****************/
@@ -69,7 +66,6 @@
     $('#ContasreceberParcela').val(numeroParcela);
     
     $('#bt-adicionarConta-receber').click(function(e){
-
 		e.preventDefault();
 		
 		//recebe valores digitados
@@ -79,10 +75,6 @@
 		periodocritico = $('#ContasreceberPeriodocritico').val();
 		
 		desconto = $('#ContasreceberDesconto').val();
-		//agencia = $('#ContasreceberAgencia').val();
-		//conta = $('#ContasreceberConta').val();
-		//banco = $('#ContasreceberBanco').val();
-		//obs  = $('#ContasreceberParcelaDescricao').val();
 		dupliVal  = $('#ContasreceberDupli :selected').val();
 		dupliText  = $('#ContasreceberDupli :selected').text();
 		
@@ -96,36 +88,24 @@
 			$('#msgIdentificacaoConta').css('display','block');
 			$('#ContasreceberIdentificacaoConta').addClass('shadow-vermelho').focus();
 		}else if(dataEmissao == ''){
-		   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 			$('#msgDataEmissao').css('display','block');
 			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
 			$('html, body').animate({scrollTop:0}, 'slow');
 		}else if(tipoPagamento == ''){
-			//alert('Tipo Pagamento vazio');
-			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
 			$('#msgTipoPagamento').css('display','block');
 			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
 		}else if(identificacao == ''){
 			$('#msgIdentificacaoParcela').css('display','block');
 			$('#ContasreceberIdentificacaoDocumento').addClass('shadow-vermelho').focus();
 		}else if(dataVencimento == ''){
-			//alert('valor vazio');
-			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
 			$('#msgDataVencimento').css('display','block');
 			$('#dataVencimento-receber').addClass('shadow-vermelho').focus();
-		
 		}else if(valor == ''){
-			//alert('valor vazio');
-		   //$('<span id="msgContaValor" class="DinamicaMsg-tooltipDireita">Preencha o campo Valor</span>').insertAfter('#valorPagar');
 			$('#msgContaValor').css('display','block');
 			$('#valorConta-receber').addClass('shadow-vermelho').focus();
-			
 		}else if(periodocritico == ''){
-			//alert('periodocritico vazio');
-			//$('<span id="msgPeriodoCritico" class="DinamicaMsg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
 			$('#msgPeriodoCritico').css('display','block');
 			$('#ContasreceberPeriodocritico').addClass('shadow-vermelho').focus();
-
 		}else{
 			//adiciona a tabela
 
@@ -167,19 +147,19 @@
 /****************** Soma valor conta *********************/        
     var valorContaAnt=0;
     function calcularValorConta(){
-		valorConta=$('#valorConta-receber').val().split('.').join('').replace(',','.');
+		valorConta = $('#valorConta-receber').val().split('.').join('').replace(',','.');
 
-		valorConta=parseFloat(valorConta);
+		valorConta = parseFloat(valorConta);
 
 		if(isNaN(valorConta)){
-			valorConta=0;
+			valorConta = 0;
 		}
 		
-		valorResultado= valorContaAnt+valorConta;
+		valorResultado = valorContaAnt+valorConta;
 
-		valorResultadoAux=parseFloat(valorResultado);
+		valorResultadoAux = parseFloat(valorResultado);
 
-		valorContaAnt=valorResultadoAux;
+		valorContaAnt = valorResultadoAux;
 		
 		$('.ContasreceberValor').val(valorResultadoAux.toFixed(2)).priceFormat({
 			prefix: '',
@@ -192,32 +172,31 @@
 /****************** Subtrair valor conta *********************/        
    
     function subtrairValorConta(numero){
-	valorSubConta=$('#valorTabela'+numero).text().split('.').join('').replace(',','.');
-	valorSubConta=parseFloat(valorSubConta);
+		valorSubConta = $('#valorTabela'+numero).text().split('.').join('').replace(',','.');
+		valorSubConta = parseFloat(valorSubConta);
 
-	valorTotal=$('.ContasreceberValor').val().split('.').join('').replace(',','.');
-	valorTotal=parseFloat(valorTotal);
+		valorTotal = $('.ContasreceberValor').val().split('.').join('').replace(',','.');
+		valorTotal = parseFloat(valorTotal);
 
-	if(isNaN(valorSubConta)){
-	    valorSubConta=0;
-	}
-	
-	if(isNaN(valorTotal)){
-	    valorTotal=valorSubConta;
-	}
-	
-	valorSubResultado= valorTotal-valorSubConta;
+		if(isNaN(valorSubConta)){
+			valorSubConta = 0;
+		}
+		
+		if(isNaN(valorTotal)){
+			valorTotal = valorSubConta;
+		}
+		
+		valorSubResultado = valorTotal-valorSubConta;
 
-	valorSubResultadoAux=parseFloat(valorSubResultado);
+		valorSubResultadoAux = parseFloat(valorSubResultado);
 
-	valorContaAnt=valorSubResultadoAux;
+		valorContaAnt = valorSubResultadoAux;
 
-	$('.ContasreceberValor').val(valorSubResultadoAux.toFixed(2))
-				.priceFormat({
-				    prefix: '',
-				    centsSeparator: ',',
-				    thousandsSeparator: '.',
-	});
+		$('.ContasreceberValor').val(valorSubResultadoAux.toFixed(2)).priceFormat({
+			prefix: '',
+			centsSeparator: ',',
+			thousandsSeparator: '.',
+		});
     };
     
 /****************** Altera linha da tabela(Cloncluir edição) *********************/
@@ -236,14 +215,10 @@
 	    dataVencimento = $('#dataVencimento-receber').val();
 	    valor = $('#valorConta-receber').val();
 	    periodocritico = $('#ContasreceberPeriodocritico').val();
-	    
 	    desconto = $('#ContasreceberDesconto').val();
-		//agencia = $('#ContasreceberAgencia').val();
-		//conta = $('#ContasreceberConta').val();
-		//banco = $('#ContasreceberBanco').val();
-		//obs  = $('#ContasreceberParcelaDescricao').val();
 	    dupliVal  = $('#ContasreceberDupli :selected').val();
 		dupliText  = $('#ContasreceberDupli :selected').text();
+	    
 	    //certifica que parcelas são iguais
 	    if($(this).text() == $('#ContasreceberParcela').val()){
 			//substitui valor
@@ -316,123 +291,119 @@
     
     $("body").on("click",'.btnEditar', function(e){
 
-	$('.tela-resultado-field').show();
+		$('.tela-resultado-field').show();
+		$('.btnEditar').hide();
+		$('.quitar').hide();
+		
+		//salva valor atual da parcela
+		parcelaAtual = $('#ContasreceberParcela').val();
+		
+		//pega id da linha
+		id = $(this).attr('id');
+		numero = id.substr(7);
+		
+		//recebe parcela antiga da linha
+		parcelaAnt = $('#numParc'+numero).text();
+		identificacaoAnt = $('#ident'+numero).text();
+		dataVencimentoAnt = $('#dataVenc'+numero).text();
+		valorAnt = $('#valorTabela'+numero).text();
+		periodocriticoAnt = $('#periodocrit'+numero).text();
+		descontoAnt = $('#descontoTabela'+numero).text();
+		
+		//adiciona devolta na input
+		$('#ContasreceberParcela').val(parcelaAnt);
+		$('#ContasreceberIdentificacaoDocumento').val(identificacaoAnt);
+		$('#dataVencimento-receber').val(dataVencimentoAnt);
+		$('#valorConta-receber').val(valorAnt);
+		$('#ContasreceberPeriodocritico').val(periodocriticoAnt);
+		$('#ContasreceberDesconto').val(descontoAnt);
+		
+		dupliTextAnt = $('#dupliTabela'+numero).text();
+		
+		if(dupliTextAnt == 'Ok'){
+			dupliValAnt = 1;
+			$('#ContasreceberDupli option[value="1"]').attr('selected', true);
+		}else if(dupliTextAnt == 'Dupli'){
+			dupliValAnt = 0;
+			$('#ContasreceberDupli option[value="0"]').attr('selected', true);
+		}
+		
+		//troca botoes
+		$('#bt-adicionarConta-receber').hide();
+		$('#bt-editarConta-receber').show();
+		
+		//remove a borda antes de adicionar
+		$('#parcelaCont'+numeroAnt).removeClass('shadow-vermelho');
+		
+		//adicona borda vermelha
+		$('#parcelaCont'+numero).addClass('shadow-vermelho');
+		
+		//recebe numero antigo
+		numeroAnt = numero;
 
-	$('.btnEditar').hide();
-	$('.quitar').hide();
-	//salva valor atual da parcela
-	parcelaAtual=$('#ContasreceberParcela').val();
-	
-	//pega id da linha
-	id = $(this).attr('id');
-	numero = id.substr(7);
-	
-	//recebe parcela antiga da linha
-	parcelaAnt=$('#numParc'+numero).text();
-	identificacaoAnt = $('#ident'+numero).text();
-	dataVencimentoAnt = $('#dataVenc'+numero).text();
-	valorAnt = $('#valorTabela'+numero).text();
-	periodocriticoAnt = $('#periodocrit'+numero).text();
-	descontoAnt = $('#descontoTabela'+numero).text();
-	
-	//adiciona devolta na input
-	$('#ContasreceberParcela').val(parcelaAnt);
-	$('#ContasreceberIdentificacaoDocumento').val(identificacaoAnt);
-	$('#dataVencimento-receber').val(dataVencimentoAnt);
-	$('#valorConta-receber').val(valorAnt);
-	$('#ContasreceberPeriodocritico').val(periodocriticoAnt);
-	$('#ContasreceberDesconto').val(descontoAnt);
-	dupliTextAnt = $('#dupliTabela'+numero).text();
-	if(dupliTextAnt == 'Ok'){
-		dupliValAnt = 1;
-		$('#ContasreceberDupli option[value="1"]').attr('selected', true);
-	}else if(dupliTextAnt == 'Dupli'){
-		dupliValAnt = 0;
-		$('#ContasreceberDupli option[value="0"]').attr('selected', true);
-	}
-	
-	//troca botoes
-	$('#bt-adicionarConta-receber').hide();
-	$('#bt-editarConta-receber').show();
-	
-	//remove a borda antes de adicionar
-	$('#parcelaCont'+numeroAnt).removeClass('shadow-vermelho');
-	
-	//adicona borda vermelha
-	$('#parcelaCont'+numero).addClass('shadow-vermelho');
-	
-	//recebe numero antigo
-	numeroAnt= numero;
-
-	subtrairValorConta(numero);
+		subtrairValorConta(numero);
     });
 
 
 /*********** Botão excluir uma parcela da tabela ***********/	
     $("body").on("click",'.btnExcluir', function(e){
 
-	$('.tela-resultado-field').show();
+		$('.tela-resultado-field').show();
 	
-	//pega id da linha
-	var td = $(this).parent();
+		//pega id da linha
+		var td = $(this).parent();
         var trPar = td.parent();
         var trId = trPar.attr('id');
         var tr = trId.substr(11);
 
-	numero=tr;
-	subtrairValorConta(numero);
-	$('.clonadoProduto'+tr).remove();
+		numero=tr;
+		subtrairValorConta(numero);
+		$('.clonadoProduto'+tr).remove();
 
         //Remove a linha
-	trPar.fadeOut(400, function(){	
-	    trPar.remove();
-	    
-	    contadortr = 0;
-	    var tabelatr = $('#tabela-conta-receber tbody tr');
-	   
-	    
-	    tabelatr.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','parcelaCont'+contadortr);
-		contadortr++;
-	    });
+		trPar.fadeOut(400, function(){	
+			trPar.remove();
+			
+			contadortr = 0;
+			var tabelatr = $('#tabela-conta-receber tbody tr');
+		   
+			
+			tabelatr.each(function(){
+				$(this).attr('id','parcelaCont'+contadortr);
+				contadortr++;
+			});
 
+			contadortd1 = 0;
+			var tabelatd1 = $('#tabela-conta-receber tbody tr td:first-child');
 	    
-	    contadortd1 = 0;
-	    var tabelatd1 = $('#tabela-conta-receber tbody tr td:first-child');
+			tabelatd1.each(function(){
+				$(this).val(contadortd1);
+				contadortd1++;
+			});
 	    
-	    tabelatd1.each(function(){
-		//alert($(this).attr('id'));
-		$(this).val(contadortd1);
-		contadortd1++;
-	    });
+			contadortd3 = 0;
+			var tabelatd3 = $('#tabela-conta-receber tbody tr td:nth-child(3)');
 	    
-	    contadortd3 = 0;
-	    var tabelatd3 = $('#tabela-conta-receber tbody tr td:nth-child(3)');
-	    
-	    tabelatd3.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','dataVenc'+contadortd3);
-		contadortd3++;
-	    });
+			tabelatd3.each(function(){
+				$(this).attr('id','dataVenc'+contadortd3);
+				contadortd3++;
+			});
 
-	    contadortd4 = 0;
-	    var tabelatd4 = $('#tabela-conta-receber tbody tr td:nth-child(4)');
+			contadortd4 = 0;
+			var tabelatd4 = $('#tabela-conta-receber tbody tr td:nth-child(4)');
 	    
-	    tabelatd4.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','valorTabela'+contadortd4);
-		contadortd4++;
-	    });
+			tabelatd4.each(function(){
+				$(this).attr('id','valorTabela'+contadortd4);
+				contadortd4++;
+			});
 	    
-	    contadortd5 = 0;
-	    var tabelatd5 = $('#tabela-conta-receber tbody tr td:nth-child(5)');
+			contadortd5 = 0;
+			var tabelatd5 = $('#tabela-conta-receber tbody tr td:nth-child(5)');
 	    
-	    tabelatd5.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','ident'+contadortd5);
-		contadortd5++;
-	    });
+			tabelatd5.each(function(){
+				$(this).attr('id','ident'+contadortd5);
+				contadortd5++;
+			});
 	    
 	    contadortd6 = 0;
 	    var tabelatd6 = $('#tabela-conta-receber tbody tr td:nth-child(6)');
@@ -622,193 +593,170 @@
 
 /**************** Modal Parceiro de negocio tipo cliente *****************/
     $('body').on('click', '#ui-id-1 a',function(){
-	valorCad= $(this).text();
-	if(valorCad=="Cadastrar"){
-	    $(".autocompleteCliente input").val('');
-	    $("#myModal_add-parceiroCliente").modal('show');
-	  //$("#spanClienteCPFExistente").hide();
-	}
-
+		valorCad= $(this).text();
+		
+		if(valorCad=="Cadastrar"){
+			$(".autocompleteCliente input").val('');
+			$("#myModal_add-parceiroCliente").modal('show');
+		}
     });
     
   /**************** Modal Tipo Conta *****************/
     $('body').on('click', '#ui-id-2 a',function(){
-	valorCad= $(this).text();
-	if(valorCad=="Cadastrar"){
-	    $(".autocompleteTipoConta input").val('');
-	    $("#myModal_add-tipodeConta").modal('show');
-	  //$("#spanClienteCPFExistente").hide();
-	}
-
+		valorCad= $(this).text();
+		
+		if(valorCad=="Cadastrar"){
+			$(".autocompleteTipoConta input").val('');
+			$("#myModal_add-tipodeConta").modal('show');
+		}
     });
     
 /**************** Modal Centro Custo *****************/
     $('body').on('click', '#ui-id-3 a',function(){
-	valorCad= $(this).text();
-	if(valorCad=="Cadastrar"){
-	    $(".autocompleteCentroCusto input").val('');
-	    $("#myModal_add-centro_custo").modal('show');
-	  //$("#spanClienteCPFExistente").hide();
-	}
-
+		valorCad= $(this).text();
+		
+		if(valorCad=="Cadastrar"){
+			$(".autocompleteCentroCusto input").val('');
+			$("#myModal_add-centro_custo").modal('show');
+		}
     });
     
 
     
 /********************* Preencher Dados Cliente *********************/
-
     $("#bt-preencherCliente").click(function(){
-	$("#msgValidaParceiro").hide();
-	valorForncedor=	$("#add-cliente option:selected" ).val();
-	valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
-	valorNome= $("#add-cliente option:selected" ).attr('id');
+		$("#msgValidaParceiro").hide();
+		
+		valorForncedor=	$("#add-cliente option:selected" ).val();
+		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
+		valorNome= $("#add-cliente option:selected" ).attr('id');
 
-	if(!valorForncedor==""){
-		if(valorForncedor=="add-parceiroCliente"){
-			//chama modal cliente
-			//$("#myModal_add-cliente").modal('show');
-		}else{
-		    $(".autocompleteCliente input").val('');
-		    $(".autocompleteCliente input").removeAttr('required','required');
-		    
-		    $("#ContasreceberParceirodenegocioId").val(valorForncedor);
-		    $("#ContasreceberCpfCnpj").val(valorCpfCnpj);
-		    $("#ContasreceberParceiro").val(valorNome);
+		if(!valorForncedor==""){
+			if(valorForncedor=="add-parceiroCliente"){
+
+			}else{
+				$(".autocompleteCliente input").val('');
+				$(".autocompleteCliente input").removeAttr('required','required');
+				
+				$("#ContasreceberParceirodenegocioId").val(valorForncedor);
+				$("#ContasreceberCpfCnpj").val(valorCpfCnpj);
+				$("#ContasreceberParceiro").val(valorNome);
+			}
 		}
-	}
-
     });
     
 /********************* Preencher tipo de conta *********************/
-
     $("#bt-preencherTipoConta").click(function(){
-	valorNome = $("#add-tipoConta option:selected" ).val();
-	valortipoconta = $("#add-tipoConta option:selected" ).attr('id');
+		valorNome = $("#add-tipoConta option:selected" ).val();
+		valortipoconta = $("#add-tipoConta option:selected" ).attr('id');
 
-	if(!valortipoconta==""){
-		if(valortipoconta=="add-tipodeConta"){
-			//chama modal cliente
-			//$("#myModal_add-cliente").modal('show');
-		}else{
-		    $(".autocompleteTipoConta input").val('');
-		    $(".autocompleteTipoConta input").removeAttr('required','required');
-		    
-		    $("#ContasreceberTipodecontaId").val(valortipoconta);
-		    $("#tipoConta").val(valorNome);
+		if(!valortipoconta == ""){
+			if(valortipoconta == "add-tipodeConta"){
+
+			}else{
+				$(".autocompleteTipoConta input").val('');
+				$(".autocompleteTipoConta input").removeAttr('required','required');
+				
+				$("#ContasreceberTipodecontaId").val(valortipoconta);
+				$("#tipoConta").val(valorNome);
+			}
 		}
-	}
-
     });
     
     
     
 /********************* Preencher Dados Custo *********************/
-
     $("#bt-preencherCentreCusto").click(function(){
-	valorCusto =	$("#add-custo option:selected" ).attr('id');
-	limiteCusto = $("#add-custo option:selected" ).attr('data-limite');
-	nomeCusto = $("#add-custo option:selected" ).val();
+		valorCusto = $("#add-custo option:selected" ).attr('id');
+		limiteCusto = $("#add-custo option:selected" ).attr('data-limite');
+		nomeCusto = $("#add-custo option:selected" ).val();
 
-	if(!valorCusto==""){
-		if(valorCusto=="add-centroCusto"){
-			//chama modal cliente
-			//$("#myModal_add-centro_custo").modal('show');
-		}else{
-		    $(".autocompleteCentroCusto input").val('');
-		    $(".autocompleteCentroCusto input").removeAttr('required','required');
-		    
-		    $("#ContasreceberCentrocustoId").val(valorCusto);
-		    $("#nomeCusto").val(nomeCusto);
-		    $("#limitecusto").val(limiteCusto);
+		if(!valorCusto == ""){
+			if(valorCusto == "add-centroCusto"){
 
+			}else{
+				$(".autocompleteCentroCusto input").val('');
+				$(".autocompleteCentroCusto input").removeAttr('required','required');
+				
+				$("#ContasreceberCentrocustoId").val(valorCusto);
+				$("#nomeCusto").val(nomeCusto);
+				$("#limitecusto").val(limiteCusto);
+			}
 		}
-	}
-
     });
     
 
 /********************* Autocomplete Cliente *********************/
     $(function() {
-	$( "#add-cliente" ).combobox();
-
+		$( "#add-cliente" ).combobox();
     });
     
 /********************* Autocomplete Tipo de Conta *********************/
     $(function() {
-	$( "#add-tipoConta" ).combobox();
-
+		$( "#add-tipoConta" ).combobox();
     });
  
 /********************* Autocomplete Centro Custo *********************/
     $(function() {
-	$( "#add-custo" ).combobox();
-
+		$( "#add-custo" ).combobox();
     });
 
 /****************Valida Data Emissão******************************************/
     $("#ContasreceberDataEmissao").focusout(function(){
+		var dfuturoSaida = $("#ContasreceberDataEmissao").val();
+		var dataFutura = new Date();
 
-	var dfuturoSaida = $("#ContasreceberDataEmissao").val();
-	var dataFutura = new Date();
+		var anoDigitado = dfuturoSaida.split("/")[2];
+		var mesDigitado = dfuturoSaida.split("/")[1];
+		var diaDigitado = dfuturoSaida.split("/")[0];
 
-	var anoDigitado = dfuturoSaida.split("/")[2];
-	var mesDigitado = dfuturoSaida.split("/")[1];
-	var diaDigitado = dfuturoSaida.split("/")[0];
-
-	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-		$("#msgDataEmissaoInvalida").css("display","block");   
-		$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
-		$("#ContasreceberDataEmissao").val("");    
-	    }else{		    
-		$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
-		$("#msgDataEmissaoInvalida").css("display","none");  
-		
-	    }
-	}
-	
+		if(dfuturoSaida != ''){
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
+				$("#msgDataEmissaoInvalida").css("display","block");   
+				$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
+				$("#ContasreceberDataEmissao").val("");    
+			}else{		    
+				$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
+				$("#msgDataEmissaoInvalida").css("display","none");  
+			}
+		}
     });
     
 /****************Valida Data Vencimento******************************************/
     $("#dataVencimento-receber").focusout(function(){
+		var dfuturoSaida = $("#dataVencimento-receber").val();
+		var dataFutura = new Date();
 
-	var dfuturoSaida = $("#dataVencimento-receber").val();
-	var dataFutura = new Date();
+		var anoDigitado = dfuturoSaida.split("/")[2];
+		var mesDigitado = dfuturoSaida.split("/")[1];
+		var diaDigitado = dfuturoSaida.split("/")[0];
 
-	var anoDigitado = dfuturoSaida.split("/")[2];
-	var mesDigitado = dfuturoSaida.split("/")[1];
-	var diaDigitado = dfuturoSaida.split("/")[0];
-
-	if(dfuturoSaida != ''){
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-		$("#msgDataVencimentoInvalida").css("display","block");   
-		$("#dataVencimento-receber").addClass('shadow-vermelho');
-		$("#dataVencimento-receber").val("");    
-	    }else{		    
-		$("#dataVencimento-receber").removeClass('shadow-vermelho');
-		$("#msgDataVencimentoInvalida").css("display","none");  
-		
-	    }
-	}
-	
+		if(dfuturoSaida != ''){
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
+				$("#msgDataVencimentoInvalida").css("display","block");   
+				$("#dataVencimento-receber").addClass('shadow-vermelho');
+				$("#dataVencimento-receber").val("");    
+			}else{		    
+				$("#dataVencimento-receber").removeClass('shadow-vermelho');
+				$("#msgDataVencimentoInvalida").css("display","none");  
+			}
+		}
     });
+
 /****************** Tipo de pagamento *************************/
     $('#Pagamento0TipoPagamento').change(function(){
-	    $('input[name*="parcela"]').val('');
-	    $('#Pagamento0FormaPagamento').val('');
-	    $('[id*="editarConta"]').hide();
-	    $('[id*="bt-adicionarConta"]').show();
-	    $('.tela-resultado-field').show();
-	    $('#Pagamento0NumeroParcela').val(0);
-	    $('#ContasreceberParcela').val(1);
-	    $('.btnExcluir').trigger('click');
-	    
+		$('input[name*="parcela"]').val('');
+		$('#Pagamento0FormaPagamento').val('');
+		$('[id*="editarConta"]').hide();
+		$('[id*="bt-adicionarConta"]').show();
+		$('.tela-resultado-field').show();
+		$('#Pagamento0NumeroParcela').val(0);
+		$('#ContasreceberParcela').val(1);
+		$('.btnExcluir').trigger('click');
     });    
-	      
 
 /*********** Tira virgula e coloca ponto antes do submit ***********/	
 	$('#btn-salvarContaReceber').click(function(){
-	    
 	    //pega valor
 	    ContaValorAux = $('.ContasreceberValor').val();
 	    
@@ -820,7 +768,6 @@
 	
 /*********** Desabilitar Data de Emissão ***********/	
 	$('#bt-adicionarConta-receber').on('click',function(){
-		
 		if($('#ContasreceberDataEmissao').val() == ''){
 			$('#msgDataEmissao').css('display','block');
 			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();

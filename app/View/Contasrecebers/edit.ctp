@@ -60,7 +60,7 @@
 			
 			echo $this->Form->create('Contasreceber');
 			echo $this->Form->input('Contasreceber.id',array('value'=> $contareceber['Contasreceber']['id'],'type' => 'hidden'));
-			echo $this->Form->input('Contasreceber.identificacao',array('value'=>h($contareceber['Contasreceber']['identificacao']),'type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '100','maxlength'=>'150'));
+			echo $this->Form->input('Contasreceber.identificacao',array('value'=>h($contareceber['Contasreceber']['identificacao']),'type'=>'text','label'=>'Identificação:','class'=>'tamanho-medio desabilita','tabindex' => '1','maxlength'=>'150'));
 		    echo $this->Form->input('Contasreceber.status',array('label' => 'Status:','value' => h($contareceber['Contasreceber']['status']),'type' => 'hidden'));
 			echo $this->Form->input('user_id',array('type' => 'hidden','value' => $userid));
 
@@ -253,7 +253,9 @@
 			</thead>
 			
 			<?php
-			$princ_cont = 0;
+				$princ_cont = 0;
+				$tab = 5;
+					
 				foreach($contareceber['Parcela'] as $parcelareceber){
 					echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelareceber['id'],'type'=>'hidden'));
 					echo "<tr class=\"linhaParcela$princ_cont\">";
@@ -262,7 +264,7 @@
 						
 							formatDateToView($parcelareceber['data_vencimento']);
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelareceber['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelareceber['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 							formatDateToView($parcelareceber['data_pagamento']);
@@ -323,7 +325,7 @@
 						echo "</td>";										
 					echo "</tr>";
 					$princ_cont++;	
-				}			
+				}
 			?>			
 			
 		</table>

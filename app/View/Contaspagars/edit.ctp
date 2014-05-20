@@ -251,8 +251,9 @@
 			</thead>
 			
 			<?php
-			$princ_cont = 0;
-			$tab = 5;
+				$princ_cont = 0;
+				$tab = 5;
+				
 				foreach($contapagar['Parcela'] as $parcelaspagar){
 					echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelaspagar['id'],'type'=>'hidden'));
 					echo "<tr class=\"linhaParcela$princ_cont\">";
