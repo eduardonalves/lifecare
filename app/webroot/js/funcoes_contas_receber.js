@@ -12,7 +12,8 @@
 	$('#TipodecontaTipo').val("RECEITA");
 
 /********** Salva Parcela Quitada ************************/
-		 var numero_parcela = 0;
+	var numero_parcela = 0;
+	
 	$('body').on('click','.quitar',function(){
 		$('#myModal_add_quitar').modal('show');
 		id = $(this).attr('id');
@@ -60,11 +61,10 @@
 	});
 
 /********** Adicionar na tabela Principal ****************/
-    
     var princ_cont = 0;
     var numeroParcela=1;
     var numParcela=0;
-     
+
     //recebe valor
     $('#ContasreceberParcela').val(numeroParcela);
     
@@ -95,25 +95,20 @@
 		if(idConta == ''){
 			$('#msgIdentificacaoConta').css('display','block');
 			$('#ContasreceberIdentificacaoConta').addClass('shadow-vermelho').focus();
-		}
-		else if(dataEmissao == ''){
+		}else if(dataEmissao == ''){
 		   // $('<span id="msgDataEmissao" class="Msg-tooltipDireita">Preencha o campo Data de Emissão</span>').insertAfter('[id*="DataEmissao"]');
 			$('#msgDataEmissao').css('display','block');
 			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
 			$('html, body').animate({scrollTop:0}, 'slow');
-			
 		}else if(tipoPagamento == ''){
 			//alert('Tipo Pagamento vazio');
 			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Tipo Pagamento</span>').insertAfter('#Pagamento0TipoPagamento');
 			$('#msgTipoPagamento').css('display','block');
 			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
-			
-		}
-		else if(identificacao == ''){
+		}else if(identificacao == ''){
 			$('#msgIdentificacaoParcela').css('display','block');
 			$('#ContasreceberIdentificacaoDocumento').addClass('shadow-vermelho').focus();
-		}
-		else if(dataVencimento == ''){
+		}else if(dataVencimento == ''){
 			//alert('valor vazio');
 			//$('<span id="msgDataVencimento" class="DinamicaMsg-tooltipDireita">Preencha o campo Data de Vencimento</span>').insertAfter('#ContaspagarDataVencimento');
 			$('#msgDataVencimento').css('display','block');
@@ -172,32 +167,32 @@
 /****************** Soma valor conta *********************/        
     var valorContaAnt=0;
     function calcularValorConta(){
-	valorConta=$('#valorConta-receber').val().split('.').join('').replace(',','.');
+		valorConta=$('#valorConta-receber').val().split('.').join('').replace(',','.');
 
-	valorConta=parseFloat(valorConta);
+		valorConta=parseFloat(valorConta);
 
-	if(isNaN(valorConta)){
-	    valorConta=0;
-	}
-	valorResultado= valorContaAnt+valorConta;
+		if(isNaN(valorConta)){
+			valorConta=0;
+		}
+		
+		valorResultado= valorContaAnt+valorConta;
 
-	valorResultadoAux=parseFloat(valorResultado);
+		valorResultadoAux=parseFloat(valorResultado);
 
-	valorContaAnt=valorResultadoAux;
-	
-	$('.ContasreceberValor').val(valorResultadoAux.toFixed(2))	
-				.priceFormat({
-				    prefix: '',
-				    centsSeparator: ',',
-				    thousandsSeparator: '.',
-	});
+		valorContaAnt=valorResultadoAux;
+		
+		$('.ContasreceberValor').val(valorResultadoAux.toFixed(2)).priceFormat({
+			prefix: '',
+			centsSeparator: ',',
+			thousandsSeparator: '.',
+		});
     };
     
 
 /****************** Subtrair valor conta *********************/        
    
     function subtrairValorConta(numero){
-	valorSubConta=$('#valorTabela'+numero	).text().split('.').join('').replace(',','.');
+	valorSubConta=$('#valorTabela'+numero).text().split('.').join('').replace(',','.');
 	valorSubConta=parseFloat(valorSubConta);
 
 	valorTotal=$('.ContasreceberValor').val().split('.').join('').replace(',','.');
@@ -210,6 +205,7 @@
 	if(isNaN(valorTotal)){
 	    valorTotal=valorSubConta;
 	}
+	
 	valorSubResultado= valorTotal-valorSubConta;
 
 	valorSubResultadoAux=parseFloat(valorSubResultado);
@@ -242,27 +238,21 @@
 	    periodocritico = $('#ContasreceberPeriodocritico').val();
 	    
 	    desconto = $('#ContasreceberDesconto').val();
-	  //  agencia = $('#ContasreceberAgencia').val();
-	 //   conta = $('#ContasreceberConta').val();
-	   // banco = $('#ContasreceberBanco').val();
-	  //  obs  = $('#ContasreceberParcelaDescricao').val();
+		//agencia = $('#ContasreceberAgencia').val();
+		//conta = $('#ContasreceberConta').val();
+		//banco = $('#ContasreceberBanco').val();
+		//obs  = $('#ContasreceberParcelaDescricao').val();
 	    dupliVal  = $('#ContasreceberDupli :selected').val();
 		dupliText  = $('#ContasreceberDupli :selected').text();
 	    //certifica que parcelas são iguais
 	    if($(this).text() == $('#ContasreceberParcela').val()){
-		
-		//substitui valor
-		$('#ident'+numero).text(identificacao);
-		$('#dataVenc'+numero).text(dataVencimento);
-		$('#valorTabela'+numero).text(valor);
-		$('#periodocrit'+numero).text(periodocritico);
-		$('#descontoTabela'+numero).text(desconto);
-		//$('#agenciaTabela'+numero).text(agencia);
-		//$('#contaTabela'+numero).text(conta);
-		//$('#bancoTabela'+numero).text(banco);
-		//$('#obsTabela'+numero).text(obs);
-		$('#dupliTabela'+numero).text(dupliText);
-		
+			//substitui valor
+			$('#ident'+numero).text(identificacao);
+			$('#dataVenc'+numero).text(dataVencimento);
+			$('#valorTabela'+numero).text(valor);
+			$('#periodocrit'+numero).text(periodocritico);
+			$('#descontoTabela'+numero).text(desconto);
+			$('#dupliTabela'+numero).text(dupliText);
 		}
 	    
 	  	if($('.fieldset-total .clonadoProduto'+numero+"  input").hasClass("existe")){ //verifica se já não existe
@@ -344,10 +334,6 @@
 	valorAnt = $('#valorTabela'+numero).text();
 	periodocriticoAnt = $('#periodocrit'+numero).text();
 	descontoAnt = $('#descontoTabela'+numero).text();
-	//agenciaAnt = $('#agenciaTabela'+numero).text();
-	//contaAnt = $('#contaTabela'+numero).text();
-	//bancoAnt = $('#bancoTabela'+numero).text();
-	//obsAnt = $('#obsTabela'+numero).text();
 	
 	//adiciona devolta na input
 	$('#ContasreceberParcela').val(parcelaAnt);
@@ -356,10 +342,6 @@
 	$('#valorConta-receber').val(valorAnt);
 	$('#ContasreceberPeriodocritico').val(periodocriticoAnt);
 	$('#ContasreceberDesconto').val(descontoAnt);
-	//$('#ContasreceberAgencia').val(agenciaAnt);
-	//$('#ContasreceberConta').val(contaAnt);
-	//$('#ContasreceberBanco').val(bancoAnt);
-	//$('#ContasreceberParcelaDescricao').val(obsAnt);
 	dupliTextAnt = $('#dupliTabela'+numero).text();
 	if(dupliTextAnt == 'Ok'){
 		dupliValAnt = 1;

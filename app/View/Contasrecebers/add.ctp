@@ -35,7 +35,7 @@
 				dataType: 'json',
 				success: function(data) {
 				    console.debug(data);
-				     $('.loaderAjaxIdentificacao').hide();
+				    $('.loaderAjaxIdentificacao').hide();
 					if(data == 'existe'){
 					   
 					    $('#msgValidaIdentificacao').show();
@@ -126,15 +126,14 @@
 			    <option id="optvazioForn"></option>
 			    <option value="add-tipodeConta">Cadastrar</option>
 			    <?php
-			       foreach($tipoconta as $tipoConta)
-				{	
-					if($tipoConta['Tipodeconta']['tipo'] == "RECEITA"){
-								
-						echo "<option id='".$tipoConta['Tipodeconta']['id']."'value='".$tipoConta['Tipodeconta']['nome']."' data-tipo='".$tipoConta['Tipodeconta']['tipo']."' >";
-						echo $tipoConta['Tipodeconta']['nome'];
-						echo "</option>";
+			       foreach($tipoconta as $tipoConta){	
+						if($tipoConta['Tipodeconta']['tipo'] == "RECEITA"){
+									
+							echo "<option id='".$tipoConta['Tipodeconta']['id']."'value='".$tipoConta['Tipodeconta']['nome']."' data-tipo='".$tipoConta['Tipodeconta']['tipo']."' >";
+							echo $tipoConta['Tipodeconta']['nome'];
+							echo "</option>";
+						}
 					}
-				}
 			    ?>
 		    </select>
 		</div>
@@ -335,38 +334,38 @@
 </footer>
 
 <!-- ************************** MODAL QUITAR PARCELA ****************************************** -->
-				<div class="modal fade" id="myModal_add_quitar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-body">
-						
-						<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
+<div class="modal fade" id="myModal_add_quitar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+		
+		<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
 
-						<header id="cabecalho">
-							
-							<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Quitar', 'alt' => 'Quitar', 'title' => 'Quitar')); ?><h1>Quitar Parcela</h1>
-							
-						</header>
+		<header id="cabecalho">
+			
+			<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Quitar', 'alt' => 'Quitar', 'title' => 'Quitar')); ?><h1>Quitar Parcela</h1>
+			
+		</header>
 
-						<section>
-							<header>Dados do Pagamento da Parcela</header>
-							<section class="coluna-modal">
-								<div>
-									<?php
-										echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
-									
-										echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
-									
-										echo $this->Form->input('vazio.juros',array('id'=>'vazioJuros','label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text', 'style'=>'display: inline'));
-									
-									?>
-								</div>
-							</section>
-						
-							<footer>								
-								<?php
-									echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela', 'alt' => 'Quitar', 'title' => 'Quitar'));
-								?>								
-							</footer>
-							 
-						</section>
-					</div>
+		<section>
+			<header>Dados do Pagamento da Parcela</header>
+			<section class="coluna-modal">
+				<div>
+					<?php
+						echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
+					
+						echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
+					
+						echo $this->Form->input('vazio.juros',array('id'=>'vazioJuros','label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text', 'style'=>'display: inline'));
+					
+					?>
 				</div>
+			</section>
+		
+			<footer>								
+				<?php
+					echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela', 'alt' => 'Quitar', 'title' => 'Quitar'));
+				?>								
+			</footer>
+			 
+		</section>
+	</div>
+</div>

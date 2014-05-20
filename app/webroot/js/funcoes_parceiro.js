@@ -5,7 +5,6 @@ $(document).ready(function() {
 	var contadorTabindex = 0;
 
 	function tabularCredito(inicioTab){
-		
 		$('#Dadoscredito0Limite').attr('tabindex', inicioTab + 1);
 		$('#Dadoscredito0ValidadeLimite').attr('tabindex', inicioTab + 2);
 		$('#ParceirodenegocioBloqueado').attr('tabindex', inicioTab + 3);
@@ -13,7 +12,6 @@ $(document).ready(function() {
 	
 
 	function tabularDadosBancarios(inicioTab, bloco){
-		
 		$('#Dadosbancario'+ bloco +'NomeBanco').attr('tabindex', inicioTab + 1);
 		$('#Dadosbancario'+ bloco +'NumeroBanco').attr('tabindex', inicioTab + 2);
 		$('#Dadosbancario'+ bloco +'NomeAgencia').attr('tabindex', inicioTab + 3);
@@ -29,7 +27,6 @@ $(document).ready(function() {
 	
 	
 	function tabularEndereco(inicioTab){
-		
 		$('#tipo' + (contadorBlocoEndereco-1)).attr('tabindex', inicioTab + 1);
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Cep').attr('tabindex', inicioTab + 2);
 		$('#Endereco'+ (contadorBlocoEndereco-1) +'Logradouro').attr('tabindex', inicioTab + 3);
@@ -59,7 +56,6 @@ $(document).ready(function() {
 		$('#Contato0Telefone3').attr('tabindex', inicioTab + 8);
 		$('#Contato0Fax').attr('tabindex', inicioTab + 9);
 		$('#Contato0Email').attr('tabindex',inicioTab + 10);
-		
 		
 		inicioTab = inicioTab + 11;
 		
@@ -399,12 +395,6 @@ $(document).ready(function() {
 					$('#validaNome').css('display','block');
 					erro = erro + 1;
 					break;
-				//cpf não é mais obrigatorio a pedido do cliente
-				//}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-					//$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-					//$('#validaCPF').css('display','block');
-					//erro = erro + 1;
-					//break;
 				}else if(($('#ParceirodenegocioCpfCnpj').val() != '') && ($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 					$('#ParceirodenegocioCpfCnpj').focus();
 					$('#validaCPFTamanho').css('display','block');
@@ -500,13 +490,6 @@ $(document).ready(function() {
 					$('#validaNome').css('display','block');
 					erro = erro + 1;
 					break;
-					//Não é obrigatorio a pedido do cliente	
-				//}else if($('#ParceirodenegocioCpfCnpj').val() == ''){
-					//$('#ParceirodenegocioCpfCnpj').addClass('shadow-vermelho');
-					//$('#ParceirodenegocioCpfCnpj').focus();
-					//$('#validaCPF').css('display','block');
-					//erro = erro + 1;
-					////break;
 				}else if(($('#ParceirodenegocioCpfCnpj').val() != '') && ($('#ParceirodenegocioCpfCnpj').val().length != 14) && ($('#ParceirodenegocioCpfCnpj').val().length != 18)){
 					$('#ParceirodenegocioCpfCnpj').focus();
 					$('#validaCPFTamanho').css('display','block');
@@ -573,25 +556,6 @@ $(document).ready(function() {
 					$('#valida'+i+'Bairro').css('display','block');
 					erro = erro + 1;
 					break;
-					//Não é obrigatorio a pedido do cliente	
-				//}else if($('#Dadoscredito0Limite').val() == '' || $('#Dadoscredito0Limite').val() == '0,00'){
-					//$('#Dadoscredito0Limite').addClass('shadow-vermelho');
-					//$('#Dadoscredito0Limite').focus();
-					//$('#validaLimite').css('display','block');
-					//erro = erro + 1;
-					//break;
-				//}else if($('#Dadoscredito0ValidadeLimite').val() == ''){
-					//$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
-					//$('#Dadoscredito0ValidadeLimite').focus();
-					//$('#validaValidade1').css('display','block');
-					//erro = erro + 1;
-					//break;
-				//}else if($('#ParceirodenegociosBloqueado').val() == ''){
-					//$('#ParceirodenegociosBloqueado').addClass('shadow-vermelho');
-					//$('#ParceirodenegociosBloqueado').focus();
-					//$('#validaBloqueado').css('display','block');
-					//erro = erro + 1;
-					//break;
 				}
 		}
 		if(erro==0){
@@ -599,12 +563,17 @@ $(document).ready(function() {
 		}
 	});
 	
-	
-	$('#Dadoscredito0ValidadeLimite').change(function(){
+	$('#Dadoscredito0ValidadeLimite').focusout(function(){
 		var hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
-		var selecionado = $('#Dadoscredito0ValidadeLimite').datepicker('getDate').getTime();
+		var selecionado = $('#Dadoscredito0ValidadeLimite').val();
+		
+		var dia = parseInt(selecionado.substring(0,2));
+		var mes = parseInt(selecionado.substring(3,5));
+		var ano = parseInt(selecionado.substring(6,11));
+		
+		var dataLimite = new Date(ano,(mes-1),dia);
 
-		if(selecionado < hoje){
+		if(dataLimite < hoje){
 			$('#Dadoscredito0ValidadeLimite').addClass('shadow-vermelho');
 			$('#validaValidade2').css('display','block');
 			$('#Dadoscredito0ValidadeLimite').val('');
@@ -768,11 +737,10 @@ $(document).ready(function() {
 	    
 	});
 	
-/*** Função Tabualção *************************************************/	
-	
+/*** Função Tabualção *************************************************/
 	tabularDadosGerais();
 
-/*** TESTE SALVAR EDIT *************************************************/	
+/*** TESTE SALVAR EDIT ************************************************/	
 	var testeTrue = 0;
 	$(".mudancaInput").change(function(){
 		testeTrue = 1;
@@ -787,8 +755,5 @@ $(document).ready(function() {
 		}
 		
 	});
-	
-		
-	
-	
+
 });

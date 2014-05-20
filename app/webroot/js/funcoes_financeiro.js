@@ -88,8 +88,6 @@ $(document).ready(function() {
     $(".inputData").focusout(function(){
 		var elemento = $(this).val();
 
-		elemento = elemento.replace("-","");
-
 		var dia = elemento.substring(0,2);
 		var mes = elemento.substring(3,5);
 		var ano = elemento.substring(6,11);
