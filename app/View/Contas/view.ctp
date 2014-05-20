@@ -132,6 +132,7 @@
 			foreach($conta['Pagamento'] as $pagamento){
 				echo $this->Form->input('Pagamento.tipo_pagamento',array('label' => 'Tipo de Pagamento:','value'=>h($pagamento['tipo_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
 				echo $this->Form->input('Pagamento.forma_pagamento',array('label' => 'Forma de Pagamento:','value'=>h($pagamento['forma_pagamento']),'class' => 'tamanho-medio borderZero','disabled'=>'disabled'));
+				echo $this->Form->input('vazio.usuario',array('label'=>'Usuário','value'=>$username, 'class'=> 'tamanho-medio borderZero','disabled'=>'disabled'));
 				//print_r($pagamento);
 			}
 			//echo $this->Form->input('tipo',array('label' => 'Tipo:','value'=>h($conta['Conta']['tipo']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
@@ -521,3 +522,10 @@
 	}	
 ?>
 </div>
+
+
+<pre>
+<?php
+	print_r($username);
+?>
+</pre>
