@@ -249,7 +249,8 @@
 					<td><?php echo $this->Html->image('semaforo-' . strtolower($parcelas['status']) . '-12x12.png', array('alt' => $parcelas['status'], 'title' => $parcelas['status'])); ?></td>
 				
 				</tr>
-
+				
+<!-- ************************** MODAL QUITAR PARCELA ****************************************** -->
 				<div id="<?php echo "modal-quitar".$j; ?>" class="modal modalQuitar" style="display: none;">
 					<header id="cabecalho">
 						
@@ -402,7 +403,7 @@
 						</section>
 					</div>
 				</div>
-<!-- ************************** MODAL QUITAR PARCELA ****************************************** -->
+
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 						
