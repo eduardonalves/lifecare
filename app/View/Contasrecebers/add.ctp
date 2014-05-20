@@ -99,8 +99,7 @@
 			    <option value="add-parceiroCliente">Cadastrar</option>
 
 				<?php
-				   foreach($parceirodenegocios as $parceirodenegocio)
-					{
+					foreach($parceirodenegocios as $parceirodenegocio){
 						echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
 						echo $parceirodenegocio['Parceirodenegocio']['nome'];
 						echo "</option>";
@@ -272,19 +271,10 @@
 	    </section>
 	    
 	    <?php
-		echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar',
-								 'title'=>'Adicionar Conta',
-								 'id'=>'bt-adicionarConta-receber',
-								 'class'=>'bt-direita'
-		));
+			echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar','title'=>'Adicionar Conta','id'=>'bt-adicionarConta-receber','class'=>'bt-direita'));
+			echo $this->html->image('botao-concluir-edicao.png',array('alt'=>'Editar','title'=>'Editar Conta','id'=>'bt-editarConta-receber','class'=>'bt-direita'));
 
-		echo $this->html->image('botao-concluir-edicao.png',array('alt'=>'Editar',
-						     'title'=>'Editar Conta',
-						     'id'=>'bt-editarConta-receber',
-						     'class'=>'bt-direita'
-		));
-
-		echo '<span id="msgValidaParcela" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
+			echo '<span id="msgValidaParcela" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
 	    ?>
 	    
 

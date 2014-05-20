@@ -189,7 +189,7 @@ $(document).ready(function() {
 				<div class="informacoesParceiro">
 					
 				<?php
-					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento combo-autocomplete'));
+					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 				?>
 

@@ -166,7 +166,7 @@
 		<?php		
 			formatDateToView($contareceber['Contasreceber']['data_emissao']);
 			
-		    echo $this->Form->input('data_emissao',array('value'=>h($contareceber['Contasreceber']['data_emissao']),'type'=>'text','label'=>'Data de Emissão<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno obrigatorio desabilita forma-data','tabindex' => '101'));
+		    echo $this->Form->input('data_emissao',array('value'=>h($contareceber['Contasreceber']['data_emissao']),'type'=>'text','label'=>'Data de Emissão<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno obrigatorio desabilita inputData','tabindex' => '101'));
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		  
@@ -267,7 +267,7 @@
 						
 							formatDateToView($parcelareceber['data_pagamento']);
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelareceber['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataPagamento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelareceber['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataPagamento'.$princ_cont,'class'=>'tamanho-pequeno borderZero inputData','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
