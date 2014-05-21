@@ -546,6 +546,7 @@ class ContasrecebersController extends ContasController {
 					$cont=0;
 					foreach($parcelasEnviadas as $parcelasEnviada){
 						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+						$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_pagamento']);
 						
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);

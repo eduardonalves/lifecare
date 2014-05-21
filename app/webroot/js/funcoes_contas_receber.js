@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 /********** Salva Parcela Quitada ************************/
 	var numero_parcela = 0;
-	
+
 	$('body').on('click','.quitar',function(){
 		$('#myModal_add_quitar').modal('show');
 		id = $(this).attr('id');
@@ -61,6 +61,12 @@ $(document).ready(function(){
     var princ_cont = 0;
     var numeroParcela=1;
     var numParcela=0;
+    var validaDuplicata='vazio';
+     
+     $('#ContasreceberDupli').change(function(){
+		validaDuplicata = $('#ContasreceberDupli :selected').val();
+		
+	});
 
     //recebe valor
     $('#ContasreceberParcela').val(numeroParcela);
@@ -106,6 +112,11 @@ $(document).ready(function(){
 		}else if(periodocritico == ''){
 			$('#msgPeriodoCritico').css('display','block');
 			$('#ContasreceberPeriodocritico').addClass('shadow-vermelho').focus();
+		}else if(validaDuplicata=='vazio'){
+			$('#msgDuplicata').css('display','block');
+			$('#ContasreceberDupli').addClass('shadow-vermelho');
+			validaDuplicata = '';
+
 		}else{
 			//adiciona a tabela
 
@@ -703,44 +714,47 @@ $(document).ready(function(){
 
 /****************Valida Data Emissão******************************************/
     $("#ContasreceberDataEmissao").focusout(function(){
-		var dfuturoSaida = $("#ContasreceberDataEmissao").val();
-		var dataFutura = new Date();
+	var dfuturoEmissao = $("#ContasreceberDataEmissao").val();
+	var dataFutura = new Date();
 
-		var anoDigitado = dfuturoSaida.split("/")[2];
-		var mesDigitado = dfuturoSaida.split("/")[1];
-		var diaDigitado = dfuturoSaida.split("/")[0];
+	var anoDigitadoEmissao = dfuturoEmissao.split("/")[2];
+	var mesDigitadoEmissao = dfuturoEmissao.split("/")[1];
+	var diaDigitadoEmissao = dfuturoEmissao.split("/")[0];
 
-		if(dfuturoSaida != ''){
-			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-				$("#msgDataEmissaoInvalida").css("display","block");   
-				$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
-				$("#ContasreceberDataEmissao").val("");    
-			}else{		    
-				$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
-				$("#msgDataEmissaoInvalida").css("display","none");  
-			}
-		}
+	if(dfuturoEmissao != ''){
+	    if( diaDigitadoEmissao < 1 || diaDigitadoEmissao > 31 || mesDigitadoEmissao < 1 || mesDigitadoEmissao > 12 || anoDigitadoEmissao <1900 || dfuturoEmissao.length < 6){ 
+		$("#msgDataEmissaoInvalida").css("display","block");   
+		$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
+		$("#ContasreceberDataEmissao").val("");    
+	    }else{		    
+		$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
+		$("#msgDataEmissaoInvalida").css("display","none");  
+		
+	    }
+	}
+	
     });
     
 /****************Valida Data Vencimento******************************************/
     $("#dataVencimento-receber").focusout(function(){
-		var dfuturoSaida = $("#dataVencimento-receber").val();
-		var dataFutura = new Date();
+	var dfuturoVencimento = $("#dataVencimento-receber").val();
+	
+	var anoDigitadoVencimento = dfuturoVencimento.split("/")[2];
+	var mesDigitadoVencimento = dfuturoVencimento.split("/")[1];
+	var diaDigitadoVencimento = dfuturoVencimento.split("/")[0];
 
-		var anoDigitado = dfuturoSaida.split("/")[2];
-		var mesDigitado = dfuturoSaida.split("/")[1];
-		var diaDigitado = dfuturoSaida.split("/")[0];
-
-		if(dfuturoSaida != ''){
-			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-				$("#msgDataVencimentoInvalida").css("display","block");   
-				$("#dataVencimento-receber").addClass('shadow-vermelho');
-				$("#dataVencimento-receber").val("");    
-			}else{		    
-				$("#dataVencimento-receber").removeClass('shadow-vermelho');
-				$("#msgDataVencimentoInvalida").css("display","none");  
-			}
-		}
+	if(dfuturoVencimento != ''){
+	    if( diaDigitadoVencimento < 1 || diaDigitadoVencimento > 31 || mesDigitadoVencimento < 1 || mesDigitadoVencimento > 12 || anoDigitadoVencimento <1900 || dfuturoVencimento.length < 6){ 
+		$("#msgDataVencimentoInvalida").css("display","block");   
+		$("#dataVencimento-receber").addClass('shadow-vermelho');
+		$("#dataVencimento-receber").val("");    
+	    }else{		    
+		$("#dataVencimento-receber").removeClass('shadow-vermelho');
+		$("#msgDataVencimentoInvalida").css("display","none");  
+		
+	    }
+	}
+	
     });
 
 /****************** Tipo de pagamento *************************/
