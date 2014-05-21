@@ -64,32 +64,31 @@
 		?>
 
 	    <div class="tela-resultado">	    
-		<?php	
-		     echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
-									     'title'=>'Preencher',
-										 'class'=>'bt-preencherConta',
-										 'id'=>'bt-preencherFornecedor'
-										 ));
-		?>
-
-		<div class="input autocompleteFornecedor conta">
-			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
-		    <label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
-		    <select class="tamanho-medio limpa" id="add-fornecedor">
-			<option id="optvazioForn"></option>
-			<option value="add-parceiroFornecedor">Cadastrar</option>
-
-			<?php
-			    foreach($parceirodenegocios as $parceirodenegocio)
-				{
-				    echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
-				    echo $parceirodenegocio['Parceirodenegocio']['nome'];
-				    echo "</option>";
-				}
+			<?php	
+				 echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
+											 'title'=>'Preencher',
+											 'class'=>'bt-preencherConta',
+											 'id'=>'bt-preencherFornecedor'
+											 ));
 			?>
+			<div class="input autocompleteFornecedor conta">
+				<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
+				<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+				<select class="tamanho-medio limpa" id="add-fornecedor">
+					<option id="optvazioForn"></option>
+					<option value="add-parceiroFornecedor">Cadastrar</option>
 
-		    </select>
-		</div>
+					<?php
+						foreach($parceirodenegocios as $parceirodenegocio)
+						{
+							echo "<option id='".$parceirodenegocio['Parceirodenegocio']['nome']."' class='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' rel='".$parceirodenegocio['Parceirodenegocio']['tipo']."' value='".$parceirodenegocio['Parceirodenegocio']['id']."' >";
+							echo $parceirodenegocio['Parceirodenegocio']['nome'];
+							echo "</option>";
+						}
+					?>
+
+				</select>
+			</div>
 	    </div>    
 	    
 	    
@@ -260,7 +259,7 @@
 						echo "<td>". $parcelaspagar['parcela']."</td>";
 							formatDateToView($parcelaspagar['data_vencimento']);
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
