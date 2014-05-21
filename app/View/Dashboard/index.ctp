@@ -20,6 +20,29 @@
 	$mes = date("M");
 	$ano = date("Y");	
 	$mesTexto = array("Jan" => "Janeiro", "Feb" => "Fevereiro", "Mar" => "Março", "Apr" => "Abril", "May" => "Maio", "Jun" => "Junho", "Jul" => "Julho", "Aug" => "Agosto", "Nov" => "Novembro", "Sep" => "Setembro", "Oct" => "Outubro", "Dec" => "Dezembro");
+
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}
+		return $data;
+	}
+	
+	function converterMoeda(&$valorMoeda){
+		$valorMoedaAux = explode('.' , $valorMoeda);
+		if(isset ($valorMoedaAux[1])){
+			$valorMoeda= "R$ ".$valorMoedaAux[0].','.$valorMoedaAux[1];
+		}else{
+			$valorMoeda = "R$ ".$valorMoedaAux[0].','.'00';
+		}
+		return $valorMoeda;
+	}
+
 ?>
 
 <script type="text/javascript">
@@ -185,16 +208,55 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</section>
-	
+<!--  DASHBOARD DAS PARCELAS  -->
 	<section class="dashboard-direita">	
 		<div class="div-board">
 			<div class="div-titulo">
-				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Metas</span>
+				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<span class="span-titulo">Parcelas</span>
 				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
-			
-			<canvas id="buyers" width="380" height="240" class="grafico-ajuste"></canvas>		
+				<div class="div-tabela-rolagem">
+					<table class="tb-dataValidade">
+						<tr>
+							<th>Parcela Id.</th>
+							<th>Vencimento</th>
+							<th>Valor</th>
+							<th>Status</th>				
+						</tr>
+					
+						<?php
+							foreach($parcelaDash as $parcelasDash){
+								echo "<tr><td>";
+									echo $parcelasDash['Parcela']['identificacao_documento'];
+								echo "</td>";
+								
+								echo "<td>";
+									formatDateToView($parcelasDash['Parcela']['data_vencimento']);
+									echo $parcelasDash['Parcela']['data_vencimento'];
+								echo "</td>";
+								?>
+								
+								<td class='whiteSpace'>
+									<span title='<?php echo "R$ ".number_format($parcelasDash['Parcela']['valor'], 2, ',', '.'); ?>'>
+										<?php
+											converterMoeda($parcelasDash['Parcela']['valor']);
+											echo $parcelasDash['Parcela']['valor'];
+										?>
+									</span>
+								</td>
+								<?php
+								echo "<td>";
+									echo $this->Html->image('semaforo-' . strtolower($parcelasDash['Parcela']['status']) . '-12x12.png', array('alt' => $parcelasDash['Parcela']['status'], 'title' => $parcelasDash['Parcela']['status']));
+								echo "</td></tr>";
+								
+				
+								
+							}
+						
+						?>
+					</table>
+				</div>
 		</div>
 	</section>
 
@@ -230,7 +292,10 @@ $(document).ready(function(){
 							<td><?php echo $lote['Lote']['numero_lote'];  ?></td>
 							<td><?php echo $lote['Produto']['nome'];  ?></td>
 							<td><?php echo $lote['Lote']['estoque']; ?></td>
-							<td><?php echo $lote['Lote']['data_validade']; ?></td>
+							<td><?php 
+									formatDateToView($lote['Lote']['data_validade']);
+									echo $lote['Lote']['data_validade']; ?>
+							</td>
 							
 						</tr>
 
@@ -376,5 +441,11 @@ $(document).ready(function(){
 
 
 
+<pre>
+	<?php
+				print_r($parcelaDash);
+			
+			?>
+</pre>
 
 <?php //echo $this->element('sql_dump'); ?>

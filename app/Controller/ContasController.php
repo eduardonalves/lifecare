@@ -534,7 +534,7 @@ class ContasController extends AppController {
 							'data_pagamento' => 'Data pagamento',
 							'valor' => 'Valor',
 							'juros' => 'Juros',
-							'obs' => 'Observação',
+							'descricao' => 'Obs. Pgto',
 							'status' => 'Status'																								
 							);
 		

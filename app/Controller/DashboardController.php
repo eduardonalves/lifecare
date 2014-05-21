@@ -1027,8 +1027,11 @@ class DashboardController extends AppController {
 		$this->loadModel('Conta');
 		$contasPagars = $this->Conta->find('all', array('conditions' => array('Conta.tipo' => 'A PAGAR'),'recursive'=>0));
 	
+		$this->loadModel('Parcela');
+		$parcelaDash = $this->Parcela->find('all',array('order'=>array('Parcela.data_vencimento'=>'asc'),'recursive'=>-1));
+	
 		
-		$this->set(compact('lotes','produtos','anosModel','contasPagars'));
+		$this->set(compact('lotes','produtos','anosModel','contasPagars','parcelaDash'));
 	}
 	
 	
