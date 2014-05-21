@@ -374,7 +374,51 @@ $(document).ready(function(){
     $(".Nao-Letras").on("keypress",function(event){
 	    var charCode = event.keyCode || event.which;
 
-	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;}else{return true}
-    });
-
+	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
+    });	
 });
+
+/** VALIDAÇÃO ENTRE DATAS *********************************************/	
+	function validacaoEntreDatas(dataInicial, dataFinal, mensagem){
+		var diaDataInicial = dataInicial.substring(0,2);		
+		var mesDataInicial = dataInicial.substring(3,5);
+		var anoDataInicial = dataInicial.substring(6,11);
+		
+		var diaDataFinal = dataFinal.substring(0,2);
+		var mesDataFinal = dataFinal.substring(3,5);
+		var anoDataFinal = dataFinal.substring(6,11);
+		
+		var dataInicial = new Date(anoDataInicial,(mesDataInicial-1),diaDataInicial);
+		var dataFinal = new Date(anoDataFinal,(mesDataFinal-1),diaDataFinal)
+	
+		if(dataInicial > dataFinal){
+			$(mensagem).show();
+		}
+		
+		return true;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

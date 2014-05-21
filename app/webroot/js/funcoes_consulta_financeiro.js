@@ -168,6 +168,4 @@ var valorAux=$('#filterTipoMovimentacao').val();
 			}
 		}
 	});
-
-
 });

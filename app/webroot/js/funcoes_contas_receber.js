@@ -65,7 +65,6 @@ $(document).ready(function(){
      
      $('#ContasreceberDupli').change(function(){
 		validaDuplicata = $('#ContasreceberDupli :selected').val();
-		
 	});
 
     //recebe valor
@@ -116,10 +115,8 @@ $(document).ready(function(){
 			$('#msgDuplicata').css('display','block');
 			$('#ContasreceberDupli').addClass('shadow-vermelho');
 			validaDuplicata = '';
-
 		}else{
 			//adiciona a tabela
-
 			$('#tabela-conta-receber').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="dupliTabela'+princ_cont+'">'+dupliText+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/><img title="Quitar" alt="Quitar" src="/lifecare/app/webroot/img/botao-quitar2.png" id=quitar'+princ_cont+' class="quitar"/></td></tr>');
 			$('input').removeAttr('required');
 			
@@ -155,7 +152,7 @@ $(document).ready(function(){
 		}
     });
 
-/****************** Soma valor conta *********************/        
+/****************** Soma valor conta *********************/
     var valorContaAnt=0;
     function calcularValorConta(){
 		valorConta = $('#valorConta-receber').val().split('.').join('').replace(',','.');
@@ -180,8 +177,7 @@ $(document).ready(function(){
     };
     
 
-/****************** Subtrair valor conta *********************/        
-   
+/****************** Subtrair valor conta *********************/
     function subtrairValorConta(numero){
 		valorSubConta = $('#valorTabela'+numero).text().split('.').join('').replace(',','.');
 		valorSubConta = parseFloat(valorSubConta);
@@ -214,6 +210,7 @@ $(document).ready(function(){
     $('#bt-editarConta-receber').click(function(){
 		$('.btnEditar').show();
 		$('.quitar').show();
+
 		if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
 			$('.tela-resultado-field').hide();
 		}
@@ -242,7 +239,6 @@ $(document).ready(function(){
 		}
 	    
 	  	if($('.fieldset-total .clonadoProduto'+numero+"  input").hasClass("existe")){ //verifica se já não existe
-			
 			//pega valor das input's hidden
 			data_pagamento = $('#dataPagamento'+numero).val();
 			obs_pgto = $('#descricaoPgto'+numero).val();
@@ -253,7 +249,6 @@ $(document).ready(function(){
 			
 			//substitui campos hidden
 			$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliParcela'+numero+'" value="'+dupliVal+'" type="hidden"><input name="data[Parcela]['+numero+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero+'][juros]" step="any" class="existe" id="jurosParcela'+numero+'" value="'+juros+'" type="hidden"></div> ');
-
 		}else{					
 			//Volta Valores vazio se não houver adicionado antes
 			$('#vazioPagamento').val('');
@@ -265,7 +260,6 @@ $(document).ready(function(){
 			
 			//substitui campos hidden
 			$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliParcela'+numero+'" value="'+dupliVal+'" type="hidden"></div> ');
-			
 		}
 
 	    calcularValorConta();
@@ -284,19 +278,16 @@ $(document).ready(function(){
 	    $('#ContasreceberBanco').val('');
 	    $('#ContasreceberParcelaDescricao').val('');
 	    $('#ContasreceberDupli :selected').removeAttr("selected");
-	   
 	});
 	
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');
-    
 	    if(tipoPagamento == 'A Vista'){
-		$('.tela-resultado-field').hide();
+			$('.tela-resultado-field').hide();
 	    }
     });
     
 /********* Função Editar da tabela (lapis tabela)******************/
-    
     var parcelaAtual;
     var numeroAnt;
     
@@ -377,8 +368,6 @@ $(document).ready(function(){
 			
 			contadortr = 0;
 			var tabelatr = $('#tabela-conta-receber tbody tr');
-		   
-			
 			tabelatr.each(function(){
 				$(this).attr('id','parcelaCont'+contadortr);
 				contadortr++;
@@ -386,7 +375,6 @@ $(document).ready(function(){
 
 			contadortd1 = 0;
 			var tabelatd1 = $('#tabela-conta-receber tbody tr td:first-child');
-	    
 			tabelatd1.each(function(){
 				$(this).val(contadortd1);
 				contadortd1++;
@@ -394,7 +382,6 @@ $(document).ready(function(){
 	    
 			contadortd3 = 0;
 			var tabelatd3 = $('#tabela-conta-receber tbody tr td:nth-child(3)');
-	    
 			tabelatd3.each(function(){
 				$(this).attr('id','dataVenc'+contadortd3);
 				contadortd3++;
@@ -402,7 +389,6 @@ $(document).ready(function(){
 
 			contadortd4 = 0;
 			var tabelatd4 = $('#tabela-conta-receber tbody tr td:nth-child(4)');
-	    
 			tabelatd4.each(function(){
 				$(this).attr('id','valorTabela'+contadortd4);
 				contadortd4++;
@@ -410,195 +396,166 @@ $(document).ready(function(){
 	    
 			contadortd5 = 0;
 			var tabelatd5 = $('#tabela-conta-receber tbody tr td:nth-child(5)');
-	    
 			tabelatd5.each(function(){
 				$(this).attr('id','ident'+contadortd5);
 				contadortd5++;
 			});
 	    
-	    contadortd6 = 0;
-	    var tabelatd6 = $('#tabela-conta-receber tbody tr td:nth-child(6)');
+			contadortd6 = 0;
+			var tabelatd6 = $('#tabela-conta-receber tbody tr td:nth-child(6)');
+			tabelatd6.each(function(){
+				$(this).attr('id','periodocrit'+contadortd6);
+				contadortd6++;
+			});
 	    
-	    tabelatd6.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','periodocrit'+contadortd6);
-		contadortd6++;
-	    });
+			contadortd7 = 0;
+			var tabelatd7 = $('#tabela-conta-receber tbody tr td:nth-child(7)');
+			tabelatd7.each(function(){
+				$(this).attr('id','descontoTabela'+contadortd7);
+				contadortd7++;
+			});
 	    
-	    contadortd7 = 0;
-	    var tabelatd7 = $('#tabela-conta-receber tbody tr td:nth-child(7)');
+			contadortd8 = 0;
+			var tabelatd8 = $('#tabela-conta-receber tbody tr td:nth-child(8)');
+			tabelatd8.each(function(){
+				$(this).attr('id','agenciaTabela'+contadortd8);
+				contadortd8++;
+			});
 	    
-	    tabelatd7.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','descontoTabela'+contadortd7);
-		contadortd7++;
-	    });
+			contadortd9 = 0;
+			var tabelatd9 = $('#tabela-conta-receber tbody tr td:nth-child(9)');
+			tabelatd9.each(function(){
+				$(this).attr('id','contaTabela'+contadortd9);
+				contadortd9++;
+			});
 	    
-	    contadortd8 = 0;
-	    var tabelatd8 = $('#tabela-conta-receber tbody tr td:nth-child(8)');
+			contadortd10 = 0;
+			var tabelatd10 = $('#tabela-conta-receber tbody tr td:nth-child(10)');
+			tabelatd10.each(function(){
+				$(this).attr('id','bancoTabela'+contadortd10);
+				contadortd10++;
+			});
 	    
-	    tabelatd8.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','agenciaTabela'+contadortd8);
-		contadortd8++;
-	    });
+			contadortext = 0;
+			var tabelatext = $('#tabela-conta-receber tbody tr td:first-child');
+			tabelatext.each(function(){
+				$(this).text(contadortext+1);
+				contadortext++;
+			});
 	    
-	    contadortd9 = 0;
-	    var tabelatd9 = $('#tabela-conta-receber tbody tr td:nth-child(9)');
+			contadorImg=0;
+			var tabelaImg = $('#tabela-conta-receber tbody tr td img:first-child');
+			tabelaImg.each(function(){
+				$(this).attr('id','clonado'+contadorImg);
+				contadorImg++;
+			});
+			
+			contadorImg1=0;
+			var tabelaImg1 = $('#tabela-conta-receber tbody tr td img:last-child');
+			tabelaImg1.each(function(){
+				$(this).attr('id','clonado'+contadorImg1);
+				contadorImg1++;
+			});
 	    
-	    tabelatd9.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','contaTabela'+contadortd9);
-		contadortd9++;
-	    });
+			numeroParcela = contadortext+1;
+			numParcela = contadortext;
 	    
-	    contadortd10 = 0;
-	    var tabelatd10 = $('#tabela-conta-receber tbody tr td:nth-child(10)');
+			$('#ContasreceberParcela').val(numeroParcela)	
+			$('#Pagamento0NumeroParcela').val(numParcela);
 	    
-	    tabelatd10.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','bancoTabela'+contadortd10);
-		contadortd10++;
-	    });
-	    
-	    contadortext = 0;
-	    var tabelatext = $('#tabela-conta-receber tbody tr td:first-child');
-	    
-	    tabelatext.each(function(){
-		//alert($(this).attr('id'));
-		$(this).text(contadortext+1);
-		contadortext++;
-	    });
-	    
-	    contadorImg=0;
-	    var tabelaImg = $('#tabela-conta-receber tbody tr td img:first-child');
-	    
-	    tabelaImg.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','clonado'+contadorImg);
-		contadorImg++;
-	    });
-	    
-	    contadorImg1=0;
-	    var tabelaImg1 = $('#tabela-conta-receber tbody tr td img:last-child');
-	    
-	    tabelaImg1.each(function(){
-		//alert($(this).attr('id'));
-		$(this).attr('id','clonado'+contadorImg1);
-		contadorImg1++;
-	    });
-	    
-	    // princ_cont = tabelatr;
-	    numeroParcela = contadortext+1;
-	    numParcela = contadortext;
-	    
-	    $('#ContasreceberParcela').val(numeroParcela)	
-	    $('#Pagamento0NumeroParcela').val(numParcela);
-	    
-	    if($('#parcelaCont0').length){
-			$('#ContasreceberDataEmissao').prop('readonly',true);
-			$('#ContasreceberDataEmissao').addClass('borderZero');
-			$('#ContasreceberDataEmissao').prop('disabled', true);
-		}else{
-			$('#ContasreceberDataEmissao').prop('readonly',false);
-			$('#ContasreceberDataEmissao').removeClass('borderZero');
-			$('#ContasreceberDataEmissao').prop('disabled', false);
-		}
-	});
+			if($('#parcelaCont0').length){
+				$('#ContasreceberDataEmissao').prop('readonly',true);
+				$('#ContasreceberDataEmissao').addClass('borderZero');
+				$('#ContasreceberDataEmissao').prop('disabled', true);
+			}else{
+				$('#ContasreceberDataEmissao').prop('readonly',false);
+				$('#ContasreceberDataEmissao').removeClass('borderZero');
+				$('#ContasreceberDataEmissao').prop('disabled', false);
+			}
+		});
 	
-	contadorDiv=0;
-	var div = $('div[class*="clonadoProduto"]');
-	
-	div.each(function(){	    
-	    $(this).attr('class','numer input clonadoProduto'+contadorDiv);
-	    contadorDiv++;
-	});
+		contadorDiv=0;
+		var div = $('div[class*="clonadoProduto"]');
+		div.each(function(){	    
+			$(this).attr('class','numer input clonadoProduto'+contadorDiv);
+			contadorDiv++;
+		});
 
-	contadorInput=0;
-	var input = $('div[class*="clonadoProduto"] input:first-child');
-	
-	input.each(function(){
-	    $(this).attr('id','Parcela'+contadorInput);
-	    $(this).attr('name','data[Parcela]['+contadorInput+'][parcela]');
-	    contadorInput++;
-	});
-	
-	contadorInput2=0;
-	var input2 = $('div[class*="clonadoProduto"] input:nth-child(3)');
-	
-	input2.each(function(){
-	    $(this).attr('id','ParcelaIdentificacaoDocumento'+contadorInput2);
-	    $(this).attr('name','data[Parcela]['+contadorInput2+'][identificacao_documento]');
-	    contadorInput2++;
-	});
+		contadorInput=0;
+		var input = $('div[class*="clonadoProduto"] input:first-child');
+		input.each(function(){
+			$(this).attr('id','Parcela'+contadorInput);
+			$(this).attr('name','data[Parcela]['+contadorInput+'][parcela]');
+			contadorInput++;
+		});
+		
+		contadorInput2=0;
+		var input2 = $('div[class*="clonadoProduto"] input:nth-child(3)');
+		input2.each(function(){
+			$(this).attr('id','ParcelaIdentificacaoDocumento'+contadorInput2);
+			$(this).attr('name','data[Parcela]['+contadorInput2+'][identificacao_documento]');
+			contadorInput2++;
+		});
 
-	contadorInput3=0;
-	var input3 = $('div[class*="clonadoProduto"] input:nth-child(4)');
-	
-	input3.each(function(){
-	    $(this).attr('id','ParceladataVencimento-receber'+contadorInput3);
-	    $(this).attr('name','data[Parcela]['+contadorInput3+'][data_vencimento]');
-	    contadorInput3++;
-	});
-	
-	contadorInput4=0;
-	var input4 = $('div[class*="clonadoProduto"] input:nth-child(5)');
-	
-	input4.each(function(){
-	    $(this).attr('id','ParcelavalorConta-receber'+contadorInput4);
-	    $(this).attr('name','data[Parcela]['+contadorInput4+'][valor]');
-	    contadorInput4++;
-	});
-	
-	contadorInput5=0;
-	var input5 = $('div[class*="clonadoProduto"] input:nth-child(6)');
-	
-	input5.each(function(){
-	    $(this).attr('id','ParcelaPeriodocritico'+contadorInput5);
-	    $(this).attr('name','data[Parcela]['+contadorInput5+'][periodocritico]');
-	    contadorInput5++;
-	});
-	
-	contadorInput6=0;
-	var input6 = $('div[class*="clonadoProduto"] input:nth-child(7)');
-	
-	input6.each(function(){
-	    $(this).attr('id','ParcelaDesconto'+contadorInput6);
-	    $(this).attr('name','data[Parcela]['+contadorInput6+'][desconto]');
-	    contadorInput6++;
-	});
-	
-	contadorInput7=0;
-	var input7 = $('div[class*="clonadoProduto"] input:nth-child(8)');
-	
-	input7.each(function(){
-	    $(this).attr('id','ParcelaAgencia'+contadorInput7);
-	    $(this).attr('name','data[Parcela]['+contadorInput7+'][agencia]');
-	    contadorInput7++;
-	});
-	
-	contadorInput8=0;
-	var input8 = $('div[class*="clonadoProduto"] input:nth-child(9)');
-	
-	input8.each(function(){
-	    $(this).attr('id','ParcelaConta'+contadorInput8);
-	    $(this).attr('name','data[Parcela]['+contadorInput8+'][conta]');
-	    contadorInput8++;
-	});
-	
-	contadorInput9=0;
-	var input9 = $('div[class*="clonadoProduto"] input:nth-child(10)');
-	
-	input9.each(function(){
-	    $(this).attr('id','ParcelaBanco'+contadorInput9);
-	    $(this).attr('name','data[Parcela]['+contadorInput9+'][banco]');
-	    contadorInput9++;
-	});
+		contadorInput3=0;
+		var input3 = $('div[class*="clonadoProduto"] input:nth-child(4)');
+		input3.each(function(){
+			$(this).attr('id','ParceladataVencimento-receber'+contadorInput3);
+			$(this).attr('name','data[Parcela]['+contadorInput3+'][data_vencimento]');
+			contadorInput3++;
+		});
+		
+		contadorInput4=0;
+		var input4 = $('div[class*="clonadoProduto"] input:nth-child(5)');
+		input4.each(function(){
+			$(this).attr('id','ParcelavalorConta-receber'+contadorInput4);
+			$(this).attr('name','data[Parcela]['+contadorInput4+'][valor]');
+			contadorInput4++;
+		});
+		
+		contadorInput5=0;
+		var input5 = $('div[class*="clonadoProduto"] input:nth-child(6)');
+		input5.each(function(){
+			$(this).attr('id','ParcelaPeriodocritico'+contadorInput5);
+			$(this).attr('name','data[Parcela]['+contadorInput5+'][periodocritico]');
+			contadorInput5++;
+		});
+		
+		contadorInput6=0;
+		var input6 = $('div[class*="clonadoProduto"] input:nth-child(7)');
+		input6.each(function(){
+			$(this).attr('id','ParcelaDesconto'+contadorInput6);
+			$(this).attr('name','data[Parcela]['+contadorInput6+'][desconto]');
+			contadorInput6++;
+		});
+		
+		contadorInput7=0;
+		var input7 = $('div[class*="clonadoProduto"] input:nth-child(8)');
+		input7.each(function(){
+			$(this).attr('id','ParcelaAgencia'+contadorInput7);
+			$(this).attr('name','data[Parcela]['+contadorInput7+'][agencia]');
+			contadorInput7++;
+		});
+		
+		contadorInput8=0;
+		var input8 = $('div[class*="clonadoProduto"] input:nth-child(9)');
+		input8.each(function(){
+			$(this).attr('id','ParcelaConta'+contadorInput8);
+			$(this).attr('name','data[Parcela]['+contadorInput8+'][conta]');
+			contadorInput8++;
+		});
+		
+		contadorInput9=0;
+		var input9 = $('div[class*="clonadoProduto"] input:nth-child(10)');
+		input9.each(function(){
+			$(this).attr('id','ParcelaBanco'+contadorInput9);
+			$(this).attr('name','data[Parcela]['+contadorInput9+'][banco]');
+			contadorInput9++;
+		});
 
-	
-	//troca botões qd clicado em editar e depois remover
-	$('#bt-editarConta-receber').hide();
-	$('#bt-adicionarConta-receber').show();     
+		//troca botões qd clicado em editar e depois remover
+		$('#bt-editarConta-receber').hide();
+		$('#bt-adicionarConta-receber').show();     
 
     });
 
@@ -714,47 +671,43 @@ $(document).ready(function(){
 
 /****************Valida Data Emissão******************************************/
     $("#ContasreceberDataEmissao").focusout(function(){
-	var dfuturoEmissao = $("#ContasreceberDataEmissao").val();
-	var dataFutura = new Date();
+		var dfuturoEmissao = $("#ContasreceberDataEmissao").val();
+		var dataFutura = new Date();
 
-	var anoDigitadoEmissao = dfuturoEmissao.split("/")[2];
-	var mesDigitadoEmissao = dfuturoEmissao.split("/")[1];
-	var diaDigitadoEmissao = dfuturoEmissao.split("/")[0];
+		var anoDigitadoEmissao = dfuturoEmissao.split("/")[2];
+		var mesDigitadoEmissao = dfuturoEmissao.split("/")[1];
+		var diaDigitadoEmissao = dfuturoEmissao.split("/")[0];
 
-	if(dfuturoEmissao != ''){
-	    if( diaDigitadoEmissao < 1 || diaDigitadoEmissao > 31 || mesDigitadoEmissao < 1 || mesDigitadoEmissao > 12 || anoDigitadoEmissao <1900 || dfuturoEmissao.length < 6){ 
-		$("#msgDataEmissaoInvalida").css("display","block");   
-		$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
-		$("#ContasreceberDataEmissao").val("");    
-	    }else{		    
-		$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
-		$("#msgDataEmissaoInvalida").css("display","none");  
-		
-	    }
-	}
-	
+		if(dfuturoEmissao != ''){
+			if( diaDigitadoEmissao < 1 || diaDigitadoEmissao > 31 || mesDigitadoEmissao < 1 || mesDigitadoEmissao > 12 || anoDigitadoEmissao <1900 || dfuturoEmissao.length < 6){ 
+				$("#msgDataEmissaoInvalida").css("display","block");   
+				$("#ContasreceberDataEmissao").addClass('shadow-vermelho');
+				$("#ContasreceberDataEmissao").val("");    
+			}else{		    
+				$("#ContasreceberDataEmissao").removeClass('shadow-vermelho');
+				$("#msgDataEmissaoInvalida").css("display","none");  
+			}
+		}
     });
     
 /****************Valida Data Vencimento******************************************/
     $("#dataVencimento-receber").focusout(function(){
-	var dfuturoVencimento = $("#dataVencimento-receber").val();
-	
-	var anoDigitadoVencimento = dfuturoVencimento.split("/")[2];
-	var mesDigitadoVencimento = dfuturoVencimento.split("/")[1];
-	var diaDigitadoVencimento = dfuturoVencimento.split("/")[0];
-
-	if(dfuturoVencimento != ''){
-	    if( diaDigitadoVencimento < 1 || diaDigitadoVencimento > 31 || mesDigitadoVencimento < 1 || mesDigitadoVencimento > 12 || anoDigitadoVencimento <1900 || dfuturoVencimento.length < 6){ 
-		$("#msgDataVencimentoInvalida").css("display","block");   
-		$("#dataVencimento-receber").addClass('shadow-vermelho');
-		$("#dataVencimento-receber").val("");    
-	    }else{		    
-		$("#dataVencimento-receber").removeClass('shadow-vermelho');
-		$("#msgDataVencimentoInvalida").css("display","none");  
+		var dfuturoVencimento = $("#dataVencimento-receber").val();
 		
-	    }
-	}
-	
+		var anoDigitadoVencimento = dfuturoVencimento.split("/")[2];
+		var mesDigitadoVencimento = dfuturoVencimento.split("/")[1];
+		var diaDigitadoVencimento = dfuturoVencimento.split("/")[0];
+
+		if(dfuturoVencimento != ''){
+			if( diaDigitadoVencimento < 1 || diaDigitadoVencimento > 31 || mesDigitadoVencimento < 1 || mesDigitadoVencimento > 12 || anoDigitadoVencimento <1900 || dfuturoVencimento.length < 6){ 
+				$("#msgDataVencimentoInvalida").css("display","block");   
+				$("#dataVencimento-receber").addClass('shadow-vermelho');
+				$("#dataVencimento-receber").val("");    
+			}else{		    
+				$("#dataVencimento-receber").removeClass('shadow-vermelho');
+				$("#msgDataVencimentoInvalida").css("display","none");  
+			}
+		}
     });
 
 /****************** Tipo de pagamento *************************/
@@ -795,6 +748,16 @@ $(document).ready(function(){
 			$('#ContasreceberDataEmissao').removeClass('borderZero');
 			$('#ContasreceberDataEmissao').prop('disabled', false);
 		}
+	});
+	
+/*** TESTE ***/
+	$("#dataVencimento-receber").focusout(function(){
+		if(validacaoEntreDatas($("#ContasreceberDataEmissao").val(),$("#dataVencimento-receber").val(),"#msgDataEmissao")){
+			$("#ContasreceberDataEmissao").val("");
+			$("#dataVencimento-receber").val("");
+			$("#ContasreceberDataEmissao").addClass('shadow-vermelho').focus();
+		}
+		
 	});
 	
 });
