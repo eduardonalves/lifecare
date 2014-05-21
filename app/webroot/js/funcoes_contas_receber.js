@@ -750,7 +750,7 @@ $(document).ready(function(){
 		}
 	});
 	
-/*** TESTE ***/
+/*** Validação entre datas ***/
 	$("#dataVencimento-receber").focusout(function(){
 		if(validacaoEntreDatas($("#ContasreceberDataEmissao").val(),$("#dataVencimento-receber").val(),"#msgDataEmissao")){
 			$("#ContasreceberDataEmissao").val("");
