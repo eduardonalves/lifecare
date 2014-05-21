@@ -119,8 +119,7 @@ $(document).ready(function(){
 		}).mouseleave(function() {
 			$('#msgFiltroparcela').css('display','none');
 		});
-	}
-	else if(parametro == 'parcelas'){
+	}else if(parametro == 'parcelas'){
 		$("#checkparcela").attr('checked', true);
 	}
 
@@ -130,7 +129,7 @@ $(document).ready(function(){
 	
 /***************************Checkbobx Pagar E Receber***********/
 var valorAux=$('#filterTipoMovimentacao').val();
-	if(valorAux  != undefined){
+	if(valorAux != undefined){
 		var valorEntrada=valorAux.substr(0,7);
 		var valorSaida1=valorAux.substr(0,5);
 		var valorSaida2 =valorAux.substr(8,5);

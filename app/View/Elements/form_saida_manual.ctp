@@ -110,7 +110,7 @@
 
 			<section class="coluna-direita" id="campo-direita">
 
-				<?php echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'tamanho-pequeno forma-data desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:','tabindex'=>'5')); ?>
+				<?php echo $this->Form->input('data', array('type'=>'text','required'=>'false','class'=>'tamanho-pequeno inputData desabilita limpa validacao-saida','title'=>'Campo Obrigatório','label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:','tabindex'=>'5')); ?>
 
 				<span id="spanDataFuturoSaida" style="display:none" class="MsgData">Data Emissão Não Pode ser um Dia Futuro</span>
 				<span id="spanDataInvalidaSaida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>

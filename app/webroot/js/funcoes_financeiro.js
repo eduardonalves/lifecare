@@ -406,14 +406,13 @@ $(document).ready(function() {
 
 /*** Validar CPF ******************************************************/
     $("#cpf_cnpj").on("keypress",function(event){		
-	var charCode = event.keyCode || event.which;
+		var charCode = event.keyCode || event.which;
 
-	if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
-	if (!((charCode>47)&&(charCode<58))){return false;}
+		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}
+		if (!((charCode>47)&&(charCode<58))){return false;}
     });
 
     $('#inputcpf, #inputcnpj').attr("enabled","enabled");
-    //$("#filterCpfCnpj").mask("99.999.999/9999-99");
 
     $('#inputcpf, #inputcnpj').click(function(){
 	$("#cpf_cnpj").val('');
@@ -487,48 +486,46 @@ $(document).ready(function() {
 
 /*************** Negociação *********************/
     $('#negociacao').click(function(){
-	contId=0;
-	$('.checkClasse').each(function(){
-	    $('[id*="parcelasids"]').remove();
-	    if(this.checked) {
-		parcelaId=$(this).attr('data-parcelaid');
+		contId=0;
+		$('.checkClasse').each(function(){
+			$('[id*="parcelasids"]').remove();
+			if(this.checked) {
+			parcelaId=$(this).attr('data-parcelaid');
 
-		$('.fieldset').append('<input name="data[parcelasids]['+contId+'] step="any"  id="parcelasids'+contId+'parcelasids" value="'+parcelaId+'" type="hidden">');
-	    }
-	});
+			$('.fieldset').append('<input name="data[parcelasids]['+contId+'] step="any"  id="parcelasids'+contId+'parcelasids" value="'+parcelaId+'" type="hidden">');
+			}
+		});
     });
 
     $('.close').click(function(){
-	$('[id*="parcelasids"]').remove();
+		$('[id*="parcelasids"]').remove();
     });
 
 
     $('.checkClasse').click(function(){
-	var contCheck=0;
-	$('.checkClasse').each(function(){
-	    if(this.checked) {
-		contCheck =1;
+		var contCheck=0;
 		
-		
-	    }
-	});
+		$('.checkClasse').each(function(){
+			if(this.checked) {
+				contCheck =1;
+			}
+		});
 
-	if(contCheck ==0) {
-	    $('#bt-negociacaoDesabilitado').show();
-	    $('#negociacao').hide();
-	    
-	}else{
-	    $('#negociacao').show();
-	    $('#bt-negociacaoDesabilitado').hide();
-	}
+		if(contCheck ==0) {
+			$('#bt-negociacaoDesabilitado').show();
+			$('#negociacao').hide();
+		}else{
+			$('#negociacao').show();
+			$('#bt-negociacaoDesabilitado').hide();
+		}
     });
 
 
 
     $( "#bt-negociacaoDesabilitado" ).hover(function(){
-	$(this).after('<span id="msgNegociacaoDesabilitada" class="DinamicaMsg Msg-tooltipEsquerda">Escolha ao menos uma parcela para negociar.</span>');
+		$(this).after('<span id="msgNegociacaoDesabilitada" class="DinamicaMsg Msg-tooltipEsquerda">Escolha ao menos uma parcela para negociar.</span>');
     },function(){
-	$('#msgNegociacaoDesabilitada').remove();
+		$('#msgNegociacaoDesabilitada').remove();
     });
 
 });

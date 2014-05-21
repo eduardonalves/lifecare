@@ -21,7 +21,6 @@ $(document).ready(function(){
 		thousandsSeparator: '.',
 		centsLimit: 5,
 	    limit: 15
-
 	});
 	
 	$(".dinheiro_duasCasas").priceFormat({
@@ -224,11 +223,10 @@ $(document).ready(function(){
 
 			if((estoqueDesejado != '') &&(estoqueMinimo != '')){
 				if((estoqueMinimo - estoqueDesejado) > 0){
-						//$('span[id="spanEstoqueMinimo"]').remove();
-						$('<span id="spanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
-						$('span[id="spanEstoqueMinimo"]').css("display","block");
-						$('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
-						$('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
+					$('<span id="spanEstoqueMinimo" class="Msg-tooltipDireita">Estoque Mínimo não pode ser maior do que o Estoque Ideal</span>').insertAfter('input[id="ProdutoEstoqueMinimo"]');
+					$('span[id="spanEstoqueMinimo"]').css("display","block");
+					$('#estoqueIdeal, #ProdutoEstoqueMinimo').val('');
+					$('#estoqueIdeal, #ProdutoEstoqueMinimo').addClass('shadow-vermelho').focus();
 				}else{
 					$('span[id="spanEstoqueMinimo"]').css("display","none");
 					$('#estoqueIdeal, #ProdutoEstoqueMinimo').removeClass('shadow-vermelho');
@@ -375,9 +373,9 @@ $(document).ready(function(){
 	    var charCode = event.keyCode || event.which;
 
 	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
-    });	
+    });
+    
 });
-
 /** VALIDAÇÃO ENTRE DATAS *********************************************/	
 	function validacaoEntreDatas(dataInicial, dataFinal, mensagem){
 		var diaDataInicial = dataInicial.substring(0,2);		
@@ -397,28 +395,3 @@ $(document).ready(function(){
 		
 		return true;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
