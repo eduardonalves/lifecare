@@ -171,11 +171,11 @@
 			    <option value="add-centroCusto">Cadastrar</option>
 			    <?php
 			       foreach($centrocusto as $centro)
-				{
-				    echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limite_usado='".$centro['Centrocusto']['limite_usado']."' value='".$centro['Centrocusto']['nome']."' >";
-				    echo $centro['Centrocusto']['nome'];
-				    echo "</option>";
-				}
+					{
+						echo "<option id='".$centro['Centrocusto']['id']."' data-limite='".$centro['Centrocusto']['limite']."' data-limite_usado='".$centro['Centrocusto']['limite_usado']."' value='".$centro['Centrocusto']['nome']."' >";
+						echo $centro['Centrocusto']['nome'];
+						echo "</option>";
+					}
 			    ?>
 		    </select>
 		</div>
@@ -260,7 +260,6 @@
 																	'options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli')   
 																));		
 				echo '<span id="msgDuplicata" class="Msg-tooltipDireita" style="display:none;top:55px;">Selecione a Duplicata</span>';
-
 			?>
 		</section>
 
@@ -296,7 +295,6 @@
 						 'id'=>'bt-editarConta-pagar',
 						 'class'=>'bt-direita'
 			));
-
 			echo '<span id="msgValidaParcela" class="Msg-tooltipDireita" style="display:none">Adicione parcelas a tabela</span>';  
 		?>		
 	</div>
@@ -376,7 +374,7 @@
 							<section class="coluna-modal">
 								<div>
 									<?php
-										echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
+										echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
 									
 										echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
 									
