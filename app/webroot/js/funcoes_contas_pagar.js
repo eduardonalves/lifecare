@@ -14,7 +14,8 @@
 
 
 /********** Salva Parcela Quitada ************************/
-		 var numero_parcela = 0;
+	
+	var numero_parcela = 0;
 	$('body').on('click','.quitar',function(){
 		$('#myModal_add_quitar').modal('show');
 		id = $(this).attr('id');
@@ -71,7 +72,13 @@
     var princ_cont = 0;
     var numeroParcela =1;
     var numParcela = 0;
+    var validaDuplicata='vazio';
      
+     $('#ContaspagarDupli').change(function(){
+		validaDuplicata = $('#ContaspagarDupli :selected').val();
+		
+	});
+	
     //recebe valor
     $('#ContaspagarParcela').val(numeroParcela);
     
@@ -135,6 +142,11 @@
 	    //$('<span id="msgPeriodoCritico" class="DinamicaMsg-tooltipDireita">Preencha o campo Periodo Critico</span>').insertAfter('#PagarPeriodocritico');
 	    $('#msgPeriodoCritico').css('display','block');
 	    $('#PagarPeriodocritico').addClass('shadow-vermelho').focus();
+
+	}else if(validaDuplicata=='vazio'){
+			$('#msgDuplicata').css('display','block');
+			$('#ContaspagarDupli').addClass('shadow-vermelho');
+			validaDuplicata = 'vazio';
 
 	}else{
 	    

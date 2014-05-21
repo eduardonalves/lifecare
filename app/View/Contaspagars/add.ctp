@@ -254,13 +254,12 @@
 				echo $this->Form->input('valor_parcela',array('type'=>'text','label'=>'Valor<span class="campo-obrigatorio">*</span>:','id' => 'valorPagar','class'=>'tamanho-pequeno dinheiro_duasCasas desabilita obrigatorio','tabindex' => '109'));
 				echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 				echo $this->Form->input('duplicata_parcela', array(
-																	'label' => 'Duplicata', 'id' => 'ContaspagarDupli',
+																	'label' => 'Duplicata<span class="campo-obrigatorio">*</span>:', 'id' => 'ContaspagarDupli',
 																	'type' => 'select',
 																	'class'=>'tamanho-pequeno ',																	
-																	'options' => array(''=>'','1' => 'Ok', '0' => 'Dupli')   
+																	'options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli')   
 																));		
-				//echo $this->Form->input('agencia_parcela',array('type'=>'text','label'=>'Agência:','id' => 'ContaspagarAgencia','class'=>'tamanho-pequeno desabilita','tabindex' => '112','maxlength' => '25'));
-				//echo $this->Form->input('parcela_descricao',array('label' => 'Observação:', 'type' => 'textarea','class' => 'textAreaConta','tabindex' => '114','maxlength' => '254'));
+				echo '<span id="msgDuplicata" class="Msg-tooltipDireita" style="display:none;top:55px;">Selecione a Duplicata</span>';
 
 			?>
 		</section>
@@ -268,7 +267,7 @@
 		<section class="coluna-central">
 			<?php
 				echo $this->Form->input('identificacao_documento_parcela',array('label' => 'Identificação<span class="campo-obrigatorio">*</span>:','id' => 'identificacaoPagar','class' => 'tamanho-medio desabilita','tabindex' => '107'));
-				echo '<span id="msgIdentificacaoParcela" class="Msg-tooltipDireita" style="display:none">Preencha o campo Identificação</span>';
+				echo '<span id="msgIdentificacaoParcela" class="Msg-tooltipDireita" style="display:none;left:313px;z-index:1;">Preencha o campo Identificação</span>';
 				//echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita','tabindex' => '110'));
 				echo $this->Form->input('desconto_parcela',array('type'=>'text','label'=>'Desconto:','id' => 'ContaspagarDesconto','class'=>'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '111'));	
 					

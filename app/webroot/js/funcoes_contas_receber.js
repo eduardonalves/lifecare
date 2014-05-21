@@ -12,7 +12,7 @@
 	$('#TipodecontaTipo').val("RECEITA");
 
 /********** Salva Parcela Quitada ************************/
-		 var numero_parcela = 0;
+	var numero_parcela = 0;
 	$('body').on('click','.quitar',function(){
 		$('#myModal_add_quitar').modal('show');
 		id = $(this).attr('id');
@@ -68,7 +68,7 @@
      
      $('#ContasreceberDupli').change(function(){
 		validaDuplicata = $('#ContasreceberDupli :selected').val();
-		alert(validaDuplicata)
+		
 	});
     //recebe valor
     $('#ContasreceberParcela').val(numeroParcela);
