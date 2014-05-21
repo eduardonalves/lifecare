@@ -589,8 +589,6 @@ $(document).ready(function(){
 		}
     });
     
-
-    
 /********************* Preencher Dados Cliente *********************/
     $("#bt-preencherCliente").click(function(){
 		$("#msgValidaParceiro").hide();
@@ -630,8 +628,6 @@ $(document).ready(function(){
 			}
 		}
     });
-    
-    
     
 /********************* Preencher Dados Custo *********************/
     $("#bt-preencherCentreCusto").click(function(){
