@@ -25,6 +25,13 @@ class Comitensdaoperacao extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Pedido' => array(
+			'className' => 'Pedido',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Produto' => array(
 			'className' => 'Produto',
 			'foreignKey' => 'produto_id',
