@@ -589,8 +589,6 @@ $(document).ready(function(){
 		}
     });
     
-
-    
 /********************* Preencher Dados Cliente *********************/
     $("#bt-preencherCliente").click(function(){
 		$("#msgValidaParceiro").hide();
@@ -630,8 +628,6 @@ $(document).ready(function(){
 			}
 		}
     });
-    
-    
     
 /********************* Preencher Dados Custo *********************/
     $("#bt-preencherCentreCusto").click(function(){
@@ -750,7 +746,7 @@ $(document).ready(function(){
 		}
 	});
 	
-/*** TESTE ***/
+/*** Validação entre datas ***/
 	$("#dataVencimento-receber").focusout(function(){
 		if(validacaoEntreDatas($("#ContasreceberDataEmissao").val(),$("#dataVencimento-receber").val(),"#msgDataVencimentoInvalida")){
 			$("#dataVencimento-receber").val("");

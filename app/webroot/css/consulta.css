@@ -58,7 +58,7 @@ label{
 	position:absolute;
 }
 
-.forma-data{
+.forma-data,.inputData{
 	height:16px;
 	margin-top:3px;
 	width:70px !important;

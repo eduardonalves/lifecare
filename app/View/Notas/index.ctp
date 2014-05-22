@@ -118,7 +118,7 @@
 				<?php
 					echo $this->Search->input('numeroLote', array('label' => 'Lote:','class'=>'tamanho-medio'));
 					echo $this->Search->input('statusLote', array('type'=>'select','label' => 'Status Validade:','class'=>'tamanho-medio produtos-alinhamento'));
-					echo $this->Search->input('dataLote', array('label' => 'Validade de:','class'=>'forma-data'));
+					echo $this->Search->input('dataLote', array('label' => 'Validade de:','class'=>'inputData'));
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
 				?>
 				
@@ -138,15 +138,9 @@
 				
 				<?php
 					echo $this->Search->input('notaTipoEntrada', array('type' => 'hidden'));
-					echo $this->Form->input('notaTipoEntrada', array(
-					    'label' => ' Tipo de Operação ',
-					    'type' => 'select',
-					    'class' => 'operacao',
-					    'multiple' => 'checkbox',
-					    'options' => array('ENTRADA' => 'ENTRADA', 'SAIDA' => 'SAIDA'),
-					)); 
+					echo $this->Form->input('notaTipoEntrada', array('label' => ' Tipo de Operação ','type' => 'select','class' => 'operacao','multiple' => 'checkbox','options' => array('ENTRADA' => 'ENTRADA', 'SAIDA' => 'SAIDA'),)); 
 					echo $this->Search->input('numeroNota', array('label' => 'Nota:','class'=>'tamanho-medio')); 
-					echo $this->Search->input('dataNota', array('label' => 'Data de:','class'=>'forma-data'));
+					echo $this->Search->input('dataNota', array('label' => 'Data de:','class'=>'inputData'));
 					echo $this->html->tag('span','a',array('class'=>'a-data-ES'));
 				?>
 				

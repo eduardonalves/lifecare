@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var total = 0;
 	var i = 0;
-
+	
 /*** CONSULTA *********************************************************/
 	function get(){
 		var get = new Object();
@@ -145,7 +145,7 @@ $(document).ready(function(){
 		$("#quick-editar").css("display", "none");
 		
 		if(urlQuickLink!=''){
-		    window.location.href=urlQuickLink;
+		    window.location.href = urlQuickLink;
 		    $("#quick-select option").text($(this).children('option:selected').text());
 		}
 	});
@@ -174,17 +174,18 @@ $(document).ready(function(){
 
 /*********** FUNÇÃO PARA CHECK BOX DO FILTRO *************/
 	var valorAux=$('#filterNotaTipoEntrada').val();
-	if(valorAux  != undefined){
+	
+	if(valorAux != undefined){
 		var valorEntrada=valorAux.substr(0,7);
 		var valorSaida1=valorAux.substr(0,5);
 		var valorSaida2 =valorAux.substr(8,5);
 	}
 
 	var statusEntrada = '';
-	var statusSaida= '';
-	var statusEntradaSaida='';
+	var statusSaida = '';
+	var statusEntradaSaida = '';
 
-	if(valorEntrada =='ENTRADA'){
+	if(valorEntrada == 'ENTRADA'){
 		$('#NotaTipoEntradaENTRADA').attr('checked', true);
 	}
 	
@@ -229,105 +230,105 @@ $(document).ready(function(){
 
 /*** VALIDAR CONFIGURAÇÃO DO FILTRO ***********************************/
 	/*** MODAL CONFIG PRODUTO ***/
-		$("#ConfigprodutoNome").prop('checked', true);
-		$('#ConfigprodutoNome').click(false);
-		$("input[id='ConfigprodutoNome']").mouseenter(function(){
-			$('#msgModalProd').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalProd').css('display','none');
-		});
+	$("#ConfigprodutoNome").prop('checked', true);
+	$('#ConfigprodutoNome').click(false);
+	$("input[id='ConfigprodutoNome']").mouseenter(function(){
+		$('#msgModalProd').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalProd').css('display','none');
+	});
 
-		$("label[for='ConfigprodutoNome']").mouseenter(function() {
-			$('#msgModalProd').css('display','inherit');
-		}).mouseleave(function(){
-			$('#msgModalProd').css('display','none');
-		});
+	$("label[for='ConfigprodutoNome']").mouseenter(function() {
+		$('#msgModalProd').css('display','inherit');
+	}).mouseleave(function(){
+		$('#msgModalProd').css('display','none');
+	});
 
-		$("#ConfigprodutoCodigo").prop('checked', true);
-		$('#ConfigprodutoCodigo').click(false);
-		$("input[id='ConfigprodutoCodigo']").mouseenter(function() {
-			$('#msgModalProd').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalProd').css('display','none');
-		});
+	$("#ConfigprodutoCodigo").prop('checked', true);
+	$('#ConfigprodutoCodigo').click(false);
+	$("input[id='ConfigprodutoCodigo']").mouseenter(function() {
+		$('#msgModalProd').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalProd').css('display','none');
+	});
 
-		$("label[for='ConfigprodutoCodigo']").mouseenter(function() {
-			$('#msgModalProd').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalProd').css('display','none');
-		});
-	
+	$("label[for='ConfigprodutoCodigo']").mouseenter(function() {
+		$('#msgModalProd').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalProd').css('display','none');
+	});
+
 	/*** MODAL CONFIG LOTE ***/
-		$("#ConfigloteNumeroLote").prop('checked', true);
-		$('#ConfigloteNumeroLote').click(false);
-		$("input[id='ConfigloteNumeroLote']").mouseenter(function() {
-			$('#msgModalLot').css('display','inherit').css('top','200px');
-		}).mouseleave(function() {
-			$('#msgModalLot').css('display','none').css('top','200px');
-		});
+	$("#ConfigloteNumeroLote").prop('checked', true);
+	$('#ConfigloteNumeroLote').click(false);
+	$("input[id='ConfigloteNumeroLote']").mouseenter(function() {
+		$('#msgModalLot').css('display','inherit').css('top','200px');
+	}).mouseleave(function() {
+		$('#msgModalLot').css('display','none').css('top','200px');
+	});
 
-		$("label[for='ConfigloteNumeroLote']").mouseenter(function() {
-			$('#msgModalLot').css('display','inherit').css('top','200px');
-		}).mouseleave(function() {
-			$('#msgModalLot').css('display','none').css('top','200px');
-		});
+	$("label[for='ConfigloteNumeroLote']").mouseenter(function() {
+		$('#msgModalLot').css('display','inherit').css('top','200px');
+	}).mouseleave(function() {
+		$('#msgModalLot').css('display','none').css('top','200px');
+	});
 
-		$("#ConfigloteDataValidade").prop('checked', true);
-		$('#ConfigloteDataValidade').click(false);
-		$("input[id='ConfigloteDataValidade']").mouseenter(function() {
-			$('#msgModalLot').css('display','inherit').css('top','200px');
-		}).mouseleave(function() {
-			$('#msgModalLot').css('display','none').css('top','200px');
-		});
+	$("#ConfigloteDataValidade").prop('checked', true);
+	$('#ConfigloteDataValidade').click(false);
+	$("input[id='ConfigloteDataValidade']").mouseenter(function() {
+		$('#msgModalLot').css('display','inherit').css('top','200px');
+	}).mouseleave(function() {
+		$('#msgModalLot').css('display','none').css('top','200px');
+	});
 
-		$("label[for='ConfigloteDataValidade']").mouseenter(function() {
-			$('#msgModalLot').css('display','inherit').css('top','200px');
-		}).mouseleave(function() {
-			$('#msgModalLot').css('display','none').css('top','200px');
-		});
+	$("label[for='ConfigloteDataValidade']").mouseenter(function() {
+		$('#msgModalLot').css('display','inherit').css('top','200px');
+	}).mouseleave(function() {
+		$('#msgModalLot').css('display','none').css('top','200px');
+	});
 
 	/*** MODAL CONFIG NOTA ***/
-		$("#ConfignotaTipo").prop('checked', true);
-		$('#ConfignotaTipo').click(false);
-		$("input[id='ConfignotaTipo']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
+	$("#ConfignotaTipo").prop('checked', true);
+	$('#ConfignotaTipo').click(false);
+	$("input[id='ConfignotaTipo']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
 
-		$("label[for='ConfignotaTipo']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
-		
-		$("#ConfignotaData").prop('checked', true);
-		$('#ConfignotaData').click(false);
-		$("input[id='ConfignotaData']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
+	$("label[for='ConfignotaTipo']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
+	
+	$("#ConfignotaData").prop('checked', true);
+	$('#ConfignotaData').click(false);
+	$("input[id='ConfignotaData']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
 
-		$("label[for='ConfignotaData']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
+	$("label[for='ConfignotaData']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
 
-		$("#ConfignotaNotaFiscal").prop('checked', true);
-		$('#ConfignotaNotaFiscal').click(false);
-		$("input[id='ConfignotaNotaFiscal']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
+	$("#ConfignotaNotaFiscal").prop('checked', true);
+	$('#ConfignotaNotaFiscal').click(false);
+	$("input[id='ConfignotaNotaFiscal']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
 
-		$("label[for='ConfignotaNotaFiscal']").mouseenter(function() {
-			$('#msgModalNot').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgModalNot').css('display','none');
-		});
+	$("label[for='ConfignotaNotaFiscal']").mouseenter(function() {
+		$('#msgModalNot').css('display','inherit');
+	}).mouseleave(function() {
+		$('#msgModalNot').css('display','none');
+	});
 
 /*** INICIO SETA DE ORDENAÇÃO DA TABELA *******************************/
 	$(".colunaProduto a.asc + div").addClass("seta-cima");
@@ -343,7 +344,7 @@ $(document).ready(function(){
 	$("td."+idcol).addClass("highlight");	
 	
 /*** DATA VALIDAÇÃO DADOS DA NOTA *************************************/
-    $("input[id*='filterDataLote']").addClass('forma-data1 validaLote');
+    $("input[id*='filterDataLote']").addClass('inputData validaLote');
 
 	/*** DATA LOTE ***/
 	$(".validaLote").focusout(function(){
@@ -387,11 +388,17 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".validaNota").change(function(){
+	$("#filterDataNota-between").focusout(function(){
 		var dataInicialNota = $("input[id='filterDataNota']").datepicker('getDate');
 		var dataFinalNota = $("input[id='filterDataNota-between']").datepicker('getDate');
 		var daysNota = (dataFinalNota - dataInicialNota) / 1000 / 60 / 60 / 24;
 
+		if(validacaoEntreDatas($("input[id='filterDataNota']").val(),$("input[id='filterDataNota-between']").val(),spanDataInicialNota)){
+			$("input[id='filterDataNota-between']").val("");
+			$("input[id='filterDataNota-between']").addClass('shadow-vermelho');
+		}
+		
+		/*
 		if(daysNota < 0){
 			$('span[id="spanDataInicialNota"]').remove();
 			
@@ -402,19 +409,54 @@ $(document).ready(function(){
 			}    
 		}else{
 		    $('span[id="spanDataInicialNota"]').remove();
-		}
+		}*/
 	});
+	
+/** VALIDAÇÃO PARA DATA ***********************************************/
+	$("#filterDataLote-between").addClass('inputData');
+	$("#filterDataNota-between").addClass('inputData');
+	
+	$('.inputData').mask('00/00/0000');
+	
+	$('.inputData').on("keypress",function(event){
+		var charCode = event.keyCode || event.which;
 
-/*** CHAMADA DATEPICKER LOTE E NOTA ***********************************/
-    $("#filterDataLote-between, #filterDataNota-between").datepicker({
-		dateFormat: 'dd/mm/yy',
-		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-		dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-		nextText: 'Próximo',
-		prevText: 'Anterior'
+	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
+    });
+    
+    $(".inputData").focusout(function(){		
+		var elemento = $(this).val();
+
+		var dia = elemento.substring(0,2);
+		var mes = elemento.substring(3,5);
+		var ano = elemento.substring(6,11);
+
+		if(ano.length == 1){
+			$(this).val().slice(0,-1);
+			$(this).val(dia +"/"+ mes +"/200"+ ano);
+		}
+		
+		if(ano.length == 2){
+			$(this).val().slice(0,-2);
+			$(this).val(dia +"/"+ mes +"/20"+ ano);
+		}
+		
+		if(ano.length == 3){
+			$(this).val().slice(0,-3);
+			$(this).val(dia +"/"+ mes +"/2"+ ano);
+		}
+
+		if(dia > 31){
+			$(this).val("");
+		}
+		
+		if(mes > 12){
+			$(this).val("");
+		}
+		
+		if((dia > 29) && (mes == 2)){
+			$(this).val("");
+		}
 	});
 
 });
