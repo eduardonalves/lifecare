@@ -80,7 +80,7 @@ class UsersController extends AppController {
 				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'user_id' => $ultimmoUser['User']['id']);
 				$this->User->Configproduto->save($saveConfigproduto);
 				
-				debug($this->request->data);
+				//debug($this->request->data);
 				
 				$this->Session->setFlash(__('The user has been saved.'));
 				//return $this->redirect(array('action' => 'index'));
@@ -88,7 +88,10 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
 		}
-		$funcionarios = $this->User->Funcionario->find('list');
+		
+		$this->loadModel('Funcionario');
+		$funcionarios = $this->Funcionario->find('all');
+		
 		$roles = $this->User->Role->find('list');
 		$this->set(compact('funcionarios','roles'));
 	}
