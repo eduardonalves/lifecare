@@ -270,7 +270,6 @@
 				//echo $this->Form->input('conta_parcela',array('type'=>'text','label'=>'Conta:','id' => 'ContaspagarConta','class'=>'tamanho-pequeno desabilita','tabindex' => '110'));
 				echo $this->Form->input('desconto_parcela',array('type'=>'text','label'=>'Desconto:','id' => 'ContaspagarDesconto','class'=>'tamanho-pequeno desabilita dinheiro_duasCasas','tabindex' => '111'));	
 					
-				echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 			?>	
 		</section>
 
@@ -280,7 +279,7 @@
 				echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Data de Vencimento não pode ser menor que Data de Emissão</span>';	
 				echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '113','maxlength' => '25'));
-				//echo $this->Form->input('banco_parcela',array('type'=>'text','label'=>'Banco:','id' => 'ContaspagarBanco','class'=>'tamanho-medio desabilita','tabindex' => '114','maxlength' => '50'));					
+				echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 			?>
 		</section>
 		
@@ -375,7 +374,8 @@
 								<div>
 									<?php
 										echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
-									
+										echo '<span id="msgQuitarData" class="Msg-tooltipDireita" style="display:none;">Preencha a Data de Pagamento</span>';
+
 										echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
 									
 										echo $this->Form->input('vazio.juros',array('id'=>'vazioJuros','label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text', 'style'=>'display: inline'));
@@ -386,7 +386,7 @@
 						
 							<footer>								
 								<?php
-									echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela', 'alt' => 'Quitar', 'title' => 'Quitar'));
+									echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela','style'=>'cursor:pointer;','alt' => 'Quitar', 'title' => 'Quitar'));
 								?>								
 							</footer>
 							 
