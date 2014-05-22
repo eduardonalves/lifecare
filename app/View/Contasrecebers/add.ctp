@@ -221,7 +221,7 @@
 				echo $this->Form->input('valor_parcela',array('label' => 'Valor<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno obrigatorio desabilita dinheiro_duasCasas','id' => 'valorConta-receber', 'type' => 'text','tabindex' => '108'));
 				echo '<span id="msgContaValor" class="Msg-tooltipDireita" style="display:none">Preencha o campo Valor</span>';	
 				 
-				echo $this->Form->input('duplicata_parcela', array('label' => 'Duplicata<span class="campo-obrigatorio">*</span>:', 'id' => 'ContasreceberDupli','type' => 'select','class'=>'tamanho-pequeno ','options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli')));
+				echo $this->Form->input('duplicata_parcela', array('label' => 'Duplicata<span class="campo-obrigatorio">*</span>:', 'id' => 'ContasreceberDupli','type' => 'select','class'=>'tamanho-pequeno ','options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli'), 'tabindex' => '114'));
 				echo '<span id="msgDuplicata" class="Msg-tooltipDireita" style="display:none;top:55px;">Selecione a Duplicata</span>';
 			?>
 			
