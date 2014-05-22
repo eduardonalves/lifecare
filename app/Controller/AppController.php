@@ -108,7 +108,7 @@ class AppController extends Controller {
 			$this->Auth->authError=__('O usuário não possui autorização para executar essa ação'); 
 			
 			if($this->Auth->user() && $this->Auth->user('role_id') == 1){
-				$this->Auth->allow();
+				$this->Auth->allow( );
 			}else{
 				
 				if($this->Auth->user()){

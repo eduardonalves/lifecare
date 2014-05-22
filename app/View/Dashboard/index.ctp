@@ -441,11 +441,6 @@ $(document).ready(function(){
 
 
 
-<pre>
-	<?php
-				print_r($parcelaDash);
-			
-			?>
-</pre>
+
 
 <?php //echo $this->element('sql_dump'); ?>
