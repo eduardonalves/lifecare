@@ -1,11 +1,11 @@
 <?php
-App::uses('UsersController', 'Controller');
+App::uses('Role', 'Model');
 
 /**
- * UsersController Test Case
+ * Role Test Case
  *
  */
-class UsersControllerTest extends ControllerTestCase {
+class RoleTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,9 +13,9 @@ class UsersControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'app.role',
 		'app.user',
 		'app.funcionario',
-		'app.role',
 		'app.comoperacao',
 		'app.comitensdaoperacao',
 		'app.produto',
@@ -65,43 +65,24 @@ class UsersControllerTest extends ControllerTestCase {
 	);
 
 /**
- * testIndex method
+ * setUp method
  *
  * @return void
  */
-	public function testIndex() {
+	public function setUp() {
+		parent::setUp();
+		$this->Role = ClassRegistry::init('Role');
 	}
 
 /**
- * testView method
+ * tearDown method
  *
  * @return void
  */
-	public function testView() {
-	}
+	public function tearDown() {
+		unset($this->Role);
 
-/**
- * testAdd method
- *
- * @return void
- */
-	public function testAdd() {
-	}
-
-/**
- * testEdit method
- *
- * @return void
- */
-	public function testEdit() {
-	}
-
-/**
- * testDelete method
- *
- * @return void
- */
-	public function testDelete() {
+		parent::tearDown();
 	}
 
 }

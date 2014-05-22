@@ -35,6 +35,8 @@ class AppController extends Controller {
 
 		var $components = array(
 			'Session',
+			'Acl',
+			'Auth',
 			'FilterResults.Filter' => array(
 				'auto' => array(
 					'paginate' => false,
@@ -45,10 +47,8 @@ class AppController extends Controller {
 					'concatenate' => 'AND',
 				)
 			),
-			'Auth' => array(
-            'loginRedirect' => array('controller' => 'dashboard', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
-			)
+			
+           
 			
 	
 		);
@@ -68,9 +68,103 @@ class AppController extends Controller {
 					'<=' => 'less or equal to'
 				)
 			),
-			'Session'
+			'Session',
+			'Html',
 		);
 
-		
-		
+		public function beforeFilter(){
+			$this->Auth->authenticate = array(
+				AuthComponent::ALL => array(
+					'userModel' => 'User', 
+					'fields' => array(
+						'username' => 'username'
+					),
+					'scope' => array(
+					'User.status' => 1
+					),
+				),
+				'Form',
+			);
+			
+			
+			$this->Auth->authorize = array(
+				AuthComponent::ALL => array('actionPath' => 'controllers'),
+				'Actions'
+			);
+			
+			
+			
+			$this->Auth->loginAction = array(
+				'pugin' => null,
+				'controller' => 'users',
+				'action' => 'login',
+			);
+			
+			$this->Auth->logoutRedirect = array(
+				'plugin' => null,
+				'controller' => 'users',
+				'action' => 'login',
+			);
+			$this->Auth->authError=__('O usuário não possui autorização para executar essa ação'); 
+			
+			if($this->Auth->user() && $this->Auth->user('role_id') == 1){
+				$this->Auth->allow();
+			}else{
+				
+				if($this->Auth->user()){
+					
+					$roleId= $this->Auth->user('role_id');
+					
+				}else{
+					
+					$roleId=7;
+					
+				}
+				$aro = $this->Acl->Aro->find('first', array('conditions' => array('Aro.model' => 'Role', 'Aro.foreign_key' => $roleId)));
+				
+				
+				$aroId =$aro['Aro']['id'];
+				
+				
+				$thisControllerNode = $this->Acl->Aco->node('controllers/'.$this->name);
+				
+				if($thisControllerNode){
+				
+					$thisControllerActions = $this->Acl->Aco->find('list', array(
+						'conditions' => array(
+							'Aco.parent_id' => $thisControllerNode['0']['Aco']['id']
+						),
+						'fields' => array('Aco.id', 'Aco.alias'),
+						'recursive' => -1
+					));
+					$thisControllerActionsIds = array_keys($thisControllerActions);
+					$allowedActions = $this->Acl->Aco->Permission->find('list', array(
+						'conditions' => array(
+							'Permission.aro_id' => $aroId,
+							'Permission.aco_id' => $thisControllerActionsIds,
+							'Permission._create' => 1,
+							'Permission._read' => 1,
+							'Permission._update' => 1,
+							'Permission._delete' => 1,
+						),
+						'fields' => array(
+							'id',
+							'aco_id'
+						),
+						'recursive' => -1
+					));
+					
+					$allowedActionsIds = array_values($allowedActions);
+				}
+				$allow= array();
+				if(isset($allowedActionsIds) && is_array($allowedActionsIds) && count($allowedActionsIds)){
+					foreach($allowedActionsIds as $i => $aId){
+						$allow[] = $thisControllerActions[$aId];
+					}
+					
+				}
+				$this->Auth->allowedActions=$allow; 
+				print_r($allow);
+			}
+		}
 }

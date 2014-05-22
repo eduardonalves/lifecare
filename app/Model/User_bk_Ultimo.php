@@ -1,38 +1,46 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModel', 'Model', 'AuthComponent');
 /**
  * User Model
  *
  * @property Funcionario $Funcionario
- * @property Role $Role
- * @property Comoperacao $Comoperacao
- * @property Configcobranca $Configcobranca
- * @property Configconta $Configconta
  * @property Configlote $Configlote
  * @property Confignota $Confignota
- * @property Configparceiro $Configparceiro
- * @property Configparcela $Configparcela
  * @property Configproduto $Configproduto
  * @property Consultarproduto $Consultarproduto
- * @property Conta $Conta
- * @property Dadoscredito $Dadoscredito
- * @property Negociacao $Negociacao
  * @property Nota $Nota
- * @property ObsCobranca $ObsCobranca
- * @property Parcela $Parcela
- * @property Quicklink $Quicklink
  */
 class User extends AppModel {
 
+   public $name = 'User';
+    public $validate = array(
+        'username' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'O campo usu�rio � requerido!'
+            ),
+			'unique' => array(
+				'rule' => 'isUnique',
+				'message' => 'Este nome de usu�rio j� existe.'
+			)
+			
+        ),
+        'password' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'O senha usu�rio � requerido!'
+            )
+        ),
+    );
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public function beforeSave($options = array()) {
-			if (isset($this->data[$this->alias]['password'])) {
-				$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
-			}
-			return true;
+		if (isset($this->data[$this->alias]['password'])) {
+			$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
 		}
-		//The Associations below have been created with all possible keys, those that are not needed can be removed
+		return true;
+	}
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
 /**
  * belongsTo associations
  *
@@ -45,13 +53,6 @@ class User extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
-		'Role' => array(
-			'className' => 'Role',
-			'foreignKey' => 'role_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
@@ -61,45 +62,6 @@ class User extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Comoperacao' => array(
-			'className' => 'Comoperacao',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Configcobranca' => array(
-			'className' => 'Configcobranca',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Configconta' => array(
-			'className' => 'Configconta',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Configlote' => array(
 			'className' => 'Configlote',
 			'foreignKey' => 'user_id',
@@ -115,32 +77,6 @@ class User extends AppModel {
 		),
 		'Confignota' => array(
 			'className' => 'Confignota',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Configparceiro' => array(
-			'className' => 'Configparceiro',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Configparcela' => array(
-			'className' => 'Configparcela',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -178,34 +114,8 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Conta' => array(
-			'className' => 'Conta',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Dadoscredito' => array(
 			'className' => 'Dadoscredito',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Negociacao' => array(
-			'className' => 'Negociacao',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -230,19 +140,7 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ObsCobranca' => array(
-			'className' => 'ObsCobranca',
-			'foreignKey' => 'user_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
+		
 		'Parcela' => array(
 			'className' => 'Parcela',
 			'foreignKey' => 'user_id',
@@ -258,6 +156,32 @@ class User extends AppModel {
 		),
 		'Quicklink' => array(
 			'className' => 'Quicklink',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'ObsCobranca' => array(
+			'className' => 'ObsCobranca',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Negociacao' => array(
+			'className' => 'Negociacao',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
 			'conditions' => '',

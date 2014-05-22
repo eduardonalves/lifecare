@@ -8,24 +8,6 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-		//public function beforeFilter() {
-			//parent::beforeFilter();
-			//$this->Auth->allow('add','edit','index'); // Permitindo que os usuários se registrem
-		//}
-
-		public function login() {
-			 $this->layout = 'login';
-			if ($this->Auth->login()) {
-				$this->redirect($this->Auth->redirect());
-			} elseif ((!$this->Auth->login()) && ($this->request->is('post'))) {
-				$this->Session->setFlash(__('Usuario ou senha invalidos.'), 'default', array('class' => 'error-flash'));
-			}
-		}
-
-		public function logout() {
-			$this->redirect($this->Auth->logout());
-		}
-
 /**
  * Components
  *
@@ -33,6 +15,20 @@ class UsersController extends AppController {
  */
 	public $components = array('Paginator');
 
+	
+	public function login() {
+		 $this->layout = 'login';
+		if ($this->Auth->login()) {
+			$this->redirect($this->Auth->redirect());
+			return $this->redirect($this->Auth->redirect());
+		} elseif ((!$this->Auth->login()) && ($this->request->is('post'))) {
+			$this->Session->setFlash(__('Usuario ou senha invalidos.'), 'default', array('class' => 'error-flash'));
+		}
+	}
+
+	public function logout() {
+		$this->redirect($this->Auth->logout());
+	}
 /**
  * index method
  *
@@ -63,6 +59,8 @@ class UsersController extends AppController {
  *
  * @return void
  */
+	
+
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
@@ -86,9 +84,9 @@ class UsersController extends AppController {
 			}
 		}
 		$funcionarios = $this->User->Funcionario->find('list');
-		$this->set(compact('funcionarios'));
+		$roles = $this->User->Role->find('list');
+		$this->set(compact('funcionarios','roles'));
 	}
-
 /**
  * edit method
  *
@@ -112,7 +110,8 @@ class UsersController extends AppController {
 			$this->request->data = $this->User->find('first', $options);
 		}
 		$funcionarios = $this->User->Funcionario->find('list');
-		$this->set(compact('funcionarios'));
+		$roles = $this->User->Role->find('list');
+		$this->set(compact('funcionarios', 'roles'));
 	}
 
 /**
