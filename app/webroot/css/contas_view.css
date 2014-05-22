@@ -107,9 +107,10 @@
 
 .modalQuitar  .Msg-tooltipDireita{
 	float:left;
-	left:314px;
-	margin-top:-5px;
-	width:120px;
+	left: 352px;
+	margin-top: -5px;
+	width: 100px;
+
 }
 
 .modalQuitar section.coluna-central{

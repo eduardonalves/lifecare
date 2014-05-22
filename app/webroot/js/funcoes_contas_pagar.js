@@ -899,8 +899,14 @@
 			$('#ContaspagarDataEmissao').prop('disabled', false);
 		}
 	});
-/*********** Desabilitar Data de Emissão ***********/	
-	
+/*********** valida Data vencimento ***********/	
+		$("#ContaspagarDataVencimento").focusout(function(){
+		if(validacaoEntreDatas($("#ContaspagarDataEmissao").val(),$("#ContaspagarDataVencimento").val(),"#msgDataVencimentoInvalida")){
+			$("#ContaspagarDataVencimento").val("");
+			$("#ContaspagarDataVencimento").addClass('shadow-vermelho');
+		}
+		
+	});
 	
 	
 });

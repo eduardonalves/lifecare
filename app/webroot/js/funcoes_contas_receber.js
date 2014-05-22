@@ -752,10 +752,9 @@ $(document).ready(function(){
 	
 /*** TESTE ***/
 	$("#dataVencimento-receber").focusout(function(){
-		if(validacaoEntreDatas($("#ContasreceberDataEmissao").val(),$("#dataVencimento-receber").val(),"#msgDataEmissao")){
-			$("#ContasreceberDataEmissao").val("");
+		if(validacaoEntreDatas($("#ContasreceberDataEmissao").val(),$("#dataVencimento-receber").val(),"#msgDataVencimentoInvalida")){
 			$("#dataVencimento-receber").val("");
-			$("#ContasreceberDataEmissao").addClass('shadow-vermelho').focus();
+			$("#dataVencimento-receber").addClass('shadow-vermelho');
 		}
 		
 	});

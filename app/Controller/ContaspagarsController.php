@@ -445,8 +445,7 @@ class ContaspagarsController extends ContasController {
 						$this->Parcela->save($parcelasEnviada);
 						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
 						$this->ParcelasConta->create();
-						$this->ParcelasConta->save($updateParcelasConta);
-						
+						$this->ParcelasConta->save($updateParcelasConta);						
 					}	
 				}
 				

@@ -271,8 +271,8 @@
 								<?php
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 									echo "<div class=\"ui-widget\">";
-									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
-									
+									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									echo "<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
@@ -280,7 +280,7 @@
 									echo $this->Form->input('parcela_id',array('value' => $parcelas['id'], 'type' => 'hidden'));
 								?>
 								
-								<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>
+								
 							</div>
 						</section>
 					</section>
