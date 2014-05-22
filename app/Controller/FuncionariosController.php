@@ -21,6 +21,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'users';
 		$this->Funcionario->recursive = 0;
 		$this->set('funcionarios', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'users';
 		if (!$this->Funcionario->exists($id)) {
 			throw new NotFoundException(__('Invalid funcionario'));
 		}
@@ -46,6 +48,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'users';
 		if ($this->request->is('post')) {
 			$this->Funcionario->create();
 			if ($this->Funcionario->save($this->request->data)) {
@@ -65,6 +68,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'users';
 		if (!$this->Funcionario->exists($id)) {
 			throw new NotFoundException(__('Invalid funcionario'));
 		}

@@ -35,6 +35,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'users';
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 	}
@@ -47,6 +48,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'users';
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
@@ -62,9 +64,10 @@ class UsersController extends AppController {
 	
 
 	public function add() {
+		$this->layout = 'users';
 		if ($this->request->is('post')) {
 			$this->User->create();
-			if ($this->User->save($this->request->data)) {
+			if ($this->User->saveAll($this->request->data)) {
 			
 				$ultimmoUser= $this->User->find('first', array('order' => array('User.id' => 'desc'), 'recursive' =>-1));
 				
@@ -77,8 +80,10 @@ class UsersController extends AppController {
 				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'user_id' => $ultimmoUser['User']['id']);
 				$this->User->Configproduto->save($saveConfigproduto);
 				
+				debug($this->request->data);
+				
 				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
@@ -95,6 +100,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'users';
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
