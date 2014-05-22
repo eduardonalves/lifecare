@@ -458,6 +458,7 @@ class ContasrecebersController extends ContasController {
 						foreach($parcelasEnviadas as $parcelasEnviada){
 							$parcelasEnviada['parceirodenegocio_id'] = $ultimaConta['Conta']['parceirodenegocio_id'];
 							$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+							$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_pagamento']);
 							$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
 							$this->Parcela->create();
 							$this->Parcela->save($parcelasEnviada);

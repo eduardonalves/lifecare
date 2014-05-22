@@ -1,5 +1,7 @@
  $(document).ready(function(){
-
+	
+	$('#vazioPagamento').mask('99/99/9999');
+	
     $('input').focus(function(){
 		$('.ui-autocomplete-input').attr('tabindex','102');
     });
@@ -39,25 +41,28 @@
 		obs_pgto = $('#vazioDescricao').val();
 		juros = $('#vazioJuros').val();
 
-		if($('.fieldset-total .clonadoProduto'+numero_parcela+"  input").hasClass("existe")){ //verifica se já não existe
-			//Limpa os campos hidden
-			$('.existe').remove();
+		if(data_pagamento== '' || data_pagamento == '00/00/0000'){
+			$('#msgQuitarData').show();
+		}else{
+			if($('.fieldset-total .clonadoProduto'+numero_parcela+"  input").hasClass("existe")){ //verifica se já não existe
+				//Limpa os campos hidden
+				$('.existe').remove();
+				
+				//seta as hidden depois de remover as existentes
+				$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
+			}else{							
+				//seta as hidden para a determinada parcela se não tiver cadastrada
+				$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
+			}
 			
-			//seta as hidden depois de remover as existentes
-			$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
-		}else{							
-			//seta as hidden para a determinada parcela se não tiver cadastrada
-			$('.fieldset-total .clonadoProduto'+numero_parcela).append('<input name="data[Parcela]['+numero_parcela+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero_parcela+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero_parcela+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero_parcela+'][juros]" step="any" class="existe" id="jurosParcela'+numero_parcela+'" value="'+juros+'" type="hidden">');
-		}
-		
-		//Limpa campos
-		$('#vazioPagamento').val('');
-		$('#vazioDescricao').val('');
-		$('#vazioJuros').val('');
-		
-		//Fecha Modal
-		$('#myModal_add_quitar').modal('hide');
-		
+			//Limpa campos
+			$('#vazioPagamento').val('');
+			$('#vazioDescricao').val('');
+			$('#vazioJuros').val('');
+			
+			//Fecha Modal
+			$('#myModal_add_quitar').modal('hide');
+		}	
 	});
     
  
@@ -111,7 +116,7 @@
 		}else if(dataVencimento == ''){
 			$('#msgDataVencimento').css('display','block');
 			$('#ContaspagarDataVencimento').addClass('shadow-vermelho').focus();
-		}else if(valor == ''){
+		}else if(valor == '' || valor == '0,00'){
 			$('#msgContaValor').css('display','block');
 			$('#valorPagar').addClass('shadow-vermelho').focus();
 		}else if(periodocritico == ''){
@@ -120,7 +125,7 @@
 		}else if(validaDuplicata=='vazio'){
 			$('#msgDuplicata').css('display','block');
 			$('#ContaspagarDupli').addClass('shadow-vermelho');
-			validaDuplicata = 'vazio';
+			
 		}else{
 			//adiciona a tabela
 			$('#tabela-conta-pagar').append('<tr class="valbtconfimar" id="parcelaCont'+princ_cont+'"><td id="numParc'+princ_cont+'">'+numeroParcela+'</td><td id="dataVenc'+princ_cont+'">'+dataVencimento+'</td><td id="valorTabela'+princ_cont+'">'+valor+'</td><td id="ident'+princ_cont+'">'+identificacao+'</td><td id="periodocrit'+princ_cont+'">'+periodocritico+'</td><td id="descontoTabela'+princ_cont+'">'+desconto+'</td><td id="dupliTabela'+princ_cont+'">'+dupliText+'</td><td><img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id=clonado'+princ_cont+' class="btnEditar"/> <img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnExcluir"/><img title="Quitar" alt="Quitar" src="/lifecare/app/webroot/img/botao-quitar2.png" id=quitar'+princ_cont+' class="quitar"/></td></tr>');
@@ -152,6 +157,8 @@
 			//incrementa 1 a parcela
 			$('#ContaspagarParcela').val(numeroParcela)	
 			$('#Pagamento0NumeroParcela').val(numParcela);
+			
+			validaDuplicata = 'vazio';
 		}
     });
 
@@ -206,72 +213,114 @@
 			$('.tela-resultado-field').hide();
 		}
 		
-		//percorre a td
-		$('#numParc'+numero).each(function(){
-		   
-			//recebe valores digitados
-			identificacao = $('#identificacaoPagar').val();
-			dataVencimento = $('#ContaspagarDataVencimento').val();
-			valor = $('#valorPagar').val();
-			periodocritico = $('#PagarPeriodocritico').val();
-			
-			desconto = $('#ContaspagarDesconto').val();
-			dupliVal = $('#ContaspagarDupli :selected').val();
-			dupliText = $('#ContaspagarDupli :selected').text();
-
-			//certifica que parcelas são iguais
-			if($(this).text() == $('#ContaspagarParcela').val()){
-				//substitui valor
-				$('#ident'+numero).text(identificacao);
-				$('#dataVenc'+numero).text(dataVencimento);
-				$('#valorTabela'+numero).text(valor);
-				$('#periodocrit'+numero).text(periodocritico);
-				$('#descontoTabela'+numero).text(desconto);
-				$('#dupliTabela'+numero).text(dupliText);
-			}
-				
-			if($('.fieldset-total .clonadoProduto'+numero+"  input").hasClass("existe")){ //verifica se já não existe
-				//pega valor das input's hidden
-				data_pagamento = $('#dataPagamento'+numero).val();
-				obs_pgto = $('#descricaoPgto'+numero).val();
-				juros = $('#jurosParcela'+numero).val();
-			
-				//remove campos hidden
-				$('.clonadoProduto'+numero).remove();
-				
-				//substitui campos hidden
-				$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliParcela'+numero+'" value="'+dupliVal+'" type="hidden"><input name="data[Parcela]['+numero+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero+'][juros]" step="any" class="existe" id="jurosParcela'+numero+'" value="'+juros+'" type="hidden"></div> ');
-			}else{		
-				//Volta Valores vazio se não houver adicionado antes
-				$('#vazioPagamento').val('');
-				$('#vazioDescricao').val('');
-				$('#vazioJuros').val('');
-					
-				
-				//remove campos hidden
-				$('.clonadoProduto'+numero).remove();
-				
-				//substitui campos hidden
-				$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-pagar'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-pagar'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliBanco'+numero+'" value="'+dupliVal+'" type="hidden"></div> ');
-			}
-
-			calcularValorConta();
-
-			//parcela recebe numero antigo e troca botoes
-			$('#ContaspagarParcela').val(parcelaAtual);
-			$('#bt-adicionarConta-pagar').show();
-			$('#bt-editarConta-pagar').hide();
+		//recebe valores digitados
+		identificacao = $('#identificacaoPagar').val();
+		dataVencimento = $('#ContaspagarDataVencimento').val();
+		valor = $('#valorPagar').val();
+		periodocritico = $('#PagarPeriodocritico').val();
 		
-			//limpa campos
-			$('#identificacaoPagar').val('');
-			$('#ContaspagarDataVencimento').val('');
-			$('#valorPagar').val('');
-			$('#PagarPeriodocritico').val('');
-			$('#ContaspagarDesconto').val('');
-			$('#ContaspagarParcelaDescricao').val('');
-			$('#ContaspagarDupli :selected').removeAttr('selected');
-		});
+		desconto = $('#ContaspagarDesconto').val();
+		dupliVal = $('#ContaspagarDupli :selected').val();
+		dupliText = $('#ContaspagarDupli :selected').text();
+		tipoPagamento = $('#Pagamento0TipoPagamento').val();
+		idConta = $('#ContaspagarIdentificacaoConta').val();
+		dataEmissao = $('[id*="DataEmissao"]').val();
+		
+		
+		if(idConta == ''){
+			$('#msgIdentificacaoConta').css('display','block');
+			$('#ContaspagarIdentificacaoConta').addClass('shadow-vermelho').focus();
+		}else if(dataEmissao == ''){		
+			$('#msgDataEmissao').css('display','block');
+			$('[id*="DataEmissao"]').addClass('shadow-vermelho').focus();
+			$('html, body').animate({scrollTop:0}, 'slow');
+		}else if(tipoPagamento == ''){
+			$('#msgTipoPagamento').css('display','block');
+			$('#Pagamento0TipoPagamento').addClass('shadow-vermelho').focus();
+		}else if(identificacao == ''){
+			$('#msgIdentificacaoParcela').css('display','block');
+			$('#ContasreceberIdentificacaoDocumento').addClass('shadow-vermelho').focus();
+		}else if(dataVencimento == ''){
+			$('#msgDataVencimento').css('display','block');
+			$('#ContaspagarDataVencimento').addClass('shadow-vermelho').focus();
+		}else if(valor == '' || valor == '0,00'){
+			$('#msgContaValor').css('display','block');
+			$('#valorPagar').addClass('shadow-vermelho').focus();
+		}else if(periodocritico == ''){
+			$('#msgPeriodoCritico').css('display','block');
+			$('#PagarPeriodocritico').addClass('shadow-vermelho').focus();
+		}else if(validaDuplicata=='vazio'){
+			$('#msgDuplicata').css('display','block');
+			$('#ContaspagarDupli').addClass('shadow-vermelho');
+			
+		}else{
+				
+				//percorre a td
+				$('#numParc'+numero).each(function(){
+				   
+					//recebe valores digitados
+					identificacao = $('#identificacaoPagar').val();
+					dataVencimento = $('#ContaspagarDataVencimento').val();
+					valor = $('#valorPagar').val();
+					periodocritico = $('#PagarPeriodocritico').val();
+					
+					desconto = $('#ContaspagarDesconto').val();
+					dupliVal = $('#ContaspagarDupli :selected').val();
+					dupliText = $('#ContaspagarDupli :selected').text();
 
+					//certifica que parcelas são iguais
+					if($(this).text() == $('#ContaspagarParcela').val()){
+						//substitui valor
+						$('#ident'+numero).text(identificacao);
+						$('#dataVenc'+numero).text(dataVencimento);
+						$('#valorTabela'+numero).text(valor);
+						$('#periodocrit'+numero).text(periodocritico);
+						$('#descontoTabela'+numero).text(desconto);
+						$('#dupliTabela'+numero).text(dupliText);
+					}
+						
+					if($('.fieldset-total .clonadoProduto'+numero+"  input").hasClass("existe")){ //verifica se já não existe
+						//pega valor das input's hidden
+						data_pagamento = $('#dataPagamento'+numero).val();
+						obs_pgto = $('#descricaoPgto'+numero).val();
+						juros = $('#jurosParcela'+numero).val();
+					
+						//remove campos hidden
+						$('.clonadoProduto'+numero).remove();
+						
+						//substitui campos hidden
+						$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-receber'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-receber'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliParcela'+numero+'" value="'+dupliVal+'" type="hidden"><input name="data[Parcela]['+numero+'][data_pagamento]" step="any" class="existe" id="dataPagamento'+numero+'" value="'+data_pagamento+'" type="hidden"><input name="data[Parcela]['+numero+'][descricao]" step="any" class="existe" id="descricaoPgto'+numero+'" value="'+obs_pgto+'" type="hidden"><input name="data[Parcela]['+numero+'][juros]" step="any" class="existe" id="jurosParcela'+numero+'" value="'+juros+'" type="hidden"></div> ');
+					}else{		
+						//Volta Valores vazio se não houver adicionado antes
+						$('#vazioPagamento').val('');
+						$('#vazioDescricao').val('');
+						$('#vazioJuros').val('');
+							
+						
+						//remove campos hidden
+						$('.clonadoProduto'+numero).remove();
+						
+						//substitui campos hidden
+						$('.fieldset-total').append('<div class="input number clonadoProduto'+numero+'" style="position:absolute"><input name="data[Parcela]['+numero+'][parcela]" step="any"  id="ParcelaParcela'+numero+'parcela" value="'+parcelaAnt+'" type="hidden"><input name="data[Parcela]['+numero+'][identificacao_documento]" step="any"  id="ParcelaIdentificacaoDocumento'+numero+'" value="'+identificacao+'" type="hidden"><input name="data[Parcela]['+numero+'][data_vencimento]" step="any"  id="ParceladataVencimento-pagar'+numero+'data_vencimento" value="'+dataVencimento+'" type="hidden"><input name="data[Parcela]['+numero+'][valor]" step="any"  id="ParcelavalorConta-pagar'+numero+'valor" value="'+valor.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][periodocritico]" step="any"  id="ParcelaPeriodocritico'+numero+'periodocritico" value="'+periodocritico+'" type="hidden"><input name="data[Parcela]['+numero+'][desconto]" step="any"  id="ParcelaDesconto'+numero+'desconto" value="'+desconto.split('.').join('').replace(',','.')+'" type="hidden"><input name="data[Parcela]['+numero+'][duplicata]" step="any"  id="dupliBanco'+numero+'" value="'+dupliVal+'" type="hidden"></div> ');
+					}
+
+					calcularValorConta();
+
+					//parcela recebe numero antigo e troca botoes
+					$('#ContaspagarParcela').val(parcelaAtual);
+					$('#bt-adicionarConta-pagar').show();
+					$('#bt-editarConta-pagar').hide();
+				
+					//limpa campos
+					$('#identificacaoPagar').val('');
+					$('#ContaspagarDataVencimento').val('');
+					$('#valorPagar').val('');
+					$('#PagarPeriodocritico').val('');
+					$('#ContaspagarDesconto').val('');
+					$('#ContaspagarParcelaDescricao').val('');
+					$('#ContaspagarDupli :selected').removeAttr('selected');
+				});
+			}
 		//remove borda vermelha
 		$('#parcelaCont'+numero).removeClass('shadow-vermelho');
 		
@@ -727,16 +776,5 @@
 		
 	});
 	
-
-
-/*** Validação entre datas ***/
-	$("#ContaspagarDataVencimento").focusout(function(){
-		if(validacaoEntreDatas($("#ContaspagarDataEmissao").val(),$("#ContaspagarDataVencimento").val(),"#msgDataEmissao")){
-			$("#ContaspagarDataEmissao").val("");
-			$("#ContaspagarDataVencimento").val("");
-			$("#ContaspagarDataEmissao").addClass('shadow-vermelho').focus();
-		}
-		
-	});		
 
 });

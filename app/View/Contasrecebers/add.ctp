@@ -314,8 +314,9 @@
 				<div>
 					
 					<?php
-						echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno forma-data','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
-					
+						echo $this->Form->input('vazio.data_pagamento', array('id'=>'vazioPagamento','class'=>'tamanho-pequeno inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:'));
+						echo '<span id="msgQuitarData" class="Msg-tooltipDireita" style="display:none;">Preencha a Data de Pagamento</span>';
+
 						echo $this->Form->input('vazio.descricao',array('id'=>'vazioDescricao','label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','style'=>'display: inline'));
 					
 						echo $this->Form->input('vazio.juros',array('id'=>'vazioJuros','label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text', 'style'=>'display: inline'));
@@ -326,7 +327,7 @@
 		
 			<footer>
 
-				<?php echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela', 'alt' => 'Quitar', 'title' => 'Quitar')); ?>								
+				<?php echo $this->Html->image('botao-salvar.png', array('id' =>'bt_quitaParcela','style'=>'cursor:pointer;', 'alt' => 'Quitar', 'title' => 'Quitar')); ?>								
 
 			</footer>			 
 		</section>

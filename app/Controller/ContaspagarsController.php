@@ -358,6 +358,7 @@ class ContaspagarsController extends ContasController {
 					$parcelasEnviada['parceirodenegocio_id'] = $ultimaConta['Conta']['parceirodenegocio_id'];
 					$parcelasEnviada['pagamento_id'] = $ultimoPagamento['Pagamento']['id'];
 					$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_vencimento']);
+					$this->lifecareDataFuncs->formatDateToBD($parcelasEnviada['data_pagamento']);
 					
 					$this->Parcela->create();
 					$this->Parcela->save($parcelasEnviada);

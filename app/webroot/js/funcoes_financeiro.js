@@ -76,8 +76,8 @@ $(document).ready(function() {
 	
 	$("[id*='filterData']").addClass('inputData validaConFinan');
 	
-	$('#filterDataEmissao').mask('11/11/1111');
-	$('#filterDataEmissao-between').mask('11/11/1111');
+	$('#filterDataEmissao').mask('99/99/9999');
+	$('#filterDataEmissao-between').mask('99/99/9999');
 	
 	$('.inputData').on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
