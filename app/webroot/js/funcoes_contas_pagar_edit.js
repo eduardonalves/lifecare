@@ -41,11 +41,11 @@
 		$('span[id*="msg"').hide();
 				
 		//VALIDAÇÂO DA EDIÇÂO
-		if($('#ContaspagarDataVencimento'+id).val() ==''){ //VERIFICA DATA DE VENCIMENTO VAZIA
+		if($('.vencimento'+id).val() ==''){ //VERIFICA DATA DE VENCIMENTO VAZIA
 			$('#msgDataVazia'+id).show();
-		}else if(validacaoEntreDatas($('#ContaspagarDataEmissao').val(),$('#ContaspagarDataVencimento'+id).val(),"#msgValidaDataVencimento"+id)){//VERIFICA DATA DE VENCIMENTO < EMISSAO
-			$('#ContaspagarDataVencimento'+id).val('');
-			$('#ContaspagarDataVencimento'+id).addClass('shadow-vermelho');
+		}else if(validacaoEntreDatas($('.Emissao').val(),$('.vencimento'+id).val(),"#msgValidaDataVencimento"+id)){//VERIFICA DATA DE VENCIMENTO < EMISSAO
+			$('.vencimento'+id).val('');
+			$('.vencimento'+id).addClass('shadow-vermelho');
 		}else if($('#valorPagar'+id).val() == '' || $('#valorPagar'+id).val() == "0,00"){ //VERIFICA VALOR A PAGAR VAZIO ou IGUAL A ZERO
 			$('#msgValorVazia'+id).show();
 		}else{		// DESABILITA A EDIÇÂO DAS INPUTSSS

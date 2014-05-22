@@ -162,7 +162,7 @@
 		<?php		
 			formatDateToView($contapagar['Contaspagar']['data_emissao']);
 			
-		    echo $this->Form->input('data_emissao',array('value'=>h($contapagar['Contaspagar']['data_emissao']),'type'=>'text','label'=>'Data de Emissão<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno obrigatorio desabilita inputData','tabindex' => '2',));
+		    echo $this->Form->input('data_emissao',array('value'=>h($contapagar['Contaspagar']['data_emissao']),'type'=>'text','label'=>'Data de Emissão<span class="campo-obrigatorio">*</span>:','class'=>'Emissao tamanho-pequeno obrigatorio desabilita inputData','tabindex' => '2',));
 		    echo '<span id="msgDataEmissao" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Emissão</span>';
 		    echo '<span id="msgDataEmissaoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
 		  
@@ -259,7 +259,7 @@
 						echo "<td>". $parcelaspagar['parcela']."</td>";
 							formatDateToView($parcelaspagar['data_vencimento']);
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento'.$princ_cont.'  tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 							echo '<span id="msgDataVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Preencha a Data de Vencimento</span>';  
 							echo '<span id="msgValidaDataVencimento'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Data de Vencimento não pode ser Menor que a de Emissão</span>';  
 
