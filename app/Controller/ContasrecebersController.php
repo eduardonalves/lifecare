@@ -196,6 +196,7 @@ class ContasrecebersController extends ContasController {
 		$parcelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $idConta)));
 		
 		$hoje= date("Y-m-d");
+		$quitarConta=0;
 		foreach($parcelas as $parcela){
 			
 			$vencimento= $parcela['Parcela']['data_vencimento'];
@@ -203,6 +204,9 @@ class ContasrecebersController extends ContasController {
 			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
 			
 			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
+				if($parcela['Parcela']['status'] != 'CANCELADO'){
+					$quitarConta=1;
+				}
 				if($diasCritico !=''){
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
@@ -229,6 +233,10 @@ class ContasrecebersController extends ContasController {
 				}
 				$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);				
 			}
+		}
+		if($quitarConta==0){
+			$updateconta= array('id' => $idConta, 'status' => 'CINZA');
+			$this->Contasreceber->save($updateconta);
 		}
 	}
 
@@ -431,6 +439,7 @@ class ContasrecebersController extends ContasController {
 		$this->layout = 'contas';
 		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
+			
 			$this->loadModel('Parceirodenegocio');
 			$paceiro= $this->Parceirodenegocio->find('first', array('conditions' => array('id' => $this->request->data['Contasreceber']['parceirodenegocio_id'])));
 			//if($paceiro['Parceirodenegocio']['bloqueado'] == 'Sim' && $this->request->data['Pagamento'][0]['tipo_pagamento'] != "A Vista"){
