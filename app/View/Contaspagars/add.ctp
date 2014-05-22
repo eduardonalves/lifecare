@@ -257,7 +257,8 @@
 																	'label' => 'Duplicata<span class="campo-obrigatorio">*</span>:', 'id' => 'ContaspagarDupli',
 																	'type' => 'select',
 																	'class'=>'tamanho-pequeno ',																	
-																	'options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli')   
+																	'options' => array('vazio'=>'','1' => 'Ok', '0' => 'Dupli'),
+																	'tabindex' => '114'
 																));		
 				echo '<span id="msgDuplicata" class="Msg-tooltipDireita" style="display:none;top:55px;">Selecione a Duplicata</span>';
 			?>
