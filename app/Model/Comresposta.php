@@ -25,6 +25,20 @@ class Comresposta extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Pedido' => array(
+			'className' => 'Pedido',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Cotacao' => array(
+			'className' => 'Cotacao',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Parceirodenegocio' => array(
 			'className' => 'Parceirodenegocio',
 			'foreignKey' => 'parceirodenegocio_id',
