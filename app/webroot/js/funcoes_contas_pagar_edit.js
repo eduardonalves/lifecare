@@ -8,15 +8,14 @@
 		$('.ui-autocomplete-input').attr({required:true});
 	});
 
-/********** INPUT HIDDEN DO TIPO DE CONTA ****************/
-	
-     
+
 /********* Função Editar da tabela ******************/    
     
 	var id=0;
 	var flag =0;
     $("body").on("click",'.btnEditar', function(e){
 		flag = 1;
+		$('span[id*="msg"').hide();
 		var id = $(this).attr('id');
 		id = id.substr(9);
 		$('.linhaParcela'+id).each(function(){			
@@ -29,26 +28,41 @@
 		
 		$('#btnEditar'+id).hide();
 		$("#btnEditarOk"+id).show();
+		$('span[id*="msg"').hide();
     });
 
 //FINALIZA EDIÇÂO DA PARCELA NA TABELA
 	$("body").on("click",'.btnEditarOk', function(e){
+		
 		flag=0
 		var id = $(this).attr('id');
 		id = id.substr(11);
-		$('.linhaParcela'+id).each(function(){			
-			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("allowEmpty","false");
-			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("readonly","readonly");
-			$('.linhaParcela'+id+' input, #dupli'+id+'').attr("onFocus","this.blur();");
-			$('.linhaParcela'+id+' #dupli'+id+'').attr("disabled","disabled");
-			$('.linhaParcela'+id+' input, #dupli'+id+'').addClass("borderZero");
-			var dupliVal = $('.linhaParcela'+id+' #dupli'+id+' :selected').val();	
-			var dupliText = $('.linhaParcela'+id+' #dupli'+id+' :selected').text();	
-			$('#duplica'+id).val(dupliVal);
-		});	
 		
-		$('#btnEditar'+id).show();
-		$("#btnEditarOk"+id).hide();
+		$('span[id*="msg"').hide();
+				
+		//VALIDAÇÂO DA EDIÇÂO
+		if($('#ContaspagarDataVencimento'+id).val() ==''){ //VERIFICA DATA DE VENCIMENTO VAZIA
+			$('#msgDataVazia'+id).show();
+		}else if(validacaoEntreDatas($('#ContaspagarDataEmissao').val(),$('#ContaspagarDataVencimento'+id).val(),"#msgValidaDataVencimento"+id)){//VERIFICA DATA DE VENCIMENTO < EMISSAO
+			$('#ContaspagarDataVencimento'+id).val('');
+			$('#ContaspagarDataVencimento'+id).addClass('shadow-vermelho');
+		}else if($('#valorPagar'+id).val() == '' || $('#valorPagar'+id).val() == "0,00"){ //VERIFICA VALOR A PAGAR VAZIO ou IGUAL A ZERO
+			$('#msgValorVazia'+id).show();
+		}else{		// DESABILITA A EDIÇÂO DAS INPUTSSS
+			$('.linhaParcela'+id).each(function(){			
+				$('.linhaParcela'+id+' input, #dupli'+id+'').attr("allowEmpty","false");
+				$('.linhaParcela'+id+' input, #dupli'+id+'').attr("readonly","readonly");
+				$('.linhaParcela'+id+' input, #dupli'+id+'').attr("onFocus","this.blur();");
+				$('.linhaParcela'+id+' #dupli'+id+'').attr("disabled","disabled");
+				$('.linhaParcela'+id+' input, #dupli'+id+'').addClass("borderZero");
+				var dupliVal = $('.linhaParcela'+id+' #dupli'+id+' :selected').val();	
+				var dupliText = $('.linhaParcela'+id+' #dupli'+id+' :selected').text();	
+				$('#duplica'+id).val(dupliVal);
+			});	
+			$('#btnEditar'+id).show();
+			$("#btnEditarOk"+id).hide();
+		}
+		
 	
 		//CALCULO PARCELAs
 		var valorTotal = 0;
@@ -101,12 +115,28 @@
 
 	$("#ContaspagarEditForm, #ContaspagarEditForm").submit(function(){
 		
+		var erroData=0; 	var erroValor=0;
+		
+		$('.vencimento').each(function(){ 
+				if($(this).val()==''){erroData++;	}
+		});		
+		
+		$('.valorParcelaSoma').each(function(){
+			if($(this).val()=='' || $(this).val()== '0,00'){erroValor++;}
+		});
+		
 		if($('#ContaspagarDataEmissao').val() == ''){
 			$("#msgDataEmissao").show();
 			$('#ContaspagarDataEmissao').focus();			
 			return false;
 		}else if(flag==1){
 			$("#msgFlag").show();
+			return false;
+		}else if(erroData!=0){
+			alert('alguma data vazia!');
+			return false;
+		}else if(erroValor!=0){
+			alert('alguma valor vazio!');
 			return false;
 		}else{
 			return true;

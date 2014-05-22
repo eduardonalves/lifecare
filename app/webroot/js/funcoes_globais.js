@@ -393,9 +393,12 @@ $(document).ready(function(){
 	
 		if(dataInicial > dataFinal){
 			$(mensagem).show();
-		}
+			return true;
+		}else{
+			return false;
+		}	
 		
-		return true;
+		
 	}
 
 

@@ -259,16 +259,20 @@
 						echo "<td>". $parcelaspagar['parcela']."</td>";
 							formatDateToView($parcelaspagar['data_vencimento']);
 						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelaspagar['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo '<span id="msgDataVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Preencha a Data de Vencimento</span>';  
+							echo '<span id="msgValidaDataVencimento'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Data de Vencimento não pode ser Menor que a de Emissão</span>';  
+
 						echo "</td>";
 						
 						echo "<td>";
 							formatDateToView($parcelaspagar['data_pagamento']);
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelaspagar['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelaspagar['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataPagamento'.$princ_cont,'class'=>'tamanho-pequeno borderZero inputData','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 						echo "</td>";
 						
 						echo "<td>";
 							echo $this->Form->input('Parcela.'.$princ_cont.'.valor',array('value'=>number_format( $parcelaspagar['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => ''. $tab+2 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+							echo '<span id="msgValorVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 355px;width: 133px;">O valor da Parcela não Pode ser Zero</span>';  
 						echo "</td>";
 						
 						echo "<td>";
