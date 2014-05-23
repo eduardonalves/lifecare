@@ -339,7 +339,7 @@
 							echo "</td>";
 							
 							echo "<td>";
-								echo formatDateToView($parcelaspagar['data_pagamento']);								
+								//echo formatDateToView($parcelaspagar['data_pagamento']);								
 							echo "</td>";
 							
 							echo "<td>";
@@ -348,11 +348,11 @@
 							echo "</td>";
 							
 							echo "<td>";
-								echo number_format( $parcelaspagar['juros'], 2, ',', '.');
+							//	echo number_format( $parcelaspagar['juros'], 2, ',', '.');
 							echo "</td>";
 							
 							echo "<td>";
-								echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao_documento',array('value'=> $parcelaspagar['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => ''. $tab+4 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao_documento',array('value'=> $parcelaspagar['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-pequeno borderZero','tabindex' => ''. $tab+4 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
 							echo "</td>";
 
 							echo "<td>";
@@ -387,7 +387,7 @@
 							echo "</td>";	
 							
 							echo "<td>";
-								echo $parcelaspagar['descricao'];
+								//echo $parcelaspagar['descricao'];
 							echo "</td>";	
 									
 							echo "<td>";						
