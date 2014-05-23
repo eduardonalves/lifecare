@@ -206,6 +206,7 @@ class ContasrecebersController extends ContasController {
 			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 				if($parcela['Parcela']['status'] != 'CANCELADO'){
 					$quitarConta=1;
+					
 				}
 				if($diasCritico !=''){
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
@@ -234,9 +235,14 @@ class ContasrecebersController extends ContasController {
 				$this->setCobranca($idConta, $parcela['Parcela']['id'], $vencimento);				
 			}
 		}
+		
 		if($quitarConta==0){
 			$updateconta= array('id' => $idConta, 'status' => 'CINZA');
-			$this->Contasreceber->save($updateconta);
+			$this->Conta->create();
+			if($this->Conta->save($updateconta)){
+				//debug($updateconta);
+			}
+			
 		}
 	}
 
@@ -270,8 +276,11 @@ class ContasrecebersController extends ContasController {
 						$updateConta = array('id' => $idConta2,  'status' =>'AMARELO');
 						$this->Conta->save($updateConta);
 					}else{
-						$updateConta = array('id' => $idConta2,  'status' =>'VERDE');
-						$this->Conta->save($updateConta);
+						if(!empty($contasEmAberto)){
+							$updateConta = array('id' => $idConta2,  'status' =>'VERDE');
+							$this->Conta->save($updateConta);
+						}
+						
 					}
 				}else{
 					$updateConta = array('id' => $idConta2, 'parcelas_atraso' => 0);
@@ -478,9 +487,9 @@ class ContasrecebersController extends ContasController {
 							$this->ParcelasConta->save($parcela_conta);
 							$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 						}
-						
-						$this->setStatusConta($ultimaConta['Conta']['id']);
 						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+						$this->setStatusConta($ultimaConta['Conta']['id']);
+						
 						$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 						$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
 						$this->Session->setFlash(__('Conta cadastrada com sucesso.'), 'default', array('class' => 'success-flash'));
@@ -488,7 +497,7 @@ class ContasrecebersController extends ContasController {
 						
 						
 						return $this->redirect(array('controller'=> 'contas', 'action' => 'view', $ultimaConta['Conta']['id']));
-						//debug($ultimaConta['Conta']['parceirodenegocio_id']);
+						
 					} else {
 						$this->lifecareDataFuncs->formatDateToView($this->request->data['Contasreceber']['data_emissao']);
 						$this->Session->setFlash(__('Não foi possível cadastrar a Conta. Tente novamente.'), 'default', array('class' => 'error-flash'));

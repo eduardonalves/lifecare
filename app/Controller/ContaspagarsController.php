@@ -385,8 +385,9 @@ class ContaspagarsController extends ContasController {
 					$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 					
 				}
-				$this->setStatusConta($ultimaConta['Conta']['id']);
 				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				$this->setStatusConta($ultimaConta['Conta']['id']);
+				
 				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'],  $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 				$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
 				
