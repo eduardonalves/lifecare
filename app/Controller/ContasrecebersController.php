@@ -196,7 +196,7 @@ class ContasrecebersController extends ContasController {
 		$parcelas = $this->Parcela->find('all', array('contain' => array('_ParcelasConta', '_Parecela'), 'conditions' => array('_ParcelasConta.conta_id' => $idConta)));
 		
 		$hoje= date("Y-m-d");
-		$quitarConta=0;
+		
 		foreach($parcelas as $parcela){
 			
 			$vencimento= $parcela['Parcela']['data_vencimento'];
@@ -204,10 +204,7 @@ class ContasrecebersController extends ContasController {
 			$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$vencimento.'')));
 			
 			if($parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
-				if($parcela['Parcela']['status'] != 'CANCELADO'){
-					$quitarConta=1;
-					
-				}
+				
 				if($diasCritico !=''){
 					if($vencimento < $hoje  && $parcela['Parcela']['status'] !='CINZA' && $parcela['Parcela']['status'] != 'RENEGOCIADO'){
 						$updatevencimento= array('id' => $parcela['Parcela']['id'], 'status' => 'VERMELHO');
@@ -236,14 +233,7 @@ class ContasrecebersController extends ContasController {
 			}
 		}
 		
-		if($quitarConta==0){
-			$updateconta= array('id' => $idConta, 'status' => 'CINZA');
-			$this->Conta->create();
-			if($this->Conta->save($updateconta)){
-				//debug($updateconta);
-			}
-			
-		}
+		
 	}
 
 
@@ -303,14 +293,26 @@ class ContasrecebersController extends ContasController {
 				
 			}else{
 				
-					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
-					$this->Conta->save($updateConta);
-			}	
-
-			if($totalParcelas ==$parcelasDif){
-				$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
-				$this->Conta->save($updateConta);
+					if(!empty($parcelasPagas)){
+				
+						if($parcelasPagas !=0){
+							if($totalParcelas ==$parcelasDif){
+								$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+								$this->Conta->save($updateConta);
+							}
+						}
+					}
 			}
+			if(!empty($parcelasPagas)){
+				if($parcelasPagas !=0){
+					if($totalParcelas ==$parcelasDif){
+						$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+						$this->Conta->save($updateConta);
+					}
+				}
+			}	
+			
+			
 	}
 	
 	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento, &$tipoPagamento){
@@ -495,6 +497,8 @@ class ContasrecebersController extends ContasController {
 							$this->ParcelasConta->save($parcela_conta);
 							$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 						}
+						
+						
 						
 						$this->setStatusConta($ultimaConta['Conta']['id']);
 						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
