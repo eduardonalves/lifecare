@@ -158,7 +158,7 @@ $(document).ready(function() {
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
 				
-				<?php
+				<?php 
 					echo $this->Form->input('', array('label' => 'Dados das Parcelas','type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
 					?>
 				
@@ -178,7 +178,7 @@ $(document).ready(function() {
 						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));									
 					?>
 				</div>
-				<div class="inputSearchDuplicata">
+				<div class="inputSearchDuplicata" style="margin-top: 55px">
 					<?php
 						echo $this->Search->input('duplicata', array('label' => 'Duplicata'));
 					?>
@@ -474,6 +474,12 @@ $(document).ready(function() {
 					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="juros"){
 					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+				}else if($campo=="duplicata"){
+					if($parcela['Parcela']['duplicata']== 1){
+						echo "<td class=\"$campo\">Ok</td>";
+					}else if($parcela['Parcela']['duplicata'] == 0){
+						echo "<td class=\"$campo\">Dupli</td>";
+					}
 				}else{
 					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
 				}		    	
