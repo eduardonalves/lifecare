@@ -257,78 +257,156 @@
 				$tab = 5;
 					
 				foreach($contareceber['Parcela'] as $parcelareceber){
-					echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelareceber['id'],'type'=>'hidden'));
-					echo "<tr class=\"linhaParcela$princ_cont\">";
-					
-						echo "<td>". $parcelareceber['parcela']."</td>";
-						
-							formatDateToView($parcelareceber['data_vencimento']);
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelareceber['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento'.$princ_cont.'  inputData tamanho-pequeno borderZero','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-							echo '<span id="msgDataVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Preencha a Data de Vencimento</span>';  
-							echo '<span id="msgValidaDataVencimento'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Data de Vencimento não pode ser Menor que a de Emissão</span>';  
+						if($parcelareceber['status'] == "CINZA"){ //VERIFICA SE A PARCELA FOI QUITADA 
+							echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelareceber['id'],'type'=>'hidden'));
+							echo "<tr class=\"linhaParcela$princ_cont\">";
+							
+								echo "<td>". $parcelareceber['parcela']."</td>";
+								
+									formatDateToView($parcelareceber['data_vencimento']);
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelareceber['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento'.$princ_cont.'  inputData tamanho-pequeno borderZero','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+									echo '<span id="msgDataVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Preencha a Data de Vencimento</span>';  
+									echo '<span id="msgValidaDataVencimento'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Data de Vencimento não pode ser Menor que a de Emissão</span>';  
 
-						echo "</td>";
-						
-							formatDateToView($parcelareceber['data_pagamento']);
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelareceber['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataPagamento'.$princ_cont,'class'=>'inputData tamanho-pequeno borderZero inputData','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-						echo "</td>";
-						
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.valor',array('value'=>number_format( $parcelareceber['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-							echo '<span id="msgValorVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 355px;width: 133px;">O valor da Parcela não Pode ser Zero</span>';  
-						echo "</td>";
-						
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.juros',array('value'=>number_format($parcelareceber['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-						echo "</td>";
-						
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao_documento',array('value'=>$parcelareceber['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-						echo "</td>";
+								echo "</td>";
+								
+									formatDateToView($parcelareceber['data_pagamento']);
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.data_pagamento',array('value'=>$parcelareceber['data_pagamento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataPagamento'.$princ_cont,'class'=>'inputData tamanho-pequeno borderZero inputData','tabindex' => '108','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.valor',array('value'=>number_format( $parcelareceber['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+									echo '<span id="msgValorVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 355px;width: 133px;">O valor da Parcela não Pode ser Zero</span>';  
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.juros',array('value'=>number_format($parcelareceber['juros'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorJuros'.$princ_cont,'class'=>'valorJurosSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao_documento',array('value'=>$parcelareceber['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-pequeno borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo "</td>";
 
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.periodocritico',array('value'=>$parcelareceber['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
-						echo "</td>";
-						
-						
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.desconto',array('value'=>number_format($parcelareceber['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'valorDesconto tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
-						echo "</td>";
-						
-						echo "<td>";
-							if($parcelareceber['duplicata'] == 1){
-								//echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('value'=>$parcelaspagar['duplicata'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-								echo $this->Form->input('vazio.duplicata', array(
-																	'label' => '', 'id' => 'dupli'.$princ_cont,
-																	'type' => 'select',
-																	'class'=>'tamanho-pequeno  borderZero',
-																	'allowEmpty' => 'false', 'disabled'=>'disabled','readonly'=>'readonly', 'onFocus'=>'this.blur();',				
-																	'default'=>array('1'=>'Ok'), 'options' => array('1' => 'Ok', '0' => 'Dupli')   
-																));
-							}else if($parcelareceber['duplicata'] == 0){
-								echo $this->Form->input('vazio.duplicata', array(
-																	'label' => '', 'id' => 'dupli'.$princ_cont,
-																	'type' => 'select',
-																	'class'=>'tamanho-pequeno borderZero',
-																	'allowEmpty' => 'false', 'disabled'=>'disabled', 'readonly'=>'readonly', 'onFocus'=>'this.blur();',				
-																	'default'=>array('0'=>'Dupli'), 'options' => array('0' => 'Dupli','1' => 'Ok')   
-																));
-							}
-							echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('type'=>'hidden','id'=>'duplica'.$princ_cont));
-						echo "</td>";	
-						
-						echo "<td>";
-							echo $this->Form->input('Parcela.'.$princ_cont.'.descricao',array('value'=>$parcelareceber['descricao'],'type'=>'text','label'=>'','id' => 'descri'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','maxlength' => '254','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
-						echo "</td>";
-					
-						echo "<td>";
-							echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditar'.$princ_cont, 'class'=>'btnEditar', 'alt' => 'Editar', 'title' => 'Editar'));
-							echo $this->Html->image('bt-confirm.png', array('id' => 'btnEditarOk'.$princ_cont, 'class'=>'btnEditarOk', 'alt' => 'Concluir', 'title' => 'Concluir','style'=>'display:none'));							
-						echo "</td>";										
-					echo "</tr>";
-					$princ_cont++;	
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.periodocritico',array('value'=>$parcelareceber['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
+								echo "</td>";
+								
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.desconto',array('value'=>number_format($parcelareceber['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'valorDesconto tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
+								echo "</td>";
+								
+								echo "<td>";
+									if($parcelareceber['duplicata'] == 1){
+										//echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('value'=>$parcelaspagar['duplicata'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+										echo $this->Form->input('vazio.duplicata', array(
+																			'label' => '', 'id' => 'dupli'.$princ_cont,
+																			'type' => 'select',
+																			'class'=>'tamanho-pequeno  borderZero',
+																			'allowEmpty' => 'false', 'disabled'=>'disabled','readonly'=>'readonly', 'onFocus'=>'this.blur();',				
+																			'default'=>array('1'=>'Ok'), 'options' => array('1' => 'Ok', '0' => 'Dupli')   
+																		));
+									}else if($parcelareceber['duplicata'] == 0){
+										echo $this->Form->input('vazio.duplicata', array(
+																			'label' => '', 'id' => 'dupli'.$princ_cont,
+																			'type' => 'select',
+																			'class'=>'tamanho-pequeno borderZero',
+																			'allowEmpty' => 'false', 'disabled'=>'disabled', 'readonly'=>'readonly', 'onFocus'=>'this.blur();',				
+																			'default'=>array('0'=>'Dupli'), 'options' => array('0' => 'Dupli','1' => 'Ok')   
+																		));
+									}
+									echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('type'=>'hidden','id'=>'duplica'.$princ_cont));
+								echo "</td>";	
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.descricao',array('value'=>$parcelareceber['descricao'],'type'=>'text','label'=>'','id' => 'descri'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','maxlength' => '254','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo "</td>";
+							
+								echo "<td>";
+									echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditar'.$princ_cont, 'class'=>'btnEditar', 'alt' => 'Editar', 'title' => 'Editar'));
+									echo $this->Html->image('bt-confirm.png', array('id' => 'btnEditarOk'.$princ_cont, 'class'=>'btnEditarOk', 'alt' => 'Concluir', 'title' => 'Concluir','style'=>'display:none'));							
+								echo "</td>";										
+							echo "</tr>";
+							$princ_cont++;	
+							
+						}else{ //PARCELA QUE NAO FOI QUITADA NAO PODE EDITAR DATA DE PAGAMENTO
+							
+							echo $this->Form->input('Parcela.'.$princ_cont.'.id',array('value'=>$parcelareceber['id'],'type'=>'hidden'));
+							echo "<tr class=\"linhaParcela$princ_cont\">";
+							
+								echo "<td>". $parcelareceber['parcela']."</td>";
+								
+									formatDateToView($parcelareceber['data_vencimento']);
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.data_vencimento',array('value'=>$parcelareceber['data_vencimento'],'type'=>'text','label'=>'','id' => 'ContaspagarDataVencimento'.$princ_cont,'class'=>'vencimento'.$princ_cont.'  inputData tamanho-pequeno borderZero','tabindex' => ''. $tab+1 .'','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+									echo '<span id="msgDataVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Preencha a Data de Vencimento</span>';  
+									echo '<span id="msgValidaDataVencimento'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 160px;width: 133px;">Data de Vencimento não pode ser Menor que a de Emissão</span>';  
+
+								echo "</td>";
+								
+									formatDateToView($parcelareceber['data_pagamento']);
+								echo "<td>";
+									//echo $parcelareceber['data_pagamento'];
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.valor',array('value'=>number_format( $parcelareceber['valor'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'valorPagar'.$princ_cont,'class'=>'valorParcelaSoma tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+									echo '<span id="msgValorVazia'.$princ_cont.'" class="Msg-tooltipDireita" style="display:none;left: 355px;width: 133px;">O valor da Parcela não Pode ser Zero</span>';  
+								echo "</td>";
+								
+								echo "<td>";
+									//echo number_format($parcelareceber['juros'], 2, ',', '.');
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.identificacao_documento',array('value'=>$parcelareceber['identificacao_documento'],'label' => '','id' => 'documento'.$princ_cont,'class' => 'tamanho-medio borderZero','tabindex' => '110','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+								echo "</td>";
+
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.periodocritico',array('value'=>$parcelareceber['periodocritico'],'label' => '','class' => 'tamanho-pequeno Nao-Letras borderZero','id' =>'critico'.$princ_cont,'tabindex' => '115','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));						
+								echo "</td>";
+								
+								
+								echo "<td>";
+									echo $this->Form->input('Parcela.'.$princ_cont.'.desconto',array('value'=>number_format($parcelareceber['desconto'], 2, ',', '.'),'type'=>'text','label'=>'','id' => 'desconto'.$princ_cont,'class'=>'valorDesconto tamanho-pequeno dinheiro_duasCasas borderZero','tabindex' => '109','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));					 
+								echo "</td>";
+								
+								echo "<td>";
+									if($parcelareceber['duplicata'] == 1){
+										//echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('value'=>$parcelaspagar['duplicata'],'type'=>'text','label'=>'','id' => 'obs'.$princ_cont,'class'=>'tamanho-pequeno desabilita borderZero','tabindex' => ''. $tab+10 .'','maxlength' => '25','allowEmpty' => 'false','readonly'=>'readonly','onFocus'=>'this.blur();'));
+										echo $this->Form->input('vazio.duplicata', array(
+																			'label' => '', 'id' => 'dupli'.$princ_cont,
+																			'type' => 'select',
+																			'class'=>'tamanho-pequeno  borderZero',
+																			'allowEmpty' => 'false', 'disabled'=>'disabled','readonly'=>'readonly', 'onFocus'=>'this.blur();',				
+																			'default'=>array('1'=>'Ok'), 'options' => array('1' => 'Ok', '0' => 'Dupli')   
+																		));
+									}else if($parcelareceber['duplicata'] == 0){
+										echo $this->Form->input('vazio.duplicata', array(
+																			'label' => '', 'id' => 'dupli'.$princ_cont,
+																			'type' => 'select',
+																			'class'=>'tamanho-pequeno borderZero',
+																			'allowEmpty' => 'false', 'disabled'=>'disabled', 'readonly'=>'readonly', 'onFocus'=>'this.blur();',				
+																			'default'=>array('0'=>'Dupli'), 'options' => array('0' => 'Dupli','1' => 'Ok')   
+																		));
+									}
+									echo $this->Form->input('Parcela.'.$princ_cont.'.duplicata',array('type'=>'hidden','id'=>'duplica'.$princ_cont));
+								echo "</td>";	
+								
+								echo "<td>";
+									//echo $parcelareceber['descricao'];
+								echo "</td>";
+							
+								echo "<td>";
+									echo $this->Html->image('botao-tabela-editar.png', array('id' => 'btnEditar'.$princ_cont, 'class'=>'btnEditar', 'alt' => 'Editar', 'title' => 'Editar'));
+									echo $this->Html->image('bt-confirm.png', array('id' => 'btnEditarOk'.$princ_cont, 'class'=>'btnEditarOk', 'alt' => 'Concluir', 'title' => 'Concluir','style'=>'display:none'));							
+								echo "</td>";										
+							echo "</tr>";
+							$princ_cont++;	
+							
+						}
 				}
 			?>			
 			

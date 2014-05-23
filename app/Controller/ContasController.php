@@ -645,6 +645,12 @@ class ContasController extends AppController {
 		                )
 		            )
 		        ),
+		         'duplicata' => array(
+		            'Parcela.duplicata' => array(
+		                'operator' => '=',
+	               		 'select' => array('' => '','1' => 'OK', '0' => 'Dupli')
+		            )
+		        ),
 		        'data_vencimento' => array(
 		            'Parcela.data_vencimento' => array(
 		                'operator' => 'BETWEEN',
@@ -864,6 +870,12 @@ class ContasController extends AppController {
 		                'between' => array(
 		                    'text' => __(' e ', true)
 		                )
+		            )
+		        ),
+		        'duplicata' => array(
+		            '_Parcela.duplicata' => array(
+		                'operator' => '=',
+	               		 'select' => array('' => '','1' => 'OK', '0' => 'Dupli')
 		            )
 		        ),
 		        'data_vencimento' => array(
