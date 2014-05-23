@@ -567,9 +567,7 @@ class ContasrecebersController extends ContasController {
 				$this->loadModel('Pagamento');
 				$this->loadModel('Parcela');
 				$this->loadModel('ParcelasConta');
-				$this->loadModel('Conta');
-				
-				
+				$this->loadModel('Conta');			
 				
 				//$this->setStatusConta($this->request->data['Contasreceber']['id']);
 				//$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);

@@ -288,7 +288,7 @@
 					<footer>
 						
 						<?php
-							echo $this->Html->image('botao-salvar.png',array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar'));
+							echo $this->Html->image('botao-salvar.png',array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Quitar', 'title' => 'Quitar'));
 							//echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 							echo $this->form->end();
 						?>
