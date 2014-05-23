@@ -40,12 +40,15 @@
 	
 	
 	<section class="coluna-central">
-		<?php			
-			//echo $this->Form->input('role_id',array('label'=>'Tipo de Usuario:','id'=>'roleUser','class'=>'tamanho-medio'));
-		?>
 			
 			<div class="input autocompleteRole conta">
-			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Selecione o Tipo de Usuário</span>
+				
+			<?php
+			
+			echo $this->Form->input('role_id',array('type'=>'hidden','id'=>'roleId'));
+			
+			?>
+			<span id="msgRole" class="Msg tooltipMensagemErroTopo" style="display:none">Selecione o Tipo de Usuário</span>
 			<label id="SpanRole">Tipo de Usuário<span class="campo-obrigatorio">*</span>:</label>
 			<select class="tamanho-medio" id="add_role">
 				<option></option>
@@ -59,16 +62,14 @@
 					?>
 			</select>
 		</div>
-		
-		<?php	
-			echo $this->Form->input('password',array('label'=>'Senha:','id'=>'senhaUser','type'=>'password','class'=>'tamanho-medio'));
+		<?php
+			echo $this->Form->input('status',array('label'=>'Bloqueado<span class="campo-obrigatorio">*</span>:','id'=>'Bloqueado','class'=>'tamanho-medio','type'=>'select', 'options'=>array('1' => 'NÃO','0' => 'SIM')));
 		?>
 	</section>
 	
 	<section class="coluna-direita">
 		<?php	
-			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','class'=>'tamanho-medio','type'=>'select', 'options'=>array('INTERNO','EXTERNO')));
-			echo '<span id="msgTipoAcesso" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo de Acesso</span>';
+			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'TipoAcesso','class'=>'tamanho-medio','type'=>'select', 'options'=>array('INTERNO' => 'INTERNO','EXTERNO' => 'EXTERNO')));
 		?>
 	</section>
 	<!-- FIM SECTION SUPERIOR  --->
@@ -77,7 +78,7 @@
 
 <footer>
 	<?php
-		echo $this->form->submit('botao-salvar.png',array('class'=>'','alt'=>'Salvar','title'=>'Salvar','id'=>'')); 
+		echo $this->form->submit('botao-salvar.png',array('class'=>'','alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvaruser')); 
 		echo $this->Form->end();
 	?>
 </footer>
