@@ -47,6 +47,7 @@
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 		//echo $this->Html->css('jquery-ui/custom-combobox.css');
 		echo $this->Html->css('financeiro_geral.css');
+		echo $this->Html->css('lifecare_users.css');
 		echo $this->fetch('css');
 		echo $this->Html->script('jquery_novo.js');
 		echo $this->Html->script('jquery-ui/jquery-ui.js');
@@ -106,14 +107,6 @@
 					</a>
 				</li>
 
-				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"funcionarios","action"=>"add"),true);?>'>
-						
-						<?php echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar Parceiro', 'title' => 'Cadastrar Parceiro')); ?>
-
-						<span class="label">Cadastrar Funcionário</span>
-					</a>
-				</li>
 				
 				<li class="item">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"users","action"=>"add"),true);?>'>
@@ -127,7 +120,7 @@
 			</ul>
 		</nav><!-- nav-lateral -->
 
-		<section class="conteudo-principal">
+		<section class="conteudo-principal-users">
 
 			<?php 
 				echo $this->Session->flash();
