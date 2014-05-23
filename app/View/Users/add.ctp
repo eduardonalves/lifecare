@@ -16,7 +16,7 @@
 	<?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption53">Cadastrar Usuário</h1>
+	<h1 class="menuOption42">Cadastrar Usuário</h1>
 </header>
 
 <section>
