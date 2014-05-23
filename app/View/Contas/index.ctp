@@ -172,9 +172,15 @@ $(document).ready(function() {
 						echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio dinheiro_duasCasas'));
 					?>
 				</div>
+				
 				<div class="inputSearchData">
 					<?php	
 						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));									
+					?>
+				</div>
+				<div class="inputSearchDuplicata">
+					<?php
+						echo $this->Search->input('duplicata', array('label' => 'Duplicata'));
 					?>
 				</div>
 				<div id="msgFiltroParcela" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
