@@ -219,10 +219,6 @@ $(document).ready(function(){
 		$('.btnEditar').show();
 		$('.quitar').show();
 
-		if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
-			$('.tela-resultado-field').hide();
-		}
-		
 		//recebe valores digitados
 		identificacao = $('#ContasreceberIdentificacaoDocumento').val();
 		dataVencimento = $('#dataVencimento-receber').val();
@@ -264,6 +260,10 @@ $(document).ready(function(){
 			$('#msgDuplicata').css('display','block');
 			$('#ContasreceberDupli').addClass('shadow-vermelho');
 		}else{	
+			
+			if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+				$('.tela-resultado-field').hide();
+			}	
 			//percorre a td
 			$('#numParc'+numero).each(function(){
 			   
@@ -332,9 +332,7 @@ $(document).ready(function(){
 	
 	//remove borda vermelha
 	$('#parcelaCont'+numero).removeClass('shadow-vermelho');
-	    if(tipoPagamento == 'A Vista'){
-			$('.tela-resultado-field').hide();
-	    }
+	 
     });
     
 /********* Função Editar da tabela (lapis tabela)******************/

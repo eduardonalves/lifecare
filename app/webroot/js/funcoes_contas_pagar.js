@@ -208,11 +208,7 @@
     $('#bt-editarConta-pagar').click(function(){
 		$('.btnEditar').show();
 		$('.quitar').show();
-
-		if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
-			$('.tela-resultado-field').hide();
-		}
-		
+	
 		//recebe valores digitados
 		identificacao = $('#identificacaoPagar').val();
 		dataVencimento = $('#ContaspagarDataVencimento').val();
@@ -254,6 +250,11 @@
 			$('#ContaspagarDupli').addClass('shadow-vermelho');
 			
 		}else{
+				
+				if($('#Pagamento0TipoPagamento').val() == 'A Vista'){
+					$('.tela-resultado-field').hide();
+				}
+		
 				
 				//percorre a td
 				$('#numParc'+numero).each(function(){
@@ -323,10 +324,7 @@
 			}
 		//remove borda vermelha
 		$('#parcelaCont'+numero).removeClass('shadow-vermelho');
-		
-		if(tipoPagamento == 'A Vista'){
-			$('.tela-resultado-field').hide();
-		}
+	
     });
     
 /********* Função Editar da tabela(Pegar da tabela para as inputs) ******************/
