@@ -92,7 +92,9 @@ class UsersController extends AppController {
 		$this->loadModel('Funcionario');
 		$funcionarios = $this->Funcionario->find('all');
 		
-		$roles = $this->User->Role->find('list');
+		$this->loadModel('Role');
+		$roles = $this->Role->find('all');
+		
 		$this->set(compact('funcionarios','roles'));
 	}
 /**

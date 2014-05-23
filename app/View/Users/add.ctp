@@ -40,9 +40,28 @@
 	
 	
 	<section class="coluna-central">
-		<?php
-			echo $this->Form->input('role_id',array('label'=>'Tipo de Usuário<span class="campo-obrigatorio">*</span>:','id'=>'roleUser','class'=>'tamanho-medio'));
-			echo '<span id="msgTipoUser" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo de Usuário</span>';
+		<?php			
+			//echo $this->Form->input('role_id',array('label'=>'Tipo de Usuario:','id'=>'roleUser','class'=>'tamanho-medio'));
+		?>
+			
+			<div class="input autocompleteRole conta">
+			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Selecione o Tipo de Usuário</span>
+			<label id="SpanRole">Tipo de Usuário<span class="campo-obrigatorio">*</span>:</label>
+			<select class="tamanho-medio" id="add_role">
+				<option></option>
+					<?php
+						foreach($roles as $role)
+						{
+							echo "<option id='".$role['Role']['alias']."' value='".$role['Role']['id']."' >";
+								echo $role['Role']['roles'];
+							echo "</option>";
+						}
+					?>
+			</select>
+		</div>
+		
+		<?php	
+			echo $this->Form->input('password',array('label'=>'Senha:','id'=>'senhaUser','type'=>'password','class'=>'tamanho-medio'));
 		?>
 	</section>
 	

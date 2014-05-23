@@ -256,6 +256,11 @@ class ContasrecebersController extends ContasController {
 			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 , 'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
 			$contasPrestesAVencer = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'AMARELO'))); 
 			
+			$totalParcelas=$this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 )));
+			$parcelasPagas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'CINZA')));
+			$parcelasNegociadas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'RENEGOCIADO')));
+			$parcelasDif= $totalParcelas - $parcelasNegociadas;
+			
 			$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $idConta2)));
 			
 			if(!empty($contasEmAtraso)){
@@ -300,9 +305,12 @@ class ContasrecebersController extends ContasController {
 				
 					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 					$this->Conta->save($updateConta);
-				
-				
 			}	
+
+			if($totalParcelas ==$parcelasDif){
+				$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+				$this->Conta->save($updateConta);
+			}
 	}
 	
 	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento, &$tipoPagamento){
@@ -487,8 +495,9 @@ class ContasrecebersController extends ContasController {
 							$this->ParcelasConta->save($parcela_conta);
 							$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 						}
-						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+						
 						$this->setStatusConta($ultimaConta['Conta']['id']);
+						$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
 						
 						$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'], $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 						$this->setLimiteCentroReceitaAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
