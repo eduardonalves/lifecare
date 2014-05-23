@@ -185,6 +185,11 @@ class ContaspagarsController extends ContasController {
 			
 			$conta = $this->Conta->find('first', array('conditions' => array('Conta.id' => $idConta2)));	
 			
+			$totalParcelas=$this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 )));
+			$parcelasPagas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'CINZA')));
+			$parcelasNegociadas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'RENEGOCIADO')));
+			$parcelasDif= $totalParcelas - $parcelasNegociadas;
+			
 						
 			if(!empty($contasEmAtraso)){
 				
@@ -227,6 +232,10 @@ class ContaspagarsController extends ContasController {
 				
 				
 			}	
+			if($totalParcelas ==$parcelasDif){
+				$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
+				$this->Conta->save($updateConta);
+			}
 	}
 	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento, &$tipoPagamento){
 		
@@ -385,8 +394,10 @@ class ContaspagarsController extends ContasController {
 					$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 					
 				}
-				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+
 				$this->setStatusConta($ultimaConta['Conta']['id']);
+				$this->setStatusContaPrincipal($ultimaConta['Conta']['id']);
+				
 				
 				$this->setLimiteUsadoAdd($ultimaConta['Conta']['parceirodenegocio_id'], $ultimaConta['Conta']['valor'],  $ultimoPagamento['Pagamento']['tipo_pagamento'], $ultimoPagamento['Pagamento']['forma_pagamento']);
 				$this->setLimiteCentroCustoAdd($ultimaConta['Conta']['centrocusto_id'], $ultimaConta['Conta']['valor'], $ultimaConta['Conta']['data_emissao']);
