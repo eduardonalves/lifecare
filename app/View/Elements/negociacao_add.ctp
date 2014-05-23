@@ -44,7 +44,7 @@
 	    <section class="coluna-central" >
 		<?php
 		    $data_atual = date("d/m/Y", strtotime("now"));
-		    echo $this->Form->input('data',array('label' => 'Data Negociação<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno borderZero','id'=> 'negociacaoDataEmissao','readonly' => 'readonly','onFocus' => 'this.blur()','tabindex' => '101','value'=>$data_atual));
+		    echo $this->Form->input('data',array('label' => 'Data Negociação<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'tamanho-pequeno borderZero inputData','id'=> 'negociacaoDataEmissao','readonly' => 'readonly','onFocus' => 'this.blur()','tabindex' => '101','value'=>$data_atual));
 		    echo $this->Form->input('status',array('label' => 'Tipo:','type' => 'hidden','value'=>'ABERTO'));
 		    
 		?>
@@ -120,7 +120,7 @@
 	    <section class="coluna-direita" >
 		<?php
 
-		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita forma-data','id' => 'dataVencimento-receber','tabindex' => '107'));
+		    echo $this->Form->input('data_vencimento_parcela',array('label' => 'Data vencimento<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'tamanho-pequeno obrigatorio desabilita inputData','id' => 'dataVencimento-receber','tabindex' => '107'));
 
 		    echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 		    echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Preencha a data corretamente</span>';
