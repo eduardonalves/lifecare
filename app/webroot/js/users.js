@@ -2,10 +2,15 @@ $(document).ready(function(){
 
 /**************** COMBOBOX FUNCIORNARIO *****************/	
   $(function(){
-	$("#add_funcionario" ).combobox();
+	$("#add_funcionario").combobox();
   });  
   
-/**************** Modal Parceiro de negocio tipo Funcionario *****************/
+/**************** COMBOBOX ROLE *****************/	
+  $(function(){
+	$("#add_role").combobox();
+  });  
+  
+/**************** Modal Funcionario *****************/
     $('body').on('click', '#ui-id-1 a',function(){
 		valorCad= $(this).text();
 		valorId=$('#add_funcionario :selected').val();
@@ -16,6 +21,6 @@ $(document).ready(function(){
 			$('#funcionarioId').val(valorId);
 		}
     });
-	
+
 	
 });
