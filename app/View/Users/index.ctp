@@ -47,14 +47,15 @@
 		?>
 		</section>
 		
-		<section class="coluna-central">
+		<section class="coluna-central" style="margin-left:-70px;">
 		<?php
 			echo $this->Form->input('role',array('required'=>'false','type'=>'select','options' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico'), 'label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
+			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'margin-left:50px;margin-top:-20px;'));
 		?>
 		</section>
 		
 		<section class="coluna-direita">
-		<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'float: left;')); ?>
+		<?php //echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'float: left;')); ?>
 		</section>
 		
 		<?php echo $this->Form->end(); ?>
@@ -81,23 +82,29 @@
 	<?php foreach ($users as $user): ?>
 	<tr>
 		<td class="actions">
-			<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Usuario','title'=>'Visualizar Usuário','url'=>array('controller' => 'users','action' => 'view', $user['User']['id']))); ?>
-			<?php echo "<hr />"; ?>
-			<?php echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Usuario','title'=>'Editar Usuário','url'=>array('controller' => 'users','action' => 'edit', $user['User']['id']))); ?>
-			<?php echo "<hr />"; ?>
-			<?php echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_user','alt' =>__('Delete'),'title' => 'Excluir Usuário')), array('controller' => 'users','action' => 'delete', $user['User']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Usuário '.$user['User']['id'].'?'))); ?>
+			<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Usuario','title'=>'Visualizar Usuário','url'=>array('controller' => 'users','action' => 'view', $user['User']['id']))); 
+				echo "<hr />";
+				echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Usuario','title'=>'Editar Usuário','url'=>array('controller' => 'users','action' => 'edit', $user['User']['id']))); 
+				echo "<hr />"; 
+				echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_user','alt' =>__('Delete'),'title' => 'Excluir Usuário')), array('controller' => 'users','action' => 'delete', $user['User']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Usuário '.$user['User']['id'].'?'))); 
+			?>
 		</td>
-		<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
-		<td><?php echo h($user['Role']['roles']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['acesso']); ?>&nbsp;</td>
+		<td><?php echo h($user['User']['id']); ?></td>
+		<td><?php echo h($user['User']['username']); ?></td>
+		<td><?php echo h($user['Role']['roles']); ?></td>
+		<td><?php echo h($user['User']['acesso']); ?></td>
 		<td>
 			<?php
-			formatDateTimeToView($user['User']['created']);
-			echo h($user['User']['created']); ?>&nbsp;</td>
-		<td><?php
-			formatDateTimeToView($user['User']['modified']);
-			echo h($user['User']['modified']); ?>&nbsp;</td>
+				formatDateTimeToView($user['User']['created']);
+				echo $user['User']['created']; 
+			?>
+		</td>
+		<td>
+			<?php
+				formatDateTimeToView($user['User']['modified']);
+				echo $user['User']['modified']; 
+			?>
+		</td>				
 	</tr>
 	<?php endforeach; ?>
 	</table>

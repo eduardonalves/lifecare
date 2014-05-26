@@ -122,7 +122,7 @@ class UsersController extends AppController {
 				//debug($this->request->data);
 				
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
-				//return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
@@ -134,7 +134,36 @@ class UsersController extends AppController {
 		$this->loadModel('Role');
 		$roles = $this->Role->find('all');
 		
-		$this->set(compact('funcionarios','roles'));
+		//CONFIG'ss
+		
+		$this->loadModel('Configcobranca');
+		$configcobranca = $this->Configcobranca->find('all');
+		
+		
+		$this->loadModel('Configconta');
+		$configconta = $this->Configconta->find('all');
+		
+		
+		$this->loadModel('Configlote');
+		$configlote = $this->Configlote->find('all');
+		
+		
+		$this->loadModel('Confignota');
+		$confignota = $this->Confignota->find('all');
+		
+		
+		$this->loadModel('Configparceiro');
+		$configparceiro = $this->Configparceiro->find('all');
+		
+		
+		$this->loadModel('Configparcela');
+		$configparcela = $this->Configparcela->find('all');
+				
+		$this->loadModel('Configproduto');
+		$configproduto = $this->Configproduto->find('all');
+				
+		
+		$this->set(compact('funcionarios','roles','configcobranca','configconta','configlote','confignota','configparceiro','configparcela','configproduto'));
 	}
 /**
  * edit method
