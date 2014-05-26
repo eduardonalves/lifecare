@@ -120,9 +120,17 @@ class UsersController extends AppController {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 			$this->request->data = $this->User->find('first', $options);
 		}
+		
 		$funcionarios = $this->User->Funcionario->find('list');
-		$roles = $this->User->Role->find('list');
-		$this->set(compact('funcionarios', 'roles'));
+		$rolesUser = $this->User->Role->find('list');
+		
+		$usuario = $this->User->find('first',$options);
+		
+		$this->loadModel('Role');
+		$rolesTipo = $this->Role->find('all');
+		
+		
+		$this->set(compact('funcionarios', 'rolesUser','rolesTipo','usuario'));
 	}
 
 /**

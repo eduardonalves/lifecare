@@ -10,7 +10,7 @@ App::uses('AppModel', 'Model');
  */
  
 App::Import('Model', 'Comoperacao');
-class Cotacaos extends Comoperacao {
+class Cotacao extends Comoperacao {
 	var $name = 'Cotacao';
 	public $useTable = 'comoperacaos'; 
 
