@@ -31,26 +31,27 @@
 		
 		<?php
 			echo $this->Form->input('username',array('label'=>'Login<span class="campo-obrigatorio">*</span>:','value'=>$usuario['User']['username'],'id'=>'LoginUser','class'=>'tamanho-medio'));
-			echo '<span id="msgLogin" class="Msg-tooltipDireita" style="display:none">Preencha o campo Login</span>';
+			echo '<span id="msgLogin" class="Msg-tooltipDireita" style="display:none;margin-left: 68px;position: absolute;width: 80px;">Preencha o campo Login</span>';
 			echo $this->Form->input('password',array('label'=>'Senha<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','value'=>$usuario['User']['password'],'type'=>'password','class'=>'tamanho-medio'));
-			echo '<span id="msgSenha" class="Msg-tooltipDireita" style="display:none">Preencha o campo Senha</span>';
+			echo '<span id="msgSenha" class="Msg-tooltipDireita" style="display:none;margin-left: 68px;position: absolute;width: 80px;">Preencha o campo Senha</span>';
 		?>			
 	</section>
 	
 	
 	<section class="coluna-central">
-		<?php			
-			echo $this->Form->input('role_id',array('type'=>'hidden','id'=>'roleUser',));
-		?>			
-			<div class="input autocompleteRole conta">
+		<div class="input autocompleteRole conta">
+			<?php
+				echo $this->Form->input('role_id',array('type'=>'hidden','id'=>'roleId', 'value'=>$usuario['Role']['id']));
+			?>
+			
 			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Selecione o Tipo de Usuário</span>
-			<label id="SpanRole">Tipo de Usuário<span class="campo-obrigatorio">*</span>:</label>
-			<select class="tamanho-medio" id="add_role">
+			<label id="SpanRole">Tipo de Usuário:</label>
+			<select class="tamanho-medio roleNome" id="add_role">
 				<option></option>
 					<?php
 						foreach($rolesTipo as $rolesTipo)
 						{
-							echo "<option id='".$rolesTipo['Role']['alias']."' value='".$rolesTipo['Role']['id']."' >";
+							echo "<option id='".$rolesTipo['Role']['roles']."' value='".$rolesTipo['Role']['id']."' >";
 								echo $rolesTipo['Role']['roles'];
 							echo "</option>";
 						}
@@ -58,14 +59,16 @@
 			</select>
 		</div>
 		
-		<?php	
-			echo $this->Form->input('status',array('label'=>'Bloqueado<span class="campo-obrigatorio">*</span>:','id'=>'Bloqueado','class'=>'tamanho-medio','type'=>'select', 'options'=>array('1' => 'NÃO','0' => 'SIM')));		
+		<?php
+			//Referencia para selecionar as select's
+			echo $this->form->input('Vazio.carac',array('type'=>'hidden','id'=>'infosUser','data-role'=>$usuario['Role']['roles'], 'data-status'=>$usuario['User']['status'], 'data-acesso'=>$usuario['User']['acesso']));
+			echo $this->Form->input('User.status',array('label'=>'Bloqueado:','id'=>'Bloqueado','class'=>'tamanho-medio statusBloq','type'=>'select', 'options'=>array('0' => 'NÃO','1' => 'SIM')));		
 		?>
 	</section>
 	
 	<section class="coluna-direita">
 		<?php	
-			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','class'=>'tamanho-medio','type'=>'select', 'options'=>array('INTERNO','EXTERNO')));
+			echo $this->Form->input('User.acesso',array('label'=>'Tipo de Acesso:','id'=>'acessoUser','class'=>'tamanho-medio acessoUser','type'=>'select', 'options'=>array('INTERNO'=>'INTERNO','EXTERNO'=>'EXTERNO')));
 			echo '<span id="msgTipoAcesso" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo de Acesso</span>';
 		?>
 	</section>
@@ -79,5 +82,4 @@
 		echo $this->Form->end();
 	?>
 </footer>
-
 

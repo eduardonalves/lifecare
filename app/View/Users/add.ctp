@@ -63,13 +63,13 @@
 			</select>
 		</div>
 		<?php
-			echo $this->Form->input('status',array('label'=>'Bloqueado<span class="campo-obrigatorio">*</span>:','id'=>'Bloqueado','class'=>'tamanho-medio','type'=>'select', 'options'=>array('1' => 'NÃO','0' => 'SIM')));
+			echo $this->Form->input('status',array('label'=>'Bloqueado<span class="campo-obrigatorio">*</span>:','id'=>'Bloqueado','class'=>'tamanho-medio','type'=>'select', 'options'=>array(''=>'','1' => 'NÃO','0' => 'SIM')));
 		?>
 	</section>
 	
 	<section class="coluna-direita">
 		<?php	
-			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'TipoAcesso','class'=>'tamanho-medio','type'=>'select', 'options'=>array('INTERNO' => 'INTERNO','EXTERNO' => 'EXTERNO')));
+			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'TipoAcesso','class'=>'tamanho-medio','type'=>'select', 'options'=>array(''=>'','INTERNO' => 'INTERNO','EXTERNO' => 'EXTERNO')));
 		?>
 	</section>
 	<!-- FIM SECTION SUPERIOR  --->

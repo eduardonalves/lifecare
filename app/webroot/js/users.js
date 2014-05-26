@@ -5,14 +5,17 @@ $(document).ready(function(){
 	$("#add_role").combobox();
   });  
   
+
+  
 /**************** Modal Role *****************/
 	
 	$('body').on('click', '#ui-id-1 a',function(){
 		valorId=$('#add_role :selected').val();
 		$('#roleId').val(valorId);
     });
-	
-	$('#UserAddForm').submit(function(){
+    
+
+	$('#UserAddForm, #UserEditForm').submit(function(){
 		
 		if($('#LoginUser').val() == ''){
 			$('#msgLogin').css('display','block');
@@ -30,8 +33,30 @@ $(document).ready(function(){
 			return false;
 		}
 		else
-			return true;
-		
+			return true;		
+	});
+	
+/**************** Opcções das selects Em Edit*****************/
+    var role = $('#infosUser').attr('data-role');
+    var status = $('#infosUser').attr('data-status');
+    var acesso = $('#infosUser').attr('data-acesso');
+
+	$('.roleNome option').each(function(){
+			if($(this).attr('id') == role){
+				$(this).attr("selected","selected");
+			}
+	});
+	
+	$('.statusBloq option').each(function(){
+			if($(this).val() == status){
+				$(this).attr("selected","selected");
+			}
+	});
+    
+	$('.acessoUser option').each(function(){
+			if($(this).text() == acesso){
+				$(this).attr("selected","selected");
+			}
 	});
     
 });
