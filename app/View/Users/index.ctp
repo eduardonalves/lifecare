@@ -36,7 +36,7 @@
 </header> <!---Fim header--->
 
 <section> <!---section superior--->
-	<header>Consulta por Nome de Usuário</header>
+	<header>Consulta por Nome/Tipo de Usuário</header>
 
 	<fieldset class="filtros">
 		<section class = "coluna-esquerda">
