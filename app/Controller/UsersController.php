@@ -36,6 +36,9 @@ class UsersController extends AppController {
  */
 	public function index() {
 		$this->layout = 'users';
+		if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 	}
@@ -88,7 +91,7 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				//return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tenet novamente.'), 'default', array('class' => 'error-flash'));
+				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
 		
@@ -142,9 +145,9 @@ class UsersController extends AppController {
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->User->delete()) {
-			$this->Session->setFlash(__('The user has been deleted.'));
+			$this->Session->setFlash(__('Usuário deletado com sucesso.'), 'default', array('class' => 'success-flash'));
 		} else {
-			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('Erro ao deletar usuário. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect($this->referer());
 	}}
