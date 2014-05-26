@@ -39,8 +39,40 @@ class UsersController extends AppController {
 		if(!isset($this->request->query['limit'])){
 				$this->request->query['limit'] = 15;
 			}
+			
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
+		
+		$users = $this->User->find('list',array('recursive' => -1, 'fields' => array('User.username')));
+		
+		$listaUsers = array();
+		
+		foreach($users as $user){
+			array_push($listaUsers, array($user => $user));
+		}
+		
+		$this->Filter->addFilters(
+			array(
+	            'id' => array(
+	                'User.id' => array(
+	                    'operator' => '='
+	                )
+	            ),
+			'username' => array(
+	            'User.username' => array(
+	                'operator' => 'LIKE', 
+	                'select' => array(''=> '', $listaUsers)
+	                )
+	            ),
+			'role_id' => array(
+	                'User.role_id' => array(
+	                    'operator' => '=',
+						'select' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico')
+	                )
+	            ),
+	        )
+			);
+	    
 	}
 
 /**

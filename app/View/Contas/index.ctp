@@ -97,7 +97,7 @@ $(document).ready(function() {
 					    'type' => 'select',
 					    'class' => 'operacao',
 					    'multiple' => 'checkbox',
-					    'options' => array('REECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),   
+					    'options' => array('RECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),   
 					));
 					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
@@ -203,7 +203,6 @@ $(document).ready(function() {
 				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
 			
-		
 			
 			<footer>
 				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>

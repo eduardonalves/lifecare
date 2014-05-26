@@ -35,6 +35,33 @@
 	<h1 class="menuOption41">Consultar Usuários</h1>
 </header> <!---Fim header--->
 
+<section> <!---section superior--->
+	<header>Consulta por Nome de Usuário</header>
+
+	<fieldset class="filtros">
+		<section class = "coluna-esquerda">
+		<?php echo $this->Form->create('filtro', array('action' => '#', 'method' => 'post')); ?>
+		
+		<?php
+			echo $this->Form->input('nome',array('required'=>'false','type'=>'text','label'=>'Nome:','id'=>'filtro-nome', 'class' => 'tamanho-medio'));
+		?>
+		</section>
+		
+		<section class="coluna-central">
+		<?php
+			echo $this->Form->input('role',array('required'=>'false','type'=>'select','options' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico'), 'label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
+		?>
+		</section>
+		
+		<section class="coluna-direita">
+		<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'float: left;')); ?>
+		</section>
+		
+		<?php echo $this->Form->end(); ?>
+		
+	</fieldset>
+	</header>
+</section>
 <div class="areaTabela">
 
 	<?php echo $this->element('paginador_superior');?>
@@ -45,7 +72,7 @@
 			<th class="actions colunaConta">Ações</th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('id'); ?></th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('username', 'Login'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('role_id'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('role_id', 'Tipo de Usuário'); ?></th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('acesso', 'Acesso'); ?></th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('created', 'Data/Hora Criação'); ?></th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('modified', 'Última Modificação'); ?></th>
