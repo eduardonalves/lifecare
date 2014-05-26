@@ -78,7 +78,7 @@
 
 <footer>
 	<?php
-		echo $this->form->submit('botao-salvar.png',array('class'=>'','alt'=>'Salvar','title'=>'Salvar','id'=>'')); 
+		echo $this->form->submit('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar')); 
 		echo $this->Form->end();
 	?>
 </footer>
