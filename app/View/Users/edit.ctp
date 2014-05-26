@@ -1,59 +1,83 @@
-<div class="users form">
-<?php echo $this->Form->create('User'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('funcionario_id');
-		echo $this->Form->input('username');
-		echo $this->Form->input('password');
-		echo $this->Form->input('role_id');
-		echo $this->Form->input('acesso');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+	$this->start('css');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	$this->end();
+	
+	$this->start('script');
+	    echo $this->Html->script('users.js');
+	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+	$this->end();
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('User.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Funcionarios'), array('controller' => 'funcionarios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Funcionario'), array('controller' => 'funcionarios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Roles'), array('controller' => 'roles', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Role'), array('controller' => 'roles', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('controller' => 'comoperacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comoperacao'), array('controller' => 'comoperacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configcobrancas'), array('controller' => 'configcobrancas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configcobranca'), array('controller' => 'configcobrancas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configcontas'), array('controller' => 'configcontas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configconta'), array('controller' => 'configcontas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configlotes'), array('controller' => 'configlotes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configlote'), array('controller' => 'configlotes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Confignotas'), array('controller' => 'confignotas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Confignota'), array('controller' => 'confignotas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configparceiros'), array('controller' => 'configparceiros', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configparceiro'), array('controller' => 'configparceiros', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configparcelas'), array('controller' => 'configparcelas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configparcela'), array('controller' => 'configparcelas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Configprodutos'), array('controller' => 'configprodutos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Configproduto'), array('controller' => 'configprodutos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Consultarprodutos'), array('controller' => 'consultarprodutos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Consultarproduto'), array('controller' => 'consultarprodutos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Contas'), array('controller' => 'contas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Conta'), array('controller' => 'contas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Dadoscreditos'), array('controller' => 'dadoscreditos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Dadoscredito'), array('controller' => 'dadoscreditos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Negociacaos'), array('controller' => 'negociacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Negociacao'), array('controller' => 'negociacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Notas'), array('controller' => 'notas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Nota'), array('controller' => 'notas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Obs Cobrancas'), array('controller' => 'obs_cobrancas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Obs Cobranca'), array('controller' => 'obs_cobrancas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parcelas'), array('controller' => 'parcelas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parcela'), array('controller' => 'parcelas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Quicklinks'), array('controller' => 'quicklinks', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Quicklink'), array('controller' => 'quicklinks', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+?>
+
+<header>
+
+	<?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+
+	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
+	<h1 class="menuOption42">Editar Usuário</h1>
+</header>
+
+<section>
+	<header>Dados do usuário</header>
+	
+	<!-- INICIO_SECTION SUPERIOR  --->
+	<section class="coluna-esquerda">
+		<?php	
+			echo $this->Form->create('User');
+			echo $this->Form->input('User.id');
+		?>
+		
+		<?php
+			echo $this->Form->input('username',array('label'=>'Login<span class="campo-obrigatorio">*</span>:','value'=>$usuario['User']['username'],'id'=>'LoginUser','class'=>'tamanho-medio'));
+			echo '<span id="msgLogin" class="Msg-tooltipDireita" style="display:none">Preencha o campo Login</span>';
+			echo $this->Form->input('password',array('label'=>'Senha<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','value'=>$usuario['User']['password'],'type'=>'password','class'=>'tamanho-medio'));
+			echo '<span id="msgSenha" class="Msg-tooltipDireita" style="display:none">Preencha o campo Senha</span>';
+		?>			
+	</section>
+	
+	
+	<section class="coluna-central">
+		<?php			
+			echo $this->Form->input('role_id',array('type'=>'hidden','id'=>'roleUser',));
+		?>			
+			<div class="input autocompleteRole conta">
+			<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Selecione o Tipo de Usuário</span>
+			<label id="SpanRole">Tipo de Usuário<span class="campo-obrigatorio">*</span>:</label>
+			<select class="tamanho-medio" id="add_role">
+				<option></option>
+					<?php
+						foreach($rolesTipo as $rolesTipo)
+						{
+							echo "<option id='".$rolesTipo['Role']['alias']."' value='".$rolesTipo['Role']['id']."' >";
+								echo $rolesTipo['Role']['roles'];
+							echo "</option>";
+						}
+					?>
+			</select>
+		</div>
+		
+		<?php	
+			echo $this->Form->input('status',array('label'=>'Bloqueado<span class="campo-obrigatorio">*</span>:','id'=>'Bloqueado','class'=>'tamanho-medio','type'=>'select', 'options'=>array('1' => 'NÃO','0' => 'SIM')));		
+		?>
+	</section>
+	
+	<section class="coluna-direita">
+		<?php	
+			echo $this->Form->input('acesso',array('label'=>'Tipo de Acesso<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','class'=>'tamanho-medio','type'=>'select', 'options'=>array('INTERNO','EXTERNO')));
+			echo '<span id="msgTipoAcesso" class="Msg-tooltipDireita" style="display:none">Preencha o campo Tipo de Acesso</span>';
+		?>
+	</section>
+	<!-- FIM SECTION SUPERIOR  --->
+	
+</section>
+
+<footer>
+	<?php
+		echo $this->form->submit('botao-salvar.png',array('class'=>'','alt'=>'Salvar','title'=>'Salvar','id'=>'')); 
+		echo $this->Form->end();
+	?>
+</footer>
+
+
