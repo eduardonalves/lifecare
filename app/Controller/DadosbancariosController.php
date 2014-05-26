@@ -39,7 +39,9 @@ class DadosbancariosController extends AppController {
 		$options = array('conditions' => array('Dadosbancario.' . $this->Dadosbancario->primaryKey => $id));
 		$this->set('dadosbancario', $this->Dadosbancario->find('first', $options));
 	}
-
+	public function beforeFilter(){
+			parent::beforeFilter();		
+	}
 /**
  * add method
  *

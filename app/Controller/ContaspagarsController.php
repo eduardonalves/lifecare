@@ -640,7 +640,9 @@ class ContaspagarsController extends ContasController {
 		
 	
 	}	
-	
+	public function beforeFilter(){
+			parent::beforeFilter();		
+	}
 	
 	public function setLimiteUsadoMenos(&$contaid){
 				

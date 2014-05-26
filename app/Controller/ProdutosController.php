@@ -66,7 +66,10 @@ class ProdutosController extends AppController {
  * index method
  *
  * @return void
- */
+ */	
+	public function beforeFilter(){
+			parent::beforeFilter();		
+	}
 
 	public function index() {
 		// Add filter
@@ -95,7 +98,7 @@ class ProdutosController extends AppController {
 	//Before Render
 	
 		public function beforeRender(){
-			
+			parent::beforeRender();
 			
 			//Cria o array dos tipos de unidades do produto
 			

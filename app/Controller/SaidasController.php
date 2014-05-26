@@ -149,6 +149,9 @@ class SaidasController extends NotasController {
 	}
 	
 	public function beforeFilter(){
+		
+			parent::beforeFilter();		
+
 		$this->Produtos = new ProdutosController;
 		$this->Produtos->request=$this->request;
 		$this->Produtos->constructClasses();
