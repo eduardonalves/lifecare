@@ -89,9 +89,9 @@ class AppController extends Controller {
 			
 			$this->Auth->authorize = array(
 				AuthComponent::ALL => array('actionPath' => 'controllers'),
-				'Actions'
+				//'Actions'
 			);
-			
+		
 			
 			
 			$this->Auth->loginAction = array(
@@ -164,7 +164,7 @@ class AppController extends Controller {
 					
 				}
 				$this->Auth->allowedActions=$allow; 
-				print_r($allow);
+				//print_r($allow);
 			}
 		}
 }

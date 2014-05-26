@@ -724,7 +724,4 @@ class ContasrecebersController extends ContasController {
 			$this->set(compact('resposta'));
 		}
 	}
-	public function beforeFilter(){
-			parent::beforeFilter();		
-	}
 }

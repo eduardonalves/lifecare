@@ -23,6 +23,7 @@ class NotasController extends AppController {
 	//Before Render
 	
 		public function beforeFilter(){
+			parent::beforeFilter();	
 			
 			//Verificamos a data para setarmos o semáfaro do lote
 			
