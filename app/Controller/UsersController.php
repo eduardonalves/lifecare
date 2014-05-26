@@ -22,7 +22,8 @@ class UsersController extends AppController {
 			$this->redirect($this->Auth->redirect());
 			return $this->redirect($this->Auth->redirect());
 		} elseif ((!$this->Auth->login()) && ($this->request->is('post'))) {
-			$this->Session->setFlash(__('Usuario ou senha invalidos.'), 'default', array('class' => 'error-flash'));
+			$this->Session->setFlash($this->Auth->authError, 'default', array('class' => 'error-flash'), 'auth');
+			$this->redirect($this->Auth->loginAction);
 		}
 	}
 
