@@ -376,6 +376,8 @@
 				</div>
 
 <!--------------------------------------Modal view Comprovante ----------------------------------------------------->
+
+				
 				<div class="modal fade" id="myModal_add-comprovanteView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 
@@ -399,12 +401,13 @@
 							<div class='zoomImagem'>
 							
 							   <img src="/app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
+							  
 							
 							</div>
 						</section>
 					</div>
 				</div>
-
+				
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 						

@@ -170,7 +170,11 @@ class CentrocustosController extends AppController {
 				if($conta['Conta']['tipo'] == 'A PAGAR'){
 					$conta['Conta']['valor']= floatval($conta['Conta']['valor']);
 	 				$resultadoGetRD['despesa'] = $resultadoGetRD['despesa'] + $conta['Conta']['valor'];
+				
+				if(isset($orcamento['Orcamentocentro']['limite'])){
 					$resultadoGetRD['limite'] = $orcamento['Orcamentocentro']['limite'];
+				}
+					
 					$resultadoGetRD['mes']= $this->getMes($mes);
 	 			}
 	 		}

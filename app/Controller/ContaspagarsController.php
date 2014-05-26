@@ -176,6 +176,9 @@ class ContaspagarsController extends ContasController {
 			$this->loadModel('Parcela');
 			$this->loadModel('Conta');
 			$this->loadModel('ParcelasConta');
+			$totalParcelas=0;
+			$parcelasDif=0;
+			$parcelasNegociadas=0;
 			$contasEmAtraso = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'OR' => array(array('Parcela.status LIKE' => '%VERMELHO%'), array('Parcela.status LIKE' => '%COBRANCA%')))));
 		
 			$contasEmAberto = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2,  'OR' => array(array('Parcela.status NOT LIKE' => '%CINZA%'), array('Parcela.status NOT LIKE' => '%RENEGOCIADO%')))));
@@ -188,9 +191,11 @@ class ContaspagarsController extends ContasController {
 			$totalParcelas=$this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2 )));
 			$parcelasPagas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'CINZA')));
 			$parcelasNegociadas = $this->Parcela->find('count', array('conditions'=> array('_Conta.id' => $idConta2, 'Parcela.status' => 'RENEGOCIADO')));
-			$parcelasDif= $totalParcelas - $parcelasNegociadas;
+			$parcelasDif= ($totalParcelas - $parcelasNegociadas);
 			
-						
+			
+			
+				
 			if(!empty($contasEmAtraso)){
 				
 					if($conta['Conta']['status'] == "COBRANCA"){
@@ -219,28 +224,39 @@ class ContaspagarsController extends ContasController {
 				
 				
 			}
-	
+			
+			
+			
 			if(!empty($contasEmAberto)){
 				
 					$updateConta = array('id' => $idConta2, 'parcelas_aberto' => $contasEmAberto);
 					$this->Conta->save($updateConta);
 				
 			}else{
+				
+				
+				
 				if(!empty($parcelasPagas)){
 			
 					if($parcelasPagas !=0){
-						if($totalParcelas ==$parcelasDif){
+						if($parcelasPagas == $parcelasDif){
 							$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 							$this->Conta->save($updateConta);
+							
 						}
 					}
 				}
 			}	
+			
+			
+			
 			if(!empty($parcelasPagas)){
 				if($parcelasPagas !=0){
-					if($totalParcelas ==$parcelasDif){
+					if($parcelasPagas == $parcelasDif){
 						$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 						$this->Conta->save($updateConta);
+							
+							
 					}
 				}
 			}
@@ -389,6 +405,7 @@ class ContaspagarsController extends ContasController {
 					
 					$this->Parcela->create();
 					$this->Parcela->save($parcelasEnviada);
+					
 					$ultimaParcela = $this->Parcela->find('first', array('order' => array('Parcela.id' => 'desc'), 'recursive' => -1));
 					
 					$this->ParcelasConta->create();

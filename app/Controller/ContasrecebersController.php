@@ -296,7 +296,7 @@ class ContasrecebersController extends ContasController {
 					if(!empty($parcelasPagas)){
 				
 						if($parcelasPagas !=0){
-							if($totalParcelas ==$parcelasDif){
+							if($parcelasPagas ==$parcelasDif){
 								$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 								$this->Conta->save($updateConta);
 							}
@@ -305,7 +305,7 @@ class ContasrecebersController extends ContasController {
 			}
 			if(!empty($parcelasPagas)){
 				if($parcelasPagas !=0){
-					if($totalParcelas ==$parcelasDif){
+					if($parcelasPagas ==$parcelasDif){
 						$updateConta = array('id' => $idConta2, 'parcelas_aberto' => 0, 'status' => 'CINZA');
 						$this->Conta->save($updateConta);
 					}
