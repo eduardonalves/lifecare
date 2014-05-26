@@ -81,12 +81,15 @@ class UsersController extends AppController {
 				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'user_id' => $ultimmoUser['User']['id']);
 				$this->User->Configproduto->save($saveConfigproduto);
 				
+				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'user_id' => $ultimmoUser['User']['id']);
+				$this->User->Configproduto->save($saveConfigproduto);
+				
 				//debug($this->request->data);
 				
-				$this->Session->setFlash(__('The user has been saved.'));
+				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				//return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tenet novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
 		
