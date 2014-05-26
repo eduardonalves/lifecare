@@ -12,6 +12,19 @@
 
 	$this->start('modais');
 	$this->end();
+	
+	function formatDateTimeToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux[2])){
+			if(isset($dataAux[1])){
+				if(isset($dataAux[0])){
+					$dataAux[2] = explode(' ', $dataAux[2]);
+					$data = $dataAux[2][0]."/".$dataAux[1]."/".$dataAux[0]." ".$dataAux[2][1];
+				}
+			}
+		}
+		return $data;
+	}
 ?>
 
 <header> <!---header--->
@@ -22,6 +35,33 @@
 	<h1 class="menuOption41">Consultar Usuários</h1>
 </header> <!---Fim header--->
 
+<section> <!---section superior--->
+	<header>Consulta por Nome/Tipo de Usuário</header>
+
+	<fieldset class="filtros">
+		<section class = "coluna-esquerda">
+		<?php echo $this->Form->create('filtro', array('action' => '#', 'method' => 'post')); ?>
+		
+		<?php
+			echo $this->Form->input('nome',array('required'=>'false','type'=>'text','label'=>'Nome:','id'=>'filtro-nome', 'class' => 'tamanho-medio'));
+		?>
+		</section>
+		
+		<section class="coluna-central">
+		<?php
+			echo $this->Form->input('role',array('required'=>'false','type'=>'select','options' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico'), 'label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
+		?>
+		</section>
+		
+		<section class="coluna-direita">
+		<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'float: left;')); ?>
+		</section>
+		
+		<?php echo $this->Form->end(); ?>
+		
+	</fieldset>
+	</header>
+</section>
 <div class="areaTabela">
 
 	<?php echo $this->element('paginador_superior');?>
@@ -29,15 +69,13 @@
 <div class="tabelas" id="users">
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th class="actions colunaConta"><?php echo __('Actions'); ?></th>
+			<th class="actions colunaConta">Ações</th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('id'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('funcionario_id'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('username'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('password'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('role_id'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('acesso'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('created'); ?></th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('username', 'Login'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('role_id', 'Tipo de Usuário'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('acesso', 'Acesso'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('created', 'Data/Hora Criação'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('modified', 'Última Modificação'); ?></th>
 	</tr>
 	
 	<?php foreach ($users as $user): ?>
@@ -50,17 +88,16 @@
 			<?php echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_user','alt' =>__('Delete'),'title' => 'Excluir Usuário')), array('controller' => 'users','action' => 'delete', $user['User']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Usuário '.$user['User']['id'].'?'))); ?>
 		</td>
 		<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($user['Funcionario']['id'], array('controller' => 'funcionarios', 'action' => 'view', $user['Funcionario']['id'])); ?>
-		</td>
 		<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['password']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($user['Role']['id'], array('controller' => 'roles', 'action' => 'view', $user['Role']['id'])); ?>
-		</td>
+		<td><?php echo h($user['Role']['roles']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['acesso']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['modified']); ?>&nbsp;</td>
+		<td>
+			<?php
+			formatDateTimeToView($user['User']['created']);
+			echo h($user['User']['created']); ?>&nbsp;</td>
+		<td><?php
+			formatDateTimeToView($user['User']['modified']);
+			echo h($user['User']['modified']); ?>&nbsp;</td>
 	</tr>
 	<?php endforeach; ?>
 	</table>
