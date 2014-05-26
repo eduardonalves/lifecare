@@ -13,10 +13,10 @@
 
 <header>
 
-	<?php echo $this->Html->image('emitir-title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption42">Editar Usuário</h1>
+	<h1 class="menuOption42">Visualização do Usuário</h1>
 </header>
 
 <section>
