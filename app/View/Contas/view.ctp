@@ -400,8 +400,9 @@
 
 							<div class='zoomImagem'>
 							
-							   <img src="/app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
-							  
+
+							   <img src="../app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
+
 							
 							</div>
 						</section>

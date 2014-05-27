@@ -178,7 +178,13 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function add() {
-		$this->layout = 'contas';
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}else{
+			$this->layout = 'contas';
+		}
 		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$i=0;
@@ -226,7 +232,7 @@ class ParceirodenegociosController extends AppController {
 		//$this->Session->delete('Message.flash');
 		
 		
-		$this->set(compact('ultimoParceiro','userid'));
+		$this->set(compact('ultimoParceiro','userid','telaAbas'));
 	}
 
 /**

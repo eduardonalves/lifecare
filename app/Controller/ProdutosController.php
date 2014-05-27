@@ -286,10 +286,7 @@ class ProdutosController extends AppController {
 
 		
 		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos'));
-		
-		
-		
-		
+			
 	}
 
 
@@ -301,6 +298,11 @@ class ProdutosController extends AppController {
  * @return void
  */
 	public function add() {
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}
 		
 		$this->loadUnidade();
 		
@@ -380,7 +382,7 @@ class ProdutosController extends AppController {
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
 		$this->loadModel('Tributo');
-		$this->set(compact('categorias', 'tributos', 'allCategorias'));
+		$this->set(compact('categorias', 'tributos', 'allCategorias','telaAbas'));
 		
 	}
 

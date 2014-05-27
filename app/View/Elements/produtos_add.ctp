@@ -114,7 +114,14 @@
 	<?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption22">Cadastrar</h1>
+	 <?php
+		if(isset($telaAbas)){
+			echo '<h1 class="menuOption'.$telaAbas.'">Cadastrar Produto</h1>';
+		}else{
+			echo '<h1 class="menuOption22">Cadastrar Produto</h1>';
+		}
+    ?>
+    
 </header>
 
 <section>

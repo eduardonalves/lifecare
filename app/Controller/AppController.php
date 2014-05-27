@@ -93,7 +93,6 @@ class AppController extends Controller {
 
 		);
 		
-
 			
 			
 			$this->Auth->loginAction = array(
