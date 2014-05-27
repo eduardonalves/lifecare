@@ -87,11 +87,12 @@ class AppController extends Controller {
 			);
 			
 			
-			/*$this->Auth->authorize = array(
+		$this->Auth->authorize = array(
 				AuthComponent::ALL => array('actionPath' => 'controllers'),
 				//'Actions'
 			);
-		*/
+		
+		
 			
 			
 			$this->Auth->loginAction = array(
