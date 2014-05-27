@@ -21,6 +21,7 @@ class ComitensdaoperacaosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'compras';
 		$this->Comitensdaoperacao->recursive = 0;
 		$this->set('comitensdaoperacaos', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class ComitensdaoperacaosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'compras';
 		if (!$this->Comitensdaoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comitensdaoperacao'));
 		}
@@ -46,6 +48,7 @@ class ComitensdaoperacaosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'compras';
 		if ($this->request->is('post')) {
 			$this->Comitensdaoperacao->create();
 			if ($this->Comitensdaoperacao->save($this->request->data)) {
@@ -69,6 +72,7 @@ class ComitensdaoperacaosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'compras';
 		if (!$this->Comitensdaoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comitensdaoperacao'));
 		}
