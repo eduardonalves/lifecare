@@ -85,6 +85,30 @@ select{
 }
 
 
+/* ID *****************************************************************/
+#authMessage{
+	background-color:#ffd5d5;
+	text-align:center;
+	width:500px;
+	position:relative;
+	display:block;
+	margin-left:-250px;
+	left:50%;
+	color:#d40000;
+	padding:10px 0;
+	margin-bottom:5px;
+	border-radius:5px;
+	height: 12px;
+	line-height: 10px;
+	position:absolute
+}
+
+
+
+
+
+
+
 .tooltipMensagemErroDireta{
 	background-color:#ffd5d5;
 	border:1px solid #aaa;
@@ -183,8 +207,6 @@ select{
 	top:15px;
 	width:0;
 }
-
-/* ID *****************************************************************/
 
 
 /* HERANÇA ************************************************************/
