@@ -78,6 +78,58 @@
 
 <footer>
 	<?php
+		//HIDDEN's DOS CONFIG's
+	
+			//ConfigCObranca
+			echo $this->Form->input('Configcobranca.0.data_inicio',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configcobranca.0.data_fim',array('type'=>'hidden','value'=>'1'));
+	
+			//COnfig Configconta
+			echo $this->Form->input('Configconta.0.identificacao',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.data_emissao',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.data_quitacao',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.valor',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.parcelas',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.parceirodenegocio_id',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.descricao',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.nome_parceiro',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.cnpj_parceiro',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.status_parceiro',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.status',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.tipo',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.pagamento_forma',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configconta.0.pagamento_tipo',array('type'=>'hidden','value'=>'1'));
+			
+			//COnfig Configlote
+			echo $this->Form->input('Configlote.0.numero_lote',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configlote.0.data_fabricacao',array('type'=>'hidden','value'=>'1'));
+	
+			//COnfig Confignota
+			echo $this->Form->input('Confignota.0.descricao',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Confignota.0.data',array('type'=>'hidden','value'=>'1'));
+	
+			//COnfig Configparceiro
+			echo $this->Form->input('Configparceiro.0.nome',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparceiro.0.cnpj',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparceiro.0.endereco',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparceiro.0.telefone',array('type'=>'hidden','value'=>'1'));
+	
+			//COnfig Configparcela
+			echo $this->Form->input('Configparcela.0.parcela',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.identificacao_documento',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.valor',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.periodocritico',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.desconto',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.banco',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.agencia',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.conta',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configparcela.0.status',array('type'=>'hidden','value'=>'1'));
+	
+			//COnfig Configproduto
+			echo $this->Form->input('Configproduto.0.nome',array('type'=>'hidden','value'=>'1'));
+			echo $this->Form->input('Configproduto.0.descricao',array('type'=>'hidden','value'=>'1'));
+	
+	
 		echo $this->form->submit('botao-salvar.png',array('class'=>'','alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvaruser')); 
 		echo $this->Form->end();
 	?>
