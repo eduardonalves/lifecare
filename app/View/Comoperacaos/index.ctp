@@ -1,5 +1,5 @@
 <div class="comoperacaos index">
-	<h2><?php echo __('Comoperacaos'); ?></h2>
+	<h1 class="menuOption41">Consultar Operações</h1>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>

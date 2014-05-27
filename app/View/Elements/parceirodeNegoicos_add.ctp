@@ -140,7 +140,11 @@
 			if(erro==0){
 				$('#ParceirodenegocioClassificacao').removeAttr('disabled');
 
-				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>";
+				var urlAction = "<?php 
+										if(isset($telaLayout))
+											echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add","layout" => "compras","abas" => "42"),true);
+										else
+											echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add"),true);?>";
 				var dadosForm = $("#ParceirodenegocioAddFormModal").serialize();
 
 				$(".loaderAjaxCParceiroDIV").show();
@@ -192,10 +196,16 @@
 </header>
 
 <?php
-    if(!isset($modal)){	
-		echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
+    if(!isset($modal)){
+		if(isset($telaLayout) && isset($telaAbas))
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddForm'));
+		else
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
     }else{
-		echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
+		if(isset($telaLayout) && isset($telaAbas))
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddFormModal'));
+		else
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
     }
 ?>    
 
