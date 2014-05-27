@@ -177,7 +177,33 @@ class Parceirodenegocio extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'Comresposta' => array(
+			'className' => 'Comresposta',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Comtokencotacao' => array(
+			'className' => 'Comtokencotacao',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 
 }
