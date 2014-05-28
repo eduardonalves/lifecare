@@ -311,12 +311,12 @@ $(document).ready(function(){
 
 /** SUMIR COM MENSAGEM DE VALIDAÇÃO ***********************************/
     $('input, select, div').on('focusout', function(){
-	if($(this).val() !=''){
-	    $('span[class*="Msg"], span[class*="msg"]').css('display','none');
-	    $('span[class*="DinamicaMsg"]').remove();
-	    $('input,select').removeClass('shadow-vermelho');
-	    $('.ui-widget').removeClass('shadow-vermelho');
-	}
+		if($(this).val() !=''){
+			$('span[class*="Msg"], span[class*="msg"]').css('display','none');
+			$('span[class*="DinamicaMsg"]').remove();
+			$('input,select').removeClass('shadow-vermelho');
+			$('.ui-widget').removeClass('shadow-vermelho');
+		}
     });
 
     $('[class*="Msg"], span[class*="msg"]').on('click', function(){
@@ -366,7 +366,7 @@ $(document).ready(function(){
     });
 
 /** SUMIR COM MENSAGEM DO CONTROLLER **********************************/
-    $('#flashMessage').fadeOut(7000);
+    $('#flashMessage, #authMessage').fadeOut(7000);
 
 /** FUNÇÃO QUE IMPEDE DIGITAR LETRAS NA INPUT *************************/    
     $(".Nao-Letras").on("keypress",function(event){
