@@ -190,7 +190,7 @@ label[for="checkparcela"]{
 	margin-left:5px;
 }
 
-#filtro-movimentacao{
+#filtro-operacao{
 	background-color: #F0F5DB;
 	border: 1px solid rgb(171, 200, 55);
 	border-radius: 8px;
@@ -211,18 +211,7 @@ label[for="checkparcela"]{
 	width:170px;
 }
 
-#filtro-parcela{
-	background-color:#c9f0e8;
-	border:1px solid #37c8ab;
-	border-radius: 8px;
-	height:162px;
-	-webkit-logical-height: 175px;
-	margin-top:5px;
-	padding:5px;
-	width:333px;
-}
-
-#filtro-parceiro{
+#filtro-respostas{
 	background-color:#FFFAE7;
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
@@ -231,6 +220,17 @@ label[for="checkparcela"]{
 	margin:5px 0px 0px 7px;
 	padding:5px;
 	width:335px;
+}
+
+#filtro-parceiro{
+	background-color:#c9f0e8;
+	border:1px solid #37c8ab;
+	border-radius: 8px;
+	height:162px;
+	-webkit-logical-height: 175px;
+	margin-top:5px;
+	padding:5px;
+	width:333px;
 }
 
 
@@ -264,6 +264,14 @@ label[for="checkparcela"]{
 }
 
 /* HERANÇA ************************************************************/
+section[id*='filtro'] input{
+	margin-top:3px;
+}
+
+section[id*='filtro'] label{
+	line-height:25px;
+}
+
 .modal-body header img {
 position: relative;
 height: 24px;
@@ -412,6 +420,7 @@ margin-bottom: 50px;
 	position:absolute;
 	height:16px;
 }
+
 #cpf_cnpj{margin-top:3px}
 
 #vazioDataEmissao{
@@ -427,12 +436,14 @@ margin-bottom: 50px;
     width: 76px;
     z-index: 1;
 }
+
 #vazioDataVencimento{
     left: 328px;
     top: 80px;
     width: 76px;
     z-index: 99;
 }
+
 #vazioFilterValor{
     left: 328px;
     top: 55px;
