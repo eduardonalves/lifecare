@@ -253,7 +253,12 @@ $(document).ready(function() {
 	    $('#form-filter-results').submit();
 	}
     });
-	
+
+    $("#quick-filtrar-users").click(function(e){
+	e.preventDefault();
+	    $('#UserIndexForm').submit();
+    });
+
 /************************ Salvar Quicklink******************************************/
     $("#bt-salvar-quicklink").click(function(event){
 	event.preventDefault();

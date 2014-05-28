@@ -92,7 +92,7 @@ $(document).ready(function() {
 	
 				<?php	
 					echo $this->Search->create();
-					echo "<div class='tipoMovimentacao'>";	
+					echo "<div class='tipoMovimentacao'>";
 					echo $this->Form->input('', array(
 					    'type' => 'select',
 					    'class' => 'operacao',

@@ -38,7 +38,13 @@
 	?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption21">Consultas</h1>
+	    <?php
+		if(isset($telaAbas)){
+			echo '<h1 class="menuOption'.$telaAbas.'">Consultas</h1>';
+		}else{
+			echo '<h1 class="menuOption21">Consultas</h1>';
+		}
+    ?>
 
 	<script>
 		$('img').tooltip();
@@ -243,12 +249,18 @@
 		
 <footer>
 	<?php
-		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+		if(isset($telaLayout) && isset($telaAbas))
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
-													 'url'=>array('action'=>'edit',
-													 $produto['Produto']['id'])));
-	?>
+													 'url'=>array('action'=>'edit',$produto['Produto']['id'],'layout' => $telaLayout,'abas' => '41')));
+		else
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('action'=>'edit',$produto['Produto']['id'])));
+													 
+    ?>
 </footer>
 
 
