@@ -205,5 +205,19 @@ class Parceirodenegocio extends AppModel {
 			'counterQuery' => ''
 		),
 	);
-
+	public $hasAndBelongsToMany = array(
+		'Comoperacao' => array(
+			'className' => 'Comoperacao',
+			'joinTable' => 'comoperacaos_parceirodenegocios',
+			'foreignKey' => 'parceirodenegocio_id',
+			'associationForeignKey' => 'comoperacao_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
 }
