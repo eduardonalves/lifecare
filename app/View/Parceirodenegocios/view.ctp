@@ -27,7 +27,13 @@
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Visualizar', 'title' => 'Visualizar')); ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption31">Visualizar Parceiro</h1>
+    <?php
+		if(isset($telaAbas)){
+			echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
+		}else{
+			echo '<h1 class="menuOption31">Visualizar Parceiro</h1>';
+		}
+    ?>
 </header>
 
 <section> <!---section superior--->	
@@ -190,7 +196,13 @@
 <footer>
 
     <?php
-		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+		if(isset($telaLayout) && isset($telaAbas))
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'],'layout' => $telaLayout,'abas' => '41')));
+		else
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
 													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'])));

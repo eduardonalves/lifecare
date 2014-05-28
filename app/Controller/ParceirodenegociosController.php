@@ -34,7 +34,13 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->layout = 'contas';
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout = $telaLayout;
+		}else{
+			$this->layout = 'contas';
+		}
 		if (!$this->Parceirodenegocio->exists($id)) {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
@@ -46,7 +52,7 @@ class ParceirodenegociosController extends AppController {
 		
 		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'),'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
 		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
-		$this->set(compact('contasParceiros'));
+		$this->set(compact('contasParceiros','telaLayout','telaAbas'));
 	}
 
 
@@ -181,7 +187,7 @@ class ParceirodenegociosController extends AppController {
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
-			$this->layout =  $telaLayout;
+			$this->layout = $telaLayout;
 		}else{
 			$this->layout = 'contas';
 		}
@@ -204,7 +210,10 @@ class ParceirodenegociosController extends AppController {
 				$this->setStatusParceiro($ultimoParceiro['Parceirodenegocio']['id']);
 				$this->set(compact('ultimoParceiro'));
 				if(! $this->request->is('ajax')){
-					return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id']));
+					if(isset($telaLayout))
+						return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id'],'layout' => 'compras','abas' => '41'));
+					else
+						return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id']));
 					$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				}
 				
@@ -232,7 +241,7 @@ class ParceirodenegociosController extends AppController {
 		//$this->Session->delete('Message.flash');
 		
 		
-		$this->set(compact('ultimoParceiro','userid','telaAbas'));
+		$this->set(compact('ultimoParceiro','userid','telaLayout','telaAbas'));
 	}
 
 /**
@@ -243,7 +252,13 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->layout = 'contas';
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout = $telaLayout;
+		}else{
+			$this->layout = 'contas';
+		}
 		if (!$this->Parceirodenegocio->exists($id)) {
 			throw new NotFoundException(__('Invalid parceirodenegocio'));
 		}
@@ -259,7 +274,10 @@ class ParceirodenegociosController extends AppController {
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->setStatusParceiro($id);
 				$this->Session->setFlash(__('Parceiro editado com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'view',$id));
+				if(isset($telaLayout))
+						return $this->redirect(array('action' => 'view',$id,'layout' => 'compras','abas' => '41'));
+					else
+						return $this->redirect(array('action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('Não foi possível editar o Parceiro. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
@@ -292,11 +310,9 @@ class ParceirodenegociosController extends AppController {
 			
 			$i++;
 		}
-		$this->set(compact('parceirodenegocio'));
+		$this->set(compact('parceirodenegocio','telaLayout','telaAbas'));
 		
-		
-
-	}
+		}
 
 /**
  * delete method

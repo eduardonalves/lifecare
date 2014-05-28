@@ -76,15 +76,25 @@ $(document).ready(function(){
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Editar', 'title' => 'Editar')); ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption31">Editar Parceiro</h1>
+    <?php
+		if(isset($telaAbas)){
+			echo '<h1 class="menuOption41">Editar Parceiro</h1>';
+		}else{
+			echo '<h1 class="menuOption31">Editar Parceiro</h1>';
+		}
+    ?>
 </header>
 
 <section> <!---section superior--->
 
 	<header>Dados Gerais do Parceiro</header>
 	
-	<?php echo $this->Form->create('Parceirodenegocio'); ?>
-
+	<?php
+		if(isset($telaLayout) && isset($telaAbas))
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'edit', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioEditForm'));
+		else
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'edit', 'id' => 'ParceirodenegocioEditForm'));
+	?>
 
 	<section class="coluna-esquerda">
 
