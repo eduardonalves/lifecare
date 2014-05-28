@@ -1,31 +1,170 @@
-<div class="comoperacaos form">
-<?php echo $this->Form->create('Comoperacao'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Comoperacao'); ?></legend>
-	<?php
-		echo $this->Form->input('data_inici');
-		echo $this->Form->input('data_fim');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('valor');
-		echo $this->Form->input('prazo_entrega');
-		echo $this->Form->input('forma_pagamento');
-		echo $this->Form->input('status');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php 
+	$this->start('css');
+	    echo $this->Html->css('table');
+	    echo $this->Html->css('compras');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	$this->end();
 
-		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comitensdaoperacaos'), array('controller' => 'comitensdaoperacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comitensdaoperacao'), array('controller' => 'comitensdaoperacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comrespostas'), array('controller' => 'comrespostas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comresposta'), array('controller' => 'comrespostas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comtokencotacaos'), array('controller' => 'comtokencotacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comtokencotacao'), array('controller' => 'comtokencotacaos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+	$this->start('script');
+		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+		echo $this->Html->script('compras.js');
+	$this->end();
+	
+	
+	$this->start('modais');
+	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroFornecedor'));
+	    echo $this->element('produtos_add',array('modal'=>'add-produtos_add'));
+	$this->end();
+?>
+
+<header>
+    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+
+    <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
+    <h1 class="menuOption44">Cadastrar Cotações</h1>
+	
+</header>
+
+<section>
+	<header>Cadastro de Cotações</header>
+	<?php $this->Form->create('Comoperacao');?>
+	<!-- INICIO COTAÇÕES -->
+	<fieldset>
+		<legend>Dados da Cotação</legend>
+		<section class="coluna-esquerda">
+			<?php
+				echo $this->Form->input('Comoperacao.id',array('label'=>'id','class'=>'tamanho-medio'));
+				//echo $this->Form->input('Comoperacao.0.user_id',array('label'=>'User','class'=>'tamanho-medio','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_inic',array('label'=>'Data de Início:','class'=>'tamanho-pequeno','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-pequeno','type'=>'text'));
+				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-medio','type'=>'text'));					
+
+			?>
+		</section>
+		
+		<section class="coluna-central">
+			<?php
+			
+				echo $this->Form->input('Comoperacao.valor',array('label'=>'Valor:','class'=>'tamanho-medio','type'=>'text'));
+				echo $this->Form->input('Comoperacao.forma_pagamento',array('label'=>'Forma de Pagamento:','class'=>'tamanho-medio','type'=>'text'));
+			?>
+		</section>
+		
+		<section class="coluna-direita">
+			<?php
+			
+				echo $this->Form->input('Comoperacao.0.status',array('label'=>'Status:','class'=>'tamanho-medio','type'=>'text'));				
+			?>
+		</section>
+	</fieldset>
+	
+	<!-- INICIO PRODUTOS -->
+	<section class="coluna-Produto coluna-esquerda">
+		<fieldset>		
+			<legend>Produtos</legend>
+				<div class="input autocompleteProduto conta">
+					<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Produto</span>
+					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio limpa" id="add-produtos">
+						<option></option>
+						<option value="add-produto">Cadastrar</option>
+
+						<?php
+							foreach($produtos as $produto)
+							{
+								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."' data-estoque='".$produto['Produto']['estoque']."' data-status='".$produto['Produto']['status']."'>";
+								echo $produto['Produto']['nome'];
+								echo "</option>";
+							}
+						?>
+
+					</select>
+				</div>		
+			
+			
+			<?php	
+				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
+									     'title'=>'Adicionar',
+										 'class'=>'bt-addItens',
+										 'id'=>'bt-adicionarProduto'
+										 ));
+										 
+				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade:','id'=>'produtoQtd','class'=>'tamanho-medio','type'=>'text'));		
+				echo $this->Form->input('vazio.obs',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea'));		
+				
+			?>
+		
+			<section class="tabela_fornecedores">
+				<table id="tbl_produtos" >
+					<thead>
+						<th>Produto nome</th>
+						<th>Quantidade</th>					
+						<th>Observação</th>						
+						<th>Ações</th>					
+					</thead>
+							
+				</table>
+			</section>
+		</fieldset>
+	</section>
+	
+	<!-- INICIO FORNECEDOR -->	
+	<section class="coluna-Fornecedor coluna-esquerda">
+		<fieldset>		
+			<legend>Fornecedores</legend>
+				<div class="input autocompleteFornecedor conta">
+					<label id="SpanPesquisarFornecedor">Buscar Fornecedor:</label>
+					<select class="tamanho-medio limpa" id="add-fornecedor">
+						<option></option>
+						<option value="add-parceiroFornecedor">Cadastrar</option>
+
+						<?php
+							foreach($parceirodenegocios as $parceirodenegocio)
+							{
+								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' data-status='".$parceirodenegocio['Parceirodenegocio']['status']."' >";
+								echo $parceirodenegocio['Parceirodenegocio']['nome'];
+								echo "</option>";
+							}
+						?>
+
+					</select>
+				</div>		
+			
+			
+			<?php	
+				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
+									     'title'=>'Adicionar',
+										 'class'=>'bt-addItens',
+										 'id'=>'bt-adicionarFornecedor'
+										 ));
+			?>
+		
+			<section class="tabela_fornecedores">
+				<table id="tbl_fornecedores" >
+					<thead>
+						<th>Parceiro nome</th>
+						<th>CPF/CNPJ</th>					
+						<th>Status</th>					
+						<th>Ações</th>					
+					</thead>
+							
+				</table>
+			</section>
+		</fieldset>
+	</section>
+				
+	
+	<section id="area_inputHidden">
+	
+	</section>
+	
+</section>
+
+<footer>
+	<?php
+		echo $this->Form->end(__('Submit'));
+	?>	
+</footer>
+
+

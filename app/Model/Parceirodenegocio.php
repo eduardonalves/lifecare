@@ -177,7 +177,47 @@ class Parceirodenegocio extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Comresposta' => array(
+			'className' => 'Comresposta',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Comtokencotacao' => array(
+			'className' => 'Comtokencotacao',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+	);
+	public $hasAndBelongsToMany = array(
+		'Comoperacao' => array(
+			'className' => 'Comoperacao',
+			'joinTable' => 'comoperacaos_parceirodenegocios',
+			'foreignKey' => 'parceirodenegocio_id',
+			'associationForeignKey' => 'comoperacao_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
 		)
 	);
-
 }

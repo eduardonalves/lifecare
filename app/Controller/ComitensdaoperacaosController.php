@@ -49,6 +49,7 @@ class ComitensdaoperacaosController extends AppController {
  */
 	public function add() {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$this->Comitensdaoperacao->create();
 			if ($this->Comitensdaoperacao->save($this->request->data)) {
@@ -58,10 +59,18 @@ class ComitensdaoperacaosController extends AppController {
 				$this->Session->setFlash(__('The comitensdaoperacao could not be saved. Please, try again.'));
 			}
 		}
+		
 		$comoperacaos = $this->Comitensdaoperacao->Comoperacao->find('list');
-		$produtos = $this->Comitensdaoperacao->Produto->find('list');
-		$parceirodenegocios = $this->Comitensdaoperacao->Parceirodenegocio->find('list');
-		$this->set(compact('comoperacaos', 'produtos', 'parceirodenegocios'));
+		
+		
+		$this->loadModel('Produto');
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+		
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
+		$this->set(compact('comoperacaos', 'produtos', 'parceirodenegocios','userid'));
 	}
 
 /**
