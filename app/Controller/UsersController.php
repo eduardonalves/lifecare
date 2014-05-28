@@ -54,11 +54,6 @@ class UsersController extends AppController {
 		
 		$this->Filter->addFilters(
 			array(
-	            'id' => array(
-	                'User.id' => array(
-	                    'operator' => '='
-	                )
-	            ),
 			'username' => array(
 	            'User.username' => array(
 	                'operator' => 'LIKE', 
@@ -72,7 +67,7 @@ class UsersController extends AppController {
 	                )
 	            ),
 	        )
-			);
+		);
 	    
 	}
 
