@@ -118,9 +118,11 @@ class AppController extends Controller {
 					
 				}else{
 					
-					$roleId=7;
+					$roleId=15;
 					
 				}
+				
+				
 				$aro = $this->Acl->Aro->find('first', array('conditions' => array('Aro.model' => 'Role', 'Aro.foreign_key' => $roleId)));
 				
 				
@@ -165,7 +167,7 @@ class AppController extends Controller {
 					
 				}
 				$this->Auth->allowedActions=$allow; 
-				//print_r($allow);
+				
 			}
 		}
 }
