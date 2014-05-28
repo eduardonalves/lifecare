@@ -58,8 +58,15 @@ class ComoperacaosController extends AppController {
 				$this->Session->setFlash(__('The comoperacao could not be saved. Please, try again.'));
 			}
 		}
+		$this->loadModel('Produto');
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+		
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
 		$users = $this->Comoperacao->User->find('list');
-		$this->set(compact('users'));
+		$this->set(compact('users','produtos','parceirodenegocios'));
 	}
 
 /**
