@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+.bt-addItens{
+	float: right;
+	margin-top: -27px;
+	margin-right: 70px;
+}
+
+.tabela_fornecedores{
+	margin-top: 25px;
+}
+
+.coluna-Fornecedor{
+	margin-top: 15px;
+	width: 500px;
+}
+
+.coluna-Fornecedor fieldset{
+	padding: 5px;
+}
+
+.coluna-Produto{
+	margin-right: 77px;
+	margin-top: 15px;
+	width: 500px;
+	
+}
+
+.coluna-Produto fieldset{
+	padding: 5px;
+}
