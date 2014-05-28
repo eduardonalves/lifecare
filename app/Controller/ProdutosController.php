@@ -68,7 +68,7 @@ class ProdutosController extends AppController {
  * @return void
  */	
 	public function beforeFilter(){
-			parent::beforeFilter();		
+			parent::beforeFilter();
 	}
 
 	public function index() {
