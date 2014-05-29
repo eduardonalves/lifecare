@@ -39,7 +39,8 @@
 				echo $this->Form->input('Comoperacao.tipo',array('type'=>'hidden','value'=>'COTACAO'));	
 
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text'));
+				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
+				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'5'));
 				
 
 			?>
@@ -49,6 +50,8 @@
 			<?php
 				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
+				echo '<span id="msgDataFinal" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Final</span>';
+
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			?>
 		</section>
@@ -66,7 +69,7 @@
 		<fieldset>		
 			<legend>Produtos</legend>
 				<div class="input autocompleteProduto conta">
-					<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Produto</span>
+					<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
 					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa" id="add-produtos">
 						<option></option>
@@ -92,8 +95,8 @@
 										 'id'=>'bt-adicionarProduto'
 										 ));
 										 
-				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text'));		
-				echo $this->Form->input('vazio.obs',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea'));		
+				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+				echo $this->Form->input('vazio.obs',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 				
 			?>
 		
@@ -116,6 +119,7 @@
 		<fieldset>		
 			<legend>Fornecedores</legend>
 				<div class="input autocompleteFornecedor conta">
+					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
 					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa" id="add-fornecedor">
 						<option></option>

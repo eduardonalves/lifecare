@@ -116,41 +116,45 @@ class ParcelasController extends AppController {
 	    
     if($this->request->is('post')){
 	   
-	$filename = WWW_ROOT.'files'.DS.$this->request->data['Parcela']['id'].$this->request->data['Parcela']['doc_file']['name'];
+	   $fileSeparado2 = $this->request->data['Parcela']['doc_file']['name'];
+	  $fileSeparado2 = explode('.',$fileSeparado2); 
+	
+	  $data = date('Ymd');
+	  $numero = rand(0,900000); 
+	  $nome = $data.$numero.'.'.$fileSeparado2[1];
+	  $this->request->data['Parcela']['doc_file']['name'] = $nome;
+	  $this->request->data['Parcela']['comprovante'] =  $nome;
+	$filename = WWW_ROOT.'files'.DS.$this->request->data['Parcela']['doc_file']['name'];
 	move_uploaded_file($this->request->data['Parcela']['doc_file']['tmp_name'],$filename);	
 	$file=$this->request->data['Parcela'];
 	
+	 
 	list($w, $h, $type) = getimagesize($filename);
 
 	if($this->request->data['Parcela']['doc_file']['size'] < 2097152 ){
 	    if($w <= 700 || $h <= 700 ){
-		if(file_exists($filename)){
-		    //unlink($filename);
-		}
+		
 		$this->Session->setFlash(__('Resolução mínima permitida é de 700 pixels. Tente novamente.'), 'default', array('class' => 'error-flash'));		
 	    }else if($w >=2200 || $h >=2200){
-		if(file_exists($filename)){
-		    //unlink($filename);
-		}
+		
+		
 		$this->Session->setFlash(__('Resolução máxima permitida é de 2200 pixels. Tente novamente.'), 'default', array('class' => 'error-flash'));
 
 	    }else{
-		$fileSeparado = split ('[.]',$filename,2);
-		if($fileSeparado[1]=='jpeg' || $fileSeparado[1]=='jpg' || $fileSeparado[1]=='png' ){
-		    $this->Parcela->create();
-		    if ($this->Parcela->save($this->request->data)) {
-			$fileAntigo=WWW_ROOT.'files'. DS.$this->request->data['Parcela']['arquivoAntigo'];
-			if(file_exists($fileAntigo)){
-			   // unlink($fileAntigo);
-			}
+		
+		
+		
+		$this->Parcela->create();
+		
+		
+		if ($this->Parcela->save($this->request->data)) {
+			
 			$this->Session->setFlash(__('Upload realizado com sucesso.'), 'default', array('class' => 'success-flash'));
-		    } else {
-			$this->Session->setFlash(__('Não foi possível realizar upload. Tente novamente.'), 'default', array('class' => 'error-flash'));
-		    }
 		}else{
-		    $this->Session->setFlash(__('Extensão inválida. Tente novamente.'), 'default', array('class' => 'error-flash'));
+			$this->Session->setFlash(__('Não foi possível realizar upload. Tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
-	    }
+		
+	     }
 	}else{
 	    $this->Session->setFlash(__('Tamanho máximo permitido é de 2MB. Tente novamente.'), 'default', array('class' => 'error-flash'));
 	}

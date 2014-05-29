@@ -156,10 +156,16 @@
 	$('#ComoperacaoAddForm').submit(function(){
 		
 		if($('#ComoperacaoDataInici').val() == ''){
-			alert('ComoperacaoDataInici');
+			$('#msgDataInicial').show();
 			return false;
-		}else if(in_produto == 0 || in_fornecedor == 0 ){
-			alert('in_produto ou in_fornecedor');
+		}else if($('#ComoperacaoDataFim').val() == ''){
+			$('#msgDataFinal').show();
+			return false;
+		}else if(in_produto == 0 ){
+			$('#msgValidaProduto').show();
+			return false;
+		}else if(in_fornecedor == 0 ){
+			$('#msgValidaFor').show();
 			return false;
 		}else{
 			return true;
