@@ -1,6 +1,8 @@
  $(document).ready(function() {
 
 /**** FUNÇÔES **/
+	
+	$('input').removeAttr('required');
 
 	function float2moeda(num){
 		x = 0;
@@ -53,7 +55,7 @@
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 			    $(".autocompleteProduto input").val('');
-			    $("#myModal_add-produtos_add").modal('show');
+			    $("#myModal_add-produtos").modal('show');
 			}
 	});
 
@@ -61,20 +63,26 @@
 /********************* Preencher Dados Fornecedor *********************/    
 	var in_fornecedor = 0;
     $("#bt-adicionarFornecedor").click(function(){		
-		$("#msgValidaParceiro").hide();
-		
-		valorForncedor = $("#add-fornecedor option:selected").attr('id');
-		valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
-		valorNome = $("#add-fornecedor option:selected").attr('data-nome');
-		valorStatus = $("#add-fornecedor option:selected").attr('data-status');
 
-		//Adiciona os valores na tabela pra visualização
-		$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td>'+valorStatus+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
-		
-		//SETA AS INPUT HIDDEN	
-		$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
+		if($(".autocompleteFornecedor input").val() == ''){
+			alert('');
+		}else{
+			valorForncedor = $("#add-fornecedor option:selected").attr('id');
+			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
+			valorNome = $("#add-fornecedor option:selected").attr('data-nome');
+			
+			//Adiciona os valores na tabela pra visualização
+			$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+			
+			//SETA AS INPUT HIDDEN	
+			$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
+			
+			//Limpa as Input's
+			$("#add-fornecedor").val('');
+			$(".autocompleteFornecedor input").val('');
 
-		in_fornecedor++;
+			in_fornecedor++;			
+		}
     }); 
     
 /********************* Preencher Dados Produtos *********************/    
@@ -95,7 +103,7 @@
 			
 				
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'"><td>'+valorNome+'</td> <td>'+valorQtd+'</td> <td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td>'+valorNome+'</td> <td>'+valorQtd+'</td> <td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
 			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
@@ -144,7 +152,21 @@
 	});
 
 
-
+/******** ComoperacaoAddForm   ************/
+	$('#ComoperacaoAddForm').submit(function(){
+		
+		if($('#ComoperacaoDataInici').val() == ''){
+			alert('ComoperacaoDataInici');
+			return false;
+		}else if(in_produto == 0 || in_fornecedor == 0 ){
+			alert('in_produto ou in_fornecedor');
+			return false;
+		}else{
+			return true;
+		}
+		
+		
+	});
 
 });
 
