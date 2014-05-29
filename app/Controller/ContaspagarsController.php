@@ -172,6 +172,29 @@ class ContaspagarsController extends ContasController {
 		}
 		
 	}
+	
+	public function setCobrancaEdit(&$contaId, &$parcelaId, &$data_vencimento){
+		$this->loadModel('Conta');
+		$this->loadModel('Parcela');
+		$parcela = $this->Parcela->find('first', array('recursive' => -1,'conditions' => array('Parcela.id' => $parcelaId)));
+		
+		$data_vencimento2 =$parcela['Parcela']['data_vencimento'];
+		$hoje = date("Y-m-d");	
+		$diasCritico = 3; // configurar data critica
+		$dataCritica = date('Y-m-d', strtotime("+".$diasCritico." days",strtotime(''.$data_vencimento2.'')));
+		if($parcela['Parcela']['status'] != 'RENEGOCIACAO' && $parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
+			if($dataCritica < $hoje){
+				$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
+				$this->Conta->save($uptadeConta);
+				
+				$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
+				$this->Parcela->save($uptadeParcela);	
+				
+			}
+		}
+		
+		
+	}
 	public function setStatusContaPrincipal(&$idConta2){
 			$this->loadModel('Parcela');
 			$this->loadModel('Conta');
@@ -478,7 +501,7 @@ class ContaspagarsController extends ContasController {
 				
 				
 				
-				$this->setStatusConta($this->request->data['Contaspagar']['id']);
+				//$this->setStatusConta($this->request->data['Contaspagar']['id']);
 				
 				//$this->setStatusContaPrincipal($this->request->data['Contaspagar']['id']);
 				if(isset($this->request->data['Parcela'])){
@@ -490,11 +513,12 @@ class ContaspagarsController extends ContasController {
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['valor']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['desconto']);
 						$this->lifecareFuncs->converterMoedaToBD($parcelasEnviada['juros']);
-						$this->setCobranca($this->request->data['Contaspagar']['id'],  $parcelasEnviada['id'], $parcelasEnviada['data_vencimento']);
+						
 						$this->Parcela->save($parcelasEnviada);
 						$updateParcelasConta= array('conta_id' => $id, 'parcela_id'=>  $parcelasEnviada['id']);
 						$this->ParcelasConta->create();
-						$this->ParcelasConta->save($updateParcelasConta);						
+						$this->ParcelasConta->save($updateParcelasConta);	
+						$this->setCobrancaEdit($this->request->data['Contaspagar']['id'],  $parcelasEnviada['id'], $parcelasEnviada['data_vencimento']);					
 					}	
 				}
 				
@@ -525,6 +549,9 @@ class ContaspagarsController extends ContasController {
 				}
 				
 				//debug($this->request->data);
+				$this->setStatusConta($id);
+				$this->setStatusContaPrincipal($id);
+				
 				
 				$this->Session->setFlash(__('A conta foi salva.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller'=>'Contas','action' => 'view',$id));

@@ -49,7 +49,28 @@ class ContasrecebersController extends ContasController {
 		}
 		
 	}
-	
+	public function setCobrancaEdit(&$contaId, &$parcelaId, &$data_vencimento){
+		$this->loadModel('Conta');
+		$this->loadModel('Parcela');
+		$parcela = $this->Parcela->find('first', array('recursive' => -1,'conditions' => array('Parcela.id' => $parcelaId)));
+		
+		$data_vencimento2 =$parcela['Parcela']['data_vencimento'];
+		$hoje = date("Y-m-d");	
+		$diasCritico = 3; // configurar data critica
+		$dataCritica = date('Y-m-d', strtotime("+".$diasCritico." days",strtotime(''.$data_vencimento2.'')));
+		if($parcela['Parcela']['status'] != 'RENEGOCIACAO' && $parcela['Parcela']['status'] != 'CINZA' && $parcela['Parcela']['status'] != 'CANCELADO'){
+			if($dataCritica < $hoje){
+				$uptadeConta = array('id' => $contaId, 'status' => 'COBRANCA');
+				$this->Conta->save($uptadeConta);
+				
+				$uptadeParcela = array('id' => $parcelaId, 'status' => 'COBRANCA');
+				$this->Parcela->save($uptadeParcela);	
+				
+			}	
+		}
+		
+		
+	}
 	public function setStatusParceiro(&$ideParceiro){
  		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Conta');
@@ -621,8 +642,8 @@ class ContasrecebersController extends ContasController {
 				
 				
 				
-				$this->setStatusConta($this->request->data['Contasreceber']['id']);
-				$this->setStatusContaPrincipal($this->request->data['Contasreceber']['id']);
+				$this->setStatusConta($id);
+				$this->setStatusContaPrincipal($id);
 				
 					
 						

@@ -57,7 +57,7 @@
 	<header class="header">Visualizar Comprovante</header>
 
 	    <div class='zoomImagem'>
-		<img src="/lifecare/app/webroot/files/<?php  echo $conta['Conta']['imagem'] ?>">
+		<img src="/app/webroot/files/<?php  echo $conta['Conta']['imagem'] ?>">
 
 	    </div>
 
