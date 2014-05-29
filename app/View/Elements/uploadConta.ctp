@@ -64,13 +64,13 @@
 					<input id="doc_file" class="campo-buscar" type="file" name="data[Conta][doc_file]"/>
 					<?php echo $this->Form->html('id',array('type'=>'hidden','value'=>$conta['Conta']['id'])); ?>
 					<input type="text" id="valor" name="data[Conta][imagem]"/>
-					<a id="teste" href="#"><img id="bt-buscar" src="/lifecare/app/webroot/img/botao-buscar.png"/></a>
+					<a id="teste" href="#"><img id="bt-buscar" src="/app/webroot/img/botao-buscar.png"/></a>
 				</div>
 				<span id="msgImagemvazia" class="Msg-tooltipAbaixo msgImagem" style="display:none">Escolha uma imagem</span>
 				<span id="msgImagemErro" class="Msg-tooltipAbaixo msgImagem" style="display:none">Extensão inválida</span>
 
 				<div class="submit">
-					<input id="bt-confirmarUpload" type="image" src="/lifecare/app/webroot//img/botao-confirmar.png"/>
+					<input id="bt-confirmarUpload" type="image" src="/app/webroot//img/botao-confirmar.png"/>
 				</div>
 
 			<?php echo $this->Form->end() ?>

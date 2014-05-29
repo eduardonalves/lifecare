@@ -34,7 +34,7 @@ function findCEP(ind) {
 		    if($.trim($("#Endereco"+ind+"Cep").val()) != ""){
 			//adiciona o loader
 			$('#loaderCep').remove();
-			$("#Endereco"+ ind +"Cep").after('<img id="loaderCep" src="/lifecare/app/webroot/img/loaderInput.gif" style="display:block">');
+			$("#Endereco"+ ind +"Cep").after('<img id="loaderCep" src="/app/webroot/img/loaderInput.gif" style="display:block">');
 		        
 		        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco"+ind+"Cep").val().replace("-", ""), function(){
 		            if(resultadoCEP["resultado"] == 1){

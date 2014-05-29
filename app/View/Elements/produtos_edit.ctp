@@ -35,13 +35,7 @@
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <?php
-		if(isset($telaAbas)){
-			echo '<h1 class="menuOption41">Consultas</h1>';
-		}else{
-			echo '<h1 class="menuOption21">Consultas</h1>';
-		}
-    ?>
+	<h1 class="menuOption21">Consultas</h1>
 
 </header>
 
@@ -53,11 +47,7 @@
 			<div class="coluna-content">
 
 				<?php
-				
-				if(isset($telaLayout) && isset($telaAbas))
-					echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'edit', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'FormEditSubmit'));
-				else
-					echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'edit', 'id' => 'FormEditSubmit'));
+					echo $this->Form->create('Produto',array('id'=>'FormEditSubmit'));
 
 					echo $this->Form->input('Produto.id');
 					

@@ -107,7 +107,7 @@ class AppController extends Controller {
 				'action' => 'login',
 			);
 			$this->Auth->authError=__('O usuário não possui autorização para executar essa ação'); 
-			
+			ob_start();
 			if($this->Auth->user() && $this->Auth->user('role_id') == 1){
 				$this->Auth->allow( );
 			}else{
@@ -121,12 +121,11 @@ class AppController extends Controller {
 					$roleId=15;
 					
 				}
-				
-				
 				$aro = $this->Acl->Aro->find('first', array('conditions' => array('Aro.model' => 'Role', 'Aro.foreign_key' => $roleId)));
 				
 				
 				$aroId =$aro['Aro']['id'];
+				
 				
 				
 				$thisControllerNode = $this->Acl->Aco->node('controllers/'.$this->name);
@@ -167,7 +166,7 @@ class AppController extends Controller {
 					
 				}
 				$this->Auth->allowedActions=$allow; 
-				
+				print_r($allow);
 			}
 		}
 }

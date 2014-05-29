@@ -49,11 +49,7 @@
 						$('.validaEstoqueIdeal').addClass('shadow-vermelho');
 						$('#validaEstoqueIdeal').css('display','block');
 					}else{
-						var urlAction = "<?php 
-										if(isset($telaLayout))
-											echo $this->Html->url(array("controller"=>"Produto","action"=>"add","layout" => "compras","abas" => "43"),true);
-										else
-											echo $this->Html->url(array("controller"=>"Produto","action"=>"add"),true);?>";
+						var urlAction = "<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"add"),true);?>";
 						var dadosForm = $("#ProdutoAddForm").serialize();
 
 						$(".loaderAjax").show();
@@ -132,19 +128,13 @@
 	<header>Dados Gerais Do Produto</header>
 
 	<section class="coluna-esquerda" id="ajusteColunaEsquerda">
-		<div id="produtos-modal">
-			
+		<div id="produtos-modal">					
+
 			<?php
-				if(!isset($modal)){
-							if(isset($telaLayout) && isset($telaAbas))
-								echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'class' => 'formAddProduto'));
-							else
-								echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'add', 'class' => 'formAddProduto'));
+				if(!isset($modal)){	
+					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add', 'class' => 'formAddProduto'));
 				}else{
-							if(isset($telaLayout) && isset($telaAbas))
-								echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'class' => 'formAddProdutoModal'));
-							else
-								echo $this->Form->create('Produto', array('controller' => 'Produto', 'action'=>'add', 'class' => 'formAddProdutoModal'));
+					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add', 'class' => 'formAddProdutoModal'));
 				}
 
 				echo $this->Form->input('Produto.nome',array('required'=>'false','class'=>'tamanho-medio validacao-cadastrar validaNome','label'=>'Nome<span class="campo-obrigatorio">*</span>:','maxlength'=>'255','tabindex'=>'1'));
