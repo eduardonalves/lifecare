@@ -13,7 +13,8 @@ class ComoperacaosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs');
+
+	public $components = array('Paginator','lifecareDataFuncs','Paginator');
 	
 	
 	
@@ -62,6 +63,21 @@ class ComoperacaosController extends AppController {
 		$this->set('tiposUnidades', $this->tiposUnidades);
 	}
 	
+
+
+
+	public function beforeFilter(){
+			parent::beforeFilter();
+			if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
+
+			if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
+	}
+
+
 /**
  * index method
  *
@@ -71,6 +87,55 @@ class ComoperacaosController extends AppController {
 		$this->layout = 'compras';
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
+		
+		$this->Filter->addFilters(
+			array(
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),/*
+		        'data_inici' => array(
+		            'Comoperacao.data_inici' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' a ', true)
+		                )
+		            )
+		        ),
+	            'data_fim' => array(
+		            'Comoperacao.data_fim' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' a ', true)
+		                )
+		            )
+		        ),
+		         'valor' => array(
+		            'Comoperacao.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' a ', true)
+		                )
+		            )
+		        ),
+		         'duplicata' => array(
+		            'Parcela.duplicata' => array(
+		                'operator' => '=',
+	               		 'select' => array('' => '','1' => 'OK', '0' => 'Dupli')
+		            )
+		        ),
+		        'data_vencimento' => array(
+		            'Parcela.data_vencimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),*/
+	        )
+		);
 	}
 
 /**

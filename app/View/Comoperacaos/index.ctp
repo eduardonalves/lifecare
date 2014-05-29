@@ -42,24 +42,40 @@
 						<span id="titulo">Dados da Operação</span>
 					</div>
 
-					<div class="">
-
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
-
+				<?php
+					echo $this->Form->create();
+					echo "<div class='tipoOperacao'>";
+					echo $this->Form->input('', array(
+					    'type' => 'select',
+					    'class' => 'operacao',
+					    'multiple' => 'checkbox',
+					    'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
+					    'style' => 'float:left',
+					));
+					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
+					echo $this->Form->input('tipoOperacao', array('type' => 'hidden'));
+					echo "</div>";
+				?>
+				
+					<div class="inputSearchData divMarginLeft">
+					<?php
+						echo $this->Form->input('data_inici', array('label' => 'Data inici:','class'=>'', 'type' => 'text'));
+					?>
 					</div>
 
-					<div class="" >
-						
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
-						
+					<div class="inputSearchData divMarginLeft">
+					<?php
+						echo $this->Form->input('data_fim', array('label' => 'Data fim:','class'=>'', 'type' => 'text'));
+					?>
 					</div>
 
-					<div class="" >
-
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
-
-					</div>			
-				</section>
+					<div class="inputSearchValor">
+						<?php
+							echo $this->Form->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio dinheiro_duasCasas'));
+						?>
+					</div>
+					
+					</section>
 
 				<!------------------ Filtro das Respostas ------------------>
 				<section id="filtro-respostas" class="coluna-central">
@@ -92,36 +108,28 @@
 					</div>
 				</section>
 
-				<!------------------ FILTRO Do Parceiro ------------------>
-				<section id="filtro-parceiro" class="coluna-direita">
-					<div class="boxParceiro">
-						<span>Dados do Parceiro de Negócio</span>
-					</div>
-
-					<div class="">
-
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
-
-					</div>
+				<!------------------ Filtro Do Parceiro ------------------>
+			<section id="filtro-parceiro" class="coluna-direita">
+				<div class="boxParceiro">
+					<span>Dados do Parceiro de Negócio</span>
+				</div>
+			
+				<div class="informacoesParceiro">
 					
-					<div class="">
-						
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
+				<?php
+					echo $this->Form->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
+					echo $this->Form->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+				?>
 
-					</div>
-					
-					<div class="">
-
-						<?php echo $this->Form->input('',array('type'=>'text','label'=>'Pesquisa Rápida:','class'=>'tamanho-medio')); ?>
-
-					</div>
-				</section>
+				</div>
+				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+			</section>
 
 				<footer>
 					
 					<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>
-			
-				</footer>	
+					
+				</footer>
 			</div>
 				
 			<?php echo $this->Form->end(); ?>
@@ -132,8 +140,6 @@
 
 	<!------------------ CONSULTA ------------------>
 	<div class="areaTabela">
-		
-		<!-- PAGINADOR SUPERIO (A MARGEM DA TABELA VAI SER CORRIGIDA) -->
 		
 		<div class="tabelas" id="contas">
 			<table cellpadding="0" cellspacing="0">
@@ -160,6 +166,7 @@
 							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_operacao','alt' =>__('Delete'),'title' => 'Excluir Operação')), array('controller' => 'comoperacao','action' => 'delete', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir a operação '.$comoperacao['Comoperacao']['id'].'?'))); 
 						?>
 					</td>
+					
 					<td><?php echo h($comoperacao['Comoperacao']['id']); ?>&nbsp;</td>
 					<td><?php echo h($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
 					<td><?php echo h($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>

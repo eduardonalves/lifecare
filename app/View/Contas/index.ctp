@@ -92,7 +92,7 @@ $(document).ready(function() {
 	
 				<?php	
 					echo $this->Search->create();
-					echo "<div class='tipoMovimentacao'>";	
+					echo "<div class='tipoMovimentacao'>";
 					echo $this->Form->input('', array(
 					    'type' => 'select',
 					    'class' => 'operacao',
@@ -237,7 +237,7 @@ $(document).ready(function() {
 					    {
 						if($campo=='parcelas'){
 						
-						}else if($campo == 'parceirodenegocio_id' ){		
+						}else if($campo == 'parceirodenegocio_id' ){
 						
 						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
