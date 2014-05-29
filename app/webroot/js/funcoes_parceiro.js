@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 			//adiciona o loader
 			$('#loaderCep').remove();
-			$("#Endereco"+ indexCep +"Cep").after('<img id="loaderCep" src="/lifecare/app/webroot/img/loaderInput.gif" style="display:block">');
+			$("#Endereco"+ indexCep +"Cep").after('<img id="loaderCep" src="/app/webroot/img/loaderInput.gif" style="display:block">');
 
 			$.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#Endereco"+ indexCep +"Cep").val().replace("-", ""), function(){
 				if(resultadoCEP["resultado"] == 1){
@@ -160,7 +160,7 @@ $(document).ready(function() {
 							<label for="Endereco'+ contadorBlocoEndereco +'Cep">CEP<span class="campo-obrigatorio">*</span>:</label>\
 							<input name="data[Endereco]['+ contadorBlocoEndereco +'][cep]" class="tamanho-medio maskCep" maxlength="12" type="text" id="Endereco'+ contadorBlocoEndereco +'Cep" />\
 						</div>\
-						<img src="/lifecare/app/webroot/img/consultas.png" id="consultaCEP'+ contadorBlocoEndereco +'" class="buscarCEP" style="margin-left:10px;cursor:pointer;" alt="" />\
+						<img src="/app/webroot/img/consultas.png" id="consultaCEP'+ contadorBlocoEndereco +'" class="buscarCEP" style="margin-left:10px;cursor:pointer;" alt="" />\
 						<span id="valida'+ contadorBlocoEndereco +'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>\
 						<span id="valida'+ contadorBlocoEndereco +'Cep2" class="Msg-tooltipDireita" style="display:none">Preencha corretamente o CEP</span>\
 						<span id="valida'+ contadorBlocoEndereco +'Cep3" class="Msg-tooltipDireita" style="display: none;">Endereço não encontrado para o cep digitado.</span>\

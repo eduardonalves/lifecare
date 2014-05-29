@@ -68,7 +68,7 @@ class ProdutosController extends AppController {
  * @return void
  */	
 	public function beforeFilter(){
-			parent::beforeFilter();
+			parent::beforeFilter();		
 	}
 
 	public function index() {
@@ -196,14 +196,6 @@ class ProdutosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if(isset($this->request->params['named']['layout'])){
-			$telaLayout = $this->request->params['named']['layout'];
-			$telaAbas = $this->request->params['named']['abas'];
-			$this->layout = $telaLayout;
-		}else{
-			$this->layout = 'contas';
-		}
-		
 		if (!$this->Produto->exists($id)) {
 			throw new NotFoundException(__('Produto Inválido.'), 'default', array('class' => 'error-flash'));
 		}
@@ -292,7 +284,8 @@ class ProdutosController extends AppController {
 		//}
 		
 
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaLayout','telaAbas'));
+		
+		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos'));
 			
 	}
 
@@ -308,9 +301,7 @@ class ProdutosController extends AppController {
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
-			$this->layout = $telaLayout;
-		}else{
-			$this->layout = 'contas';
+			$this->layout =  $telaLayout;
 		}
 		
 		$this->loadUnidade();
@@ -374,10 +365,7 @@ class ProdutosController extends AppController {
 				if(! $this->request->is('ajax'))
 				{
 					$this->Session->setFlash(__('Produto adicionado com sucesso.'), 'default', array('class' => 'success-flash'));
-					if(isset($telaLayout))
-						return $this->redirect(array('action' => 'view',$last['Produto']['id'],'layout' => 'compras','abas' => '41'));
-					else
-						return $this->redirect(array('action' => 'view',$last['Produto']['id']));
+					return $this->redirect(array('action' => 'view', $last['Produto']['id']));
 				}		
 
 					
@@ -394,7 +382,7 @@ class ProdutosController extends AppController {
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
 		$this->loadModel('Tributo');
-		$this->set(compact('categorias', 'tributos', 'allCategorias','telaLayout','telaAbas'));
+		$this->set(compact('categorias', 'tributos', 'allCategorias','telaAbas'));
 		
 	}
 
@@ -406,15 +394,6 @@ class ProdutosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		
-		if(isset($this->request->params['named']['layout'])){
-			$telaLayout = $this->request->params['named']['layout'];
-			$telaAbas = $this->request->params['named']['abas'];
-			$this->layout = $telaLayout;
-		}else{
-			$this->layout = 'contas';
-		}
-		
 		if (!$this->Produto->exists($id)) {
 			throw new NotFoundException(__('Produto Inválido'), 'default', array('class' => 'error-flash'));
 		}
@@ -504,11 +483,7 @@ class ProdutosController extends AppController {
 				
 				
 				$this->Session->setFlash(__('Alterações salvas com sucesso.'), 'default', array('class' => 'success-flash'));
-					if(isset($telaLayout))
-						return $this->redirect(array('action' => 'view',$id,'layout' => 'compras','abas' => '41'));
-					else
-						return $this->redirect(array('action' => 'view',$id));
-				
+				return $this->redirect(array('action' => 'view', $id));
 				$this->set(compact('postTributos'));
 			
 			} else {
@@ -559,7 +534,7 @@ class ProdutosController extends AppController {
 		
 
 		
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaLayout','telaAbas'));
+		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos'));
 		
 		//$this->set(compact('categorias', 'tributos'));
 	}

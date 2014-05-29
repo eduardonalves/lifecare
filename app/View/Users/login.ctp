@@ -9,7 +9,7 @@
 <?php echo $this->Session->flash('auth'); ?>
 <?php echo $this->Form->create('User');?>
     
-    <!-- <img src="/lifecare/app/webroot/img/login-title.png" alt="LifeCare" class="loginTitle"> -->
+    <!-- <img src="/app/webroot/img/login-title.png" alt="LifeCare" class="loginTitle"> -->
     
    <?php echo $this->html->image( 'login-title.png',array('alt'=>'LifeCare','class'=>'loginTitle')); ?>
    
