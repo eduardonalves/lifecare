@@ -59,8 +59,8 @@ class ComoperacaosController extends AppController {
 			if ($this->Comoperacao->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
 				
-				debug($this->request->data);
-				//return $this->redirect(array('action' => 'index'));
+				//debug($this->request->data);
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}
