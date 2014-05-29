@@ -61,10 +61,15 @@
 							data:  dadosForm,
 							dataType: 'json',
 							success: function(data){
-								console.debug(data.Tributo);
+								//console.debug(data.Produto.id);
 
 								$(".loaderAjax").hide();
 								$(".bt-salvar-Produto").show();
+								
+								//Compras
+								
+								$("#add-produtos").append("<option id='"+data.Produto.id+"' data-nome='"+data.Produto.nome+"'>"+data.Produto.nome+"</option>");
+								
 
 								$("#ProdutoCodigo").val('');
 								$("#ProdutoNome").val('');
@@ -162,9 +167,7 @@
 					</div>
 
 					<div>
-
 						<?php echo $this->Form->input('Categoria', array('id'=>'rightValues', 'class'=>'select-multiple', 'size'=>'5', 'div'=>false, 'label'=>false, 'name'=>'Cat','tabindex'=>'10')); ?>
-
 					</div>
 				</section>
 			</div>

@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
 	
 	$('#vazioPagamento').mask('99/99/9999');
 	

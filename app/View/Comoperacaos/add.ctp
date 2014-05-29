@@ -1,6 +1,6 @@
 <?php 
 	$this->start('css');
-	    echo $this->Html->css('table');
+		echo $this->Html->css('table');
 	    echo $this->Html->css('compras');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
@@ -14,7 +14,8 @@
 	
 	$this->start('modais');
 	    echo $this->element('parceirodeNegoicos_add',array('modal'=>'add-parceiroFornecedor'));
-	    echo $this->element('produtos_add',array('modal'=>'add-produtos_add'));
+	    echo $this->element('produtos_add',array('modal'=>'add-produtos'));
+	    echo $this->element('categoria_add', array('modal'=>'add-categoria'));
 	$this->end();
 ?>
 
@@ -28,7 +29,7 @@
 
 <section>
 	<header>Cadastro de Cotações</header>
-	<?php $this->Form->create('Comoperacao');?>
+	<?php echo $this->Form->create('Comoperacao');?>
 	<!-- INICIO COTAÇÕES -->
 	<fieldset>
 		<legend>Dados da Cotação</legend>
@@ -37,7 +38,7 @@
 				echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
 				echo $this->Form->input('Comoperacao.tipo',array('type'=>'hidden','value'=>'COTACAO'));	
 
-				echo $this->Form->input('Comoperacao.data_inic',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text'));
 				
 
@@ -46,7 +47,7 @@
 		
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			?>
@@ -115,7 +116,7 @@
 		<fieldset>		
 			<legend>Fornecedores</legend>
 				<div class="input autocompleteFornecedor conta">
-					<label id="SpanPesquisarFornecedor">Buscar Fornecedor:</label>
+					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa" id="add-fornecedor">
 						<option></option>
 						<option value="add-parceiroFornecedor">Cadastrar</option>
@@ -123,7 +124,7 @@
 						<?php
 							foreach($parceirodenegocios as $parceirodenegocio)
 							{
-								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."' data-status='".$parceirodenegocio['Parceirodenegocio']['status']."' >";
+								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
 								echo $parceirodenegocio['Parceirodenegocio']['nome'];
 								echo "</option>";
 							}
@@ -146,7 +147,6 @@
 					<thead>
 						<th>Parceiro nome</th>
 						<th>CPF/CNPJ</th>					
-						<th>Status</th>					
 						<th>Ações</th>					
 					</thead>
 							
@@ -164,7 +164,13 @@
 
 <footer>
 	<?php
-		echo $this->Form->end(__('Submit'));
+		 echo $this->form->submit('botao-salvar.png',array(
+							    'class'=>'bt-salvar',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    
+	    ));
+		    echo $this->Form->end();
 	?>	
 </footer>
 

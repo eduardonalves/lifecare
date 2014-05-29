@@ -162,6 +162,8 @@
 							$(".loaderAjaxCParceiroDIV").hide();
 							$("#bt-salvarParceiroModal").show();
 						}else{
+							
+											
 							$("[id*='myModal_add-parceiro']").modal('hide');
 							$('[id$="ParceirodenegocioId"]').val(data.Parceirodenegocio.id);
 							$('[id$="Parceiro"]').val(data.Parceirodenegocio.nome);
@@ -169,7 +171,13 @@
 							$("#ParceirodenegocioNome").val("");
 							$(".loaderAjaxCParceiroDIV").hide();
 							$("#bt-salvarParceiroModal").show();
-							$("#add-"+tipoModal.toLowerCase()).append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='"+tipoModal+"'>"+data.Parceirodenegocio.nome+"</option>");
+							
+							if($('#ComoperacaoTipo').val() == 'COTACAO'){
+								$("#add-fornecedor").append("<option selected='selected'  id='"+data.Parceirodenegocio.id+"' data-nome='"+data.Parceirodenegocio.nome+"' data-cpf='"+data.Parceirodenegocio.cpf_cnpj+"'>"+data.Parceirodenegocio.nome+"</option>");
+							}else{
+								$("#add-"+tipoModal.toLowerCase()).append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='"+tipoModal+"'>"+data.Parceirodenegocio.nome+"</option>");
+							}						
+
 
 							$(".loaderAjaxParceirodenegocioDIV").hide();
 						}
