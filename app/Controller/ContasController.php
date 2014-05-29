@@ -686,14 +686,8 @@ class ContasController extends AppController {
 		
 		$this->set(compact('configparcei','configparceiro'));
 /*--------FIM configContas----------*/		
-
 		
-				
-			
-	
-		
-
-			if($_GET['parametro']=='parcelas'){
+		if($_GET['parametro']=='parcelas'){
 /*--------Filtros da consulta início-----*/
 		$this->Filter->addFilters(
 	        array(
@@ -830,7 +824,7 @@ class ContasController extends AppController {
 				);
 				
 				$cntParcelas = count($parcelas);
-				//debug($contas);	
+				//debug($contas);
 				
 				
 				$parcelas = $this->Paginator->paginate('Parcela');
