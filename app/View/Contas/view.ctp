@@ -44,13 +44,18 @@
 		});
 		
 		$('.bt-quitar').click(function(e){
-			if($("#ContaDataPagamento").val() == ''){
-				$("#spanQuitarData").show();
+			
+			var idcheck=  $(this).attr('id');
+			var expReg01 = /\D+/gi;
+			var numero= idcheck.replace(expReg01,'');
+			
+			if($("#ContaDataPagamento"+numero).val() == ''){
+				$("#spanQuitarData"+numero).show();
 			}else{
-				$("#spanQuitarData").hide();
+				$("#spanQuitarData"+numero).hide();
 				e.preventDefault();
 				form= $(this).attr('id');
-				$('.'+form).submit();
+				$('#quitar'+numero).submit();
 			}	
 		});
 		
@@ -271,8 +276,8 @@
 								<?php
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 									echo "<div class=\"ui-widget\">";
-									echo $this->Form->input('data_pagamento', array('class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
-									echo "<span id='spanQuitarData' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
+									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									echo "<span id='spanQuitarData".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));
@@ -401,14 +406,17 @@
 							<div class='zoomImagem'>
 							
 
-							   <img src="../app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
-
+							   <img src="../../app/webroot/files/<?php  echo $parcelas['comprovante']; ?>">
+								
 							
 							</div>
 						</section>
 					</div>
 				</div>
-				
+					<?php
+									echo "<br>../lifecare/files/".$parcelas['comprovante'];
+						?>
+							
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 						
