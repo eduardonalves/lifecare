@@ -13,7 +13,7 @@ class ComoperacaosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs');
 
 /**
  * index method
@@ -50,13 +50,19 @@ class ComoperacaosController extends AppController {
 	public function add(){
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
+		
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_fim']);
+		
 		if ($this->request->is('post')) {
 			$this->Comoperacao->create();
-			if ($this->Comoperacao->save($this->request->data)) {
-				$this->Session->setFlash(__('The comoperacao has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			if ($this->Comoperacao->saveAll($this->request->data)) {
+				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
+				
+				debug($this->request->data);
+				//return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The comoperacao could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}
 		}
 		$this->loadModel('Produto');

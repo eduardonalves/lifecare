@@ -28,7 +28,7 @@
 
 <section>
 	<header>Cadastro de Cotações</header>
-	<?php $this->Form->create('Comoperacao');?>
+	<?php echo $this->Form->create('Comoperacao');?>
 	<!-- INICIO COTAÇÕES -->
 	<fieldset>
 		<legend>Dados da Cotação</legend>
@@ -37,7 +37,7 @@
 				echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
 				echo $this->Form->input('Comoperacao.tipo',array('type'=>'hidden','value'=>'COTACAO'));	
 
-				echo $this->Form->input('Comoperacao.data_inic',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text'));
 				
 
@@ -164,7 +164,13 @@
 
 <footer>
 	<?php
-		echo $this->Form->end(__('Submit'));
+		 echo $this->form->submit('botao-salvar.png',array(
+							    'class'=>'bt-salvar',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    
+	    ));
+		    echo $this->Form->end();
 	?>	
 </footer>
 
