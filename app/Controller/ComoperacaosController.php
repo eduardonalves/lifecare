@@ -47,8 +47,9 @@ class ComoperacaosController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add(){
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$this->Comoperacao->create();
 			if ($this->Comoperacao->save($this->request->data)) {
@@ -60,13 +61,12 @@ class ComoperacaosController extends AppController {
 		}
 		$this->loadModel('Produto');
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
-		
-		
+
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
 		
 		$users = $this->Comoperacao->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid'));
 	}
 
 /**

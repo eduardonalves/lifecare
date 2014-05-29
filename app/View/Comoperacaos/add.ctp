@@ -34,27 +34,28 @@
 		<legend>Dados da Cotação</legend>
 		<section class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('Comoperacao.id',array('label'=>'id','class'=>'tamanho-medio'));
-				//echo $this->Form->input('Comoperacao.0.user_id',array('label'=>'User','class'=>'tamanho-medio','type'=>'text'));
-				echo $this->Form->input('Comoperacao.data_inic',array('label'=>'Data de Início:','class'=>'tamanho-pequeno','type'=>'text'));
-				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-pequeno','type'=>'text'));
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-medio','type'=>'text'));					
+				echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
+				echo $this->Form->input('Comoperacao.tipo',array('type'=>'hidden','value'=>'COTACAO'));	
+
+				echo $this->Form->input('Comoperacao.data_inic',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text'));
+				
 
 			?>
 		</section>
 		
 		<section class="coluna-central">
 			<?php
-			
-				echo $this->Form->input('Comoperacao.valor',array('label'=>'Valor:','class'=>'tamanho-medio','type'=>'text'));
-				echo $this->Form->input('Comoperacao.forma_pagamento',array('label'=>'Forma de Pagamento:','class'=>'tamanho-medio','type'=>'text'));
+				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
+				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			?>
 		</section>
 		
 		<section class="coluna-direita">
 			<?php
 			
-				echo $this->Form->input('Comoperacao.0.status',array('label'=>'Status:','class'=>'tamanho-medio','type'=>'text'));				
+				
 			?>
 		</section>
 	</fieldset>
@@ -73,7 +74,7 @@
 						<?php
 							foreach($produtos as $produto)
 							{
-								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."' data-estoque='".$produto['Produto']['estoque']."' data-status='".$produto['Produto']['status']."'>";
+								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."'>";
 								echo $produto['Produto']['nome'];
 								echo "</option>";
 							}
@@ -90,7 +91,7 @@
 										 'id'=>'bt-adicionarProduto'
 										 ));
 										 
-				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade:','id'=>'produtoQtd','class'=>'tamanho-medio','type'=>'text'));		
+				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text'));		
 				echo $this->Form->input('vazio.obs',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea'));		
 				
 			?>
@@ -99,7 +100,7 @@
 				<table id="tbl_produtos" >
 					<thead>
 						<th>Produto nome</th>
-						<th>Quantidade</th>					
+						<th>Quantidade</th>									
 						<th>Observação</th>						
 						<th>Ações</th>					
 					</thead>
@@ -155,9 +156,9 @@
 	</section>
 				
 	
-	<section id="area_inputHidden">
+	<section id="area_inputHidden"></section>
 	
-	</section>
+	<section id="area_inputHidden_Produto"></section>
 	
 </section>
 

@@ -766,7 +766,7 @@
 	});
 
 /*********** valida Data vencimento ***********/	
-		$("#ContaspagarDataVencimento").focusout(function(){
+	$("#ContaspagarDataVencimento").focusout(function(){
 		if(validacaoEntreDatas($("#ContaspagarDataEmissao").val(),$("#ContaspagarDataVencimento").val(),"#msgDataVencimentoInvalida")){
 			$("#ContaspagarDataVencimento").val("");
 			$("#ContaspagarDataVencimento").addClass('shadow-vermelho');
