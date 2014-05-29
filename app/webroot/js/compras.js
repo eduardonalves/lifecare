@@ -69,10 +69,10 @@
 		valorStatus = $("#add-fornecedor option:selected").attr('data-status');
 
 		//Adiciona os valores na tabela pra visualização
-		$('#tbl_fornecedores').append('<tr><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td>'+valorStatus+'</td> <td></td></tr>');
+		$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td>'+valorStatus+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
 		
 		//SETA AS INPUT HIDDEN	
-		$('#area_inputHidden').append('<section class="fornecedor.'+in_fornecedor+'"><input name="data[Comitensdaoperacaos]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
+		$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Comitensdaoperacaos]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
 
 		
 		in_fornecedor++;
@@ -112,7 +112,7 @@
 		}
 	});
 	
-/********************* REMOVER Produtos *********************/    
+/********************* REMOVER Produtos *************************/    
 	var inicio = 0;
 	var fim = 0;
 	$('body').on('click','.btnRemoveProdu',function(){
@@ -120,6 +120,16 @@
 		atual = id.substr(8);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
+	});
+	
+/********************* REMOVER Fornecedor *********************/    
+	var inicio = 0;
+	var fim = 0;
+	$('body').on('click','.btnRemoveForne',function(){
+		id = $(this).attr('id');
+		atual = id.substr(8);
+		$('#tbl_fornecedores .fornecedorTr_'+atual).remove();
+		$('#area_inputHidden #fornecedor_'+atual).remove();
 	});
 	
 	
