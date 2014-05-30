@@ -31,8 +31,7 @@
 
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
-	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->	
-	<h1 class="menuOption41">Consultar Usuários</h1>
+	<h1 class="menuOption51">Consultar Usuários</h1>
 </header> <!---Fim header--->
 
 <section> <!---section superior--->
@@ -40,22 +39,21 @@
 
 	<fieldset class="filtros">
 		<section class = "coluna-esquerda">
-		<?php echo $this->Form->create('filtro', array('action' => '#', 'method' => 'post')); ?>
+		<?php echo $this->Search->create(); ?>
 		
 		<?php
-			echo $this->Form->input('nome',array('required'=>'false','type'=>'text','label'=>'Nome:','id'=>'filtro-nome', 'class' => 'tamanho-medio'));
+			echo $this->Search->input('nome',array('required'=>'false','type'=>'text','label'=>'Nome:','id'=>'filtro-nome', 'class' => 'tamanho-medio'));
 		?>
 		</section>
 		
 		<section class="coluna-central" style="margin-left:-70px;">
 		<?php
-			echo $this->Form->input('role',array('required'=>'false','type'=>'select','options' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico'), 'label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
+			echo $this->Search->input('role',array('required'=>'false','type'=>'select','label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
 			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'margin-left:50px;margin-top:-20px;'));
 		?>
 		</section>
 		
 		<section class="coluna-direita">
-		<?php //echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'float: left;')); ?>
 		</section>
 		
 		<?php echo $this->Form->end(); ?>

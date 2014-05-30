@@ -167,7 +167,7 @@ class AppController extends Controller {
 				}
 				$this->Auth->allowedActions=$allow; 
 
-				print_r($allow);
+				//print_r($allow);
 
 			}
 		}

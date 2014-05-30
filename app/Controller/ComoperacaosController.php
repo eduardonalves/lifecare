@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
 /**
  * Comoperacaos Controller
  *
@@ -13,12 +13,11 @@ class ComoperacaosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs');
-	
-	
+
+	public $components = array('Paginator','lifecareDataFuncs','Paginator');
 	
 	public $tiposUnidades;
-	
+
 	private function loadUnidade(){
 		 $this->tiposUnidades = array(
 				'UN'=>'Unidade',
@@ -62,6 +61,18 @@ class ComoperacaosController extends AppController {
 		$this->set('tiposUnidades', $this->tiposUnidades);
 	}
 	
+
+	public function beforeFilter(){
+			parent::beforeFilter();
+			if(!isset($this->request->query['limit'])){
+				$this->request->query['limit'] = 15;
+			}
+
+			if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
+	}
+	
 /**
  * index method
  *
@@ -71,6 +82,134 @@ class ComoperacaosController extends AppController {
 		$this->layout = 'compras';
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+		
+		$listaParceiros = array();
+		foreach($parceirodenegocios as $parceirodenegocio){
+			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		}
+		
+		$this->Filter->addFilters(
+			array(
+				
+				//Filtros OPERAÇÃO
+				
+				'tipoOperacao' => array(
+	                'Comoperacao.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+	            'data_inici' => array(
+		            'Comoperacao.data_inici' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'data_fim' => array(
+		            'Comoperacao.data_fim' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'valor' => array(
+		            'Comoperacao.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'status_operacao' => array(
+	                'Comoperacao.status' => array(
+	                    'operator' => 'LIKE',
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+					)
+	            ),
+	            'forma_pagamento' => array(
+	                'Comoperacao.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
+	            //Filtros RESPOSTA
+	            
+	            'data_resposta' => array(
+		            'Comresposta.data_resposta' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'valor_resposta' => array(
+		            'Comresposta.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'forma_pagamento_resposta' => array(
+	                'Comresposta.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            'status_resposta' => array(
+	                'Comresposta.status' => array(
+	                    'operator' => 'LIKE',
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+					)
+	            ),
+		        'obs' => array(
+	                'Comresposta.obs' => array(
+	                    'operator' => 'LIKE'
+	                )
+	            ),
+	            
+	            //Filtros PARCEIRO DE NEGÓCIOS
+	            
+	            'nome' => array(
+	                'Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE', 
+	                    'select' => array(''=> '', $listaParceiros)
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),
+	        )
+		);
+		
+		$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.id ASC'));
+					$this->Paginator->settings = array(
+						'Comoperacao' => array(
+							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
+							'fields_toCount' => 'DISTINCT Comoperacao.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Comoperacao.id ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntOperacoes = count($comoperacaos);
+					
+					$comoperacaos = $this->Paginator->paginate('Comoperacao');
+					
+					$this->set(compact('comoperacaos', 'cntOperacoes', 'users'));
 	}
 
 /**
@@ -92,6 +231,30 @@ class ComoperacaosController extends AppController {
 		$options = array('conditions' => array('Comoperacao.' . $this->Comoperacao->primaryKey => $id));
 		$this->set(compact('userid'),'comoperacao', $this->Comoperacao->find('first', $options));
 	}
+	
+
+public $uses = array();
+
+        public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+
+            if(!empty($this->request->data)){
+
+                $email = new CakeEmail('smtp');
+
+                $email->to($destinatario);
+
+                $email->subject($remetente);
+
+                if($email->send($mensagem)){
+					return TRUE;
+
+                }else{
+                	return FALSE;	
+                }
+
+            }
+
+        }	
 
 /**
  * add method
@@ -108,10 +271,33 @@ class ComoperacaosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Comoperacao->create();
 			if ($this->Comoperacao->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
+				
+				$this->loadModel('Cotacao');
+				
+				$ultimaCotacaos= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				$this->loadModel('Contato');
+				
+				foreach($ultimaCotacaos['Parceirodenegocio'] as $fornecedor){
+					
+					$contato= $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);
+				}
+				
+				
+				debug($ultimaCotacao);
+				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
+				//debug($ultimaCotacao);
+				
+				//$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
 				
 				//debug($this->request->data);
-				return $this->redirect(array('action' => 'index'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}

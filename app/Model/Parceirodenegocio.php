@@ -218,6 +218,33 @@ class Parceirodenegocio extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
-		)
+		),
+		
+		'Pedido' => array(
+			'className' => 'Pedido',
+			'joinTable' => 'comoperacaos_parceirodenegocios',
+			'foreignKey' => 'parceirodenegocio_id',
+			'associationForeignKey' => 'comoperacao_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
+		'Cotacao' => array(
+			'className' => 'Cotacao',
+			'joinTable' => 'comoperacaos_parceirodenegocios',
+			'foreignKey' => 'parceirodenegocio_id',
+			'associationForeignKey' => 'comoperacao_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
 	);
 }
