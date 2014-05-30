@@ -71,13 +71,13 @@
 				
 					<div class="inputSearchData">
 					<?php
-						echo $this->Search->input('data_inici', array('label' => 'Data de início:','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('data_inici', array('label' => 'Data de Início:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 
 					<div class="inputSearchData">
 					<?php
-						echo $this->Search->input('data_fim', array('label' => 'Data de fim:','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('data_fim', array('label' => 'Data de Fim:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 
@@ -177,9 +177,8 @@
 			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<th class="actions colunaConta">Ações</th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de início'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de fim'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('user_id'); ?></th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?></th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('valor'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
@@ -198,15 +197,12 @@
 						?>
 					</td>
 					
-					<td><?php echo formatDateToView(h($comoperacao['Comoperacao']['data_inici'])); ?>&nbsp;</td>
-					<td><?php echo formatDateToView(h($comoperacao['Comoperacao']['data_fim'])); ?>&nbsp;</td>
-					<td>
-						<?php echo h($comoperacao['User']['id']); ?>
-					</td>
-					<td><?php echo h($comoperacao['Comoperacao']['valor']); ?>&nbsp;</td>
-					<td><?php echo h($comoperacao['Comoperacao']['prazo_entrega']); ?>&nbsp;</td>
-					<td><?php echo h($comoperacao['Comoperacao']['forma_pagamento']); ?>&nbsp;</td>
-					<td><?php echo h($comoperacao['Comoperacao']['status']); ?>&nbsp;</td>
+					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
+					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Comoperacao']['valor']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
 				</tr>
 
 				<?php endforeach; ?>

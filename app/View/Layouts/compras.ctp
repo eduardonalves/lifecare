@@ -128,7 +128,7 @@
 				</li>
 				
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"add"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Cotacaos","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));

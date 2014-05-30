@@ -7,12 +7,9 @@ App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
  * @property PaginatorComponent $Paginator
  */
  App::import('Controller', 'Comoperacaos');
-<<<<<<< HEAD
-class CotacaosController extends ComoperacaosController {
-=======
 
-class CotacaosController extends CotacaosController {
->>>>>>> 7b9a0d01a8c96661280b84bc2782ffebdf4bb6ac
+class CotacaosController extends ComoperacaosController {
+
 
 /**
  * Components
@@ -86,11 +83,20 @@ class CotacaosController extends CotacaosController {
  */
 	public function view($id = null) {
 		$this->layout = 'compras';
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		
 		if (!$this->Cotacao->exists($id)) {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
 		$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
-		$this->set('cotacao', $this->Cotacao->find('first', $options));
+		
+		$this->loadModel('Comoperacao');
+		$cotacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+
+		$this->set(compact('cotacao','userid'));
 	}
 
 /**
@@ -127,27 +133,19 @@ class CotacaosController extends CotacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_inici']);
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_fim']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_fim']);
 		
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();
-<<<<<<< HEAD
-			//~ if ($this->Cotacao->saveAll($this->request->data)) {
-				//~ $this->Session->setFlash(__('The cotacao has been saved.'));
-				//~ return $this->redirect(array('action' => 'index'));
-			//~ } else {
-				//~ $this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
-			//~ }
-=======
-			if ($this->Cotacao->save($this->request->data)) {
+
+			if ($this->Cotacao->saveAll($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
->>>>>>> 7b9a0d01a8c96661280b84bc2782ffebdf4bb6ac
 		}
 		$this->loadModel('Produto');
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
