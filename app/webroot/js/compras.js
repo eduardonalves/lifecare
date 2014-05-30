@@ -140,15 +140,30 @@
 	
 	
 /**** VALIDAÇÔES *****/
-	
-	// DATA INICIO E FIM
-	$("#ComoperacaoDataFim").focusout(function(){
-		if(validacaoEntreDatas($("#ComoperacaoDataInic").val(),$("#ComoperacaoDataFim").val(),"#msgDataVencimentoInvalida")){
-			$("#ComoperacaoDataFim").val("");
-			$("#ComoperacaoDataFim").addClass('shadow-vermelho');
+	// DATA FIM pro INICIO
+	$(".dataFim").focusout(function(){
+		if($(".dataFim").val().length > 0 && $(".dataFim").val().length < 10){
+			$("#msgDataFinalErrada").show();
+		}else if($(".dataInicio").val() != ''){
+			if(validacaoEntreDatas($(".dataInicio").val(),$(".dataFim").val(),"#msgDataVencimentoInvalida")){
+				$(".dataFim").val("");
+				$(".dataFim").addClass('shadow-vermelho');
+			}
 		}
-		
 	});
+	
+	// DATA INICIO Pro FIM
+	$(".dataInicio").focusout(function(){
+		if($(".dataInicio").val().length > 0 && $(".dataInicio").val().length < 10){
+			$("#msgDataInicialErrada").show();
+		}else if($('.dataFim').val().length != 0 ){
+			if(validacaoEntreDatas($(".dataInicio").val(),$(".dataFim").val(),"#msgDataVencimentoInvalida")){
+				$(".dataFim").val("");
+				$(".dataFim").addClass('shadow-vermelho');
+			}
+		}			
+	});
+
 
 
 /******** ComoperacaoAddForm   ************/

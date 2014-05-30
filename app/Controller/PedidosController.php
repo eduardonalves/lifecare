@@ -99,8 +99,8 @@ class PedidosController extends ComoperacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_inici']);
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_fim']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 		
 		//debug($this->request->data);
 		if ($this->request->is('post')) {
