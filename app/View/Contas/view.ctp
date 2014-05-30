@@ -413,8 +413,7 @@
 						</section>
 					</div>
 				</div>
-					
-							
+
 				<div class="modal fade" id="myModal_edit-obs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-body">
 						

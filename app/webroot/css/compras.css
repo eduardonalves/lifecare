@@ -29,3 +29,15 @@
 .coluna-Produto fieldset{
 	padding: 5px;
 }
+
+#msgValidaProduto{top: -10px;}
+#msgValidaFor{top: -10px;}
+
+
+#msgValidaProduto{
+	top: 21px !important;
+}
+
+#msgValidaFor:after{
+	top: 21px !important;
+}

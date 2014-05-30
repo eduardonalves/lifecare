@@ -95,8 +95,8 @@
 										 'id'=>'bt-adicionarProduto'
 										 ));
 										 
-				echo $this->Form->input('vazio.qtd',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
-				echo $this->Form->input('vazio.obs',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 				
 			?>
 		
