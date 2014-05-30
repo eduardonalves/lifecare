@@ -87,6 +87,7 @@ class CotacaosController extends ComoperacaosController {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
 		$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
+		
 		$this->set('cotacao', $this->Cotacao->find('first', $options));
 	}
 
@@ -124,8 +125,8 @@ class CotacaosController extends ComoperacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_inici']);
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_fim']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_fim']);
 		
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();

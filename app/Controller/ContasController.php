@@ -466,19 +466,13 @@ class ContasController extends AppController {
 								}
 								
 							}
-							
-							
-								
+		
 					}
 					
 					//if(isset($conta['Conta']['parceirodenegocio_id'])){
 						//$this->setStatusParceiro($conta['Conta']['parceirodenegocio_id']);
 					//}
 				}//aqui
-				
-				
-				
-			
 			}
 			
 			$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'FINANCEIRO')));
@@ -1360,7 +1354,7 @@ class ContasController extends AppController {
  * add method
  *
  * @return void
- */
+**/
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Conta->create();
