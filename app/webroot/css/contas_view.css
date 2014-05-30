@@ -78,7 +78,7 @@
 	margin-bottom:5px;
 }
 
-#bt-salvar-quitar0{
+img[id*='bt-salvar-quitar']{
 	margin-top:75px;
 }
 

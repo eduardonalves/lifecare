@@ -1,8 +1,7 @@
  $(document).ready(function() {
 
 /**** FUNÇÔES **/
-	
-	$('input').removeAttr('required');
+
 
 	function float2moeda(num){
 		x = 0;
@@ -112,8 +111,8 @@
 			$("#add-produtos").val('');
 			$(".autocompleteProduto input").val('');
 			$("#produtoUnit").val('');
-			$("#produtoQtd").val('');
-			$("#produtoObs").val('');		
+			$("#produtoQtd").val('').removeAttr('required');
+			$("#produtoObs").val('');	
 			
 			in_produto++;
 		}
