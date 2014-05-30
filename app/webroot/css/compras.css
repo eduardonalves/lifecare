@@ -10,6 +10,15 @@
 	margin-top: 25px;
 }
 
+.tabela_fornecedores_view{
+	margin-top: 10px;
+}
+
+input[type="text"]:disabled{
+	cursor:;
+	background-color:#F9F9F9;
+}
+
 .coluna-Fornecedor{
 	margin-top: 15px;
 	width: 500px;
