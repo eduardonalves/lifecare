@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
 /**
  * Comoperacaos Controller
  *
@@ -227,6 +227,30 @@ class ComoperacaosController extends AppController {
 		$options = array('conditions' => array('Comoperacao.' . $this->Comoperacao->primaryKey => $id));
 		$this->set('comoperacao', $this->Comoperacao->find('first', $options));
 	}
+	
+
+public $uses = array();
+
+        public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+
+            if(!empty($this->request->data)){
+
+                $email = new CakeEmail('smtp');
+
+                $email->to($destinatario);
+
+                $email->subject($remetente);
+
+                if($email->send($mensagem)){
+					return TRUE;
+
+                }else{
+                	return FALSE;	
+                }
+
+            }
+
+        }	
 
 /**
  * add method
@@ -243,10 +267,33 @@ class ComoperacaosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Comoperacao->create();
 			if ($this->Comoperacao->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
+				
+				$this->loadModel('Cotacao');
+				
+				$ultimaCotacaos= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				$this->loadModel('Contato');
+				
+				foreach($ultimaCotacaos['Parceirodenegocio'] as $fornecedor){
+					
+					$contato= $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);
+				}
+				
+				
+				debug($ultimaCotacao);
+				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
+				//debug($ultimaCotacao);
+				
+				//$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
 				
 				//debug($this->request->data);
-				return $this->redirect(array('action' => 'index'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}

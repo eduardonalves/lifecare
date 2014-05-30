@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
 /**
  * Cotacaos Controller
  *
@@ -7,6 +7,7 @@ App::uses('AppController', 'Controller');
  * @property PaginatorComponent $Paginator
  */
  App::import('Controller', 'Comoperacaos');
+
 class CotacaosController extends CotacaosController {
 
 /**
@@ -46,10 +47,36 @@ class CotacaosController extends CotacaosController {
  *
  * @return void
  */
+ 
+ 		public $uses = array();
+
+        public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+
+            if(!empty($this->request->data)){
+
+                $email = new CakeEmail('smtp');
+
+                $email->to($destinatario);
+
+                $email->subject($remetente);
+
+                if($email->send($mensagem)){
+					return TRUE;
+
+                }else{
+                	return FALSE;	
+                }
+
+            }
+
+        }
+ 		
+ 
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();
 			if ($this->Cotacao->save($this->request->data)) {
+				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
