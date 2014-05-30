@@ -44,6 +44,7 @@ class UsersController extends AppController {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 		
+		$this->loadModel('User');
 		$users = $this->User->find('list',array('recursive' => -1, 'fields' => array('User.username')));
 		
 		$listaUsers = array();
@@ -54,21 +55,36 @@ class UsersController extends AppController {
 		
 		$this->Filter->addFilters(
 			array(
-			'username' => array(
-	            'User.username' => array(
-	                'operator' => 'LIKE', 
-	                'select' => array(''=> '', $listaUsers)
+			'nome' => array(
+	                'User.username' => array(
+	                    'operator' => 'LIKE', 
+	                    'select' => array(''=> '', $listaUsers)
 	                )
 	            ),
-			'role_id' => array(
-	                'User.role_id' => array(
+			'role' => array(
+	                'Role.roles' => array(
 	                    'operator' => '=',
 						'select' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico')
 	                )
 	            ),
 	        )
 			);
-	    
+			
+			$users = $this->User->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT User.id', 'User.*'), 'order' => 'User.id ASC'));
+					$this->Paginator->settings = array(
+						'User' => array(
+							'fields' => array('DISTINCT User.id', 'User.*'),
+							'fields_toCount' => 'DISTINCT User.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'User.id ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntUsers = count($users);
+					//debug($contas);	
+					
+					$users = $this->Paginator->paginate('User');
 	}
 
 /**

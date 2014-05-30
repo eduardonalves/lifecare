@@ -566,9 +566,6 @@ class ContasController extends AppController {
 			}
 			
 		}
-		
-		
-		
 	}
 		
 		
@@ -794,7 +791,6 @@ class ContasController extends AppController {
 		                )
 		            )
 		        ),
-		       
 	            'forma_pagamento' => array(
 	                'Pagamento.forma_pagamento' => array(
 	                    'operator' => 'LIKE',

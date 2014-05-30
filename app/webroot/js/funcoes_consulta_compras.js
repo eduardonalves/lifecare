@@ -1,5 +1,36 @@
 $(document).ready(function(){
 
+/*** SUBMITAR FILTRO CONSULTA ***************************/
+
+$("#quick-filtrar-compras").click(function(e){
+	e.preventDefault();
+
+	if($('#filterDataInici').val()!='' && $('#filterDataInici-between').val()==''){
+	    $('#filterDataInici-between').addClass('shadow-vermelho').after('<span id="vazioDataInici" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
+	}else if($('#filterDataFim').val()!='' && $('#filterDataFim-between').val()==''){
+	    $('#filterDataFim-between').addClass('shadow-vermelho').after('<span id="vazioDataFim" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
+	}else if($('#filterValor').val()!='' && $('#filterValor-between').val()==''){
+	    $('#filterValor-between').addClass('shadow-vermelho').after('<span id="vazioFilterValor" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
+	}else{
+	    var usoInicioPhp = '<?php' ;
+	    var usoFinalPhp ='?>';
+	    var usoGet = '$_GET["ql"]=0';
+
+	    $('section').attr(usoInicioPhp+' '+usoGet+' '+usoFinalPhp);
+
+	    valAux=$('#filterValor').val();
+	    valAuxBet=$('#filterValor-between').val();
+
+	    $('#filterValor').val(valAux.split('.').join('').replace(',','.'));
+	    $('#filterValor-between').val(valAuxBet.split('.').join('').replace(',','.'));
+
+	    
+	    $('#form-filter-results').submit();
+	}
+    });
+
+
+
 	//~ var total = 0;
 	//~ var i = 0;
 

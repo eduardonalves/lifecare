@@ -90,14 +90,14 @@ $(document).ready(function() {
 			<section id="filtro-movimentacao" class="coluna-esquerda">
 				<span id="titulo">Dados da Movimentação</span>
 	
-				<?php	
+				<?php
 					echo $this->Search->create();
 					echo "<div class='tipoMovimentacao'>";
 					echo $this->Form->input('', array(
 					    'type' => 'select',
 					    'class' => 'operacao',
 					    'multiple' => 'checkbox',
-					    'options' => array('RECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),   
+					    'options' => array('RECEBER' => 'Recebimento', 'PAGAR' => 'Pagamento'),
 					));
 					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));

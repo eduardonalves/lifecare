@@ -16,10 +16,8 @@ class ComoperacaosController extends AppController {
 
 	public $components = array('Paginator','lifecareDataFuncs','Paginator');
 	
-	
-	
 	public $tiposUnidades;
-	
+
 	private function loadUnidade(){
 		 $this->tiposUnidades = array(
 				'UN'=>'Unidade',
@@ -64,8 +62,6 @@ class ComoperacaosController extends AppController {
 	}
 	
 
-
-
 	public function beforeFilter(){
 			parent::beforeFilter();
 			if(!isset($this->request->query['limit'])){
@@ -76,8 +72,7 @@ class ComoperacaosController extends AppController {
 			    $_GET['ql']=0;
 			}
 	}
-
-
+	
 /**
  * index method
  *
@@ -88,19 +83,32 @@ class ComoperacaosController extends AppController {
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
 		
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+		
+		$listaParceiros = array();
+		foreach($parceirodenegocios as $parceirodenegocio){
+			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		}
+		
 		$this->Filter->addFilters(
 			array(
-	            'statusParceiro' => array(
-	                'Parceirodenegocio.status' => array(
+				
+				//Filtros OPERAÇÃO
+				
+				'tipoOperacao' => array(
+	                'Comoperacao.tipo' => array(
 	                    'operator' => 'LIKE',
-						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
-	                )
-	            ),/*
-		        'data_inici' => array(
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+	            'data_inici' => array(
 		            'Comoperacao.data_inici' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
-		                    'text' => __(' a ', true)
+		                    'text' => __(' e ', true)
 		                )
 		            )
 		        ),
@@ -108,34 +116,100 @@ class ComoperacaosController extends AppController {
 		            'Comoperacao.data_fim' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
-		                    'text' => __(' a ', true)
+		                    'text' => __(' e ', true)
 		                )
 		            )
 		        ),
-		         'valor' => array(
+		        'valor' => array(
 		            'Comoperacao.valor' => array(
-		                'operator' => 'BETWEEN',
-		                'between' => array(
-		                    'text' => __(' a ', true)
-		                )
-		            )
-		        ),
-		         'duplicata' => array(
-		            'Parcela.duplicata' => array(
-		                'operator' => '=',
-	               		 'select' => array('' => '','1' => 'OK', '0' => 'Dupli')
-		            )
-		        ),
-		        'data_vencimento' => array(
-		            'Parcela.data_vencimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
 		                )
 		            )
-		        ),*/
+		        ),
+	            'status_operacao' => array(
+	                'Comoperacao.status' => array(
+	                    'operator' => 'LIKE',
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+					)
+	            ),
+	            'forma_pagamento' => array(
+	                'Comoperacao.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            
+	            //Filtros RESPOSTA
+	            
+	            'data_resposta' => array(
+		            'Comresposta.data_resposta' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'valor_resposta' => array(
+		            'Comresposta.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'forma_pagamento_resposta' => array(
+	                'Comresposta.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            'status_resposta' => array(
+	                'Comresposta.status' => array(
+	                    'operator' => 'LIKE',
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+					)
+	            ),
+		        'obs' => array(
+	                'Comresposta.obs' => array(
+	                    'operator' => 'LIKE'
+	                )
+	            ),
+	            
+	            //Filtros PARCEIRO DE NEGÓCIOS
+	            
+	            'nome' => array(
+	                'Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE', 
+	                    'select' => array(''=> '', $listaParceiros)
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                'Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),
 	        )
 		);
+		
+		$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.id ASC'));
+					$this->Paginator->settings = array(
+						'Comoperacao' => array(
+							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
+							'fields_toCount' => 'DISTINCT Comoperacao.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Comoperacao.id ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntOperacoes = count($comoperacaos);
+					
+					$comoperacaos = $this->Paginator->paginate('Comoperacao');
+					
+					$this->set(compact('comoperacaos', 'cntOperacoes', 'users'));
 	}
 
 /**
