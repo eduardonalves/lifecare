@@ -83,11 +83,20 @@ class CotacaosController extends ComoperacaosController {
  */
 	public function view($id = null) {
 		$this->layout = 'compras';
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		
 		if (!$this->Cotacao->exists($id)) {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
 		$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
-		$this->set('cotacao', $this->Cotacao->find('first', $options));
+		
+		$this->loadModel('Comoperacao');
+		$cotacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+
+		$this->set(compact('cotacao','userid'));
 	}
 
 /**
@@ -124,13 +133,13 @@ class CotacaosController extends ComoperacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_inici']);
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comoperacao']['data_fim']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_fim']);
 		
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();
 
-			if ($this->Cotacao->save($this->request->data)) {
+			if ($this->Cotacao->saveAll($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
