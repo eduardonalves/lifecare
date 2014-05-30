@@ -37,152 +37,166 @@ class NotasController extends AppController {
 			    $_GET['ql']=0;
 			}
 			
-			$this->loadModel('Lote');
-			$lotes = $this->Lote->find('all', array('recursive' => 0));
 			
-			foreach($lotes as $lote){
-				$hoje= date("Y-m-d");
-				$validade= $lote['Lote']['data_validade'];
-				$diasCritico = $lote['Produto']['periodocriticovalidade'];
-				
-				$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$validade.'')));
-				
-				if($diasCritico !=''){
-				
-					if(strtotime($hoje)  <=  strtotime($validade)){
-						if($dataCritica < $hoje){
-							$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'AMARELO');
-							$this->Lote->save($updateValidade);
+			$atualizado=date('Y-m-d');
+			$this->loadModel('Atualizacao');
+			$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'ESTOQUE', 'AND' => array('Atualizacao.data' => $atualizado))));
+			if(empty($dataAtualizacao)){
+			
+			
+					$this->loadModel('Lote');
+					$lotes = $this->Lote->find('all', array('recursive' => 0, 'conditions' => array('Lote.status NOT LIKE' => 'VERMELHO')));
+					
+					foreach($lotes as $lote){
+						$hoje= date("Y-m-d");
+						$validade= $lote['Lote']['data_validade'];
+						$diasCritico = $lote['Produto']['periodocriticovalidade'];
+						
+						$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$validade.'')));
+						
+						if($diasCritico !=''){
+						
+							if(strtotime($hoje)  <=  strtotime($validade)){
+								if($dataCritica < $hoje){
+									$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'AMARELO');
+									$this->Lote->save($updateValidade);
+								}else{
+									$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
+									$this->Lote->save($updateValidade);
+									
+								}
+
+							}else{
+								$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
+								$this->Lote->save($updateValidade);
+							}
+						
 						}else{
-							$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
-							$this->Lote->save($updateValidade);
-							
+						
+							if(strtotime($hoje)  <=  strtotime($validade)){
+								$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
+								$this->Lote->save($updateValidade);
+							}else{
+								$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
+								$this->Lote->save($updateValidade);
+							}
+						
 						}
+						
+						
+						//Fim cemáfaro
+						
+						
+						//Calculamos  a quantidade  de cada lote
+						//inicio qtde lotes
+						
+						
+						
+						//Buscamos todas as entradas daquele lote 
+						//ESTA AÇÃO FOI COMENTADA POR EDUARDO EM 30/05/2014
+						/*$this->loadModel('Loteiten');
+						$loteEstoque=0;
+						
+						
+						$loteitensEntradas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'ENTRADA', 'Loteiten.lote_id' => $lote['Lote']['id'])));	
+						$qtdEntradaLote =0;
+						$loteEstoqueEntrada=0;
+						foreach($loteitensEntradas as $loteitenEntrada){
+							
+							$qtdEntradaLote = $loteitenEntrada['Loteiten']['qtde'];
+							$loteEstoqueEntrada = $loteEstoqueEntrada + $qtdEntradaLote;
+							
+							
+						}	*/
 
-					}else{
-						$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
-						$this->Lote->save($updateValidade);
+						//Buscamos todas as saidas daquele lote
+						//ESTA AÇÃO FOI COMENTADA POR EDUARDO EM 30/05/2014
+						/*$loteitensSaidas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'SAIDA', 'Loteiten.lote_id' => $lote['Lote']['id'])));	
+						$qtdSaidaLote =0;
+						$loteEstoqueSaida=0; 
+						foreach($loteitensSaidas as $loteitenSaida){
+							
+							$qtdSaidaLote = $loteitenSaida['Loteiten']['qtde'];
+							$loteEstoqueSaida = $loteEstoqueSaida + $qtdSaidaLote;
+							
+							
+						}					
+						
+						$loteEstoque=$loteEstoqueEntrada-$loteEstoqueSaida;	
+						
+						//Fazemos a atualização da quantidade do lote
+						$updateEstoque= array('id' => $lote['Lote']['id'], 'estoque' => $loteEstoque);
+						$this->Lote->save($updateEstoque);		
+						//Fim qtde lotes	
+						*/
 					}
+					
+					
+					//Calculamos a quantidade de todos os lotes
+					
 				
-				}else{
-				
-					if(strtotime($hoje)  <=  strtotime($validade)){
-						$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
-						$this->Lote->save($updateValidade);
-					}else{
-						$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
-						$this->Lote->save($updateValidade);
+					
+
+					
+					//Setamos as categorias nos produtos
+					/*$this->loadModel('Produto');
+					$this->loadModel('Categoria');
+					$prodSemCats=$this->Produto->find('all');
+					
+					foreach($prodSemCats as $prodSemCat){
+						$prodComCats=$this->Produto->Categoria->find('all');
+						$prodComCatNome="";
+						foreach($prodComCats as $prodComCat){
+							$prodComCatNome= $prodComCatNome." ".$prodComCat['Categoria']['nome'];
+
+						}
+						
+							$updateCategoria= array('id' => $prodSemCat['Produto']['id'], 'categoria' => $prodComCatNome);
+							$this->Produto->save($updateCategoria);				
+						
+					}*/
+					
+					//Calculamos as entradas do produto
+					/*$this->loadModel('Produto');
+					$produtos=$this->Produto->find('all');
+					
+					foreach($produtos as $produto){
+						
+					$this->loadModel('Produtoiten');
+					$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
+					$entradas=0;
+					
+					foreach ($produtoItensEntradas as $produtoItenEntrada){
+						$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
+						$entradas = $entradas + $qtdeEntrada;
 					}
-				
-				}
-				
-				
-				//Fim cemáfaro
-				
-				
-				//Calculamos  a quantidade  de cada lote
-				//inicio qtde lotes
-				
-				
-				
-				//Buscamos todas as entradas daquele lote 
-				$this->loadModel('Loteiten');
-				$loteEstoque=0;
-				
-				
-				$loteitensEntradas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'ENTRADA', 'Loteiten.lote_id' => $lote['Lote']['id'])));	
-				$qtdEntradaLote =0;
-				$loteEstoqueEntrada=0;
-				foreach($loteitensEntradas as $loteitenEntrada){
 					
-					$qtdEntradaLote = $loteitenEntrada['Loteiten']['qtde'];
-					$loteEstoqueEntrada = $loteEstoqueEntrada + $qtdEntradaLote;
+					$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
+					$saidas=0;
+					foreach ($produtoItensSaidas as $produtoItenSaida){
+						$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
+						$saidas=$saidas + $qtdeSaida;
+					}
+					$estoque =$entradas-$saidas;
+					if($estoque >= $produto['Produto']['estoque_desejado']){
+						$nivel='VERDE';
+					}else if($estoque >= $produto['Produto']['estoque_minimo']){
+						$nivel='AMARELO';
+					}else{
+						$nivel='VERMELHO';	
+					}
 					
+					$updateEstoqueProd= array('id' => $produto['Produto']['id'], 'estoque' => $estoque, 'nivel' => $nivel);
+					$this->Produto->save($updateEstoqueProd);	
+					}*/
 					
-				}	
-
-				//Buscamos todas as saidas daquele lote
-				
-				$loteitensSaidas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'SAIDA', 'Loteiten.lote_id' => $lote['Lote']['id'])));	
-				$qtdSaidaLote =0;
-				$loteEstoqueSaida=0; 
-				foreach($loteitensSaidas as $loteitenSaida){
+					//$this->set(compact('hoje', 'validade','dataCritica', 'loteEstoque'));
 					
-					$qtdSaidaLote = $loteitenSaida['Loteiten']['qtde'];
-					$loteEstoqueSaida = $loteEstoqueSaida + $qtdSaidaLote;
-					
-					
-				}					
-				
-				$loteEstoque=$loteEstoqueEntrada-$loteEstoqueSaida;	
-				
-				//Fazemos a atualização da quantidade do lote
-				$updateEstoque= array('id' => $lote['Lote']['id'], 'estoque' => $loteEstoque);
-				$this->Lote->save($updateEstoque);		
-				//Fim qtde lotes	
-				
+				$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'ESTOQUE')));
+				$updateAtualizacao = array('id' => $dataAtualizacao['Atualizacao']['id'], 'data' => $atualizado);
+				$this->Atualizacao->create();
+				$this->Atualizacao->save($updateAtualizacao);
 			}
-			
-			
-			//Calculamos a quantidade de todos os lotes
-			
-		
-			
-
-			
-			//Setamos as categorias nos produtos
-			/*$this->loadModel('Produto');
-			$this->loadModel('Categoria');
-			$prodSemCats=$this->Produto->find('all');
-			
-			foreach($prodSemCats as $prodSemCat){
-				$prodComCats=$this->Produto->Categoria->find('all');
-				$prodComCatNome="";
-				foreach($prodComCats as $prodComCat){
-					$prodComCatNome= $prodComCatNome." ".$prodComCat['Categoria']['nome'];
-
-				}
-				
-					$updateCategoria= array('id' => $prodSemCat['Produto']['id'], 'categoria' => $prodComCatNome);
-					$this->Produto->save($updateCategoria);				
-				
-			}*/
-			
-			//Calculamos as entradas do produto
-			/*$this->loadModel('Produto');
-			$produtos=$this->Produto->find('all');
-			
-			foreach($produtos as $produto){
-				
-			$this->loadModel('Produtoiten');
-			$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
-			$entradas=0;
-			
-			foreach ($produtoItensEntradas as $produtoItenEntrada){
-				$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
-				$entradas = $entradas + $qtdeEntrada;
-			}
-			
-			$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
-			$saidas=0;
-			foreach ($produtoItensSaidas as $produtoItenSaida){
-				$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
-				$saidas=$saidas + $qtdeSaida;
-			}
-			$estoque =$entradas-$saidas;
-			if($estoque >= $produto['Produto']['estoque_desejado']){
-				$nivel='VERDE';
-			}else if($estoque >= $produto['Produto']['estoque_minimo']){
-				$nivel='AMARELO';
-			}else{
-				$nivel='VERMELHO';	
-			}
-			
-			$updateEstoqueProd= array('id' => $produto['Produto']['id'], 'estoque' => $estoque, 'nivel' => $nivel);
-			$this->Produto->save($updateEstoqueProd);	
-			}*/
-			
-			//$this->set(compact('hoje', 'validade','dataCritica', 'loteEstoque'));
 			
 		}
 		

@@ -337,12 +337,21 @@ class ContasController extends AppController {
 	}
 	
  	public function setStatusContasParcelas(){
-		if(isset($_GET['parametro'])){
+	
+		$atualizado=date('Y-m-d');
+		$this->loadModel('Atualizacao');
+		$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'FINANCEIRO', 'AND' => array('Atualizacao.data' => $atualizado))));
+		
+		
+		if(empty($dataAtualizacao)){
+				
+			
 			$this->loadModel('Parcela');
 			$this->loadModel('Parceirodenegocio');
 			$this->Parcela->Behaviors->attach('Containable');
+			
 			$parcelas = $this->Parcela->find('all', array('contain' => array('Conta'),'conditions' => array('Parcela.status NOT LIKE' => 'CINZA', 'AND' => array('Parcela.status NOT LIKE' => 'RENEGOCIADO'), 'AND' => array('Parcela.status NOT LIKE' => 'COBRANCA'))));
-			//debug($parcelas);
+			
 			
 			//$parcelas= $this->Parcela->find('all',array('contain' => array('Parcela' => array('_Conta' => array('conditions' => array('Parcela.status NOT LIKE' => 'CINZA', 'AND' => array('Parcela.status NOT LIKE' => 'RENEGOCIADO'), 'AND' => array('Parcela.status NOT LIKE' => 'COBRANCA')))))));
 			foreach($parcelas as $parcela){
@@ -471,6 +480,11 @@ class ContasController extends AppController {
 				
 			
 			}
+			
+			$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'FINANCEIRO')));
+			$updateAtualizacao = array('id' => $dataAtualizacao['Atualizacao']['id'], 'data' => $atualizado);
+			$this->Atualizacao->create();
+			$this->Atualizacao->save($updateAtualizacao);
 		}	
 	}
 
@@ -543,7 +557,7 @@ class ContasController extends AppController {
 	//$this->setStatusContasParcelas();	
 	public function beforeRender(){
 		parent::beforeRender();
-		//$this->setStatusContasParcelas();
+		$this->setStatusContasParcelas();
 		$this->loadModel('Parceirodenegocio');
 		$paceiros = $this->Parceirodenegocio->find('all', array('recursive' => -1));
 		if(!empty($paceiros)){
