@@ -7,12 +7,9 @@ App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
  * @property PaginatorComponent $Paginator
  */
  App::import('Controller', 'Comoperacaos');
-<<<<<<< HEAD
-class CotacaosController extends ComoperacaosController {
-=======
 
-class CotacaosController extends CotacaosController {
->>>>>>> 7b9a0d01a8c96661280b84bc2782ffebdf4bb6ac
+class CotacaosController extends ComoperacaosController {
+
 
 /**
  * Components
@@ -132,14 +129,7 @@ class CotacaosController extends CotacaosController {
 		
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();
-<<<<<<< HEAD
-			//~ if ($this->Cotacao->saveAll($this->request->data)) {
-				//~ $this->Session->setFlash(__('The cotacao has been saved.'));
-				//~ return $this->redirect(array('action' => 'index'));
-			//~ } else {
-				//~ $this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
-			//~ }
-=======
+
 			if ($this->Cotacao->save($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
 				$this->Session->setFlash(__('The cotacao has been saved.'));
@@ -147,7 +137,6 @@ class CotacaosController extends CotacaosController {
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
->>>>>>> 7b9a0d01a8c96661280b84bc2782ffebdf4bb6ac
 		}
 		$this->loadModel('Produto');
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
