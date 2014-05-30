@@ -54,28 +54,28 @@
 						<span id="titulo">Dados da Operação</span>
 					</div>
 
-				<?php
-					echo $this->Search->create();
-					echo "<div class='tipoOperacao'>";
-					echo $this->Form->input('', array(
-					    'type' => 'select',
-					    'class' => 'operacao',
-					    'multiple' => 'checkbox',
-					    'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
-					    'style' => 'float:left',
-					));
-					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
-					echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
-					echo "</div>";
+					<?php
+						echo $this->Search->create();
+						echo "<div class='tipoOperacao'>";
+						echo $this->Form->input('', array(
+							'type' => 'select',
+							'class' => 'operacao',
+							'multiple' => 'checkbox',
+							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
+							'style' => 'float:left',
+						));
+						//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
+						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
+						echo "</div>";
 					?>
 				
-					<div class="inputSearchData divMarginLeft">
+					<div class="inputSearchData">
 					<?php
 						echo $this->Search->input('data_inici', array('label' => 'Data de início:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 
-					<div class="inputSearchData divMarginLeft">
+					<div class="inputSearchData">
 					<?php
 						echo $this->Search->input('data_fim', array('label' => 'Data de fim:','class'=>'', 'type' => 'text'));
 					?>
@@ -93,7 +93,7 @@
 					?>
 					</div>
 					
-					<div class="divMarginLeft" >
+					<div class="" >
 					<?php
 						echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
 					?>
@@ -107,7 +107,7 @@
 						<span>Dados da Resposta</span>
 					</div>
 
-					<div class="inputSearchData divMarginLeft">
+					<div class="inputSearchData">
 					<?php
 						echo $this->Search->input('data_resposta', array('label' => 'Data da Resposta:','class'=>'', 'type' => 'text'));
 					?>
@@ -125,13 +125,13 @@
 					?>
 					</div>
 
-					<div class="divMarginLeft" >
+					<div class="" >
 					<?php
 						echo $this->Search->input('status_resposta', array('label' => 'Status:','class'=>''));
 					?>
 					</div>
 
-					<div class="divMarginLeft" >
+					<div class="" >
 						<?php
 							echo $this->Search->input('obs', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
 						?>
@@ -190,11 +190,11 @@
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'comoperacao','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 							echo "<hr />";
-							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','url'=>array('controller' => 'comoperacao','action' => 'edit', $comoperacao['Comoperacao']['id'])));
+							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
 							echo "<hr />"; 
-							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_operacao','alt' =>__('Delete'),'title' => 'Excluir Operação')), array('controller' => 'comoperacao','action' => 'delete', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir a operação '.$comoperacao['Comoperacao']['id'].'?'))); 
+							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_operacao','alt' =>__('Delete'),'title' => 'Excluir Operação')), array('controller' => 'Comoperacaos','action' => 'delete', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir a operação '.$comoperacao['Comoperacao']['id'].'?'))); 
 						?>
 					</td>
 					

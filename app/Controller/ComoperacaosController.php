@@ -80,6 +80,7 @@ class ComoperacaosController extends AppController {
  */
 	public function index() {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
 		
@@ -209,7 +210,7 @@ class ComoperacaosController extends AppController {
 					
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
 					
-					$this->set(compact('comoperacaos', 'cntOperacoes', 'users'));
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes', 'users'));
 	}
 
 /**
