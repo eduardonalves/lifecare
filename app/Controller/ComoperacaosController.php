@@ -256,11 +256,15 @@ class ComoperacaosController extends AppController {
  */
 	public function view($id = null) {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		
 		if (!$this->Comoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comoperacao'));
 		}
+		
+		
 		$options = array('conditions' => array('Comoperacao.' . $this->Comoperacao->primaryKey => $id));
-		$this->set('comoperacao', $this->Comoperacao->find('first', $options));
+		$this->set(compact('userid'),'comoperacao', $this->Comoperacao->find('first', $options));
 	}
 	
 

@@ -39,9 +39,10 @@
 				echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 
-				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'dataInicio tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
-				echo $this->Form->input('prazo_entrega',array('label'=>'Prazo:','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'5'));
+				echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
+				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-pequeno dinheiro_duasCasas','type'=>'text','maxlength'=>'20'));
 				
 
 			?>
@@ -49,8 +50,9 @@
 		
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'dataFim tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
+				echo '<span id="msgDataFinalErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a data Final corretamente</span>';
 				echo '<span id="msgDataFinal" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Final</span>';
 
 				echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
