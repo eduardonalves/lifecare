@@ -80,6 +80,7 @@ class ComoperacaosController extends AppController {
  */
 	public function index() {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
 
@@ -234,14 +235,16 @@ class ComoperacaosController extends AppController {
 					
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
 					
+
 					foreach($comoperacaos as $id => $comoperacao) {
 						
 						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_inici']);
 						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_fim']);
 						
 						}
-					
-					$this->set(compact('comoperacaos', 'cntOperacoes'));
+
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes', 'users'));
+
 	}
 
 /**

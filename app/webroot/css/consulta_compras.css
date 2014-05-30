@@ -39,7 +39,7 @@ label[for="checkparcela"]{
 }
 
 
-.tipoMovimentacao{
+.tipoOperacao{
 	margin-left: -164px;
 }
 
@@ -261,6 +261,14 @@ label[for="checkparcela"]{
 	right: 10px;
 	cursor: pointer;
 	top: 160px;
+}
+
+#filterStatusOperacao{
+	margin-top:3px;
+}
+
+#filterStatusResposta{
+	margin-top:3px;
 }
 
 /* HERANÇA ************************************************************/
