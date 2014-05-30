@@ -82,7 +82,32 @@ class ComoperacaosController extends AppController {
 		$this->layout = 'compras';
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
+
+	if(isset($this->request->data['filter'])){
+		foreach($this->request->data['filter'] as $key=>$value){
+			if(isset($this->request->data['filter']['data_inici'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici']);
+			}
+			if(isset($this->request->data['filter']['data_inici-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici-between']);
+			}	
+			if(isset($this->request->data['filter']['data_fim'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_fim']);
+			}
+			if(isset($this->request->data['filter']['data_fim-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_fim-between']);
+			}
+			if(isset($this->request->data['filter']['data_resposta'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_resposta']);
+			}	
+			if(isset($this->request->data['filter']['data_resposta-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_resposta-between']);
+			}
+	
+		}
 		
+	}	
+
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 		
@@ -209,7 +234,14 @@ class ComoperacaosController extends AppController {
 					
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
 					
-					$this->set(compact('comoperacaos', 'cntOperacoes', 'users'));
+					foreach($comoperacaos as $id => $comoperacao) {
+						
+						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_inici']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_fim']);
+						
+						}
+					
+					$this->set(compact('comoperacaos', 'cntOperacoes'));
 	}
 
 /**
