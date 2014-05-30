@@ -91,12 +91,12 @@ class CotacaosController extends ComoperacaosController {
 		if (!$this->Cotacao->exists($id)) {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
-		$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
+	
+		$this->loadModel('Comitensdaoperacao');
+		$cotacao = $this->Cotacao->find('first',array('conditions'=>array('Cotacao.id' => $id),recursive=>0));
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
-		$this->loadModel('Comoperacao');
-		$cotacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
-
-		$this->set(compact('cotacao','userid'));
+		$this->set(compact('cotacao','userid','itens'));
 	}
 
 /**

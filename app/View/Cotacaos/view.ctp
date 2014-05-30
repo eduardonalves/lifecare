@@ -1,5 +1,5 @@
 <pre>
 <?php
-	print_r($cotacao);
+	print_r($itens);
 ?>
 </pre>
