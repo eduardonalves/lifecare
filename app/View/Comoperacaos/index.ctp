@@ -99,6 +99,10 @@
 						?>
 					</div>
 					
+					<?php
+						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirOperacao', 'alt'=>'', 'title'=>''));
+					?>
+					
 					</section>
 
 				<!------------------ Filtro das Respostas ------------------>
@@ -108,9 +112,9 @@
 					</div>
 
 					<div class="inputSearchData">
-					<?php
-						echo $this->Search->input('data_resposta', array('label' => 'Data da Resposta:','class'=>'', 'type' => 'text'));
-					?>
+						<?php
+							echo $this->Search->input('data_resposta', array('label' => 'Data da Resposta:','class'=>'', 'type' => 'text'));
+						?>
 					</div>
 
 					<div class="inputSearchValor">
@@ -120,32 +124,38 @@
 					</div>
 
 					<div class="formaPagamento" >
-					<?php
-						echo $this->Search->input('forma_pagamento_resposta', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
-					?>
+						<?php
+							echo $this->Search->input('forma_pagamento_resposta', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
+						?>
 					</div>
 
-					<div class="" >
+					<div class="inputSearchResposta" >
 						<?php
 							echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
 						?>
 					</div>
 
-					<div class="" >
+					<div class="inputSearchObs" >
 						<?php
 							echo $this->Search->input('obs', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
 					
-					<div class="informacoesParceiro">
-					
-					<?php
-						echo $this->Search->input('nome', array('label' => 'Nome do Parceiro:','class'=>'input-alinhamento combo-autocomplete'));
-						echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status do Parceiro:','class'=>'tamanho-medio input-alinhamento'));
-					?>
-
+					<div class="inputSearchNome">
+						<?php
+							echo $this->Search->input('nome', array('label' => 'Nome do Parceiro:','class'=>'input-alinhamento combo-autocomplete'));
+						?>
 					</div>
 
+					<div class="inputSearchParceiro">
+						<?php
+							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status do Parceiro:','class'=>'tamanho-medio input-alinhamento'));
+						?>
+					</div>
+					
+					<?php
+						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirResposta', 'alt'=>'', 'title'=>''));
+					?>
 				</section>
 
 				<!------------------ Filtro Do Produto ------------------>
