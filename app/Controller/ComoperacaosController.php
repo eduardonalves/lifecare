@@ -261,10 +261,13 @@ class ComoperacaosController extends AppController {
 		if (!$this->Comoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comoperacao'));
 		}
+				
+		$this->loadModel('Comitensdaoperacao');
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
+		$this->set(compact('userid','itens','comoperacao'));
 		
-		$options = array('conditions' => array('Comoperacao.' . $this->Comoperacao->primaryKey => $id));
-		$this->set(compact('userid'),'comoperacao', $this->Comoperacao->find('first', $options));
 	}
 	
 
