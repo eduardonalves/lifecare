@@ -82,7 +82,7 @@
 						<?php
 							foreach($produtos as $produto)
 							{
-								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."'>";
+								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."'>";
 								echo $produto['Produto']['nome'];
 								echo "</option>";
 							}
@@ -101,6 +101,7 @@
 										 
 				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 				echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
+				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
 				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 				
 			?>
@@ -110,6 +111,7 @@
 					<thead>
 						<th>Produto nome</th>
 						<th>Quantidade</th>									
+						<th>Unidade</th>
 						<th>Observação</th>						
 						<th>Ações</th>					
 					</thead>

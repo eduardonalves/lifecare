@@ -218,6 +218,9 @@ class CotacaosController extends ComoperacaosController {
  */
 	public function edit($id = null) {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
 		if (!$this->Cotacao->exists($id)) {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
@@ -232,8 +235,15 @@ class CotacaosController extends ComoperacaosController {
 			$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
 			$this->request->data = $this->Cotacao->find('first', $options);
 		}
+		
+		$this->loadModel('Comoperacao');
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		
 		$users = $this->Cotacao->User->find('list');
-		$this->set(compact('users'));
+		$this->set(compact('users','comoperacao','itens','userid'));
 	}
 
 /**

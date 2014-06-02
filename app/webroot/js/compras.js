@@ -53,11 +53,14 @@
     $('body').on('click', '#ui-id-2 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
-			    $(".autocompleteProduto input").val('');
-			    $("#myModal_add-produtos").modal('show');
-			}
+		    $(".autocompleteProduto input").val('');
+		    $("#myModal_add-produtos").modal('show');
+		}else{
+			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
+			$('#produtoUnid').val(valorUnid);
+		}
 	});
-
+	
 
 /********************* Preencher Dados Fornecedor *********************/    
 	var in_fornecedor = 0;
@@ -103,12 +106,12 @@
 		}else{
 			valorNome = $("#add-produtos option:selected" ).val();
 			valorId = $("#add-produtos option:selected" ).attr('id');
+			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();		
-			
-				
+
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td>'+valorNome+'</td> <td>'+valorQtd+'</td> <td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td>'+valorNome+'</td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
 			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
@@ -119,11 +122,12 @@
 			$("#produtoUnit").val('');
 			$("#produtoQtd").val('').removeAttr('required');
 			$("#produtoObs").val('');	
-			
+			$('#produtoUnid').val('');
 			in_produto++;
 		}
 	});
-	
+
+
 /********************* REMOVER Produtos *************************/    
 	var inicio = 0;
 	var fim = 0;

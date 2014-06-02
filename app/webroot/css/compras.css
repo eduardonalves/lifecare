@@ -54,3 +54,11 @@ input[type="text"]:disabled{
 #msgQtdVazia{
 	left: 250px;
 }
+
+#produtoUnid{
+	float: right;
+	margin-right: 170px;
+	margin-top: -28px;
+	font-size: 15px;
+}
+label[for="produtoUnid"]{position:absolute;}
