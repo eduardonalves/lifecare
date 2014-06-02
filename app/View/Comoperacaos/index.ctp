@@ -94,9 +94,9 @@
 					</div>
 					
 					<div class="" >
-					<?php
-						echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
-					?>
+						<?php
+							echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
+						?>
 					</div>
 					
 					</section>
@@ -126,9 +126,9 @@
 					</div>
 
 					<div class="" >
-					<?php
-						echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
-					?>
+						<?php
+							echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
+						?>
 					</div>
 
 					<div class="" >
@@ -149,24 +149,24 @@
 				</section>
 
 				<!------------------ Filtro Do Produto ------------------>
-			<section id="filtro-parceiro" class="coluna-direita">
-				<div class="boxParceiro">
-					<span>Dados do Produto</span>
-					
-				<div class="informacoesProduto">
-				<?php
-				    echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
-				?>
-				</div>
-				</div>
-			</section>
+				<section id="filtro-parceiro" class="coluna-direita">
+					<div class="boxParceiro">
+						<span>Dados do Produto</span>
+						
+					<div class="informacoesProduto">
+						<?php
+							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
+						?>
+					</div>
+					</div>
+				</section>
 
-			<footer>
-				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-compras')); ?>
-			</footer>
+				<footer>
+					<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-compras')); ?>
+				</footer>
 			
 			</div>
 				
