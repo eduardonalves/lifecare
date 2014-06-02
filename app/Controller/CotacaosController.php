@@ -175,7 +175,9 @@ class CotacaosController extends ComoperacaosController {
 					
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
+
 					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
+
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['respondido']."\n";
 					
