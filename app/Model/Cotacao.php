@@ -92,4 +92,27 @@ class Cotacao extends Comoperacao {
 			'finderQuery' => '',
 		)
 	);
+	public function paginateCount($conditions = null, $recursive = 0,
+                                $extra = array()) {
+
+	if(isset($extra['fields_toCount']))
+	{
+
+	$fields = $extra['fields_toCount'];
+	$parameters = compact('conditions','fields');
+	
+	}else{
+
+	$parameters = compact('conditions');
+	}
+	
+
+	if ($recursive != $this->recursive) {
+		$parameters['recursive'] = $recursive;
+	}
+	$count = $this->find('count', array_merge($parameters, $extra));
+
+	return $count;
+
+}
 }

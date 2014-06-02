@@ -89,4 +89,5 @@ class Comoperacao extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+	
 }

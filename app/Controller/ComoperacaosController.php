@@ -82,8 +82,10 @@ class ComoperacaosController extends AppController {
 	public function index() {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
-		$this->Comoperacao->recursive = 0;
-		$this->set('comoperacaos', $this->Paginator->paginate());
+		$comoperacaos=$this->Comoperacao->find('all', array('recursive' => 0));
+		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
+		
+		//$this->set('comoperacaos', $comoperacaos);
 
 //Converte datas para formato do BD
 	if(isset($this->request->data['filter'])){
@@ -295,7 +297,6 @@ class ComoperacaosController extends AppController {
 		$this->loadModel('Comitensdaoperacao');
 		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
-		
 		$this->set(compact('userid','itens','comoperacao'));
 		
 	}
