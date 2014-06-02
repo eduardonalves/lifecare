@@ -156,8 +156,7 @@ class PedidosController extends ComoperacaosController {
 			$this->request->data = $this->Pedido->find('first', $options);
 		}
 				
-		$users = $this->Comoperacao->User->find('list');
-		$this->set(compact('users'));
+		
 	}
 
 /**

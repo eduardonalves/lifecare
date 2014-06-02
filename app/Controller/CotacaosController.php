@@ -154,8 +154,9 @@ class CotacaosController extends ComoperacaosController {
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
 		
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
-		$allCategorias = $categorias;
 		
+		
+		$allCategorias = $categorias;
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
 		
@@ -176,7 +177,7 @@ class CotacaosController extends ComoperacaosController {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Cotacao->save($this->request->data)) {
+			if ($this->Cotacao->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
