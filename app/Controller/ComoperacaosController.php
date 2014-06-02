@@ -314,7 +314,7 @@ public $uses = array();
 				
 				foreach($ultimaCotacaos['Parceirodenegocio'] as $fornecedor){
 					
-					$contato= $this->Contato->find('first', 
+					$contato = $this->Contato->find('first', 
 						array(
 							'recursive' => -1,
 							'conditions' => array(
@@ -322,17 +322,23 @@ public $uses = array();
 							),	
 						)
 					);
+					
+					$mensagem =$mensagem."<spam>Esta é uma tomada de preços<spam>"."<br>";
+					$mensagem = $mensagem."<spam>Para acessar esta cotação clique no link abaixo<spam>"."<br>";
+					$mensagem = $mensagem."<spam>".Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaCotacaos['Cotacao']['id']."<spam>"."<br>";
+					
+					$remetente="ti.dev@vento-consulting.com";
+					
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
 				}
 				
 				
-				debug($ultimaCotacao);
+				
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
 				//debug($ultimaCotacao);
 				
-				//$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
-				
-				//debug($this->request->data);
-				//return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}
