@@ -606,7 +606,6 @@ class ContasController extends AppController {
 	$listaParceiros = array();
 	foreach($parceirodenegocios as $parceirodenegocio){
 		array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
-		
 	}
 	
 	$this->loadModel('Centrocusto');

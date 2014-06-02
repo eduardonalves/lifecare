@@ -207,7 +207,7 @@ class ComoperacaosController extends AppController {
 	            
 	            'nome' => array(
 	                'Parceirodenegocio.nome' => array(
-	                    'operator' => 'LIKE', 
+	                    'operator' => 'LIKE',
 	                    'select' => array(''=> '', $listaParceiros)
 	                )
 	            ),
@@ -232,19 +232,16 @@ class ComoperacaosController extends AppController {
 					);
 					
 					$cntOperacoes = count($comoperacaos);
-					
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
 					
-
-					foreach($comoperacaos as $id => $comoperacao) {
+					foreach($comoperacaos as $comoperacao) {
 						
-						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_inici']);
-						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_fim']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_inici']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_fim']);
 						
 						}
-
-					$this->set(compact('userid','comoperacaos', 'cntOperacoes', 'users'));
-
+						
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes','roles'));
 	}
 
 /**

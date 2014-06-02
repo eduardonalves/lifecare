@@ -1,5 +1,13 @@
 $(document).ready(function(){
   
+/**************** FILTRO CONSULTAS **************/
+
+    $("#quick-filtrar-users").click(function(e){
+	e.preventDefault();
+	    $('#form-filter-results').submit();
+	});
+
+
 /**************** COMBOBOX ROLE *****************/
   $(function(){
 	$("#add_role").combobox();
