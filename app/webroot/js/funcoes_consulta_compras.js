@@ -74,6 +74,12 @@ $(document).ready(function(){
 $("#quick-filtrar-compras").click(function(e){
 	e.preventDefault();
 
+	if($("#filterValor").val() == "0,00" && $("#filterValor-between").val() == "0,00"){
+		$("#filterValor").val("");
+		$("#filterValor-between").val("");
+	}
+
+	
 	if($('#filterDataInici').val()!='' && $('#filterDataInici-between').val()==''){
 	    $('#filterDataInici-between').addClass('shadow-vermelho').after('<span id="vazioDataInici" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
 	}else if($('#filterDataFim').val()!='' && $('#filterDataFim-between').val()==''){
