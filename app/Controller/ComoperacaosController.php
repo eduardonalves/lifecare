@@ -307,12 +307,12 @@ public $uses = array();
 			$this->Comoperacao->create();
 			if ($this->Comoperacao->saveAll($this->request->data)) {
 				
-				$this->loadModel('Cotacao');
 				
-				$ultimaCotacaos= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				
+				$ultimaComoperacao= $this->Comoperacao->find('first',array('order' => array('Comoperacao.id' => 'DESC')));
 				$this->loadModel('Contato');
 				
-				foreach($ultimaCotacaos['Parceirodenegocio'] as $fornecedor){
+				foreach($ultimaComoperacao['Parceirodenegocio'] as $fornecedor){
 					
 					$contato = $this->Contato->find('first', 
 						array(
@@ -325,11 +325,13 @@ public $uses = array();
 					
 					$mensagem =$mensagem."<spam>Esta é uma tomada de preços<spam>"."<br>";
 					$mensagem = $mensagem."<spam>Para acessar esta cotação clique no link abaixo<spam>"."<br>";
-					$mensagem = $mensagem."<spam>".Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaCotacaos['Cotacao']['id']."<spam>"."<br>";
+					$mensagem = $mensagem."<spam>".Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Comoperacao']['id']."<spam>"."<br>";
 					
 					$remetente="ti.dev@vento-consulting.com";
+					if($contato['Contato']['email'] !=""){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					}
 					
-					$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
 				}
 				
 				

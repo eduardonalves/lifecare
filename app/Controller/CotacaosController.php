@@ -109,7 +109,7 @@ class CotacaosController extends ComoperacaosController {
 
         public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 
-            if(!empty($this->request->data)){
+           
 
                 $email = new CakeEmail('smtp');
 
@@ -124,10 +124,9 @@ class CotacaosController extends ComoperacaosController {
                 	return FALSE;	
                 }
 
-            }
+            
 
         }
- 		
  
 	public function add() {
 		$this->layout = 'compras';
@@ -141,8 +140,35 @@ class CotacaosController extends ComoperacaosController {
 
 			if ($this->Cotacao->saveAll($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				
+				$this->loadModel('Contato');
+				
+				foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
+					
+					$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);
+					
+					$mensagem ="";
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaCotacao['Cotacao']['id']."\n";
+					
+					$remetente="ti.dev@vento-consulting.com";
+					if($contato['Contato']['email'] !=""){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					}
+					
+				}
+				
+				
 				$this->Session->setFlash(__('The cotacao has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
@@ -154,9 +180,8 @@ class CotacaosController extends ComoperacaosController {
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
 		
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
-		
-		
 		$allCategorias = $categorias;
+		
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
 		
