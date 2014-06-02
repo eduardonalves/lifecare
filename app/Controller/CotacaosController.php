@@ -164,7 +164,7 @@ class CotacaosController extends ComoperacaosController {
 						$numero = $numero.$numeroAux;
 						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
 						if(empty($ultimaComtokencotacao)){
-							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Comoperacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
 							$this->Comtokencotacao->create();
 							$this->Comtokencotacao->save($dadosComOp);
 							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
@@ -175,7 +175,7 @@ class CotacaosController extends ComoperacaosController {
 					
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
-					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/add/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Cotacao']['id']."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['respondido']."\n";
 					
@@ -209,6 +209,7 @@ class CotacaosController extends ComoperacaosController {
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
 	}
 
+	
 /**
  * edit method
  *
@@ -245,6 +246,8 @@ class CotacaosController extends ComoperacaosController {
 		$users = $this->Cotacao->User->find('list');
 		$this->set(compact('users','comoperacao','itens','userid'));
 	}
+
+
 
 /**
  * delete method
