@@ -1,5 +1,6 @@
 <?php
-App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Cotacaos Controller
  *
@@ -154,10 +155,29 @@ class CotacaosController extends ComoperacaosController {
 						)
 					);
 					
-					$mensagem ="";
+					$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Comoperacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+							$flag="TRUE";
+						}
+						
+					}
+					
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
-					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaCotacao['Cotacao']['id']."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/add/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Cotacao']['id']."\n";
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['respondido']."\n";
 					
 					$remetente="ti.dev@vento-consulting.com";
 					if($contato['Contato']['email'] !=""){

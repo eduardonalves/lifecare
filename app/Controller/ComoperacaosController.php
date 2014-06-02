@@ -1,5 +1,6 @@
 <?php
-App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Comoperacaos Controller
  *
@@ -323,24 +324,47 @@ public $uses = array();
 						)
 					);
 					
-					$mensagem =$mensagem."<spam>Esta é uma tomada de preços<spam>"."<br>";
-					$mensagem = $mensagem."<spam>Para acessar esta cotação clique no link abaixo<spam>"."<br>";
-					$mensagem = $mensagem."<spam>".Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Comoperacao']['id']."<spam>"."<br>";
+					$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaComoperacao['Comoperacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));
+							$flag="TRUE";	
+						}
+						
+					}
+					
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/add/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Comoperacao']['id']."\n";
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
 					$remetente="ti.dev@vento-consulting.com";
+					
 					if($contato['Contato']['email'] !=""){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
 					}
 					
+					
+					
 				}
 				
 				
-				
+				debug();
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
 				//debug($ultimaCotacao);
 				
 				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
-				return $this->redirect(array('action' => 'index'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}
