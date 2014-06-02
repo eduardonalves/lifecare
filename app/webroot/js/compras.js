@@ -79,6 +79,12 @@
 			//Limpa as Input's
 			$("#add-fornecedor").val('');
 			$(".autocompleteFornecedor input").val('');
+			
+			if($(this).hasClass('pedidosLimite')){
+				$(this).hide();
+				$(".autocompleteFornecedor").hide();
+				$("#tblPedido").css('margin-top','10px');
+			}
 
 			in_fornecedor++;			
 		}
@@ -136,6 +142,15 @@
 		atual = id.substr(8);
 		$('#tbl_fornecedores .fornecedorTr_'+atual).remove();
 		$('#area_inputHidden #fornecedor_'+atual).remove();
+		
+		if($('#tbl_fornecedores').hasClass('ultimoFornecedor')){
+			$('.pedidosLimite').show();
+			$(".autocompleteFornecedor").show();
+			$("#tblPedido").css('margin-top','25px');
+			in_fornecedor = 0;
+		}
+		
+		 
 	});
 	
 	
@@ -163,7 +178,6 @@
 			}
 		}			
 	});
-
 
 
 /******** ComoperacaoAddForm   ************/

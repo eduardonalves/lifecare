@@ -144,13 +144,13 @@
 			<?php	
 				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
 									     'title'=>'Adicionar',
-										 'class'=>'bt-addItens',
+										 'class'=>'bt-addItens pedidosLimite',
 										 'id'=>'bt-adicionarFornecedor'
 										 ));
 			?>
 		
-			<section class="tabela_fornecedores">
-				<table id="tbl_fornecedores" >
+			<section id="tblPedido" class="tabela_fornecedores">
+				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
 						<th>Parceiro nome</th>
 						<th>CPF/CNPJ</th>					
