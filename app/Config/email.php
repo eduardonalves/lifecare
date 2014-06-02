@@ -39,23 +39,23 @@ class EmailConfig {
 
 	public $default = array(
 		'transport' => 'Mail',
-		'from' => 'you@localhost',
-		//'charset' => 'utf-8',
-		//'headerCharset' => 'utf-8',
+		'from' => 'ti.dev@vento-consulting.com',
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
 	);
 
 	public $smtp = array(
 		'transport' => 'Smtp',
 		'from' => array('ti.dev@vento-consulting.com' => 'Ti Dev Team'),
 		'host' => 'ssl://smtp.gmail.com',
-		'port' => 25,
+		'port' => 465,
 		'timeout' => 30,
-		'username' => 'ssl://smtp.gmail.com',
-		'password' => 'TiDevV3nt000',
+		'username' => 'ti.dev@vento-consulting.com',
+		'password' => 'tecdev2014',
 		'client' => null,
 		'log' => false,
-		//'charset' => 'utf-8',
-		//'headerCharset' => 'utf-8',
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
 	);
 
 	public $fast = array(
