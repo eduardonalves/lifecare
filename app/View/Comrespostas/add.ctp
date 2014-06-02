@@ -1,30 +1,86 @@
-<div class="comrespostas form">
-<?php echo $this->Form->create('Comresposta'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Comresposta'); ?></legend>
-	<?php
-		echo $this->Form->input('comoperacao_id');
-		echo $this->Form->input('data_resposta');
-		echo $this->Form->input('parceirodenegocio_id');
-		echo $this->Form->input('forma_pagamento');
-		echo $this->Form->input('prazo_entrega');
-		echo $this->Form->input('valor');
-		echo $this->Form->input('obs');
-		echo $this->Form->input('status');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+	$this->start('css');
+	    echo $this->Html->css('contas_pagar');
+	    echo $this->Html->css('table');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	$this->end();
+	
+		
+	$this->start('script');
+	    echo $this->Html->script('funcoes_contas_pagar.js');
+	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+	$this->end();
 
-		<li><?php echo $this->Html->link(__('List Comrespostas'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('controller' => 'comoperacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comoperacao'), array('controller' => 'comoperacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comtokencotacaos'), array('controller' => 'comtokencotacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comtokencotacao'), array('controller' => 'comtokencotacaos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+
+?>
+
+
+<header>
+	<h1>Resposta de Cotação</h1>
+</header>
+
+<section>
+	
+	<header>Informações do Fornecedor</header>
+	
+	<section class="coluna-esquerda">
+		<?php
+			echo $this->Form->create('Resposta');
+			echo $this->Form->input('parceirodenegocio_id',array('type'=>'hidden','value'=>$parceirodenegocios['Parceirodenegocio']['id']));
+			echo $this->Form->input('Vazio.nome',array('label'=>'Nome do Fornecedor:','type'=>'text','value'=>$parceirodenegocios['Parceirodenegocio']['nome'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			//echo $this->Form->input('',array());
+		?>
+	</section>
+	
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('Vazio.cpf_cnpj',array('label'=>'CPF/CNPJ:','type'=>'text','value'=>$parceirodenegocios['Parceirodenegocio']['cpf_cnpj'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+
+		?>
+	</section>
+	
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('Vazio.email',array('label'=>'E-mail:','type'=>'text','value'=>$parceirodenegocios['Contato'][0]['email'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+
+		?>
+	</section>
+	
+	<header>Informações da Operação</header>
+	<section class="coluna-esquerda"></section>
+	<section class="coluna-central"></section>
+	<section class="coluna-direita"></section>
+	
+	<header>Produtos da Cotação</header>
+	
+</section>
+
+<footer>
+
+</footer>
+<br>
+
+
+
+
+<pre>
+	<h3>Parceiro</h3>
+<?php
+	print_r($parceirodenegocios);
+?>
+</pre>
+
+<pre>
+	<h3>Operacao</h3>
+<?php
+	print_r($comoperacao);
+?>
+</pre>
+
+<pre>
+	<h3>Itens</h3>
+<?php
+	print_r($itensDaOperacao);
+?>
+</pre>
