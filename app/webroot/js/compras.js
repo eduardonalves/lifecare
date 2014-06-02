@@ -64,7 +64,7 @@
     $("#bt-adicionarFornecedor").click(function(){		
 
 		if($(".autocompleteFornecedor input").val() == ''){
-			alert('');
+			$('#msgValidaFor').show();
 		}else{
 			valorForncedor = $("#add-fornecedor option:selected").attr('id');
 			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
@@ -91,9 +91,9 @@
     $("#bt-adicionarProduto").click(function(){		
 		
 		if($(".autocompleteProduto input").val() == ''){
-			alert('');
+			$('#msgValidaProduto').show();
 		}else if($("#produtoQtd").val() == ''){
-			alert('');
+			$('#msgQtdVazia').show();
 		}else{
 			valorNome = $("#add-produtos option:selected" ).val();
 			valorId = $("#add-produtos option:selected" ).attr('id');
@@ -167,12 +167,12 @@
 
 
 /******** ComoperacaoAddForm   ************/
-	$('#ComoperacaoAddForm').submit(function(){
+	$('#CotacaoAddForm, #PedidoAddForm').submit(function(){
 		
-		if($('#ComoperacaoDataInici').val() == ''){
+		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			return false;
-		}else if($('#ComoperacaoDataFim').val() == ''){
+		}else if($('.dataFim').val() == ''){
 			$('#msgDataFinal').show();
 			return false;
 		}else if(in_produto == 0 ){

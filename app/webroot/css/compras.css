@@ -43,10 +43,14 @@ input[type="text"]:disabled{
 #msgValidaFor{top: -10px;}
 
 
-#msgValidaProduto{
+#msgValidaProduto:after{
 	top: 21px !important;
 }
 
 #msgValidaFor:after{
 	top: 21px !important;
+}
+
+#msgQtdVazia{
+	left: 250px;
 }
