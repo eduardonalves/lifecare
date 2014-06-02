@@ -127,7 +127,7 @@
 
 					<div class="" >
 					<?php
-						echo $this->Search->input('status_resposta', array('label' => 'Status:','class'=>''));
+						echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
 					?>
 					</div>
 
@@ -136,24 +136,32 @@
 							echo $this->Search->input('obs', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
+					
+					<div class="informacoesParceiro">
+					
+					<?php
+						echo $this->Search->input('nome', array('label' => 'Nome do Parceiro:','class'=>'input-alinhamento combo-autocomplete'));
+						echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status do Parceiro:','class'=>'tamanho-medio input-alinhamento'));
+					?>
+
+					</div>
 
 				</section>
 
-				<!------------------ Filtro Do Parceiro ------------------>
+				<!------------------ Filtro Do Produto ------------------>
 			<section id="filtro-parceiro" class="coluna-direita">
 				<div class="boxParceiro">
-					<span>Dados do Parceiro de Negócio</span>
-				</div>
-			
-				<div class="informacoesParceiro">
+					<span>Dados do Produto</span>
 					
+				<div class="informacoesProduto">
 				<?php
-					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento combo-autocomplete'));
-					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+				    echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+				    echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
+				    echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
+				    echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
 				?>
-
 				</div>
-				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+				</div>
 			</section>
 
 			<footer>

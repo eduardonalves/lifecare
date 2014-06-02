@@ -44,27 +44,22 @@ class UsersController extends AppController {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 		
-		$this->loadModel('User');
+		$this->loadModel('Role');
 		$users = $this->User->find('list',array('recursive' => -1, 'fields' => array('User.username')));
 		
-		$listaUsers = array();
-		
-		foreach($users as $user){
-			array_push($listaUsers, array($user => $user));
-		}
+		$listaRoles = $this->Role->find('list',array('fields'=> array('Role.roles')));
 		
 		$this->Filter->addFilters(
 			array(
 			'nome' => array(
 	                'User.username' => array(
-	                    'operator' => 'LIKE', 
-	                    'select' => array(''=> '', $listaUsers)
+	                    'operator' => 'LIKE',
 	                )
 	            ),
 			'role' => array(
-	                'Role.roles' => array(
+	                'User.role_id' => array(
 	                    'operator' => '=',
-						'select' => array(''=>'', '1'=>'Administrador', '2'=>'Gestor', '3'=>'GerenteEstoque','4' => 'AuxEstoquista', '5' => 'GerenteFinanceiro','6' => 'AuxFinanceiro', '7' => 'Publico')
+						'select' => array(''=>'', $listaRoles),
 	                )
 	            ),
 	        )
@@ -82,9 +77,10 @@ class UsersController extends AppController {
 					);
 					
 					$cntUsers = count($users);
-					//debug($contas);	
 					
 					$users = $this->Paginator->paginate('User');
+					
+					$this->set(compact('userid','users', 'cntUsers', 'listaRoles'));
 	}
 
 /**
@@ -129,8 +125,6 @@ class UsersController extends AppController {
 				
 				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'user_id' => $ultimmoUser['User']['id']);
 				$this->User->Configproduto->save($saveConfigproduto);
-				
-				//debug($this->request->data);
 				
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));

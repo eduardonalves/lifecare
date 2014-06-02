@@ -41,15 +41,24 @@
 		<section class = "coluna-esquerda">
 		<?php echo $this->Search->create(); ?>
 		
+		<div class="">
 		<?php
 			echo $this->Search->input('nome',array('required'=>'false','type'=>'text','label'=>'Nome:','id'=>'filtro-nome', 'class' => 'tamanho-medio'));
 		?>
+		</div>
+		
 		</section>
 		
 		<section class="coluna-central" style="margin-left:-70px;">
+		
+		<div class="">
 		<?php
 			echo $this->Search->input('role',array('required'=>'false','type'=>'select','label'=>'Tipo de Usuário:','id'=>'filtro-role','class' => 'tamanho-medio'));
-			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'style' => 'margin-left:50px;margin-top:-20px;'));
+		?>
+		</div>
+		
+		<?php
+			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-users', 'style' => 'margin-left:50px;margin-top:-20px;'));
 		?>
 		</section>
 		
@@ -89,7 +98,7 @@
 		</td>
 		<td><?php echo h($user['User']['id']); ?></td>
 		<td><?php echo h($user['User']['username']); ?></td>
-		<td><?php echo h($user['Role']['roles']); ?></td>
+		<td><?php echo h($listaRoles[$user['User']['role_id']]); ?></td>
 		<td><?php echo h($user['User']['acesso']); ?></td>
 		<td>
 			<?php

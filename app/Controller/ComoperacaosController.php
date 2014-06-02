@@ -85,6 +85,7 @@ class ComoperacaosController extends AppController {
 		$this->Comoperacao->recursive = 0;
 		$this->set('comoperacaos', $this->Paginator->paginate());
 
+//Converte datas para formato do BD
 	if(isset($this->request->data['filter'])){
 		foreach($this->request->data['filter'] as $key=>$value){
 			if(isset($this->request->data['filter']['data_inici'])){
@@ -111,6 +112,7 @@ class ComoperacaosController extends AppController {
 	}	
 
 		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Categoria');
 		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 		
 		$listaParceiros = array();
@@ -118,6 +120,9 @@ class ComoperacaosController extends AppController {
 			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
 		}
 		
+		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
+		
+//Adiciona filtros
 		$this->Filter->addFilters(
 			array(
 				
@@ -204,11 +209,11 @@ class ComoperacaosController extends AppController {
 	                )
 	            ),
 	            
-	            //Filtros PARCEIRO DE NEGÓCIOS
+	            //Filtros PARCEIRO DE NEGÓCIOS em RESPOSTA
 	            
 	            'nome' => array(
 	                'Parceirodenegocio.nome' => array(
-	                    'operator' => 'LIKE', 
+	                    'operator' => 'LIKE',
 	                    'select' => array(''=> '', $listaParceiros)
 	                )
 	            ),
@@ -216,6 +221,33 @@ class ComoperacaosController extends AppController {
 	                'Parceirodenegocio.status' => array(
 	                    'operator' => 'LIKE',
 						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),
+	            
+	            //Filtros PRODUTOS
+	            
+	            'produtoNome' => array(
+	                'Produto.nome' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            ),
+	            'produtoNivel' => array(
+	                'Produto.nivel' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+	                )
+	            ),
+	            'codProd' => array(
+	                'Produto.id' => array(
+	                    'operator' => '='
+
+	                )
+	            ),
+	            'produtoCategoria' => array(
+	                'Categoria.nome' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', $listaCategorias)
 	                )
 	            ),
 	        )
@@ -233,19 +265,16 @@ class ComoperacaosController extends AppController {
 					);
 					
 					$cntOperacoes = count($comoperacaos);
-					
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
 					
-
-					foreach($comoperacaos as $id => $comoperacao) {
+					foreach($comoperacaos as $comoperacao) {
 						
-						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_inici']);
-						$this->lifecareDataFuncs->formatDateToView($comoperacao[$id]['Comoperacao']['data_fim']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_inici']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_fim']);
 						
 						}
-
-					$this->set(compact('userid','comoperacaos', 'cntOperacoes', 'users'));
-
+						
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes','roles'));
 	}
 
 /**

@@ -264,11 +264,7 @@ class NotasController extends AppController {
 	                    'operator' => 'LIKE',
 						'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
 	                )
-	                
-	                
-
 	            ),
-
 	            'codProd' => array(
 	                'Produto.id' => array(
 	                    'operator' => '='

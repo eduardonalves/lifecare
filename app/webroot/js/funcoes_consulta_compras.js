@@ -1,5 +1,55 @@
 $(document).ready(function(){
 
+/**CONVERTER DATAS PARA VIEW **/
+
+	datavencimentoInicio = $('#filterDataInici').val();
+	
+	if(datavencimentoInicio  != undefined){
+		if(datavencimentoInicio !=''){
+			iniano =  datavencimentoInicio.substr(0, 4);
+			inimes = datavencimentoInicio.substr(5,2);
+			inidia = datavencimentoInicio.substr(8,2);
+			dataInicio =  inidia+'/'+inimes+'/'+iniano;
+			$('#filterDataInici').val(dataInicio);
+		}
+	}
+	
+	datavencimentoFim = $('#filterDataInici-between').val();
+	if(datavencimentoFim  != undefined){
+		if(datavencimentoFim != ''){
+			
+			fimano =  datavencimentoFim.substr(0, 4);
+			fimmes = datavencimentoFim.substr(5,2);
+			fimdia = datavencimentoFim.substr(8,2);
+			dataFim =  fimdia+'/'+fimmes+'/'+fimano;
+			$('#filterDataInici-between').val(dataFim);
+		}
+	}
+	
+	datavencimentoInicio = $('#filterDataFim').val();
+	
+	if(datavencimentoInicio  != undefined){
+		if(datavencimentoInicio !=''){
+			iniano =  datavencimentoInicio.substr(0, 4);
+			inimes = datavencimentoInicio.substr(5,2);
+			inidia = datavencimentoInicio.substr(8,2);
+			dataInicio =  inidia+'/'+inimes+'/'+iniano;
+			$('#filterDataFim').val(dataInicio);
+		}
+	}
+	
+	datavencimentoFim = $('#filterDataFim-between').val();
+	if(datavencimentoFim  != undefined){
+		if(datavencimentoFim != ''){
+			
+			fimano =  datavencimentoFim.substr(0, 4);
+			fimmes = datavencimentoFim.substr(5,2);
+			fimdia = datavencimentoFim.substr(8,2);
+			dataFim =  fimdia+'/'+fimmes+'/'+fimano;
+			$('#filterDataFim-between').val(dataFim);
+		}
+	}
+
 /*** SUBMITAR FILTRO CONSULTA ***************************/
 
 $("#quick-filtrar-compras").click(function(e){
