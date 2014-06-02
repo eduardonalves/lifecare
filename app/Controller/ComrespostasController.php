@@ -21,6 +21,7 @@ class ComrespostasController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'comresposta';
 		$this->Comresposta->recursive = 0;
 		$this->set('comrespostas', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class ComrespostasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'comresposta';
 		if (!$this->Comresposta->exists($id)) {
 			throw new NotFoundException(__('Invalid comresposta'));
 		}
@@ -46,6 +48,14 @@ class ComrespostasController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'comresposta';
+		
+		if(isset($_GET['f'])){
+			$numFornecedor = $_GET['f'];
+		}		
+		if(isset($_GET['c'])){
+			$numComoperacao = $_GET['c'];
+		}		
 		if ($this->request->is('post')) {
 			$this->Comresposta->create();
 			if ($this->Comresposta->save($this->request->data)) {
@@ -55,9 +65,17 @@ class ComrespostasController extends AppController {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
 			}
 		}
-		$comoperacaos = $this->Comresposta->Comoperacao->find('list');
-		$parceirodenegocios = $this->Comresposta->Parceirodenegocio->find('list');
-		$this->set(compact('comoperacaos', 'parceirodenegocios'));
+		
+		$this->loadModel('Parceirodenegocio'); //Localiza o Fornecedor da operação corrente
+		$parceirodenegocios = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $numFornecedor)));		
+		
+		$this->loadModel('Comoperacao'); //Localiza a operação corrente
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $numComoperacao)));
+	
+		$this->loadModel('Comitensdaoperacao'); //Localiza os itens da operação corrente
+		$itensDaOperacao = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $numComoperacao)));
+	
+		$this->set(compact('comoperacao', 'parceirodenegocios','itensDaOperacao'));
 	}
 
 /**
