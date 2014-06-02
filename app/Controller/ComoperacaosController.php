@@ -82,8 +82,10 @@ class ComoperacaosController extends AppController {
 	public function index() {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
-		$this->Comoperacao->recursive = 0;
-		$this->set('comoperacaos', $this->Paginator->paginate());
+		$comoperacaos=$this->Comoperacao->find('all', array('recursive' => 0));
+		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
+		
+		//$this->set('comoperacaos', $comoperacaos);
 
 //Converte datas para formato do BD
 	if(isset($this->request->data['filter'])){
@@ -295,7 +297,6 @@ class ComoperacaosController extends AppController {
 		$this->loadModel('Comitensdaoperacao');
 		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
-		
 		$this->set(compact('userid','itens','comoperacao'));
 		
 	}
@@ -376,7 +377,7 @@ public $uses = array();
 					
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
-					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/add/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Comoperacao']['id']."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
@@ -391,7 +392,7 @@ public $uses = array();
 				}
 				
 				
-				debug();
+				
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
 				//debug($ultimaCotacao);
 				
