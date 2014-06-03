@@ -81,7 +81,7 @@
 						<?php
 							foreach($produtos as $produto)
 							{
-								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."'>";
+								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."'>";
 								echo $produto['Produto']['nome'];
 								echo "</option>";
 							}
@@ -99,6 +99,8 @@
 										 ));
 										 
 				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+				echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
+				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
 				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 				
 			?>
@@ -108,6 +110,7 @@
 					<thead>
 						<th>Produto nome</th>
 						<th>Quantidade</th>									
+						<th>Unidade</th>
 						<th>Observação</th>						
 						<th>Ações</th>					
 					</thead>
@@ -144,16 +147,16 @@
 			<?php	
 				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
 									     'title'=>'Adicionar',
-										 'class'=>'bt-addItens',
+										 'class'=>'bt-addItens pedidosLimite',
 										 'id'=>'bt-adicionarFornecedor'
 										 ));
 			?>
 		
-			<section class="tabela_fornecedores">
-				<table id="tbl_fornecedores" >
+			<section id="tblPedido" class="tabela_fornecedores">
+				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
 						<th>Parceiro nome</th>
-						<th>CPF/CNPJ</th>					
+						<th style="width: 130px;">CPF/CNPJ</th>					
 						<th>Ações</th>					
 					</thead>
 							

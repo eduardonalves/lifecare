@@ -53,18 +53,21 @@
     $('body').on('click', '#ui-id-2 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
-			    $(".autocompleteProduto input").val('');
-			    $("#myModal_add-produtos").modal('show');
-			}
+		    $(".autocompleteProduto input").val('');
+		    $("#myModal_add-produtos").modal('show');
+		}else{
+			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
+			$('#produtoUnid').val(valorUnid);
+		}
 	});
-
+	
 
 /********************* Preencher Dados Fornecedor *********************/    
 	var in_fornecedor = 0;
     $("#bt-adicionarFornecedor").click(function(){		
 
 		if($(".autocompleteFornecedor input").val() == ''){
-			alert('');
+			$('#msgValidaFor').show();
 		}else{
 			valorForncedor = $("#add-fornecedor option:selected").attr('id');
 			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
@@ -79,6 +82,12 @@
 			//Limpa as Input's
 			$("#add-fornecedor").val('');
 			$(".autocompleteFornecedor input").val('');
+			
+			if($(this).hasClass('pedidosLimite')){
+				$(this).hide();
+				$(".autocompleteFornecedor").hide();
+				$("#tblPedido").css('margin-top','10px');
+			}
 
 			in_fornecedor++;			
 		}
@@ -91,18 +100,18 @@
     $("#bt-adicionarProduto").click(function(){		
 		
 		if($(".autocompleteProduto input").val() == ''){
-			alert('');
+			$('#msgValidaProduto').show();
 		}else if($("#produtoQtd").val() == ''){
-			alert('');
+			$('#msgQtdVazia').show();
 		}else{
 			valorNome = $("#add-produtos option:selected" ).val();
 			valorId = $("#add-produtos option:selected" ).attr('id');
+			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();		
-			
-				
+
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td>'+valorNome+'</td> <td>'+valorQtd+'</td> <td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td>'+valorNome+'</td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
 			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
@@ -113,11 +122,12 @@
 			$("#produtoUnit").val('');
 			$("#produtoQtd").val('').removeAttr('required');
 			$("#produtoObs").val('');	
-			
+			$('#produtoUnid').val('');
 			in_produto++;
 		}
 	});
-	
+
+
 /********************* REMOVER Produtos *************************/    
 	var inicio = 0;
 	var fim = 0;
@@ -136,6 +146,15 @@
 		atual = id.substr(8);
 		$('#tbl_fornecedores .fornecedorTr_'+atual).remove();
 		$('#area_inputHidden #fornecedor_'+atual).remove();
+		
+		if($('#tbl_fornecedores').hasClass('ultimoFornecedor')){
+			$('.pedidosLimite').show();
+			$(".autocompleteFornecedor").show();
+			$("#tblPedido").css('margin-top','25px');
+			in_fornecedor = 0;
+		}
+		
+		 
 	});
 	
 	
@@ -165,14 +184,13 @@
 	});
 
 
-
 /******** ComoperacaoAddForm   ************/
-	$('#ComoperacaoAddForm').submit(function(){
+	$('#CotacaoAddForm, #PedidoAddForm').submit(function(){
 		
-		if($('#ComoperacaoDataInici').val() == ''){
+		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			return false;
-		}else if($('#ComoperacaoDataFim').val() == ''){
+		}else if($('.dataFim').val() == ''){
 			$('#msgDataFinal').show();
 			return false;
 		}else if(in_produto == 0 ){

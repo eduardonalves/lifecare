@@ -71,7 +71,9 @@ class AppController extends Controller {
 			'Session',
 			'Html',
 		);
-
+		
+		
+		
 		public function beforeFilter(){
 			$this->Auth->authenticate = array(
 				AuthComponent::ALL => array(

@@ -1,5 +1,6 @@
 <?php
-App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Comoperacaos Controller
  *
@@ -81,8 +82,10 @@ class ComoperacaosController extends AppController {
 	public function index() {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
-		$this->Comoperacao->recursive = 0;
-		$this->set('comoperacaos', $this->Paginator->paginate());
+		$comoperacaos=$this->Comoperacao->find('all', array('recursive' => 0));
+		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
+		
+		//$this->set('comoperacaos', $comoperacaos);
 
 //Converte datas para formato do BD
 	if(isset($this->request->data['filter'])){
@@ -290,10 +293,12 @@ class ComoperacaosController extends AppController {
 		if (!$this->Comoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comoperacao'));
 		}
+				
+		$this->loadModel('Comitensdaoperacao');
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		$this->set(compact('userid','itens','comoperacao'));
 		
-		
-		$options = array('conditions' => array('Comoperacao.' . $this->Comoperacao->primaryKey => $id));
-		$this->set(compact('userid'),'comoperacao', $this->Comoperacao->find('first', $options));
 	}
 	
 
@@ -336,12 +341,12 @@ public $uses = array();
 			$this->Comoperacao->create();
 			if ($this->Comoperacao->saveAll($this->request->data)) {
 				
-				$this->loadModel('Cotacao');
 				
-				$ultimaCotacaos= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				
+				$ultimaComoperacao= $this->Comoperacao->find('first',array('order' => array('Comoperacao.id' => 'DESC')));
 				$this->loadModel('Contato');
 				
-				foreach($ultimaCotacaos['Parceirodenegocio'] as $fornecedor){
+				foreach($ultimaComoperacao['Parceirodenegocio'] as $fornecedor){
 					
 					$contato = $this->Contato->find('first', 
 						array(
@@ -352,13 +357,38 @@ public $uses = array();
 						)
 					);
 					
-					$mensagem =$mensagem."<spam>Esta é uma tomada de preços<spam>"."<br>";
-					$mensagem = $mensagem."<spam>Para acessar esta cotação clique no link abaixo<spam>"."<br>";
-					$mensagem = $mensagem."<spam>".Router::url('/', true)."Comrespostas/?f=".$fornecedor['id']."&c=".$ultimaCotacaos['Cotacao']['id']."<spam>"."<br>";
+					$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaComoperacao['Comoperacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));
+							$flag="TRUE";	
+						}
+						
+					}
+					
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
 					$remetente="ti.dev@vento-consulting.com";
 					
-					$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					if($contato['Contato']['email'] !=""){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					}
+					
+					
+					
 				}
 				
 				
@@ -367,7 +397,7 @@ public $uses = array();
 				//debug($ultimaCotacao);
 				
 				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
-				return $this->redirect(array('action' => 'index'));
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('A comoperacao Não pode ser salva. Por favor, Tente Novamente.'));
 			}

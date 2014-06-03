@@ -1,5 +1,6 @@
 <?php
-App::uses('AppController', 'Controller', 'CakeEmail', 'Network/Email');
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Cotacaos Controller
  *
@@ -93,7 +94,7 @@ class CotacaosController extends ComoperacaosController {
 		}
 	
 		$this->loadModel('Comitensdaoperacao');
-		$cotacao = $this->Cotacao->find('first',array('conditions'=>array('Cotacao.id' => $id),recursive=>0));
+		$cotacao = $this->Cotacao->find('first',array('conditions'=>array('Cotacao.id' => $id)));
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
 		$this->set(compact('cotacao','userid','itens'));
@@ -109,7 +110,7 @@ class CotacaosController extends ComoperacaosController {
 
         public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 
-            if(!empty($this->request->data)){
+           
 
                 $email = new CakeEmail('smtp');
 
@@ -124,10 +125,9 @@ class CotacaosController extends ComoperacaosController {
                 	return FALSE;	
                 }
 
-            }
+            
 
         }
- 		
  
 	public function add() {
 		$this->layout = 'compras';
@@ -141,8 +141,56 @@ class CotacaosController extends ComoperacaosController {
 
 			if ($this->Cotacao->saveAll($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
+				
+				$this->loadModel('Contato');
+				
+				foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
+					
+					$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);
+					
+					$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+							$flag="TRUE";
+						}
+						
+					}
+					
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
+
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
+
+					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
+					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['respondido']."\n";
+					
+					$remetente="ti.dev@vento-consulting.com";
+					if($contato['Contato']['email'] !=""){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					}
+					
+				}
+				
+				
 				$this->Session->setFlash(__('The cotacao has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
@@ -163,6 +211,7 @@ class CotacaosController extends ComoperacaosController {
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
 	}
 
+	
 /**
  * edit method
  *
@@ -172,11 +221,14 @@ class CotacaosController extends ComoperacaosController {
  */
 	public function edit($id = null) {
 		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
 		if (!$this->Cotacao->exists($id)) {
 			throw new NotFoundException(__('Invalid cotacao'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Cotacao->save($this->request->data)) {
+			if ($this->Cotacao->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -186,9 +238,18 @@ class CotacaosController extends ComoperacaosController {
 			$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
 			$this->request->data = $this->Cotacao->find('first', $options);
 		}
+		
+		$this->loadModel('Comoperacao');
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		
 		$users = $this->Cotacao->User->find('list');
-		$this->set(compact('users'));
+		$this->set(compact('users','comoperacao','itens','userid'));
 	}
+
+
 
 /**
  * delete method

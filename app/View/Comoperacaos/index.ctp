@@ -94,9 +94,9 @@
 					</div>
 					
 					<div class="" >
-					<?php
-						echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
-					?>
+						<?php
+							echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
+						?>
 					</div>
 					
 					</section>
@@ -126,9 +126,9 @@
 					</div>
 
 					<div class="" >
-					<?php
-						echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
-					?>
+						<?php
+							echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
+						?>
 					</div>
 
 					<div class="" >
@@ -149,24 +149,24 @@
 				</section>
 
 				<!------------------ Filtro Do Produto ------------------>
-			<section id="filtro-parceiro" class="coluna-direita">
-				<div class="boxParceiro">
-					<span>Dados do Produto</span>
-					
-				<div class="informacoesProduto">
-				<?php
-				    echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
-				    echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
-				?>
-				</div>
-				</div>
-			</section>
+				<section id="filtro-parceiro" class="coluna-direita">
+					<div class="boxParceiro">
+						<span>Dados do Produto</span>
+						
+					<div class="informacoesProduto">
+						<?php
+							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
+						?>
+					</div>
+					</div>
+				</section>
 
-			<footer>
-				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-compras')); ?>
-			</footer>
+				<footer>
+					<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-compras')); ?>
+				</footer>
 			
 			</div>
 				
@@ -199,9 +199,11 @@
 					<td class="actions">
 						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 							echo "<hr />";
-							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
-							echo "<hr />"; 
-							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_operacao','alt' =>__('Delete'),'title' => 'Excluir Operação')), array('controller' => 'Comoperacaos','action' => 'delete', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir a operação '.$comoperacao['Comoperacao']['id'].'?'))); 
+							if($comoperacao['Comoperacao']['status'] == 'COTACAO'){
+								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Cotacaos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
+							}else{
+								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Pedidos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
+							}
 						?>
 					</td>
 					

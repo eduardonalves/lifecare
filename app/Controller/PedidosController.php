@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Pedidos Controller
  *
@@ -156,8 +157,7 @@ class PedidosController extends ComoperacaosController {
 			$this->request->data = $this->Pedido->find('first', $options);
 		}
 				
-		$users = $this->Comoperacao->User->find('list');
-		$this->set(compact('users'));
+		
 	}
 
 /**

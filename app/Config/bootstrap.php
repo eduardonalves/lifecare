@@ -92,7 +92,7 @@ Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
 ));
-
+App::uses('AppExceptionHandler', 'Lib');
 /**
  * Configures default file logging options
  */
