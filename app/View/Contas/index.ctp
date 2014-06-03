@@ -295,9 +295,9 @@ $(document).ready(function() {
 									<th>Data de Vencimento</th>
 									<th>Data de Pagamento</th>
 									<th>Período Crítico</th>
-									<th>Valor</th>
-									<th>Juros</th>
-									<th>Desconto</th>																	
+									<th class="comprimentoMinimo">Valor</th>
+									<th class="comprimentoMinimo">Juros</th>
+									<th class="comprimentoMinimo">Desconto</th>																	
 									<th>Parcela</th>																	
 									<th>Banco</th>																	
 									<th>Agência</th>																	
@@ -327,15 +327,15 @@ $(document).ready(function() {
 										echo $parcela['periodocritico'];															
 									echo "</td>";
 									
-									echo "<td>R$ ";
+									echo "<td class='whiteSpace'>R$ ";
 										echo number_format($parcela['valor'], 2, ',', '.');  															
 									echo "</td>";
 									
-									echo "<td>R$ ";
+									echo "<td class='whiteSpace'R$ ";
 										echo number_format($parcela['juros'], 2, ',', '.');  															
 									echo "</td>";
 									
-									echo "<td>";
+									echo "<td class='whiteSpace'>R$";
 										echo number_format($parcela['desconto'], 2, ',', '.');
 									echo "</td>";
 									
