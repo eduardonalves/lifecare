@@ -28,10 +28,6 @@ label[for="checkparcela"]{
 	top:4px;
 }
 
-.boxParceiro{
-	margin: 0px 0px 16px 17px;
-}
-
 .boxParceiro span{
 	font-size: 15px !important;
 	width: 210px !important;
@@ -215,7 +211,8 @@ label[for="checkparcela"]{
 	background-color:#FFFAE7;
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
-	height:162px;
+	height: 100% !important;
+	min-height: 173px;
 	-webkit-logical-height: 175px;
 	margin:5px 0px 0px 7px;
 	padding:5px;
@@ -256,7 +253,14 @@ label[for="checkparcela"]{
 	width:16px;
 }
 
-#bt-expandir{
+#bt-expandirOperacao{
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+	top: 160px;
+}
+
+#bt-expandirResposta{
 	position: absolute;
 	right: 10px;
 	cursor: pointer;
@@ -364,7 +368,6 @@ margin-bottom: 50px;
 }
 
 /******* MODAL DA VISUALISAÇÂO DAS PARCELAS ******/
-
 .modal{
 	left: 32% !important;
 }
