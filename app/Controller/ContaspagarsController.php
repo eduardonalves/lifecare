@@ -434,7 +434,7 @@ class ContaspagarsController extends ContasController {
 					$this->ParcelasConta->create();
 					$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
 					$this->ParcelasConta->save($parcela_conta);
-					$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
+					$this->setCobrancaEdit($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 					
 				}
 

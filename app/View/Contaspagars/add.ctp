@@ -23,7 +23,7 @@
 <script>
 	 $(document).ready(function() {
 	 	
-	 	$("#ContaspagarIdentificacao").change(function(){
+	 	$("#ContaspagarIdentificacaoConta").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contaspagars", "action" => "verificaidentificacao"),true);?>";
 			

@@ -503,6 +503,7 @@ $(document).ready(function() {
 	
 
 </div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 	    $(".bt-showmodal").click(function(){

@@ -43,7 +43,14 @@
 	?>
 
 	<div class='paging-direito'>
-		
+		<div class="label-total-registros resultado-total">
+		<?php
+			if(isset($valortotal))
+			{
+				echo 'Total valor das contas: R$ ' .number_format($valortotal, 2, ',', '.'); //$this->Paginator->counter(array('format' => __('{:count}')));
+			}
+		?>
+		</div>
 		<div class="label-total-registros resultado-total">
 		<?php
 			if(isset($cntProdutos))

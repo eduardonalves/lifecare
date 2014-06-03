@@ -20,7 +20,7 @@
 
 <script>
 	$(document).ready(function() {
-	 	$("#ContasreceberIdentificacao").change(function(){
+	 	$("#ContasreceberIdentificacaoConta").change(function(){
 		
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Contasrecebers", "action" => "verificaidentificacao"),true);?>";
 			
