@@ -47,17 +47,18 @@ class ComrespostasController extends AppController {
  *
  * @return void
  */
-	public function add($codigo) {
+	public function add($codigo=null){
 		$this->layout = 'comresposta';
 		
 		$this->loadModel('Comtokencotacao');
-		$token = $this->Comtokencotacao->find('first',array('Comtokencotacao.codigoseguranca'=>$codigo));
+		$token = $this->Comtokencotacao->find('first',array('conditions'=>array('Comtokencotacao.codigoseguranca'=>$codigo)));
+		
 		
 		if(!empty($token)){
 			$numFornecedor = $token['Comtokencotacao']['parceirodenegocio_id'];
 			$numComoperacao = $token['Comtokencotacao']['comoperacao_id'];
 		}
-			
+		
 		if ($this->request->is('post')) {
 			$this->Comresposta->create();
 			if ($this->Comresposta->save($this->request->data)) {
@@ -68,14 +69,16 @@ class ComrespostasController extends AppController {
 			}
 		}
 		
+		
+		
 		$this->loadModel('Parceirodenegocio'); //Localiza o Fornecedor da operação corrente
 		$parceirodenegocios = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $numFornecedor),'recursive'=>1));		
 		
 		$this->loadModel('Comoperacao'); //Localiza a operação corrente
-		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $numComoperacao),'recursive'=>0));
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $numComoperacao)));
 	
 		$this->loadModel('Comitensdaoperacao'); //Localiza os itens da operação corrente
-		$itensDaOperacao = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $numComoperacao),'recursive'=>0));
+		$itensDaOperacao = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $numComoperacao)));
 	
 		$this->set(compact('comoperacao', 'parceirodenegocios','itensDaOperacao'));
 	}
