@@ -202,7 +202,7 @@
 
 	    <section class="coluna-central" >
 			
-			<?php echo $this->Form->input('Pagamento.0.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno desabilita', 'type' => 'select' ,'tabindex' => '105', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale'))); ?>    
+			<?php echo $this->Form->input('Pagamento.0.forma_pagamento',array('label' => 'Forma de Pagamento:','class' => 'tamanho-pequeno desabilita', 'type' => 'select' ,'tabindex' => '105', 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale'))); ?>    
 	    
 	    </section>
 
