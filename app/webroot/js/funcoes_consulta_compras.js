@@ -248,4 +248,47 @@ $("#quick-filtrar-compras").click(function(e){
 			//~ }
 		//~ }
 	//~ });
+	
+/**        Checkboxes Cotação e Pedido        **/
+var valorAux=$('#filtertipoOperacao').val();
+	if(valorAux != undefined){
+		var valorEntrada=valorAux.substr(0,7);
+		var valorSaida1=valorAux.substr(0,5);
+		var valorSaida2 =valorAux.substr(8,5);
+	}
+
+	var statusEntrada = '';
+	var statusSaida = '';
+	var statusEntradaSaida = '';
+
+	if(valorEntrada == 'COTACAO'){
+		$('#QuicklinkNomeCOTACAO').attr('checked', true);
+	}
+	
+	if(valorSaida1 == 'PEDIDO'){
+		$('#QuicklinkNomePEDIDO').attr('checked', true);
+	}
+	
+	if(valorSaida2 != ''){
+		$('#QuicklinkNomePEDIDO').attr('checked', true);
+		$('#QuicklinkNomeCOTACAO').attr('checked', true);
+	}
+
+	$("#QuicklinkNomeCOTACAO, #QuicklinkNomePEDIDO").bind('click', function(){
+		if($('#QuicklinkNomeCOTACAO').is(':checked')){
+			if($('#QuicklinkNomePEDIDO').is(':checked')){
+				$('#filtertipoOperacao').val('PEDIDO COTACAO');
+			}else{
+				$('#filtertipoOperacao').val('COTACAO');
+			}
+		}else{
+			if($('#QuicklinkNomePEDIDO').is(':checked')){
+				$('#filtertipoOperacao').val('PEDIDO');
+			}else{
+				$('#filtertipoOperacao').val(' ');
+			}
+		}
+	});
+});
+
 });
