@@ -11,8 +11,6 @@
 	    echo $this->Html->script('funcoes_contas_pagar.js');
 	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 	$this->end();
-
-
 ?>
 
 
