@@ -377,7 +377,7 @@ public $uses = array();
 					
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
-					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/add/?f=".$fornecedor['id']."&c=".$ultimaComoperacao['Comoperacao']['id']."\n";
+					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
@@ -392,7 +392,7 @@ public $uses = array();
 				}
 				
 				
-				debug();
+				
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
 				//debug($ultimaCotacao);
 				

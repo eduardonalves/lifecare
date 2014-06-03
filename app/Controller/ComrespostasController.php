@@ -107,6 +107,24 @@ class ComrespostasController extends AppController {
 		$this->set(compact('comoperacaos', 'parceirodenegocios'));
 	}
 
+	public function logincotacao() {
+		$this->layout = 'login';
+		if ($this->request->is('post')) {
+				$this->loadModel('Comtokencotacao');
+				$codigo= $this->request->data['Comrespostas']['token'];			
+				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
+				
+				
+				if(!empty($token)){
+					$this->Auth->allow('Comrespostas');
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $token['Comtokencotacao']['codigoseguranca']));
+				
+				}
+			
+		}
+	}
+
+
 /**
  * delete method
  *
