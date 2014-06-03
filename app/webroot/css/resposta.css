@@ -1,0 +1,9 @@
+
+.labelTd .input label{
+	display: none;
+	
+}
+.labelTd .input input{
+	margin-left: 10%;
+	margin-right: 10%;
+}
