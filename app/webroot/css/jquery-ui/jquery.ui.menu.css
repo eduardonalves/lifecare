@@ -15,7 +15,7 @@
 	display: block;
 	outline: none;
 	overflow: overlay;
-	height: 200px;
+	height: auto;
 }
 .ui-menu .ui-menu {
 	margin-top: -3px;
