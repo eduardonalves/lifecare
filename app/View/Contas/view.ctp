@@ -159,7 +159,7 @@
 
 <div>
 
-	<?php if (!empty($conta['Pagamento'])): ?>
+	<?php //if (!empty($conta['Pagamento'])): ?>
 
 		<table id="tabelaParcelas" cellpadding="0" cellspacing="0">
 			<thead>
@@ -463,7 +463,7 @@
 			
 		</table>
 
-	<?php endif; ?>
+	<?php //endif; ?>
 
 </div>
 
@@ -531,4 +531,5 @@
 	}	
 ?>
 </div>
+
 

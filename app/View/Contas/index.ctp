@@ -295,9 +295,9 @@ $(document).ready(function() {
 									<th>Data de Vencimento</th>
 									<th>Data de Pagamento</th>
 									<th>Período Crítico</th>
-									<th>Valor</th>
-									<th>Juros</th>
-									<th>Desconto</th>																	
+									<th style="min-width:150px;">Valor</th>
+									<th style="min-width:90px;">Juros</th>
+									<th style="min-width:90px;">Desconto</th>																	
 									<th>Parcela</th>																	
 									<th>Banco</th>																	
 									<th>Agência</th>																	

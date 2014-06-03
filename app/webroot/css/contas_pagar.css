@@ -4,6 +4,12 @@
  * .Padrao{tamanho; posição; forma; etc;}
  * #Padrao{tamanho; posição; forma; etc;}*/
 
+
+#tabela-conta-pagar label{
+	display: none;
+}
+
+
 /** Dados da Parcela **/
 #msgFlag{
 clear: both;

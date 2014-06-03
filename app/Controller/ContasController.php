@@ -622,8 +622,8 @@ class ContasController extends AppController {
 		$configCont = array();
 		
 		$configContasLabels = array(
-							
 							'nome_parceiro' => 'Nome Parceiro',
+							'identificacao' => 'Ident. Conta',
 							'data_emissao' => 'Data emissão',
 							'data_quitacao' => 'Data Quitação ',
 							'valor' => 'Valor',
