@@ -455,7 +455,7 @@ $(document).ready(function() {
 		
 			foreach($configCont as $campo=>$campoLabel){							
 					if($campo=="nome_parceiro"){
-						   echo "<td class=\"$campo\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
+						   echo "<td class=\"$campo whiteSpace\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
 						}							
 			}
 		
@@ -469,9 +469,9 @@ $(document).ready(function() {
 						echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
 					
 				}else if($campo=="valor"){
-					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+					echo "<td class=\"$campo whiteSpace\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="juros"){
-					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+					echo "<td class=\"$campo whiteSpace\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="duplicata"){
 					if($parcela['Parcela']['duplicata']== 1){
 						echo "<td class=\"$campo\">Ok</td>";
