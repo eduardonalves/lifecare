@@ -408,7 +408,7 @@ $(document).ready(function() {
 	if(isset($_GET['parametro']) && $_GET['parametro']=='parcelas'){
     		if(isset($configparcela)){ ?>
 				<tr>
-				    <th class="colunaConta">Ações</th>									
+				    <th class="colunaConta">Ações</th>
 					<?php 
 						
 						foreach($configCont as $campo=>$campoLabel){
@@ -429,15 +429,14 @@ $(document).ready(function() {
 							}else{
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}
-						}						
+						}
 					?>
 				</tr>
 			
-	<?php } ?>
-	<?php
+	<?php }
 		$j=0;
 		foreach ($parcelas as $parcela): 
-			
+		
 	?>
 	<tr>
 		<td class="actions">

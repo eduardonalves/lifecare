@@ -210,11 +210,14 @@
 
 	<!------------------ CONSULTA ------------------>
 	<div class="areaTabela">
-		
+	
 	<?php echo $this->element('paginador_superior'); ?>
 	
 		<div class="tabelas" id="contas">
 			<table cellpadding="0" cellspacing="0">
+				
+				<?php if(isset($_GET['parametro']) && $_GET['parametro']=='operacoes'){ ?>
+				
 				<tr>
 					<th class="actions colunaConta">Ações</th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?></th>
@@ -256,10 +259,54 @@
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
 				</tr>
 
-				<?php endforeach; ?>
+				<?php endforeach; 
+				}
+				//fim tabela operações
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='respostas'){
+				?>
+				
+				<tr>
+					<th class="actions colunaParcela">Ações</th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Resposta'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Parceiro'); ?></th>
+				</tr>
 
+				<?php foreach ($comrespostas as $comresposta): ?>
+
+				<tr>
+					<td class="actions">
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comrespostas','action' => 'view', $comresposta['Comresposta']['id']))); 
+							echo "<hr />";
+							if($comresposta['Comresposta']['status'] == 'COTACAO'){
+								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Cotacaos','action' => 'edit', $comresposta['Comresposta']['id'])));
+							}else{
+								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Pedidos','action' => 'edit', $comresposta['Comresposta']['id'])));
+							}
+						?>
+					</td>
+					
+					<td><?php echo formatDateToView($comresposta['Comresposta']['data_resposta']); ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['valor']; ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['forma_pagamento']; ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['status']; ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+				</tr>
+
+				<?php endforeach; 
+				}
+				//fim tabela respostas
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='produtos'){
+			}
+				?>
 			</table>
-
+			
 			<?php echo $this->element('paginador_inferior');?>
 		</div>
 	</div>
@@ -275,3 +322,7 @@
 		
 	});
 </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 73333021715c55b338fe9ea0db99f457e2f9a87d

@@ -72,7 +72,7 @@
 					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"dashboard","action"=>"index"),true);?>'><span>Home</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'><span>Financeiro</span></a></li>
-					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>'><span>Compras</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>/?parametro=operacoes'><span>Compras</span></a></li>
 
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
