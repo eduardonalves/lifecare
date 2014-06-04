@@ -207,6 +207,7 @@ class ContasrecebersController extends ContasController {
 		}
 		$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id));
 		$this->set('Contasreceber', $this->Contasreceber->find('first', $options));
+		
 	}
 
 	
@@ -516,7 +517,7 @@ class ContasrecebersController extends ContasController {
 							$this->ParcelasConta->create();
 							$parcela_conta = array('conta_id' => $ultimaConta['Conta']['id'], 'parcela_id' => $ultimaParcela['Parcela']['id']);
 							$this->ParcelasConta->save($parcela_conta);
-							$this->setCobranca($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
+							$this->setCobrancaEdit($ultimaConta['Conta']['id'], $ultimaParcela['Parcela']['id'], $ultimaParcela['Parcela']['data_vencimento']);
 						}
 						
 						

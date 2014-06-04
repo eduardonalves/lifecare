@@ -140,7 +140,7 @@ var valorAux=$('#filterTipoMovimentacao').val();
 	var statusEntradaSaida = '';
 
 	if(valorEntrada == 'RECEBER'){
-		$('#QuicklinkNomeREECEBER').attr('checked', true);
+		$('#QuicklinkNomeRECEBER').attr('checked', true);
 	}
 	
 	if(valorEntrada == 'PAGAR'){
@@ -149,11 +149,11 @@ var valorAux=$('#filterTipoMovimentacao').val();
 	
 	if(valorSaida2 != ''){
 		$('#QuicklinkNomePAGAR').attr('checked', true);
-		$('#QuicklinkNomeREECEBER').attr('checked', true);
+		$('#QuicklinkNomeRECEBER').attr('checked', true);
 	}
 
-	$("#QuicklinkNomeREECEBER, #QuicklinkNomePAGAR").bind('click', function(){
-		if($('#QuicklinkNomeREECEBER').is(':checked')){
+	$("#QuicklinkNomeRECEBER, #QuicklinkNomePAGAR").bind('click', function(){
+		if($('#QuicklinkNomeRECEBER').is(':checked')){
 			if($('#QuicklinkNomePAGAR').is(':checked')){
 				$('#filterTipoMovimentacao').val('A PAGAR  A RECEBER');
 			}else{

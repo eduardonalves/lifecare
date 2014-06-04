@@ -622,8 +622,8 @@ class ContasController extends AppController {
 		$configCont = array();
 		
 		$configContasLabels = array(
-							
 							'nome_parceiro' => 'Nome Parceiro',
+							'identificacao' => 'Ident. Conta',
 							'data_emissao' => 'Data emissão',
 							'data_quitacao' => 'Data Quitação ',
 							'valor' => 'Valor',
@@ -724,6 +724,8 @@ class ContasController extends AppController {
 	            'identificacao' => array(
 	                '_Conta.identificacao' => array(
 	                    'operator' => 'LIKE'
+	                //'Parcela.identificacao_documento' => array(
+	             //       'operator' => 'like'
 	                )
 	            ),
 		        'nome' => array(
@@ -793,12 +795,12 @@ class ContasController extends AppController {
 	            ),
 	            
 				'status_conta' => array(
-	                '_Conta.status' => array(
+	                'Parcela.status' => array(
 	                    'operator' => 'LIKE',
                         /* 'explode' => array(
 	                    	'concatenate' => 'OR'
 	               		 ),*/
-	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','COBRANCA' => 'COBRANÇA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
 					)
 	            ),
 	            
@@ -825,7 +827,7 @@ class ContasController extends AppController {
 	                )
 	            ),
 	             'descricao' => array(
-	                '_Conta.descricao' => array(
+	                'Parcela.descricao' => array(
 	                    'operator' => 'LIKE'
 
 	                )
@@ -838,6 +840,11 @@ class ContasController extends AppController {
 /*-------Filtros da consulta fim---------*/
 				$this->loadModel('Parcela');
 				$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.data_vencimento ASC'));
+				$valortotal=0;
+				foreach($parcelas as  $parcela){
+					$valortotal= $valortotal + $parcela['Parcela']['valor'];
+				}
+				$this->set(compact('valortotal'));
 				$this->Paginator->settings = array(
 					'Parcela' => array(
 						'fields' => array('DISTINCT Parcela.id', 'Parcela.*'),
@@ -1064,6 +1071,11 @@ class ContasController extends AppController {
 
 /*-------Filtros da consulta fim---------*/
 				$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
+				$valortotal=0;
+				foreach($contas as  $conta){
+					$valortotal= $valortotal + $conta['Conta']['valor'];
+				}
+				$this->set(compact('valortotal'));
 					$this->Paginator->settings = array(
 						'Conta' => array(
 							'fields' => array('DISTINCT Conta.id', 'Conta.*'),
@@ -1340,6 +1352,7 @@ class ContasController extends AppController {
 			$z++;
 			
 		}
+		
 		
 		
 		$this->set(compact('parcelas','conta','userid','username'));

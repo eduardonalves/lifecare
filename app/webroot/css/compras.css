@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+.ui-menu{
+	height: 300px !important;
+}
 .bt-addItens{
 	float: right;
 	margin-top: -27px;
@@ -38,6 +41,7 @@ input[type="text"]:disabled{
 .coluna-Produto fieldset{
 	padding: 5px;
 }
+
 
 #msgValidaProduto{top: -10px;}
 #msgValidaFor{top: -10px;}

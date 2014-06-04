@@ -295,9 +295,9 @@ $(document).ready(function() {
 									<th>Data de Vencimento</th>
 									<th>Data de Pagamento</th>
 									<th>Período Crítico</th>
-									<th>Valor</th>
-									<th>Juros</th>
-									<th>Desconto</th>																	
+									<th class="comprimentoMinimo">Valor</th>
+									<th class="comprimentoMinimo">Juros</th>
+									<th class="comprimentoMinimo">Desconto</th>																	
 									<th>Parcela</th>																	
 									<th>Banco</th>																	
 									<th>Agência</th>																	
@@ -327,15 +327,15 @@ $(document).ready(function() {
 										echo $parcela['periodocritico'];															
 									echo "</td>";
 									
-									echo "<td>R$ ";
+									echo "<td class='whiteSpace'>R$ ";
 										echo number_format($parcela['valor'], 2, ',', '.');  															
 									echo "</td>";
 									
-									echo "<td>R$ ";
+									echo "<td class='whiteSpace'R$ ";
 										echo number_format($parcela['juros'], 2, ',', '.');  															
 									echo "</td>";
 									
-									echo "<td>";
+									echo "<td class='whiteSpace'>R$";
 										echo number_format($parcela['desconto'], 2, ',', '.');
 									echo "</td>";
 									
@@ -455,7 +455,7 @@ $(document).ready(function() {
 		
 			foreach($configCont as $campo=>$campoLabel){							
 					if($campo=="nome_parceiro"){
-						   echo "<td class=\"$campo\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
+						   echo "<td class=\"$campo whiteSpace\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
 						}							
 			}
 		
@@ -469,9 +469,9 @@ $(document).ready(function() {
 						echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
 					
 				}else if($campo=="valor"){
-					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+					echo "<td class=\"$campo whiteSpace\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="juros"){
-					echo "<td class=\"$campo\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
+					echo "<td class=\"$campo whiteSpace\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="duplicata"){
 					if($parcela['Parcela']['duplicata']== 1){
 						echo "<td class=\"$campo\">Ok</td>";
@@ -500,6 +500,7 @@ $(document).ready(function() {
 	    </div>
 
 </div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 	    $(".bt-showmodal").click(function(){

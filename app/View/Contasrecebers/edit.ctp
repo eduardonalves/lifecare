@@ -221,7 +221,7 @@
 			<section class="coluna-central">
 				<?php
 
-				echo $this->Form->input('Pagamento.'.$idPagamento.'.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','tabindex' => '106','default' => $pagamento['forma_pagamento'], 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo $this->Form->input('Pagamento.'.$idPagamento.'.forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','tabindex' => '106','default' => $pagamento['forma_pagamento'], 'options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 
 				?>	
 			</section>
