@@ -498,9 +498,6 @@ $(document).ready(function() {
 	    </table>
 		<?php echo $this->element('paginador_inferior');?>
 	    </div>
-							
-	
-	
 
 </div>
 

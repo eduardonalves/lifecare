@@ -1,15 +1,15 @@
 <?php 
-	//~ $this->start('css');
-		//~ echo $this->Html->css('modal_quicklink');
-		//~ echo $this->Html->css('table');
-	//~ $this->end();
-//~ 
-	//~ $this->start('script');
-		//~ if(isset($allquicklink)){
+	$this->start('css');
+		echo $this->Html->css('modal_quicklink');
+		echo $this->Html->css('table');
+	$this->end();
+
+	$this->start('script');
+		if(isset($allquicklink)){
 ?>
 
 			<script type="text/javascript">
-/*
+
 				var availableTagsQuicklink;
 				
 				$(function() {
@@ -30,20 +30,19 @@
 					$( ".nome-quicklink" ).autocomplete({
 						source: availableTags
 					});
-				});	
-*/
+				});
 			</script>
 
 <?php		
-		//~ }
-	//~ $this->end();
-//~ 
-	//~ if(isset($modal)){
-		//~ $this->extend('/Common/modal');
-		//~ $this->assign('modal', $modal);
-	//~ }
+		}
+	$this->end();
+
+	if(isset($modal)){
+		$this->extend('/Common/modal');
+		$this->assign('modal', $modal);
+	}
 ?>
-<!--
+
 <header id="cabecalho">
 	
 	<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
@@ -56,7 +55,7 @@
 	
 	<?php 
 		$urlQuickLink= $this->Html->url( null, true );
-		$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
+		//$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
 	?>
 	
 	<section class="coluna-modal">
@@ -90,7 +89,6 @@
 
 <footer>
 	
-	<?php echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quicklink','class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar')); ?>			
+	<?php echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quicklink','class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar')); ?>
 
 </footer>
--->

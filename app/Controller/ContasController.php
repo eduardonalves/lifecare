@@ -733,9 +733,10 @@ class ContasController extends AppController {
 		$this->Filter->addFilters(
 	        array(
 	            'identificacao' => array(
-	                'Parcela.identificacao_documento' => array(
-	                    'operator' => 'like'
-
+	                '_Conta.identificacao' => array(
+	                    'operator' => 'LIKE'
+	                //'Parcela.identificacao_documento' => array(
+	             //       'operator' => 'like'
 	                )
 	            ),
 		        'nome' => array(
@@ -748,7 +749,6 @@ class ContasController extends AppController {
 	            'cpf_cnpj' => array(
 	                'Parceirodenegocio.cpf_cnpj' => array(
 	                    'operator' => '='
-
 	                )
 	            ),
 	            'statusParceiro' => array(
@@ -801,9 +801,7 @@ class ContasController extends AppController {
                          /*  'explode' => array(
 	                    	'concatenate' => 'OR'
 	               		 ),*/
-
 	               		 'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
-
 					)
 	            ),
 	            
@@ -980,7 +978,7 @@ class ContasController extends AppController {
 	        array(
 	            'identificacao' => array(
 	                'Conta.identificacao' => array(
-	                    'operator' => '='
+	                    'operator' => 'LIKE'
 
 	                )
 	            ),
