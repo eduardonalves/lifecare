@@ -34,7 +34,7 @@
 	</header>
 
 	<section> <!---section superior--->
-		<header>Consulta por Cotações, Pedidos e/ou Respostas</header>
+		<header>Consulta por Operações, Respostas e/ou Produtos</header>
 
 		<fieldset class="filtros">
 			
@@ -174,13 +174,15 @@
 					<?php
 						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirResposta', 'alt'=>'', 'title'=>''));
 					?>
+					
+					<div id="msgFiltroResposta" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
 				<!------------------ Filtro Do Produto ------------------>
 				<section id="filtro-parceiro" class="coluna-direita">
 					<div class="boxParceiro">
 						<?php 
-							echo $this->Form->input('', array('label' => 'Dados do Produto','type'=>'checkbox', 'id' => 'checkresposta' , 'value' => 'respostas'));
+							echo $this->Form->input('', array('label' => 'Dados do Produto','type'=>'checkbox', 'id' => 'checkproduto' , 'value' => 'produtos'));
 						?>
 					<div class="informacoesProduto">
 						<?php
@@ -191,6 +193,7 @@
 						?>
 					</div>
 					</div>
+					<div id="msgFiltroProduto" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
 				<footer>
