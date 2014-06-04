@@ -93,6 +93,7 @@
 				<div>
 
 					<?php 
+						echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>0));
 						echo $this->Form->input('obs', array('type'=>'textarea','label'=>'Observação:','class'=>'campo-observacao limpa','maxlength' => '1000','tabindex'=>'6'));
 						echo $this->Form->input('obs',array('type'=>'hidden','id'=>'hideObsSaida'));
 					?>

@@ -34,17 +34,33 @@
 	</header>
 
 	<section> <!---section superior--->
-		<header>Consulta por Cotações, Pedidos e/ou Respostas</header>
+		<header>Consulta por Operações, Respostas e/ou Produtos</header>
 
 		<fieldset class="filtros">
-
-			<?php echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => '','default'=>'')); ?>
-
+			
+			<?php
+			$ql= $_GET['ql'];
+		    if($ql ==''){
+				$ql=0;
+		    }
+		    
+			echo $this->Form->input('nome',array('required'=>'false','type'=>'select','label'=>'Pesquisa Rápida:','id'=>'quick-select', 'options' => $quicklinksList,'default'=>$ql));
+			?>
+			
 			<a href="add-quicklink" class="bt-showmodal">
 
 				<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
 
 			</a>
+			
+			<?php
+			echo $this->Form->end();
+
+			if(isset($_GET['ql']) && $_GET['ql']!=''){
+				echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
+			}
+			?>
+			
 
 			<div class="content-filtros">
 
@@ -108,9 +124,11 @@
 				<!------------------ Filtro das Respostas ------------------>
 				<section id="filtro-respostas" class="coluna-central">
 					<div class="boxParceiro">
-						<span>Dados da Resposta</span>
+						<?php 
+							echo $this->Form->input('', array('label' => 'Dados da Resposta','type'=>'checkbox', 'id' => 'checkresposta' , 'value' => 'respostas'));
+						?>
 					</div>
-
+					
 					<div class="inputSearchData">
 						<?php
 							echo $this->Search->input('data_resposta', array('label' => 'Data da Resposta:','class'=>'', 'type' => 'text'));
@@ -156,13 +174,16 @@
 					<?php
 						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirResposta', 'alt'=>'', 'title'=>''));
 					?>
+					
+					<div id="msgFiltroResposta" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
 				<!------------------ Filtro Do Produto ------------------>
 				<section id="filtro-parceiro" class="coluna-direita">
 					<div class="boxParceiro">
-						<span>Dados do Produto</span>
-						
+						<?php 
+							echo $this->Form->input('', array('label' => 'Dados do Produto','type'=>'checkbox', 'id' => 'checkproduto' , 'value' => 'produtos'));
+						?>
 					<div class="informacoesProduto">
 						<?php
 							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
@@ -172,6 +193,7 @@
 						?>
 					</div>
 					</div>
+					<div id="msgFiltroProduto" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
 				<footer>
@@ -212,17 +234,17 @@
 							
 							echo "<hr />";
 							
-							if($comoperacao['Comoperacao']['status'] == 'COTACAO'){
+							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
 								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Cotacaos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
 							}else{
 								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Pedidos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
 							}
 							
-							echo "<hr />";
-							
-							echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio','url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio']['id'])));
-						
-							echo $comoperacao['Parceirodenegocio']['id'];
+							if($comoperacao['Comoperacao']['tipo'] == 'PEDIDO'){
+								echo "<hr />";
+								
+								echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio','url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'])));
+							}
 						?>
 					</td>
 					
@@ -244,8 +266,12 @@
 
 </div>
 
-<pre>
-<?php 
-	print_r($comoperacaos);
-?>
-</pre>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $(".bt-showmodal").click(function(){
+		nome = $(this).attr('href');
+		$('#'+nome).modal('show');
+	    });
+		
+	});
+</script>

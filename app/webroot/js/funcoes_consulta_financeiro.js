@@ -143,7 +143,7 @@ var valorAux=$('#filterTipoMovimentacao').val();
 		$('#QuicklinkNomeRECEBER').attr('checked', true);
 	}
 	
-	if(valorSaida1 == 'PAGAR'){
+	if(valorEntrada == 'PAGAR'){
 		$('#QuicklinkNomePAGAR').attr('checked', true);
 	}
 	

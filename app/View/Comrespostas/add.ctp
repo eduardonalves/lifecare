@@ -2,14 +2,11 @@
 	$this->start('css');
 	    echo $this->Html->css('resposta');
 	    echo $this->Html->css('table');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 	
 		
 	$this->start('script');
-	    echo $this->Html->script('funcoes_contas_pagar.js');
-	    echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+	    echo $this->Html->script('resposta.js');
 	$this->end();
 	
 	function formatDateToView(&$data){
@@ -29,7 +26,7 @@
 
 
 <header>
-	<h1>Resposta de Cotação</h1>
+	<h1 class="menuOption23">Resposta de Cotação</h1>
 </header>
 
 <section>
@@ -95,18 +92,19 @@
 		<?php
 			$dataResposta = date('d/m/o');
 			echo $this->Form->input('data_resposta',array('label'=>'Data da Respota','type'=>'text','value'=>$dataResposta, 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.user',array('label'=>'Enviado por:','type'=>'text','value'=>$comoperacao['User']['username'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('obs',array('label'=>'Observação:','type'=>'textarea', 'class'=>'tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
 		?>	
 	</section>		
 	<section class="coluna-central">
 		<?php
-			formatDateToView($comoperacao['Comoperacao']['data_fim']);
-			echo $this->Form->input('Vazio.operacao',array('label'=>'Data Final:','type'=>'text','value'=>$comoperacao['Comoperacao']['data_fim'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+			echo $this->Form->input('valor',array('label'=>'Valor:','type'=>'text','class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+
 		?>	
 	</section>
 	<section class="coluna-direita">
 		<?php
-			echo $this->Form->input('Vazio.operacao',array('label'=>'Forma de Pagamento:','type'=>'text','value'=>$comoperacao['Comoperacao']['forma_pagamento'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega:','type'=>'text', 'class'=>'tamanho-pequeno'));
 		?>	
 	</section>
 	
@@ -119,6 +117,7 @@
 			<td>Quantidade</td>
 			<td>Unidade</td>
 			<td>Valor Unitário</td>
+			<td>Total Produto</td>
 			<td>Ações</td>
 		</thead>
 		
@@ -128,10 +127,13 @@
 				echo "<tr>";
 					echo "<td>". $itens['Produto']['nome']."</td>";
 					echo "<td>". $itens['Comitensdaoperacao']['obs']."</td>";
-					echo "<td>". $itens['Comitensdaoperacao']['qtde']."</td>";
+					echo "<td class='itenQtd".$i."' >". $itens['Comitensdaoperacao']['qtde']."</td>";
 					echo "<td>". $itens['Produto']['unidade']."</td>";
+					echo "<td class='labelTd itenUnit'>";
+						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas')); 
+					echo "</td>";
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_unit',array('label'=>'','type'=>'text','class'=>'tamanho-pequeno')); 
+						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_total',array('label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 					echo "</td>";
 					echo "<td></td>";
 				echo "</tr>";
@@ -152,9 +154,4 @@
 
 
 
-<pre>
-	<h3>Itens</h3>
-<?php
-	print_r($itensDaOperacao);
-?>
-</pre>
+

@@ -277,7 +277,31 @@ class ComoperacaosController extends AppController {
 						}
 						
 					$this->set(compact('userid','comoperacaos', 'cntOperacoes','roles'));
+					
+		/**QuickLink**/
+		$quicklinksList = array();
+		$this->loadModel('Quicklink');
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMPRAS'), 'order' => array('Quicklink.nome' => 'ASC')));
+		foreach($quicklinks as $link)
+		{
+			array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
+		}
+		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'Comoperacaos', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		$this->set(compact('users','userid', 'quicklinks','quicklinksList'));
+		if ($this->request->is('post')) {
+			
+			//salva o post do quicklink
+			if(isset($this->request->data['Quicklink'])){
+					$this->Quicklink->create();
+					if($this->Quicklink->save($this->request->data)) {
+						$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
+						return $this->redirect($this->referer());
+					}else{
+						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
+					}
+			}
 	}
+}
 
 /**
  * view method
@@ -379,7 +403,7 @@ public $uses = array();
 					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
 					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
-					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
+					$mensagem =$mensagem."Este é o seu código de acesso:".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
 					$remetente="ti.dev@vento-consulting.com";
 					

@@ -1,8 +1,11 @@
 @charset "utf-8";
 
 .ui-menu{
-	height: 300px !important;
+	max-height: 300px !important;
 }
+
+
+
 .bt-addItens{
 	float: right;
 	margin-top: -27px;
