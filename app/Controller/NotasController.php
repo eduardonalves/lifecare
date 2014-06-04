@@ -295,6 +295,11 @@ class NotasController extends AppController {
 	                    'select' => array(''=>'', 'VERDE'=> 'OK', 'AMARELO'=> 'PERÍODO CRÍTICO', 'VERMELHO'=> 'VENCIDO')
 	                )
 	            ),
+	            'estoqueLote' => array(
+	                'Lote.estoque' => array(
+	                    'operator' => '>=',
+	                )
+	            ),
 		        'dataLote' => array(
 		            'Lote.data_validade' => array(
 		                'operator' => 'BETWEEN',
@@ -303,6 +308,7 @@ class NotasController extends AppController {
 		                )
 		            )
 		        ),
+		        
 	            'notaTipoEntrada' => array(
 	                'Nota.tipo' => array(
 	                    'operator' => 'LIKE',
@@ -497,6 +503,11 @@ class NotasController extends AppController {
 			
 		}
 		if($this->request['url']['parametro'] == 'lotes'){
+				
+			$conditiosAux= $this->Filter->getConditions();
+			if(empty($conditiosAux)){
+				$this->request->data['filter']['estoqueLote']='1';
+			}	
 			$this->loadModel('Lote');
 			$this->Lote->find('all',array('conditions'=>$this->Filter->getConditions(), 'recursive' => 1));
 
@@ -516,6 +527,20 @@ class NotasController extends AppController {
 		
 		if($this->request['url']['parametro'] == 'itensdoproduto'){
 			$this->loadModel('Produtoiten');
+			$conditiosAux= $this->Filter->getConditions();
+				
+				
+			if(empty($conditiosAux)){
+			
+				
+				$valortotal=0;
+				$dataIncio = date("Y-m-01");
+				$dataTermino= date("Y-m-t");
+				$this->request->data['filter']['dataNota']=$dataIncio;
+				$this->request->data['filter']['dataNota-between']=$dataTermino;	
+				
+			}
+				
 			$this->Produtoiten->find('all',array('conditions'=>$this->Filter->getConditions()));
 
 			$this->Paginator->settings = array(
