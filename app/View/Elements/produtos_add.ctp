@@ -66,11 +66,11 @@
 								$(".loaderAjax").hide();
 								$(".bt-salvar-Produto").show();
 								
-								//Compras
+								//Compras								
+								$("#add-produtos").append("<option id='"+data.Produto.id+"' data-nome='"+data.Produto.nome+"' data-unidade='"+data.Produto.unidade+"' selected='selected'>"+data.Produto.nome+"</option>");
+								$('.autocompleteProduto .custom-combobox-input').val(data.Produto.nome);
+								$("#produtoUnid").val(data.Produto.unidade);
 								
-								$("#add-produtos").append("<option id='"+data.Produto.id+"' data-nome='"+data.Produto.nome+"'>"+data.Produto.nome+"</option>");
-								
-
 								$("#ProdutoCodigo").val('');
 								$("#ProdutoNome").val('');
 								$("#ProdutoCodigoEan").val('');

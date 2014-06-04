@@ -103,6 +103,7 @@
 				echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
 				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
 				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+				echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));		
 				
 			?>
 		
@@ -128,7 +129,7 @@
 				<div class="input autocompleteFornecedor conta">
 					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
 					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa" id="add-fornecedor">
+					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
 						<option></option>
 						<option value="add-parceiroFornecedor">Cadastrar</option>
 

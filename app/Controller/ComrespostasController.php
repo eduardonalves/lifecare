@@ -14,6 +14,7 @@ class ComrespostasController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
+	public $helpers = array('Form');
 
 /**
  * index method
@@ -69,7 +70,7 @@ class ComrespostasController extends AppController {
 			}
 		}
 		
-		
+	
 		
 		$this->loadModel('Parceirodenegocio'); //Localiza o Fornecedor da operação corrente
 		$parceirodenegocios = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $numFornecedor),'recursive'=>1));		
@@ -113,15 +114,18 @@ class ComrespostasController extends AppController {
 	public function logincotacao() {
 		$this->layout = 'login';
 		if ($this->request->is('post')) {
+				
 				$this->loadModel('Comtokencotacao');
 				$codigo= $this->request->data['Comrespostas']['token'];			
-				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
-				
-				
+				$token = $this->Comtokencotacao->find('all');
+								
 				if(!empty($token)){
-					$this->Auth->allow('Comrespostas');
-					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $token['Comtokencotacao']['codigoseguranca']));
+					
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
 				
+				}else{
+					echo 'setFlash aqui depois';
+					
 				}
 			
 		}
