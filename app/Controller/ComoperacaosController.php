@@ -255,6 +255,8 @@ class ComoperacaosController extends AppController {
 	        )
 		);
 		
+		if($_GET['parametro'] == 'operacoes'){
+			
 		$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.id ASC'));
 					$this->Paginator->settings = array(
 						'Comoperacao' => array(
@@ -276,8 +278,50 @@ class ComoperacaosController extends AppController {
 						
 						}
 						
-					$this->set(compact('userid','comoperacaos', 'cntOperacoes','roles'));
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes'));
+				}
+		else if($_GET['parametro'] == 'respostas'){
+		
+		$this->loadModel('Comresposta');
+		
+		$comrespostas = $this->Comresposta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'), 'order' => 'Comresposta.id ASC'));
+					$this->Paginator->settings = array(
+						'Comresposta' => array(
+							'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'),
+							'fields_toCount' => 'DISTINCT Comresposta.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Comresposta.id ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
 					
+					$cntRespostas = count($comrespostas);
+					$comrespostas = $this->Paginator->paginate('Comresposta');
+					
+					foreach($comrespostas as $comresposta) {
+						$this->lifecareDataFuncs->formatDateToView($comresposta['Comresposta']['data_resposta']);
+						}
+						
+					$this->set(compact('userid','comrespostas', 'cntRespostas'));
+			}
+		else if($_GET['parametro'] == 'produtos'){
+		
+			$this->loadModel('Comitensdaoperacao');
+			
+			$comitensdaoperacaos = $this->Comitensdaoperacao->find('all',array('conditions'=>$this->Filter->getConditions()));
+			$this->Paginator->settings = array(
+				'Comitensdaoperacao' => array(
+					'limit' => $this->request['url']['limit'],
+					'order' => 'Produto.nome ASC',
+					'conditions' => $this->Filter->getConditions()
+				)
+			);
+			
+			$cntComitensdaoperacaos = count($comitensdaoperacaos);
+			$comitensdaoperacaos = $this->Paginator->paginate('Comitensdaoperacao');
+
+			$this->set(compact('comitensdaoperacaos', 'cntComitensdaoperacaos'));
+		}
 		/**QuickLink**/
 		$quicklinksList = array();
 		$this->loadModel('Quicklink');
@@ -410,13 +454,7 @@ public $uses = array();
 					if($contato['Contato']['email'] !=""){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
 					}
-					
-					
-					
 				}
-				
-				
-				
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
 				//debug($ultimaCotacao);
 				
@@ -436,7 +474,6 @@ public $uses = array();
 		$allCategorias = $categorias;
 		
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
-		
 		
 		$users = $this->Comoperacao->User->find('list');
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
