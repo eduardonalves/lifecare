@@ -119,7 +119,9 @@
 					echo $this->Search->input('numeroLote', array('label' => 'Lote:','class'=>'tamanho-medio'));
 					echo $this->Search->input('statusLote', array('type'=>'select','label' => 'Status Validade:','class'=>'tamanho-medio produtos-alinhamento'));
 					echo $this->Search->input('dataLote', array('label' => 'Validade de:','class'=>'inputData'));
+					
 					echo $this->html->tag('span','a',array('class'=>'a-data'));
+					echo $this->Search->input('estoqueLote', array('label' => 'Qtde Lote:','class'=>'tamanho-medio'));
 				?>
 				
 				<div id="msgFiltroLote" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
