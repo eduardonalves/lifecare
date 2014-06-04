@@ -20,6 +20,8 @@
 	var contadorBlocoDadosBanc = 1;	
 
 	$(document).ready(function(){
+		
+		
 
 		valH1=$('h1').attr('class');
 		valH1Aux=valH1[valH1.length-1];
@@ -48,7 +50,7 @@
 			var email = $("#Contato0Email").val();
 			var emailValido = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 			var erro = 0;
-
+			var in_fornecedor = 0;
 			for(i=0; i < fieldLength; i++){
 				valorTipo = $('#tipo'+i).val();
 				valorCep = $('#Endereco'+i+'Cep').val();
@@ -156,7 +158,7 @@
 					data:  dadosForm,
 					dataType: 'json',
 					success: function(data) {
-						console.debug(data);
+						console.debug(data.Parceirodenegocio.id);
 
 						if(data.Parceirodenegocio.id == 0 || data.Parceirodenegocio.id == undefined ){
 							$(".loaderAjaxCParceiroDIV").hide();
@@ -172,8 +174,23 @@
 							$(".loaderAjaxCParceiroDIV").hide();
 							$("#bt-salvarParceiroModal").show();
 							
-							if($('#ComoperacaoTipo').val() == 'COTACAO'){
-								$("#add-fornecedor").append("<option selected='selected'  id='"+data.Parceirodenegocio.id+"' data-nome='"+data.Parceirodenegocio.nome+"' data-cpf='"+data.Parceirodenegocio.cpf_cnpj+"'>"+data.Parceirodenegocio.nome+"</option>");
+							if($('#moduloCompras').val() == '1'){
+								$(".fornecedorADD").append("<option selected='selected'  id='"+data.Parceirodenegocio.id+"' data-nome='"+data.Parceirodenegocio.nome+"' data-cpf='"+data.Parceirodenegocio.cpf_cnpj+"'>"+data.Parceirodenegocio.nome+"</option>");
+								$('#tbl_fornecedores tr').each(function(){
+										in_fornecedor++;
+								});								
+								in_fornecedor = in_fornecedor - 1;
+								//Adiciona os valores na tabela pra visualização
+								$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+data.Parceirodenegocio.nome+'</td> <td>'+data.Parceirodenegocio.cpf_cnpj+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+								//SETA AS INPUT HIDDEN	
+								$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+data.Parceirodenegocio.id+'" type="hidden"></section>');
+								
+								if($("#bt-adicionarFornecedor").hasClass('pedidosLimite')){									
+									$("#bt-adicionarFornecedor").hide();
+									$(".autocompleteFornecedor").hide();
+									$("#tblPedido").css('margin-top','10px');
+								}
+								
 							}else{
 								$("#add-"+tipoModal.toLowerCase()).append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='"+tipoModal+"'>"+data.Parceirodenegocio.nome+"</option>");
 							}						

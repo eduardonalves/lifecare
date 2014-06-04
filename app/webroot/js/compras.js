@@ -2,7 +2,6 @@
 
 /**** FUNÇÔES **/
 
-
 	function float2moeda(num){
 		x = 0;
 		
@@ -97,14 +96,14 @@
     var in_produto = 0;
     var valorTotal = 0;
     
-    $("#bt-adicionarProduto").click(function(){		
+    $("body").on('click','#bt-adicionarProduto',function(){		
 		
 		if($(".autocompleteProduto input").val() == ''){
 			$('#msgValidaProduto').show();
 		}else if($("#produtoQtd").val() == ''){
 			$('#msgQtdVazia').show();
 		}else{
-			valorNome = $("#add-produtos option:selected" ).val();
+			valorNome = $("#add-produtos option:selected" ).attr('data-nome');
 			valorId = $("#add-produtos option:selected" ).attr('id');
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
@@ -136,6 +135,7 @@
 		atual = id.substr(8);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
+		in_produto = in_produto - 1;
 	});
 	
 /********************* REMOVER Fornecedor *********************/    
@@ -152,8 +152,10 @@
 			$(".autocompleteFornecedor").show();
 			$("#tblPedido").css('margin-top','25px');
 			in_fornecedor = 0;
+			
 		}
 		
+		in_fornecedor = in_fornecedor - 1;
 		 
 	});
 	

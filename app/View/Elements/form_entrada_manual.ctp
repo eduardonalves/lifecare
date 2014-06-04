@@ -247,6 +247,7 @@
 
 		<section class="coluna-esquerda">
 			<?php
+				echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>0));
 				echo $this->Form->input('valor_total_produtos', array('type'=>'text','onfocus'=>'this.blur()','label'=>'Valor Total Produto:','class'=>'retiraBorda limpa tamanho-pequeno ','readonly'=>'readonly'));
 				echo $this->Form->input('valor_ipi', array('div'=>array('class'=>'imposto input text'),'type'=>'text','label'=>'Valor Total IPI:','class'=>' retiraBorda tamanho-pequeno limpa','allowEmpty' => 'false','title'=>'Campo Obrigatório' ,'readonly'=>'readonly' ,'onfocus'=>'this.blur()'));
 			?>
