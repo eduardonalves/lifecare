@@ -1,4 +1,4 @@
-$(document).ready(function(){
+check$(document).ready(function(){
 
 	var total = 0;
 	var i = 0;
