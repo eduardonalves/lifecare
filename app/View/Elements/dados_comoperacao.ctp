@@ -13,13 +13,15 @@
 					<th>Prazo Pagamento</th>	
 					<th>Status</th>	
 				</thead>
-						
-				<?php 
-					foreach($itens as $produtos){
-						echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
-						echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
-						echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
-					}
+
+				<?php
+					/*
+						foreach($itens as $produtos){
+							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
+							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
+							echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
+						}
+					*/
 				?>
 			</table>
 		</section>
@@ -40,10 +42,12 @@
 				</thead>
 				
 				<?php 
-					foreach($comoperacao['Parceirodenegocio'] as $parceiro){
-						echo '<tr><td>'. $parceiro['nome'] .'</td>';
-						echo '<td>'. $parceiro['cpf_cnpj'] .'</td></tr>';
-					}
+					/*
+						foreach($comoperacao['Parceirodenegocio'] as $parceiro){
+							echo '<tr><td>'. $parceiro['nome'] .'</td>';
+							echo '<td>'. $parceiro['cpf_cnpj'] .'</td></tr>';
+						}
+					*/
 				?>
 						
 			</table>
@@ -51,8 +55,10 @@
 	</fieldset>
 </section>
 
+<!--
 <pre>
 <?php
 	print_r($operacoes);
 ?>
 </pre>
+-->
