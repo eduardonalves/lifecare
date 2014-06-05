@@ -13,7 +13,7 @@ class ComrespostasController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs','lifecareFuncs');
 	public $helpers = array('Form');
 
 /**
@@ -60,13 +60,31 @@ class ComrespostasController extends AppController {
 			$numComoperacao = $token['Comtokencotacao']['comoperacao_id'];
 		}
 		
+		
 		if ($this->request->is('post')) {
 			$this->Comresposta->create();
-			if ($this->Comresposta->save($this->request->data)) {
-				$this->Session->setFlash(__('The comresposta has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comresposta']['data_resposta']);
+			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comresposta']['valor']);
+			
+			$this->loadModel('Comitensdaoperacao');
+			$itensEnviados = $this->request->data['Comitensdaoperacao'];
+			
+			foreach($itensEnviados as $itenEnviado){
+				$this->lifecareFuncs->converterMoedaToBD($itenEnviado['valor_unit']);
+				$this->lifecareFuncs->converterMoedaToBD($itenEnviado['valor_total']);
+				
+				$this->Comitensdaoperacao->create();
+				$this->Comitensdaoperacao->save($itenEnviado);
+				
+			}
+			
+			if ($this->Comresposta->saveAll($this->request->data)) {
+				$this->Session->setFlash(__('Sua Resposta foi Enviada com Sucesso'), 'default', array('class' => 'success-flash'));
+				debug($this->request->data);
+				//return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
+				//debug($this->request->data);
 			}
 		}
 		

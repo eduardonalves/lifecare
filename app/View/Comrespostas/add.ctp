@@ -26,7 +26,7 @@
 
 
 <header>
-	<h1 class="menuOption23">Resposta de Cotação</h1>
+	<h1 class="menuOption23">Resposta</h1>
 </header>
 
 <section>
@@ -35,7 +35,7 @@
 	
 	<section class="coluna-esquerda">
 		<?php
-			echo $this->Form->create('Resposta');
+			echo $this->Form->create('Comresposta');
 			echo $this->Form->input('parceirodenegocio_id',array('type'=>'hidden','value'=>$parceirodenegocios['Parceirodenegocio']['id']));
 			echo $this->Form->input('comoperacao_id',array('type'=>'hidden','value'=>$comoperacao['Comoperacao']['id']));
 			echo $this->Form->input('Vazio.nome',array('label'=>'Nome do Fornecedor:','type'=>'text','value'=>$parceirodenegocios['Parceirodenegocio']['nome'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
@@ -114,26 +114,32 @@
 		<thead>
 			<td>Nome do Produto</td>
 			<td>Observação</td>
+			<td>Fabricante</td>
 			<td>Quantidade</td>
 			<td>Unidade</td>
-			<td>Valor Unitário</td>
+			<td>Valor Unitário<span class="campo-obrigatorio">*</span></td>
 			<td>Total Produto</td>
 			<td>Ações</td>
 		</thead>
 		
 		<?php
-			$i = 0;
+			$i = 1;
 			foreach($itensDaOperacao as $itens){
 				echo "<tr>";
-					echo "<td>". $itens['Produto']['nome']."</td>";
+					echo $this->Form->input('Comitensdaoperacao.id',array('type'=>'hidden','value'=>$i)); 
+					echo "<td class='whiteSpace'><span title='".$itens['Produto']['nome']."'>". $itens['Produto']['nome']."</span></td>";
 					echo "<td>". $itens['Comitensdaoperacao']['obs']."</td>";
+					echo "<td class='labelTd'>";
+						echo $this->Form->input('Comitensdaoperacao.'.$i.'.fabricante',array('label'=>'','type'=>'text','class'=>'tamanho-medio')); 
+					echo "</td>";
+					
 					echo "<td class='itenQtd".$i."' >". $itens['Comitensdaoperacao']['qtde']."</td>";
 					echo "<td>". $itens['Produto']['unidade']."</td>";
 					echo "<td class='labelTd itenUnit'>";
 						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas')); 
 					echo "</td>";
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_total',array('label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 					echo "</td>";
 					echo "<td></td>";
 				echo "</tr>";
@@ -148,7 +154,15 @@
 </section>
 
 <footer>
-
+	<?php
+		 echo $this->form->submit('botao-salvar.png',array(
+							    'class'=>'bt-salvar',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    
+	    ));
+		    echo $this->Form->end();
+	?>	
 </footer>
 <br>
 
