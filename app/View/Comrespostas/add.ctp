@@ -22,6 +22,8 @@
 		}
 		return $data;
 	}
+	
+	if($token['Comtokencotacao']['respondido'] != 1){
 ?>
 
 
@@ -38,6 +40,8 @@
 			echo $this->Form->create('Comresposta');
 			echo $this->Form->input('parceirodenegocio_id',array('type'=>'hidden','value'=>$parceirodenegocios['Parceirodenegocio']['id']));
 			echo $this->Form->input('comoperacao_id',array('type'=>'hidden','value'=>$comoperacao['Comoperacao']['id']));
+			echo $this->Form->input('status',array('type'=>'hidden','value'=>'RESPONDIDO'));
+		
 			echo $this->Form->input('Vazio.nome',array('label'=>'Nome do Fornecedor:','type'=>'text','value'=>$parceirodenegocios['Parceirodenegocio']['nome'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 			echo $this->Form->input('Vazio.tel1',array('label'=>'Telefone 1:','type'=>'text','value'=>$parceirodenegocios['Contato'][0]['telefone1'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 			echo $this->Form->input('Vazio.end',array('label'=>'Endereço:','type'=>'text','value'=>$parceirodenegocios['Endereco'][0]['tipo'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
@@ -93,18 +97,22 @@
 			$dataResposta = date('d/m/o');
 			echo $this->Form->input('data_resposta',array('label'=>'Data da Respota','type'=>'text','value'=>$dataResposta, 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 			echo $this->Form->input('obs',array('label'=>'Observação:','type'=>'textarea', 'class'=>'tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
+
 		?>	
 	</section>		
 	<section class="coluna-central">
 		<?php
+			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega:','type'=>'text', 'class'=>'tamanho-pequeno'));			
 			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-			echo $this->Form->input('valor',array('label'=>'Valor:','type'=>'text','class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			
 
 		?>	
 	</section>
 	<section class="coluna-direita">
 		<?php
-			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega:','type'=>'text', 'class'=>'tamanho-pequeno'));
+			echo $this->Form->input('valor',array('label'=>'Valor:','type'=>'text','class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));	
+			echo $this->Form->input('obs_pagamento',array('label'=>'Info. do Pagamento:','type'=>'textarea', 'class'=>'tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
+
 		?>	
 	</section>
 	
@@ -113,7 +121,8 @@
 	<table>
 		<thead>
 			<td>Nome do Produto</td>
-			<td>Observação</td>
+			<td>Obs. Pedido</td>
+			<td>Obs. Resposta</td>
 			<td>Fabricante</td>
 			<td>Quantidade</td>
 			<td>Unidade</td>
@@ -126,22 +135,46 @@
 			$i = 1;
 			foreach($itensDaOperacao as $itens){
 				echo "<tr>";
-					echo $this->Form->input('Comitensdaoperacao.id',array('type'=>'hidden','value'=>$i)); 
-					echo "<td class='whiteSpace'><span title='".$itens['Produto']['nome']."'>". $itens['Produto']['nome']."</span></td>";
-					echo "<td>". $itens['Comitensdaoperacao']['obs']."</td>";
+					
+					echo "<td class='whiteSpace'><span title='".$itens['Produto']['nome']."'>";
+						echo $itens['Produto']['nome'];
+						echo $this->Form->input('Comitensresposta.'.$i.'.produto_id',array('value'=>$itens['Produto']['id'],'type'=>'hidden'));  
+					echo "</span></td>";
+					
+					echo "<td class='labelTd whiteSpace'><span title='".$itens['Comitensdaoperacao']['obs']."'>";
+						echo $itens['Comitensdaoperacao']['obs'];
+					echo "</span></td>";
+					
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensdaoperacao.'.$i.'.fabricante',array('label'=>'','type'=>'text','class'=>'tamanho-medio')); 
+						echo $this->Form->input('Comitensresposta.'.$i.'.obs',array('label'=>'','type'=>'text','class'=>'tamanho-medio'));
+					echo "</span></td>";
+					
+					echo "<td class='labelTd'>";
+						echo $this->Form->input('Comitensresposta.'.$i.'.fabricante',array('label'=>'','type'=>'text','class'=>'tamanho-medio')); 
 					echo "</td>";
 					
-					echo "<td class='itenQtd".$i."' >". $itens['Comitensdaoperacao']['qtde']."</td>";
-					echo "<td>". $itens['Produto']['unidade']."</td>";
+					echo "<td class='itenQtd".$i."' >";
+						echo $itens['Comitensdaoperacao']['qtde'];
+						echo $this->Form->input('Comitensresposta.'.$i.'.qtde',array('value'=>$itens['Comitensdaoperacao']['qtde'],'type'=>'hidden'));
+					echo "</td>";
+					
+					echo "<td>";
+						echo $itens['Produto']['unidade'];
+					echo "</td>";
+					
 					echo "<td class='labelTd itenUnit'>";
-						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas')); 
+						echo $this->Form->input('Comitensresposta.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas')); 
 					echo "</td>";
+					
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensdaoperacao.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+						echo $this->Form->input('Comitensresposta.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 					echo "</td>";
-					echo "<td></td>";
+					
+					echo "<td>"; 
+						echo $this->Html->image('botao-tabela-editar'); 
+						echo $this->Html->image('bt-confirm.png');					
+					echo "</td>";
+					
 				echo "</tr>";
 				$i++;
 			}
@@ -161,11 +194,16 @@
 							    'title'=>'Salvar',
 							    
 	    ));
-		    echo $this->Form->end();
+		 echo $this->Form->end();
+		    
+		   
 	?>	
 </footer>
-<br>
 
+<?php 
+	}else{
 
+	}
+?>
 
 
