@@ -267,13 +267,11 @@
 				
 				<tr>
 					<th class="actions colunaParcela">Ações</th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>					
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Resposta'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Parceiro'); ?></th>
 				</tr>
 
 				<?php foreach ($comrespostas as $comresposta): ?>
@@ -290,13 +288,12 @@
 						?>
 					</td>
 					
+					<td><?php echo $comresposta['Comresposta']['parceironome']; ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comresposta['Comresposta']['data_resposta']); ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['valor']; ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['forma_pagamento']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['status']; ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+				
 				</tr>
 
 				<?php endforeach; 
@@ -322,4 +319,11 @@
 		
 	});
 </script>
+
+
+<pre>
+<?php
+	print_r($comrespostas);
+?>
+</pre>
 

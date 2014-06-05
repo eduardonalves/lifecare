@@ -284,8 +284,9 @@ class ComoperacaosController extends AppController {
 		else if($_GET['parametro'] == 'respostas'){
 		
 		$this->loadModel('Comresposta');
+		$this->loadModel('Parceirodenegocio');
 		
-		$comrespostas = $this->Comresposta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'), 'order' => 'Comresposta.id ASC'));
+		$comrespostas = $this->Comresposta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 2, 'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'), 'order' => 'Comresposta.id ASC'));
 					$this->Paginator->settings = array(
 						'Comresposta' => array(
 							'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'),
@@ -295,15 +296,23 @@ class ComoperacaosController extends AppController {
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
-					
 					$cntRespostas = count($comrespostas);
 					$comrespostas = $this->Paginator->paginate('Comresposta');
 					
-					foreach($comrespostas as $comresposta) {
-						$this->lifecareDataFuncs->formatDateToView($comresposta['Comresposta']['data_resposta']);
-						}
+					$i=0;
+					//$paceiro = $this->Parceirodenegocio->find('list',array('conditions'=>array('Parceirodenegocio.id'=>$varParc[$i])));
 						
-					$this->set(compact('userid','comrespostas', 'cntRespostas'));
+					foreach($comrespostas as $i => $comresposta) {
+						$this->lifecareDataFuncs->formatDateToView($comresposta['Comresposta']['data_resposta']);
+						
+						$idParceiro = $comrespostas[$i]['Comresposta']['parceirodenegocio_id'];
+						$parceiro = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id'=>$idParceiro)));
+						$comrespostas[$i]['Comresposta']['parceironome'] = $parceiro['Parceirodenegocio']['nome'];
+						
+						$i++;
+					}
+						
+					$this->set(compact('userid','comrespostas', 'cntRespostas','paceiro'));
 			}
 		else if($_GET['parametro'] == 'produtos'){
 		
