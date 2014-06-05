@@ -66,29 +66,41 @@ class ComrespostasController extends AppController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Comresposta']['data_resposta']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comresposta']['valor']);
 			
-			$this->loadModel('Comitensdaoperacao');
-			$itensEnviados = $this->request->data['Comitensdaoperacao'];
+			$this->loadModel('Comitensresposta');
+			$itensRespostas = $this->request->data['Comitensresposta'];
 			
-			foreach($itensEnviados as $itenEnviado){
-				$this->lifecareFuncs->converterMoedaToBD($itenEnviado['valor_unit']);
-				$this->lifecareFuncs->converterMoedaToBD($itenEnviado['valor_total']);
+			$ultimaResposta = $this->Comresposta->find('first',array('order' => array('Comresposta.id' => 'DESC')));
+			debug($ultimaResposta);
+				$i = 0;
+				foreach($itensRespostas as $i => $itenEnviado){
+					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensresposta'][$i]['valor_unit']);
+					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensresposta'][$i]['valor_total']);
+					if(!empty($ultimaResposta)){
+						$this->request->data['Comitensresposta'][$i]['comresposta_id'] = $ultimaResposta['Comresposta']['id'];
+					}else{
+						$this->request->data['Comitensresposta'][$i]['comresposta_id'] = 1;
+					}
+				$i++;
+				}			
 				
-				$this->Comitensdaoperacao->create();
-				$this->Comitensdaoperacao->save($itenEnviado);
+			if($this->Comresposta->saveAll($this->request->data)) {
+				if(!empty($ultimaResposta)){	
+					$token['Comtokencotacao']['comresposta_id'] = $ultimaResposta['Comresposta']['id']+1;
+					$token['Comtokencotacao']['respondido'] = 1;
+				}else{
+					$token['Comtokencotacao']['comresposta_id'] = 1;
+					$token['Comtokencotacao']['respondido'] = 1;
+				}
+				$this->Comtokencotacao->save($token);
+				//debug($this->request->data);
 				
-			}
-			
-			if ($this->Comresposta->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('Sua Resposta foi Enviada com Sucesso'), 'default', array('class' => 'success-flash'));
-				debug($this->request->data);
-				//return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'add',$codigo));
 			} else {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
 				//debug($this->request->data);
 			}
 		}
 		
-	
 		
 		$this->loadModel('Parceirodenegocio'); //Localiza o Fornecedor da operação corrente
 		$parceirodenegocios = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $numFornecedor),'recursive'=>1));		
@@ -99,7 +111,7 @@ class ComrespostasController extends AppController {
 		$this->loadModel('Comitensdaoperacao'); //Localiza os itens da operação corrente
 		$itensDaOperacao = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $numComoperacao)));
 	
-		$this->set(compact('comoperacao', 'parceirodenegocios','itensDaOperacao'));
+		$this->set(compact('comoperacao', 'parceirodenegocios','itensDaOperacao','token'));
 	}
 
 /**
