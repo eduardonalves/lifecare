@@ -66,6 +66,19 @@ class Comresposta extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Comitensdaoperacao' => array(
+			'className' => 'Comitensdaoperacao',
+			'foreignKey' => 'comresposta_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
 	);
 
