@@ -108,3 +108,22 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 CakePlugin::load('FilterResults');
+CakePlugin::load('CakePdf', array('bootstrap' => true, 'routes' => true));
+Configure::write('CakePdf', array(
+        'engine' => 'CakePdf.DomPdf',
+        'options' => array(
+            'print-media-type' => false,
+            'outline' => true,
+            'dpi' => 96
+        ),
+        'margin' => array(
+            'bottom' => 15,
+            'left' => 50,
+            'right' => 30,
+            'top' => 45
+        ),
+        'orientation' => 'landscape',
+        'download' => true
+    ));
+    
+/***************************************/

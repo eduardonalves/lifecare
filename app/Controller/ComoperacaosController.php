@@ -1,6 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('CakePdf', 'CakePdf.Pdf');
 /**
  * Comoperacaos Controller
  *
@@ -15,7 +16,7 @@ class ComoperacaosController extends AppController {
  * @var array
  */
 
-	public $components = array('Paginator','lifecareDataFuncs','Paginator');
+	public $components = array('Paginator','lifecareDataFuncs','Paginator','RequestHandler');
 	
 	public $tiposUnidades;
 
@@ -369,6 +370,16 @@ class ComoperacaosController extends AppController {
 		
 	}
 	
+	
+	
+	public function pdf_view($id = null) {
+		$this->Comoperacao->id = $id;
+        if (!$this->Comoperacao->exists()) {
+            throw new NotFoundException(__('Invalid Comoperacao'));
+        }
+        $this->set('comoperacao', $this->Comoperacao->read(null, $id));
+	}
+	
 
 public $uses = array();
 
@@ -398,6 +409,48 @@ public $uses = array();
  *
  * @return void
  */
+ 
+	    function EmailSend($data){
+ 
+			 //test file for check attachment 
+			 $file_name= APP."webroot/img/cake.icon.png";
+			 
+			 $this->set('extraparams', $data);
+			 $this->pdfConfig = array(
+				 'orientation' => 'portrait',
+				 'filename' => 'Invoice_'. 3
+			 );
+			 
+			 $CakePdf = new CakePdf();
+			 $CakePdf->template('confirmpdf', 'default');
+			 //get the pdf string returned
+			 $pdf = $CakePdf->output();
+			 //or write it to file directly
+			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf');
+			 $pdf = APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf';
+			 
+			 //Writing external parameters in session
+			 $this->Session->write("extraparams",$data);
+			  
+			 
+			 $this->Email->from    = 'Admin<eduardonalves@gmail.com>';
+			 //$this->Email->cc    = 'Ashfaq<ashfaqzp@gmail.com>';
+			 $this->Email->to      = $data['Participant']['email'];
+			 $this->Email->subject = 'Pedido de compras';
+			 $this->Email->attachments = array($pdf);
+			 $this->Email->template = 'confirm';
+			 $this->Email->sendAs = 'html';
+			 
+			 if($this->Email->send()){
+				return true;
+			 }else
+				 return false;
+			 $this->set('extraparams', $data);
+				
+		}
+
+/*****************************************************/ 
+ 
 	public function add(){
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
