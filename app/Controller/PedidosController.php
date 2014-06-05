@@ -1,6 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('CakePdf', 'CakePdf.Pdf');
 /**
  * Pedidos Controller
  *
@@ -16,7 +17,7 @@ class PedidosController extends ComoperacaosController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs');
+	public $components = array('Paginator','lifecareDataFuncs','RequestHandler');
 	
 	
 	
@@ -100,13 +101,17 @@ class PedidosController extends ComoperacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
-		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
+		$this->loadModel('Parceirodenegocio');
 		
 		//debug($this->request->data);
 		if ($this->request->is('post')) {
 			$this->Pedido->create();
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			if ($this->Pedido->saveAll($this->request->data)) {
+					
+					
+				//$fornecedor => $this->Parceirodenegocio	
 				$this->Session->setFlash(__('The pedido has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			}else{
@@ -167,7 +172,7 @@ class PedidosController extends ComoperacaosController {
  * @param string $id
  * @return void
  */
-public function delete($id = null) {
+	public function delete($id = null) {
 		$this->Pedido->id = $id;
 		if (!$this->Pedido->exists()) {
 			throw new NotFoundException(__('Invalid pedido'));
@@ -179,4 +184,43 @@ public function delete($id = null) {
 			$this->Session->setFlash(__('The pedido could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+	function EmailSend($data){
+ 
+			 //test file for check attachment 
+			 $file_name= APP."webroot/img/cake.icon.png";
+			 
+			 $this->set('extraparams', $data);
+			 $this->pdfConfig = array(
+				 'orientation' => 'portrait',
+				 'filename' => 'Invoice_'. 3
+			 );
+			 
+			 $CakePdf = new CakePdf();
+			 $CakePdf->template('confirmpdf', 'default');
+			 //get the pdf string returned
+			 $pdf = $CakePdf->output();
+			 //or write it to file directly
+			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf');
+			 $pdf = APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf';
+			 
+			 //Writing external parameters in session
+			 $this->Session->write("extraparams",$data);
+			  
+			 
+			 $this->Email->from    = 'Admin<eduardonalves@gmail.com>';
+			 //$this->Email->cc    = 'Ashfaq<ashfaqzp@gmail.com>';
+			 $this->Email->to      = $data['Participant']['email'];
+			 $this->Email->subject = 'Pedido de compras';
+			 $this->Email->attachments = array($pdf);
+			 $this->Email->template = 'confirm';
+			 $this->Email->sendAs = 'html';
+			 
+			 if($this->Email->send()){
+				return true;
+			 }else
+				 return false;
+			 $this->set('extraparams', $data);
+				
+		}
+}
