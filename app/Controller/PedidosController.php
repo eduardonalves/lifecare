@@ -17,7 +17,7 @@ class PedidosController extends ComoperacaosController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs','RequestHandler');
+	public $components = array('Paginator','lifecareDataFuncs','RequestHandler', 'Session');
 	
 	
 	
@@ -84,12 +84,29 @@ class PedidosController extends ComoperacaosController {
  * @return void
  */
 	public function view($id = null) {
+		
 		$this->layout = 'compras';
+			
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		
+		
 		if (!$this->Pedido->exists($id)) {
 			throw new NotFoundException(__('Invalid pedido'));
 		}
+		
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+
+		$this->loadModel('Parceirodenegocio');
+		
 		$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
-		$this->set('pedido', $this->Pedido->find('first', $options));
+		$pedido = $this->Pedido->find('first', $options);
+		
+		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedido['Parceirodenegocio'][0]['id'] )));	
+		
+		$this->set(compact('pedido','userid','itens','parceirodenegocio'));
 	}
 
 /**
@@ -101,19 +118,35 @@ class PedidosController extends ComoperacaosController {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
-		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Contato');
 		
-		//debug($this->request->data);
+	
 		if ($this->request->is('post')) {
 			$this->Pedido->create();
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
+			$this->loadModel('Produto');
 			if ($this->Pedido->saveAll($this->request->data)) {
 					
 					
-				//$fornecedor => $this->Parceirodenegocio	
-				$this->Session->setFlash(__('The pedido has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
+				$ultimoPedido = $this->Pedido->find('first',array('order' => array('Pedido.id' => 'DESC')));
+				
+				$id=0;
+				foreach($ultimoPedido['Comitensdaoperacao'] as $id => $itens){
+					$ultimoPedido['Comitensdaoperacao'][$id];
+					$produto=$this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$id]['produto_id'])));
+					$ultimoPedido['Comitensdaoperacao'][$id]['produtoNome'] = $produto['Produto']['nome']; 	
+					
+				}
+				
+				$remetente= "eduardonalves@gmail.com";
+				if(!empty($contato)){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+					$this->Session->setFlash(__('The pedido has been saved.'));
+					//return $this->redirect(array('action' => 'index'));	
+				}
+				
 			}else{
 				$this->Session->setFlash(__('The pedido could not be saved. Please, try again.'));
 			}
@@ -185,12 +218,24 @@ class PedidosController extends ComoperacaosController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-	function EmailSend($data){
- 
-			 //test file for check attachment 
+	
+
+		public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+				
+				 //test file for check attachment 
+				 
+				
+			$mensagem['Mensagem']['empresa']="Nome da empreas lifecare"; 
+			$mensagem['Mensagem']['logo']="logo da empreas lifecare"; 
+			$mensagem['Mensagem']['endereco']="Endereco da empreas"; 
+			$mensagem['Mensagem']['telefone']="Telefone da empresa ";
+			$mensagem['Mensagem']['site']="Site da empresa da empresa ";
+			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
+			
+			
 			 $file_name= APP."webroot/img/cake.icon.png";
 			 
-			 $this->set('extraparams', $data);
+			 $this->set('extraparams', $mensagem);
 			 $this->pdfConfig = array(
 				 'orientation' => 'portrait',
 				 'filename' => 'Invoice_'. 3
@@ -201,26 +246,33 @@ class PedidosController extends ComoperacaosController {
 			 //get the pdf string returned
 			 $pdf = $CakePdf->output();
 			 //or write it to file directly
-			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf');
-			 $pdf = APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf';
+			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf');
+			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
 			 
 			 //Writing external parameters in session
-			 $this->Session->write("extraparams",$data);
-			  
-			 
-			 $this->Email->from    = 'Admin<eduardonalves@gmail.com>';
-			 //$this->Email->cc    = 'Ashfaq<ashfaqzp@gmail.com>';
-			 $this->Email->to      = $data['Participant']['email'];
-			 $this->Email->subject = 'Pedido de compras';
-			 $this->Email->attachments = array($pdf);
-			 $this->Email->template = 'confirm';
-			 $this->Email->sendAs = 'html';
-			 
-			 if($this->Email->send()){
-				return true;
-			 }else
-				 return false;
-			 $this->set('extraparams', $data);
+			 $this->Session->write("extraparams",$mensagem);
 				
-		}
+                $email = new CakeEmail('smtp');
+
+                $email->to($destinatario);
+
+                $email->subject($remetente);
+				
+				
+				//$email->template = 'confirm';
+				$email->template('pedido','default');
+ 				$email->emailFormat('html');
+				
+				$email->attachments(array($pdf));
+				
+				$mensagemHtml = array('mensagem' => 'teste de mensagem');
+				$this->set('extraparams', $mensagemHtml);
+                if($email->send($mensagemHtml)){
+					return TRUE;
+                }else{
+                	return FALSE;	
+				 	$this->set('extraparams', $mensagemHtml);
+                }
+
+        }
 }

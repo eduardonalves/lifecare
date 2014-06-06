@@ -4,7 +4,9 @@
 	max-height: 300px !important;
 }
 
-
+#tbl_produtos{
+	margin-top: 20px;
+}
 
 .bt-addItens{
 	float: right;

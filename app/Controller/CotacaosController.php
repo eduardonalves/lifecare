@@ -109,14 +109,26 @@ class CotacaosController extends ComoperacaosController {
  		public $uses = array();
 
         public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
-
-           
-
+				$mensagem['Mensagem']['empresa']="Nome da empreas lifecare"; 
+				$mensagem['Mensagem']['logo']="logo da empreas lifecare"; 
+				$mensagem['Mensagem']['endereco']="Endereco da empreas"; 
+				$mensagem['Mensagem']['telefone']="Telefone da empresa ";
+				$mensagem['Mensagem']['site']="Site da empresa da empresa ";
+				
+           		$this->Session->write("extraparams",$mensagem);
+				
+				
+				
+				
+				$this->set('extraparams', $mensagem);
+		
                 $email = new CakeEmail('smtp');
 
                 $email->to($destinatario);
 
                 $email->subject($remetente);
+				$email->template('cotacao','default');
+ 				$email->emailFormat('html');
 
                 if($email->send($mensagem)){
 					return TRUE;
@@ -172,14 +184,11 @@ class CotacaosController extends ComoperacaosController {
 						}
 						
 					}
+					$mensagem = array();
 					
-					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
-					$mensagem = $mensagem."Para acessar esta cotação clique no link abaixo"."\n";
 
-					$mensagem = $mensagem.Router::url('/', true)."Comrespostas/logincotacao"."\n";
-
-					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
-					$mensagem =$mensagem."Este é o seu código de acesso".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
+					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
+					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
 					
 					$remetente="ti.dev@vento-consulting.com";
 					if($contato['Contato']['email'] !=""){
@@ -190,7 +199,7 @@ class CotacaosController extends ComoperacaosController {
 				
 				
 				$this->Session->setFlash(__('The cotacao has been saved.'));
-				return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index'));
+				return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
