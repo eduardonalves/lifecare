@@ -70,7 +70,7 @@ class ComrespostasController extends AppController {
 			$itensRespostas = $this->request->data['Comitensresposta'];
 			
 			$ultimaResposta = $this->Comresposta->find('first',array('order' => array('Comresposta.id' => 'DESC')));
-			debug($ultimaResposta);
+			
 				$i = 0;
 				foreach($itensRespostas as $i => $itenEnviado){
 					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensresposta'][$i]['valor_unit']);

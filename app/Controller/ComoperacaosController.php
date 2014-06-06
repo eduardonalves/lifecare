@@ -410,7 +410,7 @@ public $uses = array();
  * @return void
  */
  
-	    function EmailSend($data){
+	   /* function EmailSend($data){
  
 			 //test file for check attachment 
 			 $file_name= APP."webroot/img/cake.icon.png";
@@ -447,7 +447,7 @@ public $uses = array();
 				 return false;
 			 $this->set('extraparams', $data);
 				
-		}
+		}*/
 
 /*****************************************************/ 
  
