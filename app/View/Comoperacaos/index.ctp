@@ -322,11 +322,3 @@
 		
 	});
 </script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 1bc9fb636dcfeffed2fcba5d201e7ba4f7136a70
-=======
-
->>>>>>> 0386e43b5aaed509b2d8f3028cef93ae5d6a9754
