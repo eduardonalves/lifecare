@@ -298,10 +298,10 @@
 	});
 </script>
 
-
+<!--
 <pre>
 <?php
 	//print_r($produtosDasRespostas);
 ?>
 </pre>
-
+-->
