@@ -84,12 +84,29 @@ class PedidosController extends ComoperacaosController {
  * @return void
  */
 	public function view($id = null) {
+		
 		$this->layout = 'compras';
+			
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		
+		
 		if (!$this->Pedido->exists($id)) {
 			throw new NotFoundException(__('Invalid pedido'));
 		}
+		
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+
+		$this->loadModel('Parceirodenegocio');
+		
 		$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
-		$this->set('pedido', $this->Pedido->find('first', $options));
+		$pedido = $this->Pedido->find('first', $options);
+		
+		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedido['Parceirodenegocio'][0]['id'] )));	
+		
+		$this->set(compact('pedido','userid','itens','parceirodenegocio'));
 	}
 
 /**

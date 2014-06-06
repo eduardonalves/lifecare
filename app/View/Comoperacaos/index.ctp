@@ -77,13 +77,19 @@
 							'type' => 'select',
 							'class' => 'operacao',
 							'multiple' => 'checkbox',
-							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
+							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido','RESPONDIDO' => 'Respondido'),
 							'style' => 'float:left',
 						));
 						//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
 						echo "</div>";
 					?>
+					
+					<div id="dataEntrega" style="display:none;" class="inputSearchData">
+						<?php
+							echo $this->Search->input('data_inici', array('label' => 'Data de Entrega:', 'type' => 'text'));
+						?>
+					</div>
 				
 					<div class="inputSearchData">
 					<?php
@@ -115,75 +121,20 @@
 						?>
 					</div>
 					
+					
 					<?php
 						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirOperacao', 'alt'=>'', 'title'=>''));
 					?>
 					
 					</section>
 
-				<!------------------ Filtro das Respostas ------------------>
-				<section id="filtro-respostas" class="coluna-central">
-					<div class="boxParceiro">
-						<?php 
-							echo $this->Form->input('', array('label' => 'Dados da Resposta','type'=>'checkbox', 'id' => 'checkresposta' , 'value' => 'respostas'));
-						?>
-					</div>
-					
-					<div class="inputSearchData">
-						<?php
-							echo $this->Search->input('data_resposta', array('label' => 'Data da Resposta:','class'=>'', 'type' => 'text'));
-						?>
-					</div>
-
-					<div class="inputSearchValor">
-						<?php
-							echo $this->Search->input('valor_resposta', array('type'=>'text','label' => 'Valor:','class'=>'dinheiro_duasCasas'));
-						?>
-					</div>
-
-					<div class="formaPagamento" >
-						<?php
-							echo $this->Search->input('forma_pagamento_resposta', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
-						?>
-					</div>
-
-					<div class="inputSearchResposta" >
-						<?php
-							echo $this->Search->input('status_resposta', array('label' => 'Status da Resposta:','class'=>''));
-						?>
-					</div>
-
-					<div class="inputSearchObs" >
-						<?php
-							echo $this->Search->input('obs', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
-						?>
-					</div>
-					
-					<div class="inputSearchNome">
-						<?php
-							echo $this->Search->input('nome', array('label' => 'Nome do Parceiro:','class'=>'input-alinhamento combo-autocomplete'));
-						?>
-					</div>
-
-					<div class="inputSearchParceiro">
-						<?php
-							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status do Parceiro:','class'=>'tamanho-medio input-alinhamento'));
-						?>
-					</div>
-					
-					<?php
-						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirResposta', 'alt'=>'', 'title'=>''));
-					?>
-					
-					<div id="msgFiltroResposta" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
-				</section>
-
 				<!------------------ Filtro Do Produto ------------------>
-				<section id="filtro-parceiro" class="coluna-direita">
+				<section id="filtro-produto" class="coluna-central">
 					<div class="boxParceiro">
 						<?php 
 							echo $this->Form->input('', array('label' => 'Dados do Produto','type'=>'checkbox', 'id' => 'checkproduto' , 'value' => 'produtos'));
 						?>
+					</div>
 					<div class="informacoesProduto">
 						<?php
 							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
@@ -192,8 +143,21 @@
 							echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
-					</div>
+					
 					<div id="msgFiltroProduto" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+				</section>
+
+				<!------------------ Filtro Do Fornecedor ------------------>
+				<section id="filtro-parceiro" class="coluna-direita">
+					<div class="boxParceiro">
+						<span id="titulo">Dados do Fornecedor</span>
+					</div>
+					<div class="informacoesParceiro">
+						<?php
+							echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
+							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+						?>
+					</div>
 				</section>
 
 				<footer>
@@ -220,6 +184,7 @@
 				
 				<tr>
 					<th class="actions colunaConta">Ações</th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('tipo','Tipo'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('valor'); ?></th>
@@ -250,7 +215,7 @@
 							}
 						?>
 					</td>
-					
+					<td><?php echo $comoperacao['Comoperacao']['tipo']; ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['valor']; ?>&nbsp;</td>
@@ -267,13 +232,11 @@
 				
 				<tr>
 					<th class="actions colunaParcela">Ações</th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>					
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Resposta'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('status','Status Parceiro'); ?></th>
 				</tr>
 
 				<?php foreach ($comrespostas as $comresposta): ?>
@@ -282,28 +245,40 @@
 					<td class="actions">
 						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comrespostas','action' => 'view', $comresposta['Comresposta']['id']))); 
 							echo "<hr />";
-							if($comresposta['Comresposta']['status'] == 'COTACAO'){
-								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Cotacaos','action' => 'edit', $comresposta['Comresposta']['id'])));
-							}else{
-								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Pedidos','action' => 'edit', $comresposta['Comresposta']['id'])));
-							}
+							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $comresposta['Comresposta']['parceirodenegocio_id'],"layout"=>"compras","abas"=>"41")));
 						?>
 					</td>
 					
+					<td><?php echo $comresposta['Comresposta']['parceironome']; ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comresposta['Comresposta']['data_resposta']); ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['valor']; ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['forma_pagamento']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['status']; ?>&nbsp;</td>
 					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+				
 				</tr>
 
 				<?php endforeach; 
 				}
 				//fim tabela respostas
 				else if(isset($_GET['parametro']) && $_GET['parametro']=='produtos'){
-			}
+				
+				}
+				//FIM TABELA PRODUTOS
+				
+				//TABELA PRODUTOS RESPONDIDO (COM ITENS RESPOSTA)
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='respostasprodutos'){
+				?>
+					<tr>
+						<th class="actions colunaParcela">Ações</th>
+						<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>					
+						<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
+						<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
+						<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
+						<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
+					</tr>
+					
+				<?php
+					}
 				?>
 			</table>
 			
@@ -322,4 +297,11 @@
 		
 	});
 </script>
+
+
+<pre>
+<?php
+	//print_r($produtosDasRespostas);
+?>
+</pre>
 
