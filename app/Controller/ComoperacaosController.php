@@ -295,6 +295,26 @@ class ComoperacaosController extends AppController {
 
 						$this->set(compact('comitensdaoperacaos', 'cntComitensdaoperacaos'));
 				
+				}elseif($_GET['parametro'] == 'produtosrespostas'){
+					
+					$this->loadModel('Comitensreposta');
+						
+					$comitensrepostas = $this->Comitensreposta->find('all');
+						$this->Paginator->settings = array(
+							'Comitensreposta' => array(
+								'limit' => $this->request['url']['limit'],
+								'order' => 'Produto.nome ASC',
+								'conditions' => $this->Filter->getConditions()
+							)
+						);
+						
+						$cntComitensrepostas = count($comitensrepostas);
+						$comitensrepostas = $this->Paginator->paginate('Comitensreposta');
+
+						$this->set(compact('comitensrepostas', 'cntComitensrepostas'));
+						
+						
+					
 				}
 					
 					
