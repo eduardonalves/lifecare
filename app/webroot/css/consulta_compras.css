@@ -28,9 +28,12 @@ label[for="checkparcela"]{
 	top:4px;
 }
 
-.boxParceiro span{
+.boxParceiro{
+	margin-bottom: 20px;
+}
+
+.boxParceiro label{
 	font-size: 15px !important;
-	width: 210px !important;
 	margin-top: -4px;
 }
 
@@ -207,7 +210,7 @@ label[for="checkparcela"]{
 	width:170px;
 }
 
-#filtro-respostas{
+#filtro-produto{
 	background-color:#FFFAE7;
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
@@ -331,7 +334,7 @@ margin-bottom: 50px;
 	line-height:20px !important;
 	margin: -4px 0px 0px 0px;
 	text-align:left !important;
-	width:57px !important;
+	width:30px !important;
 }
 
 .operacao input[type="checkbox"]{
