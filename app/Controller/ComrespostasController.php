@@ -52,6 +52,7 @@ class ComrespostasController extends AppController {
 		$this->layout = 'comresposta';
 		
 		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Comoperacao');
 		$token = $this->Comtokencotacao->find('first',array('conditions'=>array('Comtokencotacao.codigoseguranca'=>$codigo)));
 		
 		
@@ -92,9 +93,17 @@ class ComrespostasController extends AppController {
 					$token['Comtokencotacao']['respondido'] = 1;
 				}
 				$this->Comtokencotacao->save($token);
-				//debug($this->request->data);
 				
-				return $this->redirect(array('action' => 'add',$codigo));
+				
+				$operacao = $this->Comoperacao->find('first', array('conditions' => array('Comoperacao.id' => $numComoperacao)));;
+				if($operacao['Comoperacao']['status']=='ABERTO'){
+					$updateCotacao = array('id' => $numComoperacao, 'status' => 'RESPONDIDA');
+					$this->Comoperacao->save($updateCotacao);	
+				}
+				
+				$this->Session->setFlash(__('A resposta da cotação foi enviada com sucesso.'));
+				
+				return $this->redirect(array('action' => 'view',$codigo));
 			} else {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
 				//debug($this->request->data);
@@ -154,7 +163,7 @@ class ComrespostasController extends AppController {
 					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
 				
 				}else{
-					echo 'setFlash aqui depois';
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'view', $codigo));
 					
 				}
 			

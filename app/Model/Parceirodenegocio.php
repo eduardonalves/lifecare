@@ -246,5 +246,45 @@ class Parceirodenegocio extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 		),
+		'Produto' => array(
+			'className' => 'Produto',
+			'joinTable' => 'produtos_parceirodenegocios',
+			'foreignKey' => 'parceirodenegocio_id',
+			'associationForeignKey' => 'produto_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
 	);
+	//Hack HBTM
+	
+		var $hasOne = array(
+		'_ProdutosParceirodenegocio' => array(
+			'className'  => 'ProdutosParceirodenegocio',
+			'foreignKey' => 'produto_id',
+			'fields'     => 'id'	
+		  ),
+		  '_Produto' => array(
+			'className'  => 'Produto',
+			'foreignKey' => false,
+			'conditions' => '_Produto.id = _ProdutosParceirodenegocio.produto_id',
+			'fields'	 => 'id'
+		  ),
+		  
+		  '_ComoperacaosParceirodenegocio' => array(
+			'className'  => 'ComoperacaosParceirodenegocio',
+			'foreignKey' => 'comoperacao_id',
+			'fields'     => 'id'	
+		  ),
+		  '_Comoperacao' => array(
+			'className'  => 'Comoperacao',
+			'foreignKey' => false,
+			'conditions' => '_Comoperacao.id = _ComoperacaosParceirodenegocio.comoperacao_id',
+			'fields'	 => 'id'
+		  ),
+		);
 }
