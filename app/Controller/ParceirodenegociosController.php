@@ -47,15 +47,22 @@ class ParceirodenegociosController extends AppController {
 		$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
 		
 		$this->loadModel('Conta');
-		$pac =33;
+		$pac = 33;
 		$this->setStatusParceiro($pac);
 		
 		$this->loadModel('ComoperacaosParceirodenegocio');
-		$operacoes = $this->ComoperacaosParceirodenegocio->find('all',array('conditions'=>array('ComoperacaosParceirodenegocio.parceirodenegocio_id'=>$id),'recursive'=>2));
-				
+		$this->loadModel('Comoperacao');
+		
+		//$parceiroID = $this->ComoperacaosParceirodenegocio->find('all',array('conditions'=>array('ComoperacaosParceirodenegocio.parceirodenegocio_id'=>$id)));
+		
+		//debug($id);
+		
+		//$pedidos = $this->Parceirodenegocio->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO', 'and' => array('Comoperacao.parceirodenegocio_id'=>$id)),'limit'=>10,'order'=>array('Comoperacao.valor'=>'ASC')));
+	
+	
 		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'),'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
 		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
-		$this->set(compact('contasParceiros','telaLayout','telaAbas','operacoes'));
+		$this->set(compact('contasParceiros','telaLayout','telaAbas','parceiroID','pedidos'));
 	}
 
 
@@ -140,10 +147,6 @@ class ParceirodenegociosController extends AppController {
 						}
 					}	
 				}
-
-
-
-
 				$contasEmAtraso2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'Conta.status' => 'VERMELHO'), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
 				$contasEmAtraso =count($contasEmAtraso2);
 				$contasEmAberto2 = $this->Conta->find('all', array('conditions'=> array('Conta.parceirodenegocio_id' => $parceiro['Parceirodenegocio']['id'], 'AND' => array(array('Conta.status NOT LIKE' => '%CINZA%'), array('Conta.status NOT LIKE' => '%CANCELADO%'))), 'recursive' => -1, 'fields' => array('DISTINCT Conta.id', 'Conta.*')));
@@ -194,6 +197,7 @@ class ParceirodenegociosController extends AppController {
 		}else{
 			$this->layout = 'contas';
 		}
+		
 		$userid = $this->Session->read('Auth.User.id');
 		if ($this->request->is('post')) {
 			$i=0;

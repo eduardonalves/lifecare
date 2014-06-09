@@ -29,11 +29,8 @@
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <?php
-		if(isset($telaAbas)){
-			echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
-		}else{
+		if(!isset($telaAbas)){
 			echo '<h1 class="menuOption31">Visualizar Parceiro</h1>';
-		}
     ?>
 </header>
 
@@ -190,25 +187,131 @@
 		//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
 			echo $this->element('dados_creditoView');
 		//}
-	
-		echo $this->element('dados_comoperacao');
+
+
+	}else{ //PARCEIRO DE NEGOCIOS COMPRAS
+		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
 	?>
+		
+<section> <!---section superior--->	
+	<header>Dados Gerias do Parceiro</header>
+	
+	<?php echo $this->Form->create('Parceirodenegocio'); ?>
 
+	<section class="coluna-esquerda">
 
+		<?php
+		
+			echo $this->Form->input('tipo',array('value'=>h($parceirodenegocio['Parceirodenegocio']['tipo']),'label' => 'Classificação:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
+			
+			foreach($parceirodenegocio['Contato'] as $contato){
+				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
+				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-grande borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+			}			
+			
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<?php
+			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
+
+			foreach($parceirodenegocio['Contato'] as $contato){
+				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
+				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-grande borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+
+			}
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+
+		<?php
+			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-grande borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+
+			foreach($parceirodenegocio['Contato'] as $contato){
+				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-grande borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
+			}	
+		?>
+
+	</section>
+</section><!---Fim section superior--->
+
+<section class="ajusteAlignSection"> <!---section MEIO--->
+	
+	
+	<header class="">Endereços</header>
+	<?php
+	$z=0;
+	foreach($parceirodenegocio['Endereco'] as $endereco){
+	?>
+	<div class="area-endereco"> 
+		<div class="bloco-area">
+			<fieldset class="dadosRepetidos">
+				<legend>Endereço  <?php echo $z+1; ?></legend>
+			<section class="coluna-esquerda">
+
+				<?php	
+					echo $this->Form->input('Endereco.id', array('value'=>$endereco['id']));
+
+					echo $this->Form->input('Endereco.tipo',array('value' => h($endereco['tipo']),'label' => 'Tipo:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
+					echo $this->Form->input('Endereco.numero',array('value' => h($endereco['numero']),'label' => 'Número:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
+					echo $this->Form->input('Endereco.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
+				
+				?>
+
+			</section>
+		
+			<section class="coluna-central" >
+
+				<?php
+				
+					echo $this->Form->input('Endereco.cep', array('value' => h($endereco['cep']),'label'=>'CEP:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.uf', array('value' => h($endereco['uf']),'label'=>'UF:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
+					echo $this->Form->input('Endereco.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
+
+						?>
+
+			</section>
+
+			<section class="coluna-direita" >
+
+				<?php
+					echo $this->Form->input('Endereco.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero' ));
+					echo $this->Form->input('Endereco.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade:', 'type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
+					echo $this->Form->input('Endereco.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'textarea','class'=>'borderZero'));
+
+				?>
+
+			</section>
+
+			</fieldset>
+		</div>	
+	</div>
+		<?php $z++;} ?>
+</section><!--fim Meio-->
+	
+	
+	<?php 	
+		echo $this->element('dados_comoperacao');
+		}
+	?>
 <footer>
-
     <?php
-		if(isset($telaLayout) && isset($telaAbas))
+		if(isset($telaLayout) && isset($telaAbas)){
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
 													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'],'layout' => $telaLayout,'abas' => '41')));
-		else
+		}else{
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
 													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'])));
+		}
 													 
     ?>
-
 </footer>

@@ -1,64 +1,39 @@
 <section> <!---section Baixo--->	
-<header class="">Dados de Operações</header>
-
-<section class="coluna-Produto coluna-esquerda">
-	<fieldset>
-		<legend>Pedidos</legend>
-		<section class="tabela_fornecedores">
-			<table id="tbl_produtos" >
+<header class="">Últimos Pedidos</header>
+			<table>
 				<thead>			
+					<th>Ações</th>
 					<th>Data Inicial</th>
 					<th>Data Final</th>				
+					<th>Forma Pagamento</th>				
 					<th>Prazo Entrega</th>
 					<th>Prazo Pagamento</th>	
 					<th>Status</th>	
 				</thead>
 
 				<?php
-					/*
-						foreach($itens as $produtos){
-							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
-							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
-							echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
-						}
-					*/
+					
+					foreach($parceirodenegocio['Comoperacao'] as $pedidos){
+						echo '<tr><td>';
+						 //echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'view',$comoperacao['Comoperacao']['id'])));
+						echo '</td>';
+						echo '<td>'. $pedidos['data_inici'] .'</td>';
+						echo '<td>'. $pedidos['data_fim'] .'</td>';
+						echo '<td>'. $pedidos['forma_pagamento'] .'</td>';
+						echo '<td>'. $pedidos['prazo_entrega'] .'</td>';
+						echo '<td>'. $pedidos['prazo_pagamento'] .'</td>';
+						echo '<td>'. $pedidos['status'] .'</td>';
+						echo '</tr>';
+					}
+					
 				?>
 			</table>
-		</section>
-	</fieldset>
-</section>
 
-<section class="coluna-Fornecedor coluna-esquerda">
-	<fieldset>		
-		<legend>Cotações</legend>
-		<section class="tabela_fornecedores">
-			<table id="tbl_fornecedores" >
-				<thead>
-					<th>Data Inicial</th>
-					<th>Data Final</th>				
-					<th>Prazo Entrega</th>
-					<th>Prazo Pagamento</th>	
-					<th>Status</th>					
-				</thead>
-				
-				<?php 
-					/*
-						foreach($comoperacao['Parceirodenegocio'] as $parceiro){
-							echo '<tr><td>'. $parceiro['nome'] .'</td>';
-							echo '<td>'. $parceiro['cpf_cnpj'] .'</td></tr>';
-						}
-					*/
-				?>
-						
-			</table>
-		</section>
-	</fieldset>
-</section>
 
-<!--
+
 <pre>
 <?php
-	print_r($operacoes);
+	//print_r($parceirodenegocio['Comoperacao']);
 ?>
 </pre>
--->
+

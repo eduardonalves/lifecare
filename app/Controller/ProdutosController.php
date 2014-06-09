@@ -394,6 +394,13 @@ class ProdutosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}
+		
+		
 		if (!$this->Produto->exists($id)) {
 			throw new NotFoundException(__('Produto Inválido'), 'default', array('class' => 'error-flash'));
 		}
@@ -534,7 +541,7 @@ class ProdutosController extends AppController {
 		
 
 		
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos'));
+		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
 		
 		//$this->set(compact('categorias', 'tributos'));
 	}

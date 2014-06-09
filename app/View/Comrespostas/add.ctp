@@ -26,7 +26,8 @@
 ?>
 
 <header>
-	<h1 class="menuOption23">Resposta</h1>
+	<?php echo $this->Html->image('emitir-title.png', array('id' => 'cadastrar-titulo', 'alt' => 'Responder Cotação', 'title' => 'Responder Cotação')); ?>
+	<h1 class="menuOption23">Resposta de Cotação</h1>
 </header>
 
 <section>
@@ -118,7 +119,7 @@
 		<thead>
 			<td>Nome do Produto</td>
 			<td>Obs. Pedido</td>
-			<td>Obs. Resposta</td>
+			<td>Obs. Item</td>
 			<td>Fabricante</td>
 			<td>Quantidade</td>
 			<td>Unidade</td>
