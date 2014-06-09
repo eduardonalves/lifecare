@@ -152,10 +152,10 @@
 			$(".autocompleteFornecedor").show();
 			$("#tblPedido").css('margin-top','25px');
 			in_fornecedor = 0;
-			
+			//alert('aqui é o ultimo '+ in_fornecedor);
+		}else{
+			in_fornecedor = in_fornecedor - 1;
 		}
-		
-		in_fornecedor = in_fornecedor - 1;
 		 
 	});
 	
@@ -188,7 +188,7 @@
 
 /******** ComoperacaoAddForm   ************/
 	$('#CotacaoAddForm, #PedidoAddForm').submit(function(){
-		
+		alert(in_fornecedor);
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			return false;
