@@ -67,7 +67,9 @@
 				<!------------------ Dados da Operação ------------------>
 				<section id="filtro-operacao" class="coluna-esquerda">
 					<div class="boxParceiro">
-						<span id="titulo">Dados da Operação</span>
+						<?php 
+							echo $this->Form->input('', array('label' =>'Dados do Operação','type'=>'checkbox', 'id' => 'checkop' , 'value' => 'operacoes'));
+						?>
 					</div>
 
 					<?php

@@ -220,26 +220,30 @@ $(document).ready(function(){
 		return get;
 	}
 
-	function TrocaConsulta(){
+	function TrocaConsulta(param){
 		var opConsulta = "";
 		
-		if($("#checkfor").prop("checked")){
-			opConsulta = opConsulta.concat($("#checkfor").val());
+		if(param == 'op'){
+			opConsulta = $("#checkop").val();
 		}
 		
-		if($("#checkproduto").prop("checked")){
-			opConsulta = opConsulta.concat($("#checkproduto").val());
+		else if(param == 'prod'){
+			opConsulta = $("#checkproduto").val();
+		}
+		
+		else if(param == 'for'){
+			opConsulta = $("#checkfor").val();
 		}
 
         switch(opConsulta){
-            case('respostas'):
-				window.open(urlPadrao+"&parametro=respostas"+limit,"_self");
-                break;
             case('produtos'):
 				window.open(urlPadrao+"&parametro=produtos"+limit,"_self");
                 break;
-            case('respostasprodutos'):
-					window.open(urlPadrao+"&parametro=respostasprodutos"+limit,"_self");
+            case('fornecedores'):
+				window.open(urlPadrao+"&parametro=fornecedores"+limit,"_self");
+                break;
+            case('operacoes'):
+					window.open(urlPadrao+"&parametro=operacoes"+limit,"_self");
                 break;
             case (''):
                 window.open(urlPadrao+"&parametro=operacoes"+limit,"_self");
@@ -256,56 +260,29 @@ $(document).ready(function(){
 	if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }
 
 	if(parametro == 'operacoes'){
-
-		$("#filtro-produto").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		
-		$(".informacoesProduto input").prop('disabled', true);
-		$(".informacoesProduto  select").prop('disabled', true);
-		
+		$("#checkop").prop('checked', true);
 		$("#checkproduto").prop('checked', false);
-		$('#filtro-produto').click(false);
-		
-		
-		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		
-		$("#filterStatusParceiro").prop('disabled', true);
-		$("#filterNomeParceiro").prop('disabled', true);
-		
-		$("#checkproduto").prop('checked', false);
-		$('#filtro-produto').click(false);
-
-		$("#filtro-produto").mouseenter(function() {
-			$('#msgFiltroProduto').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgFiltroProduto').css('display','none');
-		});
-		
-		$("#filtro-parceiro").mouseenter(function() {
-			$('#msgFiltroParceiro').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgFiltroParceiro').css('display','none');
-		});
-		
+		$("#checkparceiro").prop('checked', false);
 	}else if(parametro == 'produtos'){
 		$("#checkproduto").attr('checked', true);
-		$(".informacoesProduto input, select").prop('disabled',false);		
-		
+		$("#checkop").attr('checked', false);
+		$("#checkfor").attr('checked', false);
 	}else if(parametro == 'fornecedores'){
 		$("#checkfor").attr('checked', true);
 		$("#checkproduto").attr('checked', false);
-		
-	}else if(parametro == 'produtosfornecedores'){
-		$("#checkproduto").attr('checked', true);
-		$("#checkfor").attr('checked', true);
+		$("#checkop").attr('checked', false);
 	}
-	
 
 	$('#checkproduto').on('click', function(){
-		TrocaConsulta();
+		TrocaConsulta('prod');
 	});
 	
 	$('#checkfor').on('click', function(){
-		TrocaConsulta();
+		TrocaConsulta('for');
+	});
+	
+	$('#checkop').on('click', function(){
+		TrocaConsulta('op');
 	});
 	
 /***************************Checkboxes COTACAO E PEDIDO***********/
