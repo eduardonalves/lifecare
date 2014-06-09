@@ -140,9 +140,14 @@ class PedidosController extends ComoperacaosController {
 					$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$id]['produto_id'])));
 					$ultimoPedido['Comitensdaoperacao'][$id]['produtoNome'] = $produto['Produto']['nome']; 	
 					//Relacionamos fornecedores a produtos
-					$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$id]['produto_id']);
-					$this->ProdutosParceirodenegocio->create();
-					$this->ProdutosParceirodenegocio->save($upProdFornec);
+					
+					$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$id]['produto_id']))));
+					if(!empty($inter)){
+						$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$id]['produto_id']);
+						$this->ProdutosParceirodenegocio->create();
+						$this->ProdutosParceirodenegocio->save($upProdFornec);
+					}
+					
 					
 				}
 				
