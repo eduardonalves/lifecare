@@ -171,3 +171,7 @@ textarea{
 .picklist input{
 	padding-bottom:7px;
 }
+
+.picklist .container select{
+	height:auto !important;
+}
