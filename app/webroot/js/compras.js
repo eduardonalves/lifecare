@@ -188,7 +188,7 @@
 
 /******** ComoperacaoAddForm   ************/
 	$('#CotacaoAddForm, #PedidoAddForm').submit(function(){
-		alert(in_fornecedor);
+		
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			return false;
