@@ -118,6 +118,20 @@ class Produto extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
+		),
+		
+		'Parceirodenegocio' => array(
+			'className' => 'Parceirodenegocio',
+			'joinTable' => 'produtos_parceirodenegocios',
+			'foreignKey' => 'produto_id',
+			'associationForeignKey' => 'parceirodenegocio_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
 		)
 
 	);
@@ -145,6 +159,17 @@ class Produto extends AppModel {
 	    'className'  => 'Categoria',
 	    'foreignKey' => false,
 	    'conditions' => '_Categoria.id = _CategoriasProduto.categoria_id',
+	    'fields'	 => 'id'
+	  ),
+	   '_ProdutosParceirodenegocio' => array(
+	    'className'  => 'ProdutosParceirodenegocio',
+	    'foreignKey' => 'produto_id',
+	    'fields'     => 'id'	
+	  ),
+	  '_Parceirodenegocio' => array(
+	    'className'  => 'Parceirodenegocio',
+	    'foreignKey' => false,
+	    'conditions' => '_Parceirodenegocio.id = _ProdutosParceirodenegocio.parceirodenegocio_id',
 	    'fields'	 => 'id'
 	  ),
 	  
