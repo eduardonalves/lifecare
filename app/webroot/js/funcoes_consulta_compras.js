@@ -223,8 +223,8 @@ $(document).ready(function(){
 	function TrocaConsulta(){
 		var opConsulta = "";
 		
-		if($("#checkresposta").prop("checked")){
-			opConsulta = opConsulta.concat($("#checkresposta").val());
+		if($("#checkfor").prop("checked")){
+			opConsulta = opConsulta.concat($("#checkfor").val());
 		}
 		
 		if($("#checkproduto").prop("checked")){
@@ -264,6 +264,15 @@ $(document).ready(function(){
 		
 		$("#checkproduto").prop('checked', false);
 		$('#filtro-produto').click(false);
+		
+		
+		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		
+		$("#filterStatusParceiro").prop('disabled', true);
+		$("#filterNomeParceiro").prop('disabled', true);
+		
+		$("#checkproduto").prop('checked', false);
+		$('#filtro-produto').click(false);
 
 		$("#filtro-produto").mouseenter(function() {
 			$('#msgFiltroProduto').css('display','inherit');
@@ -271,18 +280,31 @@ $(document).ready(function(){
 			$('#msgFiltroProduto').css('display','none');
 		});
 		
+		$("#filtro-parceiro").mouseenter(function() {
+			$('#msgFiltroParceiro').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroParceiro').css('display','none');
+		});
+		
 	}else if(parametro == 'produtos'){
 		$("#checkproduto").attr('checked', true);
-		
 		$(".informacoesProduto input, select").prop('disabled',false);		
 		
-	}else if(parametro == 'respostasprodutos'){
+	}else if(parametro == 'fornecedores'){
+		$("#checkfor").attr('checked', true);
+		$("#checkproduto").attr('checked', false);
+		
+	}else if(parametro == 'produtosfornecedores'){
 		$("#checkproduto").attr('checked', true);
-		$("#checkresposta").attr('checked', true);
+		$("#checkfor").attr('checked', true);
 	}
 	
 
 	$('#checkproduto').on('click', function(){
+		TrocaConsulta();
+	});
+	
+	$('#checkfor').on('click', function(){
 		TrocaConsulta();
 	});
 	

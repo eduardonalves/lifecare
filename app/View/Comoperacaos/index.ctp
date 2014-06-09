@@ -150,7 +150,9 @@
 				<!------------------ Filtro Do Fornecedor ------------------>
 				<section id="filtro-parceiro" class="coluna-direita">
 					<div class="boxParceiro">
-						<span id="titulo">Dados do Fornecedor</span>
+						<?php 
+							echo $this->Form->input('', array('label' =>'Dados do Fornecedor','type'=>'checkbox', 'id' => 'checkfor' , 'value' => 'fornecedores'));
+						?>
 					</div>
 					<div class="informacoesParceiro">
 						<?php
@@ -158,6 +160,7 @@
 							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
+					<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
 				<footer>
@@ -297,11 +300,3 @@
 		
 	});
 </script>
-
-
-<pre>
-<?php
-	//print_r($produtosDasRespostas);
-?>
-</pre>
-
