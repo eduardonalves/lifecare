@@ -34,35 +34,75 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
 			$this->layout = $telaLayout;
+			
+			if (!$this->Parceirodenegocio->exists($id)) {
+				throw new NotFoundException(__('Invalid parceirodenegocio'));
+			}
+			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
+			
+
+			$this->loadModel('Comoperacao');
+			$this->loadModel('Produto');
+			$this->loadModel('Comitensdaoperacao');
+			
+			$opercaoParceiro = $this->Comoperacao->find('all', array(
+			
+										'contain' => array(
+										  'ComoperacaosParceirodenegocio',
+										  '_Comoperacao'
+										),
+										'conditions' => array(
+										  '_Parceirodenegocio.id' => $id,
+										  'Comoperacao.tipo' => 'PEDIDO'
+										),
+										'limit'=>10,
+										'order'=>array('Comoperacao.valor'=>'ASC')
+									  )
+									);
+			$j=0;
+			foreach($opercaoParceiro as $j => $produtosList){
+				
+				//debug($opercaoParceiro[$j]);
+				$x=0;
+				foreach($opercaoParceiro[$j]['Comitensdaoperacao'] as $x => $itens){
+					$produtoIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_id'])));
+					$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome'] = $produtoIten['Produto']['nome'];
+					//debug($opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome']);
+				$x++;
+				}
+							
+				$j++;
+			}
+			
+			
+			//$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+			
+			$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+			$this->set(compact('telaLayout','telaAbas','opercaoParceiro','produto'));
+			
 		}else{
 			$this->layout = 'contas';
-		}
-		if (!$this->Parceirodenegocio->exists($id)) {
-			throw new NotFoundException(__('Invalid parceirodenegocio'));
-		}
-		$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
-		
-		$this->loadModel('Conta');
-		$pac = 33;
-		$this->setStatusParceiro($pac);
-		
-		$this->loadModel('ComoperacaosParceirodenegocio');
-		$this->loadModel('Comoperacao');
-		
-		//$parceiroID = $this->ComoperacaosParceirodenegocio->find('all',array('conditions'=>array('ComoperacaosParceirodenegocio.parceirodenegocio_id'=>$id)));
-		
-		//debug($id);
-		
-		//$pedidos = $this->Parceirodenegocio->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO', 'and' => array('Comoperacao.parceirodenegocio_id'=>$id)),'limit'=>10,'order'=>array('Comoperacao.valor'=>'ASC')));
-	
-	
-		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'),'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
-		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
-		$this->set(compact('contasParceiros','telaLayout','telaAbas','parceiroID','pedidos'));
+			
+			if (!$this->Parceirodenegocio->exists($id)) {
+				throw new NotFoundException(__('Invalid parceirodenegocio'));
+			}
+			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
+			
+			$this->loadModel('Conta');
+			$pac = 33;
+			$this->setStatusParceiro($pac);
+			
+			$this->loadModel('ComoperacaosParceirodenegocio');
+			
+			$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'),'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
+			$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+			$this->set(compact('contasParceiros','telaLayout','telaAbas','opercaoParceiro'));
+		}		
 	}
 
 
@@ -263,6 +303,47 @@ class ParceirodenegociosController extends AppController {
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
 			$this->layout = $telaLayout;
+			
+			if (!$this->Parceirodenegocio->exists($id)) {
+				throw new NotFoundException(__('Invalid parceirodenegocio'));
+			}
+			$options = array('conditions' => array('Parceirodenegocio.' . $this->Parceirodenegocio->primaryKey => $id));
+			
+			$this->loadModel('Comoperacao');
+			$this->loadModel('Produto');
+			$this->loadModel('Comitensdaoperacao');
+			
+			$opercaoParceiro = $this->Comoperacao->find('all', array(
+			
+										'contain' => array(
+										  'ComoperacaosParceirodenegocio',
+										  '_Comoperacao'
+										),
+										'conditions' => array(
+										  '_Parceirodenegocio.id' => $id,
+										  'Comoperacao.tipo' => 'PEDIDO'
+										),
+										'limit'=>10,
+										'order'=>array('Comoperacao.valor'=>'ASC')
+									  )
+									);
+			$j=0;
+			foreach($opercaoParceiro as $j => $produtosList){
+				
+				//debug($opercaoParceiro[$j]);
+				$x=0;
+				foreach($opercaoParceiro[$j]['Comitensdaoperacao'] as $x => $itens){
+					$produtoIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_id'])));
+					$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome'] = $produtoIten['Produto']['nome'];
+					//debug($opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome']);
+				$x++;
+				}		
+				$j++;
+			}
+
+			$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
+			$this->set(compact('telaLayout','telaAbas','opercaoParceiro','produto'));
+			
 		}else{
 			$this->layout = 'contas';
 		}
