@@ -1,6 +1,7 @@
 <?php
 	$this->start('css');
 		echo $this->Html->css('parceiro');
+		echo $this->Html->css('compras');
 		echo $this->Html->css('table');
 	$this->end();
 
@@ -189,8 +190,9 @@
 		//if($parceirodenegocio['Parceirodenegocio']['tipo'] == "Cliente" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "CLIENTE" || $parceirodenegocio['Parceirodenegocio']['tipo'] == "cliente"){
 			echo $this->element('dados_creditoView');
 		//}
+	
+		echo $this->element('dados_comoperacao');
 	?>
-
 
 
 <footer>

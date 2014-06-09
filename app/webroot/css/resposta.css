@@ -1,9 +1,60 @@
-
 .labelTd .input label{
 	display: none;
 	
 }
 .labelTd .input input{
-	margin-left: 10%;
-	margin-right: 10%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+select{
+	height: 23px !important;
+}
+
+#validaPrazo{
+	left:250px;
+	top:-8px;
+	width:115px;
+}
+
+#validaForma{
+	left:250px;
+	top:20px;
+	width:115px;
+}
+
+#validaValor{
+	left:800px;
+	top:535px;
+	width:110px;
+}
+
+#validaValor:after{
+	top:35px;
+	left:50px;
+}
+
+#validaConfirm{
+	left:800px;
+	top:535px;
+	width:110px;
+}
+
+#validaConfirm:after{
+	top:35px;
+	left:50px;
+}
+
+img[id*='botaoRemover']{
+	cursor:pointer;
+}
+
+img[id*='botaoEdit']{
+	cursor:pointer;
+	display:none;
+}
+
+img[id*='botaoConfirm']{
+	cursor:pointer;
 }

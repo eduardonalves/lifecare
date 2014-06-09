@@ -6,6 +6,9 @@ $(document).ready(function(){
 	$('label[for="filterStatusOperacao"]').css('display','none');
 	$('#filterStatusOperacao').css('display','none');
 
+	$('label[for="filterFormaPagamento"]').css('display','none');
+	$('#filterFormaPagamento').css('display','none');
+
 	$('#bt-expandirOperacao').css('top','160px');
 	
 	$('#bt-expandirOperacao').click(function(){
@@ -15,6 +18,9 @@ $(document).ready(function(){
 			
 			$('label[for="filterStatusOperacao"]').css('display','initial');
 			$('#filterStatusOperacao').css('display','initial');
+			
+			$('label[for="filterFormaPagamento"]').css('display','initial');
+			$('#filterFormaPagamento').css('display','initial');
 			
 			$('#bt-expandirOperacao').css('top','180px');
 			
@@ -27,6 +33,9 @@ $(document).ready(function(){
 			$('label[for="filterStatusOperacao"]').css('display','none');
 			$('#filterStatusOperacao').css('display','none');
 				
+			$('label[for="filterFormaPagamento"]').css('display','none');
+			$('#filterFormaPagamento').css('display','none');
+				
 			$('#bt-expandirOperacao').css('top','160px');
 			
 			$('#bt-expandirOperacao').css('transform','initial');
@@ -35,49 +44,6 @@ $(document).ready(function(){
 		}
 	});
 	
-/*** EXPANDIR DADOS DA RESPOSTA ***************************/
-	var expandirResposta = false;
-	
-	$('label[for="filterNome"]').css('display','none');
-	$('.inputSearchNome .custom-combobox .custom-combobox-input').css('display','none');
-	
-	$('label[for="filterStatusParceiro"]').css('display','none');
-	$('#filterStatusParceiro').css('display','none');
-
-	$('#bt-expandirResposta').css('top','160px');
-	
-	$('#bt-expandirResposta').click(function(){
-		
-		if(!expandirResposta){
-			expandirResposta = true;
-			
-			$('label[for="filterNome"]').css('display','initial');
-			$('.inputSearchNome .custom-combobox .custom-combobox-input').css('display','initial');
-			
-			$('label[for="filterStatusParceiro"]').css('display','initial');
-			$('#filterStatusParceiro').css('display','initial');
-			
-			$('#bt-expandirResposta').css('top','190px');
-			
-			$('#bt-expandirResposta').css('transform','rotate(180deg)');
-			$('#bt-expandirResposta').css('-ms-transform','rotate(180deg)');
-			$('#bt-expandirResposta').css('-webkit-transform','rotate(180deg)');
-		}else{
-			expandirResposta = false;
-			
-			$('label[for="filterNome"]').css('display','none');
-			$('.inputSearchNome .custom-combobox .custom-combobox-input').css('display','none');
-			
-			$('label[for="filterStatusParceiro"]').css('display','none');
-			$('#filterStatusParceiro').css('display','none');
-				
-			$('#bt-expandirResposta').css('top','160px');
-			
-			$('#bt-expandirResposta').css('transform','initial');
-			$('#bt-expandirResposta').css('-ms-transform','initial');
-			$('#bt-expandirResposta').css('-webkit-transform','initial');
-		}
-	});
 
 /*** AJUSTAR CAMPOS AO CARREGAR PÁGINA ***************************/
 	$(".inputSearchNome .custom-combobox .custom-combobox-input").addClass("tamanho-medio");
@@ -290,64 +256,32 @@ $(document).ready(function(){
 	if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }
 
 	if(parametro == 'operacoes'){
-		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
 
-		$("#filtro-parceiro input[type=text]").prop('disabled', true);
+		$("#filtro-produto").css({"background-color":"#ebebeb","border-color":"#ccc"});
 		
-		$("#filtro-respostas").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		$(".informacoesProduto input").prop('disabled', true);
+		$(".informacoesProduto  select").prop('disabled', true);
 		
-		$("#filterFormaPagamentoResposta").prop('disabled', true);
-		$("#filterStatusResposta").prop('disabled', true);
-		$("#filterStatusParceiro").prop('disabled', true);
-		$("#filterCategoria").prop('disabled', true);
-		$("#filterProdutoCategoria").prop('disabled', true);
-		$("#filterProdutoNivel").prop('disabled', true);
+		$("#checkproduto").prop('checked', false);
+		$('#filtro-produto').click(false);
 
-		$("#checkresposta").prop('checked', false);
-
-		$("#filtro-parceiro").mouseenter(function() {
+		$("#filtro-produto").mouseenter(function() {
 			$('#msgFiltroProduto').css('display','inherit');
 		}).mouseleave(function() {
 			$('#msgFiltroProduto').css('display','none');
 		});
-
-		$('#filtro-parceiro').click(false);
-		$('#filtro-respostas').click(false);
-
-		$("#filtro-respostas").mouseenter(function() {
-			$('#msgFiltroResposta').css('display','inherit');
-		}).mouseleave(function() {
-			$('#msgFiltroResposta').css('display','none');
-		});
 		
-	}else if(parametro == 'respostas'){
-		$("#checkresposta").attr('checked', true);
-		
-		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		$("#filtro-parceiro input[type=text]").prop('disabled', true);
-		$('#filtro-parceiro').click(false);
-		
-		$("#filterCategoria").prop('disabled', true);
-		$("#filterProdutoCategoria").prop('disabled', true);
-		$("#filterProdutoNivel").prop('disabled', true);
 	}else if(parametro == 'produtos'){
 		$("#checkproduto").attr('checked', true);
 		
-		$("#filtro-respostas").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		$('#filtro-respostas').click(false);
+		$(".informacoesProduto input, select").prop('disabled',false);		
 		
-		$("#filterFormaPagamentoResposta").prop('disabled', true);
-		$("#filterStatusResposta").prop('disabled', true);
-		$("#filterStatusParceiro").prop('disabled', true);
 	}else if(parametro == 'respostasprodutos'){
 		$("#checkproduto").attr('checked', true);
 		$("#checkresposta").attr('checked', true);
 	}
 	
-	$('#checkresposta').on('click', function(){
-		TrocaConsulta();
-	});
-	
+
 	$('#checkproduto').on('click', function(){
 		TrocaConsulta();
 	});
@@ -361,10 +295,10 @@ var valorAux=$('#filterTipoOperacao').val();
 
 	if(valorEntrada == 'COTACAO'){
 		$('#QuicklinkNomeCOTACAO').attr('checked', true);
-	}
-	
-	else if(valorEntrada == 'PEDIDO'){
+	}else if(valorEntrada == 'PEDIDO'){
 		$('#QuicklinkNomePEDIDO').attr('checked', true);
+	}else if(valorEntrada == 'RESPONDIDO'){
+		$('#QuicklinkNomeRESPONDIDO').attr('checked', true);
 	}
 	
 	if(valorSaida2 != ''){
@@ -379,7 +313,7 @@ var valorAux=$('#filterTipoOperacao').val();
 			}else{
 				$('#filterTipoOperacao').val('COTACAO');
 			}
-		}else{
+		}else if($('#QuicklinkNomePEDIDO').is(':checked')){
 			if($('#QuicklinkNomePEDIDO').is(':checked')){
 				$('#filterTipoOperacao').val('PEDIDO');
 			}else{
@@ -388,134 +322,22 @@ var valorAux=$('#filterTipoOperacao').val();
 		}
 	});
 
-/**                                              **/
-
-
-
-
-
-/**        Checkboxes Troca Consulta (PROGRAMAR)        **/
-//~ 
-//~ function TrocaConsulta(){
-		//~ var opConsulta = "";
-//~ 
-		//~ if($("#checklote").prop("checked")){
-			//~ opConsulta = opConsulta.concat($("#checklote").val());
-		//~ }
-//~ 
-		//~ if($("#checkes").prop("checked")){
-			//~ opConsulta = opConsulta.concat($("#checkes").val());
-		//~ }
-//~ 
-        //~ switch(opConsulta){
-            //~ case ('lote'):
-				//~ window.open(urlPadrao+"&parametro=lotes"+limit,"_self");
-                //~ break;
-            //~ case ('es'):
-				//~ window.open(urlPadrao+"&parametro=itensdoproduto"+limit,"_self");
-                //~ break;
-            //~ case ('lotees'):
-				//~ window.open(urlPadrao+"&parametro=itensdolote"+limit,"_self");
-                //~ break;
-            //~ case (''):
-                //~ window.open(urlPadrao+"&parametro=produtos"+limit,"_self");
-                //~ break;
-        //~ }
-	//~ };
-//~ 
-	//~ var get = get();
-	//~ var parametro = get.parametro;
-//~ 
-	//~ var urlPadrao = urlInicio+"notas/index/?";
-	//~ var limit = get.limit;
-//~ 
-	//~ if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }
-//~ 
-	//~ if(parametro == 'produtos'){
-		//~ $("#filtro-lote").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		//~ $("#filtro-es").css({"background-color":"#ebebeb","border-color":"#ccc"});
-//~ 
-		//~ $("#filtro-lote input[type=text]").prop('disabled', true);
-		//~ $("#filterStatusLote").prop('disabled', true);
-//~ 
-		//~ $("#filtro-es input[type=text]").prop('disabled', true);
-		//~ $(".operacao input[type=checkbox]").prop('disabled', true);
-//~ 
-		//~ $("#checklote").prop('checked', false);
-		//~ $("#checkes").prop('checked', false);
-//~ 
-		//~ $('#filtro-lote #bt-configuracao').click(false);
-		//~ $('#filtro-es #bt-configuracao').click(false);
-//~ 
-		//~ $("#filtro-lote").mouseenter(function() {
-			//~ $('#msgFiltroLote').css('display','inherit');
-		//~ }).mouseleave(function() {
-			//~ $('#msgFiltroLote').css('display','none');
-		//~ });
-//~ 
-		//~ $("#filtro-es").mouseenter(function() {
-			//~ $('#msgFiltroES').css('display','inherit');
-		//~ }).mouseleave(function() {
-			//~ $('#msgFiltroES').css('display','none');
-		//~ });
-	//~ }else if(parametro == 'itensdoproduto'){
-		//~ $("#checkes").attr('checked', true);
-		//~ $("#filtro-lote").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		//~ $("#filterProdutoCategoria").css('display','none');
-		//~ $("label[for='filterProdutoCategoria']").css('display','none');
-		//~ $("#ConfigprodutoCategoria").css('display','none');
-		//~ $("label[for='ConfigprodutoCategoria']").css('display','none');
-//~ 
-		//~ $("#filtro-lote input[type=text]").prop('disabled', true);
-		//~ $("#filterStatusLote").prop('disabled', true);
-//~ 
-		//~ $("#checklote").prop('checked', false);
-//~ 
-		//~ $('#filtro-lote #bt-configuracao').click(false);
-//~ 
-		//~ $("#filtro-lote").mouseenter(function() {
-			//~ $('#msgFiltroLote').css('display','inherit');
-		//~ }).mouseleave(function() {
-			//~ $('#msgFiltroLote').css('display','none');
-		//~ });
-	//~ }else if(parametro == 'lotes'){
-		//~ $("#checklote").attr('checked', true);
-		//~ $("#filtro-es").css({"background-color":"#ebebeb","border-color":"#ccc"});
-		//~ $("#filterProdutoCategoria").css('display','none');
-		//~ $("label[for='filterProdutoCategoria']").css('display','none');
-		//~ $("#ConfigprodutoCategoria").css('display','none');
-		//~ $("label[for='ConfigprodutoCategoria']").css('display','none');
-//~ 
-		//~ $("#filtro-es input[type='text']").prop('disabled', true);
-		//~ $(".operacao input[type='checkbox']").prop('disabled', true);
-//~ 
-		//~ $("#checkes").prop('checked', false);
-//~ 
-		//~ $('#filtro-es #bt-configuracao').click(false);
-//~ 
-		//~ $("#filtro-es").mouseenter(function() {
-			//~ $('#msgFiltroES').css('display','inherit');
-		//~ }).mouseleave(function() {
-			//~ $('#msgFiltroES').css('display','none');
-		//~ });
-	//~ }else if(parametro == 'itensdolote'){
-		//~ $("#checklote").attr('checked', true);
-		//~ $("#checkes").attr('checked', true);
-		//~ $("#filterProdutoCategoria").css('display','none');
-		//~ $("label[for='filterProdutoCategoria']").css('display','none');
-		//~ $("#filtro-lote").css({"background-color":"#FFFAE7","border-color":"#FFD42A"});
-		//~ $("#ConfigprodutoCategoria").css('display','none');
-		//~ $("label[for='ConfigprodutoCategoria']").css('display','none');
-		//~ $("#filtro-es").css({"background-color":"#C9F0E8","border-color":"#37C8AB"});
-	//~ }
-//~ 
-	//~ $('#checklote').on('click', function(){
-		//~ TrocaConsulta();
-	//~ });
-//~ 
-	//~ $('#checkes').on('click', function(){
-		//~ TrocaConsulta();
-	//~ });
+	$("#QuicklinkNomeRESPONDIDO").bind('click', function(){
+		if($('#QuicklinkNomeRESPONDIDO').is(':checked')){
+			$("#QuicklinkNomeCOTACAO").prop('disabled', true);
+			$("#QuicklinkNomePEDIDO").prop('disabled', true);
+			$("#dataEntrega input").prop('disabled', true);
+			$('#QuicklinkNomePEDIDO').attr('checked', false);
+			$('#QuicklinkNomeCOTACAO').attr('checked', false);
+			$('#filterTipoOperacao').val('RESPONDIDO');
+			$('#dataEntrega').show();
+		}else{
+			$("#QuicklinkNomeCOTACAO").prop('disabled', false);
+			$("#QuicklinkNomePEDIDO").prop('disabled', false);
+			$("#dataEntrega input").prop('disabled', false);
+			$('#dataEntrega').hide();
+		}
+	});
 
 /*** SALVAR QUICKLINK *************************************************/
     $("#bt-salvar-quicklink").click(function(event){

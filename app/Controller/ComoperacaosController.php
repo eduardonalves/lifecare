@@ -1,6 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('CakePdf', 'CakePdf.Pdf');
 /**
  * Comoperacaos Controller
  *
@@ -15,7 +16,7 @@ class ComoperacaosController extends AppController {
  * @var array
  */
 
-	public $components = array('Paginator','lifecareDataFuncs','Paginator');
+	public $components = array('Paginator','lifecareDataFuncs','Paginator','RequestHandler');
 	
 	public $tiposUnidades;
 
@@ -82,7 +83,7 @@ class ComoperacaosController extends AppController {
 	public function index() {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
-		$comoperacaos=$this->Comoperacao->find('all', array('recursive' => 0));
+		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
 		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
 		
 		//$this->set('comoperacaos', $comoperacaos);
@@ -165,7 +166,7 @@ class ComoperacaosController extends AppController {
 	            'status_operacao' => array(
 	                'Comoperacao.status' => array(
 	                    'operator' => 'LIKE',
-	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
+	               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
 					)
 	            ),
 	            'forma_pagamento' => array(
@@ -199,18 +200,7 @@ class ComoperacaosController extends AppController {
 	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
 					)
 	            ),
-	            'status_resposta' => array(
-	                'Comresposta.status' => array(
-	                    'operator' => 'LIKE',
-	               		 'select' => array('' => '','AMARELO' => 'AMARELO', 'CANCELADO' => 'CANCELADO', 'CINZA' => 'CINZA','VERDE' => 'VERDE','VERMELHO' => 'VERMELHO')
-					)
-	            ),
-		        'obs' => array(
-	                'Comresposta.obs' => array(
-	                    'operator' => 'LIKE'
-	                )
-	            ),
-	            
+	           
 	            //Filtros PARCEIRO DE NEGÓCIOS em RESPOSTA
 	            
 	            'nome' => array(
@@ -252,12 +242,19 @@ class ComoperacaosController extends AppController {
 						'select' => array(''=>'', $listaCategorias)
 	                )
 	            ),
+	            
+	            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
+	           'produtoRespNome' => array(
+					'Produto.nome' => array(
+						'operator' => '='
+					)
+	           ),
 	        )
 		);
 		
 		if($_GET['parametro'] == 'operacoes'){
 			
-		$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.id ASC'));
+		$comoperacaos = $this->Comoperacao->find('all');
 					$this->Paginator->settings = array(
 						'Comoperacao' => array(
 							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
@@ -279,49 +276,49 @@ class ComoperacaosController extends AppController {
 						}
 						
 					$this->set(compact('userid','comoperacaos', 'cntOperacoes'));
-				}
-		else if($_GET['parametro'] == 'respostas'){
+			
+				}else if($_GET['parametro'] == 'produtos'){
 		
-		$this->loadModel('Comresposta');
-		
-		$comrespostas = $this->Comresposta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'), 'order' => 'Comresposta.id ASC'));
-					$this->Paginator->settings = array(
-						'Comresposta' => array(
-							'fields' => array('DISTINCT Comresposta.id', 'Comresposta.*'),
-							'fields_toCount' => 'DISTINCT Comresposta.id',
-							'limit' => $this->request['url']['limit'],
-							'order' => 'Comresposta.id ASC',
-							'conditions' => $this->Filter->getConditions()
-						)
-					);
-					
-					$cntRespostas = count($comrespostas);
-					$comrespostas = $this->Paginator->paginate('Comresposta');
-					
-					foreach($comrespostas as $comresposta) {
-						$this->lifecareDataFuncs->formatDateToView($comresposta['Comresposta']['data_resposta']);
-						}
+					$this->loadModel('Comitensdaoperacao');
 						
-					$this->set(compact('userid','comrespostas', 'cntRespostas'));
-			}
-		else if($_GET['parametro'] == 'produtos'){
-		
-			$this->loadModel('Comitensdaoperacao');
-			
-			$comitensdaoperacaos = $this->Comitensdaoperacao->find('all',array('conditions'=>$this->Filter->getConditions()));
-			$this->Paginator->settings = array(
-				'Comitensdaoperacao' => array(
-					'limit' => $this->request['url']['limit'],
-					'order' => 'Produto.nome ASC',
-					'conditions' => $this->Filter->getConditions()
-				)
-			);
-			
-			$cntComitensdaoperacaos = count($comitensdaoperacaos);
-			$comitensdaoperacaos = $this->Paginator->paginate('Comitensdaoperacao');
+					$comitensdaoperacaos = $this->Comitensdaoperacao->find('all');
+						$this->Paginator->settings = array(
+							'Comitensdaoperacao' => array(
+								'limit' => $this->request['url']['limit'],
+								'order' => 'Produto.nome ASC',
+								'conditions' => $this->Filter->getConditions()
+							)
+						);
+						
+						$cntComitensdaoperacaos = count($comitensdaoperacaos);
+						$comitensdaoperacaos = $this->Paginator->paginate('Comitensdaoperacao');
 
-			$this->set(compact('comitensdaoperacaos', 'cntComitensdaoperacaos'));
-		}
+						$this->set(compact('comitensdaoperacaos', 'cntComitensdaoperacaos'));
+				
+				}elseif($_GET['parametro'] == 'produtosrespostas'){
+					
+					$this->loadModel('Comitensreposta');
+						
+					$comitensrepostas = $this->Comitensreposta->find('all');
+						$this->Paginator->settings = array(
+							'Comitensreposta' => array(
+								'limit' => $this->request['url']['limit'],
+								'order' => 'Produto.nome ASC',
+								'conditions' => $this->Filter->getConditions()
+							)
+						);
+						
+						$cntComitensrepostas = count($comitensrepostas);
+						$comitensrepostas = $this->Paginator->paginate('Comitensreposta');
+
+						$this->set(compact('comitensrepostas', 'cntComitensrepostas'));
+						
+						
+					
+				}
+					
+					
+		
 		/**QuickLink**/
 		$quicklinksList = array();
 		$this->loadModel('Quicklink');
@@ -369,6 +366,16 @@ class ComoperacaosController extends AppController {
 		
 	}
 	
+	
+	
+	public function pdf_view($id = null) {
+		$this->Comoperacao->id = $id;
+        if (!$this->Comoperacao->exists()) {
+            throw new NotFoundException(__('Invalid Comoperacao'));
+        }
+        $this->set('comoperacao', $this->Comoperacao->read(null, $id));
+	}
+	
 
 public $uses = array();
 
@@ -398,6 +405,48 @@ public $uses = array();
  *
  * @return void
  */
+ 
+	   /* function EmailSend($data){
+ 
+			 //test file for check attachment 
+			 $file_name= APP."webroot/img/cake.icon.png";
+			 
+			 $this->set('extraparams', $data);
+			 $this->pdfConfig = array(
+				 'orientation' => 'portrait',
+				 'filename' => 'Invoice_'. 3
+			 );
+			 
+			 $CakePdf = new CakePdf();
+			 $CakePdf->template('confirmpdf', 'default');
+			 //get the pdf string returned
+			 $pdf = $CakePdf->output();
+			 //or write it to file directly
+			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf');
+			 $pdf = APP . 'webroot'. DS .'files' . DS . 'userdetail.pdf';
+			 
+			 //Writing external parameters in session
+			 $this->Session->write("extraparams",$data);
+			  
+			 
+			 $this->Email->from    = 'Admin<eduardonalves@gmail.com>';
+			 //$this->Email->cc    = 'Ashfaq<ashfaqzp@gmail.com>';
+			 $this->Email->to      = $data['Participant']['email'];
+			 $this->Email->subject = 'Pedido de compras';
+			 $this->Email->attachments = array($pdf);
+			 $this->Email->template = 'confirm';
+			 $this->Email->sendAs = 'html';
+			 
+			 if($this->Email->send()){
+				return true;
+			 }else
+				 return false;
+			 $this->set('extraparams', $data);
+				
+		}*/
+
+/*****************************************************/ 
+ 
 	public function add(){
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');

@@ -50,9 +50,12 @@ class ParceirodenegociosController extends AppController {
 		$pac =33;
 		$this->setStatusParceiro($pac);
 		
+		$this->loadModel('ComoperacaosParceirodenegocio');
+		$operacoes = $this->ComoperacaosParceirodenegocio->find('all',array('conditions'=>array('ComoperacaosParceirodenegocio.parceirodenegocio_id'=>$id),'recursive'=>2));
+				
 		$contasParceiros= $this->Conta->find('all', array('conditions' => array('Conta.parceirodenegocio_id' => $id, 'Conta.status NOT LIKE' => 'CINZA','Conta.status NOT LIKE' => 'CANCELADO'),'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'limit'=> 5, 'order' => array('Conta.data_emissao DESC')));
 		$this->set('parceirodenegocio', $this->Parceirodenegocio->find('first', $options));
-		$this->set(compact('contasParceiros','telaLayout','telaAbas'));
+		$this->set(compact('contasParceiros','telaLayout','telaAbas','operacoes'));
 	}
 
 
