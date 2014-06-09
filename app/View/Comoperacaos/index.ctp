@@ -211,7 +211,7 @@
 							if($comoperacao['Comoperacao']['tipo'] == 'PEDIDO'){
 								echo "<hr />";
 								
-								echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio','url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'])));
+								echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio','url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'],"layout"=>"compras","abas"=>"41")));
 							}
 						?>
 					</td>
