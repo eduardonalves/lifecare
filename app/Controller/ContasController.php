@@ -860,7 +860,7 @@ class ContasController extends AppController {
 					$dataIncio = date("Y-m-01");
 					$dataTermino= date("Y-m-t");
 					$this->request->data['filter']['data_vencimento']=$dataIncio;
-					$this->request->data['filter']['data_vencimento-between']=$dataTermino;	
+					$this->request->data['filter']['data_vencimento-between']=$dataTermino;
 					
 				}
 				$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.data_vencimento ASC'));
