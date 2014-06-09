@@ -19,20 +19,3 @@
 		</p>
 	</header>
 </div>
-
-
-<pre>
-	<?php 
-		/*
-			print_r($_SESSION['extraparams']['Mensagem']);
-		
-		[codigo] => 2014060934310681
-		[url] => http://localhost/lifecare/Comrespostas/logincotacao
-		[empresa] => Nome da empreas lifecare
-		[logo] => logo da empreas lifecare
-		[endereco] => Endereco da empreas
-		[telefone] => Telefone da empresa 
-		[site] => Site da empresa da empresa 
-		*/
-	?>
-</pre>
