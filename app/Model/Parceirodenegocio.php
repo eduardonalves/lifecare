@@ -273,6 +273,18 @@ class Parceirodenegocio extends AppModel {
 			'foreignKey' => false,
 			'conditions' => '_Produto.id = _ProdutosParceirodenegocio.produto_id',
 			'fields'	 => 'id'
+		  ),  
+		  '_ComoperacaosParceirodenegocio' => array(
+			'className'  => 'ComoperacaosParceirodenegocio',
+			'foreignKey' => 'comoperacao_id',
+			'fields'     => 'id'	
 		  ),
+		  '_Comoperacao' => array(
+			'className'  => 'Comoperacao',
+			'foreignKey' => false,
+			'conditions' => '_Comoperacao.id = _ComoperacaosParceirodenegocio.comoperacao_id',
+			'fields'	 => 'id'
+		  ),
+
 		);
 }

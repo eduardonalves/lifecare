@@ -74,20 +74,56 @@ class Comoperacao extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	public $hasAndBelongsToMany = array(
-		'Parceirodenegocio' => array(
-			'className' => 'Parceirodenegocio',
-			'joinTable' => 'comoperacaos_parceirodenegocios',
-			'foreignKey' => 'comoperacao_id',
-			'associationForeignKey' => 'parceirodenegocio_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
+public $hasAndBelongsToMany = array(
+	'Parceirodenegocio' => array(
+		'className' => 'Parceirodenegocio',
+		'joinTable' => 'comoperacaos_parceirodenegocios',
+		'foreignKey' => 'comoperacao_id',
+		'associationForeignKey' => 'parceirodenegocio_id',
+		'unique' => 'keepExisting',
+		'conditions' => '',
+		'fields' => '',
+		'order' => '',
+		'limit' => '',
+		'offset' => '',
+		'finderQuery' => '',
+	)
+);
+
+var $hasOne = array(
+	'_ComoperacaosParceirodenegocio' => array(
+		'className'  => 'ComoperacaosParceirodenegocio',
+		'foreignKey' => 'comoperacao_id',
+		'fields'     => 'id'	
+	  ),
+	  '_Parceirodenegocio' => array(
+		'className'  => 'Parceirodenegocio',
+		'foreignKey' => false,
+		'conditions' => '_Parceirodenegocio.id = _ComoperacaosParceirodenegocio.parceirodenegocio_id',
+		'fields'	 => 'id'
+	  ),
 	);
+public function paginateCount($conditions = null, $recursive = 0,
+                                $extra = array()) {
+
+	if(isset($extra['fields_toCount']))
+	{
+
+	$fields = $extra['fields_toCount'];
+	$parameters = compact('conditions','fields');
 	
+	}else{
+
+	$parameters = compact('conditions');
+	}
+	
+
+	if ($recursive != $this->recursive) {
+		$parameters['recursive'] = $recursive;
+	}
+	$count = $this->find('count', array_merge($parameters, $extra));
+
+	return $count;
+
+}	
 }
