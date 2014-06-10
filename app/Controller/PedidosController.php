@@ -155,7 +155,7 @@ class PedidosController extends ComoperacaosController {
 				if(!empty($contato)){
 					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 					$this->Session->setFlash(__('The pedido has been saved.'));
-					return $this->redirect(array('action' => 'index'));	
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 				}
 				
 			}else{
@@ -286,4 +286,34 @@ class PedidosController extends ComoperacaosController {
                 }
 
         }
+	public function cancelarPedido($id = null) {
+		$this->request->onlyAllow('post', 'cancelarPedido');
+		if (!$this->Cotacao->exists()) {
+			throw new NotFoundException(__('Invalid Pedido'));
+		}
+		
+		$this->loadModel('Comtokencotacao');
+		$ultimaPedido= $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
+		
+		foreach($ultimaPedido['Parceirodenegocio'] as $fornecedor){
+			$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);	
+			$remetente="ti.dev@vento-consulting.com";
+			
+			$mensagem['corpo'] = "Informamos que o pedido de numero".$id."\n";
+			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
+			
+			if($contato['Contato']['email'] !=""){
+				$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+			}
+		}
+		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
+		$this->Pedido->save($upDatePedido);
+	}
 }

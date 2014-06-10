@@ -140,7 +140,38 @@ class CotacaosController extends ComoperacaosController {
             
 
         }
- 
+ 	
+	public function cancelarCotacao($id = null) {
+		$this->request->onlyAllow('post', 'descartarCotacao');
+		if (!$this->Cotacao->exists()) {
+			throw new NotFoundException(__('Invalid Cotacao'));
+		}
+		
+		$this->loadModel('Comtokencotacao');
+		$ultimaCotacao= $this->Cotacao->find('first',array('conditions' => array('Cotacao.id' => $id)));
+		$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.comoperacao_id' => $id)));
+		foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
+			$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);	
+			$remetente="ti.dev@vento-consulting.com";
+			
+			$mensagem['corpo'] = "Informamos que a cotação de numero".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
+			$mensagem['corpo'] +="Foi cancelada, por favor desconsidere esta solicitação de cotação"."\n";
+			
+			if($contato['Contato']['email'] !=""){
+				$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+			}
+		}
+		$upDateCotacao = array('id' => $id, 'status' => 'CANCELADO');
+		$this->Cotacao->save($upDateCotacao);
+	}
+	
 	public function add() {
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
