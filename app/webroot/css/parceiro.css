@@ -226,3 +226,39 @@ span[id$="Logradouro"]:after{
 [id*="Tipo"]:after{
     top:0px;
 }
+
+/*************  MODAL DE PRODUTO (MODULO COMPRAS)***********************/
+div[id*='myModal_add-view_operacoes'] {
+	width: 800px;
+	left: 45%;
+	min-height:400px;
+}
+
+div[id*='myModal_add-view_operacoes'] .modal-body {
+	min-height:400px;
+}
+div[id*='myModal_add-view_operacoes'] .cabecalho{
+	border-bottom: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -417,7 +417,6 @@ $(document).ready(function(){
 						?>
 
 					</section>
-
 					</fieldset>
 				</div>	
 			</div>
