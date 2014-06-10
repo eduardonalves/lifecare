@@ -241,23 +241,29 @@
 				<tr>
 					<th class="actions colunaParcela">Ações</th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('codigo','Código'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('categoria_id'); ?></th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('parceirodenegocio_id','Fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($produtos as $produto): ?>
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Comrespostas','action' => 'view', $produto['Produto']['id']))); 
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Produtos','action' => 'view', $produto['Produto']['id'], "layout"=>"compras","abas"=>"43"))); 
+							if(isset($produto['Parceirodenegocio'][0]['nome'])){
 							echo "<hr />";
-							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Produtos','action' => 'view', $produto['Produto']['id'],"layout"=>"compras","abas"=>"41")));
+							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $produto['Parceirodenegocio'][0]['id'],"layout"=>"compras","abas"=>"42")));
+							}
 						?>
 					</td>
 					
 					<td><?php echo $produto['Produto']['codigo'];?></td>
 					<td><?php echo $produto['Produto']['nome'];?></td>
-					<td><?php echo $produto['Produto']['categoria_id'];?></td>
+					<td><?php echo $produto['Produto']['descricao'];?></td>
+					<td><?php if(isset($produto['Categoria'][0]['nome'])) echo $produto['Categoria'][0]['nome'];?></td>
+					<td><?php if(isset($produto['Parceirodenegocio'][0]['nome'])) echo $produto['Parceirodenegocio'][0]['nome'];?></td>
 				
 				</tr>
 
@@ -270,18 +276,16 @@
 				?>
 				
 				<tr>
-					<th class="actions colunaParcela">Ações</th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('status'); ?></th>
+					<th class="actions colunaES">Ações</th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('nome','Nome'); ?></th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('status'); ?></th>
 				</tr>
 
 				<?php foreach ($parceirodenegocios as $parceirodenegocio): ?>
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id']))); 
-							echo "<hr />";
-							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41")));
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41"))); 
 						?>
 					</td>
 					
