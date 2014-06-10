@@ -35,46 +35,84 @@
 </header>
 
 <section> <!---section superior--->	
-	<header>Dados Gerias do Parceiro</header>
+	<header>Dados Gerais do Parceiro</header>
 	
-	<?php echo $this->Form->create('Parceirodenegocio'); ?>
-
 	<section class="coluna-esquerda">
 
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Classificação:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['tipo'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-		
-			echo $this->Form->input('tipo',array('value'=>h($parceirodenegocio['Parceirodenegocio']['tipo']),'label' => 'Classificação:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
-			
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
-				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-grande borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+		?>
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 1:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone1'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Fax:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['fax'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+			</div>
+		<?php
 			}			
-			
 		?>
 
 	</section>
 
 	<section class="coluna-central" >
 
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
-
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
-				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-grande borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-
+		?>
+			<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Email:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['email'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		<?php				
 			}
 		?>
 
 	</section>
 
 	<section class="coluna-direita" >
-
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-grande borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-grande borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
+		?>	
+			<div class="segmento-esquerdo">		
+			<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone3'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>			
+		<?php
 			}	
 		?>
 
@@ -94,39 +132,67 @@
 			<fieldset class="dadosRepetidos">
 				<legend>Endereço  <?php echo $z+1; ?></legend>
 			<section class="coluna-esquerda">
-
 				<?php	
 					echo $this->Form->input('Endereco.id', array('value'=>$endereco['id']));
-
-					echo $this->Form->input('Endereco.tipo',array('value' => h($endereco['tipo']),'label' => 'Tipo:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
-					echo $this->Form->input('Endereco.numero',array('value' => h($endereco['numero']),'label' => 'Número:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
-					echo $this->Form->input('Endereco.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-				
-				?>
+				?>				
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Tipo:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['tipo'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['numero'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['bairro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 
 			</section>
 		
 			<section class="coluna-central" >
-
-				<?php
-				
-					echo $this->Form->input('Endereco.cep', array('value' => h($endereco['cep']),'label'=>'CEP:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
-					echo $this->Form->input('Endereco.uf', array('value' => h($endereco['uf']),'label'=>'UF:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
-					echo $this->Form->input('Endereco.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-
-						?>
-
+				<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cep'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['uf'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['complemento'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 			</section>
 
 			<section class="coluna-direita" >
-
-				<?php
-					echo $this->Form->input('Endereco.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero' ));
-					echo $this->Form->input('Endereco.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade:', 'type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Endereco.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'textarea','class'=>'borderZero'));
-
-				?>
-
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['logradouro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cidade'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Ponto de Referência:',array('class'=>'titulo'));?></div>
+							<div class="linha2" style="margin-bottom:15px;"><?php echo $this->Html->Tag('p',$endereco['ponto_referencia'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 			</section>
 
 			</fieldset>
@@ -150,11 +216,11 @@
 		<div class="bloco-area">
 			
 			<section class="coluna-esquerda">
-
+				
 				<?php 
-					echo $this->Form->input('Dadosbancario.nome_banco',array('value'=>h($dadosbancario['nome_banco']),'label' => 'Nome do Banco:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Dadosbancario.numero_agencia',array('value'=>h($dadosbancario['numero_agencia']),'label' => 'Número da Agência:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande agencia borderZero'));
-					echo $this->Form->input('Dadosbancario.gerente',array('value'=>h($dadosbancario['gerente']),'label' => 'Gerente:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
+					echo $this->Form->input('Dadosbancario.nome_banco',array('value'=>h($dadosbancario['nome_banco']),'label' => 'Nome do Banco:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
+					echo $this->Form->input('Dadosbancario.numero_agencia',array('value'=>h($dadosbancario['numero_agencia']),'label' => 'Número da Agência:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio agencia borderZero'));
+					echo $this->Form->input('Dadosbancario.gerente',array('value'=>h($dadosbancario['gerente']),'label' => 'Gerente:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
 				?>
 
 			</section>
@@ -162,8 +228,8 @@
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.numero_banco',array('value'=>h($dadosbancario['numero_banco']),'label' => 'Número do Banco:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Dadosbancario.conta',array('value'=>h($dadosbancario['conta']),'label' => 'Conta:','type'=>'text','readonly'=>'readonly','onFocus'=>'this.blur();','id' => 'DadosbancarioConta0','class'=>'borderZero tamanho-grande'));
+					echo $this->Form->input('Dadosbancario.numero_banco',array('value'=>h($dadosbancario['numero_banco']),'label' => 'Número do Banco:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
+					echo $this->Form->input('Dadosbancario.conta',array('value'=>h($dadosbancario['conta']),'label' => 'Conta:','type'=>'text','readonly'=>'readonly','onFocus'=>'this.blur();','id' => 'DadosbancarioConta0','class'=>'borderZero tamanho-medio'));
 				?>
 
 			</section>
@@ -171,8 +237,8 @@
 			<section class="coluna-direita" >
 
 				<?php
-					echo $this->Form->input('Dadosbancario.nome_agencia',array('value'=>h($dadosbancario['nome_agencia']),'label' => 'Nome da Agência:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Dadosbancario.telefone_banco',array('value'=>h($dadosbancario['telefone_banco']),'label' => 'Telefone:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
+					echo $this->Form->input('Dadosbancario.nome_agencia',array('value'=>h($dadosbancario['nome_agencia']),'label' => 'Nome da Agência:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
+					echo $this->Form->input('Dadosbancario.telefone_banco',array('value'=>h($dadosbancario['telefone_banco']),'label' => 'Telefone:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-medio borderZero'));
 				?>
 
 			</section>
@@ -192,48 +258,88 @@
 	}else{ //PARCEIRO DE NEGOCIOS COMPRAS
 		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
 	?>
-		
-<section> <!---section superior--->	
-	<header>Dados Gerias do Parceiro</header>
 	
-	<?php echo $this->Form->create('Parceirodenegocio'); ?>
+</header>
 
+<section> <!---section superior--->	
+	<header>Dados Gerais do Parceiro</header>
+	
 	<section class="coluna-esquerda">
 
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Classificação:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['tipo'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-		
-			echo $this->Form->input('tipo',array('value'=>h($parceirodenegocio['Parceirodenegocio']['tipo']),'label' => 'Classificação:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class'=>'tamanho-grande borderZero'));
-			
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone1',array('value'=>h($contato['telefone1']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 1:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone1'));
-				echo $this->Form->input('Contato.fax',array('value'=>h($contato['fax']),'label' => 'Fax:','class' => 'tamanho-grande borderZero','label' => 'Fax:','readonly'=>'readonly','onFocus'=>'this.blur();'));
+		?>
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 1:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone1'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Fax:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['fax'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+			</div>
+		<?php
 			}			
-			
 		?>
 
 	</section>
 
 	<section class="coluna-central" >
 
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-			echo $this->Form->input('nome',array('value'=>h($parceirodenegocio['Parceirodenegocio']['nome']),'class' => 'tamanho-grande borderZero','label' => 'Nome:','readonly'=>'readonly','onFocus'=>'this.blur();','required'=>'false'));
-
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone2',array('value'=>h($contato['telefone2']),'class' => 'tamanho-grande borderZero','label' => 'Telefone 2:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone2'));
-				echo $this->Form->input('Contato.email',array('value'=>h($contato['email']),'class' => 'tamanho-grande borderZero','label' => 'Email:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-
+		?>
+			<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Email:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['email'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		<?php				
 			}
 		?>
 
 	</section>
 
 	<section class="coluna-direita" >
-
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('value'=>h($parceirodenegocio['Parceirodenegocio']['cpf_cnpj']),'class' => 'tamanho-grande borderZero','label' => 'CPF/CNPJ:','readonly'=>'readonly','onFocus'=>'this.blur();'));
-
 			foreach($parceirodenegocio['Contato'] as $contato){
-				echo $this->Form->input('Contato.telefone3',array('value'=>h($contato['telefone3']),'class' => 'tamanho-grande borderZero','label' => 'Celular:','readonly'=>'readonly','onFocus'=>'this.blur();', 'id' => 'ParceirodenegocioTelefone3'));	
+		?>	
+			<div class="segmento-esquerdo">		
+			<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone3'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>			
+		<?php
 			}	
 		?>
 
@@ -253,39 +359,67 @@
 			<fieldset class="dadosRepetidos">
 				<legend>Endereço  <?php echo $z+1; ?></legend>
 			<section class="coluna-esquerda">
-
 				<?php	
 					echo $this->Form->input('Endereco.id', array('value'=>$endereco['id']));
-
-					echo $this->Form->input('Endereco.tipo',array('value' => h($endereco['tipo']),'label' => 'Tipo:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
-					echo $this->Form->input('Endereco.numero',array('value' => h($endereco['numero']),'label' => 'Número:','class'=>'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text'));
-					echo $this->Form->input('Endereco.bairro', array('value'=>h($endereco['bairro']),'label'=>'Bairro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-				
-				?>
+				?>				
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Tipo:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['tipo'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['numero'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['bairro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 
 			</section>
 		
 			<section class="coluna-central" >
-
-				<?php
-				
-					echo $this->Form->input('Endereco.cep', array('value' => h($endereco['cep']),'label'=>'CEP:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
-					echo $this->Form->input('Endereco.uf', array('value' => h($endereco['uf']),'label'=>'UF:','type' => 'text','class' => 'tamanho-grande borderZero','readonly'=>'readonly','onFocus'=>'this.blur();','div' => array('class' => 'inputCliente input text divUf')));
-					echo $this->Form->input('Endereco.complemento', array('value'=>h($endereco['complemento']),'label'=>'Complemento:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-
-						?>
-
+				<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cep'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['uf'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['complemento'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 			</section>
 
 			<section class="coluna-direita" >
-
-				<?php
-					echo $this->Form->input('Endereco.logradouro', array('value'=>h($endereco['logradouro']),'label'=>'Logradouro:','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero' ));
-					echo $this->Form->input('Endereco.cidade', array('value'=>h($endereco['cidade']),'label'=>'Cidade:', 'type' => 'text','readonly'=>'readonly','onFocus'=>'this.blur();','class' => 'tamanho-grande borderZero'));
-					echo $this->Form->input('Endereco.ponto_referencia', array('value'=>h($endereco['ponto_referencia']),'label'=>'Ponto de Referência:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'textarea','class'=>'borderZero'));
-
-				?>
-
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['logradouro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cidade'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Ponto de Referência:',array('class'=>'titulo'));?></div>
+							<div class="linha2" style="margin-bottom:15px;"><?php echo $this->Html->Tag('p',$endereco['ponto_referencia'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
 			</section>
 
 			</fieldset>
