@@ -1,20 +1,3 @@
-<?php 
-	function formatDateToView(&$data){
-		$dataAux = explode('-', $data);
-		if(isset($dataAux['2'])){
-			if(isset($dataAux['1'])){
-				if(isset($dataAux['0'])){
-					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
-				}
-			}
-		}else{
-			$data= " / / ";
-		}
-		return $data;
-	}
-?>
-
-
 <div style="font-family:arial; margin:0 auto; min-height:300px; width:700px;">
 	<header style="margin-top:10px; ">
 		<p style="font-size:18px; margin:35px 10px; text-align:left;">
@@ -38,8 +21,8 @@
 	<br/>
 	
 	<?php
-		$dataInicio = formatDateToView($_SESSION['extraparams']['Pedido']['data_inici']);
-		$dataFim = formatDateToView($_SESSION['extraparams']['Pedido']['data_fim']);
+		$dataInicio = $_SESSION['extraparams']['Pedido']['data_inici'];
+		$dataFim = $_SESSION['extraparams']['Pedido']['data_fim'];
 	?>
 	
 	<table>
@@ -64,8 +47,8 @@
 			<td>Quantidade</td>
 			<td>Observação</td>
 		</tr>
-		
-		<?php 
+
+		<?php
 			foreach(($_SESSION['extraparams']['Comitensdaoperacao']) as $produtos){
 				echo '<tr>';
 					echo '<td>'. $produtos['produtoNome'] .'</td>';
@@ -76,7 +59,3 @@
 		?>
 	</table>
 </div>
-
-<pre>
-	<?php print_r($_SESSION); ?>
-</pre>
