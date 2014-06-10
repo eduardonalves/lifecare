@@ -47,6 +47,31 @@ input[type="text"]:disabled{
 	padding: 5px;
 }
 
+.coluna-Fornecedor_Pedido{
+	margin-top: 15px;
+}
+
+.coluna-Produto_Pedido{
+	margin-top: 15px;
+	
+}
+
+.bt-addItens_Pedido{
+	margin-top: -26px;
+	margin-left: 190px;
+	position:absolute;
+	z-index: 1;
+}
+
+.bt-addItens_Pedido_forne{
+	margin-left: -15px;
+}
+
+
+.produtoUnid_Pedido{
+	margin-right: 0px !important;
+}
+
 
 #msgValidaProduto{top: -10px;}
 #msgValidaFor{top: -10px;}
@@ -70,4 +95,5 @@ input[type="text"]:disabled{
 	margin-top: -28px;
 	font-size: 15px;
 }
+
 label[for="produtoUnid"]{position:absolute;}
