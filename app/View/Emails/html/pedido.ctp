@@ -10,7 +10,6 @@
 			<br/>
 			<a style="text-decoration:none; color:inherit;" href="<?php echo ($_SESSION['extraparams']['Mensagem']['site']);?>"><?php echo ($_SESSION['extraparams']['Mensagem']['site']);?></a>
 		</p>
-		
 		<p style="color:#008000; margin:35px 10px; text-align:left;">
 			<?php echo ($_SESSION['extraparams']['Mensagem']['corpo']);?>
 		</p>
