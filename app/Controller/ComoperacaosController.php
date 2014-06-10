@@ -175,35 +175,9 @@ class ComoperacaosController extends AppController {
 	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
 					)
 	            ),
+	            //Filtros FORNECEDOR
 	            
-	            //Filtros RESPOSTA
-	            
-	            'data_resposta' => array(
-		            'Comresposta.data_resposta' => array(
-		                'operator' => 'BETWEEN',
-		                'between' => array(
-		                    'text' => __(' e ', true)
-		                )
-		            )
-		        ),
-	            'valor_resposta' => array(
-		            'Comresposta.valor' => array(
-		                'operator' => 'BETWEEN',
-		                'between' => array(
-		                    'text' => __(' e ', true)
-		                )
-		            )
-		        ),
-	            'forma_pagamento_resposta' => array(
-	                'Comresposta.forma_pagamento' => array(
-	                    'operator' => 'LIKE',
-	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
-					)
-	            ),
-	           
-	            //Filtros PARCEIRO DE NEGÓCIOS em RESPOSTA
-	            
-	            'nome' => array(
+	            'nomeParceiro' => array(
 	                'Parceirodenegocio.nome' => array(
 	                    'operator' => 'LIKE',
 	                    'select' => array(''=> '', $listaParceiros)
@@ -278,46 +252,42 @@ class ComoperacaosController extends AppController {
 					$this->set(compact('userid','comoperacaos', 'cntOperacoes'));
 			
 				}else if($_GET['parametro'] == 'produtos'){
-		
-					$this->loadModel('Comitensdaoperacao');
+			
+					$this->loadModel('Produto');
 						
-					$comitensdaoperacaos = $this->Comitensdaoperacao->find('all');
+					$produtos = $this->Produto->find('all');
 						$this->Paginator->settings = array(
-							'Comitensdaoperacao' => array(
+							'Produto' => array(
 								'limit' => $this->request['url']['limit'],
 								'order' => 'Produto.nome ASC',
 								'conditions' => $this->Filter->getConditions()
 							)
 						);
 						
-						$cntComitensdaoperacaos = count($comitensdaoperacaos);
-						$comitensdaoperacaos = $this->Paginator->paginate('Comitensdaoperacao');
-
-						$this->set(compact('comitensdaoperacaos', 'cntComitensdaoperacaos'));
+						$cntProdutos = count($produtos);
+						$produtos = $this->Paginator->paginate('Produto');
+						
+						$this->set(compact('produtos', 'cntProdutos'));
 				
-				}elseif($_GET['parametro'] == 'produtosrespostas'){
+				}elseif($_GET['parametro'] == 'fornecedores'){
 					
-					$this->loadModel('Comitensreposta');
+					$this->loadModel('Parceirodenegocio');
 						
-					$comitensrepostas = $this->Comitensreposta->find('all');
+					$parceirodenegocios = $this->Parceirodenegocio->find('all');
 						$this->Paginator->settings = array(
-							'Comitensreposta' => array(
+							'Parceirodenegocio' => array(
 								'limit' => $this->request['url']['limit'],
-								'order' => 'Produto.nome ASC',
+								'order' => 'Parceirodenegocio.nome ASC',
 								'conditions' => $this->Filter->getConditions()
 							)
 						);
 						
-						$cntComitensrepostas = count($comitensrepostas);
-						$comitensrepostas = $this->Paginator->paginate('Comitensreposta');
-
-						$this->set(compact('comitensrepostas', 'cntComitensrepostas'));
+						$cntParceiros = count($parceirodenegocios);
+						$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');
 						
+						$this->set(compact('parceirodenegocios', 'cntParceiros'));
 						
-					
 				}
-					
-					
 		
 		/**QuickLink**/
 		$quicklinksList = array();

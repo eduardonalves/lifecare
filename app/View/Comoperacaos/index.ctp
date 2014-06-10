@@ -158,7 +158,7 @@
 					</div>
 					<div class="informacoesParceiro">
 						<?php
-							echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
+							echo $this->Search->input('nomeParceiro', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
@@ -185,7 +185,9 @@
 		<div class="tabelas" id="contas">
 			<table cellpadding="0" cellspacing="0">
 				
-				<?php if(isset($_GET['parametro']) && $_GET['parametro']=='operacoes'){ ?>
+				<?php
+				//TABELA OPERAÇÕES
+				if(isset($_GET['parametro']) && $_GET['parametro']=='operacoes'){ ?>
 				
 				<tr>
 					<th class="actions colunaConta">Ações</th>
@@ -232,58 +234,65 @@
 				<?php endforeach; 
 				}
 				//fim tabela operações
-				else if(isset($_GET['parametro']) && $_GET['parametro']=='respostas'){
+				//TABELA PRODUTOS
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='produtos'){
 				?>
 				
 				<tr>
 					<th class="actions colunaParcela">Ações</th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>					
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
-					<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('codigo','Código'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('categoria_id'); ?></th>
 				</tr>
 
-				<?php foreach ($comrespostas as $comresposta): ?>
+				<?php foreach ($produtos as $produto): ?>
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comrespostas','action' => 'view', $comresposta['Comresposta']['id']))); 
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Comrespostas','action' => 'view', $produto['Produto']['id']))); 
 							echo "<hr />";
-							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $comresposta['Comresposta']['parceirodenegocio_id'],"layout"=>"compras","abas"=>"41")));
+							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Produtos','action' => 'view', $produto['Produto']['id'],"layout"=>"compras","abas"=>"41")));
 						?>
 					</td>
 					
-					<td><?php echo $comresposta['Comresposta']['parceironome']; ?>&nbsp;</td>
-					<td><?php echo formatDateToView($comresposta['Comresposta']['data_resposta']); ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['valor']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['forma_pagamento']; ?>&nbsp;</td>
-					<td><?php echo $comresposta['Comresposta']['obs']; ?>&nbsp;</td>
+					<td><?php echo $produto['Produto']['codigo'];?></td>
+					<td><?php echo $produto['Produto']['nome'];?></td>
+					<td><?php echo $produto['Produto']['categoria_id'];?></td>
+				
+				</tr>
+
+				<?php
+				endforeach; 
+				}
+				//fim tabela produtos
+				//TABELA FORNECEDORES
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='fornecedores'){
+				?>
+				
+				<tr>
+					<th class="actions colunaParcela">Ações</th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome'); ?></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('status'); ?></th>
+				</tr>
+
+				<?php foreach ($parceirodenegocios as $parceirodenegocio): ?>
+
+				<tr>
+					<td class="actions">
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id']))); 
+							echo "<hr />";
+							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41")));
+						?>
+					</td>
+					
+					<td><?php echo $parceirodenegocio['Parceirodenegocio']['nome'];?></td>
+					<td><?php echo $parceirodenegocio['Parceirodenegocio']['status'];?></td>
 				
 				</tr>
 
 				<?php endforeach; 
 				}
-				//fim tabela respostas
-				else if(isset($_GET['parametro']) && $_GET['parametro']=='produtos'){
-				
-				}
-				//FIM TABELA PRODUTOS
-				
-				//TABELA PRODUTOS RESPONDIDO (COM ITENS RESPOSTA)
-				else if(isset($_GET['parametro']) && $_GET['parametro']=='respostasprodutos'){
-				?>
-					<tr>
-						<th class="actions colunaParcela">Ações</th>
-						<th class="colunaParcela"><?php echo $this->Paginator->sort('nome','Nome Parceiro'); ?></th>					
-						<th class="colunaParcela"><?php echo $this->Paginator->sort('data_resposta','Data da Resposta'); ?></th>
-						<th class="colunaParcela"><?php echo $this->Paginator->sort('valor'); ?></th>
-						<th class="colunaParcela"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
-						<th class="colunaParcela"><?php echo $this->Paginator->sort('obs'); ?></th>
-					</tr>
-					
-				<?php
-					}
+				//fim tabela fornecedores
 				?>
 			</table>
 			
