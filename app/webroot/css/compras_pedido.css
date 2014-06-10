@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+.ui-menu{
+	max-height: 300px !important;
+}
+
+#tbl_produtos{
+	margin-top: 20px;
+}
+
+.bt-addItens{
+	float: right;
+	margin-top: -27px;
+	margin-right: 70px;
+}
+
+.tabela_fornecedores{
+	margin-top: 25px;
+}
+
+.tabela_fornecedores_view{
+	margin-top: 10px;
+}
+
+input[type="text"]:disabled{
+	cursor:;
+	background-color:#F9F9F9;
+}
+
+.coluna-Fornecedor{
+	margin-top: 15px;
+	width: 500px;
+}
+
+.coluna-Fornecedor fieldset{
+	padding: 5px;
+}
+
+.coluna-Produto{
+	margin-right: 77px;
+	margin-top: 15px;
+	width: 500px;
+	
+}
+
+.coluna-Produto fieldset{
+	padding: 5px;
+}
+
+.coluna-Fornecedor_Pedido{
+	margin-top: 15px;
+}
+
+.coluna-Produto_Pedido{
+	margin-top: 15px;
+	
+}
+
+.bt-addItens_Pedido{
+	margin-top: -26px;
+	margin-left: 190px;
+	position:absolute;
+	z-index: 1;
+}
+
+.bt-addItens_Pedido_forne{
+	margin-left: -15px;
+}
+
+
+.produtoUnid_Pedido{
+	margin-right: 0px !important;
+}
+
+
+#msgValidaProduto{top: -50px;}
+#msgValidaFor{top: -50px;}
+#msgDataInicial{left: 250px;}
+
+
+#msgValidaProduto:after{
+	top: 36px !important;
+}
+
+#msgValidaFor:after{
+	top: 36px !important;
+}
+
+#msgQtdVazia{
+	left: 250px;
+}
+
+#produtoUnid{
+	float: right;
+	margin-right: 170px;
+	margin-top: -28px;
+	font-size: 15px;
+}
+
+label[for="produtoUnid"]{position:absolute;}

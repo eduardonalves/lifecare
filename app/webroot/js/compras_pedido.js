@@ -111,20 +111,26 @@
 			valorUnit = $("#produtoValor").val();		
 		
 			//CALCULA O VALOR TOTAL 
+			valorTotal = 0;
+			if($("#produtoValor").val() != ''){
+				qtd = parseInt(valorQtd);
+				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
+				valor = parseFloat(valor);
+			
+				valorTotal = valor*qtd;
+				valorMoeda = float2moeda(valorTotal);
+			}else{
+				valorMoeda = '0,00';
+				valorUnit = '0,00';
+			}
 			
 			
-			qtd = parseInt(valorQtd);
-			valor = $("#produtoValor").val().split('.').join('').replace(',','.');
-			valor = parseFloat(valor);
-		
-			valorTotal = valor*qtd;
-		
 			
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td class="whiteSpace"><span title="'+valorNome+'">'+valorNome+'</span></td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>R$ '+valorUnit+'</td><td>R$ '+float2moeda(valorTotal)+'</td><td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td class="whiteSpace"><span title="'+valorNome+'">'+valorNome+'</span></td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>R$ '+valorUnit+'</td><td>R$ '+valorMoeda+'</td><td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
-			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorUnit+'" type="hidden">			<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorTotal+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
+			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="existe" id="produto_unit_'+in_produto+'" value="'+valorUnit+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="produto_total_'+in_produto+'" value="'+valorMoeda+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
 			
 			//Limpa as Input's
 			$("#add-produtos").val('');
@@ -159,59 +165,25 @@
 		$('#tbl_fornecedores .fornecedorTr_'+atual).remove();
 		$('#area_inputHidden #fornecedor_'+atual).remove();
 		
-		if($('#tbl_fornecedores').hasClass('ultimoFornecedor')){
-			$('.pedidosLimite').show();
-			$(".autocompleteFornecedor").show();
-			$("#tblPedido").css('margin-top','25px');
-			in_fornecedor = 0;
-			//alert('aqui é o ultimo '+ in_fornecedor);
-		}else{
-			in_fornecedor = in_fornecedor - 1;
-		}
-		 
+		$('.pedidosLimite').show();
+		$(".autocompleteFornecedor").show();
+		$("#tblPedido").css('margin-top','25px');
+		in_fornecedor = 0;
+	
 	});
 	
 	
-/**** VALIDAÇÔES *****/
-	// DATA FIM pro INICIO
-	$(".dataFim").focusout(function(){
-		if($(".dataFim").val().length > 0 && $(".dataFim").val().length < 10){
-			$("#msgDataFinalErrada").show();
-		}else if($(".dataInicio").val() != ''){
-			if(validacaoEntreDatas($(".dataInicio").val(),$(".dataFim").val(),"#msgDataVencimentoInvalida")){
-				$(".dataFim").val("");
-				$(".dataFim").addClass('shadow-vermelho');
-			}
-		}
-	});
-	
-	// DATA INICIO Pro FIM
-	$(".dataInicio").focusout(function(){
-		if($(".dataInicio").val().length > 0 && $(".dataInicio").val().length < 10){
-			$("#msgDataInicialErrada").show();
-		}else if($('.dataFim').val().length != 0 ){
-			if(validacaoEntreDatas($(".dataInicio").val(),$(".dataFim").val(),"#msgDataVencimentoInvalida")){
-				$(".dataFim").val("");
-				$(".dataFim").addClass('shadow-vermelho');
-			}
-		}			
-	});
-
-
 /******** ComoperacaoAddForm   ************/
-	$('#CotacaoAddForm, #PedidoAddForm').submit(function(){
+	$('#PedidoAddForm').submit(function(){
 		
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			return false;
-		}else if($('.dataFim').val() == ''){
-			$('#msgDataFinal').show();
+		}else if(in_fornecedor == 0 ){
+			$('#msgValidaFor').show();
 			return false;
 		}else if(in_produto == 0 ){
 			$('#msgValidaProduto').show();
-			return false;
-		}else if(in_fornecedor == 0 ){
-			$('#msgValidaFor').show();
 			return false;
 		}else{
 			return true;

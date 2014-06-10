@@ -253,9 +253,12 @@ class ParceirodenegociosController extends AppController {
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$ultimoParceiro = $this->Parceirodenegocio->find('first', array('order' => array('Parceirodenegocio.id' => 'desc'), 'recursive' =>-1));
-				
+			
 				$this->setStatusParceiro($ultimoParceiro['Parceirodenegocio']['id']);
 				$this->set(compact('ultimoParceiro'));
+				if($this->request->is('ajax')){
+					$this->layout = 'ajaxparceiro';
+				}
 				if(! $this->request->is('ajax')){
 					if(isset($telaLayout))
 						return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id'],'layout' => 'compras','abas' => '41'));
