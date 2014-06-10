@@ -74,7 +74,7 @@
 						<?php
 							echo $this->Form->input('url',array('value' => $urlQuickLink, 'type' => 'hidden'));
 							echo $this->Form->input('user_id',array('value' => $userid, 'type' => 'hidden'));
-							echo $this->Form->input('tipo',array('value' => 'FINANCEIRO', 'type' => 'hidden'));
+							echo $this->Form->input('tipo',array('value' => 'COMERCIAL', 'type' => 'hidden'));
 						?>
 							
 					</div>	

@@ -205,8 +205,11 @@
 				<tr>
 					<td class="actions">
 						<?php 
-							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
-							
+							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
+								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Cotação','title'=>'Visualizar Cotação','url'=>array('controller' => 'Cotacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+							}else{
+								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','title'=>'Visualizar Pedido','url'=>array('controller' => 'Pedidos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+							}
 							echo "<hr />";
 							
 							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
@@ -285,7 +288,7 @@
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41"))); 
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41"))); 
 						?>
 					</td>
 					

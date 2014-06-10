@@ -292,7 +292,7 @@ class ComoperacaosController extends AppController {
 		/**QuickLink**/
 		$quicklinksList = array();
 		$this->loadModel('Quicklink');
-		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMPRAS'), 'order' => array('Quicklink.nome' => 'ASC')));
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMERCIAL'), 'order' => array('Quicklink.nome' => 'ASC')));
 		foreach($quicklinks as $link)
 		{
 			array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
