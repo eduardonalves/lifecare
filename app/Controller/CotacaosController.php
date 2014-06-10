@@ -70,6 +70,7 @@ class CotacaosController extends ComoperacaosController {
  * @return void
  */
 	public function index() {
+		
 		$this->layout = 'compras';
 		$this->Cotacao->recursive = 0;
 		$this->set('cotacaos', $this->Paginator->paginate());
@@ -230,7 +231,8 @@ class CotacaosController extends ComoperacaosController {
 				
 				
 				$this->Session->setFlash(__('The cotacao has been saved.'));
-				return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
+				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
+				return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$ultimaCotacao['Cotacao']['id']));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}

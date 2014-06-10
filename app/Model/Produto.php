@@ -132,6 +132,19 @@ class Produto extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
+		),
+		'Comoperacao' => array(
+			'className' => 'Comoperacao',
+			'joinTable' => 'comitensdaoperacaos',
+			'foreignKey' => 'produto_id',
+			'associationForeignKey' => 'comoperacao_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
 		)
 
 	);
@@ -172,7 +185,17 @@ class Produto extends AppModel {
 	    'conditions' => '_Parceirodenegocio.id = _ProdutosParceirodenegocio.parceirodenegocio_id',
 	    'fields'	 => 'id'
 	  ),
-	  
+	 '_Comitensdaoperacao' => array(
+		'className'  => 'Comitensdaoperacao',
+		'foreignKey' => 'produto_id',
+		'fields'     => 'id'	
+	  ),
+	  '_Comoperacao' => array(
+		'className'  => 'Comoperacao',
+		'foreignKey' => false,
+		'conditions' => '_Comoperacao.id = _Comitensdaoperacao.comoperacao_id',
+		'fields'	 => 'id'
+	  ),
 	);
 
 /**

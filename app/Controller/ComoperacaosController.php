@@ -126,7 +126,10 @@ class ComoperacaosController extends AppController {
 		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
 		
 //Adiciona filtros
-		$this->Filter->addFilters(
+		
+		
+		if($_GET['parametro'] == 'operacoes'){
+			$this->Filter->addFilters(
 			array(
 				
 				//Filtros OPERAÇÃO
@@ -178,13 +181,13 @@ class ComoperacaosController extends AppController {
 	            //Filtros FORNECEDOR
 	            
 	            'nomeParceiro' => array(
-	                'Parceirodenegocio.nome' => array(
+	                '_Parceirodenegocio.nome' => array(
 	                    'operator' => 'LIKE',
 	                    'select' => array(''=> '', $listaParceiros)
 	                )
 	            ),
 	            'statusParceiro' => array(
-	                'Parceirodenegocio.status' => array(
+	                '_Parceirodenegocio.status' => array(
 	                    'operator' => 'LIKE',
 						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
 	                )
@@ -193,19 +196,19 @@ class ComoperacaosController extends AppController {
 	            //Filtros PRODUTOS
 	            
 	            'produtoNome' => array(
-	                'Produto.nome' => array(
+	                '_Produto.nome' => array(
 	                    'operator' => 'LIKE'
 
 	                )
 	            ),
 	            'produtoNivel' => array(
-	                'Produto.nivel' => array(
+	                '_Produto.nivel' => array(
 	                    'operator' => 'LIKE',
 						'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
 	                )
 	            ),
 	            'codProd' => array(
-	                'Produto.id' => array(
+	                '_Produto.id' => array(
 	                    'operator' => '='
 
 	                )
@@ -225,10 +228,19 @@ class ComoperacaosController extends AppController {
 	           ),
 	        )
 		);
-		
-		if($_GET['parametro'] == 'operacoes'){
 			
-		$comoperacaos = $this->Comoperacao->find('all');
+		$conditiosAux= $this->Filter->getConditions();
+				
+				
+		if(empty($conditiosAux)){
+			
+			$dataIncio = date("Y-m-01");
+			$dataTermino= date("Y-m-t");
+			$this->request->data['filter']['data_inici']=$dataIncio;
+			$this->request->data['filter']['data_inici-between']=$dataTermino;	
+		}	
+		
+					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici ASC'));
 					$this->Paginator->settings = array(
 						'Comoperacao' => array(
 							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
@@ -238,6 +250,8 @@ class ComoperacaosController extends AppController {
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
+					
+					
 					
 					$cntOperacoes = count($comoperacaos);
 					$comoperacaos = $this->Paginator->paginate('Comoperacao');
@@ -250,24 +264,130 @@ class ComoperacaosController extends AppController {
 						}
 						
 					$this->set(compact('userid','comoperacaos', 'cntOperacoes'));
+					
 			
 				}else if($_GET['parametro'] == 'produtos'){
+					$this->Filter->addFilters(
+						array(
+							
+							//Filtros OPERAÇÃO
+							
+							'tipoOperacao' => array(
+				                '_Comoperacao.tipo' => array(
+				                    'operator' => 'LIKE',
+			                         'explode' => array(
+				                    	'concatenate' => 'OR'
+				               		 )
+								)
+				            ),
+				            'data_inici' => array(
+					            '_Comoperacao.data_inici' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+				            'data_fim' => array(
+					            '_Comoperacao.data_fim' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+					        'valor' => array(
+					            '_Comoperacao.valor' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+				            'status_operacao' => array(
+				                '_Comoperacao.status' => array(
+				                    'operator' => 'LIKE',
+				               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+								)
+				            ),
+				            'forma_pagamento' => array(
+				                '_Comoperacao.forma_pagamento' => array(
+				                    'operator' => 'LIKE',
+				                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+								)
+				            ),
+				            //Filtros FORNECEDOR
+				            
+				            'nomeParceiro' => array(
+				                '_Parceirodenegocio.nome' => array(
+				                    'operator' => 'LIKE',
+				                    'select' => array(''=> '', $listaParceiros)
+				                )
+				            ),
+				            'statusParceiro' => array(
+				                '_Parceirodenegocio.status' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+				                )
+				            ),
+				            
+				            //Filtros PRODUTOS
+				            
+				            'produtoNome' => array(
+				                'Produto.nome' => array(
+				                    'operator' => 'LIKE'
+			
+				                )
+				            ),
+				            'produtoNivel' => array(
+				                'Produto.nivel' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+				                )
+				            ),
+				            'codProd' => array(
+				                'Produto.id' => array(
+				                    'operator' => '='
+			
+				                )
+				            ),
+				            'produtoCategoria' => array(
+				                '_Categoria.nome' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', $listaCategorias)
+				                )
+				            ),
+				            
+				            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
+				           'produtoRespNome' => array(
+								'Produto.nome' => array(
+									'operator' => '='
+								)
+				           ),
+				        )
+					);			
+			
+				
+			
 			
 					$this->loadModel('Produto');
 						
-					$produtos = $this->Produto->find('all');
-						$this->Paginator->settings = array(
-							'Produto' => array(
-								'limit' => $this->request['url']['limit'],
-								'order' => 'Produto.nome ASC',
-								'conditions' => $this->Filter->getConditions()
-							)
-						);
-						
-						$cntProdutos = count($produtos);
-						$produtos = $this->Paginator->paginate('Produto');
+					$produtos = $this->Produto->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Produto.id', 'Produto.*'), 'order' => 'Produto.nome ASC'));
+					$this->Paginator->settings = array(
+						'Produto' => array(
+							'fields' => array('DISTINCT Produto.id', 'Produto.*'),
+							'fields_toCount' => 'DISTINCT Produto.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Produto.nome ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntProdutos = count($produtos);
+					$produtos = $this->Paginator->paginate('Produto');		
 						
 						$this->set(compact('produtos', 'cntProdutos'));
+						
 				
 				}elseif($_GET['parametro'] == 'fornecedores'){
 					
