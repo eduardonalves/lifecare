@@ -71,16 +71,12 @@
 			?>
 		</section>
 		
-	<header>Dados da Cotação</header>
-	
 	<!-- INICIO COTAÇÕES -->
-	<fieldset>
-		<legend>Dados da Cotação</legend>
+	<header>Dados da Cotação</header>	
 		<section class="coluna-esquerda">
 			
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
-
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($cotacao['Cotacao']['data_inici'])),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita borderZero', 'value'=>h($cotacao['Cotacao']['forma_pagamento']),'disabled'=>'disabled'));
 			?>
@@ -113,18 +109,17 @@
 			?>
 
 		</section>
-	</fieldset>
 	
 	<!-- INICIO PRODUTOS -->
-	<section class="coluna-Produto coluna-esquerda">
-		<fieldset>		
-			<legend>Produtos da Cotação</legend>
+	<header>Produtos da Cotação</header>	
+	<section>
 		<!-- $cotacao['Produto']['data_inici'])-->
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_produtos" >
 					<thead>
 						<th>Produto nome</th>
 						<th>Quantidade</th>									
+						<th>Unidade</th>									
 						<th>Observação</th>									
 					</thead>
 					
@@ -132,23 +127,22 @@
 						foreach($itens as $produtos){
 							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
+							echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
 							echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
 						}
 					?>
 				</table>
 			</section>
-		</fieldset>
 	</section>
 	
-	<!-- INICIO FORNECEDOR -->	
-	<section class="coluna-Fornecedor coluna-esquerda">
-		<fieldset>		
-			<legend>Fornecedores da Cotação</legend>
+	<!-- INICIO FORNECEDOR -->
+	<header>Fornecedores da Cotação</header>	
+	<section>
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_fornecedores" >
 					<thead>
 						<th>Parceiro nome</th>
-						<th style="width:130px;">CPF/CNPJ</th>								
+						<th>CPF/CNPJ</th>								
 					</thead>
 					
 					<?php 
@@ -159,9 +153,43 @@
 					?>
 				</table>
 			</section>
-		</fieldset>
 	</section>
 	
+	<!-- INICIO DAS RESPOSTAS DA COTAÇÃO -->
+	<header>Respostas da Cotação</header>	
+	<section>
+			<section class="tabela_fornecedores_view">
+				<table id="tbl_fornecedores" >
+					<thead>
+						<th>Fornecedor</th>
+						<th>Data Resposta</th>								
+						<th>Valor</th>								
+						<th>Forma Pagamento</th>								
+						<th>Obs. Pagamento</th>								
+						<th>Prazo Entrega</th>								
+						<th>Status</th>								
+						<th>Ações</th>								
+					</thead>
+					
+					<?php 
+						foreach($resposta as $respostas){
+							echo "<tr>";
+							echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
+							echo "<td>". $respostas['Comresposta']['data_resposta']."</td>";
+							echo "<td>". $respostas['Comresposta']['valor']."</td>";
+							echo "<td>". $respostas['Comresposta']['forma_pagamento']."</td>";
+							echo "<td>". $respostas['Comresposta']['obs_pagamento']."</td>";
+							echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
+							echo "<td>". $respostas['Comresposta']['status']."</td>";
+							echo "<td></td>";
+							
+							echo "</tr>";
+						}
+						
+					?>
+				</table>
+			</section>
+	</section>
 	
 </section>
 
@@ -178,4 +206,5 @@
 	?>
 
 </footer>
+
 

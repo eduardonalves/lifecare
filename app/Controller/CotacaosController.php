@@ -97,7 +97,10 @@ class CotacaosController extends ComoperacaosController {
 		$cotacao = $this->Cotacao->find('first',array('conditions'=>array('Cotacao.id' => $id)));
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
-		$this->set(compact('cotacao','userid','itens'));
+		$this->loadModel('Comresposta');
+		$resposta = $this->Comresposta->find('all',array('conditions'=>array('Comresposta.comoperacao_id'=> $id),'recursive'=>1));
+		
+		$this->set(compact('cotacao','userid','itens','resposta'));
 	}
 
 /**
