@@ -56,8 +56,7 @@
 												echo "<td>". $itens['qtde'] ."</td>";
 												echo "<td>". $itens['valor_unit'] ."</td>";
 												echo "<td>". $itens['valor_total'] ."</td>";
-												echo "<td>". $itens['obs'] ."</td>";											
-
+												echo "<td>". $itens['obs'] ."</td>";	
 											echo "</tr>";
 										}
 									

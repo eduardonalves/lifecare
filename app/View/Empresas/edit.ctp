@@ -1,27 +1,62 @@
-<div class="empresas form">
-<?php echo $this->Form->create('Empresa'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Empresa'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('nome_fantasia');
-		echo $this->Form->input('razao');
-		echo $this->Form->input('cnpj');
-		echo $this->Form->input('telefone');
-		echo $this->Form->input('endereco');
-		echo $this->Form->input('complemento');
-		echo $this->Form->input('bairro');
-		echo $this->Form->input('cidade');
-		echo $this->Form->input('uf');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+	//~ $this->start('css');
+		//~ //echo $this->Html->css('parceiro');
+	//~ $this->end();
+//~ 
+	//~ $this->start('script');
+		//~ //echo $this->Html->script('funcoes_parceiro.js');
+	//~ $this->end();
+?>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Empresa.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Empresa.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Empresas'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+<header>
+	<?php echo $this->html->image('cadastrar-titulo.png'); ?>
+	<h1>Cadastro de Empresa</h1>
+</header>
+
+<section>
+	
+	<header>Dados da Empresa</header>
+	
+	<section class="coluna-esquerda">  
+		<?php
+			echo $this->Form->create('Empresa');
+			
+			echo $this->Form->input('id');
+			echo $this->Form->input('nome_fantasia',array('class'=>'tamanho-medio','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
+			echo $this->Form->input('telefone',array('class'=>'tamanho-medio','label'=>'Telefone:','type'=>'text','id'=>''));
+			echo $this->Form->input('uf',array('class'=>'tamanho-pequeno','label'=>'UF:','type'=>'text','id'=>''));
+		?>
+	</section>
+	
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('cnpj',array('class'=>'tamanho-medio','label'=>'CNPJ:','type'=>'text','id'=>''));
+			echo $this->Form->input('endereco',array('class'=>'tamanho-medio','label'=>'Endereço:','type'=>'text','id'=>''));
+			echo $this->Form->input('cidade',array('class'=>'tamanho-medio','label'=>'Cidade:','type'=>'text','id'=>''));
+		?>
+	</section>
+
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('razao',array('class'=>'tamanho-medio','label'=>'Razão:','type'=>'text','id'=>''));
+			echo $this->Form->input('complemento',array('class'=>'tamanho-medio','label'=>'Complemento:','type'=>'text','id'=>''));
+			echo $this->Form->input('bairro',array('class'=>'tamanho-medio','label'=>'Bairro:','type'=>'text','id'=>''));
+
+		?>
+	</section>
+	
+</section>
+
+<footer>
+	<?php
+		echo $this->form->submit('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar')); 
+		echo $this->Form->end();	
+	?>	
+</footer>
+
+
+
+
+
+
+

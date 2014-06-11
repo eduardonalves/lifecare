@@ -100,13 +100,16 @@ class PedidosController extends ComoperacaosController {
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 
 		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Empresa');
+		
+		$empresa = $this->Empresa->find('first');
 		
 		$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
 		$pedido = $this->Pedido->find('first', $options);
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedido['Parceirodenegocio'][0]['id'] )));	
 		
-		$this->set(compact('pedido','userid','itens','parceirodenegocio'));
+		$this->set(compact('pedido','userid','itens','parceirodenegocio','empresa'));
 	}
 
 /**
@@ -147,8 +150,8 @@ class PedidosController extends ComoperacaosController {
 					$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$id]['produto_id']))));
 					if(empty($inter)){
 						$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$id]['produto_id']);
-						
 						$this->ProdutosParceirodenegocio->save($upProdFornec);
+						
 					}
 					
 					
@@ -156,9 +159,12 @@ class PedidosController extends ComoperacaosController {
 				
 				$remetente= "eduardonalves@gmail.com";
 				if(!empty($contato)){
-					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-					$this->Session->setFlash(__('The pedido has been saved.'));
-					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+					if($contato['Contato']['email'] !=''){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+						$this->Session->setFlash(__('The pedido has been saved.'));
+						return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));	
+					}
+					
 				}
 				
 			}else{
