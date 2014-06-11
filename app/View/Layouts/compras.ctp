@@ -45,7 +45,6 @@
 		echo $this->Html->css('lifecare');
 		echo $this->Html->css('jquery-ui/jquery-ui.css');
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-		//echo $this->Html->css('jquery-ui/custom-combobox.css');
 		echo $this->Html->css('financeiro_geral.css');
 		echo $this->fetch('css');
 		echo $this->Html->script('jquery_novo.js');
@@ -131,7 +130,7 @@
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Cotacaos","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							echo $this->Html->image('cotacao_lateral.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 						?>
 
 						<span class="label">Cadastrar Cotações</span>
@@ -142,7 +141,7 @@
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Pedidos","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							echo $this->Html->image('pedido_lateral.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 						?>
 
 						<span class="label">Cadastrar Pedidos</span>

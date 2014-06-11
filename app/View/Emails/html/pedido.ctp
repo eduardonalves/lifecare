@@ -3,15 +3,69 @@
 		<p style="text-align:center;">
 			<img src="http://lifecare.vento-consulting.com/img/login-title.png">
 		</p>
-		<p style="font-size:18px; margin:35px 10px; text-align:left;">
-			<span style="font-size:22px; font-weight:bold;"><?php echo ($_SESSION['extraparams']['Mensagem']['empresa']);?></span>
+		<p style="font-size:16px; margin:35px 10px; text-align:left;">
+			<span style="font-size:20px; font-weight:bold;"><?php echo ($_SESSION['extraparams']['Mensagem']['empresa']);?></span>
 			<br/>
 			<?php echo ($_SESSION['extraparams']['Mensagem']['endereco']);?>, RJ - Telefone <?php echo ($_SESSION['extraparams']['Mensagem']['telefone']);?>
 			<br/>
 			<a style="text-decoration:none; color:inherit;" href="<?php echo ($_SESSION['extraparams']['Mensagem']['site']);?>"><?php echo ($_SESSION['extraparams']['Mensagem']['site']);?></a>
 		</p>
+<<<<<<< HEAD
+		
+		<p style="color:#008000; margin:35px 10px; text-align:left; font-size:14px;">
+=======
 		<p style="color:#008000; margin:35px 10px; text-align:left;">
+>>>>>>> de2a8d0275b9639a9e4be7fff7acf51cbb5b6f6e
 			<?php echo ($_SESSION['extraparams']['Mensagem']['corpo']);?>
 		</p>
 	</header>
+	
+	<br/>
+	
+	<?php $dataInicio = date_create($_SESSION['extraparams']['Pedido']['data_inici']); ?>
+	
+	<div style="margin-left:10px; ">
+		<table style="font-size:14px;">
+			<tr>
+				<td style="text-align:right; font-weight:bold;">Parceiro Nome: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Parceirodenegocio'][0]['nome']);?></td>
+			</tr>
+			<tr>
+				<td style="text-align:right; font-weight:bold;">CPF/CNPJ: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Parceirodenegocio'][0]['cpf_cnpj']);?></td>
+			</tr>
+			<tr>
+				<td style="text-align:right; font-weight:bold;">Tipo: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Pedido']['tipo']);?></td>
+			</tr>
+			<tr>
+				<td style="text-align:right; font-weight:bold;">Data de Início: </td>
+				<td><?php echo ' '. date_format($dataInicio, 'd/m/Y'); ?></td>
+			</tr>
+			<tr>
+				<td style="text-align:right; font-weight:bold;">Forma de Pagamento: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Pedido']['forma_pagamento']);?></td>
+			</tr>
+		</table>
+		
+		<br/>
+		
+		<table>
+			<tr>
+				<td>Produto Nome</td>
+				<td>Quantidade</td>
+				<td>Observação</td>
+			</tr>
+
+			<?php
+				foreach(($_SESSION['extraparams']['Comitensdaoperacao']) as $produtos){
+					echo '<tr>';
+						echo '<td>'. $produtos['produtoNome'] .'</td>';
+						echo '<td>'. $produtos['qtde'] .'</td>';
+						echo '<td>'. $produtos['obs'] .'</td>';
+					echo '</tr>';
+				}
+			?>
+		</table>
+	</div>
 </div>
