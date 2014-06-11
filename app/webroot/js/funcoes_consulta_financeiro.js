@@ -103,6 +103,8 @@ $(document).ready(function(){
 		$("#filtro-parceiro input[type=text]").prop('disabled', true);
 		
 		$("#filterFormaPagamento").prop('disabled', true);
+		
+		$("#filterDuplicata").prop('disabled', true);
 
 		$("#checkparcela").prop('checked', false);
 
