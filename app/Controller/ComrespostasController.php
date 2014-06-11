@@ -89,6 +89,7 @@ class ComrespostasController extends AppController {
 			$this->loadModel('Comitensdaoperacao');
 			
 			$this->loadModel('ComoperacaosParceirodenegocio');
+			$this->loadModel('ProdutosParceirodenegocio');
 			
 			
 			$hoje = date('Y-m-d');
@@ -110,9 +111,18 @@ class ComrespostasController extends AppController {
 				
 				if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
 					foreach($resposta['Comitensresposta'] as $its){
-						$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
-						$this->Comitensdaoperacao->create();
-						$this->Comitensdaoperacao->save($itens);
+						if($its['valor_unit']=''){
+							$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
+							$this->Comitensdaoperacao->create();
+							$this->Comitensdaoperacao->save($itens);
+							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' =>$pedido['Parceirodenegocio']['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id']))));
+							if(empty($produtosParceirodenegocio)){
+								$viculaFornecedor = array('parceirodenegocio_id' => $pedido['Parceirodenegocio']['id'], 'produto_id' => $its['produto_id']);
+								$this->Pedido->ProdutosParceirodenegocio->save($viculaFornecedor);
+							}
+							
+						}
+						
 					}
 					
 					
@@ -139,6 +149,9 @@ class ComrespostasController extends AppController {
 		
 		$this->loadModel('Comtokencotacao');
 		$this->loadModel('Comoperacao');
+		$this->loadModel('ComoperacaosParceirodenegocio');
+		$this->loadModel('ProdutosParceirodenegocio');
+		
 		$token = $this->Comtokencotacao->find('first',array('conditions'=>array('Comtokencotacao.codigoseguranca'=>$codigo)));
 		
 		
@@ -162,12 +175,20 @@ class ComrespostasController extends AppController {
 				foreach($itensRespostas as $i => $itenEnviado){
 					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensresposta'][$i]['valor_unit']);
 					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensresposta'][$i]['valor_total']);
+					
 					if(!empty($ultimaResposta)){
 						$this->request->data['Comitensresposta'][$i]['comresposta_id'] = $ultimaResposta['Comresposta']['id'];
 					}else{
 						$this->request->data['Comitensresposta'][$i]['comresposta_id'] = 1;
 					}
-				$i++;
+					
+					$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' => $numFornecedor, 'AND' => array('ProdutosParceirodenegocio.produto_id' => $this->request->data['Comitensresposta'][$i]['produto_id']))));
+					if(empty($produtosParceirodenegocio)){
+						$viculaFornecedor = array('parceirodenegocio_id' => $numFornecedor, 'produto_id' => $this->request->data['Comitensresposta'][$i]['produto_id']);
+						$this->ProdutosParceirodenegocio->save($viculaFornecedor);
+					}
+					
+					$i++;
 				}			
 				
 			if($this->Comresposta->saveAll($this->request->data)) {
@@ -242,14 +263,15 @@ class ComrespostasController extends AppController {
 				
 				$this->loadModel('Comtokencotacao');
 				$codigo= $this->request->data['Comrespostas']['token'];			
-				$token = $this->Comtokencotacao->find('all');
+				$token = $this->Comtokencotacao->find('all', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
 								
 				if(!empty($token)){
 					
 					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
 				
 				}else{
-					return $this->redirect(array('controller' => 'Comrespostas','action' => 'view', $codigo));
+					$this->Session->setFlash(__('Código incorreto.'));
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'logincotacao'));
 					
 				}
 			
