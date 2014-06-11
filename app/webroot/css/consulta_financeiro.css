@@ -9,7 +9,7 @@ label{
 }
 
 label[for="filterIdentificacao"]{
-	-webkit-logical-width: 145px !important;
+	-webkit-logical-width: 143px !important;
 }
 
 label[for="checkparcela"]{
@@ -215,7 +215,8 @@ label[for="checkparcela"]{
 	background-color:#c9f0e8;
 	border:1px solid #37c8ab;
 	border-radius: 8px;
-	height:162px;
+	height: 100% !important;
+	min-height: 175px;
 	-webkit-logical-height: 175px;
 	margin-top:5px;
 	padding:5px;
@@ -226,7 +227,8 @@ label[for="checkparcela"]{
 	background-color:#FFFAE7;
 	border:1px solid rgb(255, 212, 42);
 	border-radius:8px;
-	height:162px;
+	height: 100% !important;
+	min-height: 175px;
 	-webkit-logical-height: 175px;
 	margin:5px 0px 0px 7px;
 	padding:5px;

@@ -113,3 +113,15 @@ select[id^='Endereco']{
 [id*="spanDataFinal"]{left: 215px;top: 112px;width: 129px;}
 
 #spanDataFinalEmi{height: 60px;left: 245px;top: -3px;width: 94px;z-index: 1;}
+
+#filtro-parceiro label{
+	width: 140px !important;
+}
+
+fieldset{
+	padding:0px;
+}
+
+.dadosRepetidos{
+	padding-bottom:5px;
+}
