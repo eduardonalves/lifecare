@@ -198,6 +198,7 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?></th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($comoperacaos as $comoperacao): ?>
@@ -205,8 +206,11 @@
 				<tr>
 					<td class="actions">
 						<?php 
-							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Operação','title'=>'Visualizar Operação','url'=>array('controller' => 'Comoperacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
-							
+							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
+								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Cotação','title'=>'Visualizar Cotação','url'=>array('controller' => 'Cotacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+							}else{
+								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','title'=>'Visualizar Pedido','url'=>array('controller' => 'Pedidos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+							}
 							echo "<hr />";
 							
 							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
@@ -229,6 +233,7 @@
 					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Parceirodenegocio'][0]['nome']; ?>&nbsp;</td>
 				</tr>
 
 				<?php endforeach; 
@@ -244,7 +249,6 @@
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('categoria_id'); ?></th>
-					<th class="colunaES"><?php echo $this->Paginator->sort('parceirodenegocio_id','Fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($produtos as $produto): ?>
@@ -263,7 +267,6 @@
 					<td><?php echo $produto['Produto']['nome'];?></td>
 					<td><?php echo $produto['Produto']['descricao'];?></td>
 					<td><?php if(isset($produto['Categoria'][0]['nome'])) echo $produto['Categoria'][0]['nome'];?></td>
-					<td><?php if(isset($produto['Parceirodenegocio'][0]['nome'])) echo $produto['Parceirodenegocio'][0]['nome'];?></td>
 				
 				</tr>
 
@@ -285,7 +288,7 @@
 
 				<tr>
 					<td class="actions">
-						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocio','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41"))); 
+						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $parceirodenegocio['Parceirodenegocio']['id'],"layout"=>"compras","abas"=>"41"))); 
 						?>
 					</td>
 					

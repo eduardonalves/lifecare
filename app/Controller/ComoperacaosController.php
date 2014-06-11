@@ -213,12 +213,7 @@ class ComoperacaosController extends AppController {
 
 	                )
 	            ),
-	            'produtoCategoria' => array(
-	                'Categoria.nome' => array(
-	                    'operator' => 'LIKE',
-						'select' => array(''=>'', $listaCategorias)
-	                )
-	            ),
+	            
 	            
 	            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
 	           'produtoRespNome' => array(
@@ -237,8 +232,8 @@ class ComoperacaosController extends AppController {
 			$dataIncio = date("Y-m-01");
 			$dataTermino= date("Y-m-t");
 			$this->request->data['filter']['data_inici']=$dataIncio;
-			$this->request->data['filter']['data_inici-between']=$dataTermino;	
-		}	
+			$this->request->data['filter']['data_inici-between']=$dataTermino;
+		}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici ASC'));
 					$this->Paginator->settings = array(
@@ -365,10 +360,7 @@ class ComoperacaosController extends AppController {
 								)
 				           ),
 				        )
-					);			
-			
-				
-			
+					);
 			
 					$this->loadModel('Produto');
 						
@@ -384,35 +376,130 @@ class ComoperacaosController extends AppController {
 					);
 					
 					$cntProdutos = count($produtos);
-					$produtos = $this->Paginator->paginate('Produto');		
+					$produtos = $this->Paginator->paginate('Produto');
 						
-						$this->set(compact('produtos', 'cntProdutos'));
+					$this->set(compact('produtos', 'cntProdutos'));
 						
 				
 				}elseif($_GET['parametro'] == 'fornecedores'){
-					
-					$this->loadModel('Parceirodenegocio');
+					$this->Filter->addFilters(
+					array(
 						
-					$parceirodenegocios = $this->Parceirodenegocio->find('all');
-						$this->Paginator->settings = array(
-							'Parceirodenegocio' => array(
-								'limit' => $this->request['url']['limit'],
-								'order' => 'Parceirodenegocio.nome ASC',
-								'conditions' => $this->Filter->getConditions()
+						//Filtros OPERAÇÃO
+						
+						'tipoOperacao' => array(
+			                '_Comoperacao.tipo' => array(
+			                    'operator' => 'LIKE',
+		                         'explode' => array(
+			                    	'concatenate' => 'OR'
+			               		 )
 							)
-						);
-						
-						$cntParceiros = count($parceirodenegocios);
-						$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');
-						
-						$this->set(compact('parceirodenegocios', 'cntParceiros'));
+			            ),
+			            'data_inici' => array(
+				            '_Comoperacao.data_inici' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+			            'data_fim' => array(
+				            '_Comoperacao.data_fim' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+				        'valor' => array(
+				            '_Comoperacao.valor' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+			            'status_operacao' => array(
+			                '_Comoperacao.status' => array(
+			                    'operator' => 'LIKE',
+			               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+							)
+			            ),
+			            'forma_pagamento' => array(
+			                '_Comoperacao.forma_pagamento' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+							)
+			            ),
+			            //Filtros FORNECEDOR
+			            
+			            'nomeParceiro' => array(
+			                'Parceirodenegocio.nome' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array(''=> '', $listaParceiros)
+			                )
+			            ),
+			            'statusParceiro' => array(
+			                'Parceirodenegocio.status' => array(
+			                    'operator' => 'LIKE',
+								'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+			                )
+			            ),
+			            
+			            //Filtros PRODUTOS
+			            
+			            'produtoNome' => array(
+			                '_Produto.nome' => array(
+			                    'operator' => 'LIKE'
+		
+			                )
+			            ),
+			            'produtoNivel' => array(
+			                '_Produto.nivel' => array(
+			                    'operator' => 'LIKE',
+								'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+			                )
+			            ),
+			            'codProd' => array(
+			                '_Produto.id' => array(
+			                    'operator' => '='
+		
+			                )
+			            ),
+			            
+			            
+				            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
+				           'produtoRespNome' => array(
+								'_Produto.nome' => array(
+									'operator' => '='
+								)
+				           ),
+				        )
+					);
+					$this->loadModel('Parceirodenegocio');
+					
+					$parceirodenegocios = $this->Parceirodenegocio->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*'), 'order' => 'Parceirodenegocio.nome ASC'));
+					$this->Paginator->settings = array(
+						'Parceirodenegocio' => array(
+							'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*'),
+							'fields_toCount' => 'DISTINCT Parceirodenegocio.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Parceirodenegocio.nome ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntParceiros = count($parceirodenegocios);
+					$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');			
+					$this->set(compact('parceirodenegocios', 'cntParceiros'));
 						
 				}
 		
+
 		/**QuickLink**/
 		$quicklinksList = array();
 		$this->loadModel('Quicklink');
-		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMPRAS'), 'order' => array('Quicklink.nome' => 'ASC')));
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMERCIAL'), 'order' => array('Quicklink.nome' => 'ASC')));
 		foreach($quicklinks as $link)
 		{
 			array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
@@ -429,11 +516,11 @@ class ComoperacaosController extends AppController {
 						return $this->redirect($this->referer());
 					}else{
 						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
-					}
-			}
-	}
-}
 
+					}
+				}
+		}
+}
 /**
  * view method
  *
