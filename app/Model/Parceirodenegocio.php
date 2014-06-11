@@ -265,7 +265,7 @@ class Parceirodenegocio extends AppModel {
 		var $hasOne = array(
 		'_ProdutosParceirodenegocio' => array(
 			'className'  => 'ProdutosParceirodenegocio',
-			'foreignKey' => 'produto_id',
+			'foreignKey' => 'parceirodenegocio_id',
 			'fields'     => 'id'	
 		  ),
 		  '_Produto' => array(
@@ -276,7 +276,7 @@ class Parceirodenegocio extends AppModel {
 		  ),  
 		  '_ComoperacaosParceirodenegocio' => array(
 			'className'  => 'ComoperacaosParceirodenegocio',
-			'foreignKey' => 'comoperacao_id',
+			'foreignKey' => 'parceirodenegocio_id',
 			'fields'     => 'id'	
 		  ),
 		  '_Comoperacao' => array(
