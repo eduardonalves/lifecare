@@ -233,7 +233,7 @@ class ComoperacaosController extends AppController {
 			$dataTermino= date("Y-m-t");
 			$this->request->data['filter']['data_inici']=$dataIncio;
 			$this->request->data['filter']['data_inici-between']=$dataTermino;
-		}	
+		}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici ASC'));
 					$this->Paginator->settings = array(
