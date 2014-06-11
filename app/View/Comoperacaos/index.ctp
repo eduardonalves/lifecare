@@ -249,7 +249,6 @@
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('categoria_id'); ?></th>
-					<th class="colunaES"><?php echo $this->Paginator->sort('parceirodenegocio_id','Fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($produtos as $produto): ?>
@@ -268,7 +267,6 @@
 					<td><?php echo $produto['Produto']['nome'];?></td>
 					<td><?php echo $produto['Produto']['descricao'];?></td>
 					<td><?php if(isset($produto['Categoria'][0]['nome'])) echo $produto['Categoria'][0]['nome'];?></td>
-					<td><?php if(isset($produto['Parceirodenegocio'][0]['nome'])) echo $produto['Parceirodenegocio'][0]['nome'];?></td>
 				
 				</tr>
 
