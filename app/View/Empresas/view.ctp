@@ -1,64 +1,57 @@
-<div class="empresas view">
-<h2><?php echo __('Empresa'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nome Fantasia'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['nome_fantasia']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Razao'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['razao']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Cnpj'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['cnpj']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Telefone'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['telefone']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Endereco'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['endereco']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Complemento'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['complemento']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Bairro'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['bairro']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Cidade'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['cidade']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Uf'); ?></dt>
-		<dd>
-			<?php echo h($empresa['Empresa']['uf']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Empresa'), array('action' => 'edit', $empresa['Empresa']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Empresa'), array('action' => 'delete', $empresa['Empresa']['id']), null, __('Are you sure you want to delete # %s?', $empresa['Empresa']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Empresas'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Empresa'), array('action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php
+	//~ $this->start('css');
+		//~ //echo $this->Html->css('parceiro');
+	//~ $this->end();
+//~ 
+	//~ $this->start('script');
+		//~ //echo $this->Html->script('funcoes_parceiro.js');
+	//~ $this->end();
+?>
+
+<header>
+	<?php echo $this->html->image('titulo-consultar.png'); ?>
+	<h1>Edição da Empresa</h1>
+</header>
+
+<section>
+	
+	<header>Dados da Empresa</header>
+	
+	<section class="coluna-esquerda">  
+		<?php
+			
+			echo $this->Form->input('id',array('type'=>'hidden'));
+			echo $this->Form->input('nome_fantasia',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
+			echo $this->Form->input('telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
+			echo $this->Form->input('uf',array('value'=>$empresa['Empresa']['uf'],'disabled'=>'disabled','class'=>'tamanho-pequeno borderZero','label'=>'UF:','type'=>'text','id'=>''));
+		?>
+	</section>
+	
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
+			echo $this->Form->input('endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
+			echo $this->Form->input('cidade',array('value'=>$empresa['Empresa']['cidade'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Cidade:','type'=>'text','id'=>''));
+		?>
+	</section>
+
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
+			echo $this->Form->input('complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
+			echo $this->Form->input('bairro',array('value'=>$empresa['Empresa']['bairro'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Bairro:','type'=>'text','id'=>''));
+
+		?>
+	</section>
+	
+</section>
+
+<footer>
+	<?php
+	
+	?>	
+</footer>
+
+
+
+
