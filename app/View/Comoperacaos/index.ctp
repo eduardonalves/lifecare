@@ -198,6 +198,7 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?></th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($comoperacaos as $comoperacao): ?>
@@ -232,6 +233,7 @@
 					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Parceirodenegocio'][0]['nome']; ?>&nbsp;</td>
 				</tr>
 
 				<?php endforeach; 
