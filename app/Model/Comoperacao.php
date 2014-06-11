@@ -87,7 +87,22 @@ public $hasAndBelongsToMany = array(
 		'limit' => '',
 		'offset' => '',
 		'finderQuery' => '',
-	)
+	),
+	
+	'Produto' => array(
+		'className' => 'Produto',
+		'joinTable' => 'comitensdaoperacaos',
+		'foreignKey' => 'comoperacao_id',
+		'associationForeignKey' => 'produto_id',
+		'unique' => 'keepExisting',
+		'conditions' => '',
+		'fields' => '',
+		'order' => '',
+		'limit' => '',
+		'offset' => '',
+		'finderQuery' => '',
+	),
+	
 );
 
 var $hasOne = array(
@@ -102,6 +117,18 @@ var $hasOne = array(
 		'conditions' => '_Parceirodenegocio.id = _ComoperacaosParceirodenegocio.parceirodenegocio_id',
 		'fields'	 => 'id'
 	  ),
+	  '_Comitensdaoperacao' => array(
+		'className'  => 'Comitensdaoperacao',
+		'foreignKey' => 'comoperacao_id',
+		'fields'     => 'id'	
+	  ),
+	  '_Produto' => array(
+		'className'  => 'Produto',
+		'foreignKey' => false,
+		'conditions' => '_Produto.id = _Comitensdaoperacao.produto_id',
+		'fields'	 => 'id'
+	  ),
+	  
 	);
 public function paginateCount($conditions = null, $recursive = 0,
                                 $extra = array()) {

@@ -107,7 +107,7 @@ class ProdutosController extends AppController {
 			//Verificamos a data para setarmos o cemáfaro do lote
 			
 			//Inicio Cemáfaro
-			parent::beforeRender();
+			/*
 			$this->loadModel('Lote');
 			$lotes = $this->Lote->find('all', array('recursive' => 0));
 			
@@ -178,7 +178,7 @@ class ProdutosController extends AppController {
 				
 			}
 			
-			
+			*/
 			//Calculamos a quantidade de todos os lotes
 			
 		
@@ -311,7 +311,10 @@ class ProdutosController extends AppController {
 			$this->Produto->create();
 			if ($this->Produto->saveAll($this->request->data)) {
 				
-				
+				if($this->request->is('ajax'))
+				{
+					$this->layout = 'ajaxproduto';
+				}
 				$last = $this->Produto->find('first', array('order' => array('Produto.id' => 'desc'), 'recursive' => 1));
 				
 				//Calculamos as entradas do produto

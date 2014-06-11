@@ -50,50 +50,83 @@ class ComrespostasController extends AppController {
  * @param string $id
  * @return void
  */
+ 	public function descartarCotacao($id = null) {
+ 		$this->Comresposta->id = $id;
+		
+		$this->request->onlyAllow('post', 'descartarCotacao');
+		if (!$this->Comresposta->exists()) {
+			throw new NotFoundException(__('Invalid comresposta'));
+		}
+ 		$updateResposta = array('id' => $id, 'status' => 'DESCARTADA');
+		
+		if($this->Comresposta->save($updateResposta)){
+			$this->Session->setFlash(__('The comresposta foi salva.'));
+		}else{
+			$this->Session->setFlash(__('The comresposta não pode ser salva.'));
+		}
+		
+ 	}
+	
+	
+	
 	public function converteEmPedido($id = null) {
-		$resposta=$this->Comresposta->find('first',array('conditions' => array('Comresposta.id' => $id)));
-		$this->loadModel('Pedido');
-		$this->loadModel('Comitensdaoperacao');
-		
-		$this->loadModel('ComoperacaosParceirodenegocio');
-		
-		
-		$hoje = date('Y-m-d');
-		$userid = $this->Session->read('Auth.User.id');
-		
-		$exitente= $this->Pedido->find('first',array( 'conditions' => array('Pedido.codcotacao' => $id)));
-		
-		
-		
-		if(empty($exitente)){
-			$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
-			 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id);
-			$this->Pedido->create();
-			$this->Pedido->save($pedido); 
-			$ultimoPedido = $this->Pedido->find('first', array('order' => array('Pedido.id ' => 'DESC')));
 			
-			$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $pedido['Parceirodenegocio']['id']);
+		if ($this->request->is('post')) {	
+			$resposta=$this->Comresposta->find('first',array('conditions' => array('Comresposta.id' => $id)));
 			
 			
-			if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
-				foreach($resposta['Comitensresposta'] as $its){
-					$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
-					$this->Comitensdaoperacao->create();
-					$this->Comitensdaoperacao->save($itens);
+			$respostaPerdedoras = $this->Comresposta->find('all',array('recursive' => -1,'conditions' => array('Comoperacao_id' => $resposta['Comresposta']['comoperacao_id'])));
+			
+			foreach($respostaPerdedoras as $respostaPerdedora){
+				$upPerdedora = array('id' => $respostaPerdedora['Comresposta']['id'], 'status' => 'NÃO SELECIONADA');
+				$this->Comresposta->save($upPerdedora);
+			}
+			
+			$updateResp = array('id' => $id, 'status' => 'FECHADA');
+			$this->Comresposta->save($updateResp);
+			
+			$this->loadModel('Pedido');
+			$this->loadModel('Comitensdaoperacao');
+			
+			$this->loadModel('ComoperacaosParceirodenegocio');
+			
+			
+			$hoje = date('Y-m-d');
+			$userid = $this->Session->read('Auth.User.id');
+			
+			$exitente= $this->Pedido->find('first',array( 'conditions' => array('Pedido.codcotacao' => $id)));
+			
+			
+			
+			if(empty($exitente)){
+				$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
+				 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id);
+				$this->Pedido->create();
+				$this->Pedido->save($pedido); 
+				$ultimoPedido = $this->Pedido->find('first', array('order' => array('Pedido.id ' => 'DESC')));
+				
+				$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $pedido['Parceirodenegocio']['id']);
+				
+				
+				if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
+					foreach($resposta['Comitensresposta'] as $its){
+						$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
+						$this->Comitensdaoperacao->create();
+						$this->Comitensdaoperacao->save($itens);
+					}
+					
+					
+					$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'));	
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 				}
 				
 				
-				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'));	
-				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+				
+			}else{
+				$this->Session->setFlash(__('Erro, já existe um pedido feito com esta cotação'));	
+				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 			}
-			
-			
-			
-		}else{
-			$this->Session->setFlash(__('Erro, já existe um pedido feito com esta cotação'));	
-			return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 		}
-		
 	}
 
 /**
