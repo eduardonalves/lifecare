@@ -232,8 +232,8 @@ class ComoperacaosController extends AppController {
 			$dataIncio = date("Y-m-01");
 			$dataTermino= date("Y-m-t");
 			$this->request->data['filter']['data_inici']=$dataIncio;
-			$this->request->data['filter']['data_inici-between']=$dataTermino;	
-		}	
+			$this->request->data['filter']['data_inici-between']=$dataTermino;
+		}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici ASC'));
 					$this->Paginator->settings = array(
@@ -360,10 +360,7 @@ class ComoperacaosController extends AppController {
 								)
 				           ),
 				        )
-					);			
-			
-				
-			
+					);
 			
 					$this->loadModel('Produto');
 						
@@ -379,7 +376,7 @@ class ComoperacaosController extends AppController {
 					);
 					
 					$cntProdutos = count($produtos);
-					$produtos = $this->Paginator->paginate('Produto');		
+					$produtos = $this->Paginator->paginate('Produto');
 						
 					$this->set(compact('produtos', 'cntProdutos'));
 						
