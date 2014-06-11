@@ -1,7 +1,7 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras');
+	    echo $this->Html->css('compras_cotacaos.css');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
@@ -44,30 +44,28 @@
 	<header>Dados da Empresa</header>
 	
 	<!-- INFORMAÇÕES DA EMPRESA-->
-		
 		<section  class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
+				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.uf',array('value'=>$empresa['Empresa']['uf'],'disabled'=>'disabled','class'=>'tamanho-pequeno borderZero','label'=>'UF:','type'=>'text','id'=>''));
 			?>
 		</section>
 		
 		<section  class="coluna-central">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-			
+				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.cidade',array('value'=>$empresa['Empresa']['cidade'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Cidade:','type'=>'text','id'=>''));
 			?>
 		</section>
 		
 		<section  class="coluna-direita">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-			
+				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.bairro',array('value'=>$empresa['Empresa']['bairro'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Bairro:','type'=>'text','id'=>''));
+
 			?>
 		</section>
 		
@@ -161,6 +159,7 @@
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_fornecedores" >
 					<thead>
+						<th>Ações</th>
 						<th>Fornecedor</th>
 						<th>Data Resposta</th>								
 						<th>Valor</th>								
@@ -168,22 +167,83 @@
 						<th>Obs. Pagamento</th>								
 						<th>Prazo Entrega</th>								
 						<th>Status</th>								
-						<th>Ações</th>								
+														
 					</thead>
 					
 					<?php 
+						$j=0;
 						foreach($resposta as $respostas){
 							echo "<tr>";
-							echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
-							echo "<td>". $respostas['Comresposta']['data_resposta']."</td>";
-							echo "<td>". $respostas['Comresposta']['valor']."</td>";
-							echo "<td>". $respostas['Comresposta']['forma_pagamento']."</td>";
-							echo "<td>". $respostas['Comresposta']['obs_pagamento']."</td>";
-							echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
-							echo "<td>". $respostas['Comresposta']['status']."</td>";
-							echo "<td></td>";
+							echo "<td>";
+								echo "<a href='myModal_add-view_itens".$j."' class='bt-showmodal'>"; 
+									echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Itens da Resposta','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Itens da Resposta'));
+								echo "</a>";
 							
+								//MODAL DOS ITENS DAS RESPOSTAS
+							?>
+						<div class="modal fade" id="myModal_add-view_itens<?php echo $j; ?>" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-body">
+						
+								<header class="cabecalho">
+								<?php 
+									echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+									echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+
+								?>	
+								<h1>Produtos da Resposta</h1>
+								</header>
+				
+								<section>
+									<header>Produtos</header>
+				
+									<section class="coluna-modal">
+										<table>
+											<thead>
+												<tr>
+													<th>Produto</th>
+													<th>Quantidade</th>
+													<th>Valor Unitário</th>
+													<th>Valor Total</th>
+													<th>Fabricante</th>
+													<th>Obs</th>											
+												</tr>											
+											</thead>
+												
+											<?php
+												foreach($respostas['Comitensresposta'] as $itens){
+													echo "<tr>";
+														echo "<td>". $itens['produto_nome'] ."</td>";
+														echo "<td>". $itens['qtde'] ."</td>";
+														echo "<td>". $itens['valor_unit'] ."</td>";
+														echo "<td>". $itens['valor_total'] ."</td>";
+														echo "<td>". $itens['fabricante'] ."</td>";
+														echo "<td>". $itens['obs'] ."</td>";	
+													echo "</tr>";
+												}									
+											?>
+										</table>
+									</section>
+								</section>
+							</div>
+						</div>
+							
+																
+						<?php
+					
+							echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
+							echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Cancelar Conta'),'title' => __('Cancelar Conta'))), array('controller' => 'contas','action' => 'cancelarConta',  $conta['Conta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Conta # %s?', $conta['Conta']['id'])));
+						
+							echo "</td>";
+								echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
+								formatDateToView($respostas['Comresposta']['data_resposta']);
+								echo "<td>". $respostas['Comresposta']['data_resposta']."</td>";
+								echo "<td>". $respostas['Comresposta']['valor']."</td>";
+								echo "<td>". $respostas['Comresposta']['forma_pagamento']."</td>";
+								echo "<td>". $respostas['Comresposta']['obs_pagamento']."</td>";
+								echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
+								echo "<td>". $respostas['Comresposta']['status']."</td>";			
 							echo "</tr>";
+						$j++;
 						}
 						
 					?>
@@ -208,3 +268,13 @@
 </footer>
 
 
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $(".bt-showmodal").click(function(){
+		nome = $(this).attr('href');
+		$('#'+nome).modal('show');
+			    
+	    });	
+		
+	});
+</script>

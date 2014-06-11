@@ -100,8 +100,24 @@ class CotacaosController extends ComoperacaosController {
 		
 		$this->loadModel('Comresposta');
 		$resposta = $this->Comresposta->find('all',array('conditions'=>array('Comresposta.comoperacao_id'=> $id),'recursive'=>1));
+	
+		$this->loadModel('Produto');
+		$j=0;
+		foreach($resposta as $j => $respostaList){
+			$x=0;
+			foreach($resposta[$j]['Comitensresposta'] as $x => $itensResposta){
+				$respostaIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$resposta[$j]['Comitensresposta'][$x]['produto_id'])));
+				$resposta[$j]['Comitensresposta'][$x]['produto_nome'] = $respostaIten['Produto']['nome'];
+			$x++;
+			}
+		$j++;
+		}
+	
+			
+		$this->loadModel('Empresa');
+		$empresa = $this->Empresa->find('first');
 		
-		$this->set(compact('cotacao','userid','itens','resposta'));
+		$this->set(compact('cotacao','userid','itens','resposta','empresa','itensRespostas'));
 	}
 
 /**

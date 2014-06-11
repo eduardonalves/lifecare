@@ -100,13 +100,16 @@ class PedidosController extends ComoperacaosController {
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 
 		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Empresa');
+		
+		$empresa = $this->Empresa->find('first');
 		
 		$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
 		$pedido = $this->Pedido->find('first', $options);
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedido['Parceirodenegocio'][0]['id'] )));	
 		
-		$this->set(compact('pedido','userid','itens','parceirodenegocio'));
+		$this->set(compact('pedido','userid','itens','parceirodenegocio','empresa'));
 	}
 
 /**

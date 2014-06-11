@@ -47,27 +47,26 @@
 		
 		<section  class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
+				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.uf',array('value'=>$empresa['Empresa']['uf'],'disabled'=>'disabled','class'=>'tamanho-pequeno borderZero','label'=>'UF:','type'=>'text','id'=>''));
 			?>
 		</section>
 		
 		<section  class="coluna-central">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-			
+				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.cidade',array('value'=>$empresa['Empresa']['cidade'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Cidade:','type'=>'text','id'=>''));
 			?>
 		</section>
 		
 		<section  class="coluna-direita">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-				echo $this->Form->input('Vazio.input',array('label'=>'Label:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>'','disabled'=>'disabled'));	
-			
+				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
+				echo $this->Form->input('Vazio.bairro',array('value'=>$empresa['Empresa']['bairro'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Bairro:','type'=>'text','id'=>''));
+
 			?>
 		</section>
 		
@@ -205,5 +204,4 @@
 	?>
 
 </footer>
-
 

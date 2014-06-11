@@ -66,13 +66,10 @@ class ParceirodenegociosController extends AppController {
 									);
 			$j=0;
 			foreach($opercaoParceiro as $j => $produtosList){
-				
-				//debug($opercaoParceiro[$j]);
 				$x=0;
 				foreach($opercaoParceiro[$j]['Comitensdaoperacao'] as $x => $itens){
 					$produtoIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_id'])));
 					$opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome'] = $produtoIten['Produto']['nome'];
-					//debug($opercaoParceiro[$j]['Comitensdaoperacao'][$x]['produto_nome']);
 				$x++;
 				}
 							
