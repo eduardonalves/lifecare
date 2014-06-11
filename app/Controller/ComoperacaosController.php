@@ -498,31 +498,32 @@ class ComoperacaosController extends AppController {
 						
 				}
 		
-				/**QuickLink**/
-				$quicklinksList = array();
-				$this->loadModel('Quicklink');
-				$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMPRAS'), 'order' => array('Quicklink.nome' => 'ASC')));
-				foreach($quicklinks as $link)
-				{
-					array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
-				}
-				array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'Comoperacaos', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
-				$this->set(compact('users','userid', 'quicklinks','quicklinksList'));
-				if ($this->request->is('post')) {
-					
-					//salva o post do quicklink
-					if(isset($this->request->data['Quicklink'])){
-							$this->Quicklink->create();
-							if($this->Quicklink->save($this->request->data)) {
-								$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
-								return $this->redirect($this->referer());
-							}else{
-								$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
-							}
+
+		/**QuickLink**/
+		$quicklinksList = array();
+		$this->loadModel('Quicklink');
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMERCIAL'), 'order' => array('Quicklink.nome' => 'ASC')));
+		foreach($quicklinks as $link)
+		{
+			array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
+		}
+		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'Comoperacaos', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		$this->set(compact('users','userid', 'quicklinks','quicklinksList'));
+		if ($this->request->is('post')) {
+			
+			//salva o post do quicklink
+			if(isset($this->request->data['Quicklink'])){
+					$this->Quicklink->create();
+					if($this->Quicklink->save($this->request->data)) {
+						$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
+						return $this->redirect($this->referer());
+					}else{
+						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
+
 					}
 				}
+		}
 }
-
 /**
  * view method
  *
