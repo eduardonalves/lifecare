@@ -54,14 +54,14 @@
 
 						$(".loaderAjax").show();
 						$(".btn-salvarProduto").hide();
-
+				
 						$.ajax({
 							type: "POST",
 							url: urlAction,
 							data:  dadosForm,
 							dataType: 'json',
 							success: function(data){
-								//console.debug(data.Produto.id);
+								console.log(data);
 
 								$(".loaderAjax").hide();
 								$(".bt-salvar-Produto").show();

@@ -17,7 +17,7 @@ class PedidosController extends ComoperacaosController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs','RequestHandler', 'Session');
+	public $components = array('Paginator','lifecareFuncs','lifecareDataFuncs','RequestHandler', 'Session');
 	
 	
 	
@@ -126,6 +126,9 @@ class PedidosController extends ComoperacaosController {
 			$this->Pedido->create();
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
+			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
+			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			
 			$this->loadModel('Produto');
 			if ($this->Pedido->saveAll($this->request->data)) {
 					

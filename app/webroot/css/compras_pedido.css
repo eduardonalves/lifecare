@@ -73,16 +73,17 @@ input[type="text"]:disabled{
 }
 
 
-#msgValidaProduto{top: -10px;}
-#msgValidaFor{top: -10px;}
+#msgValidaProduto{top: -50px;}
+#msgValidaFor{top: -50px;}
+#msgDataInicial{left: 250px;}
 
 
 #msgValidaProduto:after{
-	top: 21px !important;
+	top: 36px !important;
 }
 
 #msgValidaFor:after{
-	top: 21px !important;
+	top: 36px !important;
 }
 
 #msgQtdVazia{
