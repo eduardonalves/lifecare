@@ -130,62 +130,6 @@ $(document).ready(function(){
 		}
 	});
 
-
-/*** VALIDAR FILTROS DE CONSULTO ***************************/
-	
-	//~ var expandido = false;
-	//~ 
-	//~ $('label[for="filterNomeCentroCusto"]').css('display','none');
-	//~ $('#filterNomeCentroCusto').css('display','none');
-	//~ 
-	//~ $('label[for="filterNomeTipodeconta"]').css('display','none');
-	//~ $('#filterNomeTipodeconta').css('display','none');
-	//~ 
-	//~ $('label[for="filterDescricao"]').css('display','none');
-	//~ $('#filterDescricao').css('display','none');
-	//~ 
-	//~ $('#bt-expandir').css('top','160px');
-	//~ 
-	//~ $('#bt-expandir').click(function(){
-		//~ 
-		//~ if(!expandido){
-			//~ expandido = true;
-			//~ 
-			//~ $('label[for="filterNomeCentroCusto"]').css('display','initial');
-			//~ $('#filterNomeCentroCusto').css('display','initial');
-			//~ 
-			//~ $('label[for="filterNomeTipodeconta"]').css('display','initial');
-			//~ $('#filterNomeTipodeconta').css('display','initial');
-			//~ 
-			//~ $('label[for="filterDescricao"]').css('display','initial');
-			//~ $('#filterDescricao').css('display','initial');
-			//~ 
-			//~ $('#bt-expandir').css('top','215px');
-			//~ 
-			//~ $('#bt-expandir').css('transform','rotate(180deg)');
-			//~ $('#bt-expandir').css('-ms-transform','rotate(180deg)');
-			//~ $('#bt-expandir').css('-webkit-transform','rotate(180deg)');
-		//~ }else{
-			//~ expandido = false;
-			//~ 
-			//~ $('label[for="filterNomeCentroCusto"]').css('display','none');
-			//~ $('#filterNomeCentroCusto').css('display','none');
-			//~ 
-			//~ $('label[for="filterNomeTipodeconta"]').css('display','none');
-			//~ $('#filterNomeTipodeconta').css('display','none');
-			//~ 
-			//~ $('label[for="filterDescricao"]').css('display','none');
-			//~ $('#filterDescricao').css('display','none');
-				//~ 
-			//~ $('#bt-expandir').css('top','160px');
-			//~ 
-			//~ $('#bt-expandir').css('transform','initial');
-			//~ $('#bt-expandir').css('-ms-transform','initial');
-			//~ $('#bt-expandir').css('-webkit-transform','initial');
-		//~ }
-	//~ });
-
-
 /*** CONSULTA *********************************************************/
 	function get(){
 		var get = new Object();
@@ -313,5 +257,21 @@ var valorAux=$('#filterTipoOperacao').val();
 			$('#spanQuicklink').show();
 		}
     });
+
+/************* Inicio Seta de Ordenação da tabela *****************/
+	$(".colunaES a.asc + div").addClass("seta-cima");
+	$(".colunaES a.desc + div").addClass("seta-baixo");
+	$(".colunaParcela a.asc + div").addClass("seta-cima");
+	$(".colunaParcela a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".colunaES a.asc , .colunaES a.desc").parent().attr('id');
+	var idcol = $(".colunaParcela a.asc , .colunaParcela a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc , .setaOrdena a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
 
 });
