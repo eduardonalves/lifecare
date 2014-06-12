@@ -296,13 +296,15 @@ class PedidosController extends ComoperacaosController {
                 }
 
         }
+        
 	public function cancelarPedido($id = null) {
-		$this->request->onlyAllow('post', 'cancelarPedido');
-		if (!$this->Cotacao->exists()) {
-			throw new NotFoundException(__('Invalid Pedido'));
-		}
-		
+		//~ $this->request->onlyAllow('post', 'cancelarPedido');
+		//~ if (!$this->Pedido->exists()) {
+			//~ throw new NotFoundException(__('Invalid Pedido'));
+		//~ }
+		//~ 
 		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Contato');
 		$ultimaPedido= $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
 		
 		foreach($ultimaPedido['Parceirodenegocio'] as $fornecedor){
@@ -325,6 +327,7 @@ class PedidosController extends ComoperacaosController {
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
+		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
 	}
 	public function confirmarEntrega() {
 		if ($this->request->is('post')) {
