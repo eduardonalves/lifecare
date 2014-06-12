@@ -176,7 +176,7 @@
 							echo "<tr>";
 							echo "<td>";
 								echo "<a href='myModal_add-view_itens".$j."' class='bt-showmodal'>"; 
-									echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Itens da Resposta','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Itens da Resposta'));
+									echo $this->Html->image('listar.png',array('alt'=>'Visualizar Itens da Resposta','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Itens da Resposta'));
 								echo "</a>";
 							
 								//MODAL DOS ITENS DAS RESPOSTAS
@@ -229,9 +229,15 @@
 							
 																
 						<?php
+							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Resposta','class' => '','title'=>'Visualizar Resposta','url'=>array('controller'=>'Comrespostas','action'=>'view',$respostas['Comresposta']['id'])));
+
 							if($respostas['Comresposta']['status'] == 'ABERTA'){
 								echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
 							}
+							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
+								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Descartar Resposta'),'title' => __('Descartar Resposta'))), array('controller' => 'Comrespostas','action' => 'descartarCotacao',$respostas['Comresposta']['id'],$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja descartar resposta?', $respostas['Comresposta']['id'])));
+							}	
+							
 							echo "</td>";
 								echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
 								formatDateToView($respostas['Comresposta']['data_resposta']);
