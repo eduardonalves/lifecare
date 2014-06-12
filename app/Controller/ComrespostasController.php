@@ -130,6 +130,28 @@ class ComrespostasController extends AppController {
  	}
 	
 	
+	public function comfirmacao($codigo = null) {
+ 		$this->loadModel('Comtokencotacao');	
+		$token = $this->Comtokencotacao->find('first', array('recursive' => -1,'conditions'=> array('Comtokencotacao.codigoseguranca' => $codigo)));	
+ 		if(!empty($token)){
+	 		$this->loadModel('Pedido');
+			$comrespostaConf = $this->Pedido->find('first', array('conditions' => array('Pedido.id' => $token['Comtokencotacao']['comoperacao_id'] )));
+	 		
+	 		if($comrespostaConf['Pedido']['status']=='ABERTO'){
+	 			$updateResposta = array('id' => $id, 'status' => 'Confirmado');
+				if($this->Pedido->save($updateResposta)){
+					$this->Session->setFlash(__('Pedido confirmado.'));
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'confirmacao',$codigo));
+				}else{
+					$this->Session->setFlash(__('The comresposta não pode ser salva.'));
+				}
+	 		}	
+ 		}
+ 		
+ 		
+		
+ 	}
+	
 	
 	public function converteEmPedido($id = null) {
 			

@@ -10,12 +10,9 @@
 			<br/>
 			<a style="text-decoration:none; color:inherit;" href="<?php echo ($_SESSION['extraparams']['Mensagem']['site']);?>"><?php echo ($_SESSION['extraparams']['Mensagem']['site']);?></a>
 		</p>
-<<<<<<< HEAD
-		
-		<p style="color:#008000; margin:35px 10px; text-align:left; font-size:14px;">
-=======
+
 		<p style="color:#008000; margin:35px 10px; text-align:left;">
->>>>>>> de2a8d0275b9639a9e4be7fff7acf51cbb5b6f6e
+
 			<?php echo ($_SESSION['extraparams']['Mensagem']['corpo']);?>
 		</p>
 	</header>

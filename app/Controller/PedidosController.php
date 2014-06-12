@@ -157,6 +157,25 @@ class PedidosController extends ComoperacaosController {
 					
 				}
 				
+				
+				$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'codigoseguranca' => $numero);
+							
+							$this->Comtokencotacao->save($dadosComOp);
+								
+							$flag="TRUE";
+						}
+						
+					}
+				
 				$remetente= "eduardonalves@gmail.com";
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
@@ -244,15 +263,22 @@ class PedidosController extends ComoperacaosController {
 		public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 				
 				 //test file for check attachment 
+			$this->loadModel('Empresa');
 				 
-				
-			$mensagem['Mensagem']['empresa']="Nome da empreas lifecare"; 
-			$mensagem['Mensagem']['logo']="logo da empreas lifecare"; 
-			$mensagem['Mensagem']['endereco']="Endereco da empreas"; 
-			$mensagem['Mensagem']['telefone']="Telefone da empresa ";
-			$mensagem['Mensagem']['site']="Site da empresa da empresa ";
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			//$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
 			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
 			
+			$this->loadModel('Comtokencotacao');
+			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedido']['id'])));
+			if(!empty($token)){
+				$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+			}
+			 
 			
 			 $file_name= APP."webroot/img/cake.icon.png";
 			 
@@ -350,4 +376,5 @@ class PedidosController extends ComoperacaosController {
 		}
 		
 	}
+
 }

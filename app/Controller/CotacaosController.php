@@ -128,40 +128,44 @@ class CotacaosController extends ComoperacaosController {
  * @return void
  */
  
- 		public $uses = array();
+	public $uses = array();
 
-        public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
-				$mensagem['Mensagem']['empresa']="Nome da empreas lifecare"; 
-				$mensagem['Mensagem']['logo']="logo da empreas lifecare"; 
-				$mensagem['Mensagem']['endereco']="Endereco da empreas"; 
-				$mensagem['Mensagem']['telefone']="Telefone da empresa ";
-				$mensagem['Mensagem']['site']="Site da empresa da empresa ";
-				
-           		$this->Session->write("extraparams",$mensagem);
-				
-				
-				
-				
-				$this->set('extraparams', $mensagem);
-		
-                $email = new CakeEmail('smtp');
+    public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 
-                $email->to($destinatario);
+			$this->loadModel('Empresa');	 
+			$empresa = 	$this->empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			
+			
+       		$this->Session->write("extraparams",$mensagem);
+			
+			
+			
+			
+			$this->set('extraparams', $mensagem);
+	
+            $email = new CakeEmail('smtp');
 
-                $email->subject($remetente);
-				$email->template('cotacao','default');
- 				$email->emailFormat('html');
+            $email->to($destinatario);
 
-                if($email->send($mensagem)){
-					return TRUE;
+            $email->subject($remetente);
+			$email->template('cotacao','default');
+			$email->emailFormat('html');
 
-                }else{
-                	return FALSE;	
-                }
+            if($email->send($mensagem)){
+				return TRUE;
 
-            
+            }else{
+            	return FALSE;	
+            }
 
-        }
+        
+
+    }
  	
 	public function cancelarCotacao($id = null) {
 		//~ $this->request->onlyAllow('post', 'cancelarCotacao');
