@@ -191,14 +191,14 @@
 				
 				<tr>
 					<th class="actions colunaConta">Ações</th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('tipo','Tipo'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('valor'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?></th>
-					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?></th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('tipo','Tipo'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 				</tr>
 
 				<?php foreach ($comoperacaos as $comoperacao): ?>
