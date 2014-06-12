@@ -229,8 +229,9 @@
 							
 																
 						<?php
-							echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
-
+							if($respostas['Comresposta']['status'] == 'ABERTA'){
+								echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
+							}
 							echo "</td>";
 								echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
 								formatDateToView($respostas['Comresposta']['data_resposta']);
@@ -254,13 +255,16 @@
 <footer>
 
 	<?php
+		if($cotacao['Cotacao']['status'] != 'CANCELADO'){
+			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Cotação'),'title' => __('Cancelar Cotação'))), array('controller' => 'Cotacaos','action' => 'cancelarCotacao',$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Cotação?', $cotacao['Cotacao']['id'])));
+		}
+
 	
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 											'title'=>'Editar Cotação',
 											'class'=>'bt-editar',
 											'url'=>array('controller'=>'Cotacaos','action'=>'edit', $cotacao['Cotacao']['id'])));	
-													 
-	
+
 	?>
 
 </footer>
