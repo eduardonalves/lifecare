@@ -50,7 +50,7 @@ $(document).ready(function(){
 		
 	datavencimentoInicio = $('#filterDataInici').attr('value');
 	if(datavencimentoInicio != undefined){
-		if(datavencimentoInicio !=''){
+		if(datavencimentoInicio != ''){
 			iniano = datavencimentoInicio.substr(0,4);
 			inimes = datavencimentoInicio.substr(5,2);
 			inidia = datavencimentoInicio.substr(8,2);
@@ -129,62 +129,6 @@ $(document).ready(function(){
 			$('#form-filter-results').submit();
 		}
 	});
-
-
-/*** VALIDAR FILTROS DE CONSULTO ***************************/
-	
-	//~ var expandido = false;
-	//~ 
-	//~ $('label[for="filterNomeCentroCusto"]').css('display','none');
-	//~ $('#filterNomeCentroCusto').css('display','none');
-	//~ 
-	//~ $('label[for="filterNomeTipodeconta"]').css('display','none');
-	//~ $('#filterNomeTipodeconta').css('display','none');
-	//~ 
-	//~ $('label[for="filterDescricao"]').css('display','none');
-	//~ $('#filterDescricao').css('display','none');
-	//~ 
-	//~ $('#bt-expandir').css('top','160px');
-	//~ 
-	//~ $('#bt-expandir').click(function(){
-		//~ 
-		//~ if(!expandido){
-			//~ expandido = true;
-			//~ 
-			//~ $('label[for="filterNomeCentroCusto"]').css('display','initial');
-			//~ $('#filterNomeCentroCusto').css('display','initial');
-			//~ 
-			//~ $('label[for="filterNomeTipodeconta"]').css('display','initial');
-			//~ $('#filterNomeTipodeconta').css('display','initial');
-			//~ 
-			//~ $('label[for="filterDescricao"]').css('display','initial');
-			//~ $('#filterDescricao').css('display','initial');
-			//~ 
-			//~ $('#bt-expandir').css('top','215px');
-			//~ 
-			//~ $('#bt-expandir').css('transform','rotate(180deg)');
-			//~ $('#bt-expandir').css('-ms-transform','rotate(180deg)');
-			//~ $('#bt-expandir').css('-webkit-transform','rotate(180deg)');
-		//~ }else{
-			//~ expandido = false;
-			//~ 
-			//~ $('label[for="filterNomeCentroCusto"]').css('display','none');
-			//~ $('#filterNomeCentroCusto').css('display','none');
-			//~ 
-			//~ $('label[for="filterNomeTipodeconta"]').css('display','none');
-			//~ $('#filterNomeTipodeconta').css('display','none');
-			//~ 
-			//~ $('label[for="filterDescricao"]').css('display','none');
-			//~ $('#filterDescricao').css('display','none');
-				//~ 
-			//~ $('#bt-expandir').css('top','160px');
-			//~ 
-			//~ $('#bt-expandir').css('transform','initial');
-			//~ $('#bt-expandir').css('-ms-transform','initial');
-			//~ $('#bt-expandir').css('-webkit-transform','initial');
-		//~ }
-	//~ });
-
 
 /*** CONSULTA *********************************************************/
 	function get(){
@@ -276,8 +220,6 @@ var valorAux=$('#filterTipoOperacao').val();
 		$('#QuicklinkNomeCOTACAO').attr('checked', true);
 	}else if(valorEntrada == 'PEDIDO'){
 		$('#QuicklinkNomePEDIDO').attr('checked', true);
-	}else if(valorEntrada == 'RESPONDIDO'){
-		$('#QuicklinkNomeRESPONDIDO').attr('checked', true);
 	}
 	
 	if(valorSaida2 != ''){
@@ -293,29 +235,11 @@ var valorAux=$('#filterTipoOperacao').val();
 				$('#filterTipoOperacao').val('COTACAO');
 			}
 		}else if($('#QuicklinkNomePEDIDO').is(':checked')){
-			if($('#QuicklinkNomePEDIDO').is(':checked')){
 				$('#filterTipoOperacao').val('PEDIDO');
-			}else{
+			}
+			else{
 				$('#filterTipoOperacao').val(' ');
 			}
-		}
-	});
-
-	$("#QuicklinkNomeRESPONDIDO").bind('click', function(){
-		if($('#QuicklinkNomeRESPONDIDO').is(':checked')){
-			$("#QuicklinkNomeCOTACAO").prop('disabled', true);
-			$("#QuicklinkNomePEDIDO").prop('disabled', true);
-			$("#dataEntrega input").prop('disabled', true);
-			$('#QuicklinkNomePEDIDO').attr('checked', false);
-			$('#QuicklinkNomeCOTACAO').attr('checked', false);
-			$('#filterTipoOperacao').val('RESPONDIDO');
-			$('#dataEntrega').show();
-		}else{
-			$("#QuicklinkNomeCOTACAO").prop('disabled', false);
-			$("#QuicklinkNomePEDIDO").prop('disabled', false);
-			$("#dataEntrega input").prop('disabled', false);
-			$('#dataEntrega').hide();
-		}
 	});
 
 /*** SALVAR QUICKLINK *************************************************/
@@ -333,5 +257,21 @@ var valorAux=$('#filterTipoOperacao').val();
 			$('#spanQuicklink').show();
 		}
     });
+
+/************* Inicio Seta de Ordenação da tabela *****************/
+	$(".colunaES a.asc + div").addClass("seta-cima");
+	$(".colunaES a.desc + div").addClass("seta-baixo");
+	$(".colunaParcela a.asc + div").addClass("seta-cima");
+	$(".colunaParcela a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".colunaES a.asc , .colunaES a.desc").parent().attr('id');
+	var idcol = $(".colunaParcela a.asc , .colunaParcela a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc , .setaOrdena a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");
 
 });

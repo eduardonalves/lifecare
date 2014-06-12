@@ -35,7 +35,7 @@ class ComrespostasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->layout = 'comresposta';
+		$this->layout = 'compras';
 		if (!$this->Comresposta->exists($id)) {
 			throw new NotFoundException(__('Invalid comresposta'));
 		}
@@ -63,6 +63,46 @@ class ComrespostasController extends AppController {
 		}		
 		$this->set(compact('parceiroResposta','comresposta'));		
 	}
+	
+	public function viewParceiro($codigo=null) {
+		
+		$this->layout = 'comresposta';
+		
+		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Comoperacao');
+		
+		$token = $this->Comtokencotacao->find('first',array('conditions'=>array('Comtokencotacao.codigoseguranca'=>$codigo)));
+				
+		if(!empty($token)){
+			$numFornecedor = $token['Comtokencotacao']['parceirodenegocio_id'];
+			$numComoperacao = $token['Comtokencotacao']['comoperacao_id'];
+		}
+		
+		$options = array('conditions' => array('Comresposta.' . $this->Comresposta->primaryKey => $token['Comresposta']['id']));
+		$comresposta =	$this->Comresposta->find('first', $options);
+			
+		$this->loadModel('Parceirodenegocio');
+		$parceiroResposta = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id'=>$comresposta['Parceirodenegocio']['id'])));
+			
+		$this->loadModel('Produto');
+		$this->loadModel('Comitensdaoperacao');
+		
+		$j=0;
+		foreach($comresposta as $j => $respostaList){
+			$x=0;
+			foreach($comresposta['Comitensresposta'] as $x => $extras){
+				$comExtras = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$comresposta['Comitensresposta'][$x]['produto_id'])));
+				$comExOperacao = $this->Comitensdaoperacao->find('first',array('conditions'=>array('Comitensdaoperacao.comoperacao_id'=>$comresposta['Comoperacao']['id'])));
+				$comresposta['Comitensresposta'][$x]['produto_nome'] = $comExtras['Produto']['nome'];
+				$comresposta['Comitensresposta'][$x]['produto_unidade'] = $comExtras['Produto']['unidade'];
+				$comresposta['Comitensresposta'][$x]['obs_operacao'] = $comExOperacao['Comitensdaoperacao']['obs'];
+			$x++;
+			}
+		$j++;
+		}		
+		
+		$this->set(compact('token','comresposta','parceiroResposta' ));		
+	}
 
 /**
  * convertepedido method
@@ -71,7 +111,7 @@ class ComrespostasController extends AppController {
  * @param string $id
  * @return void
  */
- 	public function descartarCotacao($id = null) {
+ 	public function descartarCotacao($id = null,$idCotacao = null) {
  		$this->Comresposta->id = $id;
 		
 		$this->request->onlyAllow('post', 'descartarCotacao');
@@ -81,7 +121,8 @@ class ComrespostasController extends AppController {
  		$updateResposta = array('id' => $id, 'status' => 'DESCARTADA');
 		
 		if($this->Comresposta->save($updateResposta)){
-			$this->Session->setFlash(__('The comresposta foi salva.'));
+			$this->Session->setFlash(__('Resposta descartada.'));
+			return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$idCotacao));
 		}else{
 			$this->Session->setFlash(__('The comresposta não pode ser salva.'));
 		}
@@ -228,9 +269,9 @@ class ComrespostasController extends AppController {
 					$this->Comoperacao->save($updateCotacao);	
 				}
 				
-				$this->Session->setFlash(__('A resposta da cotação foi enviada com sucesso.'));
+				//$this->Session->setFlash(__('A resposta da cotação foi enviada com sucesso.'));
 				
-				return $this->redirect(array('action' => 'view',$codigo));
+				return $this->redirect(array('action' => 'viewParceiro',$codigo));
 			} else {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
 				//debug($this->request->data);
