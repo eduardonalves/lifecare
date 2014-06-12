@@ -132,7 +132,7 @@
 					</div>
 					<div class="informacoesProduto">
 						<?php
-							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 							echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
 							echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
 							echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
