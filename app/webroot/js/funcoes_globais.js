@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 /************* Inicio Seta de Ordenação da tabela *****************/
 	$(".colunaConta a.asc + div").addClass("seta-cima");
+	//alert("Teste");
 	$(".colunaConta a.desc + div").addClass("seta-baixo");
 	
 	var idcol = $(".colunaConta a.asc ,  .colunaConta a.desc").parent().attr('id');
