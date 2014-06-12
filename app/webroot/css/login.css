@@ -43,16 +43,27 @@ fieldset{
 }
 
 #flashMessage{
-	font-size:13px;
-	left:840px;
-	position:absolute;
-	top:205px;
-	width:190px;
-	z-index:3;
+	font-size: 13px;
+	left: 630px;
+	position: absolute;
+	top: 230px;
+	z-index: 3;
+	background-color: #FFD5D5;
+	color: #D40000;
+	padding: 5px;
+	border-radius: 5px;
 }
 
 #authMessage{
 	display:none;
+}
+
+#ComrespostasToken{
+	border-radius:3px;
+	display:inline-block;
+	margin-bottom:10px;
+	margin-top: 30%;
+	padding-left:10px;
 }
 
 #UserUsername{
@@ -70,6 +81,16 @@ fieldset{
 }
 
 /* HERANÇA ************************************************************/
+label[for=ComrespostasToken]{
+	display:inline-block;
+	float:left;
+	line-height:20px;
+	margin-right:10px;
+	margin-top: 30%;
+	text-align:right;
+	width:130px;
+}
+
 label[for=UserUsername]{
 	display:inline-block;
 	float:left;
@@ -79,6 +100,7 @@ label[for=UserUsername]{
 	text-align:right;
 	width:130px;
 }
+
 
 label[for=UserPassword]{
 	display:inline-block;
