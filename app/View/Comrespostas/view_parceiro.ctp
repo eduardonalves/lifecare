@@ -21,7 +21,6 @@
 		}
 		return $data;
 	}
-	
 	function converterMoeda(&$valorMoeda){
 		$valorMoedaAux = explode('.' , $valorMoeda);
 		if(isset ($valorMoedaAux[1])){
@@ -31,7 +30,7 @@
 		}
 		return $valorMoeda;
 	}
-	echo "<span class='success-flash'>COTAÇÃO JÁ RESPONDIDA!</span>";
+	echo "<span class='success-flash'>COTAÇÃO RESPONDIDA!</span>";
 ?>
 
 <header>
@@ -177,9 +176,9 @@
 	</table>
 </section>
 
+
 <footer>
-	<?php
-	?>	
+
 </footer>
 
 
