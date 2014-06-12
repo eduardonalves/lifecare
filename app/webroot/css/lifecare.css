@@ -384,6 +384,10 @@ legend{
 	margin-bottom: 50px;
 }
 
+.conteudo-principal footer .bt-esquerda{
+	float: left;
+}
+
 .conteudo-principal footer .bt-editar {
 	position:absolute;
 	float:right;

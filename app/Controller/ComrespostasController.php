@@ -40,7 +40,28 @@ class ComrespostasController extends AppController {
 			throw new NotFoundException(__('Invalid comresposta'));
 		}
 		$options = array('conditions' => array('Comresposta.' . $this->Comresposta->primaryKey => $id));
-		$this->set('comresposta', $this->Comresposta->find('first', $options));
+		$comresposta =	$this->Comresposta->find('first', $options);
+		
+		$this->loadModel('Parceirodenegocio');
+		$parceiroResposta = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id'=>$comresposta['Parceirodenegocio']['id'])));
+		
+		$this->loadModel('Produto');
+		$this->loadModel('Comitensdaoperacao');
+		
+		$j=0;
+		foreach($comresposta as $j => $respostaList){
+			$x=0;
+			foreach($comresposta['Comitensresposta'] as $x => $extras){
+				$comExtras = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$comresposta['Comitensresposta'][$x]['produto_id'])));
+				$comExOperacao = $this->Comitensdaoperacao->find('first',array('conditions'=>array('Comitensdaoperacao.comoperacao_id'=>$comresposta['Comoperacao']['id'])));
+				$comresposta['Comitensresposta'][$x]['produto_nome'] = $comExtras['Produto']['nome'];
+				$comresposta['Comitensresposta'][$x]['produto_unidade'] = $comExtras['Produto']['unidade'];
+				$comresposta['Comitensresposta'][$x]['obs_operacao'] = $comExOperacao['Comitensdaoperacao']['obs'];
+			$x++;
+			}
+		$j++;
+		}		
+		$this->set(compact('parceiroResposta','comresposta'));		
 	}
 
 /**
@@ -106,19 +127,18 @@ class ComrespostasController extends AppController {
 				$this->Pedido->save($pedido); 
 				$ultimoPedido = $this->Pedido->find('first', array('order' => array('Pedido.id ' => 'DESC')));
 				
-				$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $pedido['Parceirodenegocio']['id']);
-				
+				$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id']);
 				
 				if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
 					foreach($resposta['Comitensresposta'] as $its){
-						if($its['valor_unit']=''){
+						if($its['valor_unit']!=''){
 							$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
 							$this->Comitensdaoperacao->create();
 							$this->Comitensdaoperacao->save($itens);
 							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' =>$pedido['Parceirodenegocio']['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id']))));
 							if(empty($produtosParceirodenegocio)){
 								$viculaFornecedor = array('parceirodenegocio_id' => $pedido['Parceirodenegocio']['id'], 'produto_id' => $its['produto_id']);
-								$this->Pedido->ProdutosParceirodenegocio->save($viculaFornecedor);
+								$this->ProdutosParceirodenegocio->save($viculaFornecedor);
 							}
 							
 						}
@@ -126,10 +146,10 @@ class ComrespostasController extends AppController {
 					}
 					
 					
-					$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'));	
-					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+					
 				}
-				
+				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'));	
+				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 				
 				
 			}else{

@@ -162,12 +162,13 @@ class CotacaosController extends ComoperacaosController {
         }
  	
 	public function cancelarCotacao($id = null) {
-		$this->request->onlyAllow('post', 'descartarCotacao');
-		if (!$this->Cotacao->exists()) {
-			throw new NotFoundException(__('Invalid Cotacao'));
-		}
-		
+		//~ $this->request->onlyAllow('post', 'cancelarCotacao');
+		//~ if (!$this->Cotacao->exists()) {
+			//~ throw new NotFoundException(__('Invalid Cotacao'));
+		//~ }
+		//~ 
 		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Contato');
 		$ultimaCotacao= $this->Cotacao->find('first',array('conditions' => array('Cotacao.id' => $id)));
 		$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.comoperacao_id' => $id)));
 		foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
@@ -190,6 +191,7 @@ class CotacaosController extends ComoperacaosController {
 		}
 		$upDateCotacao = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Cotacao->save($upDateCotacao);
+		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
 	}
 	
 	public function add() {
