@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 /*** EXPANDIR DADOS DA OPERAÇÃO ***************************/
 	var expandirOperacao = false;
 	
@@ -47,14 +47,16 @@ $(document).ready(function(){
 
 /*** AJUSTAR CAMPOS AO CARREGAR PÁGINA ***************************/
 	$(".inputSearchNome .custom-combobox .custom-combobox-input").addClass("tamanho-medio");
-	
+		
 	datavencimentoInicio = $('#filterDataInici').attr('value');
 	if(datavencimentoInicio != undefined){
 		if(datavencimentoInicio !=''){
-			iniano = datavencimentoInicio.substr(0, 4);
+			iniano = datavencimentoInicio.substr(0,4);
 			inimes = datavencimentoInicio.substr(5,2);
 			inidia = datavencimentoInicio.substr(8,2);
 			dataInicio = inidia+'/'+inimes+'/'+iniano;
+
+			//alert(dataInicio);
 
 			$('#filterDataInici').val(dataInicio);
 		}
@@ -63,7 +65,7 @@ $(document).ready(function(){
 	datavencimentoFim = $('#filterDataInici-between').attr('value');
 	if(datavencimentoFim != undefined){
 		if(datavencimentoFim != ''){
-			fimano = datavencimentoFim.substr(0, 4);
+			fimano = datavencimentoFim.substr(0,4);
 			fimmes = datavencimentoFim.substr(5,2);
 			fimdia = datavencimentoFim.substr(8,2);
 			dataFim = fimdia+'/'+fimmes+'/'+fimano;
@@ -91,28 +93,6 @@ $(document).ready(function(){
 			fimdia = datavencimentoFim.substr(8,2);
 			dataFim = fimdia+'/'+fimmes+'/'+fimano;
 			$('#filterDataFim-between').val(dataFim);
-		}
-	}
-	
-	datavencimentoInicio = $('#filterDataResposta').attr('value');
-	if(datavencimentoInicio != undefined){
-		if(datavencimentoInicio !=''){
-			iniano = datavencimentoInicio.substr(0, 4);
-			inimes = datavencimentoInicio.substr(5,2);
-			inidia = datavencimentoInicio.substr(8,2);
-			dataInicio = inidia+'/'+inimes+'/'+iniano;
-			$('#filterDataResposta').val(dataInicio);
-		}
-	}
-	
-	datavencimentoFim = $('#filterDataResposta-between').attr('value');
-	if(datavencimentoFim != undefined){
-		if(datavencimentoFim != ''){
-			fimano = datavencimentoFim.substr(0, 4);
-			fimmes = datavencimentoFim.substr(5,2);
-			fimdia = datavencimentoFim.substr(8,2);
-			dataFim = fimdia+'/'+fimmes+'/'+fimano;
-			$('#filterDataResposta-between').val(dataFim);
 		}
 	}
 

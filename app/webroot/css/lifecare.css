@@ -237,7 +237,6 @@ header, footer, article, aside, nav, section{
 html, body{
 	background-color: #E6E6E6;
 	font-family: arial;
-	height: 100%;
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
@@ -337,7 +336,7 @@ a img{
 fieldset{
 	border: #CCCCCC 1px solid;
 	font-size:16px;
-	padding:0;
+	padding:5px;
 	margin: 0;
 	width:100%;
 }
