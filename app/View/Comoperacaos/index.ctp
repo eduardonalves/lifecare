@@ -79,20 +79,13 @@
 							'type' => 'select',
 							'class' => 'operacao',
 							'multiple' => 'checkbox',
-							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido','RESPONDIDO' => 'Respondido'),
+							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
 							'style' => 'float:left',
 						));
-						//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
 						echo "</div>";
 					?>
 					
-					<div id="dataEntrega" style="display:none;" class="inputSearchData">
-						<?php
-							echo $this->Search->input('data_inici', array('label' => 'Data de Entrega:', 'type' => 'text'));
-						?>
-					</div>
-				
 					<div class="inputSearchData">
 					<?php
 						echo $this->Search->input('data_inici', array('label' => 'Data de Início:','class'=>'', 'type' => 'text'));

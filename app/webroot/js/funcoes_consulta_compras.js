@@ -50,7 +50,7 @@ $(document).ready(function(){
 		
 	datavencimentoInicio = $('#filterDataInici').attr('value');
 	if(datavencimentoInicio != undefined){
-		if(datavencimentoInicio !=''){
+		if(datavencimentoInicio != ''){
 			iniano = datavencimentoInicio.substr(0,4);
 			inimes = datavencimentoInicio.substr(5,2);
 			inidia = datavencimentoInicio.substr(8,2);
@@ -276,8 +276,6 @@ var valorAux=$('#filterTipoOperacao').val();
 		$('#QuicklinkNomeCOTACAO').attr('checked', true);
 	}else if(valorEntrada == 'PEDIDO'){
 		$('#QuicklinkNomePEDIDO').attr('checked', true);
-	}else if(valorEntrada == 'RESPONDIDO'){
-		$('#QuicklinkNomeRESPONDIDO').attr('checked', true);
 	}
 	
 	if(valorSaida2 != ''){
@@ -293,29 +291,11 @@ var valorAux=$('#filterTipoOperacao').val();
 				$('#filterTipoOperacao').val('COTACAO');
 			}
 		}else if($('#QuicklinkNomePEDIDO').is(':checked')){
-			if($('#QuicklinkNomePEDIDO').is(':checked')){
 				$('#filterTipoOperacao').val('PEDIDO');
-			}else{
+			}
+			else{
 				$('#filterTipoOperacao').val(' ');
 			}
-		}
-	});
-
-	$("#QuicklinkNomeRESPONDIDO").bind('click', function(){
-		if($('#QuicklinkNomeRESPONDIDO').is(':checked')){
-			$("#QuicklinkNomeCOTACAO").prop('disabled', true);
-			$("#QuicklinkNomePEDIDO").prop('disabled', true);
-			$("#dataEntrega input").prop('disabled', true);
-			$('#QuicklinkNomePEDIDO').attr('checked', false);
-			$('#QuicklinkNomeCOTACAO').attr('checked', false);
-			$('#filterTipoOperacao').val('RESPONDIDO');
-			$('#dataEntrega').show();
-		}else{
-			$("#QuicklinkNomeCOTACAO").prop('disabled', false);
-			$("#QuicklinkNomePEDIDO").prop('disabled', false);
-			$("#dataEntrega input").prop('disabled', false);
-			$('#dataEntrega').hide();
-		}
 	});
 
 /*** SALVAR QUICKLINK *************************************************/
