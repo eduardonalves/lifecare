@@ -1,102 +1,175 @@
-<div class="comrespostas view">
-<h2><?php echo __('Comresposta'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Comoperacao'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($comresposta['Comoperacao']['id'], array('controller' => 'comoperacaos', 'action' => 'view', $comresposta['Comoperacao']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Data Resposta'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['data_resposta']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Parceirodenegocio'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($comresposta['Parceirodenegocio']['nome'], array('controller' => 'parceirodenegocios', 'action' => 'view', $comresposta['Parceirodenegocio']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Forma Pagamento'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['forma_pagamento']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Prazo Entrega'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['prazo_entrega']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Valor'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['valor']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Obs'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['obs']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Status'); ?></dt>
-		<dd>
-			<?php echo h($comresposta['Comresposta']['status']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Comresposta'), array('action' => 'edit', $comresposta['Comresposta']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Comresposta'), array('action' => 'delete', $comresposta['Comresposta']['id']), null, __('Are you sure you want to delete # %s?', $comresposta['Comresposta']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comrespostas'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comresposta'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('controller' => 'comoperacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comoperacao'), array('controller' => 'comoperacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comtokencotacaos'), array('controller' => 'comtokencotacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comtokencotacao'), array('controller' => 'comtokencotacaos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Comtokencotacaos'); ?></h3>
-	<?php if (!empty($comresposta['Comtokencotacao'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Comoperacao Id'); ?></th>
-		<th><?php echo __('Parceirodenegocio Id'); ?></th>
-		<th><?php echo __('Comresposta Id'); ?></th>
-		<th><?php echo __('Respondido'); ?></th>
-		<th><?php echo __('Codigoseguranca'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($comresposta['Comtokencotacao'] as $comtokencotacao): ?>
-		<tr>
-			<td><?php echo $comtokencotacao['id']; ?></td>
-			<td><?php echo $comtokencotacao['comoperacao_id']; ?></td>
-			<td><?php echo $comtokencotacao['parceirodenegocio_id']; ?></td>
-			<td><?php echo $comtokencotacao['comresposta_id']; ?></td>
-			<td><?php echo $comtokencotacao['respondido']; ?></td>
-			<td><?php echo $comtokencotacao['codigoseguranca']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'comtokencotacaos', 'action' => 'view', $comtokencotacao['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comtokencotacaos', 'action' => 'edit', $comtokencotacao['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comtokencotacaos', 'action' => 'delete', $comtokencotacao['id']), null, __('Are you sure you want to delete # %s?', $comtokencotacao['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
+<?php
+	$this->start('css');
+	    echo $this->Html->css('resposta');
+	    echo $this->Html->css('table');
+	$this->end();
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Comtokencotacao'), array('controller' => 'comtokencotacaos', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
-</div>
+	$this->start('script');
+	    echo $this->Html->script('resposta.js');
+	$this->end();
+
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
+	echo "<span class='success-flash'>COTAÇÃO JÁ RESPONDIDA!</span>";
+?>
+
+<header>
+	<?php echo $this->Html->image('emitir-title.png', array('id' => 'consultar-titulo', 'alt' => 'Responder Cotação', 'title' => 'Responder Cotação')); ?>
+	<h1 >Resposta de Cotação</h1>
+</header>
+
+<section>
+	
+	<header>Informações do Fornecedor</header>
+	
+	<section class="coluna-esquerda">
+		<?php
+			
+			echo $this->Form->input('status',array('type'=>'hidden','value'=>'RESPONDIDO'));
+		
+			echo $this->Form->input('Vazio.nome',array('label'=>'Nome do Fornecedor:','type'=>'text','value'=>$comresposta['Parceirodenegocio']['nome'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			
+			echo $this->Form->input('Vazio.tel1',array('label'=>'Telefone 1:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone1'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'Endereço:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['tipo'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'Número:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['numero'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'Bairro:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['bairro'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>
+	</section>
+	
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('Vazio.cpf_cnpj',array('label'=>'CPF/CNPJ:','type'=>'text','value'=>$comresposta['Parceirodenegocio']['cpf_cnpj'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.tel1',array('label'=>'Telefone 2:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone2'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'CEP:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['cep'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'Cidade:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['cidade'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'UF:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['uf'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>
+	</section>
+	
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('Vazio.email',array('label'=>'E-mail:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['email'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.cel1',array('label'=>'Celular:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone3'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.end',array('label'=>'Logradouro:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['logradouro'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>
+	</section>
+	
+	<header>Informações da Operação</header>
+	<section class="coluna-esquerda">
+		<?php
+			formatDateToView($comresposta['Comoperacao']['data_inici']);
+			echo $this->Form->input('Vazio.operacao',array('label'=>'Data Inicial:','type'=>'text','value'=>$comresposta['Comoperacao']['data_inici'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			//echo $this->Form->input('Vazio.user',array('label'=>'Enviado por:','type'=>'text','value'=>$comresposta['User']['username'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>	
+	</section>		
+	<section class="coluna-central">
+		<?php
+			formatDateToView($comresposta['Comoperacao']['data_fim']);
+			echo $this->Form->input('Vazio.operacao',array('label'=>'Data Final:','type'=>'text','value'=>$comresposta['Comoperacao']['data_fim'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>	
+	</section>
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('Vazio.operacao',array('label'=>'Forma de Pagamento:','type'=>'text','value'=>$comresposta['Comoperacao']['forma_pagamento'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+		?>	
+	</section>
+	
+	<header>Dados da Resposta</header>
+	<section class="coluna-esquerda">
+		<?php
+			formatDateToView($comresposta['Comresposta']['data_resposta']);
+			echo $this->Form->input('Vazio.data_resposta',array('label'=>'Data da Respota','type'=>'text','value'=>$comresposta['Comresposta']['data_resposta'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
+			echo $this->Form->input('Vazio.obs',array('label'=>'Observação:','type'=>'textarea','value'=>$comresposta['Comresposta']['obs'], 'class'=>'tamanho-medio borderZero','disabled'=>'disabled','maxlength'=>'140','style'=>'height:50px;'));
+		?>	
+	</section>		
+	<section class="coluna-central">
+		<?php
+			echo $this->Form->input('Vazio.prazo_entrega',array('label'=>'Prazo para Entrega:','type'=>'text','value'=>$comresposta['Comresposta']['prazo_entrega'], 'class'=>'tamanho-pequeno borderZero','disabled'=>'disabled'));			
+			echo $this->Form->input('Vazio.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','value'=>$comresposta['Comresposta']['forma_pagamento'],'class'=>'tamanho-pequeno borderZero','disabled' => 'disabled'));
+			
+		?>	
+	</section>
+	<section class="coluna-direita">
+		<?php
+			echo $this->Form->input('Vazio.valor',array('label'=>'Valor:','type'=>'text','value'=>$comresposta['Comresposta']['valor'],'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));	
+			echo $this->Form->input('Vazio.obs_pagamento',array('label'=>'Info. do Pagamento:','type'=>'textarea','value'=>$comresposta['Comresposta']['obs_pagamento'], 'class'=>'tamanho-medio borderZero','disabled' => 'disabled','maxlength'=>'140','style'=>'height:50px;'));
+		?>	
+	</section>
+	
+	<header>Produtos da Cotação</header>
+	
+	<span id="validaValor" class="msg erroTop" style="display:none">Preencha o valor unitário</span>
+	<span id="validaConfirm" class="msg erroTop" style="display:none">Confirme todos os produtos</span>
+
+	<table>
+		<thead>
+			<td>Nome do Produto</td>
+			<td>Obs. Pedido</td>
+			<td>Obs. Item</td>
+			<td>Fabricante</td>
+			<td>Quantidade</td>
+			<td>Unidade</td>
+			<td>Valor Unitário</td>
+			<td>Total Produto</td>
+		</thead>
+		
+		<?php
+			$i = 1;
+			foreach($comresposta['Comitensresposta'] as $itens){
+				echo "<tr>";
+					echo "<td class='whiteSpace'><span title=''>";
+						echo $itens['produto_nome'];
+					echo "</span></td>";
+					
+					echo "<td class='labelTd whiteSpace'><span title='".$itens['obs']."'>";
+						echo $itens['obs_operacao'];
+					echo "</span></td>";
+					
+					echo "<td class='labelTd'>";
+						echo $itens['obs'];
+					echo "</span></td>";
+					
+					echo "<td class='labelTd'>";
+						echo $itens['fabricante'];
+					echo "</td>";
+					
+					echo "<td class='itenQtd".$i."' >";
+						echo $itens['qtde'];
+					echo "</td>";
+					
+					echo "<td>";
+						echo $itens['produto_unidade'];
+					echo "</td>";
+					
+					echo "<td class='labelTd itenUnit'>";
+						echo $itens['valor_unit'];
+					echo "</td>";
+					
+					echo "<td class='labelTd'>";
+						echo $itens['valor_total'];
+					echo "</td>";
+										
+				echo "</tr>";
+				$i++;
+			}
+		?>
+	</table>
+</section>
+
+<footer>
+	<?php
+	?>	
+</footer>
+
+
