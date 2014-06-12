@@ -76,16 +76,15 @@
 		
 		<section  class="coluna-esquerda">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));	
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$contato['email'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled'));	
 				}
 				
 				foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'Tipo Endereço:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['tipo'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Número:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['numero'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Bairro:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['bairro'],'disabled'=>'disabled'));				
-
+					echo $this->Form->input('Vazio.input',array('label'=>'Tipo Endereço:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['tipo'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Número:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['numero'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Bairro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['bairro'],'disabled'=>'disabled'));				
 				}
 				
 			?>
@@ -93,15 +92,15 @@
 		
 		<section  class="coluna-central">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'CPF/CNPJ:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Vazio.input',array('label'=>'CPF/CNPJ:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],'disabled'=>'disabled'));	
 
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 1:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$contato['telefone1'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 1:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['telefone1'],'disabled'=>'disabled'));	
 				}
 				
 					foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'CEP:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['cep'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Cidade:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['cidade'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'CEP:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cep'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Cidade:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cidade'],'disabled'=>'disabled'));	
 
 				}
 				
@@ -111,14 +110,14 @@
 		
 		<section  class="coluna-direita">
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Status:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['status'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Vazio.input',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['status'],'disabled'=>'disabled'));	
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 2:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$contato['telefone2'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 2:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['telefone2'],'disabled'=>'disabled'));	
 				}
 				
 				foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'Logradouro:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['logradouro'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'UF:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$endereco['uf'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'Logradouro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['logradouro'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'UF:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['uf'],'disabled'=>'disabled'));	
 				
 				}
 				
@@ -135,8 +134,8 @@
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
 
-				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-pequeno inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedido['Pedido']['data_inici'])),'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita borderZero', 'value'=>h($pedido['Pedido']['forma_pagamento']),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedido['Pedido']['data_inici'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedido['Pedido']['forma_pagamento']),'disabled'=>'disabled'));
 			?>
 			
 		</section>
@@ -150,8 +149,8 @@
 					$tipoOperacao = "Pedido";
 				}
 				
-				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-pequeno inputData borderZero','type'=>'text','value'=>h(formatDateToView($pedido['Pedido']['data_fim'])),'disabled'=>'disabled')); 
-				echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_pagamento'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.data_fim',array('label'=>'Data de Fim:','class'=>'tamanho-medio inputData borderZero','type'=>'text','value'=>h(formatDateToView($pedido['Pedido']['data_fim'])),'disabled'=>'disabled')); 
+				echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_pagamento'],'disabled'=>'disabled'));
 
 
 			?>
@@ -161,8 +160,8 @@
 		<section class="coluna-direita">
 
 			<?php
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_entrega'],'disabled'=>'disabled')); 
-				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_entrega'],'disabled'=>'disabled')); 
+				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
 				
 			?>
 
@@ -194,6 +193,10 @@
 <footer>
 
 	<?php
+		
+		if($pedido['Pedido']['status'] != 'CANCELADO'){
+			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar este Pedido?', $pedido['Pedido']['id'])));
+		}
 	
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 											'title'=>'Editar Cotação',
