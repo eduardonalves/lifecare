@@ -162,11 +162,12 @@ class PedidosController extends ComoperacaosController {
 					if($contato['Contato']['email'] !=''){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 						$this->Session->setFlash(__('The pedido has been saved.'));
-						return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));	
+						
 					}
 					
 				}
-				
+				$this->Session->setFlash(__('The pedido foi salvo com sucesso.'));
+				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));	
 			}else{
 				$this->Session->setFlash(__('The pedido could not be saved. Please, try again.'));
 			}
@@ -324,5 +325,26 @@ class PedidosController extends ComoperacaosController {
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
+	}
+	public function confirmarEntrega() {
+		if ($this->request->is('post')) {
+				
+				
+			
+			$pedido = $this->Pedido->find('first', array('recursive' => -1, 'conditions' => array('Pedido.id' => $this->request->data['Pedido']['id'])));
+			if($pedido['Pedido']['status'] != 'ENTREGUE' && $pedido['Pedido']['status'] != 'CANCELADO'){
+				$this->request->data['Pedido']['status']="ENTREGUE";
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_entrega']);
+				
+				if ($this->Pedido->save($this->request->data)) {
+					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
+				}else{
+					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
+				}
+			}
+			
+		
+		}
+		
 	}
 }

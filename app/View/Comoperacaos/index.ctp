@@ -198,7 +198,7 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?></th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?></th>
-					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?></th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome', 'Fornecedor'); ?></th>
 				</tr>
 
 				<?php foreach ($comoperacaos as $comoperacao): ?>

@@ -83,6 +83,8 @@ class CotacaosController extends ComoperacaosController {
  * @param string $id
  * @return void
  */
+ 
+ 	
 	public function view($id = null) {
 		$this->layout = 'compras';
 		
