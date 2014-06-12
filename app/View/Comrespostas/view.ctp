@@ -31,7 +31,7 @@
 		}
 		return $valorMoeda;
 	}
-	echo "<span class='success-flash'>COTAÇÃO JÁ RESPONDIDA!</span>";
+	echo "<span class='success-flash'>SITUAÇÃO: ". $comresposta['Comresposta']['status'] ."</span>";
 ?>
 
 <header>

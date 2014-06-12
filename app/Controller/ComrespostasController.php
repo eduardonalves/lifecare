@@ -111,7 +111,7 @@ class ComrespostasController extends AppController {
  * @param string $id
  * @return void
  */
- 	public function descartarCotacao($id = null) {
+ 	public function descartarCotacao($id = null,$idCotacao = null) {
  		$this->Comresposta->id = $id;
 		
 		$this->request->onlyAllow('post', 'descartarCotacao');
@@ -121,7 +121,8 @@ class ComrespostasController extends AppController {
  		$updateResposta = array('id' => $id, 'status' => 'DESCARTADA');
 		
 		if($this->Comresposta->save($updateResposta)){
-			$this->Session->setFlash(__('The comresposta foi salva.'));
+			$this->Session->setFlash(__('Resposta descartada.'));
+			return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$idCotacao));
 		}else{
 			$this->Session->setFlash(__('The comresposta não pode ser salva.'));
 		}

@@ -234,6 +234,10 @@
 							if($respostas['Comresposta']['status'] == 'ABERTA'){
 								echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
 							}
+							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
+								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Descartar Resposta'),'title' => __('Descartar Resposta'))), array('controller' => 'Comrespostas','action' => 'descartarCotacao',$respostas['Comresposta']['id'],$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja descartar resposta?', $respostas['Comresposta']['id'])));
+							}	
+							
 							echo "</td>";
 								echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
 								formatDateToView($respostas['Comresposta']['data_resposta']);
