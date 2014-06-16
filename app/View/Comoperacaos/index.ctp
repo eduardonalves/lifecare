@@ -243,6 +243,8 @@
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('codigo','Código'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('estoque'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nivel', 'Nível'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('_Categoria.nome', 'Categoria'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 				</tr>
 
@@ -261,6 +263,8 @@
 					<td><?php echo $produto['Produto']['codigo'];?></td>
 					<td><?php echo $produto['Produto']['nome'];?></td>
 					<td><?php echo $produto['Produto']['descricao'];?></td>
+					<td><?php echo $produto['Produto']['estoque'];?></td>
+					<td><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-'));?></td>
 					<td><?php if(isset($produto['Categoria'][0]['nome'])) echo $produto['Categoria'][0]['nome'];?></td>
 				
 				</tr>
@@ -288,7 +292,7 @@
 					</td>
 					
 					<td><?php echo $parceirodenegocio['Parceirodenegocio']['nome'];?></td>
-					<td><?php echo $parceirodenegocio['Parceirodenegocio']['status'];?></td>
+					<td><?php if(isset($parceirodenegocio['Parceirodenegocio']['status'])) echo $this->Html->image('semaforo-' . strtolower($parceirodenegocio['Parceirodenegocio']['status']) . '-12x12.png', array('alt' => '-'.$parceirodenegocio['Parceirodenegocio']['status'], 'title' => '-'));?></td>
 				
 				</tr>
 
