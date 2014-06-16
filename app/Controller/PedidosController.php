@@ -134,12 +134,10 @@ class PedidosController extends ComoperacaosController {
 			
 			$this->loadModel('Produto');
 			if ($this->Pedido->saveAll($this->request->data)) {
-					
-					
+
 				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
 				$ultimoPedido = $this->Pedido->find('first',array('order' => array('Pedido.id' => 'DESC')));
-				
-				
+
 				$id=0;
 				foreach($ultimoPedido['Comitensdaoperacao'] as $id => $itens){
 					$ultimoPedido['Comitensdaoperacao'][$id];
