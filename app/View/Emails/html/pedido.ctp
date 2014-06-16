@@ -68,12 +68,7 @@
 		<p style="text-align:center; font-weight:bold; ">
 			Clique no link a seguir para confirmar a realização do pedido.
 			<br/>
-			<span style="color:#008000;">"Link"</span>
+			<span style="color:#008000;"><?php echo ($_SESSION['extraparams']['Mensagem']['url']); ?></span>
 		</p>
 	</div>
 </div>
-
-
-<pre>
-	<?php print_r($_SESSION); ?>
-</pre>
