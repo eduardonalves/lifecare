@@ -112,6 +112,7 @@ class PedidosController extends ComoperacaosController {
 		$this->set(compact('pedido','userid','itens','parceirodenegocio','empresa'));
 	}
 
+	
 /**
  * add method
  *

@@ -92,21 +92,21 @@
 		<?php
 			$dataResposta = date('d/m/o');
 			echo $this->Form->input('data_resposta',array('label'=>'Data da Respota','type'=>'text','value'=>$dataResposta, 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('obs',array('label'=>'Observação:','type'=>'textarea', 'class'=>'tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
+			echo $this->Form->input('obs',array('label'=>'Observação:','type'=>'textarea', 'class'=>'confirmaInput tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
 		?>	
 	</section>		
 	<section class="coluna-central">
 		<?php
-			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class'=>'tamanho-pequeno'));			
+			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class'=>'confirmaInput tamanho-pequeno'));			
 			echo '<span id="validaPrazo" class="msg erroRight" style="display:none">Preencha o prazo para entrega</span>';
-			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			echo '<span id="validaForma" class="msg erroRight" style="display:none">Preencha o forma de pagamento</span>';
 		?>	
 	</section>
 	<section class="coluna-direita">
 		<?php
-			echo $this->Form->input('valor',array('label'=>'Valor:','type'=>'text','class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));	
-			echo $this->Form->input('obs_pagamento',array('label'=>'Info. do Pagamento:','type'=>'textarea', 'class'=>'tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
+			echo $this->Form->input('valor',array('label'=>'Valor:','type'=>'text','class'=>'confirmaInput tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));	
+			echo $this->Form->input('obs_pagamento',array('label'=>'Info. do Pagamento:','type'=>'textarea', 'class'=>'confirmaInput tamanho-medio','maxlength'=>'140','style'=>'height:50px;'));
 		?>	
 	</section>
 	
@@ -125,7 +125,7 @@
 			<td>Unidade</td>
 			<td>Valor Unitário<span class="campo-obrigatorio">*</span></td>
 			<td>Total Produto</td>
-			<td>Ações</td>
+			<td class="confirma">Ações</td>
 		</thead>
 		
 		<?php
@@ -166,7 +166,7 @@
 						echo $this->Form->input('Comitensresposta.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero valorTotal','onFocus'=>'this.blur();','readonly'=>'readonly'));
 					echo "</td>";
 					
-					echo "<td>"; 
+					echo "<td class='confirma'>"; 
 						echo $this->Html->image('botao-tabela-editar',array('id'=>'botaoEdit'.$i)); 
 						echo $this->Html->image('bt-confirm.png',array('id'=>'botaoConfirm'.$i));
 						echo " ";
@@ -182,8 +182,18 @@
 
 <footer>
 	<?php
-		echo $this->form->submit('botao-salvar.png',array('class'=>'bt-salvar','alt'=>'Salvar','title'=>'Salvar'));
 		
+		echo $this->html->image('botao-voltar.png',array('id'=>'voltar','style'=>'float:left;cursor:pointer;display:none;'));
+		echo $this->html->image('botao-confirmar.png',array('id'=>'confirmaDados','style'=>'float:right;cursor:pointer;'));
+		
+		 echo $this->form->submit('botao-salvar.png',array(
+							    'class'=>'bt-salvar',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    'style' => 'display:none;'
+							    
+	    ));
+	
 		echo $this->Form->end();   
 	?>	
 </footer>
