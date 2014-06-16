@@ -359,8 +359,7 @@ $(document).ready(function() {
 										echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
 									echo "</td>";
 
-
-									echo "</tr>";												
+									echo "</tr>";
 									}
 								?>
 
