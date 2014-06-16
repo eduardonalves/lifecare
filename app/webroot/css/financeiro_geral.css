@@ -125,3 +125,7 @@ fieldset{
 .dadosRepetidos{
 	padding-bottom:5px;
 }
+
+#filtro-operacao label{
+	width:150px;
+}
