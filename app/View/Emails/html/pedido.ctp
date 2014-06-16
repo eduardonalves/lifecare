@@ -11,7 +11,7 @@
 			<a style="text-decoration:none; color:inherit;" href="<?php echo ($_SESSION['extraparams']['Mensagem']['site']);?>"><?php echo ($_SESSION['extraparams']['Mensagem']['site']);?></a>
 		</p>
 
-		<p style="color:#008000; margin:35px 10px; text-align:left;">
+		<p style="margin:35px 10px; text-align:left;">
 
 			<?php echo ($_SESSION['extraparams']['Mensagem']['corpo']);?>
 		</p>
@@ -64,5 +64,17 @@
 				}
 			?>
 		</table>
+		
+		<p style="text-align:center; font-weight:bold; ">
+			Clique no link a seguir para confirmar a realização do pedido.
+			<br/>
+			<span style="color:#008000;">"Link"</span>
+		</p>
 	</div>
 </div>
+
+<!--
+<pre>
+	<?php print_r($_SESSION); ?>
+</pre>
+-->
