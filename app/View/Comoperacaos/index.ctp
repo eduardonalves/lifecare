@@ -192,11 +192,13 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th class="colunaES"><?php echo $this->Paginator->sort('fornecedor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 
 				</tr>
-
-				<?php foreach ($comoperacaos as $comoperacao): ?>
+				
+				<?php
+				
+				$j=0;
+				foreach ($comoperacaos as $comoperacao): ?>
 
 				<tr>
 					<td class="actions">
@@ -213,13 +215,59 @@
 							}else{
 								echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Operação','title'=>'Editar Operação','class'=>'img-lista','url'=>array('controller' => 'Pedidos','action' => 'edit', $comoperacao['Comoperacao']['id'])));
 							}
+							echo "<hr />";
 							
-							if($comoperacao['Comoperacao']['tipo'] == 'PEDIDO'){
-								echo "<hr />";
-								
-								echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio','url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'],"layout"=>"compras","abas"=>"41")));
-							}
+							echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
+							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+							echo "</a>";
+							
 						?>
+						
+						<div class="modal fade" id="myModal_add-view_parceiro<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-body">
+						<?php
+							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+						?>
+							<header id="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							?>	
+								<h1>Visualização dos Fornecedores</h1>
+							</header>
+			
+							<section>
+							<header>Fornecedores</header>
+			
+							<section class="coluna-modal">
+								<table>
+								<thead>
+								    <tr>
+									<th>Nome</th>
+									<th>Status</th>
+								    </tr>
+								</thead>
+								
+								<?php
+								
+									foreach($comoperacao['Parceirodenegocio'] as $parceiro){
+									echo "<tr><td>";
+										echo $parceiro['nome'];
+									echo "</td>";
+									
+									echo "<td>";
+										if(isset($parceiro['status'])){ echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'title' => '-'));}
+									echo "</td>";
+
+									echo "</tr>";
+									}
+								?>
+
+								</table>
+							</section>
+							</section>
+						</div>
+						</div>
+						
 					</td>
 					<td><?php echo $comoperacao['Comoperacao']['tipo']; ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
@@ -228,10 +276,11 @@
 					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
-					<td><?php echo $comoperacao['Parceirodenegocio'][0]['nome']; ?>&nbsp;</td>
 				</tr>
 
-				<?php endforeach; 
+				<?php
+				$j = $j + 1;
+				endforeach; 
 				}
 				//fim tabela operações
 				//TABELA PRODUTOS
@@ -243,29 +292,80 @@
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('codigo','Código'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('estoque'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
+					<th class="colunaParcela"><?php echo $this->Paginator->sort('nivel', 'Nível'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th class="colunaParcela"><?php echo $this->Paginator->sort('_Categoria.nome', 'Categoria'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 				</tr>
-
+				<?php $j=0; ?>
 				<?php foreach ($produtos as $produto): ?>
 
 				<tr>
 					<td class="actions">
 						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Produtos','action' => 'view', $produto['Produto']['id'], "layout"=>"compras","abas"=>"43"))); 
-							if(isset($produto['Parceirodenegocio'][0]['nome'])){
 							echo "<hr />";
-							echo $this->Html->image('parceiro.png',array('alt'=>'Visualizar Parceiro','title'=>'Visualizar Parceiro','url'=>array('controller' => 'Parceirodenegocios','action' => 'view', $produto['Parceirodenegocio'][0]['id'],"layout"=>"compras","abas"=>"42")));
-							}
+							echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
+							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+							echo "</a>";
 						?>
+						
+						<div class="modal fade" id="myModal_add-view_parceiro<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-body">
+						<?php
+							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+						?>
+							<header id="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							?>	
+								<h1>Visualização dos Fornecedores</h1>
+							</header>
+			
+							<section>
+							<header>Fornecedores</header>
+			
+							<section class="coluna-modal">
+								<table>
+								<thead>
+								    <tr>
+									<th>Nome</th>
+									<th>Status</th>
+								    </tr>
+								</thead>
+								
+								<?php
+								
+									foreach($produto['Parceirodenegocio'] as $parceiro){
+									echo "<tr><td>";
+										echo $parceiro['nome'];
+									echo "</td>";
+									
+									echo "<td>";
+										if(isset($parceiro['status'])){ echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'title' => '-'));}
+									echo "</td>";
+
+									echo "</tr>";
+									}
+								?>
+
+								</table>
+							</section>
+							</section>
+						</div>
+						</div>
+						
 					</td>
 					
 					<td><?php echo $produto['Produto']['codigo'];?></td>
 					<td><?php echo $produto['Produto']['nome'];?></td>
 					<td><?php echo $produto['Produto']['descricao'];?></td>
+					<td><?php echo $produto['Produto']['estoque'];?></td>
+					<td><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-'));?></td>
 					<td><?php if(isset($produto['Categoria'][0]['nome'])) echo $produto['Categoria'][0]['nome'];?></td>
 				
 				</tr>
 
 				<?php
+				$j = $j + 1;
 				endforeach; 
 				}
 				//fim tabela produtos
@@ -288,7 +388,7 @@
 					</td>
 					
 					<td><?php echo $parceirodenegocio['Parceirodenegocio']['nome'];?></td>
-					<td><?php echo $parceirodenegocio['Parceirodenegocio']['status'];?></td>
+					<td><?php if(isset($parceirodenegocio['Parceirodenegocio']['status'])) echo $this->Html->image('semaforo-' . strtolower($parceirodenegocio['Parceirodenegocio']['status']) . '-12x12.png', array('alt' => '-'.$parceirodenegocio['Parceirodenegocio']['status'], 'title' => '-'));?></td>
 				
 				</tr>
 

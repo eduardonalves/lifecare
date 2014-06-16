@@ -37,6 +37,7 @@ class ComrespostasController extends AppController {
  * VIEW PARA ACESSO DO USUARIO
  * 
 **/
+
 	public function view($id = null) {
 		$this->layout = 'compras';
 		if (!$this->Comresposta->exists($id)) {
@@ -226,8 +227,17 @@ class ComrespostasController extends AppController {
 			
 			
 			if(empty($exitente)){
-				$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
+				
+				
+				if($resposta['Comresposta']['prazo_entrega'] != '' && $resposta['Comresposta']['prazo_entrega'] != NULL){
+					$dataPrev = date('Y-m-d', strtotime("+".$resposta['Comresposta']['data_preventrega']." days",strtotime(''.$hoje.'')));
+					$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
+				 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id, 'data_preventrega' => $dataPrev);
+				}else{
+					$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
 				 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id);
+				}
+				
 				$this->Pedido->create();
 				$this->Pedido->save($pedido); 
 				$ultimoPedido = $this->Pedido->find('first', array('order' => array('Pedido.id ' => 'DESC')));

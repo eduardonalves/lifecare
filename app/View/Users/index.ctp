@@ -91,9 +91,9 @@
 		<td class="actions">
 			<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Usuario','title'=>'Visualizar Usuário','url'=>array('controller' => 'users','action' => 'view', $user['User']['id']))); 
 				echo "<hr />";
-				echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Usuario','title'=>'Editar Usuário','url'=>array('controller' => 'users','action' => 'edit', $user['User']['id']))); 
+				echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Editar Usuario','class'=>'img-lista','title'=>'Editar Usuário','url'=>array('controller' => 'users','action' => 'edit', $user['User']['id']))); 
 				echo "<hr />"; 
-				echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_user','alt' =>__('Delete'),'title' => 'Excluir Usuário')), array('controller' => 'users','action' => 'delete', $user['User']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Usuário '.$user['User']['id'].'?'))); 
+				echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'delete_user','class'=>'img-excluir','alt' =>__('Delete'),'title' => 'Excluir Usuário')), array('controller' => 'users','action' => 'delete', $user['User']['id']),array('escape' => false, 'confirm' => __('Deseja realmente excluir o Usuário '.$user['User']['id'].'?'))); 
 			?>
 		</td>
 		<td><?php echo h($user['User']['id']); ?></td>

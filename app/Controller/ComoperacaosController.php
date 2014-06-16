@@ -73,7 +73,25 @@ class ComoperacaosController extends AppController {
 			if(!isset($_GET['ql'])){
 			    $_GET['ql']=0;
 			}
+			
+			$atualizado=date('Y-m-d');
+			$this->loadModel('Atualizacao');
+			$dataAtualizacao = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'COMPRAS', 'AND' => array('Atualizacao.data' => $atualizado))));
+			
+			if(empty($dataAtualizacao)){
+				$this->loadModel('Comoperacao');
+				$comoperacaos = $this->Comoperacao->find('all', array('recursive' => -1, 'conditions' => array('OR' => array('Comoperacao.status' => 'ABERTO', 'Comoperacao.status' => 'RESPONDIDA'), 'AND' => array('Comoperacao.tipo' => 'COTACAO'), 'AND'=> array('Comoperacao.data_fim <' => $atualizado))));
+				foreach($comoperacaos as $comoperacao){
+					$updateValidade= array('id' => $comoperacao['Comoperacao']['id'], 'status' => 'EXPIRADO');
+					$this->Comoperacao->save($updateValidade);
+				}
+				$dataAtualizacaoAux = $this->Atualizacao->find('first', array('recursive' => -1, 'conditions' => array('Atualizacao.nome' => 'COMPRAS')));
+				$updateAtualizacao = array('id' => $dataAtualizacaoAux['Atualizacao']['id'], 'data' => $atualizado);
+				$this->Atualizacao->create();
+				$this->Atualizacao->save($updateAtualizacao);
+			}
 	}
+	
 	
 /**
  * index method
@@ -224,17 +242,6 @@ class ComoperacaosController extends AppController {
 	            ),
 	        )
 		);
-			
-		$conditiosAux= $this->Filter->getConditions();
-				
-				
-		if(empty($conditiosAux)){
-			
-			$dataIncio = date("Y-m-01");
-			$dataTermino= date("Y-m-t");
-			$this->request->data['filter']['data_inici']=$dataIncio;
-			$this->request->data['filter']['data_inici-between']=$dataTermino;
-		}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
 					$this->Paginator->settings = array(
