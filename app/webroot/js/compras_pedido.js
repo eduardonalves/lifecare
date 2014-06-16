@@ -212,6 +212,10 @@
 		$('.bt-salvar').hide();
 		$('#voltar').hide();
 	});
+	
+	$('#CotacaoAddForm').submit(function(){	
+		$('.confirmaInput').removeAttr('disabled','disabled');
+	});
 
 });
 

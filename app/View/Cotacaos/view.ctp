@@ -101,7 +101,7 @@
 		<section class="coluna-direita">
 
 			<?php
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['prazo_entrega'],'disabled'=>'disabled')); 
+				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['prazo_entrega'],'disabled'=>'disabled')); 
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$cotacao['Cotacao']['status'],'disabled'=>'disabled'));	
 				
 			?>
@@ -231,9 +231,8 @@
 						<?php
 							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Resposta','class' => '','title'=>'Visualizar Resposta','url'=>array('controller'=>'Comrespostas','action'=>'view',$respostas['Comresposta']['id'])));
 
-							if($respostas['Comresposta']['status'] == 'ABERTA'){
-								echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
-							}
+							echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
+							
 							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
 								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Descartar Resposta'),'title' => __('Descartar Resposta'))), array('controller' => 'Comrespostas','action' => 'descartarCotacao',$respostas['Comresposta']['id'],$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja descartar resposta?', $respostas['Comresposta']['id'])));
 							}	

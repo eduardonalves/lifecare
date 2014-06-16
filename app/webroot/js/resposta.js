@@ -55,6 +55,49 @@ $(document).ready(function(){
 			$('#ComrespostaAddForm').submit();
 		}
 	});
+
+/******** TELA DE CONFIRMACAO   ************/
+	$('#confirmaDados').click(function(){
+		
+		if($('#ComrespostaPrazoEntrega').val() == ''){
+			$('#ComrespostaPrazoEntrega').addClass('shadow-vermelho');
+			$('#validaPrazo').css('display','block');
+		}else if($('#ComrespostaFormaPagamento').val() == ''){
+			$('#ComrespostaFormaPagamento').addClass('shadow-vermelho');
+			$('#validaForma').css('display','block');
+		}else if(!$('.valorUnit').hasClass('preenchido')){
+			$('#validaConfirm').css('display','block');				
+		}else{
+			$('span[id*="msg"').hide();
+			$('.confirmaInput').attr('readonly','readonly');
+			$('.confirmaInput').attr('onfocus','this.blur();');
+			$('.confirmaInput').attr('disabled','disabled');
+			$('.confirmaInput').addClass('borderZero');
+			$('#confirmaDados').hide();
+			$('.confirma').hide();
+			$('.bt-salvar').show();
+			$('#voltar').show();
+		}	
+		
+	});
+
+	$('#ComrespostaAddForm').submit(function(){	
+		$('.confirmaInput').removeAttr('disabled','disabled');
+	});
+
+/******** VOLTAR DA CONFIRMACAO   ************/
+	$('#voltar').click(function(){
+		$('span[id*="msg"').hide();
+		$('.confirmaInput').removeAttr('readonly','readonly');
+		$('.confirmaInput').removeAttr('onfocus','this.blur();');
+		$('.confirmaInput').removeAttr('disabled','disabled');
+		$('.confirmaInput').removeClass('borderZero');
+		$('#confirmaDados').show();
+		$('.confirma').show();
+		$('.bt-salvar').hide();
+		$('#voltar').hide();
+	});
+
 	
 	var soma = 0;
 	$("img[id*='botaoConfirm']").click(function(){

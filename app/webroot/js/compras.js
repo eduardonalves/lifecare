@@ -235,9 +235,9 @@
 		$('#voltar').hide();
 	});
 
-
-
-
+	$('#CotacaoAddForm').submit(function(){	
+		$('.confirmaInput').removeAttr('disabled','disabled');
+	});
 
 });
 
