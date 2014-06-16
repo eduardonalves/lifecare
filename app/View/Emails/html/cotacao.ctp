@@ -12,7 +12,7 @@
 		</p>
 		
 		<p style="text-align:center;">
-			<span style="font-weight:bold;">Para responder o pedido de cotação realizado pela "Empresa" entre no link abaixo e insira o seu código.</span>
+			<span style="font-weight:bold;">Para responder o pedido de cotação realizado pela <?php echo ($_SESSION['extraparams']['Mensagem']['empresa']);?> entre no link abaixo e insira o seu código.</span>
 			<br/>
 			<br/>
 			<span class="numero" style="color:#008000; font-size:22px; font-weight:bold;">Código: <?php echo ($_SESSION['extraparams']['Mensagem']['codigo']);?></span>
