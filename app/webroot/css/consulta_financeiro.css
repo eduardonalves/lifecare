@@ -1,4 +1,4 @@
-@charset "utf-8";
+	@charset "utf-8";
 
 /* TESTE ************************************************************/
 
@@ -441,4 +441,9 @@ margin-bottom: 50px;
 
 .conteudo-principal section label{
 	width: 136px;
+}
+
+#myModal_add-view_parcelas0{
+	left:50% !important;
+	margin-left:-575px;
 }

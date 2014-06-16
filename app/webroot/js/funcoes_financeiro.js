@@ -5,6 +5,8 @@ $(document).ready(function() {
 		"border-top-right-radius":" 4px",
 		"height":"17px"    
     });
+    
+    $("#filtro-produto .ui-widget").addClass("tamanho-medio");
 
 /***Input text com datePicker Para datas no estilo " De X a Z**/	
     $(".inputSearchData input[id*='between']").before("<span>a</span>");

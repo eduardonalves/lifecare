@@ -168,3 +168,11 @@
 	right:0px;
 	cursor:pointer;
 }
+
+#quick-filtrar-users{
+	margin-top:-27px !important;
+}
+
+.img-excluir{
+	margin-top:5px;
+}

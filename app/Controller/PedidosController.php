@@ -266,7 +266,7 @@ class PedidosController extends ComoperacaosController {
 			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
 			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
-			//$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
 			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
@@ -275,6 +275,12 @@ class PedidosController extends ComoperacaosController {
 			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedido']['id'])));
 			if(!empty($token)){
 				$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+			}else{
+				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.comoperacao_id' => $mensagem['Pedido']['id'])));
+				
+				if(!empty($token)){
+					$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+				}
 			}
 			 
 			
