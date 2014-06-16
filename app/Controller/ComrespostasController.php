@@ -34,6 +34,10 @@ class ComrespostasController extends AppController {
  * @param string $id
  * @return void
  */
+ /**
+ * VIEW PARA ACESSO DO USUARIO
+ * 
+**/
 	public function view($id = null) {
 		$this->layout = 'compras';
 		if (!$this->Comresposta->exists($id)) {
@@ -64,6 +68,10 @@ class ComrespostasController extends AppController {
 		$this->set(compact('parceiroResposta','comresposta'));		
 	}
 	
+/**
+ * VIEW PARA ACESSO DO FORNECEDOR
+ * 
+**/
 	public function viewParceiro($codigo=null) {
 		
 		$this->layout = 'comresposta';
@@ -103,7 +111,11 @@ class ComrespostasController extends AppController {
 		
 		$this->set(compact('token','comresposta','parceiroResposta' ));		
 	}
-	
+
+/**
+ * VIEW PARA TELA DE CONFIRMAÇÂO DE UM PEDIDO 
+ * 
+**/
 	public function viewResposta($codigo = null) {
 		
 		$this->layout = 'comresposta';
