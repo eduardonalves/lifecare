@@ -33,8 +33,7 @@ class ComrespostasController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
- */
- /**
+
  * VIEW PARA ACESSO DO USUARIO
  * 
 **/

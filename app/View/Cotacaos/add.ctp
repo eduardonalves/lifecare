@@ -40,10 +40,10 @@
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 
 
-				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'dataInicio tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput dataInicio tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
 				echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
-				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'20'));
+				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20'));
 				
 
 			?>
@@ -51,12 +51,12 @@
 		
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'dataFim tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('data_fim',array('label'=>'Data de Fim<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput dataFim tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
 				echo '<span id="msgDataFinalErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a data Final corretamente</span>';
 				echo '<span id="msgDataFinal" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Final</span>';
 
-				echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			?>
 		</section>
 		
@@ -72,6 +72,7 @@
 	<section class="coluna-Produto coluna-esquerda">
 		<fieldset>		
 			<legend>Produtos</legend>
+			<div class="confirma">
 				<div class="input autocompleteProduto conta">
 					<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
 					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
@@ -95,18 +96,20 @@
 			<?php	
 				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
 									     'title'=>'Adicionar',
-										 'class'=>'bt-addItens',
+										 'class'=>'bt-addItens sumir',
 										 'id'=>'bt-adicionarProduto'
 										 ));
 										 
-				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 				echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
-				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
-				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
+				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
 				echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));		
+				echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
+				echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));		
 				
 			?>
-		
+			</div>
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
@@ -114,7 +117,7 @@
 						<th>Quantidade</th>									
 						<th>Unidade</th>
 						<th>Observação</th>						
-						<th>Ações</th>					
+						<th class="confirma">Ações</th>					
 					</thead>
 							
 				</table>
@@ -126,6 +129,7 @@
 	<section class="coluna-Fornecedor coluna-esquerda">
 		<fieldset>		
 			<legend>Fornecedores</legend>
+			<div class="confirma">
 				<div class="input autocompleteFornecedor conta">
 					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
 					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
@@ -143,8 +147,7 @@
 						?>
 
 					</select>
-				</div>		
-			
+				</div>				
 			
 			<?php	
 				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
@@ -153,13 +156,13 @@
 										 'id'=>'bt-adicionarFornecedor'
 										 ));
 			?>
-		
+			</div>
 			<section class="tabela_fornecedores">
 				<table id="tbl_fornecedores" >
 					<thead>
 						<th>Parceiro nome</th>
 						<th>CPF/CNPJ</th>					
-						<th>Ações</th>					
+						<th class="confirma">Ações</th>					
 					</thead>
 							
 				</table>
@@ -176,10 +179,14 @@
 
 <footer>
 	<?php
+		echo $this->html->image('botao-voltar.png',array('id'=>'voltar','style'=>'float:left;cursor:pointer;display:none;'));
+		echo $this->html->image('botao-confirmar.png',array('id'=>'confirmaDados','style'=>'float:right;cursor:pointer;'));
+		
 		 echo $this->form->submit('botao-salvar.png',array(
 							    'class'=>'bt-salvar',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
+							    'style' => 'display:none;'
 							    
 	    ));
 		    echo $this->Form->end();

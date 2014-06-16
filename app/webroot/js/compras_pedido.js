@@ -71,9 +71,9 @@
 			valorForncedor = $("#add-fornecedor option:selected").attr('id');
 			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
 			valorNome = $("#add-fornecedor option:selected").attr('data-nome');
-			
+	
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+			$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
 			$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
@@ -127,7 +127,7 @@
 			
 			
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td class="whiteSpace"><span title="'+valorNome+'">'+valorNome+'</span></td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>R$ '+valorUnit+'</td><td>R$ '+valorMoeda+'</td><td>'+valorObs+'</td> <td><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td class="whiteSpace"><span title="'+valorNome+'">'+valorNome+'</span></td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>R$ '+valorUnit+'</td><td>R$ '+valorMoeda+'</td><td>'+valorObs+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
 			
 			//SETA AS INPUT HIDDEN	
 			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="existe" id="produto_unit_'+in_produto+'" value="'+valorUnit+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="produto_total_'+in_produto+'" value="'+valorMoeda+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
@@ -173,23 +173,66 @@
 	});
 	
 	
-/******** ComoperacaoAddForm   ************/
-	$('#PedidoAddForm').submit(function(){
-		
+
+/******** TELA DE CONFIRMACAO   ************/
+	$('#confirmaDados').click(function(){
+		alert(in_fornecedor+'\n'+$('#validaProd').val());
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
-			return false;
-		}else if(in_fornecedor == 0 ){
-			$('#msgValidaFor').show();
-			return false;
-		}else if(in_produto == 0 ){
+			
+		}else if(in_fornecedor == 0 && $('#validaProd').val() == 0){
+			$('#msgValidaFor').show();			
+			
+		}else if(in_produto == 0){
 			$('#msgValidaProduto').show();
-			return false;
+						
 		}else{
-			return true;
-		}
-		
+			$('span[id*="msg"').hide();
+			$('.confirmaInput').attr('readonly','readonly');
+			$('.confirmaInput').attr('onfocus','this.blur();');
+			$('.confirmaInput').attr('disabled','disabled');
+			$('.confirmaInput').addClass('borderZero');
+			$('#confirmaDados').hide();
+			$('.confirma').hide();
+			$('.bt-salvar').show();
+			$('#voltar').show();
+		}	
 		
 	});
 
+/******** VOLTAR DA CONFIRMACAO   ************/
+	$('#voltar').click(function(){
+		$('span[id*="msg"').hide();
+		$('.confirmaInput').removeAttr('readonly','readonly');
+		$('.confirmaInput').removeAttr('onfocus','this.blur();');
+		$('.confirmaInput').removeAttr('disabled','disabled');
+		$('.confirmaInput').removeClass('borderZero');
+		$('#confirmaDados').show();
+		$('.confirma').show();
+		$('.bt-salvar').hide();
+		$('#voltar').hide();
+	});
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -209,7 +209,7 @@ class CotacaosController extends ComoperacaosController {
 		
 		if ($this->request->is('post')) {
 			$this->Cotacao->create();
-
+		
 			if ($this->Cotacao->saveAll($this->request->data)) {
 				$ultimaCotacao= $this->Cotacao->find('first',array('order' => array('Cotacao.id' => 'DESC')));
 				
@@ -256,10 +256,10 @@ class CotacaosController extends ComoperacaosController {
 					
 				}
 				
-				
+				debug($this->request->data);
 				$this->Session->setFlash(__('The cotacao has been saved.'));
 				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
-				return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$ultimaCotacao['Cotacao']['id']));
+				//return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$ultimaCotacao['Cotacao']['id']));
 			} else {
 				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
 			}
