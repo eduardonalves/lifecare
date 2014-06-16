@@ -242,17 +242,6 @@ class ComoperacaosController extends AppController {
 	            ),
 	        )
 		);
-			
-		$conditiosAux= $this->Filter->getConditions();
-				
-				
-		if(empty($conditiosAux)){
-			
-			$dataIncio = date("Y-m-01");
-			$dataTermino= date("Y-m-t");
-			$this->request->data['filter']['data_inici']=$dataIncio;
-			$this->request->data['filter']['data_inici-between']=$dataTermino;
-		}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
 					$this->Paginator->settings = array(
