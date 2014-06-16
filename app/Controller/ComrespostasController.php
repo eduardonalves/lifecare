@@ -103,6 +103,37 @@ class ComrespostasController extends AppController {
 		
 		$this->set(compact('token','comresposta','parceiroResposta' ));		
 	}
+	
+	public function viewResposta($codigo = null) {
+		
+		$this->layout = 'comresposta';
+		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Pedido');
+		$this->loadModel('Parceirodenegocio');
+		
+		$this->loadModel('Empresa');
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');		
+		
+		$token = $this->Comtokencotacao->find('first',array('conditions'=>array('Comtokencotacao.codigoseguranca'=>$codigo)));
+				
+		if(!empty($token)){
+			$numFornecedor = $token['Comtokencotacao']['parceirodenegocio_id'];
+			$numPedido = $token['Comtokencotacao']['comoperacao_id'];
+		}
+	
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $numPedido)));
+	
+		$empresa = $this->Empresa->find('first');
+		
+		$pedido = $this->Pedido->find('first', array('conditions' => array('Pedido.id'=>$numPedido)));
+		
+		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $numFornecedor )));	
+		
+		$this->set(compact('pedido','userid','itens','parceirodenegocio','empresa'));
+	}
 
 /**
  * convertepedido method
@@ -141,9 +172,9 @@ class ComrespostasController extends AppController {
 	 			$updateResposta = array('id' => $comrespostaConf['Pedido']['id'], 'status' => 'CONFIRMADO');
 				if($this->Pedido->save($updateResposta)){
 					$this->Session->setFlash(__('Pedido confirmado.'));
-					return $this->redirect(array('controller' => 'Comrespostas','action' => 'ViewParceiro',$codigo));
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewResposta',$codigo));
 				}else{
-					$this->Session->setFlash(__('The comresposta não pode ser salva.'));
+					return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewResposta',$codigo));
 				}
 	 		}	
  		}
