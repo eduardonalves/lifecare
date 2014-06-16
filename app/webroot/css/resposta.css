@@ -52,9 +52,10 @@ img[id*='botaoRemover']{
 
 img[id*='botaoEdit']{
 	cursor:pointer;
-	display:none;
+	margin-top: 1px;
 }
 
 img[id*='botaoConfirm']{
 	cursor:pointer;
+	
 }

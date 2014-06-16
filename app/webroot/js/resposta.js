@@ -81,7 +81,7 @@ $(document).ready(function(){
 		
 	});
 
-	$('#ComrespostaAddForm').submit(function(){	
+	$('#CotacaoAddForm').submit(function(){	
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
 
@@ -100,7 +100,8 @@ $(document).ready(function(){
 
 	
 	var soma = 0;
-	$("img[id*='botaoConfirm']").click(function(){
+	$("img[id*='botaoConfirm']").click(function(e){
+		e.preventDefault();
 		var id = $(this).attr('id');
 		var lastChar = id.substr(id.length - 1);
 		
@@ -125,11 +126,12 @@ $(document).ready(function(){
 		$("#valorUnit"+ lastChar).addClass('borderZero');
 		$("#valorUnit"+ lastChar).addClass('preenchido');
 		
-		$("#botaoConfirm"+ lastChar).css('display','none')
-		$("#botaoEdit"+ lastChar).css('display','initial')
+		$("#botaoConfirm"+ lastChar).hide();
+		$("#botaoEdit"+ lastChar).show();
 	});
 	
-	$("img[id*='botaoEdit']").click(function(){
+	$("img[id*='botaoEdit']").click(function(e){
+		e.preventDefault();
 		var id = $(this).attr('id');
 		var lastChar = id.substr(id.length - 1);
 		
@@ -141,8 +143,8 @@ $(document).ready(function(){
 		$("#valorUnit"+ lastChar).removeClass('borderZero');
 		$("#valorUnit"+ lastChar).removeClass('preenchido');
 		
-		$("#botaoComfirm"+ lastChar).css('display','initial')
-		$("#botaoEdit"+ lastChar).css('display','none')
+		$("#botaoConfirm"+ lastChar).show();
+		$("#botaoEdit"+ lastChar).hide();
 	});
 
 	$("img[id*='botaoRemover']").click(function(){
