@@ -116,11 +116,20 @@ class ComoperacaosController extends AppController {
 
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Categoria');
+		$this->loadModel('Produto');
+		
 		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 		
 		$listaParceiros = array();
 		foreach($parceirodenegocios as $parceirodenegocio){
 			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		}
+		
+		$produtos = $this->Produto->find('list',array('recursive' => -1, 'fields' => array('Produto.nome')));
+		
+		$listaProdutos = array();
+		foreach($produtos as $produto){
+			array_push($listaProdutos, array($produto => $produto));
 		}
 		
 		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
@@ -197,8 +206,8 @@ class ComoperacaosController extends AppController {
 	            
 	            'produtoNome' => array(
 	                '_Produto.nome' => array(
-	                    'operator' => 'LIKE'
-
+	                    'operator' => 'LIKE',
+						'select' => array(''=> '', $listaParceiros)
 	                )
 	            ),
 	            'produtoNivel' => array(
@@ -213,14 +222,6 @@ class ComoperacaosController extends AppController {
 
 	                )
 	            ),
-	            
-	            
-	            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
-	           'produtoRespNome' => array(
-					'Produto.nome' => array(
-						'operator' => '='
-					)
-	           ),
 	        )
 		);
 			
@@ -330,7 +331,8 @@ class ComoperacaosController extends AppController {
 				            
 				            'produtoNome' => array(
 				                'Produto.nome' => array(
-				                    'operator' => 'LIKE'
+				                    'operator' => 'LIKE',
+				                    'select' => array(''=> '', $listaProdutos)
 			
 				                )
 				            ),
@@ -450,8 +452,8 @@ class ComoperacaosController extends AppController {
 			            
 			            'produtoNome' => array(
 			                '_Produto.nome' => array(
-			                    'operator' => 'LIKE'
-		
+			                    'operator' => 'LIKE',
+			                    'select' => array(''=> '', $listaProdutos)
 			                )
 			            ),
 			            'produtoNivel' => array(
