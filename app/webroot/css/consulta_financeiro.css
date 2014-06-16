@@ -438,3 +438,7 @@ margin-bottom: 50px;
     width: 76px;
     z-index: 99;
 }
+
+.conteudo-principal section label{
+	width: 136px;
+}

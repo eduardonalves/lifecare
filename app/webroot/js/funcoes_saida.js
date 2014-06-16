@@ -99,7 +99,8 @@ $('.inputData').on("keypress",function(event){
 	    }
 	    
 	 });
-	 	 
+	 
+
 /****************Valida Data******************************************/
 	$("#LoteDataValidade").focusout(function(){
 
