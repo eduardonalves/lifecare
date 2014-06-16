@@ -133,7 +133,7 @@ class CotacaosController extends ComoperacaosController {
     public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 
 			$this->loadModel('Empresa');	 
-			$empresa = 	$this->empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
 			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 

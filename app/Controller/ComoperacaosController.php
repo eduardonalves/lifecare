@@ -225,13 +225,13 @@ class ComoperacaosController extends AppController {
 	        )
 		);
 		
-					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici ASC'));
+					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
 					$this->Paginator->settings = array(
 						'Comoperacao' => array(
 							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
 							'fields_toCount' => 'DISTINCT Comoperacao.id',
 							'limit' => $this->request['url']['limit'],
-							'order' => 'Comoperacao.id ASC',
+							'order' => 'Comoperacao.data_inici DESC',
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
