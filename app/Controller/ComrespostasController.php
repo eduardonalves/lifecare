@@ -346,6 +346,7 @@ class ComrespostasController extends AppController {
 				//$this->Session->setFlash(__('A resposta da cotação foi enviada com sucesso.'));
 				
 				return $this->redirect(array('action' => 'viewParceiro',$codigo));
+				//debug($this->request->data);
 			} else {
 				$this->Session->setFlash(__('The comresposta could not be saved. Please, try again.'));
 				//debug($this->request->data);
