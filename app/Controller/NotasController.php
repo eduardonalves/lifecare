@@ -537,7 +537,6 @@ class NotasController extends AppController {
 			$this->loadModel('Produtoiten');
 			$conditiosAux= $this->Filter->getConditions();
 				
-				
 			if(empty($conditiosAux)){
 			
 				
@@ -545,7 +544,7 @@ class NotasController extends AppController {
 				$dataIncio = date("Y-m-01");
 				$dataTermino= date("Y-m-t");
 				$this->request->data['filter']['dataNota']=$dataIncio;
-				$this->request->data['filter']['dataNota-between']=$dataTermino;	
+				$this->request->data['filter']['dataNota-between']=$dataTermino;
 				
 			}
 				
