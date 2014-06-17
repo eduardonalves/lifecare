@@ -851,6 +851,19 @@ class ContasController extends AppController {
 /*-------Filtros da consulta fim---------*/
 				$this->loadModel('Parcela');
 
+				$conditiosAux= $this->Filter->getConditions();
+
+
+				if(empty($conditiosAux)){
+
+					$valortotal=0;
+					$dataIncio = date("Y-m-01");
+					$dataTermino= date("Y-m-t");
+					$this->request->data['filter']['data_vencimento']=$dataIncio;
+					$this->request->data['filter']['data_vencimento-between']=$dataTermino;
+
+				}
+
 				$parcelas = $this->Parcela->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parcela.id', 'Parcela.*'), 'order' => 'Parcela.data_vencimento ASC'));
 					
 					$valortotal=0;
@@ -1084,6 +1097,17 @@ class ContasController extends AppController {
 		);
 
 /*-------Filtros da consulta fim---------*/
+
+				$conditiosAux= $this->Filter->getConditions();
+
+
+				if(empty($conditiosAux)){
+
+					$dataIncio = date("Y-m-01");
+					$dataTermino= date("Y-m-t");
+					$this->request->data['filter']['data_emissao']=$dataIncio;
+					$this->request->data['filter']['data_emissao-between']=$dataTermino;	
+				}
 
 				$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));
 				$valortotal=0;
