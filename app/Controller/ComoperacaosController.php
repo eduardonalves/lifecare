@@ -225,7 +225,7 @@ class ComoperacaosController extends AppController {
 	            'produtoNome' => array(
 	                '_Produto.nome' => array(
 	                    'operator' => 'LIKE',
-						'select' => array(''=> '', $listaParceiros)
+						'select' => array(''=> '', $listaProdutos)
 	                )
 	            ),
 	            'produtoNivel' => array(
