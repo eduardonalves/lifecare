@@ -3,11 +3,13 @@
 			<table>
 				<thead>			
 					<th>Ações</th>
+					<th>Código</th>
+					<th>Valor</th>
 					<th>Data Inicial</th>
-					<th>Data Final</th>				
-					<th>Forma Pagamento</th>				
+					<th>Data Final</th>
+					<th>Forma Pagamento</th>
 					<th>Prazo Entrega</th>
-					<th>Prazo Pagamento</th>	
+					<th>Prazo Pagamento</th>
 					<th>Status</th>	
 				</thead>
 
@@ -71,7 +73,8 @@
 						<?php
 						echo '</td>';
 						
-						
+						echo '<td>'. $pedidos['Comoperacao']['codcotacao'] .'</td>';
+						echo '<td>'. $pedidos['Comoperacao']['valor'] .'</td>';
 							formatDateToView($pedidos['Comoperacao']['data_inici']);
 							formatDateToView($pedidos['Comoperacao']['data_fim']);
 						echo '<td>'. $pedidos['Comoperacao']['data_inici'] .'</td>';
