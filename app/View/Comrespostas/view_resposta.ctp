@@ -171,7 +171,8 @@
 
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
-				
+				echo $this->Form->input('Comoperacao.data_preventrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['data_preventrega'],'disabled'=>'disabled'));	
+
 			?>
 
 		</section>

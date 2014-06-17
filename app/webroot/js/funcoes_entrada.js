@@ -228,7 +228,7 @@ $('.inputData').on("keypress",function(event){
 	$('.avancar').bind('click', function(e){
 		e.preventDefault();
 
-		id= $(this).attr('id');
+		id = $(this).attr('id');
 		var atual = id.substr(7);
 		atualInt=parseInt(atual);
 		proximo = atualInt + 1;
@@ -276,7 +276,7 @@ $('.inputData').on("keypress",function(event){
 	    $("#LoteQuantidade").removeAttr("disabled","dissabled").hide();	    
 
 		var numeroLote = $("#LoteNumeroLote").val();
-		var produtoId= $(".selectProduto option:selected").val();
+		var produtoId = $(".selectProduto option:selected").val();
 		var urlAction = urlInicio+"/Lotes/add";
 		var dadosForm = $("#LoteIndexForm").serialize();
 
@@ -300,7 +300,7 @@ $('.inputData').on("keypress",function(event){
 				    $('[id^="Lote"]').show();
 				    $("#respostaAjax").show();
 				    $("#bt-salvarLote").show();
-				//	console.log(data);
+					console.log(data);
 
 				}else if(data=="cadastrado"){
 
