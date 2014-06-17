@@ -81,7 +81,7 @@ $(document).ready(function(){
 		
 	});
 
-	$('#CotacaoAddForm').submit(function(){	
+	$('#ComrespostaAddForm').submit(function(){	
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
 
