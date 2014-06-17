@@ -11,9 +11,6 @@
 
 <script>
 	$(document).ready(function() {
-		$('#add-fornecedor').bind('change',function(){
-			alert('teste');
-		});
 
 		$(function(){
 		var companyList = $("#add-fornecedor").autocomplete({
@@ -80,7 +77,6 @@
 	<div class="campo-superior-total tela-resultado">
 		<div class="campo-superior-esquerdo">
 			<?php
-
 				echo $this->Form->input('forma_de_entrada', array('id'=>'vale','options'=>array('Nota', 'Vale'),'tabindex'=>'1'));
 			?>
 		</div>
