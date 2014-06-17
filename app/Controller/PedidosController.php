@@ -132,6 +132,15 @@ class PedidosController extends ComoperacaosController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			if(isset($this->request->data['Pedido']['prazo_entrega'])){
+				if($this->request->data['Pedido']['prazo_entrega'] != ''){
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
+					$dataPrev = date('Y-m-d', strtotime("+".$this->request->data['Pedido']['prazo_entrega']." days",strtotime(''.$this->request->data['Pedido']['data_inici'].'')));
+					$this->request->data['Pedido']['data_preventrega']=$dataPrev;
+				}
+			}
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
+			
 			
 			$this->loadModel('Produto');
 			if ($this->Pedido->saveAll($this->request->data)) {

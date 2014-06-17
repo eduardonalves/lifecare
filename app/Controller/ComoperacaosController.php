@@ -754,7 +754,12 @@ public $uses = array();
 			throw new NotFoundException(__('Invalid comoperacao'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Comoperacao->delete()) {
+		if ($this->Comoperacao->deleteAll()) {
+			$this->loadModel('Comitensdaoperacao');	
+			$itens = $this->Comitensdaoperacao->find('all', array('conditions' => array('Comitensdaoperacao.comoperacao_id' => $id)));
+			foreach($itens as $iten){
+				$this->Comitensdaoperacao->delete($iten['Comitensdaoperacao']['id']);
+			}
 			$this->Session->setFlash(__('The comoperacao has been deleted.'));
 		} else {
 			$this->Session->setFlash(__('The comoperacao could not be deleted. Please, try again.'));
