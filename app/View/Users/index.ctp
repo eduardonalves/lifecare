@@ -58,7 +58,7 @@
 		</div>
 		
 		<?php
-			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-users', 'style' => 'margin-left:50px;margin-top:-20px;'));
+			echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-users', 'style' => 'margin-left:50px;margin-top:-27px;'));
 		?>
 		</section>
 		
