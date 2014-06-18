@@ -173,6 +173,7 @@
 					<?php 
 						$j=0;
 						foreach($resposta as $respostas){
+							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
 							echo "<tr>";
 							echo "<td>";
 								echo "<a href='myModal_add-view_itens".$j."' class='bt-showmodal'>"; 
@@ -211,6 +212,7 @@
 												
 											<?php
 												foreach($respostas['Comitensresposta'] as $itens){
+													
 													echo "<tr>";
 														echo "<td>". $itens['produto_nome'] ."</td>";
 														echo "<td>". $itens['qtde'] ."</td>";
@@ -247,6 +249,7 @@
 								echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
 								echo "<td>". $respostas['Comresposta']['status']."</td>";			
 							echo "</tr>";
+							}
 						$j++;
 						}
 						
