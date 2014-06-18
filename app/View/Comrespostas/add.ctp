@@ -97,7 +97,7 @@
 	</section>		
 	<section class="coluna-central">
 		<?php
-			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class'=>'confirmaInput tamanho-pequeno'));			
+			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class'=>'Nao-Letras confirmaInput tamanho-pequeno'));			
 			echo '<span id="validaPrazo" class="msg erroRight" style="display:none">Preencha o prazo para entrega</span>';
 			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			echo '<span id="validaForma" class="msg erroRight" style="display:none">Preencha o forma de pagamento</span>';

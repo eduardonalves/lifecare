@@ -273,8 +273,9 @@ class ComrespostasController extends AppController {
 					
 					
 				}
-				
-				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'));	
+
+				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
+
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 				
 				

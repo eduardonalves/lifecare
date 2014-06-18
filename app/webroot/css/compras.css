@@ -72,6 +72,16 @@ input[type="text"]:disabled{
 	margin-right: 0px !important;
 }
 
+#myModal_add-confirma .modal-body{
+	height: 190px;
+}
+
+#myModal_add-confirma footer{
+	margin: 0;
+}
+#myModal_add-confirma .recebimentoData{
+	margin: 10px 0px 0px 100px;
+}
 
 #msgValidaProduto{top: -10px;}
 #msgValidaFor{top: -10px;}

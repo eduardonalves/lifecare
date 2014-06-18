@@ -287,7 +287,7 @@ $(document).ready(function(){
 						?>
 
 						<tr>
-							<td><?php echo $this->Html->image('semaforo-icon-' . strtolower($lote['Lote']['status']) . '-16x16.png', array('alt' => 'Status de estoque: '.$lote['Lote']['status'], 'title' => 'Status de estoque')); ?></td>
+							<td class="status_primeiraColuna"><?php echo $this->Html->image('semaforo-icon-' . strtolower($lote['Lote']['status']) . '-16x16.png', array('alt' => 'Status de estoque: '.$lote['Lote']['status'], 'title' => 'Status de estoque')); ?></td>
 							<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($lote['Lote']['status']); ?>" /></td>-->
 							<td><?php echo $lote['Lote']['numero_lote'];  ?></td>
 							<td><?php echo $lote['Produto']['nome'];  ?></td>
@@ -361,7 +361,7 @@ $(document).ready(function(){
 							?>
 
 							<tr>
-								<td><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-')); ?></td>
+								<td class="status_primeiraColuna"><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-')); ?></td>
 								<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>-->
 								<td><?php echo $produto['Produto']['nome'];  ?></td>
 								<td><?php echo $produto['Produto']['estoque_minimo']; ?></td>								
@@ -383,7 +383,7 @@ $(document).ready(function(){
 	<section class="dashboard-esquerda">	
 	<div class="div-board">
 			<div class="div-titulo">
-				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<?php echo $this->Html->image('pedido_lateral.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Pedidos a Receber</span>	
 			</div>
 			<div class="div-tabela-rolagem">
@@ -424,7 +424,7 @@ $(document).ready(function(){
 	<section class="dashboard-central">	
 	<div class="div-board">
 			<div class="div-titulo">
-				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<?php echo $this->Html->image('cotacao_lateral.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Cotações Respondidas</span>	
 			</div>
 			<div class="div-tabela-rolagem">
@@ -466,7 +466,7 @@ $(document).ready(function(){
 	<section class="dashboard-direita">	
 	<div class="div-board">
 			<div class="div-titulo">
-				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<?php echo $this->Html->image('cotacao_lateral.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Cotações em aberto</span>	
 			</div>
 			<div class="div-tabela-rolagem">

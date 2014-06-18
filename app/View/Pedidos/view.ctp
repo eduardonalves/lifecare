@@ -214,9 +214,56 @@
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar este Pedido?', $pedido['Pedido']['id'])));
 		}
-	
 
-	?>
+		if($pedido['Pedido']['status'] != 'CANCELADO'){
+				
+			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
+				echo $this->Html->image('botao-confirmar.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
+			echo "</a>";
+								
+		?>
 
+		<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-body">
+							
+									<header class="cabecalho">
+									<?php 
+										echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+										echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+
+									?>	
+									<h1>Recebimento de Pedido</h1>
+									</header>
+					
+									<section>
+										<header>Data do Recebimento do Pedido</header>
+											<div class="recebimentoData">
+											<?php												
+												echo $this->Form->input('Vazio.data_recebimento',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
+											?>	
+											</div>
+										<footer>
+											<?php
+												echo $this->Form->postLink($this->Html->image('botao-confirmar.png',array('id'=>'bt-cancelar','class'=>'','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Deseja confirmar o rebimento deste Pedido?', $pedido['Pedido']['id'])));
+											?>
+										</footer>
+										
+									</section>
+								</div>
+							</div>
+		<?php
+			}
+		?>
 </footer>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $(".bt-showmodal").click(function(){
+		nome = $(this).attr('href');
+		$('#'+nome).modal('show');
+			    
+	    });	
+		
+	});
+</script>
 

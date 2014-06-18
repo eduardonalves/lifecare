@@ -212,7 +212,7 @@ class ComoperacaosController extends AppController {
 	            'status_operacao' => array(
 	                'Comoperacao.status' => array(
 	                    'operator' => 'LIKE',
-	               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+	               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO')
 					)
 	            ),
 	            'forma_pagamento' => array(
@@ -352,7 +352,7 @@ class ComoperacaosController extends AppController {
 				            'status_operacao' => array(
 				                '_Comoperacao.status' => array(
 				                    'operator' => 'LIKE',
-				               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+				               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO')
 								)
 				            ),
 				            'forma_pagamento' => array(
