@@ -169,15 +169,20 @@ class SaidasController extends NotasController {
 		if (!$this->Saida->exists($id)) {
 			throw new NotFoundException(__('Invalid saida'));
 		}
-		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 2);
+		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 0);
 		$this->set('saida', $this->Saida->find('first', $options));
+		
+		$this->loadModel('Produtoiten');
+		$this->loadModel('Loteiten');
+		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
+		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
 		
 		$findSaida= $this->Saida->find('first', array('conditions' => array('Saida.id' => $id)));
 		$this->loadModel('Cliente');
 		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findSaida['Saida']['parceirodenegocio_id'])));
 		
 		
-		$this->set(compact('findsaida','cliente'));
+		$this->set(compact('findsaida','cliente','itens', 'loteitens'));
 		
 		
 		
