@@ -371,15 +371,15 @@ class PedidosController extends ComoperacaosController {
 		$this->Pedido->save($upDatePedido);
 		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
 	}
-	public function confirmarEntrega() {
+	public function confirmarEntrega($id) {
 		if ($this->request->is('post')) {
 				
 				
 			
-			$pedido = $this->Pedido->find('first', array('recursive' => -1, 'conditions' => array('Pedido.id' => $this->request->data['Pedido']['id'])));
+			$pedido = $this->Pedido->find('first', array('recursive' => -1, 'conditions' => array('Pedido.id' => $id)));
 			if($pedido['Pedido']['status'] != 'ENTREGUE' && $pedido['Pedido']['status'] != 'CANCELADO'){
 				$this->request->data['Pedido']['status']="ENTREGUE";
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_entrega']);
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_entregaconf']);
 				
 				if ($this->Pedido->save($this->request->data)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
