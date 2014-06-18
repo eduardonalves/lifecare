@@ -386,7 +386,6 @@ class PedidosController extends ComoperacaosController {
 				}
 			}
 		}
-		
 	}
 
 }
