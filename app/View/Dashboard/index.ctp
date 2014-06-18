@@ -71,7 +71,7 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Faturamento/Despesa</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			
 			
@@ -168,7 +168,7 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Contas por Período</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			
 			<div class="menuEntreDatas">
@@ -213,8 +213,8 @@ $(document).ready(function(){
 		<div class="div-board">
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Parcelas</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<span class="span-titulo">Parcelas em atraso</span>
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 				<div class="div-tabela-rolagem">
 					<table class="tb-dataValidade">
@@ -270,7 +270,7 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Data de Validade</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>
 			</div>	
 				<div class="div-tabela-rolagem">
 					<table class="tb-dataValidade">
@@ -313,7 +313,7 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Contas a Pagar</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			<div class="div-tabela-rolagem">
 				<table class="">
@@ -329,7 +329,7 @@ $(document).ready(function(){
 							?>							
 								<tr>									
 									<td><?php echo $contas['Conta']['identificacao'] ?></td>
-									<td><?php echo $contas['Conta']['valor'] ?></td>
+									<td><?php echo converterMoeda($contas['Conta']['valor']); ?></td>
 									<td><?php echo  $this->Html->image('semaforo-' . strtolower($contas['Conta']['status']) . '-12x12.png', array('alt' => $contas['Conta']['status'], 'title' => $contas['Conta']['status'])); ?></td>
 								</tr>															
 							<?php
@@ -345,7 +345,7 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Nível de Estoque</span>
-				<?php echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
 			</div>
 			<div class="div-tabela-rolagem">
 				<table class="tabela-lote">
@@ -378,7 +378,135 @@ $(document).ready(function(){
 	</section>
 </section><!-- ## FIM SECTION INFERIOR -->
 
+<div style="clear:both;"></div>
+<section class="section-inferior2"><!-- ## Inicio SECTION INFERIOR 2 -->
+	<section class="dashboard-esquerda">	
+	<div class="div-board">
+			<div class="div-titulo">
+				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<span class="span-titulo">Pedidos a Receber</span>	
+			</div>
+			<div class="div-tabela-rolagem">
+				<table class="tabela-lote">
+							<tr>
+								<th>Ação</th>
+								<th>Previsão Entrega</th>
+								<th>Valor</th>
+								
+							</tr>
 
+							<?php
+								foreach($pedidos as $pedido){
+							?>
+
+							<tr>
+								<td><?php 
+									echo $this->Html->image('botao-tabela-visualizar.png',array(
+															'alt'=>'Visualizar Pedido',
+															'title'=>'Visualizar Pedido',
+															'url'=>array('controller' => 'Pedidos',
+															'action' => 'view', $pedido['Pedido']['id']))); 
+								
+								?></td>
+								<td><?php echo formatDateToView($pedido['Pedido']['data_preventrega']); ?></td>								
+								<td><?php echo converterMoeda($pedido['Pedido']['valor']); ?></td>
+								
+							</tr>
+
+							<?php
+								}
+							?>
+						</table>	
+			</div>		
+		</div>
+	</section>
+	
+	<section class="dashboard-central">	
+	<div class="div-board">
+			<div class="div-titulo">
+				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<span class="span-titulo">Cotações Respondidas</span>	
+			</div>
+			<div class="div-tabela-rolagem">
+				<table class="tabela-lote">
+							<tr>
+								<th>Ação</th>
+								<th>Data Resposta</th>
+								<th>Valor</th>
+								
+							</tr>
+
+							<?php
+								foreach($respostas as $resposta){
+							?>
+
+							<tr>
+								<td><?php 
+									echo $this->Html->image('botao-tabela-visualizar.png',array(
+															'alt'=>'Visualizar Cotação',
+															'title'=>'Visualizar Cotação',
+															'url'=>array('controller' => 'Cotacaos',
+															'action' => 'view', $resposta['Comresposta']['comoperacao_id']))); 
+								
+								?></td>
+								<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>-->
+								<td><?php echo formatDateToView($resposta['Comresposta']['data_resposta']); ?></td>								
+								<td><?php echo converterMoeda($resposta['Comresposta']['valor']); ?></td>
+								
+							</tr>
+
+							<?php
+								}
+							?>
+						</table>	
+			</div>		
+		</div>
+	</section>
+
+	<section class="dashboard-direita">	
+	<div class="div-board">
+			<div class="div-titulo">
+				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
+				<span class="span-titulo">Cotações em aberto</span>	
+			</div>
+			<div class="div-tabela-rolagem">
+				<table class="tabela-lote">
+							<tr>
+								<th>Ação</th>
+								<th>Data Inicial</th>
+								<th>Data Final</th>
+								
+							</tr>
+
+							<?php
+								foreach($abertos as $aberto){
+							?>
+
+							<tr>
+								<td><?php 
+									echo $this->Html->image('botao-tabela-visualizar.png',array(
+															'alt'=>'Visualizar Cotação',
+															'title'=>'Visualizar Cotação',
+															'url'=>array('controller' => 'Pedidos',
+															'action' => 'view', $aberto['Comoperacaos']['id']))); 
+								
+								?></td>
+								<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>-->
+								<td><?php echo formatDateToView($aberto['Comoperacaos']['data_inici']); ?></td>								
+								<td><?php echo formatDateToView($aberto['Comoperacaos']['data_fim']); ?></td>								
+								
+								
+							</tr>
+
+							<?php
+								}
+							?>
+						</table>	
+			</div>		
+		</div>
+	</section>
+</section><!-- ## FIM SECTION INFERIOR 2 -->
+<div style="clear:both;"></div>
 <div><!-- Hidden do grafico de Faturamento/Despesas -->
 <!-- ## RECEBER -->
 <input type="hidden" id="totalJanReceber" value="<?php echo $totalJanReceber; ?>" />
@@ -440,7 +568,3 @@ $(document).ready(function(){
 </div>
 
 
-
-
-
-<?php //echo $this->element('sql_dump'); ?>

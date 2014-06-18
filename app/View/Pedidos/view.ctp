@@ -215,12 +215,7 @@
 			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar este Pedido?', $pedido['Pedido']['id'])));
 		}
 	
-			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
-											'title'=>'Editar Cotação',
-											'class'=>'bt-editar',
-											'url'=>array('controller'=>'Cotacaos','action'=>'edit', $pedido['Pedido']['id'])));	
-													 
-	
+
 	?>
 
 </footer>
