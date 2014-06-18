@@ -372,9 +372,7 @@ class PedidosController extends ComoperacaosController {
 		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
 	}
 	public function confirmarEntrega() {
-		if ($this->request->is('post')) {
-				
-				
+		if ($this->request->is('post')) {				
 			
 			$pedido = $this->Pedido->find('first', array('recursive' => -1, 'conditions' => array('Pedido.id' => $this->request->data['Pedido']['id'])));
 			if($pedido['Pedido']['status'] != 'ENTREGUE' && $pedido['Pedido']['status'] != 'CANCELADO'){
