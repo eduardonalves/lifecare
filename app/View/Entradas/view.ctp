@@ -277,31 +277,31 @@
 				<?php
 					if($entrada['Entrada']['forma_de_entrada']==0){
 					
-						foreach($entrada['Produtoiten'] as $prodIten){
+						foreach($itens as $prodIten){
 						
-							$prodIten['valor_total']=convertMoeda($prodIten['valor_total']);
-							$prodIten['valor_unitario']=convertMoeda($prodIten['valor_unitario']);
-							$prodIten['percentual_icms']=convertMoeda($prodIten['percentual_icms']);
-							$prodIten['percentual_ipi']=convertMoeda($prodIten['percentual_ipi']);
+							$prodIten['Produtoiten']['valor_total']=convertMoeda($prodIten['Produtoiten']['valor_total']);
+							$prodIten['Produtoiten']['valor_unitario']=convertMoeda($prodIten['Produtoiten']['valor_unitario']);
+							$prodIten['Produtoiten']['percentual_icms']=convertMoeda($prodIten['Produtoiten']['percentual_icms']);
+							$prodIten['Produtoiten']['percentual_ipi']=convertMoeda($prodIten['Produtoiten']['percentual_ipi']);
 							
 							echo '<tr class="valbtconfimar">';
 							echo "<td>".$prodIten['Produto']['id']."</td>";	
 							echo "<td>".$prodIten['Produto']['nome']."</td>";		
 							echo "<td>".$prodIten['Produto']['unidade']."</td>";	
 							echo "<td>".$prodIten['Produto']['descricao']."</td>";	
-							echo "<td>".$prodIten['qtde']."</td>";
-							echo "<td class='valor'>".$prodIten['valor_unitario']."</td>";	
-							echo "<td class='valor'>".$prodIten['valor_total']."</td>";		
-							echo "<td class='valor'>".$prodIten['cfop']."</td>";	
-							echo "<td class='valor'>".$prodIten['percentual_icms']."</td>";		
-							echo "<td class='valor'>".$prodIten['percentual_ipi']."</td>";
+							echo "<td>".$prodIten['Produtoiten']['qtde']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_unitario']."</td>";	
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_total']."</td>";		
+							echo "<td class='valor'>".$prodIten['Produto']['cfop']."</td>";	
+							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_icms']."</td>";		
+							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_ipi']."</td>";
 							
 							echo "<td>";
-							foreach($entrada['Loteiten'] as $loteiten){
+							foreach($loteitens as $loteiten){
 									
-									if( $loteiten['produtoiten_id'] ==  $prodIten['id']){
+									if( $loteiten['Loteiten']['produtoiten_id'] ==  $prodIten['Produtoiten']['id']){
 										$loteiten['Lote']['data_validade'] = converteData($loteiten['Lote']['data_validade']);
-										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";	
+										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['Loteiten']['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";	
 									}
 							}
 							echo "</td>";
@@ -312,26 +312,28 @@
 						}
 						
 					}else{
-						foreach($entrada['Produtoiten'] as $prodIten){
+						foreach($itens as $prodIten){
 							
-							$prodIten['valor_total']= convertMoeda($prodIten['valor_total']);
-							$prodIten['valor_unitario']= convertMoeda($prodIten['valor_unitario']);
+							$prodIten['Produtoiten']['valor_total']= convertMoeda($prodIten['Produtoiten']['valor_total']);
+							$prodIten['Produtoiten']['valor_unitario']= convertMoeda($prodIten['Produtoiten']['valor_unitario']);
 						
 							echo '<tr class="valbtconfimar">';
 							echo "<td>".$prodIten['Produto']['id']."</td>";	
 							echo "<td>".$prodIten['Produto']['nome']."</td>";		
 							echo "<td>".$prodIten['Produto']['unidade']."</td>";	
 							echo "<td>".$prodIten['Produto']['descricao']."</td>";	
-							echo "<td>".$prodIten['qtde']."</td>";
-							echo "<td class='valor'>".$prodIten['valor_unitario']."</td>";	
-							echo "<td class='valor'>".$prodIten['valor_total']."</td>";		
+							echo "<td>".$prodIten['Produtoiten']['qtde']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_unitario']."</td>";	
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_total']."</td>";		
 							echo "<td>";
 							$j=0;
-							foreach($entrada['Loteiten'] as $loteiten){
-									if($loteiten['produtoiten_id'] ==  $prodIten['id']){
+							foreach($loteitens as $loteiten){
+										
+									
+									if($loteiten['Loteiten']['produtoiten_id'] ==  $prodIten['Produtoiten']['id']){
 									
 										$loteiten['Lote']['data_validade'] = converteData($loteiten['Lote']['data_validade']);
-										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";	
+										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['Loteiten']['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";	
 									}
 							}
 							echo "</td>";

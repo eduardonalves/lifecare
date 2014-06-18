@@ -509,7 +509,7 @@ class ComoperacaosController extends AppController {
 					);
 					
 					$cntParceiros = count($parceirodenegocios);
-					$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');			
+					$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');
 					$this->set(compact('parceirodenegocios', 'cntParceiros'));
 						
 				}

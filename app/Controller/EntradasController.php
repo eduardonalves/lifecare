@@ -168,15 +168,21 @@ class EntradasController extends NotasController {
 		if (!$this->Entrada->exists($id)) {
 			throw new NotFoundException(__('Invalid entrada'));
 		}
-		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 2);
+		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 0);
 		$this->set('entrada', $this->Entrada->find('first', $options));
+		
+		$this->loadModel('Produtoiten');
+		$this->loadModel('Loteiten');
+		$itens=$this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
+		$loteitens =$this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+		
 		
 		$findEntrada= $this->Entrada->find('first', array('conditions' => array('Entrada.id' => $id)));
 		$this->loadModel('Fornecedore');
 		$fornecedor = $this->Fornecedore->find('first', array('conditions' => array('Fornecedore.id' => $findEntrada['Entrada']['parceirodenegocio_id'])));
 		
 		
-		$this->set(compact('findentrada','fornecedor'));
+		$this->set(compact('findentrada','fornecedor','itens','loteitens'));
 		
 		
 		

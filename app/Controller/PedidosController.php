@@ -188,15 +188,17 @@ class PedidosController extends ComoperacaosController {
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-						$this->Session->setFlash(__('The pedido has been saved.'));
+						$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 						
 					}
 					
 				}
-				$this->Session->setFlash(__('O Pedido foi salvo com Sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));	
+
+				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
+				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 			}else{
-				$this->Session->setFlash(__('O Pedido não pode ser salva, tente novamente.'));
+				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+
 			}
 		}
 		
@@ -229,14 +231,14 @@ class PedidosController extends ComoperacaosController {
 		
 		
 		if (!$this->Pedido->exists($id)) {
-			throw new NotFoundException(__('Invalid pedido'));
+			throw new NotFoundException(__('Pedido inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Pedido->save($this->request->data)) {
-				$this->Session->setFlash(__('The pedido has been saved.'));
+				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The pedido could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
@@ -256,13 +258,13 @@ class PedidosController extends ComoperacaosController {
 	public function delete($id = null) {
 		$this->Pedido->id = $id;
 		if (!$this->Pedido->exists()) {
-			throw new NotFoundException(__('Invalid pedido'));
+			throw new NotFoundException(__('Pedido inválido.'));
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Pedido->delete()) {
-			$this->Session->setFlash(__('The pedido has been deleted.'));
+			$this->Session->setFlash(__('O pedido foi deletado com sucesso.'),'default',array('class'=>'success-flash'));
 		} else {
-			$this->Session->setFlash(__('The pedido could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('O pedido não pode ser deletado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
