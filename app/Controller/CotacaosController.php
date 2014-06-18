@@ -256,12 +256,12 @@ class CotacaosController extends ComoperacaosController {
 					
 				}
 				
-				debug($this->request->data);
-				$this->Session->setFlash(__('The cotacao has been saved.'));
+				//debug($this->request->data);
+				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
 				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
 				return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$ultimaCotacao['Cotacao']['id']));
 			} else {
-				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A cotação não pode ser salva. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 			}
 		}
 		$this->loadModel('Produto');
@@ -294,14 +294,14 @@ class CotacaosController extends ComoperacaosController {
 		$username=$this->Session->read('Auth.User.username');
 		
 		if (!$this->Cotacao->exists($id)) {
-			throw new NotFoundException(__('Invalid cotacao'));
+			throw new NotFoundException(__('Cotação inválida'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Cotacao->saveAll($this->request->data)) {
-				$this->Session->setFlash(__('The cotacao has been saved.'));
+				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A cotação não pode ser salva. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Cotacao.' . $this->Cotacao->primaryKey => $id));
@@ -330,13 +330,13 @@ class CotacaosController extends ComoperacaosController {
 	public function delete($id = null) {
 		$this->Cotacao->id = $id;
 		if (!$this->Cotacao->exists()) {
-			throw new NotFoundException(__('Invalid cotacao'));
+			throw new NotFoundException(__('Cotação inválida'));
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Cotacao->delete()) {
-			$this->Session->setFlash(__('The cotacao has been deleted.'));
+			$this->Session->setFlash(__('A cotação foi deletada com sucesso.'),'default',array('class'=>'success-flash'));
 		} else {
-			$this->Session->setFlash(__('The cotacao could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('A cotação não pode ser deletada. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}}
