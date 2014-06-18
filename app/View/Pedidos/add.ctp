@@ -206,7 +206,8 @@
 							    'style' => 'display:none;'
 							    
 	    ));
-		    echo $this->Form->end();
+		
+		echo $this->Form->end();
 	?>	
 </footer>
 

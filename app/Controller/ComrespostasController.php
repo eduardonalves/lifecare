@@ -269,9 +269,7 @@ class ComrespostasController extends AppController {
 						}
 						
 					}
-					
-					
-					
+
 				}
 
 				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	

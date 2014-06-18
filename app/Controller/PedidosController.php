@@ -373,14 +373,22 @@ class PedidosController extends ComoperacaosController {
 	}
 
 	public function confirmarEntrega($id) {
+		
 		if ($this->request->is('post')) {
-			
-			$pedido = $this->Pedido->find('first', array('recursive' => -1, 'conditions' => array('Pedido.id' => $id)));
-			if($pedido['Pedido']['status'] != 'ENTREGUE' && $pedido['Pedido']['status'] != 'CANCELADO'){
-				$this->request->data['Pedido']['status']="ENTREGUE";
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_entregaconf']);
 				
-				if ($this->Pedido->save($this->request->data)) {
+			$pedido = $this->Pedido->find('first', array('fields'=>'Pedido.*','recursive' => -1, 'conditions' => array('Pedido.id' => $this->request->data['Pedido']['id'])));
+			
+			if($pedido['Pedido']['status'] != 'ENTREGUE' && $pedido['Pedido']['status'] != 'CANCELADO'){
+				
+				$this->request->data['Pedido']['status']="ENTREGUE";
+				
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
+				
+				$update = array('id'=>$this->request->data['Pedido']['id'],'status'=>'ENTREGUE', 'recebimento'=> $this->request->data['Pedido']['data_fim']);
+				
+				debug($update);
+				
+				if ($this->Pedido->saveAll($update)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
 				}else{
 					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
