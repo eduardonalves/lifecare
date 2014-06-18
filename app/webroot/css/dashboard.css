@@ -18,12 +18,19 @@
 
 .section-superior{
 	margin:60px 5px 0px 5px;
-	width:1170pxpx;
+	width:1170px;
 }
 
 .section-inferior{
 	margin:440px 5px 0px 5px;
-	width:1170pxpx;
+	width:1170px;
+}
+
+.section-inferior2{
+	clear: both;
+	height: 100px;	
+	margin: 20px 5px 300px 5px;
+	width:1170px;
 }
 
 .dashboard-esquerda{
@@ -90,7 +97,7 @@
 }
 
 .div-tabela-rolagem{
-	height: 242px;
+	height: 300px;
 	margin-top: 5px;
 	overflow: auto;
 	position: absolute;

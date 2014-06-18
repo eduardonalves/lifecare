@@ -1030,8 +1030,16 @@ class DashboardController extends AppController {
 		$this->loadModel('Parcela');
 		$parcelaDash = $this->Parcela->find('all',array('order'=>array('Parcela.data_vencimento'=>'asc'),'recursive'=>-1));
 	
+		$this->loadModel('Pedido');
+		$pedidos = $this->Pedido->find('all',array('fields'=>'Pedido.*','conditions'=>array('Pedido.status'=>'CONFIRMADO','Pedido.tipo'=>'PEDIDO'),'order'=>array('Pedido.data_preventrega'=>'asc'),'recursive'=>-1));
 		
-		$this->set(compact('lotes','produtos','anosModel','contasPagars','parcelaDash'));
+		$this->loadModel('Comresposta');
+		$respostas = $this->Comresposta->find('all',array('order'=>array('Comresposta.data_resposta'=>'asc'),'recursive'=>-1));
+		
+		$this->loadModel('Comoperacaos');
+		$abertos = $this->Comoperacaos->find('all',array('order'=>array('Comoperacaos.data_inici'=>'asc'),'conditions'=>array('Comoperacaos.status'=>'ABERTO','Comoperacaos.tipo'=>'COTACAO'),'recursive'=>-1));
+		
+		$this->set(compact('lotes','produtos','anosModel','contasPagars','parcelaDash','pedidos','respostas','abertos'));
 	}
 	
 	

@@ -257,11 +257,11 @@ class CotacaosController extends ComoperacaosController {
 				}
 				
 				debug($this->request->data);
-				$this->Session->setFlash(__('The cotacao has been saved.'));
+				$this->Session->setFlash(__('A Cotação foi salva com Sucesso.'), 'default', array('class' => 'success-flash'));
 				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
 				return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$ultimaCotacao['Cotacao']['id']));
 			} else {
-				$this->Session->setFlash(__('The cotacao could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A Cotação não pode ser salva, tente novamente.'));
 			}
 		}
 		$this->loadModel('Produto');

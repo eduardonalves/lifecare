@@ -176,7 +176,7 @@
 
 /******** TELA DE CONFIRMACAO   ************/
 	$('#confirmaDados').click(function(){
-		alert(in_fornecedor+'\n'+$('#validaProd').val());
+	
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			
@@ -213,7 +213,7 @@
 		$('#voltar').hide();
 	});
 	
-	$('#CotacaoAddForm').submit(function(){	
+	$('#PedidoAddForm').submit(function(){	
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
 

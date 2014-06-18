@@ -173,6 +173,7 @@
 					<?php 
 						$j=0;
 						foreach($resposta as $respostas){
+							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
 							echo "<tr>";
 							echo "<td>";
 								echo "<a href='myModal_add-view_itens".$j."' class='bt-showmodal'>"; 
@@ -211,6 +212,7 @@
 												
 											<?php
 												foreach($respostas['Comitensresposta'] as $itens){
+													
 													echo "<tr>";
 														echo "<td>". $itens['produto_nome'] ."</td>";
 														echo "<td>". $itens['qtde'] ."</td>";
@@ -247,6 +249,7 @@
 								echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
 								echo "<td>". $respostas['Comresposta']['status']."</td>";			
 							echo "</tr>";
+							}
 						$j++;
 						}
 						
@@ -264,11 +267,6 @@
 			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Cotação'),'title' => __('Cancelar Cotação'))), array('controller' => 'Cotacaos','action' => 'cancelarCotacao',$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar esta Cotação?', $cotacao['Cotacao']['id'])));
 		}
 
-	
-			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
-											'title'=>'Editar Cotação',
-											'class'=>'bt-editar',
-											'url'=>array('controller'=>'Cotacaos','action'=>'edit', $cotacao['Cotacao']['id'])));	
 
 	?>
 

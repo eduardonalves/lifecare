@@ -104,8 +104,8 @@ class PedidosController extends ComoperacaosController {
 		
 		$empresa = $this->Empresa->find('first');
 		
-		$options = array('conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id));
-		$pedido = $this->Pedido->find('first', $options);
+		
+		$pedido = $this->Pedido->find('first', array('fields'=>'Pedido.*','conditions' => array('Pedido.' . $this->Pedido->primaryKey => $id)));
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedido['Parceirodenegocio'][0]['id'] )));	
 		
@@ -193,10 +193,10 @@ class PedidosController extends ComoperacaosController {
 					}
 					
 				}
-				$this->Session->setFlash(__('The pedido foi salvo com sucesso.'));
+				$this->Session->setFlash(__('O Pedido foi salvo com Sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));	
 			}else{
-				$this->Session->setFlash(__('The pedido could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O Pedido não pode ser salva, tente novamente.'));
 			}
 		}
 		
