@@ -1031,7 +1031,7 @@ class DashboardController extends AppController {
 		$parcelaDash = $this->Parcela->find('all',array('order'=>array('Parcela.data_vencimento'=>'asc'),'recursive'=>-1));
 	
 		$this->loadModel('Pedido');
-		$pedidos = $this->Pedido->find('all',array('fields'=>'Pedido.*','conditions'=>array('Pedido.status'=>'CONFIRMADO','Pedido.tipo'=>'PEDIDO'),'order'=>array('Pedido.data_preventrega'=>'asc'),'recursive'=>-1));
+		$pedidos = $this->Pedido->find('all',array('fields'=>'Pedido.*','conditions'=>array('Pedido.status'=>'CONFIRMADO','Pedido.tipo'=>'PEDIDO'),'order'=>array('Pedido.data_entrega'=>'asc'),'recursive'=>-1));
 		
 		$this->loadModel('Comresposta');
 		$respostas = $this->Comresposta->find('all',array('order'=>array('Comresposta.data_resposta'=>'asc'),'recursive'=>-1));
