@@ -188,6 +188,8 @@ class ComrespostasController extends AppController {
 				}else{
 					return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewResposta',$codigo));
 				}
+	 		}else{
+	 			return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewResposta',$codigo));
 	 		}	
  		}
  		
@@ -199,7 +201,7 @@ class ComrespostasController extends AppController {
 	public function converteEmPedido($id = null) {
 			
 		if ($this->request->is('post')) {	
-			$resposta=$this->Comresposta->find('first',array('conditions' => array('Comresposta.id' => $id)));
+			$resposta=$this->Comresposta->find('first',array('fields'=> 'Comresposta.*','conditions' => array('Comresposta.id' => $id)));
 			
 			
 			$respostaPerdedoras = $this->Comresposta->find('all',array('recursive' => -1,'conditions' => array('Comoperacao_id' => $resposta['Comresposta']['comoperacao_id'])));
@@ -222,19 +224,27 @@ class ComrespostasController extends AppController {
 			$hoje = date('Y-m-d');
 			$userid = $this->Session->read('Auth.User.id');
 			
-			$exitente= $this->Pedido->find('first',array( 'conditions' => array('Pedido.codcotacao' => $id)));
+			$exitente= $this->Pedido->find('first',array( 'fields'=> 'Pedido.*','conditions' => array('Pedido.codcotacao' => $id)));
 			
 			
 			
 			if(empty($exitente)){
+					
 				
+				$diasCritico = $resposta['Comresposta']['prazo_entrega'];
 				
-				if($resposta['Comresposta']['prazo_entrega'] != '' && $resposta['Comresposta']['prazo_entrega'] != NULL){
-					$dataPrev = date('Y-m-d', strtotime("+".$resposta['Comresposta']['data_preventrega']." days",strtotime(''.$hoje.'')));
-					$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
-				 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id, 'data_preventrega' => $dataPrev);
+				//$dataPrev = date('Y-m-d', strtotime("+".$diasCritico." days",strtotime(''.$hoje.'')));	
+				
+				$dataPrev = date('Y-m-d', strtotime("+".$resposta['Comresposta']['prazo_entrega']." days",strtotime(''.$hoje.'')));
+				
+				if($resposta['Comresposta']['prazo_entrega'] != '' ){
+					$dataPrev = date('Y-m-d', strtotime("+".$resposta['Comresposta']['prazo_entrega']." days",strtotime(''.$hoje.'')));
+					$pedido = array('data_inici'=> $hoje, 'data_fim' => $hoje, 'data_entrega' => $dataPrev, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id,'prazo_entrega' => $resposta['Comresposta']['prazo_entrega']);
+						
+						
+				
 				}else{
-					$pedido = array('data_inicio'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
+					$pedido = array('data_inici'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Comresposta']['valor'],
 				 'forma_pagamento' =>  $resposta['Comresposta']['forma_pagamento'], 'prazo_pagamento' => $resposta['Comresposta']['obs_pagamento'], 'tipo' => 'PEDIDO', 'status' => 'ABERTO', 'codcotacao' => $id);
 				}
 				
@@ -250,7 +260,7 @@ class ComrespostasController extends AppController {
 							$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
 							$this->Comitensdaoperacao->create();
 							$this->Comitensdaoperacao->save($itens);
-							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' =>$pedido['Parceirodenegocio']['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id']))));
+							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' =>$pedido['Parceirodenegocio']['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id'], 'obs' => $its['obs']))));
 							if(empty($produtosParceirodenegocio)){
 								$viculaFornecedor = array('parceirodenegocio_id' => $pedido['Parceirodenegocio']['id'], 'produto_id' => $its['produto_id']);
 								$this->ProdutosParceirodenegocio->save($viculaFornecedor);
@@ -263,7 +273,9 @@ class ComrespostasController extends AppController {
 					
 					
 				}
+
 				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
+
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 				
 				
@@ -399,12 +411,22 @@ class ComrespostasController extends AppController {
 				
 				$this->loadModel('Comtokencotacao');
 				$codigo= $this->request->data['Comrespostas']['token'];			
-				$token = $this->Comtokencotacao->find('all', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
+				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
 								
 				if(!empty($token)){
 					
-					return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
-				
+					
+					if($token['Comtokencotacao']['respondido'] == 1){
+					
+						return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewParceiro', $codigo));
+						
+					}else{
+						
+						return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
+						
+					}
+					
+					$this->set(compact('token'));
 				}else{
 					$this->Session->setFlash(__('Código incorreto.'));
 					return $this->redirect(array('controller' => 'Comrespostas','action' => 'logincotacao'));

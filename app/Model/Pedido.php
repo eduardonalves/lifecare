@@ -11,7 +11,7 @@ App::uses('AppModel', 'Model');
  
 App::Import('Model', 'Comoperacao');
 class Pedido extends Comoperacao {
-	var $name = 'Cotacao';
+	var $name = 'Pedido';
 	public $useTable = 'comoperacaos'; 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

@@ -177,6 +177,22 @@ class ComoperacaosController extends AppController {
 		                )
 		            )
 		        ),
+		        'data_entrega' => array(
+		            'Comoperacao.data_entrega' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		         'data_entregaconf' => array(
+		            'Comoperacao.data_entregaconf' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
 	            'data_fim' => array(
 		            'Comoperacao.data_fim' => array(
 		                'operator' => 'BETWEEN',
@@ -243,15 +259,15 @@ class ComoperacaosController extends AppController {
 	        )
 		);
 		
-		$conditiosAux= $this->Filter->getConditions();
-
-		if(empty($conditiosAux)){
-
-			$dataIncio = date("Y-m-01");
-			$dataTermino= date("Y-m-t");
-			$this->request->data['filter']['data_inici']=$dataIncio;
-			$this->request->data['filter']['data_inici-between']=$dataTermino;
-		}
+					$conditiosAux= $this->Filter->getConditions();
+				
+					if(empty($conditiosAux)){
+				
+						$dataIncio = date("Y-m-01");
+						$dataTermino= date("Y-m-t");
+						$this->request->data['filter']['data_inici']=$dataIncio;
+						$this->request->data['filter']['data_inici-between']=$dataTermino;
+					}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
 					$this->Paginator->settings = array(
@@ -311,6 +327,22 @@ class ComoperacaosController extends AppController {
 					        ),
 					        'valor' => array(
 					            '_Comoperacao.valor' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+					         'data_entrega' => array(
+					            '_Comoperacao.data_entrega' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+					         'data_entregaconf' => array(
+					            '_Comoperacao.data_entregaconf' => array(
 					                'operator' => 'BETWEEN',
 					                'between' => array(
 					                    'text' => __(' e ', true)
@@ -424,6 +456,22 @@ class ComoperacaosController extends AppController {
 				        ),
 			            'data_fim' => array(
 				            '_Comoperacao.data_fim' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+				        'data_entrega' => array(
+				            '_Comoperacao.data_entrega' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+				         'data_entregaconf' => array(
+				            '_Comoperacao.data_entregaconf' => array(
 				                'operator' => 'BETWEEN',
 				                'between' => array(
 				                    'text' => __(' e ', true)
