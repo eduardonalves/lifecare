@@ -238,13 +238,21 @@
 									<section>
 										<header>Data do Recebimento do Pedido</header>
 											<div class="recebimentoData">
-											<?php												
-												echo $this->Form->input('Vazio.data_recebimento',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
+											<?php						
+												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
+												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));					
+												echo $this->Form->input('Pedido.data_fim',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
 											?>	
 											</div>
 										<footer>
 											<?php
-												echo $this->Form->postLink($this->Html->image('botao-confirmar.png',array('id'=>'bt-cancelar','class'=>'','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Deseja confirmar o rebimento deste Pedido?', $pedido['Pedido']['id'])));
+												echo $this->Form->submit('botao-salvar.png',array(
+																			'class'=>'bt-salvar',
+																			'alt'=>'Salvar',
+																			'title'=>'Salvar'																																				
+												));
+												
+												echo $this->Form->end();
 											?>
 										</footer>
 										
