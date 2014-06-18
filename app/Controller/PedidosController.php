@@ -233,7 +233,7 @@ class PedidosController extends ComoperacaosController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Pedido->save($this->request->data)) {
-				$this->Session->setFlash(__('O pedido foi salvo com sucesso.')),'default',array('class'=>'success-flash');
+				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
@@ -262,7 +262,7 @@ class PedidosController extends ComoperacaosController {
 		if ($this->Pedido->delete()) {
 			$this->Session->setFlash(__('O pedido foi deletado com sucesso.'),'default',array('class'=>'success-flash'));
 		} else {
-			$this->Session->setFlash(__('O pedido não pode ser deletado. Por favor, tente novamente.'),,'default',array('class'=>'error-flash'));
+			$this->Session->setFlash(__('O pedido não pode ser deletado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
