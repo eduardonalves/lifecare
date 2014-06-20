@@ -384,16 +384,18 @@ class PedidosController extends ComoperacaosController {
 				
 				$this->request->data['Pedido']['status']="ENTREGUE";
 				
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['recebimento']);
 				
-				$update = array('id'=>$this->request->data['Pedido']['id'],'status'=>'ENTREGUE', 'recebimento'=> $this->request->data['Pedido']['data_fim']);
+				$update = array('id'=>$this->request->data['Pedido']['id'],'status'=>'ENTREGUE', 'recebimento'=> $this->request->data['Pedido']['recebimento']);
 				
 				debug($update);
 				
-				if ($this->Pedido->saveAll($update)) {
+				if ($this->Pedido->save($update)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 				}else{
 					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 				}
 			}
 		}
