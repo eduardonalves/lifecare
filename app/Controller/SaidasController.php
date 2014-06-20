@@ -106,19 +106,30 @@ class SaidasController extends NotasController {
 	
 	public function index() {
 		
-		$options= array('conditions' => array('Saida.tipo' =>'SAIDA'), 'recursive' => 0);
+		/*$options= array('conditions' => array('Saida.tipo' =>'SAIDA'), 'recursive' => 0);
 		$saidas = $this->Saida->find('all',$options);
 		$this->paginate = $options;
-		$saidas = $this->paginate();
+		$saidas = $this->paginate();*/
 		
 		$this->loadModel('Produto');
-		$allProdutos = $this->Produto->find('all', array('group' => 'Produto.nome', 'order' => array('Produto.nome asc')));
+		$this->loadModel('Tributo');
+		$allProdutos = $this->Produto->find('all', array('recursive' => -1,'group' => 'Produto.nome', 'order' => array('Produto.nome asc')));
+		$i =0;
+		foreach($allProdutos as $i => $produto){
+			$tributo = $this->Tributo->find('first', array('recursive' => -1,'conditions' => array('Tributo.produto_id' => $allProdutos[$i]['Produto']['id'])));
+			if(!empty($tributo)){
+				$allProdutos[$i]['Produto']['cfop'] = $tributo['Tributo']['cfop'];
+				
+			}
+			
+			$i++;
+		}
 		
 		$this->loadModel('Cliente');
-		$allClientes = $this->Cliente->find('all', array('conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		$allClientes = $this->Cliente->find('all', array('recursive' => -1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
 		
 		$this->loadModel('Fabricante');
-		$fabricantes = $this->Fabricante->find('list', array('conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
+		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
 		
 		$this->set(compact('saidas','allProdutos', 'allClientes', 'fabricantes'));
 		
