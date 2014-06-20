@@ -1,4 +1,4 @@
-<?php
+	<?php
 App::uses('AppModel', 'Model');
 /**
  * Comoperacao Model
