@@ -281,4 +281,79 @@ var valorAux=$('#filterTipoOperacao').val();
 	var idcol = $(".setaOrdena a.asc , .setaOrdena a.desc").parent().attr('id');
 	$("td."+idcol).addClass("highlight");
 
+/*** Efeito Habilitado/Desabilitado de filtros ************************/
+	if($("#checkop").prop("checked")){
+		$("#filtro-produto").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		
+		$("#filtro-produto input[type=text]").prop('disabled', true);
+		$("#filtro-produto .custom-combobox-input").prop('disabled', true);
+		$("#filtro-produto select").prop('disabled', true);
+		
+		$("#filtro-produto").mouseenter(function() {
+			$('#msgFiltroProduto').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroProduto').css('display','none');
+		});
+		
+		$("#filtro-parceiro .custom-combobox-input").prop('disabled', true);
+		$("#filtro-parceiro select").prop('disabled', true);
+		
+		$("#filtro-parceiro").mouseenter(function() {
+			$('#msgFiltroParceiro').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroParceiro').css('display','none');
+		});
+		
+	}else if($("#checkproduto").prop("checked")){
+		$("#filtro-operacao").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		
+		$("#QuicklinkNomeCOTACAO").prop('disabled', true);
+		$("#QuicklinkNomePEDIDO").prop('disabled', true);
+		$("#filtro-operacao input[type=text]").prop('disabled', true);
+		$("#filtro-operacao select").prop('disabled', true);
+		
+		$("#filtro-operacao").mouseenter(function() {
+			$('#msgFiltroOperacao').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroOperacao').css('display','none');
+		});
+		
+		$("#filtro-parceiro .custom-combobox-input").prop('disabled', true);
+		$("#filtro-parceiro select").prop('disabled', true);
+		
+		$("#filtro-parceiro").mouseenter(function() {
+			$('#msgFiltroParceiro').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroParceiro').css('display','none');
+		});
+		
+	}else if($("#checkfor").prop("checked")){
+		$("#filtro-operacao").css({"background-color":"#ebebeb","border-color":"#ccc"});
+		$("#filtro-produto").css({"background-color":"#ebebeb","border-color":"#ccc"});
+	
+		$("#QuicklinkNomeCOTACAO").prop('disabled', true);
+		$("#QuicklinkNomePEDIDO").prop('disabled', true);
+		$("#filtro-operacao input[type=text]").prop('disabled', true);
+		$("#filtro-operacao select").prop('disabled', true);
+		
+		$("#filtro-operacao").mouseenter(function() {
+			$('#msgFiltroOperacao').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroOperacao').css('display','none');
+		});
+		
+		$("#filtro-produto input[type=text]").prop('disabled', true);
+		$("#filtro-produto .custom-combobox-input").prop('disabled', true);
+		$("#filtro-produto select").prop('disabled', true);
+		
+		$("#filtro-produto").mouseenter(function() {
+			$('#msgFiltroProduto').css('display','inherit');
+		}).mouseleave(function() {
+			$('#msgFiltroProduto').css('display','none');
+		});
+	}
+
+
 });
