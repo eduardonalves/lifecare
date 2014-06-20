@@ -8,6 +8,9 @@ $(document).ready(function(){
 
 	$('label[for="filterFormaPagamento"]').css('display','none');
 	$('#filterFormaPagamento').css('display','none');
+	
+
+	$('.some').css('display','none');
 
 	$('#bt-expandirOperacao').css('top','160px');
 	
@@ -22,7 +25,9 @@ $(document).ready(function(){
 			$('label[for="filterFormaPagamento"]').css('display','initial');
 			$('#filterFormaPagamento').css('display','initial');
 			
-			$('#bt-expandirOperacao').css('top','180px');
+			$('.some').css('display','initial');
+			
+			$('#bt-expandirOperacao').css('top','240px');
 			
 			$('#bt-expandirOperacao').css('transform','rotate(180deg)');
 			$('#bt-expandirOperacao').css('-ms-transform','rotate(180deg)');
@@ -35,7 +40,9 @@ $(document).ready(function(){
 				
 			$('label[for="filterFormaPagamento"]').css('display','none');
 			$('#filterFormaPagamento').css('display','none');
-				
+			
+			$('.some').css('display','none');
+			
 			$('#bt-expandirOperacao').css('top','160px');
 			
 			$('#bt-expandirOperacao').css('transform','initial');

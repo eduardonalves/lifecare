@@ -98,12 +98,12 @@
 					?>
 					</div>
 					
-					<div class="inputSearchData">
+					<div class="inputSearchData some">
 					<?php
 						echo $this->Search->input('data_entregaconf', array('label' => 'Data de Recebimento','class'=>'', 'type' => 'text'));
 					?>
 					</div>
-					<div class="inputSearchData">
+					<div class="inputSearchData some">
 					<?php
 						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega','class'=>'', 'type' => 'text'));
 					?>

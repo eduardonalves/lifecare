@@ -48,73 +48,166 @@
 			
 			echo $this->Form->input('status',array('type'=>'hidden','value'=>'RESPONDIDO'));
 		
-			echo $this->Form->input('Vazio.nome',array('label'=>'Nome do Fornecedor:','type'=>'text','value'=>$comresposta['Parceirodenegocio']['nome'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			
-			echo $this->Form->input('Vazio.tel1',array('label'=>'Telefone 1:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone1'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'Endereço:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['tipo'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'Número:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['numero'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'Bairro:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['bairro'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
 		?>
+		
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome do Fornecedor:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 1:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['telefone1'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Endereço:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['tipo'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['numero'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['bairro'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
 	</section>
 	
 	<section class="coluna-central">
-		<?php
-			echo $this->Form->input('Vazio.cpf_cnpj',array('label'=>'CPF/CNPJ:','type'=>'text','value'=>$comresposta['Parceirodenegocio']['cpf_cnpj'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.tel1',array('label'=>'Telefone 2:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone2'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'CEP:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['cep'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'Cidade:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['cidade'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'UF:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['uf'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-		?>
+			
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['telefone2'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['cep'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['cidade'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['uf'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
+
 	</section>
 	
 	<section class="coluna-direita">
-		<?php
-			echo $this->Form->input('Vazio.email',array('label'=>'E-mail:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['email'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.cel1',array('label'=>'Celular:','type'=>'text','value'=>$parceiroResposta['Contato'][0]['telefone3'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.end',array('label'=>'Logradouro:','type'=>'text','value'=>$parceiroResposta['Endereco'][0]['logradouro'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-		?>
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['email'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['telefone3'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Endereco'][0]['logradouro'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+	
+			</div>
+
 	</section>
 	
 	<header>Informações da Operação</header>
 	<section class="coluna-esquerda">
-		<?php
-			formatDateToView($comresposta['Comoperacao']['data_inici']);
-			echo $this->Form->input('Vazio.operacao',array('label'=>'Data Inicial:','type'=>'text','value'=>$comresposta['Comoperacao']['data_inici'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			//echo $this->Form->input('Vazio.user',array('label'=>'Enviado por:','type'=>'text','value'=>$comresposta['User']['username'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-		?>	
+		
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Data Inicial:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($comresposta['Comoperacao']['data_inici']),array('class'=>'valor'));?>	</div>
+				</div>
+			
+			</div>
 	</section>		
 	<section class="coluna-central">
-		<?php
-			formatDateToView($comresposta['Comoperacao']['data_fim']);
-			echo $this->Form->input('Vazio.operacao',array('label'=>'Data Final:','type'=>'text','value'=>$comresposta['Comoperacao']['data_fim'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-		?>	
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Data Final:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($comresposta['Comoperacao']['data_fim']),array('class'=>'valor'));?>	</div>
+				</div>
+			
+			</div>
 	</section>
 	<section class="coluna-direita">
-		<?php
-			echo $this->Form->input('Vazio.operacao',array('label'=>'Forma de Pagamento:','type'=>'text','value'=>$comresposta['Comoperacao']['forma_pagamento'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-		?>	
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Forma de Pagamento:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comoperacao']['forma_pagamento'],array('class'=>'valor'));?>	</div>
+				</div>
+			
+			</div>
 	</section>
 	
 	<header>Dados da Resposta</header>
 	<section class="coluna-esquerda">
 		<?php
 			formatDateToView($comresposta['Comresposta']['data_resposta']);
-			echo $this->Form->input('Vazio.data_resposta',array('label'=>'Data da Respota','type'=>'text','value'=>$comresposta['Comresposta']['data_resposta'], 'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));
-			echo $this->Form->input('Vazio.obs',array('label'=>'Observação:','type'=>'textarea','value'=>$comresposta['Comresposta']['obs'], 'class'=>'tamanho-medio borderZero','disabled'=>'disabled','maxlength'=>'140','style'=>'height:50px;'));
 		?>	
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Data da Respota:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comresposta']['data_resposta'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Observação:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comresposta']['obs'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
 	</section>		
 	<section class="coluna-central">
-		<?php
-			echo $this->Form->input('Vazio.prazo_entrega',array('label'=>'Prazo para Entrega:','type'=>'text','value'=>$comresposta['Comresposta']['prazo_entrega'], 'class'=>'tamanho-pequeno borderZero','disabled'=>'disabled'));			
-			echo $this->Form->input('Vazio.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','value'=>$comresposta['Comresposta']['forma_pagamento'],'class'=>'tamanho-pequeno borderZero','disabled' => 'disabled'));
-			
-		?>	
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Prazo para Entrega:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comresposta']['prazo_entrega'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Forma de Pagamento:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comresposta']['forma_pagamento'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+
 	</section>
 	<section class="coluna-direita">
-		<?php
-			echo $this->Form->input('Vazio.valor',array('label'=>'Valor:','type'=>'text','value'=>converterMoeda($comresposta['Comresposta']['valor']),'class'=>'tamanho-medio borderZero','onFocus'=>'this.blur();','readonly'=>'readonly'));	
-			echo $this->Form->input('Vazio.obs_pagamento',array('label'=>'Info. do Pagamento:','type'=>'textarea','value'=>$comresposta['Comresposta']['obs_pagamento'], 'class'=>'tamanho-medio borderZero','disabled' => 'disabled','maxlength'=>'140','style'=>'height:50px;'));
-		?>	
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Valor:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($comresposta['Comresposta']['valor']),array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Info. do Pagamento:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comresposta']['obs_pagamento'],array('class'=>'valor-descricao'));?>	</div>
+				</div>
+			</div>
+
 	</section>
 	
 	<header>Produtos da Cotação</header>
