@@ -408,31 +408,21 @@ class ComrespostasController extends AppController {
 		if ($this->request->is('post')) {
 				
 				$this->loadModel('Comtokencotacao');
-				$this->loadModel('Cotacao');
-				
 				$codigo= $this->request->data['Comrespostas']['token'];			
 				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $codigo)));
-				
-				$cotacao = $this->Cotacao->find('first', array('conditions' => array('$cotacao.id' => $token['Comtokencotacao']['comoperacao_id'])));
 								
 				if(!empty($token)){
 					
-					if($cotacao['Cotacao']['status'] != 'EXPIRADO'){
-						if($token['Comtokencotacao']['respondido'] == 1){
 					
-							return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewParceiro', $codigo));
-							
-						}else{
-							
-							return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
-							
-						}
+					if($token['Comtokencotacao']['respondido'] == 1){
+					
+						return $this->redirect(array('controller' => 'Comrespostas','action' => 'viewParceiro', $codigo));
+						
 					}else{
 						
-						$this->Session->setFlash(__('Cotação EXPIRADA.'));
-						return $this->redirect(array('controller' => 'Comrespostas','action' => 'logincotacao'))
+						return $this->redirect(array('controller' => 'Comrespostas','action' => 'add', $codigo));
+						
 					}
-					
 					
 					$this->set(compact('token'));
 				}else{

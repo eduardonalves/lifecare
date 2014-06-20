@@ -392,10 +392,8 @@ class PedidosController extends ComoperacaosController {
 				
 				if ($this->Pedido->save($update)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
-					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 				}else{
 					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
-					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 				}
 			}
 		}
