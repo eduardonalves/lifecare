@@ -277,8 +277,9 @@
 			
 	?>
 	<div style="clear:both;"></div>
-	<section>
 	
+	<section>
+	<header>Pedidos do Produto</header>
 		<table>
 			<thead>
 				<th>Ações</th>
@@ -315,8 +316,7 @@
 									echo converterMoeda($itens['valor_unit']);
 								echo "</td>";
 								$i++;
-							}							
-							
+							}									
 						}				
 					echo "</tr>";
 						
