@@ -27,15 +27,14 @@ class EntradasController extends NotasController {
  */
 	public function index() {
 		
-		//$options= array('conditions' => array('Entrada.tipo' =>'ENTRADA'), 'recursive' => -1);
-		//$entradas = $this->Entrada->find('all',$options);
-		//$this->paginate = $options;
-		//$entradas = $this->paginate();
-	
+		/*$options= array('conditions' => array('Entrada.tipo' =>'ENTRADA'), 'recursive' => 0);
+		$entradas = $this->Entrada->find('all',$options);
+		$this->paginate = $options;
+		$entradas = $this->paginate();*/
+		
 		$this->loadModel('Produto');
 		$this->loadModel('Tributo');
-		$allProdutos = $this->Produto->find('all', array('order' => 'Produto.nome ASC','recursive' => -1));
-		$i =0;
+		$allProdutos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
 		foreach($allProdutos as $i => $produto){
 			$tributo = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $allProdutos[$i]['Produto']['id'])));
 			if(!empty($tributo)){
@@ -45,6 +44,7 @@ class EntradasController extends NotasController {
 			
 			$i++;
 		}
+		
 		
 		$this->loadModel('Fornecedore');
 		$allFornecedores = $this->Fornecedore->find('all', array('recursive' => -1,'conditions' => array('Fornecedore.tipo' => 'FORNECEDOR'),'order' => 'Fornecedore.nome ASC'));
@@ -179,21 +179,15 @@ class EntradasController extends NotasController {
 		if (!$this->Entrada->exists($id)) {
 			throw new NotFoundException(__('Invalid entrada'));
 		}
-		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 0);
+		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 2);
 		$this->set('entrada', $this->Entrada->find('first', $options));
-		
-		$this->loadModel('Produtoiten');
-		$this->loadModel('Loteiten');
-		$itens=$this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
-		$loteitens =$this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
-		
 		
 		$findEntrada= $this->Entrada->find('first', array('conditions' => array('Entrada.id' => $id)));
 		$this->loadModel('Fornecedore');
 		$fornecedor = $this->Fornecedore->find('first', array('conditions' => array('Fornecedore.id' => $findEntrada['Entrada']['parceirodenegocio_id'])));
 		
 		
-		$this->set(compact('findentrada','fornecedor','itens','loteitens'));
+		$this->set(compact('findentrada','fornecedor'));
 		
 		
 		
