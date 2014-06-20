@@ -27,21 +27,32 @@ class EntradasController extends NotasController {
  */
 	public function index() {
 		
-		$options= array('conditions' => array('Entrada.tipo' =>'ENTRADA'), 'recursive' => 0);
-		$entradas = $this->Entrada->find('all',$options);
-		$this->paginate = $options;
-		$entradas = $this->paginate();
-		
+		//$options= array('conditions' => array('Entrada.tipo' =>'ENTRADA'), 'recursive' => -1);
+		//$entradas = $this->Entrada->find('all',$options);
+		//$this->paginate = $options;
+		//$entradas = $this->paginate();
+	
 		$this->loadModel('Produto');
-		$allProdutos = $this->Produto->find('all', array('order' => 'Produto.nome ASC'));
+		$this->loadModel('Tributo');
+		$allProdutos = $this->Produto->find('all', array('order' => 'Produto.nome ASC','recursive' => -1));
+		$i =0;
+		foreach($allProdutos as $i => $produto){
+			$tributo = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $allProdutos[$i]['Produto']['id'])));
+			if(!empty($tributo)){
+				$allProdutos[$i]['Produto']['cfop'] = $tributo['Tributo']['cfop'];
+				
+			}
+			
+			$i++;
+		}
 		
 		$this->loadModel('Fornecedore');
-		$allFornecedores = $this->Fornecedore->find('all', array('conditions' => array('Fornecedore.tipo' => 'FORNECEDOR'),'order' => 'Fornecedore.nome ASC'));
+		$allFornecedores = $this->Fornecedore->find('all', array('recursive' => -1,'conditions' => array('Fornecedore.tipo' => 'FORNECEDOR'),'order' => 'Fornecedore.nome ASC'));
 		
 		$this->loadModel('Fabricante');
-		$fabricantes = $this->Fabricante->find('list', array('conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
+		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
 		
-		$this->set(compact('entradas','allProdutos', 'allFornecedores', 'fabricantes'));
+		$this->set(compact('allProdutos', 'allFornecedores', 'fabricantes'));
 		
 		
 		$this->Produtos->add();

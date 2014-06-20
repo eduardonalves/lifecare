@@ -301,10 +301,10 @@
 
 							foreach($allProdutos as $produto)
 							{
-								foreach($produto['Tributo'] as $tributo){
+								/*foreach($produto['Tributo'] as $tributo){
 									$cfop=$tributo['cfop'];
-								}
-								echo "<option id='".$produto['Produto']['codigo']."' class='".$produto['Produto']['unidade']."' rel='".$produto['Produto']['descricao']."'  data-cfop='".$cfop."' value='".$produto['Produto']['id']."' >";
+								}*/
+								echo "<option id='".$produto['Produto']['codigo']."' class='".$produto['Produto']['unidade']."' rel='".$produto['Produto']['descricao']."'  data-cfop='".$produto['Produto']['cfop']."' value='".$produto['Produto']['id']."' >";
 								echo $produto['Produto']['nome'];
 								
 								echo "</option>";
