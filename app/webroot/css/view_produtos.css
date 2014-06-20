@@ -96,6 +96,7 @@ td{
 }
 .tbl_lote th{
 	border-right: none !important;
+	background-color: #F9F9F9;
 }
 
 /* HERANÇA ************************************************************/

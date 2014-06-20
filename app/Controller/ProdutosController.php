@@ -307,7 +307,7 @@ class ProdutosController extends AppController {
 		$ultimosValores = $this->Produto->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO','_Produto.id'=>$id)));
 
 		
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp'));
+		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp','id'));
 			
 	}
 

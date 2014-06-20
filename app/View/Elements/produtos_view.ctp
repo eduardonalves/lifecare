@@ -11,6 +11,31 @@
 	echo $this->Html->css('table');
 	$this->end();
 	
+	
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
+	
+	function converterMoeda(&$valorMoeda){
+		$valorMoedaAux = explode('.' , $valorMoeda);
+		if(isset ($valorMoedaAux[1])){
+			$valorMoeda= "R$ ".$valorMoedaAux[0].','.$valorMoedaAux[1];
+		}else{
+			$valorMoeda = "R$ ".$valorMoedaAux[0].','.'00';
+		}
+		return $valorMoeda;
+	}
+	
 ?>
 
 <script>/*
@@ -247,19 +272,60 @@
 		</fieldset>
 	</section>
 </section><!---Fim section-superior--->
-		<div style="clear:both;"></div>
+	<?php
+		if(isset($telaAbas)){
+			
+	?>
+	<div style="clear:both;"></div>
 	<section>
+	
 		<table>
 			<thead>
+				<th>Ações</th>
 				<th>Código Operação</th>
 				<th>Data Operação</th>
 				<th>Fornecedor</th>
 				<th>Preço</th>
-			</thead>
-		</table>
+			</thead>		
 		
+			<?php		
+				foreach($itensOp as $operacaos){
+					
+					echo "<tr>";
+						echo "<td> </td>";
+						
+						echo "<td>";
+							echo $operacaos['Comoperacao']['id'];
+						echo "</td>";
+					
+						echo "<td>";
+							echo formatDateToView($operacaos['Comoperacao']['data_inici']);
+						echo "</td>";
+						
+						echo "<td class='whiteSpace'><span title='";echo $operacaos['Parceirodenegocio'][0]['nome']; echo "'>";
+							echo $operacaos['Parceirodenegocio'][0]['nome'];
+						echo "</span></td>";
+						
+						$i=0;
+						foreach($operacaos['Comitensdaoperacao'] as $itens ){
+							if($itens['produto_id'] ==  $id && $i == 0){
+								echo "<td>";
+									echo converterMoeda($itens['valor_unit']);
+								echo "</td>";
+								$i++;
+							}							
+							
+						}				
+					echo "</tr>";
+						
+				}
+				
+			?>
+	</table>
 	</section>
-		
+	<?php
+		}
+	?>
 <footer>
 	<?php
 		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
@@ -270,11 +336,4 @@
 	?>
 </footer>
 
-<div style="clear:both;"></div>
-<pre>
-<?php
-	print_r($itensOp);
-
-?>
-</pre>
 
