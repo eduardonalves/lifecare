@@ -90,6 +90,14 @@ td{
 	width:195px
 }
 
+.tbl_lote{
+	border: none;
+	background-color: #F9F9F9;
+}
+.tbl_lote th{
+	border-right: none !important;
+	background-color: #F9F9F9;
+}
 
 /* HERANÇA ************************************************************/
 .conteudo-principal section label{

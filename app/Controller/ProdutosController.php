@@ -196,6 +196,13 @@ class ProdutosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}
+		
 		if (!$this->Produto->exists($id)) {
 			throw new NotFoundException(__('Produto Inválido.'), 'default', array('class' => 'error-flash'));
 		}
@@ -276,16 +283,31 @@ class ProdutosController extends AppController {
 		
 		
 		$this->loadModel('Tributo');
+		
 		$tributos = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $id), 'recursive' => -1));
 		//Calculamos achamos todos os itens de entrada dos lotes desse produto
 		//$lotes2 = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'recursive' => -1));
 		//foreach($lotes as $lote){
 			
 		//}
-		
+
+		$this->loadModel('Comoperacao');
+		$itensOp = $this->Comoperacao->find('all',
+								  array(
+									'contain' => array(
+									  '_Comitensdaoperacao',
+									  '_Comoperacao'
+									),
+									'conditions' => array(
+									  '_Produto.id' => $id,
+									  'Comoperacao.tipo' => 'PEDIDO'
+									)
+								  )
+								  );
+		$ultimosValores = $this->Produto->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO','_Produto.id'=>$id)));
 
 		
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos'));
+		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp','id'));
 			
 	}
 
