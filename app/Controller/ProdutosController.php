@@ -303,7 +303,7 @@ class ProdutosController extends AppController {
 									  'Comoperacao.tipo' => 'PEDIDO'
 									),
 									'order' => array(
-										'_Comitensdaoperacao.valor_unit' => 'asc'
+										'Comoperacao.data_inici' => 'asc'
 									),
 									'limit' => 10
 								  )
