@@ -97,6 +97,17 @@
 						echo $this->Search->input('data_fim', array('label' => 'Data de Fim:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
+					
+					<div class="inputSearchData">
+					<?php
+						echo $this->Search->input('data_entregaconf', array('label' => 'Data de Recebimento','class'=>'', 'type' => 'text'));
+					?>
+					</div>
+					<div class="inputSearchData">
+					<?php
+						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega','class'=>'', 'type' => 'text'));
+					?>
+					</div>
 
 					<div class="inputSearchValor">
 						<?php

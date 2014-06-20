@@ -186,7 +186,7 @@ class ComoperacaosController extends AppController {
 		            )
 		        ),
 		         'data_entregaconf' => array(
-		            'Comoperacao.data_entregaconf' => array(
+		            'Comoperacao.recebimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -342,7 +342,7 @@ class ComoperacaosController extends AppController {
 					            )
 					        ),
 					         'data_entregaconf' => array(
-					            '_Comoperacao.data_entregaconf' => array(
+					            '_Comoperacao.recebimento' => array(
 					                'operator' => 'BETWEEN',
 					                'between' => array(
 					                    'text' => __(' e ', true)
@@ -471,7 +471,7 @@ class ComoperacaosController extends AppController {
 				            )
 				        ),
 				         'data_entregaconf' => array(
-				            '_Comoperacao.data_entregaconf' => array(
+				            '_Comoperacao.recebimento' => array(
 				                'operator' => 'BETWEEN',
 				                'between' => array(
 				                    'text' => __(' e ', true)
