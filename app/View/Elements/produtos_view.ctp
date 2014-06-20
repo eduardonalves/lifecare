@@ -8,6 +8,7 @@
 	
 	$this->start('css');
 	echo $this->Html->css('view_produtos');
+	echo $this->Html->css('table');
 	$this->end();
 	
 ?>
@@ -38,8 +39,14 @@
 	?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption21">Consultas</h1>
-
+	 <?php
+			if(isset($telaAbas)){
+				echo '<h1 class="menuOption'.$telaAbas.'">Consultas</h1>';
+			}else{
+				echo '<h1 class="menuOption22">Consultas</h1>';
+			}
+		?>
+    
 	<script>
 		$('img').tooltip();
 	</script>
@@ -196,7 +203,7 @@
 
 			</div>
 
-			<table align="center">
+			<table align="center" class="tbl_lote">
 				<tr>
 					<th>Lote:</th>
 					<th>Data Val.:</th>
@@ -240,6 +247,18 @@
 		</fieldset>
 	</section>
 </section><!---Fim section-superior--->
+		<div style="clear:both;"></div>
+	<section>
+		<table>
+			<thead>
+				<th>Código Operação</th>
+				<th>Data Operação</th>
+				<th>Fornecedor</th>
+				<th>Preço</th>
+			</thead>
+		</table>
+		
+	</section>
 		
 <footer>
 	<?php
@@ -251,4 +270,11 @@
 	?>
 </footer>
 
+<div style="clear:both;"></div>
+<pre>
+<?php
+	print_r($itensOp);
+
+?>
+</pre>
 
