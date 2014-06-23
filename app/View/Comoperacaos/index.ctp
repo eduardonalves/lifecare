@@ -132,6 +132,8 @@
 						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirOperacao', 'alt'=>'', 'title'=>''));
 					?>
 					
+					<div id="msgFiltroOperacao" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+					
 					</section>
 
 				<!------------------ Filtro Do Produto ------------------>
