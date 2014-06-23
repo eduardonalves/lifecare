@@ -159,6 +159,7 @@
 				}
 				
 				echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_pagamento'],'disabled'=>'disabled'));
+				
 				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_entrega'],'disabled'=>'disabled')); 
 
 
@@ -170,7 +171,7 @@
 
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
-				echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['data_entrega'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>formatDateToView($pedido['Pedido']['data_entrega']),'disabled'=>'disabled'));	
 				
 			?>
 

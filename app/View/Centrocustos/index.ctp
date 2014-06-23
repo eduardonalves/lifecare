@@ -73,7 +73,7 @@ $(document).ready(function() {
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th class="colunaConta">Ações</th>
-			<th class="colunaConta"><?php echo $this->Paginator->sort('id'); ?></th>
+			<th class="colunaConta"><?php echo $this->Paginator->sort('Código'); ?></th>
 			<th class="colunaConta"><?php echo $this->Paginator->sort('nome'); ?></th>
 	</tr>
 	
