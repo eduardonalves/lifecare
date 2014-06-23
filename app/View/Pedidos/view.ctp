@@ -218,7 +218,7 @@
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 				
 			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
-				echo $this->Html->image('botao-confirmar.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
+				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
 			echo "</a>";
 								
 		?>
