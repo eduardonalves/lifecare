@@ -238,18 +238,18 @@
 									<section>
 										<header>Data do Recebimento do Pedido</header>
 											<div class="recebimentoData">
-											<?php						
+											<?php
 												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
-												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));					
-												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
-											?>	
+												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));
+												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));
+											?>
 											</div>
 										<footer>
 											<?php
 												echo $this->Form->submit('botao-salvar.png',array(
 																			'class'=>'bt-salvar',
 																			'alt'=>'Salvar',
-																			'title'=>'Salvar'																																				
+																			'title'=>'Salvar'
 												));
 												
 												echo $this->Form->end();

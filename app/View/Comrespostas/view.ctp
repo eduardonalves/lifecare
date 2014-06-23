@@ -36,7 +36,7 @@
 
 <header>
 	<?php echo $this->Html->image('emitir-title.png', array('id' => 'consultar-titulo', 'alt' => 'Responder Cotação', 'title' => 'Responder Cotação')); ?>
-	<h1 >Resposta de Cotação</h1>
+	<h1 class="menuOption41">Resposta de Cotação</h1>
 </header>
 
 <section>
