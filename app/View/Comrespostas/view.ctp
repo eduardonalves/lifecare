@@ -1,6 +1,5 @@
 <?php
 	$this->start('css');
-	    echo $this->Html->css('resposta');
 	    echo $this->Html->css('table');
 	$this->end();
 

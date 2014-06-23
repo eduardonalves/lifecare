@@ -31,6 +31,17 @@
 		}
 		return $data;
 	}
+	
+	function converterMoeda(&$valorMoeda){
+		$valorMoedaAux = explode('.' , $valorMoeda);
+		if(isset ($valorMoedaAux[1])){
+			$valorMoeda= "R$ ".$valorMoedaAux[0].','.$valorMoedaAux[1];
+		}else{
+			$valorMoeda = "R$ ".$valorMoedaAux[0].','.'00';
+		}
+		return $valorMoeda;
+	}
+	
 ?>
 
 <header>
@@ -216,8 +227,8 @@
 													echo "<tr>";
 														echo "<td>". $itens['produto_nome'] ."</td>";
 														echo "<td>". $itens['qtde'] ."</td>";
-														echo "<td>". $itens['valor_unit'] ."</td>";
-														echo "<td>". $itens['valor_total'] ."</td>";
+														echo "<td class='labelTd itenUnit'>". converterMoeda($itens['valor_unit']) ."</td>";
+														echo "<td>". converterMoeda($itens['valor_total']) ."</td>";
 														echo "<td>". $itens['fabricante'] ."</td>";
 														echo "<td>". $itens['obs'] ."</td>";	
 													echo "</tr>";
