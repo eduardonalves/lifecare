@@ -14,6 +14,7 @@
 	echo $this->Html->script('ChartNew.js');	
 	echo $this->Html->script('faturamentoDespesas.js');
 	echo $this->Html->script('contasPeriodo.js');
+	echo $this->Html->script('fazerPedido.js');
 	$this->end();
 	
 	$dia = date("d");
@@ -349,11 +350,13 @@ $(document).ready(function(){
 			</div>
 			<div class="div-tabela-rolagem">
 				<table class="tabela-lote">
+					<?php echo $this->Form->create('lista'); ?> 
 							<tr>
 								<th> </th>
 								<th>Nome</th>
 								<th>Estoque Min.</th>
 								<th>Estoque Atual</th>
+								<th><?php echo $this->Form->input('',array('type'=>'checkbox')); ?></th>
 							</tr>
 
 							<?php
@@ -363,15 +366,17 @@ $(document).ready(function(){
 							<tr>
 								<td class="status_primeiraColuna"><?php echo $this->Html->image('semaforo-' . strtolower($produto['Produto']['nivel']) . '-12x12.png', array('alt' => '-'.$produto['Produto']['nivel'], 'title' => '-')); ?></td>
 								<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($produto['Produto']['nivel']); ?>" /></td>-->
-								<td><?php echo $produto['Produto']['nome'];  ?></td>
+								<td class="whiteSpace"><span title="<?php echo $produto['Produto']['nome'];?>"><?php echo $produto['Produto']['nome'];  ?></span></td>
 								<td><?php echo $produto['Produto']['estoque_minimo']; ?></td>								
 								<td><?php echo $produto['Produto']['estoque']; ?></td>
+								<td><?php echo $this->Form->input('',array('type'=>'checkbox')); ?></td>
 								
 							</tr>
 
 							<?php
 								}
 							?>
+							<?php echo $this->Form->end(); ?> 
 						</table>	
 			</div>		
 		</div>
