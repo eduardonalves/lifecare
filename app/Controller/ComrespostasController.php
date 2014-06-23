@@ -1,5 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
+App::uses('CakePdf', 'CakePdf.Pdf');
 /**
  * Comrespostas Controller
  *
@@ -257,12 +259,12 @@ class ComrespostasController extends AppController {
 				if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
 					foreach($resposta['Comitensresposta'] as $its){
 						if($its['valor_unit']!=''){
-							$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] );	
+							$itens = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] , 'obs' => $its['obs']);	
 							$this->Comitensdaoperacao->create();
 							$this->Comitensdaoperacao->save($itens);
-							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' =>$pedido['Parceirodenegocio']['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id'], 'obs' => $its['obs']))));
+							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id']))));
 							if(empty($produtosParceirodenegocio)){
-								$viculaFornecedor = array('parceirodenegocio_id' => $pedido['Parceirodenegocio']['id'], 'produto_id' => $its['produto_id']);
+								$viculaFornecedor = array('parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'produto_id' => $its['produto_id']);
 								$this->ProdutosParceirodenegocio->save($viculaFornecedor);
 							}
 							
@@ -271,15 +273,59 @@ class ComrespostasController extends AppController {
 					}
 
 				}
-
-				$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
-
-				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+				$this->loadModel('Contato');
+				$this->loadModel('ProdutosParceirodenegocio');
+				$this->loadModel('Produto');
+				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'])));
+				$ultimoPedido = $this->Pedido->find('first', array('conditions' => array('Pedido.id ' => $ultimoPedido['Pedido']['id'])));
 				
+				$i=0;
+				foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+					$ultimoPedido['Comitensdaoperacao'][$i];
+					$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+					$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+					//Relacionamos fornecedores a produtos
+					
+					$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $resposta['Comresposta']['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
+					if(empty($inter)){
+						$upProdFornec = array('parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
+						$this->ProdutosParceirodenegocio->save($upProdFornec);
+					}
+					
+					$i++;
+				}
 				
+				$this->loadModel('Comtokencotacao');
+					
+				$flag="FALSE";
+				while($flag =='FALSE') {
+					$numero=date('Ymd');
+					$numeroAux= rand(0, 99999999);
+					$numero = $numero.$numeroAux;
+					$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+					if(empty($ultimaComtokencotacao)){
+						$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'codigoseguranca' => $numero);
+						
+						$this->Comtokencotacao->save($dadosComOp);
+							
+						$flag="TRUE";
+					}
+					
+				}
+				$remetente= "eduardonalves@gmail.com";
+				
+				if(!empty($contato)){
+					if($contato['Contato']['email'] !=''){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
+						return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+						
+					}
+					
+				}
 			}else{
 				$this->Session->setFlash(__('Erro, já existe um pedido feito com esta cotação'));	
-				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
+				return $this->redirect(array('controller' => 'Cotacaos','action' => 'view',$resposta['Comresposta']['comoperacao_id']));
 			}
 		}
 	}
@@ -455,4 +501,72 @@ class ComrespostasController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+				
+				 //test file for check attachment 
+			$this->loadModel('Empresa');
+				 
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
+			
+			$this->loadModel('Comtokencotacao');
+			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedido']['id'])));
+			if(!empty($token)){
+				$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+			}else{
+				$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.comoperacao_id' => $mensagem['Pedido']['id'])));
+				
+				if(!empty($token)){
+					$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+				}
+			}
+			 
+			
+			 $file_name= APP."webroot/img/cake.icon.png";
+			 
+			 $this->set('extraparams', $mensagem);
+			 $this->pdfConfig = array(
+				 'orientation' => 'portrait',
+				 'filename' => 'Invoice_'. 3
+			 );
+			 
+			 $CakePdf = new CakePdf();
+			 $CakePdf->template('confirmpdf', 'default');
+			 //get the pdf string returned
+			 $pdf = $CakePdf->output();
+			 //or write it to file directly
+			 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf');
+			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
+			 
+			 //Writing external parameters in session
+			 $this->Session->write("extraparams",$mensagem);
+				
+                $email = new CakeEmail('smtp');
+
+                $email->to($destinatario);
+
+                $email->subject($remetente);
+				
+				
+				//$email->template = 'confirm';
+				$email->template('pedido','default');
+ 				$email->emailFormat('html');
+				
+				$email->attachments(array($pdf));
+				
+				$mensagemHtml = array('mensagem' => 'teste de mensagem');
+				$this->set('extraparams', $mensagemHtml);
+                if($email->send($mensagemHtml)){
+					return TRUE;
+                }else{
+                	return FALSE;	
+				 	$this->set('extraparams', $mensagemHtml);
+                }
+
+        }
 }
