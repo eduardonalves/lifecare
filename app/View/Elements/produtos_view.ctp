@@ -277,8 +277,9 @@
 			
 	?>
 	<div style="clear:both;"></div>
-	<section>
 	
+	<section>
+	<header>Pedidos do Produto</header>
 		<table>
 			<thead>
 				<th>Ações</th>
@@ -292,7 +293,9 @@
 				foreach($itensOp as $operacaos){
 					
 					echo "<tr>";
-						echo "<td> </td>";
+						echo "<td>";
+							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','class' => '','title'=>'Visualizar Pedido','url'=>array('controller'=>'Pedidos','action'=>'view',$operacaos['Comoperacao']['id'])));
+						echo "</td>";
 						
 						echo "<td>";
 							echo $operacaos['Comoperacao']['id'];
@@ -313,8 +316,7 @@
 									echo converterMoeda($itens['valor_unit']);
 								echo "</td>";
 								$i++;
-							}							
-							
+							}									
 						}				
 					echo "</tr>";
 						

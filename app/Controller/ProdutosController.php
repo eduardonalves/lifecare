@@ -301,7 +301,11 @@ class ProdutosController extends AppController {
 									'conditions' => array(
 									  '_Produto.id' => $id,
 									  'Comoperacao.tipo' => 'PEDIDO'
-									)
+									),
+									'order' => array(
+										'Comoperacao.data_inici' => 'asc'
+									),
+									'limit' => 10
 								  )
 								  );
 		$ultimosValores = $this->Produto->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO','_Produto.id'=>$id)));
