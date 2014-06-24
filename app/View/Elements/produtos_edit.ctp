@@ -155,11 +155,11 @@
 
 					echo $this->Form->input('Produto.estoque_desejado', array('type'=>'text','label'=>'Estoque Ideal<span class="campo-obrigatorio">*</span>:','value'=>h($produto['Produto']['estoque_desejado']),'class'=>'Nao-Letras valiEstoqueIdeal valida tamanho-pequeno numberMask','id'=>'estoqueIdeal', 'maxlength' => '10'));
 					echo '<span id="valiEstoqueIdeal" class="Msg-tooltipDireita tooltipMensagemErroDireta" style="display:none">Preencha o campo Estoque Ideal</span>'; 
-					echo $this->Form->input('Produto.bloqueado', array('type'=>'select', 'label'=>'Produto Bloqueado:','value'=>h($produto['Produto']['bloqueado']), 'class'=>'tamanho-pequeno','options'=>array(array(0=>'Não', 1=>'Sim'))));
+					echo $this->Form->input('Produto.bloqueado', array('type'=>'select', 'label'=>'Produto Bloqueado:','value'=>h($produto['Produto']['bloqueado']), 'class'=>'','options'=>array(array(0=>'Não', 1=>'Sim'))));
 
-					echo $this->Form->input('Produto.periodocriticovalidade', array('type'=>'text','label'=>'Período Crítico:','class'=>'tamanho-medio numberMask', 'class'=>'tamanho-pequeno', 'maxlength' => '10', 'value'=>h($produto['Produto']['periodocriticovalidade']) ));
+					echo $this->Form->input('Produto.periodocriticovalidade', array('type'=>'text','label'=>'Período Crítico:','class'=>'tamanho-medio numberMask', 'class'=>'tamanho-pequeno', 'maxlength' => '10', 'value'=>h($produto['Produto']['periodocriticovalidade']),'after' => '<span class="afterInput">&nbsp;dia(s)</span>' ));
 
-					echo $this->Form->input('Produto.ativo', array('type'=>'select','label'=>'Status da Visualização:','value'=>h($produto['Produto']['ativo']),'class'=>'tamanho-pequeno', 'options'=>array(0=>'Inativo', 1=>'Ativo')));
+					echo $this->Form->input('Produto.ativo', array('type'=>'select','label'=>'Status da Visualização:','value'=>h($produto['Produto']['ativo']),'class'=>'', 'options'=>array(0=>'Inativo', 1=>'Ativo')));
 				?>
 
 			</div>
