@@ -50,7 +50,6 @@ $(document).ready(function() {
 ?>
 
 <header> <!---header--->
-
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->	
