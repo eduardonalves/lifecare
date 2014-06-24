@@ -274,7 +274,7 @@
 											<?php						
 												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
 												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));					
-												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
+												echo $this->Form->input('Pedido.recebimento',array('type'=>'text','id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
 											?>	
 											</div>
 										<footer>
