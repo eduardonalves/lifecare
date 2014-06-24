@@ -132,6 +132,7 @@ class PedidosController extends ComoperacaosController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			
 			if(isset($this->request->data['Pedido']['prazo_entrega'])){
 				if($this->request->data['Pedido']['prazo_entrega'] != ''){
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
@@ -139,6 +140,7 @@ class PedidosController extends ComoperacaosController {
 					$this->request->data['Pedido']['data_preventrega']=$dataPrev;
 				}
 			}
+			
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
 			
 			
@@ -187,7 +189,7 @@ class PedidosController extends ComoperacaosController {
 				$remetente= "eduardonalves@gmail.com";
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
-						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+						//$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 						$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 						
 					}
@@ -195,6 +197,7 @@ class PedidosController extends ComoperacaosController {
 				}
 
 				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
+				//debug($this->request->data);
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 			}else{
 				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
@@ -237,103 +240,28 @@ public function addDash(){
 			}					
 		} // post
 		
-		//~ $produtoslista = array();
-		//~ foreach($listaProdutoId  as $ids){
-			//~ $produtoslista = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>)));
-		//~ }
-		debug($listaProdutoId);
+		$produtoslista = array();
+		$j = 0;
+		foreach($listaProdutoId  as $ids){
+			$produtoslista[] = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$listaProdutoId[$j]),'recursive'=>-1));
+			$j++;
+		}
 		
-	//~ 
-		//~ if ($this->request->is('post')) {
-			//~ $this->Pedido->create();
-			//~ $this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
-			//~ $this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
-			//~ $this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
-			//~ $this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
-			//~ if(isset($this->request->data['Pedido']['prazo_entrega'])){
-				//~ if($this->request->data['Pedido']['prazo_entrega'] != ''){
-					//~ $this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
-					//~ $dataPrev = date('Y-m-d', strtotime("+".$this->request->data['Pedido']['prazo_entrega']." days",strtotime(''.$this->request->data['Pedido']['data_inici'].'')));
-					//~ $this->request->data['Pedido']['data_preventrega']=$dataPrev;
-				//~ }
-			//~ }
-			//~ $this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
-			//~ 
-			//~ 
-			//~ $this->loadModel('Produto');
-			//~ if ($this->Pedido->saveAll($this->request->data)) {
-//~ 
-				//~ $contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
-				//~ $ultimoPedido = $this->Pedido->find('first',array('order' => array('Pedido.id' => 'DESC')));
-//~ 
-				//~ $i=0;
-				//~ foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
-					//~ $ultimoPedido['Comitensdaoperacao'][$i];
-					//~ $produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
-					//~ $ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-					//~ //Relacionamos fornecedores a produtos
-					//~ 
-					//~ $inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
-					//~ if(empty($inter)){
-						//~ $upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
-						//~ $this->ProdutosParceirodenegocio->save($upProdFornec);
-						//~ 
-					//~ }
-					//~ 
-					//~ $i++;
-				//~ }
-				//~ 
-				//~ 
-				//~ $this->loadModel('Comtokencotacao');
-					//~ 
-					//~ $flag="FALSE";
-					//~ while($flag =='FALSE') {
-						//~ $numero=date('Ymd');
-						//~ $numeroAux= rand(0, 99999999);
-						//~ $numero = $numero.$numeroAux;
-						//~ $ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-						//~ if(empty($ultimaComtokencotacao)){
-							//~ $dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'codigoseguranca' => $numero);
-							//~ 
-							//~ $this->Comtokencotacao->save($dadosComOp);
-								//~ 
-							//~ $flag="TRUE";
-						//~ }
-						//~ 
-					//~ }
-				//~ 
-				//~ $remetente= "eduardonalves@gmail.com";
-				//~ if(!empty($contato)){
-					//~ if($contato['Contato']['email'] !=''){
-						//~ $this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-						//~ $this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
-						//~ 
-					//~ }
-					//~ 
-				//~ }
-//~ 
-				//~ $this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
-				//~ return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
-			//~ }else{
-				//~ $this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
-//~ 
-			//~ }
-		//~ }
-		//~ 
-		//~ $this->loadModel('Produto');
-		//~ $produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
-//~ 
-		//~ $this->loadModel('Parceirodenegocio');
-		//~ $parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
-		//~ 
-		//~ $categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
-		//~ $allCategorias = $categorias;
-		//~ 
-		//~ $categorias = array('add-categoria'=>'Cadastrar') + $categorias;
-		//~ 
-		//~ 
-		//~ $users = $this->Pedido->User->find('list');
-		//~ $this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+//		debug($produtoslista);
+
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Pedido->User->find('list');
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 
 /**

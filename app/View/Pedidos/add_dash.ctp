@@ -8,7 +8,7 @@
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('compras_pedido.js');
+		echo $this->Html->script('pedido_addDash.js');
 	$this->end();
 	
 	
@@ -29,7 +29,7 @@
 
 <section>
 		<header>Cadastro de Cotações</header>
-		<?php echo $this->Form->create('Pedido');?>
+		<?php echo $this->Form->create('Pedido',array('id'=>'PedidoAddForm','url'=>array('controller'=>'Pedidos','action'=>'add')));?>
 		<section>
 			<!-- INICIO COTAÇÕES -->
 			<section class="coluna-esquerda">
@@ -175,14 +175,61 @@
 					<table id="tbl_produtos" >
 						<thead>
 							<th>Produto nome</th>
-							<th>Quantidade</th>									
+							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 							<th>Unidade</th>
-							<th>Valor Unitário</th>
-							<th>Valor Total</th>
-							<th>Observação</th>						
-							<th class="confirma">Ações</th>					
+							<th style="width: 150px;">Valor Unitário</th>
+							<th style="width: 150px;">Valor Total</th>
+							<th style="width: 150px;">Observação</th>	
+							<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
+							<th class="confirma">Ações</th>	
+				
 						</thead>
 								
+					<?php
+						$j = 0;
+						foreach($produtoslista as $prodList ){
+							
+							echo "<tr class='produtoTr_".$j."'>";
+								echo "<td class='whiteSpace'><span title='".$produtoslista[$j]['Produto']['nome']."'>";
+									echo $produtoslista[$j]['Produto']['nome'];
+									echo "</span>";
+									echo $this->Form->input('Comitensdaoperacao.'.$j.'.produto_id',array('type'=>'hidden','value'=>$produtoslista[$j]['Produto']['id']));
+								echo "</td>";
+
+								echo "<td>";
+									echo $this->Form->input('Comitensdaoperacao.'.$j.'.qtde',array('label'=>'','id'=>'itenQtd'.$j,'class'=>'qtdE tamanho-pequeno','type'=>'text','style'=>'text-align:center;'));
+									echo '<span id="msgValidaQtde'.$j.'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>';
+
+								echo "</td>";
+								
+								echo "<td>";
+									echo $produtoslista[$j]['Produto']['unidade'];
+								echo "</td>";
+							
+								echo "<td>";
+									echo $this->Form->input('Comitensdaoperacao.'.$j.'.valor_unit',array('label'=>'','id'=>'vU'.$j,'class'=>'valorUnit tamanho-medio dinheiro_duasCasas','type'=>'text','style'=>'text-align:center;'));
+								echo "</td>";
+									
+								echo "<td>";
+									echo "<span id='spanValTotal".$j."'></span>";	
+									echo $this->Form->input('Comitensdaoperacao.'.$j.'.valor_total',array('id'=>'valorTotal'.$j,'type'=>'hidden'));
+								echo "</td>";
+								
+								echo "<td>";
+									echo $this->Form->input('Comitensdaoperacao.'.$j.'.obs',array('label'=>'','class'=>'tamanho-medio','type'=>'text','style'=>'text-align:center;'));
+								echo "</td>";
+								
+								echo "<td class='confirma'>";
+									echo "<img title='Editar' alt='Editar' src='/lifecare/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' style='display:none;'/>";
+									echo "<img title='Confirmar' alt='Confirmar' src='/lifecare/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm'/>";
+									echo "<img title='Remover' alt='Remover' src='/lifecare/app/webroot/img/lixeira.png' id='excluir_".$j."' class='btnRemoveProdu'/>";
+								echo "</td>";
+								
+							echo "</tr>";	
+						$j++;	
+						}					
+					?>
+					
 					</table>
 				</section>
 		</section>
@@ -203,12 +250,10 @@
 							    'class'=>'bt-salvar',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
-							    'style' => 'display:none;'
-							    
+							    'style' => 'display:none;'							    
 	    ));
 		
 		echo $this->Form->end();
 	?>	
 </footer>
-
 
