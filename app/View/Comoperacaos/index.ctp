@@ -115,6 +115,12 @@
 						?>
 					</div>
 					
+					<div class="" >
+					<?php
+						echo $this->Search->input('codigoseguranca', array('label' => 'Código de Segurança:','class'=>'tamanho-medio input-alinhamento combo-autocomplete'));
+					?>
+					</div>
+					
 					<div class="formaPagamento" >
 					<?php
 						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
