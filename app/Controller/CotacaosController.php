@@ -151,10 +151,11 @@ class CotacaosController extends ComoperacaosController {
             $email = new CakeEmail('smtp');
 
             $email->to($destinatario);
-
+			$email->from('ti.dev@vento-consulting.com');
             $email->subject($remetente);
 			$email->template('cotacao','default');
 			$email->emailFormat('html');
+			$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
