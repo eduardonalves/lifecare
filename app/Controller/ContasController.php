@@ -183,7 +183,6 @@ class ContasController extends AppController {
 						$this->Conta->save($updateConta);
 					}
 				
-				
 			}else{
 				if(isset($contasPrestesAVencer)){
 					if(!empty($contasPrestesAVencer)){
@@ -861,6 +860,7 @@ class ContasController extends AppController {
 					$dataTermino= date("Y-m-t");
 					$this->request->data['filter']['data_vencimento']=$dataIncio;
 					$this->request->data['filter']['data_vencimento-between']=$dataTermino;
+					$this->request->data['filter']['tipoMovimentacao']="A PAGAR  A RECEBER";
 
 				}
 
@@ -1107,6 +1107,7 @@ class ContasController extends AppController {
 					$dataTermino= date("Y-m-t");
 					$this->request->data['filter']['data_emissao']=$dataIncio;
 					$this->request->data['filter']['data_emissao-between']=$dataTermino;	
+					$this->request->data['filter']['tipoMovimentacao']="A PAGAR  A RECEBER";	
 				}
 
 				$contas = $this->Conta->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Conta.id', 'Conta.*'), 'order' => 'Conta.identificacao ASC'));

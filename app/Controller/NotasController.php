@@ -545,6 +545,7 @@ class NotasController extends AppController {
 				$dataTermino= date("Y-m-t");
 				$this->request->data['filter']['dataNota']=$dataIncio;
 				$this->request->data['filter']['dataNota-between']=$dataTermino;
+				$this->request->data['filter']['notaTipoEntrada']="ENTRADA SAIDA";
 				
 			}
 				
