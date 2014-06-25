@@ -62,4 +62,6 @@
 		</table>
 	</div>
 </div>
-
+<pre>
+<?php print_r($_SESSION);?>
+</pre>

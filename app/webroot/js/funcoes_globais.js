@@ -376,6 +376,10 @@ $(document).ready(function(){
 	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
     });
     
+/** Placeholder Data *************************************************/
+    $('.inputData').attr('placeholder','dd/mm/aaaa');
+
+    
 });
 /** VALIDAÇÃO ENTRE DATAS *********************************************/	
 	function validacaoEntreDatas(dataInicial, dataFinal, mensagem){

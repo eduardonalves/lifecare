@@ -151,10 +151,11 @@ class CotacaosController extends ComoperacaosController {
             $email = new CakeEmail('smtp');
 
             $email->to($destinatario);
-
+			$email->from('ti.dev@vento-consulting.com');
             $email->subject($remetente);
 			$email->template('cotacao','default');
 			$email->emailFormat('html');
+			$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
@@ -281,7 +282,51 @@ class CotacaosController extends ComoperacaosController {
 		$users = $this->Cotacao->User->find('list');
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
 	}
+	
+public function addDash(){
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacao']['data_fim']);
+		$this->loadModel('Contato');
+		$this->loadModel('Produto');
+		$this->loadModel('ProdutosParceirodenegocio');
+		
+		$listaProdutoId = array();		
+		if($this->request->data){ 
+			$y = 0;
+			foreach($this->request->data['produto'] as $y => $listaids){
+				if($this->request->data['produto'][$y] != 0){
+					$listaProdutoId[] = $this->request->data['produto'][$y];
+				}
+				$y++;
+			}					
+		} // post
+		
+		$produtoslista = array();
+		$j = 0;
+		foreach($listaProdutoId  as $ids){
+			$produtoslista[] = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$listaProdutoId[$j]),'recursive'=>-1));
+			$j++;
+		}
+		
+//		debug($produtoslista);
 
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Cotacao->User->find('list');
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+	}
 	
 /**
  * edit method

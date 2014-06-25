@@ -84,8 +84,15 @@
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
 		<section  class="coluna-esquerda">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+			
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));	
+				//echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));
 				foreach($parceirodenegocio['Contato'] as $contato){
 					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled'));	
 				}
@@ -118,14 +125,39 @@
 		</section>
 		
 		<section  class="coluna-direita">
+			
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['status'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
 			<?php
-				echo $this->Form->input('Vazio.input',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['status'],'disabled'=>'disabled'));	
+				//echo $this->Form->input('Vazio.input',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['status'],'disabled'=>'disabled'));	
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 2:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['telefone2'],'disabled'=>'disabled'));	
+				
+			?>
+				<div class="segmento-esquerdo">
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
+					</div>
+				</div>
+							
+			<?php
 				}
 				
 				foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'Logradouro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['logradouro'],'disabled'=>'disabled'));	
+					//echo $this->Form->input('Vazio.input',array('label'=>'Logradouro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['logradouro'],'disabled'=>'disabled'));	
+			?>
+					<div class="segmento-esquerdo">
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['logradouro'],array('class'=>'valor'));?>	</div>
+						</div>
+					</div>
+			
+			<?php	
 					echo $this->Form->input('Vazio.input',array('label'=>'UF:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['uf'],'disabled'=>'disabled'));	
 				
 				}
@@ -219,7 +251,7 @@
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 				
 			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
-				echo $this->Html->image('botao-confirmar.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
+				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
 			echo "</a>";
 								
 		?>
@@ -242,7 +274,7 @@
 											<?php						
 												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
 												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));					
-												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
+												echo $this->Form->input('Pedido.recebimento',array('type'=>'text','id'=>'dataRecebemimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));					
 											?>	
 											</div>
 										<footer>

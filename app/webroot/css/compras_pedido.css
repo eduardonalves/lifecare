@@ -8,6 +8,10 @@
 	margin-top: 20px;
 }
 
+#tbl_produtos label{
+	display:none;
+}
+
 .bt-addItens{
 	float: right;
 	margin-top: -27px;
@@ -72,6 +76,13 @@ input[type="text"]:disabled{
 	margin-right: 0px !important;
 }
 
+#msgValidaConfirmaProduto{
+	float: right;
+	position: absolute;
+	margin-left: 67%;
+	width: 100px;
+	margin-top: 143px;
+}
 
 #msgValidaProduto{top: -50px;}
 #msgValidaFor{top: -50px;}
