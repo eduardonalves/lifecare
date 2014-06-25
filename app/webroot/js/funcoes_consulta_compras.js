@@ -282,6 +282,7 @@ var valorAux=$('#filterTipoOperacao').val();
 	$("td."+idcol).addClass("highlight");
 
 /*** Efeito Habilitado/Desabilitado de filtros ************************/
+/*
 	if($("#checkop").prop("checked")){
 		$("#filtro-produto").css({"background-color":"#ebebeb","border-color":"#ccc"});
 		$("#filtro-parceiro").css({"background-color":"#ebebeb","border-color":"#ccc"});
@@ -354,7 +355,7 @@ var valorAux=$('#filterTipoOperacao').val();
 			$('#msgFiltroProduto').css('display','none');
 		});
 	}
-	
+	*/
 /** Placeholder Data **************************************************/
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
 	

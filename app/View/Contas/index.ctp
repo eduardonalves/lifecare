@@ -27,7 +27,45 @@
 <script>
 $(document).ready(function() {
 	var usoInicioPhp = '<?php ?>' ;
-	var usoGet = '$_GET["ql"]';	
+	var usoGet = '$_GET["ql"]';
+	
+	$('.quitar').click(function(){
+		modal=$(this).attr('id');
+		$('#modal-'+modal).modal('show');
+	});
+	
+	$('.bt-quitar').click(function(e){
+		
+		var idcheck=  $(this).attr('id');
+		var expReg01 = /\D+/gi;
+		var numero= idcheck.replace(expReg01,'');
+		
+		if($("#ContaDataPagamento"+numero).val() == ''){
+		$("#spanQuitarData"+numero).show();
+		}else{
+		$("#spanQuitarData"+numero).hide();
+		e.preventDefault();
+		form= $(this).attr('id');
+			$('#quitar'+numero).submit();
+		}
+		});
+		
+	$('.bt-quitar').click(function(e){
+			
+			var idcheck=  $(this).attr('id');
+			var expReg01 = /\D+/gi;
+			var numero= idcheck.replace(expReg01,'');
+			
+			if($("#ContaDataPagamento"+numero).val() == ''){
+				$("#spanQuitarData"+numero).show();
+			}else{
+				$("#spanQuitarData"+numero).hide();
+				e.preventDefault();
+				form= $(this).attr('id');
+				$('#quitar'+numero).submit();
+			}
+		});
+	
     });
 </script>
 
@@ -405,6 +443,7 @@ $(document).ready(function() {
 ?>	
 <?php 
 //Inicio da checagem das colunas de parcelas
+	$j = 0;
 	if(isset($_GET['parametro']) && $_GET['parametro']=='parcelas'){
 		
     		if(isset($configparcela)){ ?>
@@ -451,6 +490,10 @@ $(document).ready(function() {
 				
 				echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
 				'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parcela['Conta'][0]['parceirodenegocio_id'])));
+				
+				echo "<hr />";
+				
+				echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 			?>
 			
 		</td>
@@ -489,11 +532,57 @@ $(document).ready(function() {
 			}
 			
 		?>
-	</tr>	
-								    
-	<?php endforeach; ?>
+	</tr>
 	
+		<div id="<?php echo "modal-quitar".$j; ?>" class="modal modalQuitar" style="display: none;">
+					<header id="cabecalho">
+						
+						<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Quitar', 'title' => 'Quitar')); ?>
+						
+						<h1>Quitar parcela</h1>
+					</header>
+					
+					<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>	
 
+					<section><header>Data do Pagamento</header></section>
+					
+					<section>	
+						<section class="coluna-central">
+							<div>	
+								
+								<?php
+									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcela['Parcela']['id'].''));
+									echo "<div class=\"ui-widget\">";
+									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									echo "<span id='spanQuitarData".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
+									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcela['Parcela']['descricao'], 'style'=>'display: inline'));
+									
+									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcela['Parcela']['juros'], 'style'=>'display: inline'));
+									
+									echo $this->Form->input('parcela_id',array('value' => $parcela['Parcela']['id'], 'type' => 'hidden'));
+								?>
+								
+								
+							</div>
+						</section>
+					</section>
+					
+					<footer>
+						
+						<?php
+							echo $this->Html->image('botao-salvar.png',array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Quitar', 'title' => 'Quitar'));
+							//echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
+							echo $this->form->end();
+						?>
+						
+					</footer>
+		</div>
+	
+	<?php
+	$j = $j + 1;
+	endforeach;
+	?>
+	
 <?php
     }
 	//fim de Consulta de parcelas
