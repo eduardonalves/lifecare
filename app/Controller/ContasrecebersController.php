@@ -738,6 +738,7 @@ class ContasrecebersController extends ContasController {
 	
 	public function verificaidentificacao(){
 		if($this->request->is('ajax')){
+			
 			$idententificacao = $this->request->data['Contasreceber']['identificacao'];
 			$existe = $this->Contasreceber->find('first', array('conditions' => array('Contasreceber.identificacao' => $idententificacao, 'AND' => array('Contasreceber.tipo' => 'A RECEBER'))));
 			if(!empty($existe)){
