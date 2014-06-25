@@ -273,8 +273,10 @@ $(document).ready(function() {
 					    {
 						if($campo=='parcelas'){
 						
-						}else if($campo == 'parceirodenegocio_id' ){
-						
+						}else if($campo == 'nome_parceiro' ){
+							
+							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							
 						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 			
@@ -443,6 +445,7 @@ $(document).ready(function() {
 //Inicio da checagem das colunas de parcelas
 	$j = 0;
 	if(isset($_GET['parametro']) && $_GET['parametro']=='parcelas'){
+		
     		if(isset($configparcela)){ ?>
 				<tr>
 				    <th class="colunaConta">Ações</th>
@@ -450,7 +453,7 @@ $(document).ready(function() {
 						
 						foreach($configCont as $campo=>$campoLabel){
 							if($campo == 'nome_parceiro'){
-								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 				
 							}
 						     
@@ -461,7 +464,10 @@ $(document).ready(function() {
 								 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else if($campo == 'cnpj_cpf' ){
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-							}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+							}else if($campo == 'nome_parceiro' ){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else if($campo == 'parceirodenegocio_id' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+								
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else{
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
