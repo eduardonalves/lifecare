@@ -8,10 +8,16 @@
 	margin-top: 15px;
 }
 
+
+.bt-addForne{
+	float: left;
+	margin-left: -24px;
+}
 .bt-addItens{
-	float: right;
-	margin-top: -27px;
-	margin-right: 70px;
+	margin-top: -26px;
+	margin-left: 190px;
+	position: absolute;
+	z-index: 1;	
 }
 
 .tabela_fornecedores{
@@ -101,7 +107,6 @@ input[type="text"]:disabled{
 
 #produtoUnid{
 	float: right;
-	margin-right: 170px;
 	margin-top: -28px;
 	font-size: 15px;
 }
