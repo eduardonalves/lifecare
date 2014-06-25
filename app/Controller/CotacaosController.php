@@ -229,31 +229,31 @@ class CotacaosController extends ComoperacaosController {
 					
 					$this->loadModel('Comtokencotacao');
 					
-					//~ $flag="FALSE";
-					//~ while($flag =='FALSE') {
-						//~ $numero=date('Ymd');
-						//~ $numeroAux= rand(0, 99999999);
-						//~ $numero = $numero.$numeroAux;
-						//~ $ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-						//~ if(empty($ultimaComtokencotacao)){
-							//~ $dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
-							//~ $this->Comtokencotacao->create();
-							//~ $this->Comtokencotacao->save($dadosComOp);
-							//~ $ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
-							//~ $flag="TRUE";
-						//~ }
-						//~ 
-					//~ }
-					//~ $mensagem = array();
-					//~ 
-//~ 
-					//~ $mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
-					//~ $mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
-					//~ 
-					//~ $remetente="ti.dev@vento-consulting.com";
-					//~ if($contato['Contato']['email'] !=""){
-						//~ $this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
-					//~ }
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+							$flag="TRUE";
+						}
+						
+					}
+					$mensagem = array();
+					
+
+					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
+					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
+					
+					$remetente="ti.dev@vento-consulting.com";
+					if($contato['Contato']['email'] !=""){
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					}
 					
 				}
 				
