@@ -459,4 +459,9 @@ $(document).ready(function(){
 		}
 	});
 
+/** Placeholder ***********************************************/
+
+	$('#filterDataLote-between').attr('placeholder','dd/mm/aaaa');
+	$('#filterDataNota-between').attr('placeholder','dd/mm/aaaa');
+
 });

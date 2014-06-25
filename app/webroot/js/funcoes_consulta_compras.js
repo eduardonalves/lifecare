@@ -354,4 +354,8 @@ var valorAux=$('#filterTipoOperacao').val();
 			$('#msgFiltroProduto').css('display','none');
 		});
 	}
+	
+/** Placeholder Data **************************************************/
+	$('.inputData').attr('placeholder','dd/mm/aaaa');
+	
 });

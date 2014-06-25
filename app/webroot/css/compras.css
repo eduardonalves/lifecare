@@ -111,3 +111,9 @@ label[for="produtoUnid"]{position:absolute;}
 #CotacaoAddForm{
 	display:inline-block;
 }
+
+#bt-adicionarProduto{
+	margin-top: 55px;
+	position: absolute;
+	margin-left: 230px;
+}
