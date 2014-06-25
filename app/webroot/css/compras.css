@@ -8,10 +8,16 @@
 	margin-top: 15px;
 }
 
+
+.bt-addForne{
+	float: left;
+	margin-left: -24px;
+}
 .bt-addItens{
-	float: right;
-	margin-top: -27px;
-	margin-right: 70px;
+	margin-top: -26px;
+	margin-left: 190px;
+	position: absolute;
+	z-index: 1;	
 }
 
 .tabela_fornecedores{
@@ -83,17 +89,10 @@ input[type="text"]:disabled{
 	margin: 10px 0px 0px 100px;
 }
 
-#msgValidaProduto{top: -10px;}
-#msgValidaFor{top: -10px;}
-
-
-#msgValidaProduto:after{
-	top: 21px !important;
-}
-
-#msgValidaFor:after{
-	top: 21px !important;
-}
+#msgValidaProduto{top: -46px;}
+#msgValidaProduto:after{ top: 36px !important; }
+#msgValidaFor{top: -46px;}
+#msgValidaFor:after{ top: 36px !important; }
 
 #msgQtdVazia{
 	left: 250px;
@@ -101,7 +100,6 @@ input[type="text"]:disabled{
 
 #produtoUnid{
 	float: right;
-	margin-right: 170px;
 	margin-top: -28px;
 	font-size: 15px;
 }
@@ -112,8 +110,3 @@ label[for="produtoUnid"]{position:absolute;}
 	display:inline-block;
 }
 
-#bt-adicionarProduto{
-	margin-top: 55px;
-	position: absolute;
-	margin-left: 230px;
-}

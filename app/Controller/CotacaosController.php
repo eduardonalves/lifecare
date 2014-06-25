@@ -325,7 +325,7 @@ public function addDash(){
 		
 		
 		$users = $this->Cotacao->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 	
 /**

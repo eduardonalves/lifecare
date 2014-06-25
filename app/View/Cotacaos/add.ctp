@@ -31,8 +31,7 @@
 	<header>Cadastro de Cotações</header>
 	<?php echo $this->Form->create('Cotacao');?>
 	<!-- INICIO COTAÇÕES -->
-	<fieldset>
-		<legend>Dados da Cotação</legend>
+	
 		<section class="coluna-esquerda">
 			<?php
 				echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
@@ -55,6 +54,7 @@
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
 				echo '<span id="msgDataFinalErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a data Final corretamente</span>';
 				echo '<span id="msgDataFinal" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Final</span>';
+
 			?>
 		</section>
 		
@@ -63,13 +63,65 @@
 				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 			?>
 		</section>
-	</fieldset>
+	
+	<!-- INICIO FORNECEDOR -->	
+	<section>
+		<header>Fornecedores</header>
+			<section class="coluna-esquerda">
+				<div class="input autocompleteFornecedor conta">
+					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
+					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
+						<option></option>
+						<option value="add-parceiroFornecedor">Cadastrar</option>
+
+						<?php
+							foreach($parceirodenegocios as $parceirodenegocio)
+							{
+								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
+								echo $parceirodenegocio['Parceirodenegocio']['nome'];
+								echo "</option>";
+							}
+						?>
+
+					</select>
+				</div>			
+			</section>	
+			
+			<section class="coluna-central"> 
+				<?php	
+					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
+											 'title'=>'Adicionar',
+											 'class'=>'bt-addForne',
+											 'id'=>'bt-adicionarFornecedor'
+											 ));
+				?>
+			</section>
+			
+			<section class="coluna-direita">
+				<?php
+				
+					
+				?>
+			</section>
+	</section>
+			<div style="clear:both;"></div>
+			<section class="tabela_fornecedores">
+				<table id="tbl_fornecedores" >
+					<thead>
+						<th>Parceiro nome</th>
+						<th>CPF/CNPJ</th>					
+						<th class="confirma">Ações</th>					
+					</thead>
+							
+				</table>
+			</section>
+	
 	
 	<!-- INICIO PRODUTOS -->
-	<section class="coluna-Produto coluna-esquerda">
-		<fieldset>		
-			<legend>Produtos</legend>
-			<div class="confirma">
+	<section>
+		<header>Produtos</header>
+			<section class="coluna-esquerda">
 				<div class="input autocompleteProduto conta">
 					<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
 					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
@@ -88,25 +140,31 @@
 
 					</select>
 				</div>		
+		
+				<?php	
+					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
+											 'title'=>'Adicionar',
+											 'class'=>'bt-addItens sumir',
+											 'id'=>'bt-adicionarProduto'
+											 ));
+							 
+					echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+					echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
+					echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
+				?>
 			
+			</section>
 			
-			<?php	
-				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-									     'title'=>'Adicionar',
-										 'class'=>'bt-addItens sumir',
-										 'id'=>'bt-adicionarProduto'
-										 ));
-										 
-				echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
-				echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
-				echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));		
-				echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
-				echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));		
-				echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
-				echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));		
-				
-			?>
-			</div>
+			<section class="coluna-central">
+				<?php
+							
+					echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
+					echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));		
+					echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
+					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
+				?>
+			</section>	 
+			
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
@@ -119,55 +177,9 @@
 							
 				</table>
 			</section>
-		</fieldset>
 	</section>
 	
-	<!-- INICIO FORNECEDOR -->	
-	<section class="coluna-Fornecedor coluna-esquerda">
-		<fieldset>		
-			<legend>Fornecedores</legend>
-			<div class="confirma">
-				<div class="input autocompleteFornecedor conta">
-					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
-					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
-						<option></option>
-						<option value="add-parceiroFornecedor">Cadastrar</option>
-
-						<?php
-							foreach($parceirodenegocios as $parceirodenegocio)
-							{
-								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
-								echo $parceirodenegocio['Parceirodenegocio']['nome'];
-								echo "</option>";
-							}
-						?>
-
-					</select>
-				</div>				
-			
-			<?php	
-				echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-									     'title'=>'Adicionar',
-										 'class'=>'bt-addItens',
-										 'id'=>'bt-adicionarFornecedor'
-										 ));
-			?>
-			</div>
-			<section class="tabela_fornecedores">
-				<table id="tbl_fornecedores" >
-					<thead>
-						<th>Parceiro nome</th>
-						<th>CPF/CNPJ</th>					
-						<th class="confirma">Ações</th>					
-					</thead>
-							
-				</table>
-			</section>
-		</fieldset>
-	</section>
-				
-	
+		
 	<section id="area_inputHidden"></section>
 	
 	<section id="area_inputHidden_Produto"></section>
