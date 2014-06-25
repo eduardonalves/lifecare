@@ -658,23 +658,25 @@ class ContasrecebersController extends ContasController {
 				
 			}
 		} else {
+
 			$options = array('conditions' => array('Contasreceber.' . $this->Contasreceber->primaryKey => $id),'recursive' => 1);
 			$this->request->data = $this->Contasreceber->find('first', $options);
 			$contareceber =  $this->Contasreceber->find('first', $options);
+			
 		}
 	
 		
-		
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive'=>-1));
 		
 		$this->loadModel('Centrocusto');
-		$centrocusto = $this->Centrocusto->find('all');
+		$centrocusto = $this->Centrocusto->find('all', array('recursive'=>-1));
 		
 		$this->loadModel('Tipodeconta');
-		$tipoconta = $this->Tipodeconta->find('all');
+		$tipoconta = $this->Tipodeconta->find('all', array('recursive'=>-1));
 		
 		$this->set(compact('parceirodenegocios','userid','centrocusto','tipoconta','contareceber'));
+		
 	}
 
 /**
