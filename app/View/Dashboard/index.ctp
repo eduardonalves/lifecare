@@ -347,8 +347,8 @@ $(document).ready(function(){
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Nível de Estoque</span>
 				<?php 
-					echo $this->Html->image('botao-tabela-configuracao.png',array('id'=>'cotar','class'=>'acaoPedir bt-config','title'=>'Fazer Cotação dos Produtos','style'=>'display:none;'));
-					echo $this->Html->image('botao-tabela-configuracao.png',array('id'=>'pedir','class'=>'acaoPedir bt-config','title'=>'Fazer Pedido dos Produtos','style'=>'display:none;'));
+					echo $this->Html->image('dashboard-cotacao.png',array('id'=>'cotar','class'=>'acaoPedir bt-config','title'=>'Fazer Cotação dos Produtos','style'=>'display:none;'));
+					echo $this->Html->image('dashboard-pedido.png',array('id'=>'pedir','class'=>'acaoPedir bt-config','title'=>'Fazer Pedido dos Produtos','style'=>'display:none;'));
 
 				?>			
 			</div>
