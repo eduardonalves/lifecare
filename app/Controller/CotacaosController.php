@@ -151,10 +151,11 @@ class CotacaosController extends ComoperacaosController {
             $email = new CakeEmail('smtp');
 
             $email->to($destinatario);
-
+			$email->from('ti.dev@vento-consulting.com');
             $email->subject($remetente);
 			$email->template('cotacao','default');
 			$email->emailFormat('html');
+			$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
@@ -228,31 +229,31 @@ class CotacaosController extends ComoperacaosController {
 					
 					$this->loadModel('Comtokencotacao');
 					
-					$flag="FALSE";
-					while($flag =='FALSE') {
-						$numero=date('Ymd');
-						$numeroAux= rand(0, 99999999);
-						$numero = $numero.$numeroAux;
-						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-						if(empty($ultimaComtokencotacao)){
-							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
-							$this->Comtokencotacao->create();
-							$this->Comtokencotacao->save($dadosComOp);
-							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
-							$flag="TRUE";
-						}
-						
-					}
-					$mensagem = array();
-					
-
-					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
-					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
-					
-					$remetente="ti.dev@vento-consulting.com";
-					if($contato['Contato']['email'] !=""){
-						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
-					}
+					//~ $flag="FALSE";
+					//~ while($flag =='FALSE') {
+						//~ $numero=date('Ymd');
+						//~ $numeroAux= rand(0, 99999999);
+						//~ $numero = $numero.$numeroAux;
+						//~ $ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						//~ if(empty($ultimaComtokencotacao)){
+							//~ $dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacao']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							//~ $this->Comtokencotacao->create();
+							//~ $this->Comtokencotacao->save($dadosComOp);
+							//~ $ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+							//~ $flag="TRUE";
+						//~ }
+						//~ 
+					//~ }
+					//~ $mensagem = array();
+					//~ 
+//~ 
+					//~ $mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
+					//~ $mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
+					//~ 
+					//~ $remetente="ti.dev@vento-consulting.com";
+					//~ if($contato['Contato']['email'] !=""){
+						//~ $this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+					//~ }
 					
 				}
 				
@@ -324,7 +325,7 @@ public function addDash(){
 		
 		
 		$users = $this->Cotacao->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 	
 /**

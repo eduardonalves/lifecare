@@ -279,7 +279,7 @@
 				echo $this->Form->input('data_vencimento_parcela',array('type'=>'text','label'=>'Data de Vencimento<span class="campo-obrigatorio">*</span>:','id' => 'ContaspagarDataVencimento','class'=>'tamanho-pequeno desabilita obrigatorio inputData','tabindex' => '108'));
 				echo '<span id="msgDataVencimento" class="Msg-tooltipDireita" style="display:none">Preencha o campo Data de Vencimento</span>';
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none">Data de Vencimento não pode ser menor que Data de Emissão</span>';	
-				echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '113','maxlength' => '25'));
+				echo $this->Form->input('periodocritico_parcela',array('label' => 'Periodo Crítico<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-pequeno desabilita obrigatorio Nao-Letras','id' =>'PagarPeriodocritico','tabindex' => '113','maxlength' => '25','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 				echo '<span id="msgPeriodoCritico" class="Msg-tooltipDireita" style="display:none">Preencha o campo Periodo Critico</span>';
 			?>
 		</section>

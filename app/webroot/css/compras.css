@@ -89,17 +89,10 @@ input[type="text"]:disabled{
 	margin: 10px 0px 0px 100px;
 }
 
-#msgValidaProduto{top: -10px;}
-#msgValidaFor{top: -10px;}
-
-
-#msgValidaProduto:after{
-	top: 21px !important;
-}
-
-#msgValidaFor:after{
-	top: 21px !important;
-}
+#msgValidaProduto{top: -46px;}
+#msgValidaProduto:after{ top: 36px !important; }
+#msgValidaFor{top: -46px;}
+#msgValidaFor:after{ top: 36px !important; }
 
 #msgQtdVazia{
 	left: 250px;
@@ -116,3 +109,4 @@ label[for="produtoUnid"]{position:absolute;}
 #CotacaoAddForm{
 	display:inline-block;
 }
+

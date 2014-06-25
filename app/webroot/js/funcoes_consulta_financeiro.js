@@ -169,4 +169,9 @@ var valorAux=$('#filterTipoMovimentacao').val();
 			}
 		}
 	});
+	
+/** Placeholder Data **************************************************/
+	$('.inputData').attr('placeholder','dd/mm/aaaa');
+
+
 });
