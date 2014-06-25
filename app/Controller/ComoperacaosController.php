@@ -657,9 +657,10 @@ public $uses = array();
                 $email = new CakeEmail('smtp');
 
                 $email->to($destinatario);
+				$email->from('ti.dev@vento-consulting.com');
 
                 $email->subject($remetente);
-
+				$email->transport('Mail');
                 if($email->send($mensagem)){
 					return TRUE;
 

@@ -290,8 +290,8 @@ $(document).ready(function(){
 						<tr>
 							<td class="status_primeiraColuna"><?php echo $this->Html->image('semaforo-icon-' . strtolower($lote['Lote']['status']) . '-16x16.png', array('alt' => 'Status de estoque: '.$lote['Lote']['status'], 'title' => 'Status de estoque')); ?></td>
 							<!-- <td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($lote['Lote']['status']); ?>" /></td>-->
-							<td><?php echo $lote['Lote']['numero_lote'];  ?></td>
-							<td><?php echo $lote['Produto']['nome'];  ?></td>
+							<td class="whiteSpace"><span title="<?php echo $lote['Lote']['numero_lote'];  ?>"><?php echo $lote['Lote']['numero_lote'];  ?></span></td>
+							<td class="whiteSpace"><span title="<?php echo $lote['Produto']['nome'];  ?>"><?php echo $lote['Produto']['nome'];  ?></span></td>
 							<td><?php echo $lote['Lote']['estoque']; ?></td>
 							<td><?php 
 									formatDateToView($lote['Lote']['data_validade']);
@@ -346,21 +346,27 @@ $(document).ready(function(){
 			<div class="div-titulo">
 				<?php echo $this->Html->image('icon-dash2.png',array('class'=>'bt-icon'));?>
 				<span class="span-titulo">Nível de Estoque</span>
-				<?php //echo $this->Html->image('botao-tabela-configuracao.png',array('class'=>'bt-config'));?>			
+				<?php 
+					echo $this->Html->image('botao-tabela-configuracao.png',array('id'=>'cotar','class'=>'acaoPedir bt-config','title'=>'Fazer Cotação dos Produtos','style'=>'display:none;'));
+					echo $this->Html->image('botao-tabela-configuracao.png',array('id'=>'pedir','class'=>'acaoPedir bt-config','title'=>'Fazer Pedido dos Produtos','style'=>'display:none;'));
+
+				?>			
 			</div>
 			<div class="div-tabela-rolagem">
+				<?php echo $this->Form->create('lista'); ?> 
 				<table class="tabela-lote">
-					<?php echo $this->Form->create('lista'); ?> 
+					
 							<tr>
 								<th> </th>
 								<th>Nome</th>
 								<th>Estoque Min.</th>
 								<th>Estoque Atual</th>
-								<th><?php echo $this->Form->input('',array('type'=>'checkbox')); ?></th>
+								<th><?php echo $this->Form->input('',array('id'=>'checkTodos','type'=>'checkbox')); ?></th>
 							</tr>
 
 							<?php
-								foreach($produtos as $produto){
+								$p = 0;
+								foreach($produtos as $produto){									
 							?>
 
 							<tr>
@@ -369,15 +375,16 @@ $(document).ready(function(){
 								<td class="whiteSpace"><span title="<?php echo $produto['Produto']['nome'];?>"><?php echo $produto['Produto']['nome'];  ?></span></td>
 								<td><?php echo $produto['Produto']['estoque_minimo']; ?></td>								
 								<td><?php echo $produto['Produto']['estoque']; ?></td>
-								<td><?php echo $this->Form->input('',array('type'=>'checkbox')); ?></td>
+								<td><?php echo $this->Form->input('',array('value'=>$produto['Produto']['id'] ,'id'=>'check'.$p,'class'=>'checkUno','name'=>'produto[]', 'type'=>'checkbox')); ?></td>
 								
 							</tr>
 
 							<?php
+								$p++;
 								}
-							?>
-							<?php echo $this->Form->end(); ?> 
-						</table>	
+							?>					
+				</table>	
+				<?php echo $this->Form->end(); ?> 
 			</div>		
 		</div>
 	</section>

@@ -284,7 +284,7 @@
 					<td><?php echo $comoperacao['Comoperacao']['tipo']; ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
 					<td><?php echo formatDateToView($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>
-					<td><?php echo $comoperacao['Comoperacao']['valor']; ?>&nbsp;</td>
+					<td class="dinheiro_Duascasas"><?php echo $comoperacao['Comoperacao']['valor']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
