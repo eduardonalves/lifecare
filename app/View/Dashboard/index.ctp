@@ -382,8 +382,7 @@ $(document).ready(function(){
 							<?php
 								$p++;
 								}
-							?>
-					
+							?>					
 				</table>	
 				<?php echo $this->Form->end(); ?> 
 			</div>		

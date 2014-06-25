@@ -38,5 +38,14 @@ $(document).ready(function(){
 			$('#listaIndexForm').submit();
 		}
 	});
+	
+	$('#cotar').click(function(){
+		$('#listaIndexForm').attr('action','/lifecare/Cotacaos/addDash');
+		var ok = confirm("Gostaria de Fazer a Cotação dos Produtos Selecionados?");
+		if(ok == true){
+			$('#listaIndexForm').submit();
+		}
+	});
+
 
 });
