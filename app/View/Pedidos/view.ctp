@@ -250,13 +250,14 @@
 		}
 
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
-				
+
 			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
 				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
 			echo "</a>";
-								
+		
+		
 		?>
-
+		
 		<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-body">
 							
@@ -295,6 +296,14 @@
 							</div>
 		<?php
 			}
+			
+		if($pedido['Pedido']['status'] != 'CANCELADO'){
+			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('id'=>'botao-reenviar','class'=>'bt-esquerda','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja reenviar este Pedido?', $pedido['Pedido']['id'])));
+			
+			//echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('id'=>'botao-reenviar','class'=>'bt-esquerda','alt' =>'Reenviar Pedido','title' =>'Reenviar Pedido')), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']));
+			//echo $this->Html->image('botao-reenviar.png', array('id' => 'botao-reenviar', 'alt' => 'Reenviar Pedido', 'title' => 'Reenviar Pedido'));
+		}
+		
 		?>
 </footer>
 

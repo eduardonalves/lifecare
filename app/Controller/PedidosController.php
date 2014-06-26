@@ -368,7 +368,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				$email->transport('Mail');
+				//$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -478,6 +478,8 @@ public function addDash(){
 			}
 		}
 		
+		$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
+		return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 		
 		
 		
