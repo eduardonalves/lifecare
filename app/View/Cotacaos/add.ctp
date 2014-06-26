@@ -1,7 +1,7 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras');
+	    echo $this->Html->css('compras_cotacaos');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
@@ -66,6 +66,7 @@
 	<!-- INICIO FORNECEDOR -->	
 	<section>
 		<header>Fornecedores</header>
+		<div class='confirma'>
 			<section class="coluna-esquerda">
 				<div class="input autocompleteFornecedor conta">
 					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
@@ -96,7 +97,7 @@
 											 ));
 				?>
 			</section>
-			
+			</div>
 			<section class="coluna-direita">
 				<?php
 				
@@ -120,6 +121,7 @@
 	<!-- INICIO PRODUTOS -->
 	<section>
 		<header>Produtos</header>
+		<div class='confirma'>
 			<section class="coluna-esquerda">
 				<div class="input autocompleteProduto conta">
 					<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
@@ -149,7 +151,7 @@
 							 
 					echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 					echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
-					echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
+					echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
 				?>
 			
 			</section>
@@ -163,14 +165,15 @@
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
 				?>
 			</section>	 
-			
+			</div>	
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
-						<th>Quantidade</th>									
-						<th>Unidade</th>
-						<th>Observação</th>						
+						<th >Produto nome</th>
+						<th style="width: 80px !important;">Quantidade</th>									
+						<th style="width: 70px;">Unidade</th>
+						<th style="width: 150px;">Observação</th>		
+						<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
 						<th class="confirma">Ações</th>					
 					</thead>
 							

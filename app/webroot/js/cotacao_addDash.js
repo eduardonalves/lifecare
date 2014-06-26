@@ -4,12 +4,17 @@
 /********* VARIAVEIS GLOBAIS *********/
 var flag_produto = 0;
 var flag_confirmaProd = 0;
-
+var in_produto = 0;
+var valorTotal = 0;
 //VERIFICA QUANTOS PRODUTOS VIERAM DA DASHBOARD
 	
 	$('#tbl_produtos tr[class*=produtoTr_]').each(function(){		
 		flag_produto++;		
 	});
+	
+	if(flag_produto > 0){
+		in_produto = flag_produto + 1;
+	}
 	
 /**** FUNÇÔES **/
 
@@ -112,8 +117,7 @@ var flag_confirmaProd = 0;
     }); 
     
 /********************* Preencher Dados Produtos *********************/    
-    var in_produto = 0;
-    var valorTotal = 0;
+ 
     
     $("body").on('click','#bt-adicionarProduto',function(){		
 		
@@ -152,9 +156,10 @@ var flag_confirmaProd = 0;
 					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
+						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
 						<img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
 						<img title="Confirmar" alt="Confirmar" src="/lifecare/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
-						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluir_'+in_produto+'" class="btnRemoveProdu"/>\
+						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
 					</td>\
 				</tr>');
 			
@@ -178,15 +183,23 @@ var flag_confirmaProd = 0;
 	var fim = 0;
 	$('body').on('click','.btnRemoveProdu',function(){
 		id = $(this).attr('id');
-		atual = id.substr(8);
+		atual = id.substr(9);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
-		in_produto = in_produto - 1;
+		
+		classTR = $('#tbl_produtos tr[class*=produtoTr_]').last().attr('class');
+		if(classTR == undefined){
+			in_produto = 0;
+		}else{
+			nTr = classTR.substr(10);
+			nTr = parseInt(nTr) + 1;
+			in_produto = nTr;
+		}
+		
 	});
 	
 /********************* REMOVER Fornecedor *********************/    
-	var inicio = 0;
-	var fim = 0;
+	
 	$('body').on('click','.btnRemoveForne',function(){
 		id = $(this).attr('id');
 		atual = id.substr(8);
@@ -244,22 +257,23 @@ var flag_confirmaProd = 0;
 		}else if(in_fornecedor == 0 && $('#validaCada').val() == 0){
 			$('#msgValidaFor').show();	
 					
-		}else if(flag_produto <= 0 ){			
+		}else if(in_produto <= 0){
 			$('#msgValidaProduto').show();
-		
-		}else if(flag_confirmaProd < flag_produto){
-			$('#msgValidaConfirmaProduto').show();
-			
+									
 		}else{
-			$('span[id*="msg"').hide();
-			$('.confirmaInput').attr('readonly','readonly');
-			$('.confirmaInput').attr('onfocus','this.blur();');
-			$('.confirmaInput').attr('disabled','disabled');
-			$('.confirmaInput').addClass('borderZero');
-			$('#confirmaDados').hide();
-			$('.confirma').hide();
-			$('.bt-salvar').show();
-			$('#voltar').show();
+			if($('span[id*=spanStatus]').hasClass('aberto')){
+				$('#msgValidaConfirmaProduto').show();
+			}else{
+				$('span[id*="msg"').hide();
+				$('.confirmaInput').attr('readonly','readonly');
+				$('.confirmaInput').attr('onfocus','this.blur();');
+				$('.confirmaInput').attr('disabled','disabled');
+				$('.confirmaInput').addClass('borderZero');
+				$('#confirmaDados').hide();
+				$('.confirma').hide();
+				$('.bt-salvar').show();
+				$('#voltar').show();
+			}
 		}	
 		
 	});
@@ -291,8 +305,13 @@ var flag_confirmaProd = 0;
 		if($('#itenQtd'+nId).val() == ''){
 			$('#msgValidaQtde'+nId).show();			
 		}else{			
-			flag_confirmaProd++;
+			
+			$('#spanStatus'+nId).removeClass('aberto');	
+			$('#spanStatus'+nId).addClass('fechado');
+			
 			$('#editi'+nId).show();
+			$('#excluirP_'+nId).show();
+			
 			$('.produtoTr_'+nId+' input').attr('readonly','readonly');
 			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
 			$('.produtoTr_'+nId+' input').addClass('borderZero');
@@ -305,13 +324,19 @@ var flag_confirmaProd = 0;
 		id = $(this).attr('id');
 		nId = id.substring(5);
 		
-		$('#confir'+nId).show();	
-		$('.Msg').hide();			
+		$(this).hide();
+		$('#excluirP_'+nId).hide();
+		$('#confir'+nId).show();
+		
+		$('#spanStatus'+nId).removeClass('fechado');	
+		$('#spanStatus'+nId).addClass('aberto');	
+		
+		$('.Msg').hide();				
 		
 		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
 		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
 		$('.produtoTr_'+nId+' input').removeClass('borderZero');
-		$(this).hide();
+		
 		
 	});
 

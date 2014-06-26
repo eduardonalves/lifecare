@@ -175,11 +175,12 @@
 					<table id="tbl_produtos" >
 						<thead>
 							<th>Produto nome</th>
-							<th>Quantidade</th>									
-							<th>Unidade</th>
-							<th>Valor Unitário</th>
+							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
+							<th style="width: 70px;">Unidade</th>
+							<th style="width: 150px;">Valor Unitário</th>
 							<th>Valor Total</th>
-							<th>Observação</th>						
+							<th style="width: 150px;">Observação</th>
+							<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
 							<th class="confirma">Ações</th>					
 						</thead>
 								

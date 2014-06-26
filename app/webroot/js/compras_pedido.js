@@ -127,10 +127,42 @@
 			
 			
 			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'" data-existe="existe"><td class="whiteSpace"><span title="'+valorNome+'">'+valorNome+'</span></td><td>'+valorQtd+'</td><td>'+valorUnid+'</td><td>R$ '+valorUnit+'</td><td>R$ '+valorMoeda+'</td><td>'+valorObs+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_produto+' class="btnRemoveProdu"/></td></tr>');
-			
-			//SETA AS INPUT HIDDEN	
-			$('#area_inputHidden_Produto').append('<section class="section_produto" id="produtoHi_'+in_produto+'"><input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" id="produto_id_'+in_produto+'" value="'+valorId+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="existe" id="produto_qtd_'+in_produto+'" value="'+valorQtd+'" type="hidden"> <input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="existe" id="produto_unit_'+in_produto+'" value="'+valorUnit+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="produto_total_'+in_produto+'" value="'+valorMoeda+'" type="hidden"><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe" id="produto_obs_'+in_produto+'" value="'+valorObs+'" type="hidden"></section>');
+			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
+					\
+					<td class="whiteSpace">\
+							<span title="'+valorNome+'">'+valorNome+'</span>\
+							\<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
+						\
+					</td>\
+					\
+					<td>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+					\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
+					</td>\
+					\
+					\<td>'+valorUnid+'</td>\
+					<td>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+					\</td>\
+					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+					</td>\
+					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
+					\
+					<td class="confirma">\
+						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
+						<img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
+						<img title="Confirmar" alt="Confirmar" src="/lifecare/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
+						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
+					</td>\
+				</tr>');
+				
+			$("#vU"+in_produto).priceFormat({
+				prefix: '',
+				centsSeparator: ',',
+				thousandsSeparator: '.',
+				limit: 15
+			});	
 			
 			//Limpa as Input's
 			$("#add-produtos").val('');
@@ -150,10 +182,18 @@
 	var fim = 0;
 	$('body').on('click','.btnRemoveProdu',function(){
 		id = $(this).attr('id');
-		atual = id.substr(8);
+		atual = id.substr(9);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
-		in_produto = in_produto - 1;
+				
+		classTR = $('#tbl_produtos tr[class*=produtoTr_]').last().attr('class');
+		if(classTR == undefined){
+			in_produto = 0;
+		}else{
+			nTr = classTR.substr(10);
+			nTr = parseInt(nTr) + 1;
+			in_produto = nTr;
+		}
 	});
 	
 /********************* REMOVER Fornecedor *********************/    
@@ -183,19 +223,23 @@
 		}else if(in_fornecedor == 0 && $('#validaProd').val() == 0){
 			$('#msgValidaFor').show();			
 			
-		}else if(in_produto == 0){
+		}else if(in_produto <= 0){
 			$('#msgValidaProduto').show();
 						
 		}else{
-			$('span[id*="msg"').hide();
-			$('.confirmaInput').attr('readonly','readonly');
-			$('.confirmaInput').attr('onfocus','this.blur();');
-			$('.confirmaInput').attr('disabled','disabled');
-			$('.confirmaInput').addClass('borderZero');
-			$('#confirmaDados').hide();
-			$('.confirma').hide();
-			$('.bt-salvar').show();
-			$('#voltar').show();
+			if($('span[id*=spanStatus]').hasClass('aberto')){
+				$('#msgValidaConfirmaProduto').show();
+			}else{
+				$('span[id*="msg"').hide();
+				$('.confirmaInput').attr('readonly','readonly');
+				$('.confirmaInput').attr('onfocus','this.blur();');
+				$('.confirmaInput').attr('disabled','disabled');
+				$('.confirmaInput').addClass('borderZero');
+				$('#confirmaDados').hide();
+				$('.confirma').hide();
+				$('.bt-salvar').show();
+				$('#voltar').show();
+			}
 		}	
 		
 	});
@@ -216,7 +260,94 @@
 	$('#PedidoAddForm').submit(function(){	
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
+	
+/******** FUNCAO CONFIRMAR  ***********************/	
+	$('body').on('click','.btnConfirm',function(){
+		id = $(this).attr('id');
+		nId = id.substring(6);
+		
+		$('.Msg').hide();
 
+		if($('#itenQtd'+nId).val() == ''){
+			$('#msgValidaQtde'+nId).show();			
+		}else{			
+			
+			$('#spanStatus'+nId).removeClass('aberto');	
+			$('#spanStatus'+nId).addClass('fechado');
+		
+			$('#editi'+nId).show();
+			$('#excluirP_'+nId).show();
+			$('.produtoTr_'+nId+' input').attr('readonly','readonly');
+			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
+			$('.produtoTr_'+nId+' input').addClass('borderZero');
+			$(this).hide();
+		}
+	});
+	
+/******** FUNCAO EDITAR   **************************/
+	$('body').on('click','.btnEditi',function(){
+		id = $(this).attr('id');
+		nId = id.substring(5);	
+		
+		$(this).hide();
+		$('#excluirP_'+nId).hide();
+		$('#confir'+nId).show();
+		
+		$('#spanStatus'+nId).removeClass('fechado');	
+		$('#spanStatus'+nId).addClass('aberto');	
+		
+		$('.Msg').hide();			
+		
+		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
+		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
+		$('.produtoTr_'+nId+' input').removeClass('borderZero');		
+	});
+
+
+/******** CALCULO VALOR UNITARIO   **************************/
+	$('body').on('focusout','.valorUnit',function(){
+		id = $(this).attr('id');
+		nId = id.substring(2);		
+		
+		itenQtd = $('#itenQtd'+nId).val();
+		qtd = parseInt(itenQtd);
+		
+		valor = $(this).val().split('.').join('').replace(',','.');
+		valor = parseFloat(valor);
+		
+		total = valor*qtd;
+		
+		$('#valorTotal'+nId).val(float2moeda(total));
+		if(total != '' && total != 'undefined' && total){
+			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+		}else{
+			$('#spanValTotal'+nId).text("R$ 0,00");
+		}		
+	});
+	
+
+	$('body').on('focusout','.qtdE',function(){
+		id = $(this).attr('id');
+		nId = id.substring(7);	
+		
+		itenQtd = $(this).val();
+		qtd = parseInt(itenQtd);
+		
+		valor = $('#vU'+nId).val().split('.').join('').replace(',','.');
+		valor = parseFloat(valor);
+		
+		total = valor*qtd;
+		
+		$('#valorTotal'+nId).val(float2moeda(total));
+		
+		if(total != '' && total != 'undefined' && total){
+			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+		}else{
+			$('#spanValTotal'+nId).text("R$ 0,00");
+		}		
+		
+	});
+	
 });
 
 
