@@ -221,7 +221,6 @@ class ComoperacaosController extends AppController {
 		        'codigoseguranca' => array(
 	                'Comtokencotacao.codigoseguranca' => array(
 	                    'operator' => 'LIKE',
-	                    'select' => array(''=> '', $listaCodigos)
 	                )
 	            ),
 	            'status_operacao' => array(
