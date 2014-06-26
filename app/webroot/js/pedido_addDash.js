@@ -3,15 +3,19 @@
 /********* VARIAVEIS GLOBAIS *********/
 var flag_produto = 0;
 var flag_confirmaProd = 0;
+var in_produto = 0;
+var valorTotal = 0;
 
-//VERIFICA QUANTOS PRODUTOS VIERAM DA DASHBOARD
-	
+//VERIFICA QUANTOS PRODUTOS VIERAM DA DASHBOARD	
 	$('#tbl_produtos tr[class*=produtoTr_]').each(function(){		
 		flag_produto++;		
 	});
 	
+	if(flag_produto > 0){
+		in_produto = flag_produto + 1;
+	}
 	
-/**** FUNÇÔES **************/
+/************ FUNÇÔES **************/
 
 	function float2moeda(num){
 		x = 0;
@@ -79,6 +83,7 @@ var flag_confirmaProd = 0;
 		if($(".autocompleteFornecedor input").val() == ''){
 			$('#msgValidaFor').show();
 		}else{
+			$('.Msg').hide();
 			valorForncedor = $("#add-fornecedor option:selected").attr('id');
 			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
 			valorNome = $("#add-fornecedor option:selected").attr('data-nome');
@@ -104,8 +109,7 @@ var flag_confirmaProd = 0;
     }); 
     
 /********************* Preencher Dados Produtos *********************/    
-    var in_produto = 0;
-    var valorTotal = 0;
+   
     
     $("body").on('click','#bt-adicionarProduto',function(){		
 		
@@ -114,11 +118,7 @@ var flag_confirmaProd = 0;
 		}else if($("#produtoQtd").val() == ''){
 			$('#msgQtdVazia').show();
 		}else{
-			
-			if(flag_produto > 0 && in_produto == 0 ){
-				in_produto = flag_produto + 1;
-			}
-			
+							
 			valorNome = $("#add-produtos option:selected" ).attr('data-nome');
 			valorId = $("#add-produtos option:selected" ).attr('id');
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
@@ -165,9 +165,10 @@ var flag_confirmaProd = 0;
 					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
+						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
 						<img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
 						<img title="Confirmar" alt="Confirmar" src="/lifecare/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
-						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluir_'+in_produto+'" class="btnRemoveProdu"/>\
+						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
 					</td>\
 				</tr>');
 			
@@ -196,11 +197,18 @@ var flag_confirmaProd = 0;
 	var fim = 0;
 	$('body').on('click','.btnRemoveProdu',function(){
 		id = $(this).attr('id');
-		atual = id.substr(8);
+		atual = id.substr(9);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
-		in_produto = in_produto - 1;
-		flag_produto--;
+		
+		classTR = $('#tbl_produtos tr[class*=produtoTr_]').last().attr('class');
+		if(classTR == undefined){
+			in_produto = 0;
+		}else{
+			nTr = classTR.substr(10);
+			nTr = parseInt(nTr) + 1;
+			in_produto = nTr;
+		}
 	});
 	
 	
@@ -228,25 +236,26 @@ var flag_confirmaProd = 0;
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			
-		}else if(flag_produto <= 0 ){			
-			$('#msgValidaProduto').show();
-		
-		}else if(flag_confirmaProd < flag_produto){
-			$('#msgValidaConfirmaProduto').show();
-			
 		}else if(in_fornecedor == 0 && $('#validaProd').val() == 0){
 			$('#msgValidaFor').show();			
 			
+		}else if(in_produto <= 0){
+			$('#msgValidaProduto').show();
+									
 		}else{
-			$('span[id*="msg"').hide();
-			$('.confirmaInput').attr('readonly','readonly');
-			$('.confirmaInput').attr('onfocus','this.blur();');
-			$('.confirmaInput').attr('disabled','disabled');
-			$('.confirmaInput').addClass('borderZero');
-			$('#confirmaDados').hide();
-			$('.confirma').hide();
-			$('.bt-salvar').show();
-			$('#voltar').show();
+			if($('span[id*=spanStatus]').hasClass('aberto')){
+				$('#msgValidaConfirmaProduto').show();
+			}else{
+				$('span[id*="msg"').hide();
+				$('.confirmaInput').attr('readonly','readonly');
+				$('.confirmaInput').attr('onfocus','this.blur();');
+				$('.confirmaInput').attr('disabled','disabled');
+				$('.confirmaInput').addClass('borderZero');
+				$('#confirmaDados').hide();
+				$('.confirma').hide();
+				$('.bt-salvar').show();
+				$('#voltar').show();
+			}
 		}	
 		
 	});
@@ -315,6 +324,7 @@ var flag_confirmaProd = 0;
 	
 	
 	
+/******** FUNCAO CONFIRMAR  ***********************/	
 	$('body').on('click','.btnConfirm',function(){
 		id = $(this).attr('id');
 		nId = id.substring(6);
@@ -324,8 +334,12 @@ var flag_confirmaProd = 0;
 		if($('#itenQtd'+nId).val() == ''){
 			$('#msgValidaQtde'+nId).show();			
 		}else{			
-			flag_confirmaProd++;
+			
+			$('#spanStatus'+nId).removeClass('aberto');	
+			$('#spanStatus'+nId).addClass('fechado');
+		
 			$('#editi'+nId).show();
+			$('#excluirP_'+nId).show();
 			$('.produtoTr_'+nId+' input').attr('readonly','readonly');
 			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
 			$('.produtoTr_'+nId+' input').addClass('borderZero');
@@ -333,20 +347,25 @@ var flag_confirmaProd = 0;
 		}
 	});
 	
-	
+/******** FUNCAO EDITAR   **************************/
 	$('body').on('click','.btnEditi',function(){
 		id = $(this).attr('id');
-		nId = id.substring(5);
+		nId = id.substring(5);	
 		
-		$('#confir'+nId).show();	
+		$(this).hide();
+		$('#excluirP_'+nId).hide();
+		$('#confir'+nId).show();
+		
+		$('#spanStatus'+nId).removeClass('fechado');	
+		$('#spanStatus'+nId).addClass('aberto');	
+		
 		$('.Msg').hide();			
 		
 		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
 		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
-		$('.produtoTr_'+nId+' input').removeClass('borderZero');
-		$(this).hide();
-		
+		$('.produtoTr_'+nId+' input').removeClass('borderZero');		
 	});
+
 	
 
 });
