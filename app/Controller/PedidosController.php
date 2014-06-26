@@ -408,7 +408,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -416,12 +416,12 @@ public function addDash(){
 				$email->attachments(array($pdf));
 				
 				$mensagemHtml = array('mensagem' => 'teste de mensagem');
-				$this->set('extraparams', $mensagemHtml);
-                if($email->send($mensagemHtml)){
+				$this->set('extraparams', $mensagem);
+                if($email->send($mensagem)){
 					return TRUE;
                 }else{
                 	
-				 	$this->set('extraparams', $mensagemHtml);
+				 	$this->set('extraparams', $mensagem);
 					return FALSE;	
                 }
 
@@ -476,7 +476,7 @@ public function addDash(){
 				
 				$update = array('id'=>$this->request->data['Pedido']['id'],'status'=>'ENTREGUE', 'recebimento'=> $this->request->data['Pedido']['recebimento']);
 				
-				debug($update);
+				
 				
 				if ($this->Pedido->save($update)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
@@ -486,5 +486,43 @@ public function addDash(){
 			}
 		}
 	}
+	
+	
+	public function reeviarpedido($id) {
+		
+		if ($this->request->is('post')) {	
+			$this->loadModel('Contato');
+			$this->loadModel('Produto');
+			$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
+			$i=0;
+			foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+				$ultimoPedido['Comitensdaoperacao'][$i];
+				$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+				$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+				$i++;
+			}
+			
+			foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
+				$contato = $this->Contato->find('first', 
+							array(
+								'recursive' => -1,
+								'conditions' => array(
+									'Contato.parceirodenegocio_id' => $fornecedor['id']
+								),	
+							)
+						);	
+				$remetente="ti.dev@vento-consulting.com";
+				
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+				}
+			}
+			
+			$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
+			return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+		}
+		
+	}
+
 
 }
