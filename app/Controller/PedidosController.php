@@ -194,15 +194,11 @@ class PedidosController extends ComoperacaosController {
 				$remetente= "eduardonalves@gmail.com";
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
-
-						if($this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido)){
-							$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
-							return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
-						}
-
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 					}
-
 				}
+				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
+				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 			}else{
 				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 
@@ -371,8 +367,8 @@ public function addDash(){
                 $email->to($destinatario);
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
-				
-				$email->transport('Mail');
+				//a linha abaixo só serve para o servidor da alemanha
+				//$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');

@@ -661,7 +661,8 @@ public $uses = array();
 				$email->from('ti.dev@vento-consulting.com');
 
                 $email->subject($remetente);
-				$email->transport('Mail');
+				//essa linha abaixo só serve para o servidor da alemanha
+				//$email->transport('Mail');
                 if($email->send($mensagem)){
 					return TRUE;
 

@@ -55,7 +55,7 @@
 	
 	<?php 
 		$urlQuickLink= $this->Html->url( null, true );
-		//$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
+		$urlQuickLink = $urlQuickLink.'?'.'parametro'.'='.$_GET['parametro']; 
 	?>
 	
 	<section class="coluna-modal">

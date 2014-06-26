@@ -155,7 +155,9 @@ class CotacaosController extends ComoperacaosController {
             $email->subject($remetente);
 			$email->template('cotacao','default');
 			$email->emailFormat('html');
-			$email->transport('Mail');
+			
+			//essa linha só serve para o servidor da alemanha
+			//$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
