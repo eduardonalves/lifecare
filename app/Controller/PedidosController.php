@@ -450,36 +450,37 @@ public function addDash(){
 	
 	public function reeviarpedido($id) {
 		
-			
-		$this->loadModel('Contato');
-		$this->loadModel('Produto');
-		$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
-		$i=0;
-		foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
-			$ultimoPedido['Comitensdaoperacao'][$i];
-			$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
-			$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-			$i++;
-		}
-		
-		foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
-			$contato = $this->Contato->find('first', 
-						array(
-							'recursive' => -1,
-							'conditions' => array(
-								'Contato.parceirodenegocio_id' => $fornecedor['id']
-							),	
-						)
-					);	
-			$remetente="ti.dev@vento-consulting.com";
-			
-			if($contato['Contato']['email'] !=""){
-				$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+		if ($this->request->is('post')) {	
+			$this->loadModel('Contato');
+			$this->loadModel('Produto');
+			$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
+			$i=0;
+			foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+				$ultimoPedido['Comitensdaoperacao'][$i];
+				$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+				$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+				$i++;
 			}
+			
+			foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
+				$contato = $this->Contato->find('first', 
+							array(
+								'recursive' => -1,
+								'conditions' => array(
+									'Contato.parceirodenegocio_id' => $fornecedor['id']
+								),	
+							)
+						);	
+				$remetente="ti.dev@vento-consulting.com";
+				
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+				}
+			}
+			
+			$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
+			return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 		}
-		
-		
-		
 		
 	}
 
