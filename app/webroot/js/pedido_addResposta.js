@@ -280,6 +280,7 @@ var valorTotal = 0;
 		}
 	
 	});
+	
 
 });
 

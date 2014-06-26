@@ -104,6 +104,7 @@ var valorTotal = 0;
 				$("#tblPedido").css('margin-top','10px');
 			}
 
+
 			in_fornecedor++;			
 		}
     }); 

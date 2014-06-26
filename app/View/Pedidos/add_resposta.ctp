@@ -104,6 +104,7 @@
 			<section class="coluna-esquerda">	
 				<div class="segmento-esquerdo">
 						
+						
 						<div class="conteudo-linha">
 							<div class="linha"><?php echo $this->Html->Tag('p','Nome do Fornecedor:',array('class'=>'titulo'));?></div>
 							<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
