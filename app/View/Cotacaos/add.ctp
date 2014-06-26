@@ -42,7 +42,6 @@
 				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput dataInicio tamanho-pequeno inputData','type'=>'text'));
 				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
 				echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
-				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20'));
 				
 				echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 			?>
@@ -110,7 +109,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_fornecedores" >
 					<thead>
-						<th>Parceiro nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma">Ações</th>					
 					</thead>
@@ -170,7 +169,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
-						<th >Produto nome</th>
+						<th >Nome do Produto</th>
 						<th style="width: 80px !important;">Quantidade</th>									
 						<th style="width: 70px;">Unidade</th>
 						<th style="width: 150px;">Observação</th>		

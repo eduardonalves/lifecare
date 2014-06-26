@@ -117,7 +117,7 @@
 					
 					<div class="" >
 					<?php
-						echo $this->Search->input('codigoseguranca', array('label' => 'Código de Segurança:','class'=>'tamanho-medio input-alinhamento'));
+						echo $this->Search->input('ide', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
 					?>
 					</div>
 					

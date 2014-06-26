@@ -58,7 +58,7 @@
 			
 			<section class="coluna-direita">
 				<?php
-					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
+					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 
 				?>
 			</section>
@@ -107,7 +107,7 @@
 			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
 				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
-						<th>Fornecedor Nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma" >Ações</th>					
 					</thead>
@@ -174,7 +174,7 @@
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
 						<thead>
-							<th>Produto nome</th>
+							<th>Nome do Produto</th>
 							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 							<th style="width: 70px;">Unidade</th>
 							<th style="width: 150px;">Valor Unitário</th>

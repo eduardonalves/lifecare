@@ -139,6 +139,11 @@
 					<div class="linha"><?php echo $this->Html->Tag('p','Data Inicial:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($comresposta['Comoperacao']['data_inici']),array('class'=>'valor'));?>	</div>
 				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Código:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comoperacao']['id'],array('class'=>'valor'));?>	</div>
+				</div>
 			
 			</div>
 	</section>		

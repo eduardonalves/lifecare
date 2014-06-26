@@ -135,7 +135,6 @@ class ComoperacaosController extends AppController {
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Categoria');
 		$this->loadModel('Produto');
-		$this->loadModel('Comtokencotacao');
 		
 		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 		
@@ -152,14 +151,6 @@ class ComoperacaosController extends AppController {
 		}
 		
 		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
-		
-		$codigos = $this->Comtokencotacao->find('list',array( 'recursive' => -1, 'fields' => array('Comtokencotacao.codigoseguranca')));
-		
-		$listaCodigos = array();
-		foreach($codigos as $codigo){
-			array_push($listaCodigos, array($codigo => $codigo));
-		}
-		
 		
 //Adiciona filtros
 		
@@ -218,9 +209,9 @@ class ComoperacaosController extends AppController {
 		                )
 		            )
 		        ),
-		        'codigoseguranca' => array(
-	                'Comtokencotacao.codigoseguranca' => array(
-	                    'operator' => 'LIKE',
+		        'ide' => array(
+	                'Comoperacao.id' => array(
+	                    'operator' => '=',
 	                )
 	            ),
 	            'status_operacao' => array(
@@ -348,10 +339,9 @@ class ComoperacaosController extends AppController {
 					                )
 					            )
 					        ),
-							'codigoseguranca' => array(
-								'_Comtokencotacao.codigoseguranca' => array(
+							'id' => array(
+								'_Comoperacao.id' => array(
 									'operator' => 'LIKE',
-									'select' => array(''=> '', $listaCodigos)
 								)
 							),
 					         'data_entrega' => array(
@@ -507,10 +497,9 @@ class ComoperacaosController extends AppController {
 				                )
 				            )
 				        ),
-				        'codigoseguranca' => array(
-								'Comtokencotacao.codigoseguranca' => array(
+				        'id' => array(
+								'_Comoperacao.id' => array(
 									'operator' => 'LIKE',
-									'select' => array(''=> '', $listaCodigos)
 								)
 							),
 			            'status_operacao' => array(

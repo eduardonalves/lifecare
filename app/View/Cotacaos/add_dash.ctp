@@ -109,7 +109,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_fornecedores" >
 					<thead>
-						<th>Parceiro nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma">Ações</th>					
 					</thead>
@@ -169,7 +169,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
+						<th>Nome do Produto</th>
 						<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 						<th style="width: 70px;">Unidade</th>
 						<th style="width: 150px;">Observação</th>						

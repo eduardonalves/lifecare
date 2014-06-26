@@ -112,7 +112,7 @@
 		<section class="coluna-direita">
 
 			<?php
-				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['prazo_entrega'],'disabled'=>'disabled')); 
+				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['id'],'disabled'=>'disabled')); 
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$cotacao['Cotacao']['status'],'disabled'=>'disabled'));	
 				
 			?>
@@ -126,7 +126,7 @@
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
+						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
 						<th>Observação</th>									
@@ -150,7 +150,7 @@
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_fornecedores" >
 					<thead>
-						<th>Parceiro nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>								
 					</thead>
 					
