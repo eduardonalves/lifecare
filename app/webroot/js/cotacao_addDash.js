@@ -264,6 +264,11 @@ var valorTotal = 0;
 			if($('span[id*=spanStatus]').hasClass('aberto')){
 				$('#msgValidaConfirmaProduto').show();
 			}else{
+				
+				$('#divSelPgto').hide();
+				$('#frmPgto').val($('#pagamento option:selected').val());
+				$('#divFrmPgto').show();
+				
 				$('span[id*="msg"').hide();
 				$('.confirmaInput').attr('readonly','readonly');
 				$('.confirmaInput').attr('onfocus','this.blur();');
@@ -280,6 +285,8 @@ var valorTotal = 0;
 
 /******** VOLTAR DA CONFIRMACAO   ************/
 	$('#voltar').click(function(){
+		$('#divSelPgto').show();
+		$('#divFrmPgto').hide();
 		$('span[id*="msg"').hide();
 		$('.confirmaInput').removeAttr('readonly','readonly');
 		$('.confirmaInput').removeAttr('onfocus','this.blur();');

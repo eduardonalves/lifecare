@@ -32,7 +32,7 @@ $(document).ready(function(){
 	
 //MUDAR ACTION E SUBMITA OS VALORES
 	$('#pedir').click(function(){
-		$('#listaIndexForm').attr('action','/Pedidos/addDash');
+		$('#listaIndexForm').attr('action','/lifecare/Pedidos/addDash');
 		var ok = confirm("Gostaria de Fazer o Pedido dos Produtos Selecionados?");
 		if(ok == true){
 			$('#listaIndexForm').submit();
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	});
 	
 	$('#cotar').click(function(){
-		$('#listaIndexForm').attr('action','/Cotacaos/addDash');
+		$('#listaIndexForm').attr('action','/lifecare/Cotacaos/addDash');
 		var ok = confirm("Gostaria de Fazer a Cotação dos Produtos Selecionados?");
 		if(ok == true){
 			$('#listaIndexForm').submit();

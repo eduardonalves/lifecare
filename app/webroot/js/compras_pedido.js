@@ -230,6 +230,17 @@
 			if($('span[id*=spanStatus]').hasClass('aberto')){
 				$('#msgValidaConfirmaProduto').show();
 			}else{
+								
+				$('#inputNormais').hide();
+				if($('#normalVale  option:selected').val() == 0){
+					$('#tipoVale').val('Comum');
+				}else{
+					$('#tipoVale').val('Vale');
+				}
+				$('#frmPgto').val($('#normalFrm  option:selected').val());
+				$('#inputConfirma').show();
+				
+				
 				$('span[id*="msg"').hide();
 				$('.confirmaInput').attr('readonly','readonly');
 				$('.confirmaInput').attr('onfocus','this.blur();');
@@ -246,6 +257,8 @@
 
 /******** VOLTAR DA CONFIRMACAO   ************/
 	$('#voltar').click(function(){
+		$('#inputNormais').show();
+		$('#inputConfirma').hide();
 		$('span[id*="msg"').hide();
 		$('.confirmaInput').removeAttr('readonly','readonly');
 		$('.confirmaInput').removeAttr('onfocus','this.blur();');

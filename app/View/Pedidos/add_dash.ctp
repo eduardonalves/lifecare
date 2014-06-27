@@ -38,9 +38,14 @@
 					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
 					echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 
-					echo $this->Form->input('vale',array('type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
-					echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-
+					echo "<div id='inputNormais'>";
+						echo $this->Form->input('vale',array('id'=>'normalVale','type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
+						echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+					echo "</div>";
+					echo "<div id='inputConfirma' style='display:none;'>";
+						echo $this->Form->input('Vazio.vale',array('id'=>'tipoVale','type'=>'text','label'=>'Tipo:','class'=>'tamanho-pequeno borderZero','disabled' =>'disabled'));
+						echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+					echo "</div>";
 				?>
 			</section>
 			
