@@ -211,6 +211,7 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaES"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Nome do Fornecedor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 
 				</tr>
 				
@@ -224,18 +225,25 @@
 						<?php 
 							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Cotação','title'=>'Visualizar Cotação','url'=>array('controller' => 'Cotacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+								
+								echo "<hr />";
+								
+								echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
+								echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+								echo "</a>";
+								
 							}else{
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','title'=>'Visualizar Pedido','url'=>array('controller' => 'Pedidos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
+								
+								echo "<hr />";
+								
+								echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
+								'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'],'abas'=>'41','layout'=>'compras')));
 							}
-							echo "<hr />";
-																			
-							echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
-							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
-							echo "</a>";
 							
 							echo "<hr />";
-																			
-							echo "<a href='myModal_add-view_produto".$j."' class='bt-showmodal'>"; 
+							
+							echo "<a href='myModal_add-view_produto".$j."' class='bt-showmodal'>";
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
 							echo "</a>";
 							
@@ -260,6 +268,7 @@
 								<table>
 								<thead>
 								    <tr>
+									<th>Ações</th>
 									<th>Nome</th>
 									<th>Status</th>
 								    </tr>
@@ -268,7 +277,13 @@
 								<?php
 								
 									foreach($comoperacao['Parceirodenegocio'] as $parceiro){
+									
 									echo "<tr><td>";
+										echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
+										'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parceiro['id'],'abas'=>'41','layout'=>'compras')));
+									echo "</td>";
+									
+									echo "<td>";
 										echo $parceiro['nome'];
 									echo "</td>";
 									
@@ -305,23 +320,61 @@
 								<table>
 								<thead>
 								    <tr>
+									<th>Ações</th>
+									<th>Código</th>
 									<th>Nome</th>
-									<th>Status</th>
+									<th>Descrição</th>
+									<th>Estoque</th>
+									<th>Preço de Custo</th>
+									<th>Preço de Venda</th>
+									<th>Nível</th>
+									<th>Categoria</th>
 								    </tr>
 								</thead>
 								
 								<?php
 								
 									foreach($comoperacao['Produto'] as $produto){
+
 									echo "<tr><td>";
-										echo $parceiro['nome'];
+										echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto',
+										'url'=>array('controller'=>'Produtos','action'=>'view',$produto['id'],'abas'=>'41','layout'=>'compras')));
+									echo "</td>";
+
+									echo "<td>";
+										echo $produto['id'];
 									echo "</td>";
 									
 									echo "<td>";
-										if(isset($parceiro['status'])){ echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'style'=>'left: 45%;'));}
+										echo $produto['nome'];
 									echo "</td>";
 
+									echo "<td>";
+										echo $produto['descricao'];
+									echo "</td>";
+
+									echo "<td>";
+										echo $produto['estoque'];
+									echo "</td>";
+									
+									echo "<td>";
+										echo $produto['preco_custo'];
+									echo "</td>";
+
+									echo "<td>";
+										echo $produto['preco_venda'];
+									echo "</td>";
+									
+									echo "<td>";
+										echo $this->Html->image('semaforo-' . strtolower($produto['nivel']) . '-12x12.png', array('alt' => '-'.$produto['nivel'], 'title' => '-'));
+									echo "</td>";
+
+									echo "<td>";
+										//~ echo $produto['Categoria']['nome'];
+									echo "</td>";
+									
 									echo "</tr>";
+									
 									}
 								?>
 
@@ -341,6 +394,8 @@
 					<td><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
 					<td><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
+					<td><?php echo $comoperacao['Parceirodenegocio'][0]['nome'];
+								if($comoperacao['Comoperacao']['tipo'] == 'COTACAO')  echo '...'; ?>&nbsp;</td>
 				</tr>
 
 				<?php
