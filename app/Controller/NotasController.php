@@ -45,7 +45,7 @@ class NotasController extends AppController {
 			
 			
 					$this->loadModel('Lote');
-					$lotes = $this->Lote->find('all', array('recursive' => -1, 'conditions' => array('Lote.status NOT LIKE' => 'VERMELHO')));
+					$lotes = $this->Lote->find('all', array('recursive' => 0, 'conditions' => array('Lote.status NOT LIKE' => 'VERMELHO')));
 					
 					foreach($lotes as $lote){
 						$hoje= date("Y-m-d");
