@@ -384,6 +384,7 @@ public function addDash(){
 			
 			 $file_name= APP."webroot/img/cake.icon.png";
 			$extraparams= $mensagem;
+			$this->Session->write('extraparams',$extraparams);
 			 $this->set(compact('extraparams'));
 			 $this->pdfConfig = array(
 				 'orientation' => 'portrait',
@@ -401,7 +402,7 @@ public function addDash(){
 			 
 			 //Writing external parameters in session
 			 	$extraparams =$mensagem;
-			 	$this->Session->write('extraparams',$extraparams);
+			 	
 				
                 $email = new CakeEmail('smtp');
 
