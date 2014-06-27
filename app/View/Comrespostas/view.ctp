@@ -1,5 +1,6 @@
 <?php
 	$this->start('css');
+		echo $this->Html->css('resposta');
 	    echo $this->Html->css('table');
 	$this->end();
 
@@ -234,7 +235,7 @@
 						echo $itens['produto_nome'];
 					echo "</span></td>";
 					
-					echo "<td class='labelTd whiteSpace'><span title='".$itens['obs']."'>";
+					echo "<td class='labelTd whiteSpace'><span title='".$itens['obs_operacao']."'>";
 						echo $itens['obs_operacao'];
 					echo "</span></td>";
 					
@@ -271,6 +272,7 @@
 
 <footer>
 	<?php
+		echo $this->Form->postLink($this->Html->image('pedido-acao.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$comresposta['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $comresposta['Comresposta']['id'])));
 	?>	
 </footer>
 

@@ -89,9 +89,7 @@ class PedidosController extends ComoperacaosController {
 			
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
-		
-		
-		
+
 		if (!$this->Pedido->exists($id)) {
 			throw new NotFoundException(__('Invalid pedido'));
 		}
@@ -264,6 +262,48 @@ public function addDash(){
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 
+// ADD PARA A TRANSFORMAR UMA RESPOSTA DE COTACAO EM PEDIDO.
+	public function addResposta($id){
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->loadModel('Contato');
+		$this->loadModel('Produto');
+		$this->loadModel('ProdutosParceirodenegocio');
+		$this->loadModel('Comresposta');
+		$this->loadModel('Comitensdaoperacao');
+		
+		$comresposta = $this->Comresposta->find('first',array('conditions'=>array('Comresposta.id'=>$id),'recursive'=>1));
+		
+		$j=0;
+		foreach($comresposta as $j => $respostaList){
+			$x=0;
+			foreach($comresposta['Comitensresposta'] as $x => $extras){
+				$comExtras = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$comresposta['Comitensresposta'][$x]['produto_id'])));
+				$comExOperacao = $this->Comitensdaoperacao->find('first',array('conditions'=>array('Comitensdaoperacao.comoperacao_id'=>$comresposta['Comoperacao']['id'])));
+				$comresposta['Comitensresposta'][$x]['produto_nome'] = $comExtras['Produto']['nome'];
+				$comresposta['Comitensresposta'][$x]['produto_unidade'] = $comExtras['Produto']['unidade'];
+				$comresposta['Comitensresposta'][$x]['obs_operacao'] = $comExOperacao['Comitensdaoperacao']['obs'];
+			$x++;
+			}
+		$j++;
+		}	
+		
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceiroResposta = $this->Parceirodenegocio->find('first',array('conditions' => array('Parceirodenegocio.id' =>$comresposta['Parceirodenegocio']['id'])));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Pedido->User->find('list');
+		$this->set(compact('users','produtos','parceiroResposta','userid','allCategorias','categorias','produtoslista','comresposta'));
+	}
+
 /**
  * edit method
  *
@@ -368,7 +408,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -376,12 +416,12 @@ public function addDash(){
 				$email->attachments(array($pdf));
 				
 				$mensagemHtml = array('mensagem' => 'teste de mensagem');
-				$this->set('extraparams', $mensagemHtml);
-                if($email->send($mensagemHtml)){
+				$this->set('extraparams', $mensagem);
+                if($email->send($mensagem)){
 					return TRUE;
                 }else{
                 	
-				 	$this->set('extraparams', $mensagemHtml);
+				 	$this->set('extraparams', $mensagem);
 					return FALSE;	
                 }
 
@@ -436,7 +476,7 @@ public function addDash(){
 				
 				$update = array('id'=>$this->request->data['Pedido']['id'],'status'=>'ENTREGUE', 'recebimento'=> $this->request->data['Pedido']['recebimento']);
 				
-				debug($update);
+				
 				
 				if ($this->Pedido->save($update)) {
 					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
@@ -446,5 +486,43 @@ public function addDash(){
 			}
 		}
 	}
+	
+	
+	public function reeviarpedido($id) {
+		
+		if ($this->request->is('post')) {	
+			$this->loadModel('Contato');
+			$this->loadModel('Produto');
+			$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
+			$i=0;
+			foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+				$ultimoPedido['Comitensdaoperacao'][$i];
+				$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+				$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+				$i++;
+			}
+			
+			foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
+				$contato = $this->Contato->find('first', 
+							array(
+								'recursive' => -1,
+								'conditions' => array(
+									'Contato.parceirodenegocio_id' => $fornecedor['id']
+								),	
+							)
+						);	
+				$remetente="ti.dev@vento-consulting.com";
+				
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+				}
+			}
+			
+			$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
+			return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+		}
+		
+	}
+
 
 }
