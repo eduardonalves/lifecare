@@ -367,7 +367,7 @@ public function addDash(){
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
-			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
+			$mensagem['Mensagem']['corpo']="Esta é um envio de pedido de compras, sob o código: ".$mensagem['Pedido']['id'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			$this->loadModel('Comtokencotacao');
 			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedido']['id'])));
@@ -383,8 +383,8 @@ public function addDash(){
 			 
 			
 			 $file_name= APP."webroot/img/cake.icon.png";
-			 
-			 $this->set('extraparams', $mensagem);
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
 			 $this->pdfConfig = array(
 				 'orientation' => 'portrait',
 				 'filename' => 'Invoice_'. 3
@@ -400,8 +400,8 @@ public function addDash(){
 			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
 			 
 			 //Writing external parameters in session
-			 $extraparams =$mensagem;
-			 $this->Session->write($extraparams);
+			 	$extraparams =$mensagem;
+			 	$this->Session->write('extraparams',$extraparams);
 				
                 $email = new CakeEmail('smtp');
 
@@ -417,7 +417,7 @@ public function addDash(){
 				$email->attachments(array($pdf));
 				
 				$mensagemHtml = array('mensagem' => 'teste de mensagem');
-				$this->set('extraparams', $mensagem);
+				//$this->set('extraparams', $mensagem);
                 if($email->send($mensagem)){
 					return TRUE;
                 }else{
