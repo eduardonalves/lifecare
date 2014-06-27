@@ -289,7 +289,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 			
-				<?php 
+				<?php
 				$j=0;
 				
 				foreach ($contas as $conta): ?>
@@ -336,15 +336,15 @@ $(document).ready(function() {
 									<th>Período Crítico</th>
 									<th class="comprimentoMinimo">Valor</th>
 									<th class="comprimentoMinimo">Juros</th>
-									<th class="comprimentoMinimo">Desconto</th>																	
-									<th>Parcela</th>																	
-									<th>Banco</th>																	
-									<th>Agência</th>																	
-									<th>Conta</th>																	
-									<th>Status</th>		
-								    </tr>											
+									<th class="comprimentoMinimo">Desconto</th>
+									<th>Parcela</th>
+									<th>Banco</th>
+									<th>Agência</th>
+									<th>Conta</th>
+									<th>Status</th>
+								    </tr>
 								</thead>
-										
+								
 								<?php
 								
 									foreach($conta['Parcela'] as $parcela){

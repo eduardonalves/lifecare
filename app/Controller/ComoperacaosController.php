@@ -276,6 +276,7 @@ class ComoperacaosController extends AppController {
 					}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
+					
 					$this->Paginator->settings = array(
 						'Comoperacao' => array(
 							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
@@ -285,7 +286,6 @@ class ComoperacaosController extends AppController {
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
-					
 					
 					
 					$cntOperacoes = count($comoperacaos);
