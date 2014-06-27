@@ -233,6 +233,12 @@
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
 							echo "</a>";
 							
+							echo "<hr />";
+																			
+							echo "<a href='myModal_add-view_produto".$j."' class='bt-showmodal'>"; 
+							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
+							echo "</a>";
+							
 						?>
 						
 						<div class="modal fade" id="myModal_add-view_parceiro<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -279,6 +285,53 @@
 							</section>
 						</div>
 						</div>
+						
+						<div class="modal fade" id="myModal_add-view_produto<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-body">
+						<?php
+							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+						?>
+							<header id="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							?>	
+								<h1>Visualização dos Produtos</h1>
+							</header>
+			
+							<section>
+							<header>Produtos</header>
+			
+							<section class="coluna-modal">
+								<table>
+								<thead>
+								    <tr>
+									<th>Nome</th>
+									<th>Status</th>
+								    </tr>
+								</thead>
+								
+								<?php
+								
+									foreach($comoperacao['Produto'] as $produto){
+									echo "<tr><td>";
+										echo $parceiro['nome'];
+									echo "</td>";
+									
+									echo "<td>";
+										if(isset($parceiro['status'])){ echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'style'=>'left: 45%;'));}
+									echo "</td>";
+
+									echo "</tr>";
+									}
+								?>
+
+								</table>
+							</section>
+							</section>
+						</div>
+						</div>
+
+						
 						
 					</td>
 					<td><?php echo $comoperacao['Comoperacao']['tipo']; ?>&nbsp;</td>
