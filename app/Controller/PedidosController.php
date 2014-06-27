@@ -89,9 +89,7 @@ class PedidosController extends ComoperacaosController {
 			
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
-		
-		
-		
+
 		if (!$this->Pedido->exists($id)) {
 			throw new NotFoundException(__('Invalid pedido'));
 		}
@@ -264,6 +262,48 @@ public function addDash(){
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 
+// ADD PARA A TRANSFORMAR UMA RESPOSTA DE COTACAO EM PEDIDO.
+	public function addResposta($id){
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->loadModel('Contato');
+		$this->loadModel('Produto');
+		$this->loadModel('ProdutosParceirodenegocio');
+		$this->loadModel('Comresposta');
+		$this->loadModel('Comitensdaoperacao');
+		
+		$comresposta = $this->Comresposta->find('first',array('conditions'=>array('Comresposta.id'=>$id),'recursive'=>1));
+		
+		$j=0;
+		foreach($comresposta as $j => $respostaList){
+			$x=0;
+			foreach($comresposta['Comitensresposta'] as $x => $extras){
+				$comExtras = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$comresposta['Comitensresposta'][$x]['produto_id'])));
+				$comExOperacao = $this->Comitensdaoperacao->find('first',array('conditions'=>array('Comitensdaoperacao.comoperacao_id'=>$comresposta['Comoperacao']['id'])));
+				$comresposta['Comitensresposta'][$x]['produto_nome'] = $comExtras['Produto']['nome'];
+				$comresposta['Comitensresposta'][$x]['produto_unidade'] = $comExtras['Produto']['unidade'];
+				$comresposta['Comitensresposta'][$x]['obs_operacao'] = $comExOperacao['Comitensdaoperacao']['obs'];
+			$x++;
+			}
+		$j++;
+		}	
+		
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceiroResposta = $this->Parceirodenegocio->find('first',array('conditions' => array('Parceirodenegocio.id' =>$comresposta['Parceirodenegocio']['id'])));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Pedido->User->find('list');
+		$this->set(compact('users','produtos','parceiroResposta','userid','allCategorias','categorias','produtoslista','comresposta'));
+	}
+
 /**
  * edit method
  *
@@ -360,7 +400,8 @@ public function addDash(){
 			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
 			 
 			 //Writing external parameters in session
-			 $this->Session->write("extraparams",$mensagem);
+			 $extraparams =$mensagem;
+			 $this->Session->write($extraparams);
 				
                 $email = new CakeEmail('smtp');
 
