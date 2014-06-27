@@ -186,7 +186,6 @@
 						</thead>
 								
 					<?php
-					
 						$j = 0;
 						foreach($produtoslista as $prodList ){
 							
