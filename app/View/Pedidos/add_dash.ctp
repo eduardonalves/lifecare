@@ -107,7 +107,7 @@
 			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
 				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
-						<th>Fornecedor Nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma" >Ações</th>					
 					</thead>
@@ -174,7 +174,7 @@
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
 						<thead>
-							<th>Produto nome</th>
+							<th>Nome do Produto</th>
 							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 							<th>Unidade</th>
 							<th style="width: 150px;">Valor Unitário</th>
