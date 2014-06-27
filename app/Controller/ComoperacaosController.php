@@ -650,7 +650,7 @@ public $uses = array();
 
                 $email->subject($remetente);
 				//essa linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
                 if($email->send($mensagem)){
 					return TRUE;
 
