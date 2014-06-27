@@ -360,7 +360,8 @@ public function addDash(){
 			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
 			 
 			 //Writing external parameters in session
-			 $this->Session->write("extraparams",$mensagem);
+			 $extraparams =$mensagem;
+			 $this->Session->write($extraparams);
 				
                 $email = new CakeEmail('smtp');
 
