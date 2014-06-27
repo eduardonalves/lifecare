@@ -481,10 +481,18 @@ public function addDash(){
 				
 				
 				if ($this->Pedido->save($update)) {
-					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
+					
+					$this->Session->setFlash(__('Entrega de pedido confirmado.'),'default',array('class'=>'success-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}else{
-					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
+					
+					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}
+			}else{
+					$this->Session->setFlash(__('Erro: O pedido já foi entregue.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
+			
 			}
 		}
 	}
