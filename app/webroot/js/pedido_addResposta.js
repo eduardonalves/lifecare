@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(document).ready(function() {
 
 /********* VARIAVEIS GLOBAIS *********/
 var flag_produto = 0;
@@ -6,7 +6,7 @@ var flag_confirmaProd = 0;
 var in_produto = 0;
 var valorTotal = 0;
 
-//VERIFICA QUANTOS PRODUTOS VIERAM DA DASHBOARD	
+/********* VERIFICA QUANTOS PRODUTOS VIERAM DA DASHBOARD *********/
 	$('#tbl_produtos tr[class*=produtoTr_]').each(function(){		
 		flag_produto++;		
 	});
@@ -16,7 +16,6 @@ var valorTotal = 0;
 	}
 	
 /************ FUNÇÔES **************/
-
 	function float2moeda(num){
 		x = 0;
 		
@@ -43,28 +42,15 @@ var valorTotal = 0;
 		 }
 	}
  
-/********************* Autocomplete Fornecedor *********************/
-    $(function(){
-		$("#add-fornecedor").combobox();
-	});
-	
+
 /********************* Autocomplete Produtos *********************/
     $(function(){
 		$("#add-produtos").combobox();
 	});
 
-/**************** Modal Parceiro de negocio tipo Fornecedor *****************/
-    $('body').on('click', '#ui-id-1 a',function(){
-		valorCad= $(this).text();
-		if(valorCad=="Cadastrar"){
-			$(".autocompleteFornecedor input").val('');
-			$("#myModal_add-parceiroFornecedor").modal('show');
-		}
 
-    });
-    
 /**************** Modal Produtos *****************/
-    $('body').on('click', '#ui-id-2 a',function(){
+    $('body').on('click', '#ui-id-1 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 		    $(".autocompleteProduto input").val('');
@@ -74,44 +60,8 @@ var valorTotal = 0;
 			$('#produtoUnid').val(valorUnid);
 		}
 	});
-	
 
-/********************* Preencher Dados Fornecedor *********************/    
-	var in_fornecedor = 0;
-    $("#bt-adicionarFornecedor").click(function(){		
-
-		if($(".autocompleteFornecedor input").val() == ''){
-			$('#msgValidaFor').show();
-		}else{
-			$('.Msg').hide();
-			valorForncedor = $("#add-fornecedor option:selected").attr('id');
-			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
-			valorNome = $("#add-fornecedor option:selected").attr('data-nome');
-	
-			//Adiciona os valores na tabela pra visualização
-			$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
-			
-			//SETA AS INPUT HIDDEN	
-			$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
-			
-			//Limpa as Input's
-			$("#add-fornecedor").val('');
-			$(".autocompleteFornecedor input").val('');
-			
-			if($(this).hasClass('pedidosLimite')){
-				$(this).hide();
-				$(".autocompleteFornecedor").hide();
-				$("#tblPedido").css('margin-top','10px');
-			}
-
-
-			in_fornecedor++;			
-		}
-    }); 
-    
-/********************* Preencher Dados Produtos *********************/    
-   
-    
+/********************* Preencher Dados Produtos *********************/     
     $("body").on('click','#bt-adicionarProduto',function(){		
 		
 		if($(".autocompleteProduto input").val() == ''){
@@ -150,8 +100,11 @@ var valorTotal = 0;
 							\<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
 						\
 					</td>\
+						<td></td>\
+					\<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" id="obs'+in_produto+'" class="existe tamanho-medio borderZero" value="'+valorObs+'"  title="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;white-space: nowrap;"></td>\
 					\
-					<td>\
+					\<td></td>\
+					\<td>\
 						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
 					</td>\
@@ -163,7 +116,6 @@ var valorTotal = 0;
 					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
 						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
 					</td>\
-					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
 						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
@@ -174,7 +126,7 @@ var valorTotal = 0;
 				</tr>');
 			
 			$("#vU"+in_produto).priceFormat({
-				prefix: '',
+				prefix: 'R$ ',
 				centsSeparator: ',',
 				thousandsSeparator: '.',
 				limit: 15
@@ -212,95 +164,8 @@ var valorTotal = 0;
 		}
 	});
 	
-	
-/********************* REMOVER Fornecedor *********************/    
-	var inicio = 0;
-	var fim = 0;
-	$('body').on('click','.btnRemoveForne',function(){
-		id = $(this).attr('id');
-		atual = id.substr(8);
-		$('#tbl_fornecedores .fornecedorTr_'+atual).remove();
-		$('#area_inputHidden #fornecedor_'+atual).remove();
-		
-		$('.pedidosLimite').show();
-		$(".autocompleteFornecedor").show();
-		$("#tblPedido").css('margin-top','25px');
-		in_fornecedor = 0;
-	
-	});
-	
-	
 
-/******** TELA DE CONFIRMACAO   ************/
-	$('#confirmaDados').click(function(){
-	
-		if($('.dataInicio').val() == ''){
-			$('#msgDataInicial').show();
-			
-		}else if(in_fornecedor == 0 && $('#validaProd').val() == 0){
-			$('#msgValidaFor').show();			
-			
-		}else if(in_produto <= 0){
-			$('#msgValidaProduto').show();
-									
-		}else{
-			if($('span[id*=spanStatus]').hasClass('aberto')){
-				$('#msgValidaConfirmaProduto').show();
-			}else{
-				$('span[id*="msg"').hide();
-				$('.confirmaInput').attr('readonly','readonly');
-				$('.confirmaInput').attr('onfocus','this.blur();');
-				$('.confirmaInput').attr('disabled','disabled');
-				$('.confirmaInput').addClass('borderZero');
-				$('#confirmaDados').hide();
-				$('.confirma').hide();
-				$('.bt-salvar').show();
-				$('#voltar').show();
-			}
-		}	
-		
-	});
-
-/******** VOLTAR DA CONFIRMACAO   ************/
-	$('#voltar').click(function(){
-		$('span[id*="msg"').hide();
-		$('.confirmaInput').removeAttr('readonly','readonly');
-		$('.confirmaInput').removeAttr('onfocus','this.blur();');
-		$('.confirmaInput').removeAttr('disabled','disabled');
-		$('.confirmaInput').removeClass('borderZero');
-		$('#confirmaDados').show();
-		$('.confirma').show();
-		$('.bt-salvar').hide();
-		$('#voltar').hide();
-	});
-	
-	$('#PedidoAddForm').submit(function(){	
-		$('.confirmaInput').removeAttr('disabled','disabled');
-	});
-
-//CALCULO VALOR UNITARIO
-	
-	$('body').on('focusout','.valorUnit',function(){
-		id = $(this).attr('id');
-		nId = id.substring(2);		
-		
-		itenQtd = $('#itenQtd'+nId).val();
-		qtd = parseInt(itenQtd);
-		
-		valor = $(this).val().split('.').join('').replace(',','.');
-		valor = parseFloat(valor);
-		
-		total = valor*qtd;
-		
-		$('#valorTotal'+nId).val(float2moeda(total));
-		if(total != '' && total != 'undefined' && total){
-			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
-		}else{
-			$('#spanValTotal'+nId).text("R$ 0,00");
-		}		
-	});
-	
-
+//CALCULO VALOR TOTAL PELA UNIDADE
 	$('body').on('focusout','.qtdE',function(){
 		id = $(this).attr('id');
 		nId = id.substring(7);	
@@ -309,23 +174,56 @@ var valorTotal = 0;
 		qtd = parseInt(itenQtd);
 		
 		valor = $('#vU'+nId).val().split('.').join('').replace(',','.');
-		valor = parseFloat(valor);
+				
+		if($('#vU'+nId).hasClass('existe')){
+			valor = valor.split('R$ ').join('');
+			valor = parseFloat(valor);
+		}else{
+			valor = parseFloat(valor);
+		}
 		
 		total = valor*qtd;
-		
+	
 		$('#valorTotal'+nId).val(float2moeda(total));
-		
+				
 		if(total != '' && total != 'undefined' && total){
-			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+			$('#spanValTotal'+nId).html("R$ "+float2moeda(total));
 		}else{
-			$('#spanValTotal'+nId).text("R$ 0,00");
+			$('#spanValTotal'+nId).html("R$ 0,00");
 		}		
 		
 	});
 	
 	
+//CALCULO VALOR UNITARIO
+	$('body').on('focusout','.valorUnit',function(){
+		id = $(this).attr('id');
+		nId = id.substring(2);		
+		
+		itenQtd = $('#itenQtd'+nId).val();
+		qtd = parseInt(itenQtd);
+		
+		valor = $(this).val().split('.').join('').replace(',','.');
+		
+		if($('#vU'+nId).hasClass('existe')){
+			valor = valor.split('R$ ').join('');
+			valor = parseFloat(valor);
+		}else{
+			valor = parseFloat(valor);
+		}
+		
+		total = valor*qtd;
+		
+		$('#valorTotal'+nId).val(float2moeda(total));
+		if(total != '' && total != 'undefined' && total){
+			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+		}else{
+			$('#spanValTotal'+nId).text("R$ 0,00");
+		}		
+	});
 	
-/******** FUNCAO CONFIRMAR  ***********************/	
+		
+/******** FUNCAO CONFIRMAR ADICIONADO ***********************/	
 	$('body').on('click','.btnConfirm',function(){
 		id = $(this).attr('id');
 		nId = id.substring(6);
@@ -345,10 +243,14 @@ var valorTotal = 0;
 			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
 			$('.produtoTr_'+nId+' input').addClass('borderZero');
 			$(this).hide();
+			
+			$('#obs'+nId).attr('title',$('#obs'+nId).val());
+			
+	
 		}
 	});
 	
-/******** FUNCAO EDITAR   **************************/
+/******** FUNCAO EDITAR  ADICIONADO **************************/
 	$('body').on('click','.btnEditi',function(){
 		id = $(this).attr('id');
 		nId = id.substring(5);	
@@ -357,6 +259,7 @@ var valorTotal = 0;
 		$('#excluirP_'+nId).hide();
 		$('#confir'+nId).show();
 		
+			
 		$('#spanStatus'+nId).removeClass('fechado');	
 		$('#spanStatus'+nId).addClass('aberto');	
 		
@@ -367,6 +270,16 @@ var valorTotal = 0;
 		$('.produtoTr_'+nId+' input').removeClass('borderZero');		
 	});
 
+	$('#PedidoAddForm').submit(function(){
+			
+		if($('span[id*=spanStatus]').hasClass('aberto')){
+			$('#msgValidaConfirmaProduto').show();
+			return false;
+		}else{
+			return true;
+		}
+	
+	});
 	
 
 });
