@@ -158,7 +158,7 @@ class CotacaosController extends ComoperacaosController {
 			$email->emailFormat('html');
 			
 			//essa linha só serve para o servidor da alemanha
-			$email->transport('Mail');
+			//$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;

@@ -359,4 +359,8 @@ var valorAux=$('#filterTipoOperacao').val();
 /** Placeholder Data **************************************************/
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
 	
+	
+/** Ajuste de input ***************************************************/
+	$('.custom-combobox-input').addClass("tamanho-medio");
+
 });
