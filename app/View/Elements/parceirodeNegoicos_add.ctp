@@ -183,7 +183,7 @@
 								});
 								//in_fornecedor=in_fornecedor-1;
 								//Aiciona os valores na tabela pra visualização
-								$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+data.Parceirodenegocio.nome+'</td> <td>'+data.Parceirodenegocio.cpf_cnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+								$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+data.Parceirodenegocio.nome+'</td> <td>'+data.Parceirodenegocio.cpf_cnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
 								//SETA AS INPUT HIDDEN	
 								$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+data.Parceirodenegocio.id+'" type="hidden"></section>');
 								

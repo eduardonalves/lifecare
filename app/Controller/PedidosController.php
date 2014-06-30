@@ -428,7 +428,46 @@ public function addDash(){
                 }
 
         }
+    public function eviaEmailCanc(&$destinatario, &$remetente, &$mensagem){
+
+			$this->loadModel('Empresa');	 
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			
+			
+       		$this->Session->write("extraparams",$mensagem);
+			
+			
+			
+			
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
+	
+            $email = new CakeEmail('smtp');
+
+            $email->to($destinatario);
+			$email->from('ti.dev@vento-consulting.com');
+            $email->subject($remetente);
+			$email->template('cancelamento','default');
+			$email->emailFormat('html');
+			
+			//essa linha só serve para o servidor da alemanha
+			$email->transport('Mail');
+
+            if($email->send($mensagem)){
+				return TRUE;
+
+            }else{
+            	return FALSE;	
+            }
+
         
+
+    }
 	public function cancelarPedido($id = null) {
 		//~ $this->request->onlyAllow('post', 'cancelarPedido');
 		//~ if (!$this->Pedido->exists()) {
@@ -452,14 +491,16 @@ public function addDash(){
 			
 			$mensagem['corpo'] = "Informamos que o pedido de numero".$id."\n";
 			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
+			$mensagem['Mensagem']['codigo'] = $id;
 			
 			if($contato['Contato']['email'] !=""){
-				$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+				$this->eviaEmailCanc($contato['Contato']['email'], $remetente, $mensagem);
 			}
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
-		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
+		$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
+		return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 	}
 
 	public function confirmarEntrega() {
@@ -481,10 +522,18 @@ public function addDash(){
 				
 				
 				if ($this->Pedido->save($update)) {
-					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
+					
+					$this->Session->setFlash(__('Entrega de pedido confirmado.'),'default',array('class'=>'success-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}else{
-					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
+					
+					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}
+			}else{
+					$this->Session->setFlash(__('Erro: O pedido já foi entregue.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
+			
 			}
 		}
 	}
