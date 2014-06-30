@@ -409,7 +409,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				$email->transport('Mail');
+				//$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
