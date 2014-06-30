@@ -411,7 +411,7 @@
 				?>
 				
 				<tr>
-					<th class="actions colunaParcela">Ações</th>
+					<th class="actions">Ações</th>
 					<th id="codigo" class="colunaParcela"><?php echo $this->Paginator->sort('codigo','Código'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th id="nome" class="colunaParcela"><?php echo $this->Paginator->sort('nome'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th id="descricao" class="colunaParcela"><?php echo $this->Paginator->sort('descricao','Descrição'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
@@ -503,7 +503,7 @@
 				?>
 				
 				<tr>
-					<th class="actions colunaES">Ações</th>
+					<th class="actions">Ações</th>
 					<th id="nome" class="colunaES"><?php echo $this->Paginator->sort('nome','Nome'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th id="cpf_cnpj" class="colunaES"><?php echo $this->Paginator->sort('cpf_cnpj','CNPJ'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
 					<th id="status" class="colunaES"><?php echo $this->Paginator->sort('status'); ?><div id='indica-ordem' class='posicao-seta'></div></th>
