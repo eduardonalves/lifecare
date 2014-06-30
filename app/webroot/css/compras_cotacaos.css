@@ -94,6 +94,8 @@ input[type="text"]:disabled{
 #msgValidaProduto:after{ top: 36px !important; }
 #msgValidaFor{top: -46px;}
 #msgValidaFor:after{ top: 36px !important; }
+#msgValidaFor2{top: -60px; width:120px;}
+#msgValidaFor2:after{ top: 50px !important; }
 
 #msgQtdVazia{
 	left: 250px;
