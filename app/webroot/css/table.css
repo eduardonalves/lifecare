@@ -70,7 +70,6 @@ th, td{
 	border-color:rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #808080 rgba(0, 0, 0, 0);
 	border-style:solid;
 	border-width:5px;
-	margin-left:30px;
 }
 
 .seta-baixo{
@@ -78,7 +77,6 @@ th, td{
 	border-style:solid;
 	border-width:5px;
 	margin-top:4px !important;
-	margin-left:30px;
 }
 
 .posicao-seta{
