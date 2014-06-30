@@ -266,7 +266,7 @@ $(document).ready(function() {
 	if(isset($_GET['parametro']) && $_GET['parametro']=='contas'){
     		if(isset($configCont)){ ?>
 				<tr>
-				    <th class="colunaConta">Ações</th>									
+				    <th class="colunaConta">Ações</th>
 					<?php 
 				     
 					    foreach($configCont as $campo=>$campoLabel)

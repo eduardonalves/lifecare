@@ -302,9 +302,9 @@
 								
 								echo "<td class='confirma'>";
 									echo "<span id='spanStatus".$j."' class='fechado' style='display:none;'></span>";
-									echo "<img title='Editar' alt='Editar' src='/lifecare/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' />";
-									echo "<img title='Confirmar' alt='Confirmar' src='/lifecare/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm' style='display:none;' />";
-									echo "<img title='Remover' alt='Remover' src='/lifecare/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu'/>";
+									echo "<img title='Editar' alt='Editar' src='/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' />";
+									echo "<img title='Confirmar' alt='Confirmar' src='/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm' style='display:none;' />";
+									echo "<img title='Remover' alt='Remover' src='/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu'/>";
 								echo "</td>";
 							
 								
