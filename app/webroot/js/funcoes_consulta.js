@@ -335,7 +335,7 @@ $(document).ready(function(){
 	$(".colunaProduto a.desc + div").addClass("seta-baixo");
 	
 	var idcol = $(".colunaProduto a.asc ,  .colunaProduto a.desc").parent().attr('id');
-	alert(idcol);
+
 	$("td."+idcol).addClass("highlight");
 	
 	$(".setaOrdena a.asc + div").addClass("seta-cima");
