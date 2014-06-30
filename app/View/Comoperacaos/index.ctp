@@ -229,7 +229,7 @@
 								echo "<hr />";
 								
 								echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
-								echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+								echo $this->Html->image('lista-user.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
 								echo "</a>";
 								
 							}else{

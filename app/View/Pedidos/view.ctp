@@ -247,18 +247,23 @@
 
 	<?php
 		
+				
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar este Pedido?', $pedido['Pedido']['id'])));
 		}
+		
 
-		if($pedido['Pedido']['status'] != 'CANCELADO'){
-				
+		if($pedido['Pedido']['status'] != 'CANCELADO'){				
 			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
 				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
 			echo "</a>";
-								
+		
+		echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedido?', $pedido['Pedido']['id'])));
+					
 		?>
-
+		
+		
+		
 		<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-body">
 							
@@ -277,7 +282,7 @@
 											<?php
 												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
 												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));
-												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));
+												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','type'=>'text','class'=>'tamanho-pequeno inputData'));
 											?>
 											</div>
 										<footer>

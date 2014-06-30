@@ -277,7 +277,7 @@
 
 <footer>
 	<?php
-		echo $this->Form->postLink($this->Html->image('pedido-acao.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$comresposta['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $comresposta['Comresposta']['id'])));
+		echo $this->Form->postLink($this->Html->image('fazer-pedido.png',array('style'=>'float:right','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Pedidos','action' => 'addResposta',$comresposta['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $comresposta['Comresposta']['id'])));	
 	?>	
 </footer>
 

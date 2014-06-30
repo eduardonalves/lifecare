@@ -99,8 +99,15 @@
 		<?php
 			echo $this->Form->input('prazo_entrega',array('label'=>'Prazo para Entrega<span class="campo-obrigatorio">*</span>:','type'=>'text', 'class'=>'Nao-Letras confirmaInput tamanho-pequeno'));			
 			echo '<span id="validaPrazo" class="msg erroRight" style="display:none">Preencha o prazo para entrega</span>';
-			echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-			echo '<span id="validaForma" class="msg erroRight" style="display:none">Preencha o forma de pagamento</span>';
+			
+			echo "<td id='normalInput'>";
+				echo $this->Form->input('forma_pagamento',array('id'=>'normalfrmPgto','type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo '<span id="validaForma" class="msg erroRight" style="display:none">Preencha o forma de pagamento</span>';
+			echo "</td>";
+			
+			echo "<td id='confirmInput' style='display:none'>";
+				echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno borderZero','disabled' => 'disabled'));
+			echo "</td>";
 		?>	
 	</section>
 	<section class="coluna-direita">
