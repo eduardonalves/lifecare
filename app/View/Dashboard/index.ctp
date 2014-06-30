@@ -499,7 +499,7 @@ $(document).ready(function(){
 									echo $this->Html->image('botao-tabela-visualizar.png',array(
 															'alt'=>'Visualizar Cotação',
 															'title'=>'Visualizar Cotação',
-															'url'=>array('controller' => 'Pedidos',
+															'url'=>array('controller' => 'Cotacaos',
 															'action' => 'view', $aberto['Comoperacaos']['id']))); 
 								
 								?></td>

@@ -69,35 +69,51 @@
 		if($(".autocompleteFornecedor input").val() == ''){
 			$('#msgValidaFor').show();
 		}else{
+			
 			valorForncedor = $("#add-fornecedor option:selected").attr('id');
-			valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
-			valorNome = $("#add-fornecedor option:selected").attr('data-nome');
-
-			if($('#validaCada').val() != 0){
-				in_fornecedor=0;
-				$('#tbl_fornecedores tr').each(function(){
-					in_fornecedor++;
-				});
+			var adicionado = 0;
+			
+			$('#area_inputHidden input').each(function(){
+				if($(this).val() == valorForncedor){
+					adicionado++;					
+				}
+			});
+			
+			if(adicionado != 0){
+				$('#msgValidaFor2').show();
+			}else{
 				
-			}
-			
-			//Adiciona os valores na tabela pra visualização
-			$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
-			
-			//SETA AS INPUT HIDDEN	
-			$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
-			
-			//Limpa as Input's
-			$("#add-fornecedor").val('');
-			$(".autocompleteFornecedor input").val('');
-			
-			if($(this).hasClass('pedidosLimite')){
-				$(this).hide();
-				$(".autocompleteFornecedor").hide();
-				$("#tblPedido").css('margin-top','10px');
-			}
+				$('#msgValidaFor2').hide();
+				
+				valorCpfCnpj = $("#add-fornecedor option:selected").attr('data-cpf');
+				valorNome = $("#add-fornecedor option:selected").attr('data-nome');
 
-			in_fornecedor++;			
+				if($('#validaCada').val() != 0){
+					in_fornecedor=0;
+					$('#tbl_fornecedores tr').each(function(){
+						in_fornecedor++;
+					});
+					
+				}
+				
+				//Adiciona os valores na tabela pra visualização
+				$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+				
+				//SETA AS INPUT HIDDEN	
+				$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+valorForncedor+'" type="hidden"></section>');
+				
+				//Limpa as Input's
+				$("#add-fornecedor").val('');
+				$(".autocompleteFornecedor input").val('');
+				
+				if($(this).hasClass('pedidosLimite')){
+					$(this).hide();
+					$(".autocompleteFornecedor").hide();
+					$("#tblPedido").css('margin-top','10px');
+				}
+
+				in_fornecedor++;
+			}			
 		}
     }); 
     
@@ -139,9 +155,9 @@
 					\
 					<td class="confirma">\
 					\	<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
-						<img title="Editar" alt="Editar" src="/lifecare/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
-						<img title="Confirmar" alt="Confirmar" src="/lifecare/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
-						<img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
+						<img title="Editar" alt="Editar" src="/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
+						<img title="Confirmar" alt="Confirmar" src="/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
+						<img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
 					</td>\
 				</tr>');
 			
