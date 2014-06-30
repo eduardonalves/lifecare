@@ -134,8 +134,15 @@ class PedidosController extends ComoperacaosController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
-			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
-			
+			//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			$j=0;
+			$total=0;
+			foreach($this->request->data['Comitensdaoperacao'] as $j => $itensop){
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_unit']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
+				$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
+			}
+			$this->request->data['Pedido']['valor'] = $total;
 			if(isset($this->request->data['Pedido']['prazo_entrega'])){
 				if($this->request->data['Pedido']['prazo_entrega'] != ''){
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
@@ -148,6 +155,7 @@ class PedidosController extends ComoperacaosController {
 
 
 			$this->loadModel('Produto');
+			$total = 0;
 			if ($this->Pedido->saveAll($this->request->data)) {
 
 				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
@@ -197,6 +205,7 @@ class PedidosController extends ComoperacaosController {
 				}
 				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+				debug($this->request->data);
 			}else{
 				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 
@@ -410,7 +419,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
