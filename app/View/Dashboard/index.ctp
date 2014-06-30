@@ -396,14 +396,15 @@ $(document).ready(function(){
 	<div class="div-board">
 			<div class="div-titulo">
 				<?php echo $this->Html->image('pedido_lateral.png',array('class'=>'bt-icon'));?>
-				<span class="span-titulo">Pedidos a Receber</span>	
+				<span class="span-titulo">Pedidos</span>	
 			</div>
 			<div class="div-tabela-rolagem">
 				<table class="tabela-lote">
 							<tr>
 								<th>Ação</th>
-								<th>Previsão Entrega</th>
+								<th>Prev. Entrega</th>
 								<th>Valor</th>
+								<th>Status</th>
 								
 							</tr>
 
@@ -420,8 +421,10 @@ $(document).ready(function(){
 															'action' => 'view', $pedido['Pedido']['id']))); 
 								
 								?></td>
-								<td><?php echo formatDateToView($pedido['Pedido']['data_preventrega']); ?></td>								
+								<td><?php echo formatDateToView($pedido['Pedido']['entrega']); ?></td>								
 								<td><?php echo converterMoeda($pedido['Pedido']['valor']); ?></td>
+								<td><?php echo $pedido['Pedido']['status']; ?></td>								
+
 								
 							</tr>
 
