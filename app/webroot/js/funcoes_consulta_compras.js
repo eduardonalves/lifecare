@@ -267,10 +267,10 @@ var valorAux=$('#filterTipoOperacao').val();
 
 /*** INICIO SETA DE ORDENAÇÃO DA TABELA *******************************/
 
-	$(".colunaES, .colunaParcela, .colunaConta a.asc + div").addClass("seta-cima");
-	$(".colunaES, .colunaParcela, .colunaConta a.desc + div").addClass("seta-baixo");
+	$(".colunaES a.asc + div, .colunaParcela a.asc + div, .colunaConta a.asc + div").addClass("seta-cima");
+	$(".colunaES a.asc + div, .colunaParcela a.asc + div, .colunaConta a.desc + div").addClass("seta-baixo");
 
-	var idcol = $(".colunaES, .colunaParcela, .colunaConta a.asc ,  .colunaES, .colunaParcela, .colunaConta a.desc").parent().attr('id');
+	var idcol = $(".colunaES a.asc, .colunaParcela a.asc, .colunaConta a.asc ,  .colunaES a.desc, .colunaParcela a.desc, .colunaConta a.desc").parent().attr('id');
 
 	$("td."+idcol).addClass("highlight");
 	
