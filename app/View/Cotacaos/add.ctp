@@ -37,11 +37,10 @@
 				echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
 				echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'COTACAO'));	
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
-
-
-				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput dataInicio tamanho-pequeno inputData','type'=>'text'));
-				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
-				echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
+				
+				$dataHoje = date('d/m/Y');
+				echo $this->Form->input('data_inici',array('value'=>$dataHoje,'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text','readonly'=>'readonlyde','onfocus'=>'this.blur();'));
+				
 				
 				echo "<div id='divSelPgto'>";
 				echo $this->Form->input('forma_pagamento',array('id'=>'pagamento','type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
@@ -58,13 +57,12 @@
 				echo '<span id="msgDataVencimentoInvalida" class="Msg-tooltipDireita" style="display:none;">A data Final não pode ser menor que a inicial</span>';
 				echo '<span id="msgDataFinalErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a data Final corretamente</span>';
 				echo '<span id="msgDataFinal" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Final</span>';
-
 			?>
 		</section>
 		
 		<section class="coluna-direita">
 			<?php
-				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
+				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 			?>
 		</section>
 	
@@ -75,6 +73,7 @@
 			<section class="coluna-esquerda">
 				<div class="input autocompleteFornecedor conta">
 					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
+					<span id="msgValidaFor2" class="Msg tooltipMensagemErroTopo" style="display:none">Esse Fornecedor já foi adicionado, por favor, escolha outro.</span>
 					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
 						<option></option>

@@ -110,3 +110,6 @@ label[for="produtoUnid"]{position:absolute;}
 	display:inline-block;
 }
 
+#botao-reenviar{
+	margin-left:10px;
+}

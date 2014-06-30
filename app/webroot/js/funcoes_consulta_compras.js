@@ -265,6 +265,21 @@ var valorAux=$('#filterTipoOperacao').val();
 		}
     });
 
+/*** INICIO SETA DE ORDENAÇÃO DA TABELA *******************************/
+
+	$(".colunaES, .colunaParcela, .colunaConta a.asc + div").addClass("seta-cima");
+	$(".colunaES, .colunaParcela, .colunaConta a.desc + div").addClass("seta-baixo");
+
+	var idcol = $(".colunaES, .colunaParcela, .colunaConta a.asc ,  .colunaES, .colunaParcela, .colunaConta a.desc").parent().attr('id');
+
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");	
+
 /************* Inicio Seta de Ordenação da tabela *****************/
 	$(".colunaES a.asc + div").addClass("seta-cima");
 	$(".colunaES a.desc + div").addClass("seta-baixo");
@@ -359,4 +374,8 @@ var valorAux=$('#filterTipoOperacao').val();
 /** Placeholder Data **************************************************/
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
 	
+	
+/** Ajuste de input ***************************************************/
+	$('.custom-combobox-input').addClass("tamanho-medio");
+
 });
