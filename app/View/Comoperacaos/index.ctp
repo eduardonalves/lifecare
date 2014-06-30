@@ -207,8 +207,8 @@
 					<th class="colunaConta"><?php echo $this->Paginator->sort('tipo','Tipo'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th class="colunaConta"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta comprimentoMinimo"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th class="colunaConta comprimentoMinimo"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaConta"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th class="colunaES"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Nome do Fornecedor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
@@ -426,9 +426,11 @@
 					<td class="actions">
 						<?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Produtos','action' => 'view', $produto['Produto']['id'], "layout"=>"compras","abas"=>"41"))); 
 							echo "<hr />";
+							if(isset($produto['Parceirodenegocio']) && !empty($produto['Parceirodenegocio'])) {
 							echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
 							echo "</a>";
+							}
 						?>
 						
 						<div class="modal fade" id="myModal_add-view_parceiro<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
