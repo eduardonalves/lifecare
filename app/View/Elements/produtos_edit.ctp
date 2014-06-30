@@ -35,8 +35,14 @@
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption21">Consultas</h1>
-
+	
+	 <?php
+			if(isset($telaAbas)){
+				echo '<h1 class="menuOption'.$telaAbas.'">Consultas</h1>';
+			}else{
+				echo '<h1 class="menuOption21">Consultas</h1>';
+			}
+		?>
 </header>
 
 <section><!--SECTION SUPERIOR--> 
