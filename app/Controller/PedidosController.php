@@ -155,6 +155,7 @@ class PedidosController extends ComoperacaosController {
 
 
 			$this->loadModel('Produto');
+			$total = 0;
 			if ($this->Pedido->saveAll($this->request->data)) {
 
 				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
@@ -204,6 +205,7 @@ class PedidosController extends ComoperacaosController {
 				}
 				$this->Session->setFlash(__('O pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
+				debug($this->request->data);
 			}else{
 				$this->Session->setFlash(__('O pedido não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 
