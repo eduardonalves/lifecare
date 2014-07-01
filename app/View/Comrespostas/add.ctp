@@ -177,8 +177,7 @@
 					echo "<td class='confirma'>"; 
 						echo $this->Html->image('botao-tabela-editar',array('id'=>'botaoEdit'.$i,'style'=>'display:none;')); 
 						echo $this->Html->image('bt-confirm.png',array('id'=>'botaoConfirm'.$i));
-						echo " ";
-						echo $this->Html->image('cancelar.png',array('id'=>'botaoRemover'.$i));
+						//echo $this->Html->image('cancelar.png',array('id'=>'botaoRemover'.$i));
 					echo "</td>";
 					
 				echo "</tr>";
