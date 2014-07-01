@@ -174,6 +174,13 @@
 							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
 						?>
 					</section>
+					
+								
+					<section class="coluna-central">
+						<?php
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','onfocus'=>'this.blur();'));		
+						?>
+					</section>
 				</div>
 			
 				<section class="tabela_fornecedores">

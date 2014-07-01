@@ -16,7 +16,16 @@ var valorTotal = 0;
 	}
 	
 /************ FUNÇÔES **************/
-
+	function calculaTotal(classe){
+		var totalPedido = 0;
+		$('.'+classe).each(function(){			
+			valor = $(this).val().split('.').join('').replace(',','.');
+			valor = parseFloat(valor);		
+			totalPedido += valor;
+		});
+		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
+	}
+	
 	function float2moeda(num){
 		x = 0;
 		
@@ -161,7 +170,7 @@ var valorTotal = 0;
 						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\</td>\
 					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
 					</td>\
 					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
@@ -179,6 +188,8 @@ var valorTotal = 0;
 				thousandsSeparator: '.',
 				limit: 15
 			});			
+			
+			calculaTotal('TotalPedido');
 			
 			//Limpa as Input's
 			$("#add-produtos").val('');
@@ -201,7 +212,7 @@ var valorTotal = 0;
 		atual = id.substr(9);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
-		
+		calculaTotal('TotalPedido');
 		classTR = $('#tbl_produtos tr[class*=produtoTr_]').last().attr('class');
 		if(classTR == undefined){
 			in_produto = 0;
@@ -358,6 +369,7 @@ var valorTotal = 0;
 			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
 			$('.produtoTr_'+nId+' input').addClass('borderZero');
 			$(this).hide();
+			calculaTotal('TotalPedido');
 		}
 	});
 	
