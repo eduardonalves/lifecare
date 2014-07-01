@@ -89,9 +89,7 @@ class PedidosController extends ComoperacaosController {
 			
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
-		
-		
-		
+
 		if (!$this->Pedido->exists($id)) {
 			throw new NotFoundException(__('Invalid pedido'));
 		}
@@ -136,8 +134,15 @@ class PedidosController extends ComoperacaosController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
-			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
-			
+			//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			$j=0;
+			$total=0;
+			foreach($this->request->data['Comitensdaoperacao'] as $j => $itensop){
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_unit']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
+				$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
+			}
+			$this->request->data['Pedido']['valor'] = $total;
 			if(isset($this->request->data['Pedido']['prazo_entrega'])){
 				if($this->request->data['Pedido']['prazo_entrega'] != ''){
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
@@ -264,6 +269,48 @@ public function addDash(){
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
 	}
 
+// ADD PARA A TRANSFORMAR UMA RESPOSTA DE COTACAO EM PEDIDO.
+	public function addResposta($id){
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->loadModel('Contato');
+		$this->loadModel('Produto');
+		$this->loadModel('ProdutosParceirodenegocio');
+		$this->loadModel('Comresposta');
+		$this->loadModel('Comitensdaoperacao');
+		
+		$comresposta = $this->Comresposta->find('first',array('conditions'=>array('Comresposta.id'=>$id),'recursive'=>1));
+		
+		$j=0;
+		foreach($comresposta as $j => $respostaList){
+			$x=0;
+			foreach($comresposta['Comitensresposta'] as $x => $extras){
+				$comExtras = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$comresposta['Comitensresposta'][$x]['produto_id'])));
+				$comExOperacao = $this->Comitensdaoperacao->find('first',array('conditions'=>array('Comitensdaoperacao.comoperacao_id'=>$comresposta['Comoperacao']['id'])));
+				$comresposta['Comitensresposta'][$x]['produto_nome'] = $comExtras['Produto']['nome'];
+				$comresposta['Comitensresposta'][$x]['produto_unidade'] = $comExtras['Produto']['unidade'];
+				$comresposta['Comitensresposta'][$x]['obs_operacao'] = $comExOperacao['Comitensdaoperacao']['obs'];
+			$x++;
+			}
+		$j++;
+		}	
+		
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceiroResposta = $this->Parceirodenegocio->find('first',array('conditions' => array('Parceirodenegocio.id' =>$comresposta['Parceirodenegocio']['id'])));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Pedido->User->find('list');
+		$this->set(compact('users','produtos','parceiroResposta','userid','allCategorias','categorias','produtoslista','comresposta'));
+	}
+
 /**
  * edit method
  *
@@ -327,7 +374,7 @@ public function addDash(){
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
-			$mensagem['Mensagem']['corpo']="Corpo da mensagem"; 
+			$mensagem['Mensagem']['corpo']="Esta é um envio de pedido de compras, sob o código: ".$mensagem['Pedido']['id'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			$this->loadModel('Comtokencotacao');
 			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedido']['id'])));
@@ -343,8 +390,9 @@ public function addDash(){
 			 
 			
 			 $file_name= APP."webroot/img/cake.icon.png";
-			 
-			 $this->set('extraparams', $mensagem);
+			$extraparams= $mensagem;
+			$this->Session->write('extraparams',$extraparams);
+			 $this->set(compact('extraparams'));
 			 $this->pdfConfig = array(
 				 'orientation' => 'portrait',
 				 'filename' => 'Invoice_'. 3
@@ -360,7 +408,8 @@ public function addDash(){
 			 $pdf = APP . 'webroot'. DS .'files' . DS . 'pedido'.$mensagem['Pedido']['id'].'.pdf';
 			 
 			 //Writing external parameters in session
-			 $this->Session->write("extraparams",$mensagem);
+			 	$extraparams =$mensagem;
+			 	
 				
                 $email = new CakeEmail('smtp');
 
@@ -368,7 +417,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -376,7 +425,7 @@ public function addDash(){
 				$email->attachments(array($pdf));
 				
 				$mensagemHtml = array('mensagem' => 'teste de mensagem');
-				$this->set('extraparams', $mensagem);
+				//$this->set('extraparams', $mensagem);
                 if($email->send($mensagem)){
 					return TRUE;
                 }else{
@@ -386,7 +435,46 @@ public function addDash(){
                 }
 
         }
+    public function eviaEmailCanc(&$destinatario, &$remetente, &$mensagem){
+
+			$this->loadModel('Empresa');	 
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			
+			
+       		$this->Session->write("extraparams",$mensagem);
+			
+			
+			
+			
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
+	
+            $email = new CakeEmail('smtp');
+
+            $email->to($destinatario);
+			$email->from('ti.dev@vento-consulting.com');
+            $email->subject($remetente);
+			$email->template('cancelamento','default');
+			$email->emailFormat('html');
+			
+			//essa linha só serve para o servidor da alemanha
+			$email->transport('Mail');
+
+            if($email->send($mensagem)){
+				return TRUE;
+
+            }else{
+            	return FALSE;	
+            }
+
         
+
+    }
 	public function cancelarPedido($id = null) {
 		//~ $this->request->onlyAllow('post', 'cancelarPedido');
 		//~ if (!$this->Pedido->exists()) {
@@ -410,14 +498,18 @@ public function addDash(){
 			
 			$mensagem['corpo'] = "Informamos que o pedido de numero".$id."\n";
 			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
-			
-			if($contato['Contato']['email'] !=""){
-				$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+			$mensagem['Mensagem']['codigo'] = $id;
+			if(!empty($contato)){
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmailCanc($contato['Contato']['email'], $remetente, $mensagem);
+				}	
 			}
+			
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
-		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
+		$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
+		return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$id));
 	}
 
 	public function confirmarEntrega() {
@@ -439,10 +531,18 @@ public function addDash(){
 				
 				
 				if ($this->Pedido->save($update)) {
-					$this->Session->setFlash(__('Entrega de pedido confirmado.'));
+					
+					$this->Session->setFlash(__('Entrega de pedido confirmado.'),'default',array('class'=>'success-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}else{
-					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'));
+					
+					$this->Session->setFlash(__('Erro: Entrega de pedido não foi confirmada.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
 				}
+			}else{
+					$this->Session->setFlash(__('Erro: O pedido já foi entregue.'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$this->request->data['Pedido']['id']));
+			
 			}
 		}
 	}
@@ -450,38 +550,37 @@ public function addDash(){
 	
 	public function reeviarpedido($id) {
 		
-			
-		$this->loadModel('Contato');
-		$this->loadModel('Produto');
-		$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
-		$i=0;
-		foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
-			$ultimoPedido['Comitensdaoperacao'][$i];
-			$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
-			$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-			$i++;
-		}
-		
-		foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
-			$contato = $this->Contato->find('first', 
-						array(
-							'recursive' => -1,
-							'conditions' => array(
-								'Contato.parceirodenegocio_id' => $fornecedor['id']
-							),	
-						)
-					);	
-			$remetente="ti.dev@vento-consulting.com";
-			
-			if($contato['Contato']['email'] !=""){
-				$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+		if ($this->request->is('post')) {	
+			$this->loadModel('Contato');
+			$this->loadModel('Produto');
+			$ultimoPedido = $this->Pedido->find('first',array('conditions' => array('Pedido.id' => $id)));
+			$i=0;
+			foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+				$ultimoPedido['Comitensdaoperacao'][$i];
+				$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+				$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+				$i++;
 			}
+			
+			foreach($ultimoPedido['Parceirodenegocio'] as $fornecedor){
+				$contato = $this->Contato->find('first', 
+							array(
+								'recursive' => -1,
+								'conditions' => array(
+									'Contato.parceirodenegocio_id' => $fornecedor['id']
+								),	
+							)
+						);	
+				$remetente="ti.dev@vento-consulting.com";
+				
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+				}
+			}
+			
+			$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
+			return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
 		}
-		
-		$this->Session->setFlash(__('O pedido foi reenviado com sucesso.'),'default',array('class'=>'success-flash'));
-		return $this->redirect(array('controller' => 'Pedidos','action' => 'view',$ultimoPedido['Pedido']['id']));
-		
-		
 		
 	}
 

@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+<<<<<<< HEAD:app/webroot/.htaccess
+=======
+
+>>>>>>> origin/Henrique:app/webroot/.htaccess2
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

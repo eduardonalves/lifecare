@@ -157,7 +157,7 @@ class CotacaosController extends ComoperacaosController {
 			$email->emailFormat('html');
 			
 			//essa linha só serve para o servidor da alemanha
-			//$email->transport('Mail');
+			$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
@@ -193,9 +193,10 @@ class CotacaosController extends ComoperacaosController {
 			
 			$mensagem['corpo'] = "Informamos que a cotação de numero".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 			$mensagem['corpo'] +="Foi cancelada, por favor desconsidere esta solicitação de cotação"."\n";
-			
-			if($contato['Contato']['email'] !=""){
-				$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+			if(!empty($contato)){
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+				}
 			}
 		}
 		$upDateCotacao = array('id' => $id, 'status' => 'CANCELADO');
@@ -253,10 +254,12 @@ class CotacaosController extends ComoperacaosController {
 					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
 					
 					$remetente="ti.dev@vento-consulting.com";
-					if($contato['Contato']['email'] !=""){
-						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
-					}
 					
+					if(!empty($contato)){
+						if($contato['Contato']['email'] !=""){
+							$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+						}
+					}
 				}
 				
 
