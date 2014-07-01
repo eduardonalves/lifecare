@@ -11,6 +11,7 @@
      <?php echo $this->html->image( 'login-title.png',array('alt'=>'LifeCare','class'=>'loginTitle')); ?>
 
 	<fieldset>
+	
 		<?php
 			echo $this->Form->input('token',array('label' => 'Código: ','required'=>'false'));
 			
@@ -18,6 +19,7 @@
 		?>
 
 		<?php echo $this->Form->end(__('Enviar'));?>
+    
 	</fieldset>
 </div>
 
