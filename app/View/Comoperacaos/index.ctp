@@ -212,7 +212,7 @@
 					<th id="prazo_entrega" class="colunaConta prazo_entrega"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="forma_pagamento" class="colunaConta forma_pagamento"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Nome do Fornecedor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Nome do(s) Fornecedor(es)'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 
 
 				</tr>
