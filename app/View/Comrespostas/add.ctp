@@ -101,7 +101,7 @@
 			echo '<span id="validaPrazo" class="msg erroRight" style="display:none">Preencha o prazo para entrega</span>';
 			
 			echo "<div id='normalInput'>";
-				echo $this->Form->input('forma_pagamento',array('id'=>'normalfrmPgto','type'=>'select','label'=>'Forma de Pagamento<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo $this->Form->input('forma_pagamento',array('id'=>'normalfrmPgto','type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 				echo '<span id="validaForma" class="msg erroRight" style="display:none">Preencha o forma de pagamento</span>';
 			echo "</div>";
 			
@@ -120,18 +120,19 @@
 	<header>Produtos da Cotação</header>
 	
 	<span id="validaValor" class="msg erroTop" style="display:none">Preencha o valor unitário</span>
-	<span id="validaConfirm" class="msg erroTop" style="display:none">Confirme todos os produtos</span>
+	
 
 	<table>
 		<thead>
 			<td>Nome do Produto</td>
 			<td>Obs. Pedido</td>
-			<td>Obs. Item</td>
-			<td>Fabricante</td>
+			<td style="width:152px;">Obs. Item</td>
+			<td style="width:152px;">Fabricante</td>
 			<td>Quantidade</td>
 			<td>Unidade</td>
-			<td>Valor Unitário<span class="campo-obrigatorio">*</span></td>
-			<td>Total Produto</td>
+			<td style="width:85px;">Valor Unitário<span class="campo-obrigatorio">*</span></td>
+			<td style="width:80px;">Total Produto</td>
+			<span id="validaConfirm" class="msg erroTop" style="display:none">Confirme todos os produtos</span>
 			<td class="confirma">Ações</td>
 		</thead>
 		
@@ -149,11 +150,11 @@
 					echo "</span></td>";
 					
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensresposta.'.$i.'.obs',array('label'=>'','type'=>'text','class'=>'tamanho-medio'));
+						echo $this->Form->input('Comitensresposta.'.$i.'.obs',array('label'=>'','type'=>'text','class'=>'tamanho-medio','style'=>'text-align:center;'));
 					echo "</span></td>";
 					
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensresposta.'.$i.'.fabricante',array('label'=>'','type'=>'text','class'=>'tamanho-medio')); 
+						echo $this->Form->input('Comitensresposta.'.$i.'.fabricante',array('label'=>'','type'=>'text','class'=>'tamanho-medio','style'=>'text-align:center;')); 
 					echo "</td>";
 					
 					echo "<td class='itenQtd".$i."' >";
@@ -166,11 +167,11 @@
 					echo "</td>";
 					
 					echo "<td class='labelTd itenUnit'>";
-						echo $this->Form->input('Comitensresposta.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas')); 
+						echo $this->Form->input('Comitensresposta.'.$i.'.valor_unit',array('id'=>'valorUnit'.$i,'label'=>'','type'=>'text','class'=>'valorUnit tamanho-pequeno dinheiro_duasCasas','style'=>'text-align:center;')); 
 					echo "</td>";
 					
 					echo "<td class='labelTd'>";
-						echo $this->Form->input('Comitensresposta.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero valorTotal','onFocus'=>'this.blur();','readonly'=>'readonly'));
+						echo $this->Form->input('Comitensresposta.'.$i.'.valor_total',array('id'=>'valorTotal'.$i,'label'=>'','type'=>'text','class'=>'tamanho-pequeno borderZero valorTotal','onFocus'=>'this.blur();','readonly'=>'readonly','style'=>'text-align:center;'));
 					echo "</td>";
 					
 					echo "<td class='confirma'>"; 
