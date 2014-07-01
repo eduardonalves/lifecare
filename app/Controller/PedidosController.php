@@ -134,8 +134,15 @@ class PedidosController extends ComoperacaosController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_inici']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['data_fim']);
 			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_unit']);
-			$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
-			
+			//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedido']['valor_total']);
+			$j=0;
+			$total=0;
+			foreach($this->request->data['Comitensdaoperacao'] as $j => $itensop){
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_unit']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
+				$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
+			}
+			$this->request->data['Pedido']['valor'] = $total;
 			if(isset($this->request->data['Pedido']['prazo_entrega'])){
 				if($this->request->data['Pedido']['prazo_entrega'] != ''){
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedido']['prazo_entrega']);
@@ -410,7 +417,7 @@ public function addDash(){
 			  	$email->from('ti.dev@vento-consulting.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -492,10 +499,13 @@ public function addDash(){
 			$mensagem['corpo'] = "Informamos que o pedido de numero".$id."\n";
 			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
 			$mensagem['Mensagem']['codigo'] = $id;
-			
-			if($contato['Contato']['email'] !=""){
-				$this->eviaEmailCanc($contato['Contato']['email'], $remetente, $mensagem);
+
+			if(!empty($contato)){
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmailCanc($contato['Contato']['email'], $remetente, $mensagem);
+				}	
 			}
+			
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
