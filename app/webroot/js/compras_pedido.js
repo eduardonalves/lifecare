@@ -145,7 +145,7 @@
 						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\</td>\
 					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
 					</td>\
 					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
@@ -173,6 +173,8 @@
 			$('#produtoUnid').val('');
 			$("#produtoValor").val('')
 			in_produto++;
+			
+			calculaTotal('TotalPedido');
 		}
 	});
 
@@ -185,7 +187,8 @@
 		atual = id.substr(9);
 		$('#tbl_produtos .produtoTr_'+atual).remove();
 		$('#area_inputHidden_Produto #produtoHi_'+atual).remove();
-				
+		calculaTotal('TotalPedido');
+	
 		classTR = $('#tbl_produtos tr[class*=produtoTr_]').last().attr('class');
 		if(classTR == undefined){
 			in_produto = 0;
@@ -274,6 +277,14 @@
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
 	
+	$('#PedidoAddForm').bind("keyup keypress", function(e) {
+	  var code = e.keyCode || e.which; 
+		if (code  == 13) {               
+			e.preventDefault();
+			return false;
+		}
+	});
+	
 /******** FUNCAO CONFIRMAR  ***********************/	
 	$('body').on('click','.btnConfirm',function(){
 		id = $(this).attr('id');
@@ -294,6 +305,8 @@
 			$('.produtoTr_'+nId+' input').attr('onfocus','this.blur();');
 			$('.produtoTr_'+nId+' input').addClass('borderZero');
 			$(this).hide();
+			
+			calculaTotal('TotalPedido');
 		}
 	});
 	
@@ -316,6 +329,15 @@
 		$('.produtoTr_'+nId+' input').removeClass('borderZero');		
 	});
 
+	function calculaTotal(classe){
+		var totalPedido = 0;
+		$('.'+classe).each(function(){			
+			valor = $(this).val().split('.').join('').replace(',','.');
+			valor = parseFloat(valor);		
+			totalPedido += valor;
+		});
+		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
+	}
 
 /******** CALCULO VALOR UNITARIO   **************************/
 	$('body').on('focusout','.valorUnit',function(){
