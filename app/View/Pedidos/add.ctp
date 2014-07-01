@@ -176,13 +176,14 @@
 					</section>
 					
 								
+					
+				</div>
 					<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','onfocus'=>'this.blur();'));		
 						?>
 					</section>
-				</div>
-			
+					
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
 						<thead>
