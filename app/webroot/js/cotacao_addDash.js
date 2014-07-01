@@ -315,7 +315,13 @@ var valorTotal = 0;
 	$('#CotacaoAddForm').submit(function(){	
 		$('.confirmaInput').removeAttr('disabled','disabled');
 	});
-
+	$('#CotacaoAddForm').bind("keyup keypress", function(e) {
+	  var code = e.keyCode || e.which; 
+		if (code  == 13) {               
+			e.preventDefault();
+			return false;
+		}
+	});
 /******** FUNCAO CONFIRMAR  ***********************/	
 	$('body').on('click','.btnConfirm',function(){
 		id = $(this).attr('id');
