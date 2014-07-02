@@ -59,7 +59,7 @@ th, td{
 }
 
 .actions{
-	min-width:80px
+	min-width:80px;
 }
 
 .img-edit{
@@ -70,19 +70,41 @@ th, td{
 	border-color:rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #808080 rgba(0, 0, 0, 0);
 	border-style:solid;
 	border-width:5px;
+	
 }
 
 .seta-baixo{
 	border-color:#808080 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 	border-style:solid;
 	border-width:5px;
-	margin-top:4px !important;
+	top:4px !important;
+}
+th {
+
+	white-space:nowrap;
+	text-align:center;
+	
+}
+th a {
+	position:relative;
+	display:inline-block;
+	white-space:nowrap;
+	
+	
+}
+th div{
+
+	position:relative;
+	display:inline-block;
+	margin-left:10px;
+	
 }
 
 .posicao-seta{
-	float:right;
+	/* float:right;
+	-moz-margin-start:-20px; */
+
 	margin-top:0px;
-	-moz-margin-start:-20px;
 }
 
 .highlight{
