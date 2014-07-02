@@ -206,9 +206,9 @@
 
 					<th id="id" class="colunaConta id"><?php echo $this->Paginator->sort('id','Código'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="tipo" class="colunaConta tipo"><?php echo $this->Paginator->sort('tipo','Tipo'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="data_inici" class="colunaConta data_inici"><?php echo $this->Paginator->sort('data_inici','Data de Início'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="data_fim" class="colunaConta data_fim"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="valor" class="colunaConta valor"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="data_inici" class="colunaConta data_inici"><?php echo $this->Paginator->sort('data_inici','Data de Início', array('style'=>'vertical-align:text-top;')); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="data_fim" class="colunaConta data_fim"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div></th>
+					<th id="valor" class="colunaConta valor tbFixCompras"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="prazo_entrega" class="colunaConta prazo_entrega"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="forma_pagamento" class="colunaConta forma_pagamento"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
