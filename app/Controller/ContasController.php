@@ -649,7 +649,7 @@ class ContasController extends AppController {
 		
 		foreach ($configconta['Configconta'] as $key => $value)
 		{
-			if($value!=1)
+			if($key=='descricao' || $key=='data_emissao')
 			{
 				if (isset($configContasLabels[$key]))
 				{
@@ -659,6 +659,7 @@ class ContasController extends AppController {
 		}
 		
 		$configCont = $configContasLabels;
+		
 		$this->set(compact('configCont','configconta'));
 /*--------FIM configContas----------*/
 		

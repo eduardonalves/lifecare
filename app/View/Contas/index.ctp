@@ -268,7 +268,6 @@ $(document).ready(function() {
 				<tr>
 				    <th class="colunaConta">Ações</th>
 					<?php 
-				     
 					    foreach($configCont as $campo=>$campoLabel)
 					    {
 						if($campo=='parcelas'){
