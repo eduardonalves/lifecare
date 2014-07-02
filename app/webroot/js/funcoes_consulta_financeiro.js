@@ -173,14 +173,13 @@ var valorAux=$('#filterTipoMovimentacao').val();
 /** Placeholder Data **************************************************/
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
 
+});
+
 /** Validação Data Emissão e Pagamento ao Quitar Parcela **************************************************/
 	
-	$("#ContaDataPagamento").focusout(function(){
-		if(validacaoEntreDatas($("#ContaDataEmissao").val(),$("#ContaDataPagamento").val(),"#spanQuitarDataInvalida")){
-			$("#ContaDataPagamento").val("");
-			$("#ContaDataPagamento").addClass('shadow-vermelho');
+	function validaData(j){
+		if(validacaoEntreDatas($("#ContaDataEmissao"+j).val(),$("#ContaDataPagamento"+j).val(),"#spanQuitarDataInvalida"+j)){
+			$("#ContaDataPagamento"+j).val("");
+			$("#ContaDataPagamento"+j).addClass('shadow-vermelho');
 		}
-		
-	});
-
-});
+	};
