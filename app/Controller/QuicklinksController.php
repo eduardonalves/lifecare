@@ -108,19 +108,19 @@ class QuicklinksController extends AppController {
 			$this->Session->setFlash(__('Pesquisa Rápida não pode ser deletada. Tente novamente.'),'default',array('class'=>'error-flash'));
 			
 		}
-  
+		
 		$redirecionar = split ('[/]',$this->referer(),6);
+		
 		if($redirecionar[4] == 'Contas'){
 		    $this->layout = 'contas';
 		    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
-		   
 		}if($redirecionar[4] == 'contas'){
 		    $this->layout = 'contas';
 		    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
-		}else if($redirecionar[4] == 'comoperacaos'){
+		}if($redirecionar[4] == 'comoperacaos'){
 		    $this->layout = 'compras';
 		    $this->redirect(array('controller' => 'comoperacaos', 'action' => 'index' . '?parametro=operacoes'));
-		} else if($redirecionar[4] == 'Comoperacaos'){
+		}if($redirecionar[4] == 'Comoperacaos'){
 		    $this->layout = 'compras';
 		    $this->redirect(array('controller' => 'comoperacaos', 'action' => 'index' . '?parametro=operacoes'));
 		}else{

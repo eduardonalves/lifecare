@@ -339,7 +339,7 @@ class ComoperacaosController extends AppController {
 					                )
 					            )
 					        ),
-							'id' => array(
+							'ide' => array(
 								'_Comoperacao.id' => array(
 									'operator' => 'LIKE',
 								)
@@ -497,7 +497,7 @@ class ComoperacaosController extends AppController {
 				                )
 				            )
 				        ),
-				        'id' => array(
+				        'ide' => array(
 								'_Comoperacao.id' => array(
 									'operator' => 'LIKE',
 								)
