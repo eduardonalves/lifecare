@@ -125,9 +125,24 @@ class QuicklinksController extends AppController {
 		    $this->redirect(array('controller' => 'comoperacaos', 'action' => 'index' . '?parametro=operacoes'));
 		}else{
 		
-		    //igual a notas
-		    $this->redirect(array('controller' => 'notas', 'action' => 'index' . '?parametro=produtos'));
+		    if($redirecionar[3] == 'Contas'){
+			    $this->layout = 'contas';
+			    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
+			   
+			}if($redirecionar[3] == 'contas'){
+			    $this->layout = 'contas';
+			    $this->redirect(array('controller' => 'contas', 'action' => 'index' . '?parametro=contas'));
+			}else if($redirecionar[3] == 'comoperacaos'){
+			    $this->layout = 'compras';
+			    $this->redirect(array('controller' => 'comoperacaos', 'action' => 'index' . '?parametro=operacoes'));
+			} else{
+			
+			    //igual a notas
+			    $this->redirect(array('controller' => 'notas', 'action' => 'index' . '?parametro=produtos'));
+			    
+			}
 		    
 		}
 
-	}}
+	}
+}
