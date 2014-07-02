@@ -83,9 +83,10 @@
 	/** Validação Data Emissão e Pagamento ao Quitar Parcela **************************************************/
 	
 	function validaData(j){
-		if(validacaoEntreDatas($("#ContaDataEmissao").val(),$("#ContaDataPagamento"+j).val(),"#spanQuitarDataInvalida"+j)){
-			$("#ContaDataPagamento"+j).val("");
-			$("#ContaDataPagamento"+j).addClass('shadow-vermelho');
+		if($("#ContaDataPagamento"+j).val() != ''){
+			if(validacaoEntreDatas($("#ContaDataEmissao").val(),$("#ContaDataPagamento"+j).val(),"#spanQuitarDataInvalida"+j)){
+				$("#ContaDataPagamento"+j).val("");
+				$("#ContaDataPagamento"+j).addClass('shadow-vermelho');
 		}
 	}
 	
