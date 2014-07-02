@@ -1,0 +1,106 @@
+@charset "utf-8";
+
+/* ID *****************************************************************/
+
+/* CLASS **************************************************************/
+
+
+#myModal_add-parceiroFornecedor .modal-body{
+	width: 1100px;
+	height: 550px !important;
+}
+
+#myModal_add-parceiroFornecedor{
+	left: 29%;
+	top: 6%;
+}
+
+#myModal_add-parceiroFornecedor .divTipoParceiro{margin-bottom:50px;}
+
+#myModal_add-parceiroFornecedor .bloco-area{
+	display:inline-block;
+	margin-top:20px;
+	width:100%;
+}
+
+#myModal_add-parceiroFornecedor .bloco-area:first-child{
+	display:inline-block;
+	margin-top:0px !important;
+}
+
+#myModal_add-parceiroFornecedor .ajusteAlignSection{
+	clear:both;
+}
+
+/* TAG ****************************************************************/
+#myModal_add-parceiroFornecedor  hr{
+	margin:0 !important;
+}
+
+#myModal_add-parceiroFornecedor input, select{
+	margin-bottom: 4px;
+}
+
+#myModal_add-parceiroFornecedor select{
+	margin-bottom: 4px;
+}
+
+/* MENSAGENS DE VALIDAÇÃO ****************************************************************/
+
+#myModal_add-parceiroFornecedor #validaClassificacao{
+	margin-left: 251px;
+	margin-top: -40px;
+}
+
+#myModal_add-parceiroFornecedor #validaTelefone{
+	margin-left: 315px;
+	margin-top: -7px;
+	position: absolute;
+	width: 80px;
+}
+#myModal_add-parceiroFornecedor #validaNome{
+	margin-left: 315px;
+	margin-top: -7px;
+	position: absolute;
+}
+
+#myModal_add-parceiroFornecedor #valida0Cep1, #valida0Cep2, #valida0Cep3{
+	margin-left: 315px;
+	top: -7px;
+	width: 85px;
+	position: absolute;
+}
+
+#myModal_add-parceiroFornecedor span[id$="Logradouro"] {
+	left: 169px;
+	top: 32px;
+	width: 85px;
+}
+#myModal_add-parceiroFornecedor span[id$="Logradouro"]:after {
+	left: 32px;
+	top: -19px;
+	width: 0px;
+}
+#myModal_add-parceiroFornecedor span[id$="Uf"] {
+	left: 320px;
+	top: 25px;
+	width: 85px;
+	z-index: 10;
+}
+#myModal_add-parceiroFornecedor span[id$="Cidade"] {
+	left: 185px;
+	top: 60px;
+	width: 85px;
+}
+#myModal_add-parceiroFornecedor span[id$="Cidade"]:after {
+	left: 32px;
+	top: -19px;
+	width: 0px;
+}
+#myModal_add-parceiroFornecedor span[id$="Bairro"] {
+	clear: both;
+	left: 313px;
+	top: 50px;
+	width: 85px;
+	position: absolute;
+}

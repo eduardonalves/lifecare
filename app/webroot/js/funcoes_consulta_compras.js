@@ -377,5 +377,55 @@ var valorAux=$('#filterTipoOperacao').val();
 	
 /** Ajuste de input ***************************************************/
 	$('.custom-combobox-input').addClass("tamanho-medio");
+  
+/** FUNÇÕES ASSOCIAR PARCEIRO AO PRODUTO MODAL TABELA PRODUTOS ***************************************************/
+	var cont_fornecedor = 0;
+	var existente = 0;
+	$('body').on('click','.associaFornecedor',function(){
+		id = $(this).attr('id');
+		nId = id.substring(12);
+		
+		if(!$('#ass_fornecedor'+nId).val()){
+			alert('selecione um fornecedor');
+		}else{
+			
+			parc_nome = $('#ass_fornecedor'+nId+' option:selected').attr('id');
+			
+			$('.adicionados').each(function(){
+				if($(this).text() == parc_nome){
+					existente++;
+				}
+			});
+			
+			if(existente != 0){
+				alert('esse cara já está na tabela!');
+			}else{	
+				
+				parc_cpf = $('#ass_fornecedor'+nId+' option:selected').attr('class');
+				parc_status = $('#ass_fornecedor'+nId+' option:selected').attr('rel');
+				parc_id = $('#ass_fornecedor'+nId+' option:selected').val();
+				
+				if(!parc_status){
+					status = '--';
+				}else{
+					status = "<img src='/lifecare/img/semaforo-"+parc_status.toLowerCase()+"-12x12.png'/>";
+				}
+				
+				//Adiciona na Tabela do Modal
+				$('#tbl_associa'+nId+' tbody').prepend(
+					"<tr>"+
+						"<td class='adicionados'>"+parc_nome+"</td>"+
+						"<td>"+parc_cpf+"</td>"+
+						"<td>"+ status +"</td>"+
+						"<td><img title='Remover' alt='Remover' src='/lifecare/img/lixeira.png' id='excluirF_"+cont_fornecedor+"' class='bt-removeForne'/>  </td>"+
+					"</tr>"	
+				);
+				
+				existente = 0;
+				$('#ass_fornecedor'+nId).val('');
+			}
+		}
+	});
+	
 
 });
