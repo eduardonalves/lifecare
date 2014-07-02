@@ -77,7 +77,18 @@
 		 		$('#Parc'+numero+'Parcelasids').remove();	
 		 	}
 	    });
+	
 	});
+	
+	/** Validação Data Emissão e Pagamento ao Quitar Parcela **************************************************/
+	
+	function validaData(j){
+		if(validacaoEntreDatas($("#ContaDataEmissao").val(),$("#ContaDataPagamento"+j).val(),"#spanQuitarDataInvalida"+j)){
+			$("#ContaDataPagamento"+j).val("");
+			$("#ContaDataPagamento"+j).addClass('shadow-vermelho');
+		}
+	}
+	
 </script>
 
 <header>
@@ -116,7 +127,7 @@
 
 		<?php
 			echo $this->Form->input('valor',array('label' => 'Valor:','value'=>h("R$ ".h(number_format($conta['Conta']['valor'], 2, ',', '.'))),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
-		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
+		    echo $this->Form->input('',array('type' => 'text','label' => 'Data de Emissão:','value'=>h(formatDateToView($conta['Conta']['data_emissao'])),'class' => 'tamanho-grande borderZero','disabled'=>'disabled','id' => 'ContaDataEmissao'));
    			echo $this->Form->input('data_quitacao',array('type' => 'text', 'label' => 'Data de Quitação:','value'=>h($conta['Conta']['data_quitacao']),'class' => 'tamanho-grande borderZero','disabled'=>'disabled'));
 		?>
 
@@ -276,8 +287,9 @@
 								<?php
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcelas['id'].''));
 									echo "<div class=\"ui-widget\">";
-									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
+									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , 'onfocusout' => 'javascript: validaData('.$j.')'));
 									echo "<span id='spanQuitarData".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
+									echo "<span id='spanQuitarDataInvalida".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Data de pagamento não pode ser menor que Data de Emissão</span>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcelas['descricao'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcelas['juros'], 'style'=>'display: inline'));

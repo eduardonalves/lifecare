@@ -553,8 +553,10 @@ $(document).ready(function() {
 								<?php
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcela['Parcela']['id'].''));
 									echo "<div class=\"ui-widget\">";
+									echo $this->Form->input('data_emissao', array('id'=>'ContaDataEmissao'.$j,'class'=>'inputData','type'=>'text'));
 									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
 									echo "<span id='spanQuitarData".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
+									echo "<span id='spanQuitarDataInvalida".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Data de pagamento não pode ser menor que Data de Emissão</span>";
 									echo "<div style='clear:both;'></div>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcela['Parcela']['descricao'], 'style'=>'display: inline'));
 									
