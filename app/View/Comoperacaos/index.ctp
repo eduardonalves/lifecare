@@ -442,7 +442,8 @@
 							echo "<hr style='margin-top: 0px !important;'/>";
 							
 								echo "<a href='myModal_add-parceiroFornecedor' class='bt-showmodal'>"; 
-									echo $this->Html->image('cadastrar.png',array('alt'=>'Cadastrar Novo Fornecedor','class' => '','title'=>'Cadastrar Novo Fornecedor'));
+									echo $this->Html->image('cadastrar.png',array('id'=>'addNovo'.$j,'alt'=>'Cadastrar Novo Fornecedor','class'=>'addNovoParceiro','title'=>'Cadastrar Novo Fornecedor'));
+									echo $this->Form->input('Vazio.idProdAdd',array('id'=>'idProdAdd'.$j,'value'=>$produto['Produto']['id'],'type'=>'hidden'));
 								echo "</a>";
 								
 							echo "<hr style='margin-top: 0px !important;'/>";
@@ -469,7 +470,7 @@
 									<header>Fornecedores</header>
 									<section>
 									<section class="coluna-esquerda">
-									
+										<?php echo $this->Form->input('Vazio.idProd',array('id'=>'idProd'.$j,'value'=>$produto['Produto']['id'],'type'=>'hidden')); ?>
 										<div>
 											<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Fornecedor</span>
 											<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>											
@@ -479,13 +480,20 @@
 												foreach($parceiroSelect as $selectParceiro){
 													
 													echo "<option id='".$selectParceiro['Parceirodenegocio']['nome']."' class='".$selectParceiro['Parceirodenegocio']['cpf_cnpj']."' rel='".$selectParceiro['Parceirodenegocio']['status']."' value='".$selectParceiro['Parceirodenegocio']['id']."' >";
-													echo $selectParceiro['Parceirodenegocio']['nome'];
+														echo $selectParceiro['Parceirodenegocio']['nome'];
 													echo "</option>";
 												}
 											?>
 
 											</select>								
 										</div> 
+										<section class="area_hidden_fornecedor<?php echo $j; ?>">
+											<?php												
+												echo $this->Form->create('ProdutosParceirodenegocio',array('id'=>'formAssocia'.$j,'controller'=>'ProdutosParceirodenegocios','action'=>'associaFornecedores'));
+													
+												echo $this->Form->end();												
+											?>
+										</section>
 										
 									</section>
 									
@@ -493,8 +501,14 @@
 											<?php
 												echo $this->html->image('preencher2.png',array('alt'=>'Preencher',
 																			 'title'=>'Adicionar Fornecedor',
-																				 'class'=>'associaFornecedor',
+																				 'class'=>'bt associaFornecedor',
 																				 'id'=>'bt-preencher'.$j
+																				 ));
+												echo $this->html->image('botao-salvar2.png',array('alt'=>'Preencher',
+																			 'title'=>'Adicionar Fornecedor',
+																				'class'=>'bt associSalvar',
+																				 'style'=>'display:none;',
+																				 'id'=>'bt-salvarAssociar'.$j
 																				 ));
 											?>
 									</section>
@@ -521,7 +535,7 @@
 												
 													foreach($produto['Parceirodenegocio'] as $parceiro){
 														echo "<tr>";
-															echo "<td class='adicionados'>";
+															echo "<td class='adicionados".$j."'>";
 																echo $parceiro['nome'];
 															echo "</td>";
 
@@ -660,8 +674,6 @@
 <?php //echo $this->element('ComParceiroFornecedor_associa', array('modal'=>'add-associaFornecedor')); ?>
 
 	<div style="clear:both;"></div>
-	
-<section class="area_hidden_fornecedor"></section>
 
 <pre>
 <?php

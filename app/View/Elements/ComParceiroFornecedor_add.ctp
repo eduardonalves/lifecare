@@ -193,7 +193,11 @@
 
 		<?php
 			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'addFornecedorForm'));
-			//echo $this->Form->create();
+			
+			//Essa input receberá sempre o valor do produto selecionado da tabela de comprar produtos
+			echo $this->Form->input('Vazio.produto_id',array('id' =>'idProdutoLinha','type' => 'hidden'));
+
+			
 			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
 			echo '<span id="validaClassificacao" class="msg erroRight" style="display:none">Selecione a Classificação</span>';
 

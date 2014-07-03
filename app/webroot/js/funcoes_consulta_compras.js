@@ -379,8 +379,8 @@ var valorAux=$('#filterTipoOperacao').val();
 	$('.custom-combobox-input').addClass("tamanho-medio");
   
 /** FUNÇÕES ASSOCIAR PARCEIRO AO PRODUTO MODAL TABELA PRODUTOS ***************************************************/
-	var cont_fornecedor = 0;
-	var existente = 0;
+	var cont_fornecedor = 0; //Contador de fonecedores adicionado
+	var existente = 0;	//Verificação para evitar repetição de fornecedor
 	$('body').on('click','.associaFornecedor',function(){
 		id = $(this).attr('id');
 		nId = id.substring(12);
@@ -391,7 +391,7 @@ var valorAux=$('#filterTipoOperacao').val();
 			
 			parc_nome = $('#ass_fornecedor'+nId+' option:selected').attr('id');
 			
-			$('.adicionados').each(function(){
+			$('.adicionados'+nId).each(function(){
 				if($(this).text() == parc_nome){
 					existente++;
 				}
@@ -399,11 +399,13 @@ var valorAux=$('#filterTipoOperacao').val();
 			
 			if(existente != 0){
 				alert('esse cara já está na tabela!');
+				existente = 0;
 			}else{	
 				
 				parc_cpf = $('#ass_fornecedor'+nId+' option:selected').attr('class');
 				parc_status = $('#ass_fornecedor'+nId+' option:selected').attr('rel');
 				parc_id = $('#ass_fornecedor'+nId+' option:selected').val();
+				prod_id = $('#idProd'+nId).val();
 				
 				if(!parc_status){
 					status = '--';
@@ -413,19 +415,63 @@ var valorAux=$('#filterTipoOperacao').val();
 				
 				//Adiciona na Tabela do Modal
 				$('#tbl_associa'+nId+' tbody').prepend(
-					"<tr>"+
-						"<td class='adicionados'>"+parc_nome+"</td>"+
+					"<tr id='linhaAssocia"+cont_fornecedor+"'>"+
+						"<td class='adicionados"+nId+"'>"+parc_nome+"</td>"+
 						"<td>"+parc_cpf+"</td>"+
 						"<td>"+ status +"</td>"+
-						"<td><img title='Remover' alt='Remover' src='/lifecare/img/lixeira.png' id='excluirF_"+cont_fornecedor+"' class='bt-removeForne'/>  </td>"+
+						"<td><img title='Remover' alt='Remover' src='/lifecare/img/lixeira.png' id='excluirF_"+nId+"' data-hide='"+cont_fornecedor+"' class='bt-removeForne'/>  </td>"+
 					"</tr>"	
 				);
 				
+				//Adiciona a input hidden para salvar
+				$('#formAssocia'+nId).append(
+					"<div id='hiddenAssocia"+cont_fornecedor+"'><input name='data[ProdutosParceirodenegocio]["+cont_fornecedor+"][produto_id]' type='hidden' value='"+prod_id+"'/>"+
+					"<input name='data[ProdutosParceirodenegocio]["+cont_fornecedor+"][parceirodenegocio_id]' type='hidden' value='"+parc_id+"' /></div>"
+				);
+								
+				cont_fornecedor++;
 				existente = 0;
 				$('#ass_fornecedor'+nId).val('');
+				$('#bt-salvarAssociar'+nId).show();
 			}
 		}
 	});
 	
-
+	//REMOVE O FORNECEDOR DA LISTA DO PRODUTO
+	$('body').on('click','.bt-removeForne',function(){
+		id = $(this).attr('id');
+		nId = id.substring(9);
+		hide = $(this).attr('data-hide');
+	
+		$('#tbl_associa'+nId+' #linhaAssocia'+hide).remove();
+		$('#formAssocia'+nId+' #hiddenAssocia'+hide).remove();
+		cont_fornecedor--;
+		
+		if(cont_fornecedor == 0){
+			$('#bt-salvarAssociar'+nId).hide();
+		}		
+	});
+	
+	//SUBMITA O FORMULARIO QUE FAZ A ASSOCIAÇÃO
+	$('.associSalvar').click(function(){
+		id = $(this).attr('id');
+		nId = id.substring(17);
+		
+		$('#formAssocia'+nId).submit();
+		
+	});
+	
+	//CAPTURA A ID DO PRODUTO PARA ADICIONAR UM NOVO FORNECEDOR ASSOCIADO
+	$('body').on('click','.addNovoParceiro',function(){
+		id = $(this).attr('id');
+		nId = id.substring(7);
+		
+		id_prod_novo = $('#idProdAdd'+nId).val();
+		
+		//SETA O VALOR PARA DENTRO DO MODAL
+		$('#idProdutoLinha').val(id_prod_novo);
+		
+	});
+	
+	
 });
