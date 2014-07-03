@@ -94,7 +94,11 @@
 			<?php
 				//echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled','style'=>'display: none;'));
+					echo "
+					<div class='whiteSpace' style='min-width: 185px !important; font-size: 13px; margin: 12px 0px 0px 0px;'>
+						<span title='".$contato['email']."'>".$contato['email']."</span>
+					</div>";
 				}
 				
 				foreach($parceirodenegocio['Endereco'] as $endereco){
@@ -280,7 +284,8 @@
 									<?php
 										echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
 										echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));
-										echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','type'=>'text','class'=>'tamanho-pequeno inputData'));
+										echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','type'=>'text','class'=>'tamanho-pequeno inputData','onfocusout' => 'javascript: validaData()'));
+										echo "<span id='spanDataInvalida' class='Msg Msg-tooltipDireita' style='display:none; margin-left: 250px; z-index: 1;'>Data do Recebimento não pode ser menor que a Data Inicial</span>";
 									?>
 								</div>
 								<footer>
@@ -313,5 +318,16 @@
 	    });	
 		
 	});
+	
+	/** Validação Data Início e Confirmação ao Confirmar Pedido **************************************************/
+	
+	function validaData(){
+		if($("#dataRecebimento").val() != ''){
+			if(validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida")){
+				$("#dataRecebimento").val("");
+				$("#dataRecebimento").addClass('shadow-vermelho');
+		}
+	}
+	};
 </script>
 

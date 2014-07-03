@@ -426,6 +426,11 @@ $(document).ready(function() {
 							echo "<td class=\"$campo\">" . $conta['Conta']['forma_pagamento'] . "&nbsp;</td>";
 						}else if($campo=="tipo_pagamento"){
 							echo "<td class=\"$campo\">" . $conta['Conta']['tipo_pagamento'] . "&nbsp;</td>";
+						}else if($campo=="data_quitacao"){
+							if(isset($conta['Conta']['data_quitacao']) && $conta['Conta']['data_quitacao'] != ''){
+								echo "<td class=\"$campo\">" . $conta['Conta']['data_quitacao'] . "&nbsp;</td>";
+							}else{
+								echo "<td class=\"$campo\">&nbsp;</td>";}
 						}else{
 							echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 						}
