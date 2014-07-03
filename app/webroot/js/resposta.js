@@ -109,9 +109,9 @@ $(document).ready(function(){
 	});
 
 	
-	var soma = 0;
 	$("img[id*='botaoConfirm']").click(function(e){
 		e.preventDefault();
+		var soma = 0;
 		var id = $(this).attr('id');
 		var lastChar = id.substr(id.length - 1);
 		
