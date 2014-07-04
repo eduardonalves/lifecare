@@ -46,10 +46,9 @@ var valorTotal = 0;
 			num = num.substring(0,num.length - (4*i+3)) + '.' + num.substring(num.length - (4*i+3));
 		}
 		
-		ret = num + ',' + cents;		
-		if (x == 1){
-			 return ret;
-		 }
+		ret = num + ',' + cents;
+		
+		return ret;
 	}
  
 /********************* Autocomplete Fornecedor *********************/

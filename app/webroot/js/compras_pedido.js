@@ -3,7 +3,6 @@
 /**** FUNÇÔES **/
 
 	function float2moeda(num){
-		x = 0;
 		
 		if(num>0){
 			num = Math.abs(num);
@@ -22,10 +21,9 @@
 			num = num.substring(0,num.length - (4*i+3)) + '.' + num.substring(num.length - (4*i+3));
 		}
 		
-		ret = num + ',' + cents;		
-		if (x == 1){
-			 return ret;
-		 }
+		ret = num + ',' + cents;
+		
+		return ret;
 	}
  
 /********************* Autocomplete Fornecedor *********************/
@@ -122,6 +120,7 @@
 			}else{
 				valorMoeda = '0,00';
 				valorUnit = '0,00';
+				valorTotal = '0,00';
 			}
 			
 			

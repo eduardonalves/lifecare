@@ -39,7 +39,7 @@
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 				
 				$dataHoje = date('d/m/Y');
-				echo $this->Form->input('data_inici',array('value'=>$dataHoje,'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text','readonly'=>'readonlyde','onfocus'=>'this.blur();'));
+				echo $this->Form->input('data_inici',array('value'=>$dataHoje,'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text','readonly'=>'readonly','onfocus'=>'this.blur();','style' => 'background: rgb(250, 250, 250);'));
 				
 				
 				echo "<div id='divSelPgto'>";
