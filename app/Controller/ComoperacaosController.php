@@ -138,6 +138,7 @@ class ComoperacaosController extends AppController {
 		
 		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
 		
+		
 		$listaParceiros = array();
 		foreach($parceirodenegocios as $parceirodenegocio){
 			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
@@ -425,7 +426,9 @@ class ComoperacaosController extends AppController {
 					);
 			
 					$this->loadModel('Produto');
-						
+					$this->loadModel('Parceirodenegocio');
+					$parceiroSelect = $this->Parceirodenegocio->find('all',array('conditions'=>array('Parceirodenegocio.tipo'=>'FORNECEDOR'),'recursive'=>-1));
+					
 					$produtos = $this->Produto->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Produto.id', 'Produto.*'), 'order' => 'Produto.nome ASC'));
 					$this->Paginator->settings = array(
 						'Produto' => array(
@@ -440,7 +443,7 @@ class ComoperacaosController extends AppController {
 					$cntProdutos = count($produtos);
 					$produtos = $this->Paginator->paginate('Produto');
 						
-					$this->set(compact('produtos', 'cntProdutos'));
+					$this->set(compact('produtos', 'cntProdutos','parceiroSelect'));
 						
 				
 				}elseif($_GET['parametro'] == 'fornecedores'){
@@ -559,7 +562,9 @@ class ComoperacaosController extends AppController {
 				           ),
 				        )
 					);
+					
 					$this->loadModel('Parceirodenegocio');
+					
 					
 					$parceirodenegocios = $this->Parceirodenegocio->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*'), 'order' => 'Parceirodenegocio.nome ASC'));
 					$this->Paginator->settings = array(
@@ -571,7 +576,7 @@ class ComoperacaosController extends AppController {
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
-					
+			
 					$cntParceiros = count($parceirodenegocios);
 					$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');
 					$this->set(compact('parceirodenegocios', 'cntParceiros'));
