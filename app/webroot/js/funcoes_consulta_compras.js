@@ -386,7 +386,7 @@ var valorAux=$('#filterTipoOperacao').val();
 		nId = id.substring(12);
 		
 		if(!$('#ass_fornecedor'+nId).val()){
-			alert('selecione um fornecedor');
+			alert('Por favor, selecione um fornecedor.');
 		}else{
 			
 			parc_nome = $('#ass_fornecedor'+nId+' option:selected').attr('id');
@@ -398,7 +398,7 @@ var valorAux=$('#filterTipoOperacao').val();
 			});
 			
 			if(existente != 0){
-				alert('esse cara já está na tabela!');
+				alert('Esse fornecedor já foi adicionado à tabela!');
 				existente = 0;
 			}else{	
 				

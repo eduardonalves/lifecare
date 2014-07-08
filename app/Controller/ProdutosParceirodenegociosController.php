@@ -26,6 +26,25 @@ class ProdutosParceirodenegociosController extends AppController {
 	}
 
 /**
+ * associaFornecedores method
+ *
+ * @return void
+ */
+	public function associaFornecedores() {
+		if($this->request->is('post')){
+			foreach($this->request->data['ProdutosParceirodenegocio'] as $assoc){
+				debug($assoc);
+				if ($this->ProdutosParceirodenegocio->save($assoc)) {
+					$this->Session->setFlash(__('The produtos parceirodenegocio has been saved.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('controller' => 'Comoperacaos', 'action' => 'index/?parametro=produtos&limit=15'));
+				} else {
+					$this->Session->setFlash(__('The produtos parceirodenegocio could not be saved. Please, try again.'), 'default', array('class' => 'error-flash'));
+				}
+			}
+		}
+	}
+
+/**
  * view method
  *
  * @throws NotFoundException

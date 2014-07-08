@@ -192,7 +192,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'addFornecedorForm'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'addFornecedorForm', 'layout' => 'compras', 'abas' => '41'));
 			
 			//Essa input receberá sempre o valor do produto selecionado da tabela de comprar produtos
 			echo $this->Form->input('Vazio.produto_id',array('id' =>'idProdutoLinha','type' => 'hidden'));
@@ -399,6 +399,9 @@
     </div>	
 
     <?php
+		echo $this->Form->input('layout', array('type'=> 'hidden', 'value' => 'compras'));
+		echo $this->Form->input('abas', array('type'=> 'hidden', 'value' => '41'));
+		
 		echo $this->html->image('botao-salvar.png',array('alt'=>'Salvar','title'=>'Salvar','id'=>'bt-salvarParceiroModal','class'=>'bt-salvar'));
 		
 		echo $this->Form->end();

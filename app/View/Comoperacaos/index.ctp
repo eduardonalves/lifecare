@@ -510,7 +510,7 @@
 																				 'id'=>'bt-preencher'.$j
 																				 ));
 												echo $this->html->image('botao-salvar2.png',array('alt'=>'Preencher',
-																			 'title'=>'Adicionar Fornecedor',
+																			 'title'=>'Associar Fornecedores',
 																				'class'=>'bt associSalvar',
 																				 'style'=>'display:none;',
 																				 'id'=>'bt-salvarAssociar'.$j
@@ -653,7 +653,7 @@
 				
 				</tr>
 
-				<?php endforeach; 
+				<?php endforeach;
 				}
 				//fim tabela fornecedores
 				?>
@@ -679,9 +679,3 @@
 <?php //echo $this->element('ComParceiroFornecedor_associa', array('modal'=>'add-associaFornecedor')); ?>
 
 	<div style="clear:both;"></div>
-
-<pre>
-<?php
-	print_r($parceiroSelect);
-?>
-</pre>

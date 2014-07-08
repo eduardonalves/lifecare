@@ -100,6 +100,7 @@ class ComoperacaosController extends AppController {
  */
 	public function index() {
 		$this->layout = 'compras';
+		
 		$userid = $this->Session->read('Auth.User.id');
 		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
 		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');

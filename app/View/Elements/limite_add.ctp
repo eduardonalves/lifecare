@@ -2,6 +2,9 @@
 	$this->start('css');
 
 		echo $this->Html->css('limiteAdd');
+	    echo $this->Html->css('modal_ParceiroCliente');
+	    echo $this->Html->css('modal_ParceiroFornecedor');
+	    echo $this->Html->css('parceiro');
 	
 	$this->end();
 
@@ -97,7 +100,7 @@ $(document).ready(function(){
 
 			echo '<span id="validaLimiteModal" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
 			
-			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'forma-data tamanho-pequeno'));
+			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'inputData tamanho-pequeno'));
 			echo '<span id="validaValidadeModal" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display: none;">Preencha corretamente a data</span>';
 			

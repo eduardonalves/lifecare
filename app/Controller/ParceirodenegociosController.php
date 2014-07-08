@@ -227,10 +227,21 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function add() {
+		
+		//~ $url = explode('/', $this->here);
+		//~ 
+		//~ foreach($url as $lugar){
+			//~ if($lugar == 'Comoperacaos' || $lugar == 'comoperacaos')
+				//~ $layout = 'compras';
+		//~ }
+		//~ 
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
 			$this->layout = $telaLayout;
+		//~ }else if(isset($layout)){
+			//~ $telaLayout = $layout;
+			//~ $this->layout = $layout;
 		}else{
 			$this->layout = 'contas';
 		}
@@ -244,8 +255,6 @@ class ParceirodenegociosController extends AppController {
 				$this->request->data['Dadoscredito'][$i]['parceirodenegocio_id']=$userid;
 				$i++;
 			}
-			
-			
 			
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
