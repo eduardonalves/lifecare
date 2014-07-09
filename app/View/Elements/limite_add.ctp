@@ -7,6 +7,13 @@
 	    echo $this->Html->css('parceiro');
 	
 	$this->end();
+	
+	$this->start('script');
+
+		echo $this->Html->script('funcoes_financeiro.js');
+		echo $this->Html->script('funcoes_consulta.js');
+	
+	$this->end();
 
 	if(isset($modal))
 	{
@@ -102,7 +109,7 @@ $(document).ready(function(){
 			
 			echo $this->Form->input('Dadoscredito.validade_limite',array('label' => 'Validade do Limite<span class="campo-obrigatorio">*</span>:','type' => 'text','class' => 'inputData tamanho-pequeno'));
 			echo '<span id="validaValidadeModal" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
-			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display: none;">Preencha corretamente a data</span>';
+			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display: none;">Preencha a data corretamente.</span>';
 			
 			echo $this->Form->input('Dadoscredito.parceirodenegocio_id',array('type' => 'hidden', 'value' => $parceirodenegocio['Parceirodenegocio']['id']));
 			

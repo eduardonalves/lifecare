@@ -6,7 +6,6 @@
 	$this->end();
 
 	$this->start('script');
-		//echo $this->Html->script('http://cidades-estados-js.googlecode.com/files/cidades-estados-1.2-utf8.js');
 		echo $this->Html->script('funcoes_parceiro.js');
 	$this->end();
 	
@@ -104,9 +103,9 @@ $(document).ready(function(){
 			$p=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$p.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+				echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'placeholder'=>'(99) 9999-9999'));
 				echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
-				echo $this->Form->input('Contato.'.$p.'.fax',array('class' => 'mudancaInput tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
+				echo $this->Form->input('Contato.'.$p.'.fax',array('class' => 'mudancaInput tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7', 'placeholder'=>'(99) 9999-9999'));
 				$p++;
 			}
 			
@@ -124,8 +123,8 @@ $(document).ready(function(){
 			$l=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
-				echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'mudancaInput tamanho-medio','label' => 'Email:'));
+				echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2', 'placeholder'=>'(99) 9999-9999'));
+				echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'mudancaInput tamanho-medio','label' => 'Email:', 'placeholder'=>'exemplo@email.com'));
 				$l++;
 			}
 		?>
@@ -145,7 +144,7 @@ $(document).ready(function(){
 			$j=0;
 			foreach($parceirodenegocio['Contato'] as $contato){
 				echo $this->Form->input('Contato.'.$j.'.id', array('value'=>$contato['id']));
-				echo $this->Form->input('Contato.'.$j.'.telefone3',array('class' => ' mudancaInput tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6'));
+				echo $this->Form->input('Contato.'.$j.'.telefone3',array('class' => ' mudancaInput tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6', 'placeholder'=>'(99) 9999-9999'));
 				echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
 				$j++;
 			}
@@ -189,7 +188,7 @@ $(document).ready(function(){
 			<section class="coluna-central" >
 
 				<?php
-					echo $this->Form->input('Endereco.'.$z.'.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'mudancaInput tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10'));
+					echo $this->Form->input('Endereco.'.$z.'.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'mudancaInput tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10', 'placeholder'=>'99999-999'));
 					echo $this->html->image('consultas.png',array('id'=>'consultaCEP'.$z.'','class'=>'buscaCep','style'=>'margin-left:10px;cursor:pointer;'));
 					
 					echo '<span id="valida'.$z.'Cep1" class="Msg-tooltipDireita" style="display:none">Preencha o CEP</span>';
@@ -260,7 +259,7 @@ $(document).ready(function(){
 
 				<?php
 					echo $this->Form->input('Dadosbancario.'.$i.'.nome_agencia',array('label' => 'Nome da Agência:','class' => 'mudancaInput tamanho-pequeno'));
-					echo $this->Form->input('Dadosbancario.'.$i.'.telefone_banco',array('label' => 'Telefone:','class' => 'mudancaInput tamanho-medio maskTel'));
+					echo $this->Form->input('Dadosbancario.'.$i.'.telefone_banco',array('label' => 'Telefone:','class' => 'mudancaInput tamanho-medio maskTel', 'placeholder'=>'(99) 9999-9999'));
 				?>
 
 			</section>
@@ -305,7 +304,7 @@ $(document).ready(function(){
 					$p=0;
 					foreach($parceirodenegocio['Contato'] as $contato){
 						echo $this->Form->input('Contato.'.$p.'.id', array('value'=>$contato['id']));
-						echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1'));
+						echo $this->Form->input('Contato.'.$p.'.telefone1',array('value'=>h($contato['telefone1']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1','placeholder'=>'(99) 9999-9999'));
 						echo '<span id="validaTelefone" class="Msg-tooltipDireita" style="display:none">Preencha o Telefone</span>';
 						echo $this->Form->input('Contato.'.$p.'.fax',array('class' => 'mudancaInput tamanho-medio maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7'));
 						$p++;
@@ -325,7 +324,7 @@ $(document).ready(function(){
 					$l=0;
 					foreach($parceirodenegocio['Contato'] as $contato){
 						echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
-						echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2'));
+						echo $this->Form->input('Contato.'.$l.'.telefone2',array('value'=>h($contato['telefone2']),'class' => 'mudancaInput tamanho-medio maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2','placeholder'=>'(99) 9999-9999'));
 						echo $this->Form->input('Contato.'.$l.'.email',array('value'=>h($contato['email']),'class' => 'mudancaInput tamanho-medio','label' => 'Email:'));
 						$l++;
 					}

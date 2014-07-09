@@ -288,7 +288,7 @@
 									foreach($comoperacao['Parceirodenegocio'] as $parceiro){
 									
 									echo "<tr><td>";
-										echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
+										echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
 										'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parceiro['id'],'abas'=>'41','layout'=>'compras')));
 									echo "</td>";
 									
@@ -437,7 +437,7 @@
 							echo "<hr style='margin-top: 0px !important;'/>";
 							if(isset($produto['Parceirodenegocio']) && !empty($produto['Parceirodenegocio'])) {
 								echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
-									echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+									echo $this->Html->image('lista-user.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
 								echo "</a>";
 								
 							}else{
