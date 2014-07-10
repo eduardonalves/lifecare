@@ -192,7 +192,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'addFornecedorForm', 'layout' => 'compras', 'abas' => '41'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'addassoc', 'id' => 'addFornecedorForm', 'layout' => 'compras', 'abas' => '41'));
 			
 			//Essa input receberá sempre o valor do produto selecionado da tabela de comprar produtos
 			echo $this->Form->input('Vazio.produto_id',array('id' =>'idProdutoLinha','type' => 'hidden'));

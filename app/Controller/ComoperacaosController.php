@@ -297,6 +297,8 @@ class ComoperacaosController extends AppController {
 						
 						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_inici']);
 						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_fim']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_entrega']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['recebimento']);
 						
 						}
 						

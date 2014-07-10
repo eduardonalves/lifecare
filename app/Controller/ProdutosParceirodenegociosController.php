@@ -33,12 +33,11 @@ class ProdutosParceirodenegociosController extends AppController {
 	public function associaFornecedores() {
 		if($this->request->is('post')){
 			foreach($this->request->data['ProdutosParceirodenegocio'] as $assoc){
-				debug($assoc);
 				if ($this->ProdutosParceirodenegocio->save($assoc)) {
-					$this->Session->setFlash(__('The produtos parceirodenegocio has been saved.'), 'default', array('class' => 'success-flash'));
+					$this->Session->setFlash(__('Associação efetuada com sucesso.'), 'default', array('class' => 'success-flash'));
 					return $this->redirect(array('controller' => 'Comoperacaos', 'action' => 'index/?parametro=produtos&limit=15'));
 				} else {
-					$this->Session->setFlash(__('The produtos parceirodenegocio could not be saved. Please, try again.'), 'default', array('class' => 'error-flash'));
+					$this->Session->setFlash(__('Associação não pode ser realizada. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 				}
 			}
 		}

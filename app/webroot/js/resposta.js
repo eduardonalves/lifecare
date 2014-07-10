@@ -102,6 +102,10 @@ $(document).ready(function(){
 		$('.confirmaInput').removeAttr('onfocus','this.blur();');
 		$('.confirmaInput').removeAttr('disabled','disabled');
 		$('.confirmaInput').removeClass('borderZero');
+		$('#ComrespostaValor').attr('readonly','readonly');
+		$('#ComrespostaValor').attr('onfocus','this.blur();');
+		$('#ComrespostaValor').attr('disabled','disabled');
+		$('#ComrespostaValor').addClass('borderZero');
 		$('#confirmaDados').show();
 		$('.confirma').show();
 		$('.bt-salvar').hide();
