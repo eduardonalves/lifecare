@@ -187,8 +187,8 @@ class ComoperacaosController extends AppController {
 		                )
 		            )
 		        ),
-		         'data_entregaconf' => array(
-		            'Comoperacao.data_entregaconf' => array(
+		         'recebimento' => array(
+		            'Comoperacao.recebimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)

@@ -2,7 +2,7 @@
 	$this->start('css');
 		echo $this->Html->css('consulta_compras');
 		echo $this->Html->css('table');
-		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
 	$this->start('script');
@@ -102,12 +102,12 @@
 					
 					<div class="inputSearchData some">
 					<?php
-						echo $this->Search->input('data_entregaconf', array('label' => 'Data de Recebimento','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('recebimento', array('label' => 'Data de Recebimento:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 					<div class="inputSearchData some">
 					<?php
-						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 
