@@ -186,7 +186,7 @@
 												<tr>
 													<th>Produto</th>
 													<th>Quantidade</th>
-													<th>Valor Unitário</th>
+													<th>r Unitário</th>
 													<th>Valor Total</th>
 													<th>Fabricante</th>
 													<th>Obs</th>											
@@ -226,7 +226,7 @@
 								echo "<td>". $respostas['Parceirodenegocio']['nome']."</td>";
 								formatDateToView($respostas['Comresposta']['data_resposta']);
 								echo "<td>". $respostas['Comresposta']['data_resposta']."</td>";
-								echo "<td>". $respostas['Comresposta']['valor']."</td>";
+								echo "<td>". converterMoeda($respostas['Comresposta']['valor']) ."</td>";
 								echo "<td>". $respostas['Comresposta']['forma_pagamento']."</td>";
 								echo "<td>". $respostas['Comresposta']['obs_pagamento']."</td>";
 								echo "<td>". $respostas['Comresposta']['prazo_entrega']."</td>";
