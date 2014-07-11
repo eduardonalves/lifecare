@@ -68,6 +68,11 @@ $(document).ready(function(){
 		}else if(!$('.valorUnit').hasClass('preenchido')){
 			$('#validaConfirm').css('display','block');				
 		}else{
+			
+			$('#normalInput').hide();
+			$('#frmPgto').val($('#normalfrmPgto option:selected').val());
+			$('#confirmInput').show();
+			
 			$('span[id*="msg"').hide();
 			$('.confirmaInput').attr('readonly','readonly');
 			$('.confirmaInput').attr('onfocus','this.blur();');
@@ -87,6 +92,11 @@ $(document).ready(function(){
 
 /******** VOLTAR DA CONFIRMACAO   ************/
 	$('#voltar').click(function(){
+		
+		
+		$('#confirmInput').hide();
+		$('#normalInput').show();
+		
 		$('span[id*="msg"').hide();
 		$('.confirmaInput').removeAttr('readonly','readonly');
 		$('.confirmaInput').removeAttr('onfocus','this.blur();');

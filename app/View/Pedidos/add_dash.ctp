@@ -38,9 +38,14 @@
 					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
 					echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 
-					echo $this->Form->input('vale',array('type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
-					echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-
+					echo "<div id='inputNormais'>";
+						echo $this->Form->input('vale',array('id'=>'normalVale','type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
+						echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+					echo "</div>";
+					echo "<div id='inputConfirma' style='display:none;'>";
+						echo $this->Form->input('Vazio.vale',array('id'=>'tipoVale','type'=>'text','label'=>'Tipo:','class'=>'tamanho-pequeno borderZero','disabled' =>'disabled'));
+						echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+					echo "</div>";
 				?>
 			</section>
 			
@@ -107,7 +112,7 @@
 			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
 				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
-						<th>Fornecedor Nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma" >Ações</th>					
 					</thead>
@@ -174,7 +179,7 @@
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
 						<thead>
-							<th>Produto nome</th>
+							<th>Nome do Produto</th>
 							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 							<th>Unidade</th>
 							<th style="width: 150px;">Valor Unitário</th>
@@ -221,9 +226,9 @@
 								
 								echo "<td class='confirma'>";
 									echo "<span id='spanStatus".$j."' class='aberto' style='display:none;'></span>";
-									echo "<img title='Editar' alt='Editar' src='/lifecare/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' style='display:none;'/>";
-									echo "<img title='Confirmar' alt='Confirmar' src='/lifecare/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm'/>";
-									echo "<img title='Remover' alt='Remover' src='/lifecare/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu' style='display:none;'/>";
+									echo "<img title='Editar' alt='Editar' src='/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' style='display:none;'/>";
+									echo "<img title='Confirmar' alt='Confirmar' src='/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm'/>";
+									echo "<img title='Remover' alt='Remover' src='/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu' style='display:none;'/>";
 								echo "</td>";
 								
 							echo "</tr>";	

@@ -52,34 +52,6 @@
 
 <section>
 	
-	<header>Dados da Empresa</header>
-	
-	<!-- INFORMAÇÕES DA EMPRESA-->
-		<section  class="coluna-esquerda">
-			<?php
-				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.uf',array('value'=>$empresa['Empresa']['uf'],'disabled'=>'disabled','class'=>'tamanho-pequeno borderZero','label'=>'UF:','type'=>'text','id'=>''));
-			?>
-		</section>
-		
-		<section  class="coluna-central">
-			<?php
-				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.cidade',array('value'=>$empresa['Empresa']['cidade'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Cidade:','type'=>'text','id'=>''));
-			?>
-		</section>
-		
-		<section  class="coluna-direita">
-			<?php
-				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.bairro',array('value'=>$empresa['Empresa']['bairro'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Bairro:','type'=>'text','id'=>''));
-
-			?>
-		</section>
-		
 	<!-- INICIO COTAÇÕES -->
 	<header>Dados da Cotação</header>	
 		<section class="coluna-esquerda">
@@ -112,7 +84,7 @@
 		<section class="coluna-direita">
 
 			<?php
-				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['prazo_entrega'],'disabled'=>'disabled')); 
+				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-pequeno borderZero','type'=>'text','value'=>$cotacao['Cotacao']['id'],'disabled'=>'disabled')); 
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-pequeno borderZero','value'=>$cotacao['Cotacao']['status'],'disabled'=>'disabled'));	
 				
 			?>
@@ -126,7 +98,7 @@
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
+						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
 						<th>Observação</th>									
@@ -150,7 +122,7 @@
 			<section class="tabela_fornecedores_view">
 				<table id="tbl_fornecedores" >
 					<thead>
-						<th>Parceiro nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>								
 					</thead>
 					
@@ -244,7 +216,7 @@
 						<?php
 							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Resposta','class' => '','title'=>'Visualizar Resposta','url'=>array('controller'=>'Comrespostas','action'=>'view',$respostas['Comresposta']['id'])));
 
-							echo $this->Form->postLink($this->Html->image('pedido-acao.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Comrespostas','action' => 'converteEmPedido',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
+							echo $this->Form->postLink($this->Html->image('pedido-acao.png',array('id'=>'bt-cancelar','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Pedidos','action' => 'addResposta',$respostas['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $respostas['Comresposta']['id'])));
 							
 							if($respostas['Comresposta']['status'] != 'DESCARTADA'){
 								echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'bt-cancelar','alt' =>__('Descartar Resposta'),'title' => __('Descartar Resposta'))), array('controller' => 'Comrespostas','action' => 'descartarCotacao',$respostas['Comresposta']['id'],$cotacao['Cotacao']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja descartar resposta?', $respostas['Comresposta']['id'])));

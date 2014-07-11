@@ -1,5 +1,6 @@
 <?php
 	$this->start('css');
+		echo $this->Html->css('resposta');
 	    echo $this->Html->css('table');
 	$this->end();
 
@@ -139,6 +140,11 @@
 					<div class="linha"><?php echo $this->Html->Tag('p','Data Inicial:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($comresposta['Comoperacao']['data_inici']),array('class'=>'valor'));?>	</div>
 				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Código:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$comresposta['Comoperacao']['id'],array('class'=>'valor'));?>	</div>
+				</div>
 			
 			</div>
 	</section>		
@@ -234,7 +240,7 @@
 						echo $itens['produto_nome'];
 					echo "</span></td>";
 					
-					echo "<td class='labelTd whiteSpace'><span title='".$itens['obs']."'>";
+					echo "<td class='labelTd whiteSpace'><span title='".$itens['obs_operacao']."'>";
 						echo $itens['obs_operacao'];
 					echo "</span></td>";
 					
@@ -271,6 +277,7 @@
 
 <footer>
 	<?php
+		echo $this->Form->postLink($this->Html->image('fazer-pedido.png',array('style'=>'float:right','alt' =>__('Fazer Pedido'),'title' => __('Fazer Pedido'))), array('controller' => 'Pedidos','action' => 'addResposta',$comresposta['Comresposta']['id']	),array('escape' => false, 'confirm' => __('Tem certeza que deseja fazer pedido dessa resposta?', $comresposta['Comresposta']['id'])));	
 	?>	
 </footer>
 

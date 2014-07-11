@@ -183,7 +183,7 @@
 								});
 								//in_fornecedor=in_fornecedor-1;
 								//Aiciona os valores na tabela pra visualização
-								$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+data.Parceirodenegocio.nome+'</td> <td>'+data.Parceirodenegocio.cpf_cnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/lifecare/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
+								$('#tbl_fornecedores').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+data.Parceirodenegocio.nome+'</td> <td>'+data.Parceirodenegocio.cpf_cnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
 								//SETA AS INPUT HIDDEN	
 								$('#area_inputHidden').append('<section id="fornecedor_'+in_fornecedor+'"><input name="data[Parceirodenegocio]['+in_fornecedor+'][parceirodenegocio_id]" step="any" class="existe" id="fornecedor'+in_fornecedor+'" value="'+data.Parceirodenegocio.id+'" type="hidden"></section>');
 								
@@ -242,7 +242,7 @@
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
+			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
 			echo '<span id="validaClassificacao" class="msg erroRight" style="display:none">Selecione a Classificação</span>';
 
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4','placeholder'=>'(99) 9999-9999'));

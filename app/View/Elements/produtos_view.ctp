@@ -330,11 +330,19 @@
 	?>
 <footer>
 	<?php
-		echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+		if(isset($telaAbas)){
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('action'=>'edit',
+													 $produto['Produto']['id'],'layout'=>'compras','abas'=>'41')));
+		}else{
+			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
 													 'url'=>array('action'=>'edit',
 													 $produto['Produto']['id'])));
+		}
 	?>
 </footer>
 

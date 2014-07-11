@@ -27,7 +27,7 @@ $(document).ready(function(){
 			
 			$('.some').css('display','initial');
 			
-			$('#bt-expandirOperacao').css('top','240px');
+			$('#bt-expandirOperacao').css('top','260px');
 			
 			$('#bt-expandirOperacao').css('transform','rotate(180deg)');
 			$('#bt-expandirOperacao').css('-ms-transform','rotate(180deg)');
@@ -264,6 +264,21 @@ var valorAux=$('#filterTipoOperacao').val();
 			$('#spanQuicklink').show();
 		}
     });
+
+/*** INICIO SETA DE ORDENAÇÃO DA TABELA *******************************/
+
+	$(".colunaES a.asc + div, .colunaParcela a.asc + div, .colunaConta a.asc + div").addClass("seta-cima");
+	$(".colunaES a.asc + div, .colunaParcela a.asc + div, .colunaConta a.desc + div").addClass("seta-baixo");
+
+	var idcol = $(".colunaES a.asc, .colunaParcela a.asc, .colunaConta a.asc ,  .colunaES a.desc, .colunaParcela a.desc, .colunaConta a.desc").parent().attr('id');
+
+	$("td."+idcol).addClass("highlight");
+	
+	$(".setaOrdena a.asc + div").addClass("seta-cima");
+	$(".setaOrdena a.desc + div").addClass("seta-baixo");
+	
+	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
+	$("td."+idcol).addClass("highlight");	
 
 /************* Inicio Seta de Ordenação da tabela *****************/
 	$(".colunaES a.asc + div").addClass("seta-cima");

@@ -447,3 +447,43 @@ margin-bottom: 50px;
 	left:50% !important;
 	margin-left:-575px;
 }
+
+.quitar{
+	cursor:pointer;
+}
+
+.modalQuitar{
+	border-radius:0px !important;
+	padding:10px;
+	left: 50% !important;
+}
+
+.modalQuitar section{
+	clear:both;
+	position:relative;
+}
+
+.modalQuitar footer{
+	margin-bottom:50px;
+	margin-top:20px;
+}
+
+.modalQuitar section.coluna-central label{
+	margin-top:0px;
+}
+
+.modalQuitar section.coluna-central .input{
+	margin-top:5px;
+}
+
+.modalQuitar  .Msg-tooltipDireita{
+	float:left;
+	left: 352px;
+	margin-top: -5px;
+	width: 100px;
+
+}
+
+.modalQuitar section.coluna-central{
+	margin: 10px 0px 0px 80px;
+}

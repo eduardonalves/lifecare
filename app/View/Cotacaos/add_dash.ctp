@@ -39,12 +39,15 @@
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 
 
-				echo $this->Form->input('data_inici',array('label'=>'Data de Início<span class="campo-obrigatorio">*</span>:','class'=>'confirmaInput dataInicio tamanho-pequeno inputData','type'=>'text'));
-				echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
-				echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
+				$dataHoje = date('d/m/Y');
+				echo $this->Form->input('data_inici',array('value'=>$dataHoje,'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text','readonly'=>'readonlyde','onfocus'=>'this.blur();'));
 				
-				echo $this->Form->input('forma_pagamento',array('type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-			?>
+				echo "<div id='divSelPgto'>";
+					echo $this->Form->input('forma_pagamento',array('id'=>'pagamento','type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEPOSITO' => 'Depósito', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo "</div>";
+				echo "<div id='divFrmPgto' style='display:none;'>";
+					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno borderZero','disabeld'=>'disabled'));
+				echo "</div>";			?>
 		</section>
 		
 		<section class="coluna-central">
@@ -70,6 +73,7 @@
 			<section class="coluna-esquerda">				
 				<div class="input autocompleteFornecedor conta">
 					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
+					<span id="msgValidaFor2" class="Msg tooltipMensagemErroTopo" style="display:none">Esse Fornecedor já foi adicionado, por favor, escolha outro.</span>
 					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
 						<option></option>
@@ -109,7 +113,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_fornecedores" >
 					<thead>
-						<th>Parceiro nome</th>
+						<th>Nome do Fornecedor</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma">Ações</th>					
 					</thead>
@@ -169,7 +173,7 @@
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
+						<th>Nome do Produto</th>
 						<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
 						<th style="width: 70px;">Unidade</th>
 						<th style="width: 150px;">Observação</th>						
@@ -203,9 +207,9 @@
 								
 								echo "<td class='confirma'>";
 									echo "<span id='spanStatus".$j."' class='aberto' style='display:none;'></span>";
-									echo "<img title='Editar' alt='Editar' src='/lifecare/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' style='display:none;'/>";
-									echo "<img title='Confirmar' alt='Confirmar' src='/lifecare/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm'/>";
-									echo "<img title='Remover' alt='Remover' src='/lifecare/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu' style='display:none;'/>";
+									echo "<img title='Editar' alt='Editar' src='/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' style='display:none;'/>";
+									echo "<img title='Confirmar' alt='Confirmar' src='/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm'/>";
+									echo "<img title='Remover' alt='Remover' src='/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu' style='display:none;'/>";
 								echo "</td>";
 								
 							echo "</tr>";

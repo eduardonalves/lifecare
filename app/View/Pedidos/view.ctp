@@ -177,6 +177,7 @@
 
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedido['Pedido']['data_inici'])),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedido['Pedido']['forma_pagamento']),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_entrega'],'disabled'=>'disabled'));
 				if(isset($pedido['Pedido']['recebimento'])) echo $this->Form->input('Comoperacao.recebimento',array('type'=>'text','label'=>'Data de Recebimento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView($pedido['Pedido']['recebimento'])),'disabled'=>'disabled'));
 			?>
 			
@@ -191,9 +192,10 @@
 					$tipoOperacao = "Pedido";
 				}
 				
+				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['id'],'disabled'=>'disabled'));
+				
 				echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_pagamento'],'disabled'=>'disabled'));
 				
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedido['Pedido']['prazo_entrega'],'disabled'=>'disabled')); 
 
 
 			?>
@@ -214,7 +216,7 @@
 	<!-- INICIO PRODUTOS -->
 				<table id="tbl_produtos" >
 					<thead>
-						<th>Produto nome</th>
+						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
 						<th>Valor Unitário</th>									
@@ -245,66 +247,60 @@
 
 	<?php
 		
-		if($pedido['Pedido']['status'] != 'CANCELADO'){
-			echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'bt-cancelar','class'=>'bt-esquerda','alt' =>__('Cancelar Pedido'),'title' => __('Cancelar Pedido'))), array('controller' => 'Pedidos','action' => 'cancelarPedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja cancelar este Pedido?', $pedido['Pedido']['id'])));
-		}
+				
+
 
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
+
 
 			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
 				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedido','title' => 'Confirmar Recebimento do Pedido'));
 			echo "</a>";
 		
-		
-		?>
-		
-		<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-body">
-							
-									<header class="cabecalho">
-									<?php 
-										echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-										echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedido?', $pedido['Pedido']['id'])));
+						
+			?>
 
-									?>	
-									<h1>Recebimento de Pedido</h1>
-									</header>
+				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-body">
 					
-									<section>
-										<header>Data do Recebimento do Pedido</header>
-											<div class="recebimentoData">
-											<?php
-												echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
-												echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));
-												echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','class'=>'tamanho-pequeno inputData'));
-											?>
-											</div>
-										<footer>
-											<?php
-												echo $this->Form->submit('botao-salvar.png',array(
-																			'class'=>'bt-salvar',
-																			'alt'=>'Salvar',
-																			'title'=>'Salvar'
-												));
-												
-												echo $this->Form->end();
-											?>
-										</footer>
-										
-									</section>
+							<header class="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+
+							?>	
+							<h1>Recebimento de Pedido</h1>
+							</header>
+			
+							<section>
+								<header>Data do Recebimento do Pedido</header>
+								<div class="recebimentoData">
+									<?php
+										echo $this->Form->create('Pedido',array('action'=>'confirmarEntrega',$pedido['Pedido']['id']));
+										echo $this->Form->input('Pedido.id',array('value'=>$pedido['Pedido']['id'],'type'=>'hidden'));
+										echo $this->Form->input('Pedido.recebimento',array('id'=>'dataRecebimento','label'=>'Data do Recebimento:','type'=>'text','class'=>'tamanho-pequeno inputData'));
+									?>
 								</div>
-							</div>
-		<?php
-			}
-			
-		if($pedido['Pedido']['status'] != 'CANCELADO'){
-			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('id'=>'botao-reenviar','class'=>'bt-esquerda','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja reenviar este Pedido?', $pedido['Pedido']['id'])));
-			
-			//echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('id'=>'botao-reenviar','class'=>'bt-esquerda','alt' =>'Reenviar Pedido','title' =>'Reenviar Pedido')), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']));
-			//echo $this->Html->image('botao-reenviar.png', array('id' => 'botao-reenviar', 'alt' => 'Reenviar Pedido', 'title' => 'Reenviar Pedido'));
+								<footer>
+									<?php
+										echo $this->Form->submit('botao-salvar.png',array(
+																	'class'=>'bt-salvar',
+																	'alt'=>'Salvar',
+																	'title'=>'Salvar'
+										));
+										
+										echo $this->Form->end();
+									?>
+								</footer>
+								
+							</section>
+						</div>
+				</div>
+	<?php
 		}
-		
-		?>
+	
+	?>
 </footer>
 
 <script type="text/javascript">

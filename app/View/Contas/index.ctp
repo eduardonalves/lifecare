@@ -266,7 +266,7 @@ $(document).ready(function() {
 	if(isset($_GET['parametro']) && $_GET['parametro']=='contas'){
     		if(isset($configCont)){ ?>
 				<tr>
-				    <th class="colunaConta">Ações</th>									
+				    <th class="colunaConta">Ações</th>
 					<?php 
 				     
 					    foreach($configCont as $campo=>$campoLabel)
@@ -289,7 +289,7 @@ $(document).ready(function() {
 					?>
 				</tr>
 			
-				<?php 
+				<?php
 				$j=0;
 				
 				foreach ($contas as $conta): ?>
@@ -336,15 +336,15 @@ $(document).ready(function() {
 									<th>Período Crítico</th>
 									<th class="comprimentoMinimo">Valor</th>
 									<th class="comprimentoMinimo">Juros</th>
-									<th class="comprimentoMinimo">Desconto</th>																	
-									<th>Parcela</th>																	
-									<th>Banco</th>																	
-									<th>Agência</th>																	
-									<th>Conta</th>																	
-									<th>Status</th>		
-								    </tr>											
+									<th class="comprimentoMinimo">Desconto</th>
+									<th>Parcela</th>
+									<th>Banco</th>
+									<th>Agência</th>
+									<th>Conta</th>
+									<th>Status</th>
+								    </tr>
 								</thead>
-										
+								
 								<?php
 								
 									foreach($conta['Parcela'] as $parcela){
@@ -555,6 +555,7 @@ $(document).ready(function() {
 									echo "<div class=\"ui-widget\">";
 									echo $this->Form->input('data_pagamento', array('id'=>'ContaDataPagamento'.$j,'class'=>'data_pagamento tamanho-grande inputData','type'=>'text', 'label'=>'Data do pagamento <span class="campo-obrigatorio">*</span>:', 'div' => false , ));
 									echo "<span id='spanQuitarData".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Preencha o Campo Data do pagamento</span>";
+									echo "<div style='clear:both;'></div>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcela['Parcela']['descricao'], 'style'=>'display: inline'));
 									
 									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcela['Parcela']['juros'], 'style'=>'display: inline'));

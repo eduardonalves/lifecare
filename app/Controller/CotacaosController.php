@@ -146,7 +146,8 @@ class CotacaosController extends ComoperacaosController {
 			
 			
 			
-			$this->set('extraparams', $mensagem);
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
 	
             $email = new CakeEmail('smtp');
 

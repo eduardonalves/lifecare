@@ -335,6 +335,7 @@ $(document).ready(function(){
 	$(".colunaProduto a.desc + div").addClass("seta-baixo");
 	
 	var idcol = $(".colunaProduto a.asc ,  .colunaProduto a.desc").parent().attr('id');
+
 	$("td."+idcol).addClass("highlight");
 	
 	$(".setaOrdena a.asc + div").addClass("seta-cima");
@@ -342,6 +343,7 @@ $(document).ready(function(){
 	
 	var idcol = $(".setaOrdena a.asc ,  .setaOrdena a.desc").parent().attr('id');
 	$("td."+idcol).addClass("highlight");	
+
 	
 /*** DATA VALIDAÇÃO DADOS DA NOTA *************************************/
     $("input[id*='filterDataLote']").addClass('inputData validaLote');
