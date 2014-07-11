@@ -227,6 +227,7 @@ class ParceirodenegociosController extends AppController {
  * @return void
  */
 	public function add() {
+		
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
@@ -244,8 +245,6 @@ class ParceirodenegociosController extends AppController {
 				$this->request->data['Dadoscredito'][$i]['parceirodenegocio_id']=$userid;
 				$i++;
 			}
-			
-			
 			
 			$this->Parceirodenegocio->create();
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
@@ -287,6 +286,45 @@ class ParceirodenegociosController extends AppController {
 				
 		//$this->Session->delete('Message.flash');
 		
+		
+		$this->set(compact('ultimoParceiro','userid','telaLayout','telaAbas'));
+	}
+
+/**
+ * addassoc method
+ *
+ * @return void
+ */
+	public function addassoc() {
+		
+		$userid = $this->Session->read('Auth.User.id');
+		if ($this->request->is('post')) {
+			$i=0;
+			foreach($this->request->data['Dadoscredito'] as $i => $dadosCredito){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Dadoscredito'][$i]['validade_limite']);
+				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Dadoscredito'][$i]['limite']);
+				$this->request->data['Dadoscredito'][$i]['parceirodenegocio_id']=$userid;
+				$i++;
+			}
+			
+			$this->Parceirodenegocio->create();
+			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
+				$ultimoParceiro = $this->Parceirodenegocio->find('first', array('order' => array('Parceirodenegocio.id' => 'desc'), 'recursive' =>-1));
+			
+				$this->setStatusParceiro($ultimoParceiro['Parceirodenegocio']['id']);
+				$this->set(compact('ultimoParceiro'));
+				if($this->request->is('ajax')){
+					$this->layout = 'ajaxparceiro';
+				}
+				if(! $this->request->is('ajax')){
+					$this->Session->setFlash(__('Parceiro cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'view',$ultimoParceiro['Parceirodenegocio']['id'],'layout' => 'compras','abas' => '41'));
+				}
+				
+			} else {
+				$ultimoParceiro = $this->request->data;
+			}
+		}
 		
 		$this->set(compact('ultimoParceiro','userid','telaLayout','telaAbas'));
 	}

@@ -89,6 +89,7 @@
 				$("#ContaDataPagamento"+j).addClass('shadow-vermelho');
 		}
 	}
+}
 	
 </script>
 

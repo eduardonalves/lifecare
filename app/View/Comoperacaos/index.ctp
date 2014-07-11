@@ -2,7 +2,7 @@
 	$this->start('css');
 		echo $this->Html->css('consulta_compras');
 		echo $this->Html->css('table');
-		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
 	$this->start('script');
@@ -102,12 +102,12 @@
 					
 					<div class="inputSearchData some">
 					<?php
-						echo $this->Search->input('data_entregaconf', array('label' => 'Data de Recebimento','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('recebimento', array('label' => 'Data de Recebimento:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 					<div class="inputSearchData some">
 					<?php
-						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega','class'=>'', 'type' => 'text'));
+						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
 
@@ -288,7 +288,7 @@
 									foreach($comoperacao['Parceirodenegocio'] as $parceiro){
 									
 									echo "<tr><td>";
-										echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
+										echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
 										'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parceiro['id'],'abas'=>'41','layout'=>'compras')));
 									echo "</td>";
 									
@@ -437,7 +437,7 @@
 							echo "<hr style='margin-top: 0px !important;'/>";
 							if(isset($produto['Parceirodenegocio']) && !empty($produto['Parceirodenegocio'])) {
 								echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
-									echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
+									echo $this->Html->image('lista-user.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Fornecedores'));
 								echo "</a>";
 								
 							}else{
@@ -510,7 +510,7 @@
 																				 'id'=>'bt-preencher'.$j
 																				 ));
 												echo $this->html->image('botao-salvar2.png',array('alt'=>'Preencher',
-																			 'title'=>'Adicionar Fornecedor',
+																			 'title'=>'Associar Fornecedores',
 																				'class'=>'bt associSalvar',
 																				 'style'=>'display:none;',
 																				 'id'=>'bt-salvarAssociar'.$j
@@ -653,7 +653,7 @@
 				
 				</tr>
 
-				<?php endforeach; 
+				<?php endforeach;
 				}
 				//fim tabela fornecedores
 				?>
@@ -679,9 +679,3 @@
 <?php //echo $this->element('ComParceiroFornecedor_associa', array('modal'=>'add-associaFornecedor')); ?>
 
 	<div style="clear:both;"></div>
-
-<pre>
-<?php
-	print_r($parceiroSelect);
-?>
-</pre>

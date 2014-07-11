@@ -50,13 +50,14 @@
 </section>	
 
 
+<section> <!---section Baixo--->
+	<header class="">Dados das Contas</header>
+
 <?php
 		$z=0;
 		foreach($contasParceiros as $dadoscontas){
 	?>
 
-<section> <!---section Baixo--->	
-<header class="">Dados das Contas</header>
 	<fieldset class="dadosRepetidos">
 		<legend>Dados da Conta  <?php echo $z+1; ?></legend>
 		<div class="area-dadosbanc">
@@ -176,8 +177,8 @@
 
 		</table>
 	</fieldset>
-</section>	
 	<?php $z++;} ?>
+</section>
 
 
 

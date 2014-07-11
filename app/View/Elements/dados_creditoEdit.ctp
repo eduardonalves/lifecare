@@ -25,7 +25,7 @@
 
 		<?php
 			formatDateToView($dadoscredito['validade_limite']);
-			echo $this->Form->input('Dadoscredito.'.$y.'.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','readonly'=>'readonly','onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-pequeno borderZero'));
+			echo $this->Form->input('Dadoscredito.'.$y.'.validade_limite',array('value'=>h($dadoscredito['validade_limite']),'label' => 'Validade do Limite:','readonly'=>'readonly','disabled', 'onFocus'=>'this.blur();','type' => 'text','class' => 'tamanho-pequeno borderZero'));
 			echo '<span id="validaValidade" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
 		?>
 

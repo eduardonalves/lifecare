@@ -100,6 +100,7 @@ class ComoperacaosController extends AppController {
  */
 	public function index() {
 		$this->layout = 'compras';
+		
 		$userid = $this->Session->read('Auth.User.id');
 		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
 		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
@@ -186,8 +187,8 @@ class ComoperacaosController extends AppController {
 		                )
 		            )
 		        ),
-		         'data_entregaconf' => array(
-		            'Comoperacao.data_entregaconf' => array(
+		         'recebimento' => array(
+		            'Comoperacao.recebimento' => array(
 		                'operator' => 'BETWEEN',
 		                'between' => array(
 		                    'text' => __(' e ', true)
@@ -296,6 +297,8 @@ class ComoperacaosController extends AppController {
 						
 						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_inici']);
 						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_fim']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_entrega']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['recebimento']);
 						
 						}
 						

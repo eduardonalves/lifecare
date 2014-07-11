@@ -117,6 +117,10 @@ $(document).ready(function(){
 			$('#filterDataInici-between').addClass('shadow-vermelho').after('<span id="vazioDataInici" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
 		}else if($('#filterDataFim').val()!='' && $('#filterDataFim-between').val()==''){
 			$('#filterDataFim-between').addClass('shadow-vermelho').after('<span id="vazioDataFim" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
+		}else if($('#filterRecebimento').val()!='' && $('#filterRecebimento-between').val()==''){
+			$('#filterRecebimento-between').addClass('shadow-vermelho').after('<span id="vazioDataFim" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
+		}else if($('#filterDataEntrega').val()!='' && $('#filterDataEntrega-between').val()==''){
+			$('#filterDataEntrega-between').addClass('shadow-vermelho').after('<span id="vazioDataFim" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
 		}else if($('#filterValor').val()!='' && $('#filterValor-between').val()==''){
 			$('#filterValor-between').addClass('shadow-vermelho').after('<span id="vazioFilterValor" class="DinamicaMsg Msg-tooltipDireita">Preencha o campo para filtrar</span>');
 		}else{
@@ -371,8 +375,55 @@ var valorAux=$('#filterTipoOperacao').val();
 		});
 	}
 	*/
+	
+	$('#filterRecebimento').addClass('inputData');
+	$('#filterRecebimento-between').addClass('inputData');
+
 /** Placeholder Data **************************************************/
+
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
+	$('.inputData').mask('99/99/9999');
+	
+		$('.inputData').on("keypress",function(event){
+		var charCode = event.keyCode || event.which;
+
+	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
+    });
+    
+    $(".inputData").focusout(function(){
+		var elemento = $(this).val();
+
+		var dia = elemento.substring(0,2);
+		var mes = elemento.substring(3,5);
+		var ano = elemento.substring(6,11);
+
+		if(ano.length == 1){
+			$(this).val().slice(0,-1);
+			$(this).val(dia +"/"+ mes +"/200"+ ano);
+		}
+		
+		if(ano.length == 2){
+			$(this).val().slice(0,-2);
+			$(this).val(dia +"/"+ mes +"/20"+ ano);
+		}
+		
+		if(ano.length == 3){
+			$(this).val().slice(0,-3);
+			$(this).val(dia +"/"+ mes +"/2"+ ano);
+		}
+
+		if(dia > 31){
+			$(this).val("");
+		}
+		
+		if(mes > 12){
+			$(this).val("");
+		}
+		
+		if((dia > 29) && (mes == 2)){
+			$(this).val("");
+		}
+	});
 	
 	
 /** Ajuste de input ***************************************************/
@@ -386,7 +437,7 @@ var valorAux=$('#filterTipoOperacao').val();
 		nId = id.substring(12);
 		
 		if(!$('#ass_fornecedor'+nId).val()){
-			alert('selecione um fornecedor');
+			alert('Por favor, selecione um fornecedor.');
 		}else{
 			
 			parc_nome = $('#ass_fornecedor'+nId+' option:selected').attr('id');
@@ -398,7 +449,7 @@ var valorAux=$('#filterTipoOperacao').val();
 			});
 			
 			if(existente != 0){
-				alert('esse cara já está na tabela!');
+				alert('Esse fornecedor já foi adicionado à tabela!');
 				existente = 0;
 			}else{	
 				

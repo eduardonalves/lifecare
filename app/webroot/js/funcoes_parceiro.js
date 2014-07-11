@@ -629,7 +629,7 @@ $(document).ready(function() {
 
 
 /*** Validar CPF ******************************************************/
-	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){		
+	$("#ParceirodenegocioCpfCnpj").on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
 		if((charCode==8) || (charCode==9) || (charCode==37) || (charCode==39) || (charCode==46)){return true}

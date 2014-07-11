@@ -212,7 +212,7 @@ class DashboardController extends AppController {
 					
 					}				
 					if($mes==07){
-						$totaljulPagarP = $totaljulPagaPr + $parcela['Parcela']['valor'];
+						$totaljulPagarP = $totaljulPagarP + $parcela['Parcela']['valor'];
 					
 					}
 					if($mes==08){
@@ -433,7 +433,7 @@ class DashboardController extends AppController {
 					
 					}				
 					if($mes==07){
-						$totaljulPagarP = $totaljulPagaPr + $parcela['Parcela']['valor'];
+						$totaljulPagarP = $totaljulPagarP + $parcela['Parcela']['valor'];
 					
 					}
 					if($mes==08){

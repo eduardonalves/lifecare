@@ -82,7 +82,7 @@
 		
 	<header>Dados do Fornecedor</header>
 	
-	<!-- INFORMAÇÕES DA FOrnecedor-->
+	<!-- INFORMAÇÕES DO FORNECEDOR-->
 		
 		<section  class="coluna-esquerda">
 			<?php
@@ -171,7 +171,7 @@
 
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
-				echo $this->Form->input('Comoperacao.data_preventrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['data_preventrega'],'disabled'=>'disabled'));	
+				echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio inputData borderZero','value'=>h(formatDateToView($pedido['Pedido']['data_entrega'])),'disabled'=>'disabled'));	
 
 			?>
 
@@ -209,11 +209,6 @@
 </section>
 
 <footer>
-
-	<?php
-								 
-	
-	?>
 
 </footer>
 
