@@ -502,12 +502,13 @@ public function addDash(){
 			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
 			$mensagem['Mensagem']['codigo'] = $id;
 
+
 			if(!empty($contato)){
 				if($contato['Contato']['email'] !=""){
 					$this->eviaEmailCanc($contato['Contato']['email'], $remetente, $mensagem);
-				}	
+
+				}
 			}
-			
 		}
 		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
 		$this->Pedido->save($upDatePedido);
