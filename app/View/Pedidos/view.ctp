@@ -2,13 +2,15 @@
 	$this->start('css');
 		echo $this->Html->css('table');
 	    echo $this->Html->css('compras');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all');
+	    echo $this->Html->css('jquery-ui/custom-combobox');
+		echo $this->Html->css('PrintArea');
 	$this->end();
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 		echo $this->Html->script('compras.js');
+		echo $this->Html->script('jquery.PrintArea.js');
 	$this->end();
 	
 	
@@ -48,13 +50,14 @@
     <h1 class="menuOption41">Consulta do Pedido</h1>
 </header>
 
+<div id="impressao" class="impressao">
 <section>
 	
 	<header>Dados da Empresa</header>
 	
 	<!-- INFORMAÇÕES DA EMPRESA-->
 		
-		<section  class="coluna-esquerda">
+		<section class="coluna-esquerda" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
@@ -62,7 +65,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-central">
+		<section class="coluna-central" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
@@ -70,7 +73,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-direita">
+		<section class="coluna-direita" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
@@ -83,7 +86,7 @@
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
-		<section  class="coluna-esquerda">
+		<section  class="coluna-esquerda" style="float: left;">
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
@@ -110,7 +113,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-central">
+		<section  class="coluna-central" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.input',array('label'=>'CPF/CNPJ:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],'disabled'=>'disabled'));	
 
@@ -128,7 +131,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-direita">
+		<section  class="coluna-direita" style="float: left;">
 			
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
@@ -174,7 +177,7 @@
 	<!-- INICIO COTAÇÕES -->
 	<fieldset>
 		<legend>Dados do Pedido</legend>
-		<section class="coluna-esquerda">
+		<section class="coluna-esquerda" style="float: left;">
 			
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
@@ -187,7 +190,7 @@
 			
 		</section>
 		
-		<section class="coluna-central">
+		<section class="coluna-central" style="float: left;">
 			
 			<?php
 				if($pedido['Pedido']['tipo'] == "COTACAO"){
@@ -206,7 +209,7 @@
 			
 		</section>
 		
-		<section class="coluna-direita">
+		<section class="coluna-direita" style="float: left;">
 
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
@@ -247,6 +250,7 @@
 
 
 </section>
+</div>
 
 <footer>
 
@@ -263,7 +267,14 @@
 			echo "</a>";
 		
 			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedido?', $pedido['Pedido']['id'])));
-						
+			
+			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
+									'title'=>'Confirmar',
+									'id'=>'avancar2',
+									'class'=>'bt-confirmar imprimir',
+									'style'=>'margin-right: 5px;'
+									));
+		
 			?>
 
 				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -316,6 +327,23 @@
 		$('#'+nome).modal('show');
 			    
 	    });	
+	    
+		$('.imprimir').click(function(){
+			var options = {mode: "iframe", popClose : false, };
+
+			$('#impressao').css('background-color','#FFF');
+			$('#impressao').css('padding','30px');
+			$('#impressao th').css('background-color','white');
+			$('#impressao').css('min-height','630px');
+			
+			$('#impressao').css('background-color','inherit');
+			$('#impressao').css('padding','0px');
+			$('#impressao th').css('background-color','initial');
+			$('#impressao').css('min-height','100%');
+			
+			$( '#impressao' ).printArea(options);
+		});
+	    
 		
 	});
 	
