@@ -5,6 +5,7 @@
 	    echo $this->Html->css('jquery-ui/jquery.ui.all');
 	    echo $this->Html->css('jquery-ui/custom-combobox');
 		echo $this->Html->css('PrintArea');
+		echo $this->Html->css('modal_imprimirpedido');
 	$this->end();
 
 	$this->start('script');
@@ -330,12 +331,16 @@
 										<fieldset>
 											<legend>Dados da Empresa</legend>
 											<section>
-												
 												<?php
 													echo "<label>Empresa: </label><span class='label'>".$empresa['Empresa']['nome_fantasia']." - ".$empresa['Empresa']['cnpj']."</span><br />";
-													echo "<label>Razão: </label><span class='label'>".$empresa['Empresa']['razao']."</span>";
+													echo "<label>Razão: </label><span class='label'>".$empresa['Empresa']['razao']."</span><br />";
+													echo "<label>Telefone: </label><span class='label'>".$empresa['Empresa']['telefone']."</span><br />";
+													echo "<label>Endereço: </label><span class='label'>".$empresa['Empresa']['endereco']."</span><br />";
+													echo "<label>Cidade: </label><span class='label'>".$empresa['Empresa']['cidade']."</span><br />";
+													echo "<label>Bairro: </label><span class='label'>".$empresa['Empresa']['bairro']."</span><br />";
+													echo "<label>Complemento: </label><span class='label'>".$empresa['Empresa']['complemento']."</span><br />";
+													echo "<label>UF: </label><span class='label'>".$empresa['Empresa']['uf']."</span>";
 												?>
-												
 											</section>
 										</fieldset>
 										<fieldset>
@@ -343,8 +348,17 @@
 											<section>
 												
 												<?php
-													echo "<label>Fornecedor: </label><span class='label'>".$parceirodenegocio['Parceirodenegocio']['nome']." - ".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."</span><br />";
-													echo "<label>E-mail: </label><span class='label'>".$parceirodenegocio['Contato'][0]['email']."</span>";
+													echo "<label>Fornecedor: </label><span class='label impressaoPedido'>".$parceirodenegocio['Parceirodenegocio']['nome']." - ".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."</span><br />";
+													if(isset($parceirodenegocio['Contato'][0]['email'])) echo "<label>E-mail: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['email']."</span><br />";
+													echo "<label>Telefone: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone1']."</span><br />";
+													if(isset($parceirodenegocio['Contato'][0]['telefone2'])) "<label>Telefone 2: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone2']."</span><br />";
+													echo "<label>CEP: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cep']."</span><br />";
+													echo "<label>Logradouro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['logradouro']."</span><br />";
+													echo "<label>Cidade: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cidade']."</span><br />";
+													echo "<label>Bairro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['bairro']."</span><br />";
+													if(isset($parceirodenegocio['Endereco'][0]['complemento']) && $parceirodenegocio['Endereco'][0]['complemento'] != '') echo "<label>Complemento: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['complemento']."</span><br />";
+													if(isset($parceirodenegocio['Endereco'][0]['numero']) && $parceirodenegocio['Endereco'][0]['numero'] != '') echo "<label>Número: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['numero']."</span><br />";
+													echo "<label>UF: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['uf']."</span>";
 												?>
 												
 											</section>

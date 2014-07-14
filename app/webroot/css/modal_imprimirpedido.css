@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+/* ID *****************************************************************/
+
+#myModal_imprimir{
+	top: 5% !important;
+	left: 42% !important;
+}
+
+/* HERANÇA ************************************************************/
+#myModal_imprimir .modal-body{
+	height: 550px !important;
+	width: 800px !important;
+}
