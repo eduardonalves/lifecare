@@ -78,12 +78,6 @@ input[type="text"]:disabled{
 	margin-right: 0px !important;
 }
 
-.impressaoPedido{
-	
-	font-size: small;
-	
-	}
-
 #myModal_add-confirma .modal-body{
 	height: 190px;
 }
