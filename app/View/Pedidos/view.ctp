@@ -50,7 +50,7 @@
     <h1 class="menuOption41">Consulta do Pedido</h1>
 </header>
 
-<div id="impressao" class="impressao">
+<div>
 <section>
 	
 	<header>Dados da Empresa</header>
@@ -174,7 +174,7 @@
 		
 	<header>Dados do Pedido</header>
 	
-	<!-- INICIO COTAÇÕES -->
+	<!-- INICIO PEDIDOS -->
 	<fieldset>
 		<legend>Dados do Pedido</legend>
 		<section class="coluna-esquerda" style="float: left;">
@@ -256,9 +256,7 @@
 
 	<?php
 		
-				
-
-
+		
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 
 
@@ -269,15 +267,15 @@
 			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedido?', $pedido['Pedido']['id'])));
 			
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
-									'title'=>'Confirmar',
-									'id'=>'avancar2',
-									'class'=>'bt-confirmar imprimir',
+									'title'=>'Imprimir',
+									'id'=>'confirmaImprimir',
+									'class'=>'confirmaImprimir bt-confirmar',
 									'style'=>'margin-right: 5px;'
 									));
 		
 			?>
 
-				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-hidden="true">
 						<div class="modal-body">
 					
 							<header class="cabecalho">
@@ -314,10 +312,109 @@
 							</section>
 						</div>
 				</div>
+				
+				<div class="modal fade" id="myModal_imprimir" role="dialog" aria-hidden="true" style="">
+					<div class="modal-body">
+					
+							<header class="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-consultar.png', array('id' => 'imprimir', 'alt' => 'Imprimir', 'title' => 'Imprimir'));
+								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right'));
+							?>
+							<h1>Impressão de Pedido</h1>
+							</header>
+							
+							<section>
+								<header>Confirmar Impressão</header>
+									<div id="impressao" class="impressao">
+										<fieldset>
+											<legend>Dados da Empresa</legend>
+											<section>
+												
+												<?php
+													echo "<label>Empresa: </label><span class='label'>".$empresa['Empresa']['nome_fantasia']." - ".$empresa['Empresa']['cnpj']."</span><br />";
+													echo "<label>Razão: </label><span class='label'>".$empresa['Empresa']['razao']."</span>";
+												?>
+												
+											</section>
+										</fieldset>
+										<fieldset>
+											<legend>Dados do Fornecedor</legend>
+											<section>
+												
+												<?php
+													echo "<label>Fornecedor: </label><span class='label'>".$parceirodenegocio['Parceirodenegocio']['nome']." - ".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."</span><br />";
+													echo "<label>E-mail: </label><span class='label'>".$parceirodenegocio['Contato'][0]['email']."</span>";
+												?>
+												
+											</section>
+										</fieldset>
+										<fieldset>
+											<legend>Dados do Pedido</legend>
+												<section>
+													<?php
+														echo "<label>Código: </label><span class='label'>".h($pedido['Pedido']['id'])."</span><br />";
+														echo "<label>Data de Início: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['data_inici']))."</span><br />";
+														echo "<label>Forma de Pagamento: </label><span class='label'>".h($pedido['Pedido']['forma_pagamento'])."</span><br />";
+														echo "<label>Prazo de Pagamento: </label><span class='label'>".h($pedido['Pedido']['prazo_pagamento'])."</span><br />";
+														echo "<label>Prazo de Entrega: </label><span class='label'>".h($pedido['Pedido']['prazo_entrega'])."</span><br />";
+														echo "<label>Status: </label><span class='label'>".h($pedido['Pedido']['status'])."</span><br />";
+														echo "<label>Previsão de Entrega: </label><span class='label'>".h($pedido['Pedido']['data_entrega'])."</span><br />";
+														if(isset($pedido['Pedido']['recebimento'])) echo "<label>Previsão de Entrega: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['recebimento']))."</span><br />";
+													?>
+											</section>
+										</fieldset>
+										
+													<table id="tbl_produtos" >
+														<thead>
+															<th>Nome do Produto</th>
+															<th>Quantidade</th>
+															<th>Unidade</th>
+															<th>Valor Unitário</th>
+															<th>Valor Total</th>
+															<th>Observação</th>
+														</thead>
+														
+														<?php 
+															foreach($itens as $produtos){
+																echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
+																echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
+																echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
+																echo '</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_total']); 
+																echo '</td>';
+																echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
+															}
+														?>
+													</table>
+								</div>
+								<footer>
+									<?php
+										echo $this->html->image('botao-confirmar.png',array('alt'=>'Confirmar',
+											'title'=>'Imprimir',
+											'id'=>'imprimir',
+											'class'=>'bt-confirmar imprimir',
+											'style'=>'margin-right: 5px;'
+											));
+										
+										echo $this->Form->end();
+									?>
+								</footer>
+								
+							</section>
+					</div>
+				</div>
 	<?php
 		}
 	
 	?>
+
+	
+	
+	
 </footer>
 
 <script type="text/javascript">
@@ -325,21 +422,18 @@
 	    $(".bt-showmodal").click(function(){
 		nome = $(this).attr('href');
 		$('#'+nome).modal('show');
-			    
-	    });	
+	    });
 	    
+		$('.confirmaImprimir').click(function(){
+			$('#myModal_imprimir').modal('show');
+		});
+		
 		$('.imprimir').click(function(){
 			var options = {mode: "iframe", popClose : false, };
 
-			$('#impressao').css('background-color','#FFF');
 			$('#impressao').css('padding','30px');
-			$('#impressao th').css('background-color','white');
-			$('#impressao').css('min-height','630px');
-			
-			$('#impressao').css('background-color','inherit');
-			$('#impressao').css('padding','0px');
 			$('#impressao th').css('background-color','initial');
-			$('#impressao').css('min-height','100%');
+			$('#impressao').css('min-height','200px');
 			
 			$( '#impressao' ).printArea(options);
 		});
