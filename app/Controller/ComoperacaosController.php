@@ -122,13 +122,18 @@ class ComoperacaosController extends AppController {
 			if(isset($this->request->data['filter']['data_fim-between'])){
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_fim-between']);
 			}
-			if(isset($this->request->data['filter']['data_resposta'])){
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_resposta']);
+			if(isset($this->request->data['filter']['recebimento'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_recebimento']);
 			}	
-			if(isset($this->request->data['filter']['data_resposta-between'])){
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_resposta-between']);
+			if(isset($this->request->data['filter']['recebimento-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['recebimento-between']);
 			}
-	
+			if(isset($this->request->data['filter']['data_entrega'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega']);
+			}	
+			if(isset($this->request->data['filter']['data_entrega-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega-between']);
+			}
 		}
 		
 	}	

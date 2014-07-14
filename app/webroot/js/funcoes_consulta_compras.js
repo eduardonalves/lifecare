@@ -103,6 +103,51 @@ $(document).ready(function(){
 		}
 	}
 
+	dataEntrega = $('#filterDataEntrega').attr('value');
+	if(dataEntrega != undefined){
+		if(dataEntrega !=''){
+			iniano = dataEntrega.substr(0, 4);
+			inimes = dataEntrega.substr(5,2);
+			inidia = dataEntrega.substr(8,2);
+			dataEntrega = inidia+'/'+inimes+'/'+iniano;
+			$('#filterDataEntrega').val(dataEntrega);
+		}
+	}
+
+	dataEntregabetween = $('#filterDataEntrega-between').attr('value');
+	if(dataEntregabetween != undefined){
+		if(dataEntregabetween != ''){
+			fimano = dataEntregabetween.substr(0, 4);
+			fimmes = dataEntregabetween.substr(5,2);
+			fimdia = dataEntregabetween.substr(8,2);
+			dataEntregabetween = fimdia+'/'+fimmes+'/'+fimano;
+			$('#filterDataEntrega-between').val(dataEntregabetween);
+		}
+	}
+	
+	// Não sei porquê, mas essa parte funciona normalmente sem converter. Provavelmente está definido em outro arquivo.
+	
+	//~ dataRecebimento = $('#filterRecebimento').attr('value');
+	//~ if(dataRecebimento != undefined){
+		//~ if(dataRecebimento !=''){
+			//~ iniano = dataRecebimento.substr(0, 4);
+			//~ inimes = dataRecebimento.substr(5,2);
+			//~ inidia = dataRecebimento.substr(8,2);
+			//~ dataRecebimento = inidia+'/'+inimes+'/'+iniano;
+			//~ $('#filterRecebimento').val(dataRecebimento);
+		//~ }
+	//~ }
+
+	dataRecebimentobetween = $('#filterRecebimento-between').attr('value');
+	if(dataRecebimentobetween != undefined){
+		if(dataRecebimentobetween != ''){
+			fimano = dataRecebimentobetween.substr(0, 4);
+			fimmes = dataRecebimentobetween.substr(5,2);
+			fimdia = dataRecebimentobetween.substr(8,2);
+			dataRecebimentobetween = fimdia+'/'+fimmes+'/'+fimano;
+			$('#filterRecebimento-between').val(dataRecebimentobetween);
+		}
+	}
 
 /*** SUBMITAR FILTRO CONSULTA ***************************/
 	$("#quick-filtrar-compras").click(function(e){
@@ -378,6 +423,9 @@ var valorAux=$('#filterTipoOperacao').val();
 	
 	$('#filterRecebimento').addClass('inputData');
 	$('#filterRecebimento-between').addClass('inputData');
+	$('#filterDataEntrega').addClass('inputData');
+	$('#filterDataEntrega-between').addClass('inputData');
+	
 
 /** Placeholder Data **************************************************/
 

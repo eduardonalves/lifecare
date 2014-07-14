@@ -2,13 +2,16 @@
 	$this->start('css');
 		echo $this->Html->css('table');
 	    echo $this->Html->css('compras');
-	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	    echo $this->Html->css('jquery-ui/jquery.ui.all');
+	    echo $this->Html->css('jquery-ui/custom-combobox');
+		echo $this->Html->css('PrintArea');
+		echo $this->Html->css('modal_imprimirpedido');
 	$this->end();
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 		echo $this->Html->script('compras.js');
+		echo $this->Html->script('jquery.PrintArea.js');
 	$this->end();
 	
 	
@@ -48,13 +51,14 @@
     <h1 class="menuOption41">Consulta do Pedido</h1>
 </header>
 
+<div>
 <section>
 	
 	<header>Dados da Empresa</header>
 	
 	<!-- INFORMAÇÕES DA EMPRESA-->
 		
-		<section  class="coluna-esquerda">
+		<section class="coluna-esquerda" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
@@ -62,7 +66,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-central">
+		<section class="coluna-central" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
@@ -70,7 +74,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-direita">
+		<section class="coluna-direita" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
 				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
@@ -83,7 +87,7 @@
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
-		<section  class="coluna-esquerda">
+		<section  class="coluna-esquerda" style="float: left;">
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
@@ -110,7 +114,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-central">
+		<section  class="coluna-central" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.input',array('label'=>'CPF/CNPJ:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],'disabled'=>'disabled'));	
 
@@ -128,7 +132,7 @@
 			?>
 		</section>
 		
-		<section  class="coluna-direita">
+		<section  class="coluna-direita" style="float: left;">
 			
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
@@ -171,10 +175,10 @@
 		
 	<header>Dados do Pedido</header>
 	
-	<!-- INICIO COTAÇÕES -->
+	<!-- INICIO PEDIDOS -->
 	<fieldset>
 		<legend>Dados do Pedido</legend>
-		<section class="coluna-esquerda">
+		<section class="coluna-esquerda" style="float: left;">
 			
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
@@ -187,7 +191,7 @@
 			
 		</section>
 		
-		<section class="coluna-central">
+		<section class="coluna-central" style="float: left;">
 			
 			<?php
 				if($pedido['Pedido']['tipo'] == "COTACAO"){
@@ -206,7 +210,7 @@
 			
 		</section>
 		
-		<section class="coluna-direita">
+		<section class="coluna-direita" style="float: left;">
 
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedido['Pedido']['status'],'disabled'=>'disabled'));	
@@ -247,14 +251,13 @@
 
 
 </section>
+</div>
 
 <footer>
 
 	<?php
 		
-				
-
-
+		
 		if($pedido['Pedido']['status'] != 'CANCELADO'){
 
 
@@ -263,10 +266,17 @@
 			echo "</a>";
 		
 			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedido'),'title' => __('Reenviar Pedido'))), array('controller' => 'Pedidos','action' => 'reeviarpedido',$pedido['Pedido']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedido?', $pedido['Pedido']['id'])));
-						
+			
+			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
+									'title'=>'Imprimir',
+									'id'=>'confirmaImprimir',
+									'class'=>'confirmaImprimir bt-confirmar',
+									'style'=>'margin-right: 5px;'
+									));
+		
 			?>
 
-				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="myModal_add-confirma" role="dialog" aria-hidden="true">
 						<div class="modal-body">
 					
 							<header class="cabecalho">
@@ -303,10 +313,122 @@
 							</section>
 						</div>
 				</div>
+				
+				<div class="modal fade" id="myModal_imprimir" role="dialog" aria-hidden="true" style="">
+					<div class="modal-body">
+					
+							<header class="cabecalho">
+							<?php 
+								echo $this->Html->image('titulo-consultar.png', array('id' => 'imprimir', 'alt' => 'Imprimir', 'title' => 'Imprimir'));
+								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right'));
+							?>
+							<h1>Impressão de Pedido</h1>
+							</header>
+							
+							<section>
+								<header>Confirmar Impressão</header>
+									<div id="impressao" class="impressao">
+										<fieldset>
+											<legend>Dados da Empresa</legend>
+											<section>
+												<?php
+													echo "<label>Empresa: </label><span class='label'>".$empresa['Empresa']['nome_fantasia']." - ".$empresa['Empresa']['cnpj']."</span><br />";
+													echo "<label>Razão: </label><span class='label'>".$empresa['Empresa']['razao']."</span><br />";
+													echo "<label>Telefone: </label><span class='label'>".$empresa['Empresa']['telefone']."</span><br />";
+													echo "<label>Endereço: </label><span class='label'>".$empresa['Empresa']['endereco']."</span><br />";
+													echo "<label>Cidade: </label><span class='label'>".$empresa['Empresa']['cidade']."</span><br />";
+													echo "<label>Bairro: </label><span class='label'>".$empresa['Empresa']['bairro']."</span><br />";
+													echo "<label>Complemento: </label><span class='label'>".$empresa['Empresa']['complemento']."</span><br />";
+													echo "<label>UF: </label><span class='label'>".$empresa['Empresa']['uf']."</span>";
+												?>
+											</section>
+										</fieldset>
+										<fieldset>
+											<legend>Dados do Fornecedor</legend>
+											<section>
+												
+												<?php
+													echo "<label>Fornecedor: </label><span class='label impressaoPedido'>".$parceirodenegocio['Parceirodenegocio']['nome']." - ".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."</span><br />";
+													if(isset($parceirodenegocio['Contato'][0]['email'])) echo "<label>E-mail: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['email']."</span><br />";
+													echo "<label>Telefone: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone1']."</span><br />";
+													if(isset($parceirodenegocio['Contato'][0]['telefone2'])) "<label>Telefone 2: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone2']."</span><br />";
+													echo "<label>CEP: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cep']."</span><br />";
+													echo "<label>Logradouro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['logradouro']."</span><br />";
+													echo "<label>Cidade: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cidade']."</span><br />";
+													echo "<label>Bairro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['bairro']."</span><br />";
+													if(isset($parceirodenegocio['Endereco'][0]['complemento']) && $parceirodenegocio['Endereco'][0]['complemento'] != '') echo "<label>Complemento: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['complemento']."</span><br />";
+													if(isset($parceirodenegocio['Endereco'][0]['numero']) && $parceirodenegocio['Endereco'][0]['numero'] != '') echo "<label>Número: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['numero']."</span><br />";
+													echo "<label>UF: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['uf']."</span>";
+												?>
+												
+											</section>
+										</fieldset>
+										<fieldset>
+											<legend>Dados do Pedido</legend>
+												<section>
+													<?php
+														echo "<label>Código: </label><span class='label'>".h($pedido['Pedido']['id'])."</span><br />";
+														echo "<label>Data de Início: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['data_inici']))."</span><br />";
+														echo "<label>Forma de Pagamento: </label><span class='label'>".h($pedido['Pedido']['forma_pagamento'])."</span><br />";
+														echo "<label>Prazo de Pagamento: </label><span class='label'>".h($pedido['Pedido']['prazo_pagamento'])."</span><br />";
+														echo "<label>Prazo de Entrega: </label><span class='label'>".h($pedido['Pedido']['prazo_entrega'])."</span><br />";
+														echo "<label>Status: </label><span class='label'>".h($pedido['Pedido']['status'])."</span><br />";
+														echo "<label>Previsão de Entrega: </label><span class='label'>".h($pedido['Pedido']['data_entrega'])."</span><br />";
+														if(isset($pedido['Pedido']['recebimento'])) echo "<label>Previsão de Entrega: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['recebimento']))."</span><br />";
+													?>
+											</section>
+										</fieldset>
+										
+													<table id="tbl_produtos" >
+														<thead>
+															<th>Nome do Produto</th>
+															<th>Quantidade</th>
+															<th>Unidade</th>
+															<th>Valor Unitário</th>
+															<th>Valor Total</th>
+															<th>Observação</th>
+														</thead>
+														
+														<?php 
+															foreach($itens as $produtos){
+																echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
+																echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
+																echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
+																echo '</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_total']); 
+																echo '</td>';
+																echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
+															}
+														?>
+													</table>
+								</div>
+								<footer>
+									<?php
+										echo $this->html->image('botao-confirmar.png',array('alt'=>'Confirmar',
+											'title'=>'Imprimir',
+											'id'=>'imprimir',
+											'class'=>'bt-confirmar imprimir',
+											'style'=>'margin-right: 5px;'
+											));
+										
+										echo $this->Form->end();
+									?>
+								</footer>
+								
+							</section>
+					</div>
+				</div>
 	<?php
 		}
 	
 	?>
+
+	
+	
+	
 </footer>
 
 <script type="text/javascript">
@@ -314,8 +436,22 @@
 	    $(".bt-showmodal").click(function(){
 		nome = $(this).attr('href');
 		$('#'+nome).modal('show');
-			    
-	    });	
+	    });
+	    
+		$('.confirmaImprimir').click(function(){
+			$('#myModal_imprimir').modal('show');
+		});
+		
+		$('.imprimir').click(function(){
+			var options = {mode: "iframe", popClose : false, };
+
+			$('#impressao').css('padding','30px');
+			$('#impressao th').css('background-color','initial');
+			$('#impressao').css('min-height','200px');
+			
+			$( '#impressao' ).printArea(options);
+		});
+	    
 		
 	});
 	
