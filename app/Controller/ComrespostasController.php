@@ -312,7 +312,7 @@ class ComrespostasController extends AppController {
 					}
 
 				}
-				$remetente= "eduardonalves@gmail.com";
+				$remetente= "cirurgica.simoes@gmail.com";
 
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){

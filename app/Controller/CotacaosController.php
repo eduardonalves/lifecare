@@ -152,13 +152,13 @@ class CotacaosController extends ComoperacaosController {
             $email = new CakeEmail('smtp');
 
             $email->to($destinatario);
-			$email->from('ti.dev@vento-consulting.com');
+			$email->from('cirurgica.simoes@gmail.com');
             $email->subject($remetente);
 			$email->template('cotacao','default');
 			$email->emailFormat('html');
 			
 			//essa linha só serve para o servidor da alemanha
-			//$email->transport('Mail');
+			$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
@@ -190,7 +190,7 @@ class CotacaosController extends ComoperacaosController {
 							),	
 						)
 					);	
-			$remetente="ti.dev@vento-consulting.com";
+			$remetente="cirurgica.simoes@gmail.com";
 			
 			$mensagem['corpo'] = "Informamos que a cotação de numero".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 			$mensagem['corpo'] +="Foi cancelada, por favor desconsidere esta solicitação de cotação"."\n";
@@ -254,7 +254,7 @@ class CotacaosController extends ComoperacaosController {
 					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
 					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
 					
-					$remetente="ti.dev@vento-consulting.com";
+					$remetente="cirurgica.simoes@gmail.com";
 					
 					if(!empty($contato)){
 						if($contato['Contato']['email'] !=""){

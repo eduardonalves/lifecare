@@ -6,7 +6,7 @@
 		<p style="font-size:16px; margin:35px 10px; text-align:left;">
 			<span style="font-size:20px; font-weight:bold;"><?php echo ($_SESSION['extraparams']['Mensagem']['empresa']);?></span>
 			<br/>
-			<?php echo ($_SESSION['extraparams']['Mensagem']['endereco']);?>, RJ - Telefone <?php echo ($_SESSION['extraparams']['Mensagem']['telefone']);?>
+			<?php echo ($_SESSION['extraparams']['Mensagem']['endereco']);?>,  - Telefone <?php echo ($_SESSION['extraparams']['Mensagem']['telefone']);?>
 			<br/>
 			<a style="text-decoration:none; color:inherit;" href="<?php echo ($_SESSION['extraparams']['Mensagem']['site']);?>"><?php echo ($_SESSION['extraparams']['Mensagem']['site']);?></a>
 		</p>
@@ -43,6 +43,10 @@
 				<td style="text-align:right; font-weight:bold;">Forma de Pagamento: </td>
 				<td><?php echo ' '. ($_SESSION['extraparams']['Pedido']['forma_pagamento']);?></td>
 			</tr>
+			<tr>
+				<td style="text-align:right; font-weight:bold;">Valor: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Pedido']['valor']);?></td>
+			</tr>
 		</table>
 		
 		<br/>
@@ -50,7 +54,9 @@
 		<table>
 			<tr>
 				<td>Produto Nome</td>
+				<td>Vl. Unit</td>
 				<td>Quantidade</td>
+				<td>Vl. Total</td>
 				<td>Observação</td>
 			</tr>
 
@@ -58,8 +64,11 @@
 				foreach(($_SESSION['extraparams']['Comitensdaoperacao']) as $produtos){
 					echo '<tr>';
 						echo '<td>'. $produtos['produtoNome'] .'</td>';
+						echo '<td>'. $produtos['valor_unit'] .'</td>';
 						echo '<td>'. $produtos['qtde'] .'</td>';
+						echo '<td>'. $produtos['valor_total'] .'</td>';
 						echo '<td>'. $produtos['obs'] .'</td>';
+						
 					echo '</tr>';
 				}
 			?>

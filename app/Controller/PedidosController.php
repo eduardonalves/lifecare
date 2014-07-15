@@ -197,7 +197,7 @@ class PedidosController extends ComoperacaosController {
 
 					}
 
-				$remetente= "eduardonalves@gmail.com";
+				$remetente= "cirurgica.simoes@gmail.com";
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
@@ -416,10 +416,10 @@ public function addDash(){
                 $email = new CakeEmail('smtp');
 
                 $email->to($destinatario);
-			  	$email->from('ti.dev@vento-consulting.com');
+			  	$email->from('cirurgica.simoes@gmail.com');
                 $email->subject($remetente);
 				//a linha abaixo só serve para o servidor da alemanha
-				//$email->transport('Mail');
+				$email->transport('Mail');
 				//$email->template = 'confirm';
 				$email->template('pedido','default');
  				$email->emailFormat('html');
@@ -459,7 +459,7 @@ public function addDash(){
             $email = new CakeEmail('smtp');
 
             $email->to($destinatario);
-			$email->from('ti.dev@vento-consulting.com');
+			$email->from('cirurgica.simoes@gmail.com');
             $email->subject($remetente);
 			$email->template('cancelamento','default');
 			$email->emailFormat('html');
@@ -496,7 +496,7 @@ public function addDash(){
 							),	
 						)
 					);	
-			$remetente="ti.dev@vento-consulting.com";
+			$remetente="cirurgica.simoes@gmail.com";
 			
 			$mensagem['corpo'] = "Informamos que o pedido de numero".$id."\n";
 			$mensagem['corpo'] +="Foi cancelado, por favor desconsidere este pedido"."\n";
@@ -574,7 +574,7 @@ public function addDash(){
 								),	
 							)
 						);	
-				$remetente="ti.dev@vento-consulting.com";
+				$remetente="cirurgica.simoes@gmail.com";
 				
 				if($contato['Contato']['email'] !=""){
 					$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);

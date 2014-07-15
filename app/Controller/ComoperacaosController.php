@@ -659,7 +659,7 @@ public $uses = array();
                 $email = new CakeEmail('smtp');
 
                 $email->to($destinatario);
-				$email->from('ti.dev@vento-consulting.com');
+				$email->from('cirurgica.simoes@gmail.com');
 
                 $email->subject($remetente);
 				//essa linha abaixo só serve para o servidor da alemanha
@@ -773,7 +773,7 @@ public $uses = array();
 					$mensagem =$mensagem."Esta é uma tomada de preços"."\n";
 					$mensagem =$mensagem."Este é o seu código de acesso:".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
 					
-					$remetente="ti.dev@vento-consulting.com";
+					$remetente="cirurgica.simoes@gmail.com";
 					
 					if($contato['Contato']['email'] !=""){
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
