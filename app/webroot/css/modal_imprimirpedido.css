@@ -4,11 +4,12 @@
 
 #myModal_imprimir{
 	top: 5% !important;
-	left: 42% !important;
+	left: 44% !important;
 }
 
 /* HERANÇA ************************************************************/
 #myModal_imprimir .modal-body{
 	height: 550px !important;
-	width: 800px !important;
+	width: 820px !important;
 }
+

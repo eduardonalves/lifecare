@@ -317,68 +317,203 @@
 				<div class="modal fade" id="myModal_imprimir" role="dialog" aria-hidden="true" style="">
 					<div class="modal-body">
 					
-							<header class="cabecalho">
+						<header class="cabecalho">
 							<?php 
 								echo $this->Html->image('titulo-consultar.png', array('id' => 'imprimir', 'alt' => 'Imprimir', 'title' => 'Imprimir'));
 								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right'));
 							?>
 							<h1>Impressão de Pedido</h1>
-							</header>
-							
-							<section>
-								<header>Confirmar Impressão</header>
-									<div id="impressao" class="impressao">
-										<fieldset>
-											<legend>Dados da Empresa</legend>
-											<section>
-												<?php
-													echo "<label>Empresa: </label><span class='label'>".$empresa['Empresa']['nome_fantasia']." - ".$empresa['Empresa']['cnpj']."</span><br />";
-													echo "<label>Razão: </label><span class='label'>".$empresa['Empresa']['razao']."</span><br />";
-													echo "<label>Telefone: </label><span class='label'>".$empresa['Empresa']['telefone']."</span><br />";
-													echo "<label>Endereço: </label><span class='label'>".$empresa['Empresa']['endereco']."</span><br />";
-													echo "<label>Cidade: </label><span class='label'>".$empresa['Empresa']['cidade']."</span><br />";
-													echo "<label>Bairro: </label><span class='label'>".$empresa['Empresa']['bairro']."</span><br />";
-													echo "<label>Complemento: </label><span class='label'>".$empresa['Empresa']['complemento']."</span><br />";
-													echo "<label>UF: </label><span class='label'>".$empresa['Empresa']['uf']."</span>";
-												?>
-											</section>
-										</fieldset>
-										<fieldset>
-											<legend>Dados do Fornecedor</legend>
-											<section>
+						</header>
+						
+						<section>
+							<header>Confirmar Impressão</header>
+							<div id="impressao" class="impressao">
+									<fieldset>
+										<legend>Dados da Empresa</legend>
+										<section>
+										<section class="coluna-esquerda">
+											<div class="segmento-esquerdo">															
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Empresa:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['nome_fantasia'],array('class'=>'valor'));?>	</div>
+												</div>
+														
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Razão:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['razao'],array('class'=>'valor'));?>	</div>
+												</div>
+													
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Telefone:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['telefone'],array('class'=>'valor'));?>	</div>
+												</div>
 												
-												<?php
-													echo "<label>Fornecedor: </label><span class='label impressaoPedido'>".$parceirodenegocio['Parceirodenegocio']['nome']." - ".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."</span><br />";
-													if(isset($parceirodenegocio['Contato'][0]['email'])) echo "<label>E-mail: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['email']."</span><br />";
-													echo "<label>Telefone: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone1']."</span><br />";
-													if(isset($parceirodenegocio['Contato'][0]['telefone2'])) "<label>Telefone 2: </label><span class='label impressaoPedido'>".$parceirodenegocio['Contato'][0]['telefone2']."</span><br />";
-													echo "<label>CEP: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cep']."</span><br />";
-													echo "<label>Logradouro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['logradouro']."</span><br />";
-													echo "<label>Cidade: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['cidade']."</span><br />";
-													echo "<label>Bairro: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['bairro']."</span><br />";
-													if(isset($parceirodenegocio['Endereco'][0]['complemento']) && $parceirodenegocio['Endereco'][0]['complemento'] != '') echo "<label>Complemento: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['complemento']."</span><br />";
-													if(isset($parceirodenegocio['Endereco'][0]['numero']) && $parceirodenegocio['Endereco'][0]['numero'] != '') echo "<label>Número: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['numero']."</span><br />";
-													echo "<label>UF: </label><span class='label impressaoPedido'>".$parceirodenegocio['Endereco'][0]['uf']."</span>";
-												?>
+												<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['uf'],array('class'=>'valor'));?>	</div>
+												</div>
 												
-											</section>
-										</fieldset>
-										<fieldset>
-											<legend>Dados do Pedido</legend>
-												<section>
-													<?php
-														echo "<label>Código: </label><span class='label'>".h($pedido['Pedido']['id'])."</span><br />";
-														echo "<label>Data de Início: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['data_inici']))."</span><br />";
-														echo "<label>Forma de Pagamento: </label><span class='label'>".h($pedido['Pedido']['forma_pagamento'])."</span><br />";
-														echo "<label>Prazo de Pagamento: </label><span class='label'>".h($pedido['Pedido']['prazo_pagamento'])."</span><br />";
-														echo "<label>Prazo de Entrega: </label><span class='label'>".h($pedido['Pedido']['prazo_entrega'])."</span><br />";
-														echo "<label>Status: </label><span class='label'>".h($pedido['Pedido']['status'])."</span><br />";
-														echo "<label>Previsão de Entrega: </label><span class='label'>".h($pedido['Pedido']['data_entrega'])."</span><br />";
-														if(isset($pedido['Pedido']['recebimento'])) echo "<label>Previsão de Entrega: </label><span class='label'>".h(formatDateToView($pedido['Pedido']['recebimento']))."</span><br />";
-													?>
-											</section>
-										</fieldset>
+											</div>													
+										</section>
 										
+										<section class="coluna-central" style="width: 255px !important; margin-left: 16px !important;">
+											<div class="segmento-central">															
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Endereço:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['endereco'],array('class'=>'valor'));?>	</div>
+												</div>
+															
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['cidade'],array('class'=>'valor'));?>	</div>
+												</div>
+															
+												<div class="conteudo-linha">
+													<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+													<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['bairro'],array('class'=>'valor'));?>	</div>
+												</div>
+												
+												<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$empresa['Empresa']['complemento'],array('class'=>'valor'));?>	</div>
+												</div>
+											</div>
+										</section>
+											
+									</section>
+									</fieldset>
+									<fieldset>
+										<legend>Dados do Fornecedor</legend>
+									<section>
+											<section class="coluna-esquerda">
+												<div class="segmento-direita">															
+														<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','Fornecedor:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+														</div>	
+										
+														<?php if(isset($parceirodenegocio['Contato'][0]['email'])){?>														
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Contato'][0]['email'],array('class'=>'valor', 'style'=>'width: 300px;'));?>	</div>
+															</div>													
+														<?php }?>
+															
+														<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','Telefone:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Contato'][0]['telefone1'],array('class'=>'valor'));?>	</div>
+														</div>	
+															
+														<?php if(isset($parceirodenegocio['Contato'][0]['telefone2'])){?>														
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Contato'][0]['telefone2'],array('class'=>'valor'));?>	</div>
+															</div>													
+														<?php }?>
+														
+														<?php if(isset($parceirodenegocio['Endereco'][0]['complemento']) && $parceirodenegocio['Endereco'][0]['complemento'] != ''){?>														
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['complemento'],array('class'=>'valor'));?>	</div>
+															</div>													
+														<?php }?>
+												</div>
+											</section>
+
+											<section class="coluna-central" style="width: 255px !important; margin-left: 16px !important;">
+												<div class="segmento-direita">	
+													<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['cep'],array('class'=>'valor'));?>	</div>
+													</div>	
+															
+													<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['logradouro'],array('class'=>'valor'));?>	</div>
+													</div>	
+															
+													<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['cidade'],array('class'=>'valor'));?>	</div>
+													</div>	
+															
+													<div class="conteudo-linha">
+														<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+														<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['bairro'],array('class'=>'valor'));?>	</div>
+													</div>
+													
+													<?php if(isset($parceirodenegocio['Endereco'][0]['numero']) && $parceirodenegocio['Endereco'][0]['numero'] != ''){?>														
+														<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['numero'],array('class'=>'valor'));?>	</div>
+														</div>													
+													<?php }?>
+													
+													<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Endereco'][0]['uf'],array('class'=>'valor'));?>	</div>
+													</div>
+													
+												</div>
+											</section>
+									</section>
+									</fieldset>
+									<fieldset>
+										<legend>Dados do Pedido</legend>
+									<section>
+											<section class="coluna-esquerda">
+													<div class="segmento-esquerdo">															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Código:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['id'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Data de Início:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['data_inici'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Forma de Pagamento:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['forma_pagamento'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Previsão de Entrega:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['data_entrega'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+													</div>													
+											</section>
+											
+											<section class="coluna-central" style="width: 255px !important; margin-left: 16px !important;">
+													<div class="segmento-esquerdo">															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Prazo de Pagamento:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['prazo_pagamento'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Prazo de Entrega:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['prazo_entrega'],array('class'=>'valor'));?>	</div>
+															</div>		
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedido['Pedido']['status'],array('class'=>'valor'));?>	</div>
+															</div>													
+															
+															<?php if(isset($pedido['Pedido']['recebimento'])){ ?>
+																<div class="conteudo-linha">
+																	<div class="linha"><?php echo $this->Html->Tag('p','Previsão de Recebimento:',array('class'=>'titulo'));?></div>
+																	<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($pedido['Pedido']['recebimento']),array('class'=>'valor'));?>	</div>
+																</div>
+															<?php }?>
+															
+													</div>
+											</section>
+									</section>
+									</fieldset>
 													<table id="tbl_produtos" >
 														<thead>
 															<th>Nome do Produto</th>
@@ -444,7 +579,7 @@
 		
 		$('.imprimir').click(function(){
 			var options = {mode: "iframe", popClose : false, };
-
+			
 			$('#impressao').css('padding','30px');
 			$('#impressao th').css('background-color','initial');
 			$('#impressao').css('min-height','200px');

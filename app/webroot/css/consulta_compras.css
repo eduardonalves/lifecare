@@ -469,3 +469,11 @@ margin-bottom: 50px;
 #filtro-parceiro label{
 	width:150px !important;
 }
+
+#valor{
+	min-width:100px;
+}
+
+.valor{
+	min-width:100px;
+}
