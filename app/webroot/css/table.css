@@ -166,7 +166,7 @@ p.table-counter{
 
 .actions img{
 	float:left;
-	margin-left:5px;
+	margin-left:4px;
 	position:relative;
 }
 
@@ -187,4 +187,8 @@ p.table-counter{
 
 .actions .img-lista{
 	margin-top:4px;
+}
+
+.actions .img-listaparceiro{
+	margin-left:2px !important;
 }
