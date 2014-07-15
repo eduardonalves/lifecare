@@ -197,7 +197,7 @@
 	<?php echo $this->element('paginador_superior'); ?>
 	
 		<div class="tabelas" id="contas">
-			<table cellpadding="0" cellspacing="0">
+			<table cellpadding="0" cellspacing="0" style="font-size: 12px !important;">
 				
 				<?php
 				//TABELA OPERAÇÕES

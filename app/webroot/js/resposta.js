@@ -125,10 +125,13 @@ $(document).ready(function(){
 			return null;
 		}
 		
-		var novoValor = $("#valorTotal"+ lastChar).val().replace(/\./g, '');
-		novoValor = novoValor.replace(/\,/g, '.');
-	
-		soma = parseFloat(soma) + parseFloat(novoValor);
+		$('.valorTotal').each(function(){
+			if($(this).val() != '' && $(this).val() != 'NaN'){
+				valor = $(this).val().split('.').join('').replace(',','.');
+				valor = parseFloat(valor);
+				soma += valor;
+		}
+		});
 		
 		$('#ComrespostaValor').val(float2moeda(soma));
 		
@@ -142,6 +145,7 @@ $(document).ready(function(){
 		
 		$("#botaoConfirm"+ lastChar).hide();
 		$("#botaoEdit"+ lastChar).show();
+		
 	});
 	
 	$("img[id*='botaoEdit']").click(function(e){
@@ -168,4 +172,3 @@ $(document).ready(function(){
 		$("table tbody tr:nth-child("+ lastChar +")").remove();
 	});
 });
-
