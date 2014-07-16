@@ -300,10 +300,11 @@
 								</div>
 								<footer>
 									<?php
-										echo $this->Form->submit('botao-salvar.png',array(
+										echo $this->Html->image('botao-salvar.png',array(
 																	'class'=>'bt-salvar',
 																	'alt'=>'Salvar',
-																	'title'=>'Salvar'
+																	'title'=>'Salvar',
+																	'onclick'=>'javascript: submitRecebimento()'
 										));
 										
 										echo $this->Form->end();
@@ -593,12 +594,21 @@
 	/** Validação Data Início e Confirmação ao Confirmar Pedido **************************************************/
 	
 	function validaData(){
-		if($("#dataRecebimento").val() != ''){
-			if(validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida")){
+		if($("#dataRecebimento").val() != '' || validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida")){
 				$("#dataRecebimento").val("");
 				$("#dataRecebimento").addClass('shadow-vermelho');
 		}
 	}
-	};
+	
+	function submitRecebimento(){
+		if($("#dataRecebimento").val() != '' || validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida")){
+				$("#dataRecebimento").val("");
+				$("#dataRecebimento").addClass('shadow-vermelho');
+		}
+		else{
+			document.forms['Pedido'].submit();
+			}
+		}
+	
 </script>
 

@@ -88,7 +88,11 @@
 			<?php
 				echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));	
 				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled'));	
+					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled','style'=>'display: none;'));
+					echo "
+					<div class='whiteSpace' style='min-width: 185px !important; font-size: 13px; margin: 12px 0px 0px 0px;'>
+						<span title='".$contato['email']."'>".$contato['email']."</span>
+					</div>";
 				}
 				
 				foreach($parceirodenegocio['Endereco'] as $endereco){

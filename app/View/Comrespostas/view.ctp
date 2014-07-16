@@ -113,7 +113,14 @@
 				
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['email'],array('class'=>'valor'));?>	</div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['email'],array('class'=>'valor', 'style'=>'display: none;'));?>
+					<?php
+					echo "
+					<div class='whiteSpace' style='min-width: 185px !important; font-size: 13px; margin: 12px 0px 0px 0px;'>
+						<span title='".$parceiroResposta['Contato'][0]['email']."'>".$parceiroResposta['Contato'][0]['email']."</span>
+					</div>";
+					?>
+					</div>
 				</div>
 				
 				<div class="conteudo-linha">

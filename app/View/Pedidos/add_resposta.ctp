@@ -168,7 +168,14 @@
 						
 						<div class="conteudo-linha">
 							<div class="linha"><?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo'));?></div>
-							<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['email'],array('class'=>'valor'));?>	</div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$parceiroResposta['Contato'][0]['email'],array('class'=>'valor','style'=>'display: none;'));?>
+							<?php
+							echo "
+							<div class='whiteSpace' style='min-width: 185px !important; font-size: 13px; margin: 12px 0px 0px 0px;'>
+								<span title='".$parceiroResposta['Contato'][0]['email']."'>".$parceiroResposta['Contato'][0]['email']."</span>
+							edita</div>";
+							?>
+							</div>
 						</div>
 						
 						<div class="conteudo-linha">
@@ -302,7 +309,7 @@
 								
 								echo "<td class='confirma'>";
 									echo "<span id='spanStatus".$j."' class='fechado' style='display:none;'></span>";
-									echo "<img title='Editar' alt='Editar' src='/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' />";
+									echo "<img title='Editar' alt='Editar' src='/app/webroot/img/botao-tabela-editar.png' id='editi".$j."' class='btnEditi' sytle='padding-right: 3px;'/>";
 									echo "<img title='Confirmar' alt='Confirmar' src='/app/webroot/img/bt-confirm.png' id='confir".$j."' class='btnConfirm' style='display:none;' />";
 									echo "<img title='Remover' alt='Remover' src='/app/webroot/img/lixeira.png' id='excluirP_".$j."' class='btnRemoveProdu'/>";
 								echo "</td>";
