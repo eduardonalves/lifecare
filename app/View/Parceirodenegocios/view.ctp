@@ -32,6 +32,7 @@
 		if(!isset($telaAbas)){
 			echo '<h1 class="menuOption31">Visualizar Parceiro</h1>';
     ?>
+
 </header>
 
 <section> <!---section superior--->	
@@ -256,13 +257,18 @@
 
 
 	}else{ //PARCEIRO DE NEGOCIOS COMPRAS
-		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
+		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Fornecedor</h1>';
+		
 	?>
 	
 </header>
 
 <section> <!---section superior--->	
-	<header>Dados Gerais do Parceiro</header>
+	<?php if(!isset($telaAbas)){ ?>
+		<header>Dados Gerais do Parceiro</header>
+	<?php }else{ ?>
+		<header>Dados Gerais do Fornecedor</header>
+	<?php } ?>
 	
 	<section class="coluna-esquerda">
 
@@ -326,7 +332,7 @@
 	<section class="coluna-direita" >
 		<div class="segmento-esquerdo">				
 				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo'));?></div>
+					<div class="linha"><?php echo $this->Html->Tag('p','CNPJ:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));?>	</div>
 				</div>
 		</div>

@@ -79,13 +79,17 @@ $(document).ready(function(){
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
    <?php
 		if(!isset($telaAbas)){
-			echo '<h1 class="menuOption31">Visualizar Parceiro</h1>';
+			echo '<h1 class="menuOption31">Editar Parceiro</h1>';
     ?>
 </header>
 
 <section> <!---section superior--->
 
-	<header>Dados Gerais do Parceiro</header>
+	<?php if(!isset($telaAbas)){ ?>
+		<header>Dados Gerais do Parceiro</header>
+	<?php }else{ ?>
+		<header>Dados Gerais do Fornecedor</header>
+	<?php } ?>
 	
 	<?php
 		if(isset($telaLayout) && isset($telaAbas))
@@ -171,7 +175,8 @@ $(document).ready(function(){
 					echo $this->Form->input('Endereco.'.$z.'.id', array('value'=>$endereco['id']));
 
 					if($z==0){
-						echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'mudancaInput input select')));
+						echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'mudancaInput input select'), 'style'=>'display: none'));
+						echo $this->Html->Tag('p','Principal',array('class'=>'valor','style'=>'padding-top: 3px;'));
 					}else{
 						echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('COBRANCA'=>'Cobrança','ENTREGA'=>'Entrega'),'div' =>array( 'class' => 'mudancaInput input select')));
 					}
@@ -280,8 +285,8 @@ $(document).ready(function(){
 		echo $this->html->image('botao-novo-limite.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Limite de Crédito','id'=>'bt-addLimite','class'=>'bt-direita'));
 		//echo "</a>";
 		
-	}else{ //EDIT PARCEIRA COMPRAS
-		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Parceiro</h1>';
+	}else{ //EDIT PARCEIRO COMPRAS
+		echo '<h1 class="menuOption'.$telaAbas.'">Editar Fornecedor</h1>';
 	?>
 		
 		<section> <!---section superior--->
@@ -336,9 +341,8 @@ $(document).ready(function(){
 
 				<?php
 				
-					echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'mudancaInput tamanho-medio','readonly'=>'readonly','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
-					echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-						  <div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+					echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'mudancaInput tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+					echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
 					echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 					echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 
@@ -372,7 +376,8 @@ $(document).ready(function(){
 							echo $this->Form->input('Endereco.'.$z.'.id', array('value'=>$endereco['id']));
 
 							if($z==0){
-								echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'mudancaInput input select')));
+								echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'mudancaInput input select'), 'style'=>'display: none'));
+								echo $this->Html->Tag('p','Principal',array('class'=>'valor','style'=>'padding-top: 3px;'));
 							}else{
 								echo $this->Form->input('Endereco.'.$z.'.tipo',array('label' => 'Tipo:','type' => 'select','options'=>array('COBRANCA'=>'Cobrança','ENTREGA'=>'Entrega'),'div' =>array( 'class' => 'mudancaInput input select')));
 							}

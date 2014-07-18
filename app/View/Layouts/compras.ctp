@@ -109,9 +109,9 @@
 				<li class="item">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add","layout"=>"compras","abas"=>"42"),true);?>'>
 						
-						<?php echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar Parceiro', 'title' => 'Cadastrar Parceiro')); ?>
+						<?php echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar Fornecedor', 'title' => 'Cadastrar Fornecedor')); ?>
 
-						<span class="label">Cadastrar Parceiro</span>
+						<span class="label">Cadastrar Fornecedor</span>
 					</a>
 				</li>
 
