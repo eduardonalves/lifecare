@@ -1,9 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-<<<<<<< HEAD:app/.htaccess
-=======
-
->>>>>>> origin/Henrique:app/.htaccess2
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]
 </IfModule>

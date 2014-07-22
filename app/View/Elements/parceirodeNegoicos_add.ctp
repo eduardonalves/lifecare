@@ -205,6 +205,32 @@
 			}
 		});
 
+		$("#ParceirodenegocioCpfCnpj").change(function(){
+		
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data == 'existe'){
+					    $('#msgValidaDocumento').show();
+					    $('#ParceirodenegocioCpfCnpj').val('');					    
+					}else{
+						$('#msgValidaDocumento2').show();
+					}
+				}
+			});
+		});
+
 	});	
 </script>
 
@@ -214,7 +240,7 @@
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <?php
 		if(isset($telaAbas)){
-			echo '<h1 class="menuOption'.$telaAbas.'">Cadastrar Parceiro</h1>';
+			echo '<h1 class="menuOption'.$telaAbas.'">Cadastrar Fornecedor</h1>';
 		}else{
 			echo '<h1 class="menuOption32">Cadastrar Parceiro</h1>';
 		}
@@ -225,25 +251,34 @@
 <?php
     if(!isset($modal)){
 		if(isset($telaLayout) && isset($telaAbas))
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddForm'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddForm'));
 		else
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
     }else{
 		if(isset($telaLayout) && isset($telaAbas))
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddFormModal'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddFormModal'));
 		else
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
     }
 ?>    
 
 <section> <!---section superior--->
-	<header>Dados Gerais do Parceiro</header>
-
+	<?php if(!isset($telaAbas)){ ?>
+		<header>Dados Gerais do Parceiro</header>
+	<?php }else{ ?>
+		<header>Dados Gerais do Fornecedor</header>
+	<?php } ?>
+	
 	<section class="coluna-esquerda">
 
 		<?php
-			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
-			echo '<span id="validaClassificacao" class="msg erroRight" style="display:none">Selecione a Classificação</span>';
+			if(!isset($telaAbas)){
+				echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','CLIENTE'=>'Cliente','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
+				echo '<span id="validaClassificacao" class="msg erroRight" style="display:none">Selecione a Classificação</span>';
+			}else{
+				echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array('FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1', 'style' => 'display: none'));
+				echo $this->Html->Tag('p','Fornecedor',array('class'=>'valor','style'=>'padding-top: 3px;'));
+				}
 
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4','placeholder'=>'(99) 9999-9999'));
 			echo '<span id="validaTelefone" class="msg erroRight" style="display:none">Preencha o Telefone</span>';
@@ -271,10 +306,39 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
-			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-				<div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+			if(!isset($telaAbas)){
+				echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+				echo "<span>Verificando aguarde...</span>";
+				echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				echo "</div>";
+				echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
+				echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>";
+				echo "<div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";	
+				echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+				echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+				
+				
+			}else{
+				echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+					echo "<span>Verificando aguarde...</span>";
+					
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				echo "</div>";
+				echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+				echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+				echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+				echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+
+			
+			}
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFCnpj" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 
 			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6','placeholder'=>'(99) 99999-9999'));
@@ -293,8 +357,9 @@
 			<section class="coluna-esquerda">
 
 				<?php	
-					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo<span class="campo-obrigatorio">*</span>:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'input select'),'tabindex'=>''));
-					echo '<span id="valida0tipo" class="msg erroRight" style="display:none">Preencha o Bairro</span>';
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo<span class="campo-obrigatorio">*</span>:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'input select'),'tabindex'=>'','style'=>'display: none;'));
+					echo '<span id="valida0tipo" class="msg erroRight" style="display:none">Preencha o Tipo</span>';
+					echo $this->Html->Tag('p','Principal',array('class'=>'valor','style'=>'padding-top: 3px;'));
 
 					echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
 
@@ -401,7 +466,7 @@
 
 <!--<section class="areaCliente">-->
 <section><!---section Baixo--->	
-	<header class="">Dados do Crédito</header>
+	<header class="">Dados de Crédito</header>
 
 	<section class="coluna-esquerda">
 
