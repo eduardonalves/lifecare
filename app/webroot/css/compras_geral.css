@@ -1,0 +1,127 @@
+@charset "utf-8";
+
+/*** Centro de Custo*/
+.centrocusto{
+	margin: 55px 0px 0px 0px;
+}
+
+.bt-centroCusto{
+	display: block;
+	float: left;
+	margin: 0 0 0 345px;
+	position: absolute;
+	z-index: 1;
+}
+
+.bt-TipoConta{
+	display: block;
+	float: left;
+	margin: 56px 0 0 107px;	
+	position: absolute;
+	z-index: 1;
+}
+
+/*** Menu Lateral****/
+
+.item{
+	line-height: 15px;
+}
+
+.abaMenuLateral{ line-height: 13px; }
+
+.textMenuLateral{ margin-top: -11px; }
+.textMenuLateral span{ height: 42px; }
+
+/** Formulário**/
+textarea{height: 40px !important; width: 147px !important;}
+
+#Endereco0PontoReferencia{margin-bottom:5px;}
+.fake-footer{
+	display:inline-block;
+	width:100%;
+}
+.fake-footer img{
+	margin:0;
+}
+
+select[id^='Endereco']{
+	width:190px !important;
+}
+
+
+/** Botões **/
+.bt-direita{float: right !important; margin: 24px 10px 5px 3px !important;}
+
+#bt-voltarPagar, #bt-voltarReceber, [id*="bt-editarConta"], .bt-salvarConta{
+	display:none;
+}
+
+.bt-confirmar{float:right;}
+
+.bt-preencherConta {display:block;float: left;margin:29px 0 0 345px;position: absolute;z-index: 1;}
+
+/** Classes **/
+.textAreaConta{height: 40px !important; width: 186px !important;margin-bottom:5px;}
+
+#spanTextArea{display:block;font-size:13px;min-width:100px;margin-left: 153px;padding-top: 3px;}
+
+[class*="autocomplete"] .custom-combobox-input {width: 153px;}
+
+/** Id **/
+[id*="msg"]:after{left: -20px;top: 1px;}
+
+[id*="msg"]{left: 245px;}
+
+#msgAutoComplete:after{ left: 23px;top: 51px;}
+#msgAutoComplete{top: -35px;}
+
+#msgCpfCnpj:after{ border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #FFD5D5 rgba(0, 0, 0, 0); left: 51px;top: -20px;}
+#msgCpfCnpj{float: right;left: 1280px;top: 550px;width: 107px;z-index:1}
+
+#msgTipoPagamento{top:0px;left:230px;}
+
+
+#totalReceber, #totalPagar{
+	font-size:13px;
+	margin-top:10px;
+	width:375px;
+	padding-left:50px;
+	height:100px;
+}
+
+#totalReceber{
+	margin-left:100px;
+}
+
+#totalPagar{
+	margin-right:100px;
+}
+
+
+#ContasreceberDescricao{
+	width: 169px !important;
+}
+
+#ContaspagarDescricao{
+	width: 169px !important;
+}
+
+[id*="spanDataFinal"]{left: 215px;top: 112px;width: 129px;}
+
+#spanDataFinalEmi{height: 60px;left: 245px;top: -3px;width: 94px;z-index: 1;}
+
+#filtro-parceiro label{
+	width: 140px !important;
+}
+
+fieldset{
+	padding:0px;
+}
+
+.dadosRepetidos{
+	padding-bottom:5px;
+}
+
+#filtro-operacao label{
+	width:150px;
+}

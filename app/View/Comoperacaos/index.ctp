@@ -447,14 +447,14 @@
 							echo "<hr style='margin-top: 0px !important;'/>";
 							
 								echo "<a href='myModal_add-parceiroFornecedor' class='bt-showmodal'>"; 
-									echo $this->Html->image('cadastrar.png',array('id'=>'addNovo'.$j,'alt'=>'Cadastrar Novo Fornecedor','class'=>'addNovoParceiro','title'=>'Cadastrar Novo Fornecedor'));
+									echo $this->Html->image('parceiro_add.png',array('id'=>'addNovo'.$j,'alt'=>'Cadastrar Novo Fornecedor','class'=>'addNovoParceiro','title'=>'Cadastrar Novo Fornecedor'));
 									echo $this->Form->input('Vazio.idProdAdd',array('id'=>'idProdAdd'.$j,'value'=>$produto['Produto']['id'],'type'=>'hidden'));
 								echo "</a>";
 								
 							echo "<hr style='margin-top: 0px !important;'/>";
 											
 								echo "<a href='myModal_add-associaFornecedor".$j."' class='bt-showmodal'>"; 
-									echo $this->Html->image('cadastrar.png',array('alt'=>'Associar Novo Fornecedor','class' => '','title'=>'Associar Novo Fornecedor'));
+									echo $this->Html->image('parceiro_associ.png',array('alt'=>'Associar Novo Fornecedor','class' => '','title'=>'Associar Novo Fornecedor'));
 								echo "</a>";
 							?>
 					

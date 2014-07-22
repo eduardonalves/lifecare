@@ -519,7 +519,13 @@ class ProdutosController extends AppController {
 				
 				
 				$this->Session->setFlash(__('Alterações salvas com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'view', $id));
+				
+				if(isset($this->request->params['named']['layout'])){
+					return $this->redirect(array('action' => 'view', $id,'layout'=>'compras','abas'=>'41'));
+				}else{
+					return $this->redirect(array('action' => 'view', $id));
+				}
+				
 				$this->set(compact('postTributos'));
 			
 			} else {
