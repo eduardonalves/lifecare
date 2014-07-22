@@ -207,6 +207,8 @@
 
 		$("#ParceirodenegocioCpfCnpj").change(function(){
 		
+		if($("#ParceirodenegocioCpfCnpj").val() != ''){
+			
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
 			
 		    var dadosForm = $("#ParceirodenegocioAddForm").serialize();
@@ -229,7 +231,8 @@
 					}
 				}
 			});
-		});
+		}
+	});
 
 	});	
 </script>
