@@ -459,4 +459,20 @@ class ParceirodenegociosController extends AppController {
 			$this->Session->setFlash(__('The parceirodenegocio could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+	
+	public function verificaidentificacao(){
+	
+		if($this->request->is('ajax')){
+			$identificacao = $this->request->data['Parceirodenegocio']['cpf_cnpj'];
+			$existe = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.cpf_cnpj' => $identificacao)));
+			if(!empty($existe)){
+				$resposta="existe";
+			}else{
+				$resposta="naoExiste";
+			}
+			$this->set(compact('resposta'));
+		}
+	}
+
+	}

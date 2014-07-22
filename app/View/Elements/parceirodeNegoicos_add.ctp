@@ -205,6 +205,32 @@
 			}
 		});
 
+		$("#ParceirodenegocioCpfCnpj").change(function(){
+		
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data == 'existe'){
+					    $('#msgValidaDocumento').show();
+					    $('#ParceirodenegocioCpfCnpj').val('');  
+					}else{
+						$('#msgValidaDocumento2').show();
+					}
+				}
+			});
+		});
+
 	});	
 </script>
 
@@ -225,14 +251,14 @@
 <?php
     if(!isset($modal)){
 		if(isset($telaLayout) && isset($telaAbas))
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddForm'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddForm'));
 		else
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'id' => 'ParceirodenegocioAddForm'));
     }else{
 		if(isset($telaLayout) && isset($telaAbas))
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddFormModal'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'url' => array('layout' => $telaLayout,'abas' => $telaAbas), 'id' => 'ParceirodenegocioAddFormModal'));
 		else
-			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocio', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
+			echo $this->Form->create('Parceirodenegocio', array('controller' => 'Parceirodenegocios', 'action'=>'add', 'id' => 'ParceirodenegocioAddFormModal'));
     }
 ?>    
 
@@ -283,11 +309,36 @@
 			if(!isset($telaAbas)){
 				echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
 				echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>";
-				echo "<div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";}
-			else
+				echo "<div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+				echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+				echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+				
+				echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+					echo "<span>Verificando aguarde...</span>";
+					
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				echo "</div>";
+
+			}else{
 				echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
 				echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+				echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+				echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+
+				echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+				echo "<span>Verificando aguarde...</span>";
+				echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+				echo "</div>";
+			}
+			
 			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFCnpj" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 
 			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6','placeholder'=>'(99) 99999-9999'));
