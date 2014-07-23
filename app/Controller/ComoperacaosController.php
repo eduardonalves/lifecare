@@ -157,7 +157,8 @@ class ComoperacaosController extends AppController {
 			array_push($listaProdutos, array($produto => $produto));
 		}
 		
-		$listaCategorias = $this->Categoria->find('list',array('recursive' => -1, 'fields'=> array('Categoria.nome')));
+		$listaCategorias = array();
+		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
 		
 //Adiciona filtros
 		
@@ -419,7 +420,7 @@ class ComoperacaosController extends AppController {
 				            ),
 				            'produtoCategoria' => array(
 				                '_Categoria.nome' => array(
-				                    'operator' => '=',
+				                    'operator' => 'LIKE',
 									'select' => array(''=>'', $listaCategorias)
 				                )
 				            ),
@@ -780,7 +781,6 @@ public $uses = array();
 					}
 				}
 				//$parceiros = $this->Parceirodenegocio->find('all', array('contain' => array('Comoperacao'),'conditions' => array('Comoperacao.id' => $ultimaCotacao['Cotacao']['id'])));
-				//debug($ultimaCotacao);
 				
 				$this->Session->setFlash(__('A comoperacao foi Salva com Sucesso.'));
 				//return $this->redirect(array('action' => 'index'));
