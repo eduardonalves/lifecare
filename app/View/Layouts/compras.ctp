@@ -45,7 +45,7 @@
 		echo $this->Html->css('lifecare');
 		echo $this->Html->css('jquery-ui/jquery-ui.css');
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-		echo $this->Html->css('financeiro_geral.css');
+		echo $this->Html->css('compras_geral.css');
 		echo $this->fetch('css');
 		echo $this->Html->script('jquery_novo.js');
 		echo $this->Html->script('jquery-ui/jquery-ui.js');

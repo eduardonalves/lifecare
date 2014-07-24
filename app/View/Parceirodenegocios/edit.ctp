@@ -70,6 +70,35 @@ $(document).ready(function(){
 		$(this).val($(this).find("option").first().val());
 	});
 
+	$("#ParceirodenegocioCpfCnpj").change(function(){
+			
+		if($("#ParceirodenegocioCpfCnpj").val() != ''){
+			
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ParceirodenegocioEditForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data == 'existe'){
+					    $('#msgValidaDocumento').show();
+					    $('#ParceirodenegocioCpfCnpj').val('');  
+					}else{
+						$('#msgValidaDocumento2').show();
+					}
+				}
+			});
+		}
+	});
+
 });
 </script>
 
@@ -291,7 +320,7 @@ $(document).ready(function(){
 		
 		<section> <!---section superior--->
 
-			<header>Dados Gerais do Parceiro</header>
+			<header>Dados Gerais do Fornecedor</header>
 			
 			<?php
 				if(isset($telaLayout) && isset($telaAbas))
@@ -338,11 +367,20 @@ $(document).ready(function(){
 			</section>
 
 			<section class="coluna-direita" >
-
-				<?php
-				
-					echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'mudancaInput tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+			<?php
+					echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
 					echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+					echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+					echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+
+					echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+					echo "<span>Verificando aguarde...</span>";
+					echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																	 'title'=>'Carregando',
+																	 'class'=>'loaderAjaxCategoria',
+																	 ));
+					echo "</div>";
+
 					echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
 					echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
 

@@ -157,7 +157,7 @@ class ComoperacaosController extends AppController {
 			array_push($listaProdutos, array($produto => $produto));
 		}
 		
-		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
+		$listaCategorias = $this->Categoria->find('list',array('recursive' => -1, 'fields'=> array('Categoria.nome')));
 		
 //Adiciona filtros
 		
@@ -419,7 +419,7 @@ class ComoperacaosController extends AppController {
 				            ),
 				            'produtoCategoria' => array(
 				                '_Categoria.nome' => array(
-				                    'operator' => 'LIKE',
+				                    'operator' => '=',
 									'select' => array(''=>'', $listaCategorias)
 				                )
 				            ),
