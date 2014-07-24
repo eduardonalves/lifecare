@@ -254,7 +254,7 @@
 							
 							echo "<a href='myModal_add-view_produto".$j."' class='bt-showmodal'>";
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
-							echo "</a>";par
+							echo "</a>";
 							
 						?>
 						
