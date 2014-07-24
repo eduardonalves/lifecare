@@ -212,7 +212,10 @@
 			
 			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
 			
-		    var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		    if($("#ParceirodenegocioAddForm").is(':visible'))
+				var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		    else if($("#ParceirodenegocioAddFormModal").is(':visible'))
+				var dadosForm = $("#ParceirodenegocioAddFormModal").serialize();
 		    
 		    $('.loaderAjaxIdentificacao').show();
 		    
