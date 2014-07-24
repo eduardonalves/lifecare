@@ -131,7 +131,7 @@
 					
 					<div class="" >
 						<?php
-							echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>''));
+							echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>'tamanho-medio'));
 						?>
 					</div>
 					
@@ -230,7 +230,7 @@
 							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Cotação','title'=>'Visualizar Cotação','url'=>array('controller' => 'Cotacaos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 								
-								echo "<hr />";
+								echo "<hr style='margin-top: 0px !important;'/>";
 								
 								echo "<a href='myModal_add-view_parceiro".$j."' class='bt-showmodal'>"; 
 								echo $this->Html->image('lista-user.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista img-listaparceiro','title'=>'Visualizar Lista de Fornecedores'));
@@ -239,7 +239,7 @@
 							}else{
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','title'=>'Visualizar Pedido','url'=>array('controller' => 'Pedidos','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 								
-								echo "<hr />";
+								echo "<hr style='margin-top: 0px !important;'/>";
 								
 								if(isset($comoperacao['Parceirodenegocio'][0]['id'])){
 									echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
@@ -250,7 +250,7 @@
 								
 							}
 							
-							echo "<hr />";
+							echo "<hr style='margin-top: 0px !important;'/>";
 							
 							echo "<a href='myModal_add-view_produto".$j."' class='bt-showmodal'>";
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));

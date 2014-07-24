@@ -6,6 +6,9 @@
 
 	$this->start('css');
 	    echo $this->Html->css('modal_ComFornecedorAdd');
+	    echo $this->Html->css('modal_ParceiroCliente');
+	    echo $this->Html->css('modal_ParceiroFornecedor');
+	    echo $this->Html->css('parceiro');
 	$this->end();
 
 	$this->start('script');
@@ -137,43 +140,37 @@
 			
 			if(erro==0){
 				$('#addFornecedorForm').submit();
-				
-/*
-				$('#ParceirodenegocioClassificacao').removeAttr('disabled');
-
-				var urlAction = "<?php echo $this->Html->url(array("controller"=>"Parceirodenegocios","action"=>"add","layout" => "compras","abas" => "42"),true); ?>";
-				var dadosForm = $("#ParceirodenegocioAddFormModal").serialize();
-
-				$(".loaderAjaxCParceiroDIV").show();
-				$("#bt-salvarParceiroModal").hide();
-
-				$.ajax({
-					type: "POST",
-					url: urlAction,
-					data:  dadosForm,
-					dataType: 'json',
-					success: function(data) {
-						console.debug(data.Parceirodenegocio.id);
-
-						if(data.Parceirodenegocio.id == 0 || data.Parceirodenegocio.id == undefined ){
-							$(".loaderAjaxCParceiroDIV").hide();
-							$("#bt-salvarParceiroModal").show();
-						}else{							
-											
-							$("[id*='myModal_add-parceiro']").modal('hide');
-							$('[id$="ParceirodenegocioId"]').val(data.Parceirodenegocio.id);
-							$('[id$="Parceiro"]').val(data.Parceirodenegocio.nome);
-							$('[id$="CpfCnpj"]').val(data.Parceirodenegocio.cpf_cnpj);
-							$("#ParceirodenegocioNome").val("");
-							$(".loaderAjaxCParceiroDIV").hide();
-							$("#bt-salvarParceiroModal").show();
-							$(".loaderAjaxParceirodenegocioDIV").hide();
-						}
-					}
-				});
-*/
 			}
 		});
+		
+		$("#ParceirodenegocioCpfCnpj").change(function(){
+		
+		if($("#ParceirodenegocioCpfCnpj").val() != ''){
+			
+			var urlAction = "<?php echo $this->Html->url(array("controller" => "Parceirodenegocios", "action" => "verificaidentificacao"),true);?>";
+			
+		    var dadosForm = $("#ParceirodenegocioAddForm").serialize();
+		    
+		    $('.loaderAjaxIdentificacao').show();
+		    
+		    $.ajax({
+				type: "POST",
+				url: urlAction,
+				data:  dadosForm,
+				dataType: 'json',
+				success: function(data) {
+				    console.debug(data);
+				     $('.loaderAjaxIdentificacao').hide();
+					if(data == 'existe'){
+					    $('#msgValidaDocumento').show();
+					    $('#ParceirodenegocioCpfCnpj').val('');  
+					}else{
+						$('#msgValidaDocumento2').show();
+					}
+				}
+			});
+		}
+	});
 
 	});	
 </script>
@@ -187,7 +184,7 @@
 </header>
 
 <section> <!---section superior--->
-	<header>Dados Gerais do Parceiro</header>
+	<header>Dados Gerais do Fornecedor</header>
 
 	<section class="coluna-esquerda">
 
@@ -197,10 +194,9 @@
 			//Essa input receberá sempre o valor do produto selecionado da tabela de comprar produtos
 			echo $this->Form->input('Vazio.produto_id',array('id' =>'idProdutoLinha','type' => 'hidden'));
 
+			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array('FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1', 'style' => 'display: none'));
+			echo $this->Html->Tag('p','Fornecedor',array('class'=>'valor','style'=>'padding-top: 3px;'));
 			
-			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array(''=>'','FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1'));
-			echo '<span id="validaClassificacao" class="msg erroRight" style="display:none">Selecione a Classificação</span>';
-
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4','placeholder'=>'(99) 9999-9999'));
 			echo '<span id="validaTelefone" class="msg erroRight" style="display:none">Preencha o Telefone</span>';
 
@@ -227,12 +223,18 @@
 	<section class="coluna-direita" >
 
 		<?php
-			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','style'=>'background:#EBEAFC;','disabled'=>'disabled','label'=>'', 'div' => array('class' => 'input text divCpfCnpj'),'tabindex'=>'3'));
-			echo "<div id='idcpf'><input id='inputcpf' type='radio'   name='CPFCNPJ' value='cpf'><label class='label-cpf'>CPF /</label></div>	 
-				<div id='idcnpj'><input id='inputcnpj' type='radio' name='CPFCNPJ' value='cnpj'><label class='label-cnpj'>CNPJ:</label></div>";
-			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
-			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+			echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+			echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+			echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
 
+			echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+			echo "<span>Verificando aguarde...</span>";
+			echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+															 'title'=>'Carregando',
+															 'class'=>'loaderAjaxCategoria',
+															 ));
+			echo "</div>";
 			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6','placeholder'=>'(99) 99999-9999'));
 			echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
 			echo $this->Form->input('bloqueado',array('tabindex'=>'11','label' => 'Bloqueado:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio'));

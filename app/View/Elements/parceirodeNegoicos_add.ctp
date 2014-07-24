@@ -2,6 +2,7 @@
 	if(isset($modal)){
 		$this->extend('/Common/modal');
 		$this->assign('modal', $modal);
+		$telaAbas = '';
 	}
 
 	$this->start('css');
