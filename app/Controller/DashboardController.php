@@ -662,9 +662,7 @@ class DashboardController extends AppController {
 		
 	}
 	
-	public function loadgrafico2() {
-			
-			
+	public function loadgrafico2() {			
 			
 			$this->loadModel('Parcela');
 			$hoje = date('Y-m-d');

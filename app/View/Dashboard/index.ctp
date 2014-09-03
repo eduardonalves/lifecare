@@ -135,13 +135,16 @@ $(document).ready(function(){
 				</div>
 				<div width="380" height="240" style="display:none;" class="dataButao anoDiv">
 					<?php					
-						
-						$i=0;
-						foreach($anosModel as $i => $anosArray){
-								echo "<span class='carregaAno'>".$anosArray[$i]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
-						}	
-						
-						
+	
+						$qtdAnos = sizeof($anosModel);
+							for($i=0;$i<=$qtdAnos;$i++){
+								if(!empty($anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)'])){
+									if($anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)'] != ''){
+										echo "<span class='carregaAno'>".$anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
+									}
+								}
+							}
+	
 					?>						
 				</div>
 				
@@ -581,5 +584,3 @@ $(document).ready(function(){
 <input type="hidden" id="totalnovPagarP" value="<?php echo $totalnovPagarP; ?>" />
 <input type="hidden" id="totaldezPagarP" value="<?php echo $totaldezPagarP; ?>" />
 </div>
-
-
