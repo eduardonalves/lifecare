@@ -364,7 +364,7 @@ $(document).ready(function(){
 								<th>Nome</th>
 								<th>Estoque Min.</th>
 								<th>Estoque Atual</th>
-								<th><?php echo $this->Form->input('',array('id'=>'checkTodos','type'=>'checkbox')); ?></th>
+								<th><?php //echo $this->Form->input('',array('id'=>'checkTodos','type'=>'checkbox')); ?></th>
 							</tr>
 
 							<?php
