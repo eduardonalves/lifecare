@@ -46,6 +46,62 @@ $('.inputData').on("keypress",function(event){
 		}
 	});
 
+/**  .inputData Alterada para Lote***/
+ $(".valiDataLote").focusout(function(){
+		var elemento = $(this).val();
+
+		var dia = elemento.substring(0,2);
+		var mes = elemento.substring(3,5);
+		var ano = elemento.substring(6,11);
+
+		if(ano.length == 1){
+			$(this).val().slice(0,-1);
+			$(this).val(dia +"/"+ mes +"/200"+ ano);
+		}
+		
+		if(ano.length == 2){
+			$(this).val().slice(0,-2);
+			$(this).val(dia +"/"+ mes +"/20"+ ano);
+		}
+		
+		if(ano.length == 3){
+			$(this).val().slice(0,-3);
+			$(this).val(dia +"/"+ mes +"/2"+ ano);
+		}
+
+		if(dia > 31){
+			$(this).val("");
+			if($(this).attr('id')=="LoteDataFabricacao"){
+				$("#validaModLoteDataFabricInvalida").css("display","block");   
+				$("#LoteDataFabricacao").addClass('shadow-vermelho');
+			}else{
+				$("#validaModLoteDataValInvalida").css("display","block");   
+				$("#LoteDataValidade").addClass('shadow-vermelho');
+			}
+		}
+		
+		if(mes > 12){
+			$(this).val("");
+			if($(this).attr('id')=="LoteDataFabricacao"){
+				$("#validaModLoteDataFabricInvalida").css("display","block");   
+				$("#LoteDataFabricacao").addClass('shadow-vermelho');
+			}else{
+				$("#validaModLoteDataValInvalida").css("display","block");   
+				$("#LoteDataValidade").addClass('shadow-vermelho');
+			}
+		}
+		
+		if((dia > 29) && (mes == 2)){
+			$(this).val("");
+			if($(this).attr('id')=="LoteDataFabricacao"){
+				$("#validaModLoteDataFabricInvalida").css("display","block");   
+				$("#LoteDataFabricacao").addClass('shadow-vermelho');
+			}else{
+				$("#validaModLoteDataValInvalida").css("display","block");   
+				$("#LoteDataValidade").addClass('shadow-vermelho');
+			}
+		}
+	});
 	
 /********************* Campos Dinâmicos Entrada Manual **************************/
 
@@ -65,92 +121,94 @@ $('.inputData').on("keypress",function(event){
 
 /****************Valida Data******************************************/
 	$("#LoteDataFabricacao").focusout(function(){
+		if($("#LoteDataFabricacao").val() != ''){
+			var dfuturoSaida = $("#LoteDataFabricacao").val();
+			var dataFutura = new Date();
+				
+			dataFutura.setYear(dfuturoSaida.split("/")[2]);
+			dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
+			dataFutura.setDate(dfuturoSaida.split("/")[0]);
+			
+			var anoDigitado = dfuturoSaida.split("/")[2];
+			var mesDigitado = dfuturoSaida.split("/")[1];
+			var diaDigitado = dfuturoSaida.split("/")[0];
+			
+			var dataAtual = new Date();
+			var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
+			
 
-	    var dfuturoSaida = $("#LoteDataFabricacao").val();
-	    var dataFutura = new Date();
-	   	    
-	    dataFutura.setYear(dfuturoSaida.split("/")[2]);
-	    dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
-	    dataFutura.setDate(dfuturoSaida.split("/")[0]);
-	    
-	    var anoDigitado = dfuturoSaida.split("/")[2];
-	    var mesDigitado = dfuturoSaida.split("/")[1];
-	    var diaDigitado = dfuturoSaida.split("/")[0];
-	    
-	    var dataAtual = new Date();
-	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
-		
-
-	    if(dataFutura.getTime() > dataAtual.getTime()){
-		$("#validaModLoteDataFabricFutu").css("display","block");
-		$("#LoteDataFabricacao").addClass('shadow-vermelho').focus();
-		$("#LoteDataFabricacao").val("");
-	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
-		$("#validaModLoteDataFabricInvalida").css("display","block");   
-		$("#LoteDataFabricacao").addClass('shadow-vermelho').focus();
-		$("#LoteDataFabricacao").val("");    
-	    }else{		    
-		$("#LoteDataFabricacao").removeClass('shadow-vermelho');
-		$("#validaModLoteDataFabricFutu").css("display","none");
-		$("#validaModLoteDataFabricInvalida").css("display","none"); 
-	    }
-	    
+			if(dataFutura.getTime() > dataAtual.getTime()){
+				$("#validaModLoteDataFabricFutu").css("display","block");
+				$("#LoteDataFabricacao").addClass('shadow-vermelho');
+				$("#LoteDataFabricacao").val("");
+			}else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6){ 
+				$("#validaModLoteDataFabricInvalida").css("display","block");   
+				$("#LoteDataFabricacao").addClass('shadow-vermelho');
+				$("#LoteDataFabricacao").val("");    
+			}else{		    
+				$("#LoteDataFabricacao").removeClass('shadow-vermelho');
+				$("#validaModLoteDataFabricFutu").css("display","none");
+				$("#validaModLoteDataFabricInvalida").css("display","none"); 
+			}
+		}
 	 });
 	 
 /****************Valida Data******************************************/
 	$("#LoteDataValidade").focusout(function(){
+		if($("#LoteDataValidade").val() != ''){
+			var dfuturoSaida = $("#LoteDataValidade").val();
+			var dataFutura = new Date();
 
-	    var dfuturoSaida = $("#LoteDataValidade").val();
-	    var dataFutura = new Date();
-
-	    var anoDigitado = dfuturoSaida.split("/")[2];
-	    var mesDigitado = dfuturoSaida.split("/")[1];
-	    var diaDigitado = dfuturoSaida.split("/")[0];
+			var anoDigitado = dfuturoSaida.split("/")[2];
+			var mesDigitado = dfuturoSaida.split("/")[1];
+			var diaDigitado = dfuturoSaida.split("/")[0];
 
 
-	    if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
-		$("#validaModLoteDataValInvalida").css("display","block");   
-		$("#LoteDataValidade").addClass('shadow-vermelho').focus();
-		$("#LoteDataValidade").val("");    
-	    }else{		    
-		$("#LoteDataValidade").removeClass('shadow-vermelho');
-		$("#validaModLoteDataValInvalida").css("display","none");  
-		
-	    }
+			if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
+			$("#validaModLoteDataValInvalida").css("display","block");   
+			$("#LoteDataValidade").addClass('shadow-vermelho');
+			$("#LoteDataValidade").val("");    
+			}else{		    
+			$("#LoteDataValidade").removeClass('shadow-vermelho');
+			$("#validaModLoteDataValInvalida").css("display","none");  
+			
+			}
+		}
 	    
 	 });
 
 /***************Valida Data*******************************************/
 
 	$("#EntradaData").focusout(function(){
-		
-	    var dfuturoSaida = $("#EntradaData").val();
-	    var dataFutura = new Date();
-	   	    
-	    dataFutura.setYear(dfuturoSaida.split("/")[2]);
-	    dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
-	    dataFutura.setDate(dfuturoSaida.split("/")[0]);
-	    
-	    var anoDigitado = dfuturoSaida.split("/")[2];
-	    var mesDigitado = dfuturoSaida.split("/")[1];
-	    var diaDigitado = dfuturoSaida.split("/")[0];
+		if($("#EntradaData").val() != ''){
+			var dfuturoSaida = $("#EntradaData").val();
+			var dataFutura = new Date();
+				
+			dataFutura.setYear(dfuturoSaida.split("/")[2]);
+			dataFutura.setMonth(dfuturoSaida.split("/")[1]-1);
+			dataFutura.setDate(dfuturoSaida.split("/")[0]);
+			
+			var anoDigitado = dfuturoSaida.split("/")[2];
+			var mesDigitado = dfuturoSaida.split("/")[1];
+			var diaDigitado = dfuturoSaida.split("/")[0];
 
-	    var dataAtual = new Date();
-	    var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
+			var dataAtual = new Date();
+			var dataFormat = dataAtual.getDate() + '/' + (dataAtual.getMonth()+1) + '/' + dataAtual.getFullYear();
 
 
-	    if(dataFutura.getTime() > dataAtual.getTime()){
-		$("#dataEmi").css("display","block");
-		$("#EntradaData").addClass('shadow-vermelho').focus();
-		$("#EntradaData").val("");
-	    }else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
-		$("#spanDataInvalida").css("display","block");   
-		$("#EntradaData").addClass('shadow-vermelho').focus();
-		$("#EntradaData").val("");
-	    }else{		    
-		$("#EntradaData").removeClass('shadow-vermelho');
-		$("#dataEmi").css("display","none");
-	    }
+			if(dataFutura.getTime() > dataAtual.getTime()){
+			$("#dataEmi").css("display","block");
+			$("#EntradaData").addClass('shadow-vermelho').focus();
+			$("#EntradaData").val("");
+			}else if( diaDigitado < 1 || diaDigitado > 31 || mesDigitado < 1 || mesDigitado > 12 || anoDigitado <1900 || dfuturoSaida.length < 6 ){ 
+			$("#spanDataInvalida").css("display","block");   
+			$("#EntradaData").addClass('shadow-vermelho');
+			$("#EntradaData").val("");
+			}else{		    
+			$("#EntradaData").removeClass('shadow-vermelho');
+			$("#dataEmi").css("display","none");
+			}
+		}
 	});
 	
 
@@ -267,81 +325,8 @@ $('.inputData').on("keypress",function(event){
 	}
 
 
-	/*$('#LoteNumeroLote').on('change', function(){
-
-	    $('input').removeAttr('required','required');
-	    $("#LoteDataFabricacao").removeAttr("disabled","disabled").hide();
-	    $("#LoteDataValidade").removeAttr("disabled","dissabled").hide();
-	    $("#LoteParceirodenegocioId").removeAttr("disabled","dissabled").hide();
-	    $("#LoteQuantidade").removeAttr("disabled","dissabled").hide();	    
-
-		var numeroLote = $("#LoteNumeroLote").val();
-		var produtoId = $(".selectProduto option:selected").val();
-		var urlAction = urlInicio+"/Lotes/add";
-		var dadosForm = $("#LoteIndexForm").serialize();
-
-		//alert(numeroLote);
-		//alert(produtoId);
-
-		$("#loaderAjax").show();
-		$("#bt-salvarLote").hide();
-		$("#respostaAjax").hide();
-		$("#btn-addLote").hide();
-
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			success: function(data) {
-
-				$("#loaderAjax").hide();
-				if(data=="liberado"){
-				    $('[id^="Lote"]').show();
-				    $("#respostaAjax").show();
-				    $("#bt-salvarLote").show();
-					console.log(data);
-
-				}else if(data=="cadastrado"){
-
-				}else{
-					if(data != "vazio"){
-					    $('[id^="Lote"]').show();
-						var dayFabricacao = data.Lote.data_fabricacao.slice(8,10);
-						var monthFabricacao = data.Lote.data_fabricacao.slice(5,7);
-						var yearFabricacao = data.Lote.data_fabricacao.slice(0,4);
-
-						var dayValidade = data.Lote.data_validade.slice(8,10);
-						var monthValidadeo = data.Lote.data_validade.slice(5,7);
-						var yearValidade = data.Lote.data_validade.slice(0,4);
-
-
-
-						$("#LoteDataFabricacao").val(dayFabricacao + '/' + monthFabricacao + '/' + yearFabricacao);
-						$("#LoteDataValidade").val(dayValidade + '/' + monthValidadeo + '/' + yearValidade);
-						$("#LoteParceirodenegocioId").val(data.Lote.parceirodenegocio_id);
-						$("#LoteId").val(data.Lote.id);
-						$("#btn-addLote").show();
-						$("#bt-salvarLote").hide();
-
-						$("#LoteDataFabricacao").attr("disabled","dissabled");
-						$("#LoteDataValidade").attr("disabled","dissabled");
-						$("#LoteParceirodenegocioId").attr("disabled","dissabled");
-
-
-					}else{
-						$("#LoteNumeroLote").val("Digite o número do lote ");
-					}
-
-
-				}
-			}
-		});
-
-		//alert(dadosForm);
-
-	});*/
-/***************Limpa Dados do Lote no Modal*******************************************/
+	
+/*************** Limpa Dados do Lote no Modal *******************************************/
 	$('#LoteNumeroLote').on('input', function() {
 		$("#LoteDataFabricacao").val("");
 		$("#LoteDataValidade").val("");
@@ -351,7 +336,7 @@ $('.inputData').on("keypress",function(event){
 		var lote_cont=0;
 
 
-/***BTN- SALVAR LOTE***/
+/*************** BTN- SALVAR LOTE ***************/
 	$('#LoteParceirodenegocioId').prepend('<option value="add-fabricante">Cadastrar</option>');
 	$('#LoteParceirodenegocioId').prepend('<option value="" selected="selected"></option>');
 	$('#LoteIndexForm').submit(function(event) {
@@ -776,12 +761,12 @@ var princ_cont = 0;
 	}
 	
 /*********************************Calculo do valor total da nota ***************************/
-    var outrosValores=0;
+    var outrosValores = 0;
 
     function calcValorNota(){
  
-		outrosAux= $("#EntradaValorOutros").val().split('.').join('').replace(',','.');
-		outros=parseFloat(outrosAux);
+		outrosAux = $("#EntradaValorOutros").val().split('.').join('').replace(',','.');
+		outros = parseFloat(outrosAux);
 		 if(isNaN(outros)){
 			outros=0;
 		}
@@ -1348,28 +1333,6 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 
 /**********************************************************/
 
-
-	$("input[id='LoteDataFabricacao']").focusout(function(){
-		var texto = $(this).val();
-			if(texto.length == 0){
-					$( "input[id='LoteDataFabricacao']" ).addClass('shadow-vermelho').focus();
-				}
-			else{
-					$( "input[id='LoteDataFabricacao']" ).removeClass('shadow-vermelho');
-				}
-		});
-
-	$("input[id='LoteDataFabricacao']").change(function(){
-		var texto = $(this).val();
-			if(texto.length == 0){
-					$( "input[id='LoteDataFabricacao']" ).addClass('shadow-vermelho').focus();
-				}
-			else{
-					$( "input[id='LoteDataFabricacao']" ).removeClass('shadow-vermelho');
-				}
-		});
-
-
 	$('body').on('change',"input[id='LoteDataFabricacao'],input[id='LoteDataValidade']",function(){
 				var fab = $(this).val();
 
@@ -1390,11 +1353,12 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 						$("input[id='LoteDataValidade']").val("");
 						$("input[id='LoteDataFabricacao']").addClass('shadow-vermelho').focus();
 						$("input[id='LoteDataValidade']").addClass('shadow-vermelho').focus();
-
+					
 
 					    }
 
 				if(daysNota > 0){
+			
 						    $('span[id="spanLoteDataFabricacao"]').remove();
 						    $("input[id='LoteDataFabricacao']").removeClass('shadow-vermelho');
 						    $("input[id='LoteDataValidade']").removeClass('shadow-vermelho');

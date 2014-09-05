@@ -333,47 +333,49 @@
 					</div>
 				</section>
 			</div>
+			<section class="coluna-direita"> 
+				<!--Fieldset Dados do lote-->
+				<div class="fieldsetLote">
+					<h2 class="legendEffect"><span>Dados do Lote</span></h2>
 
-			<!--Fieldset Dados do lote-->
-			<div class="fieldsetLote">
-				<h2 class="legendEffect"><span>Dados do Lote</span></h2>
+					<span class="spanlotes ">Adicionar Lotes<span class="campo-obrigatorio">*</span>:</span>
 
-				<span class="spanlotes ">Adicionar Lotes<span class="campo-obrigatorio">*</span>:</span>
+					<?php echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar lote','class'=>'bt-add select')); ?>
 
-				<?php echo $this->html->image('botao-add2.png',array('alt'=>'Adicionar','title'=>'Adicionar lote','class'=>'bt-add select')); ?>
+					<span id="spanAdicionarLote" class="MsgAdicionarLote tooltipMensagemErroDireta" style="display:none">Adicione lotes</span>
+						<div class="loaderAjaxCarregarLoteDIV" style="display:none">
 
-				<span id="spanAdicionarLote" class="MsgAdicionarLote tooltipMensagemErroDireta" style="display:none">Adicione lotes</span>
-					<div class="loaderAjaxCarregarLoteDIV" style="display:none">
+							<?php echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando','title'=>'Carregando','class'=>'loaderAjaxCarregarLote',)); ?>
 
-						<?php echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando','title'=>'Carregando','class'=>'loaderAjaxCarregarLote',)); ?>
+							<span>Carregando lotes aguarde...</span>
+						</div>	
 
-						<span>Carregando lotes aguarde...</span>
-					</div>	
+							<table class="tabela-lote">
+								<tr>
+									<th>Lote</th>
+									<th>Quantidade</th>
+									<th>Validade</th>
+									<th>Ações</th>
+								</tr>
+							</table>
 
-					<table class="tabela-lote">
-						<tr>
-							<th>Lote</th>
-							<th>Quantidade</th>
-							<th>Validade</th>
-							<th>Ações</th>
-						</tr>
-					</table>
+							<table id="tabela-hiddenLote" style="display:none">
+								<tbody></tbody>
+							</table>
+				</div>
 
-					<table id="tabela-hiddenLote" style="display:none">
-						<tbody></tbody>
-					</table>
-			</div>
+						<?php echo $this->Form->input('tipo',array('value'=>'SAIDA','type'=>'hidden')); ?>
 
-			<?php echo $this->Form->input('tipo',array('value'=>'SAIDA','type'=>'hidden')); ?>
-
-			<!--Fim Fieldset Dados do lote-->
-			<?php 
-				echo $this->html->image('bt-limpar.png',array('alt'=>'Limpar Dados do Produto','title'=>'Limpar Dados do Produto','class'=>'bt-limpar','id'=>'bt-limparSaida'));
-				echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar','title'=>'Adicionar Produto','class'=>'bt-adicionar calcularProdutos',));
-			?>
+						<!--Fim Fieldset Dados do lote-->
+						<?php 
+							echo $this->html->image('bt-limpar.png',array('alt'=>'Limpar Dados do Produto','title'=>'Limpar Dados do Produto','class'=>'bt-limpar','id'=>'bt-limparSaida'));
+							echo $this->html->image('botao-adcionar2.png',array('alt'=>'Adicionar','title'=>'Adicionar Produto','class'=>'bt-adicionar calcularProdutos',));
+						?>
+			</section>
 
 		</div>
-	<!--Fim Fieldset Dados do Produto-->
+		<!--Fim Fieldset Dados do Produto-->
+	
 	</fieldset>
 <!--Fim Fieldset total-->
 

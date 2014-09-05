@@ -328,7 +328,7 @@
 										 ));
 										 
 			?>
-			<span id="spanValProduto" class="MsgValProduto tooltipMensagemErroDireta" style="display:none">Preencha o campos Produtos</span>
+			<span id="spanValProduto" class="MsgValProduto tooltipMensagemErroDireta spanValProd" style="display:none">Preencha o campos Produtos</span>
 
 		</div>
 
@@ -399,6 +399,7 @@
 
 		</div>
 
+	<section class="coluna-direita">
 <!--Fieldset Dados do lote-->
 		<div class="fieldsetLote">
 			<h2 class="legendEffect"><span>Dados do Lote</span></h2>
@@ -458,10 +459,10 @@
 									     'class'=>'bt-adicionar calcularProdutos',
 									     ));	 
 		?>
-
+</section>
 	</div>
 <!--Fim Fieldset Dados do Produto-->
-
+	
 </fieldset>
 <!--Fim Fieldset total-->
 

@@ -74,11 +74,16 @@
 
 ========================================================================
 #spanValProduto{
-	left: 481px;
-	top: 429px;
+	left: 485px;
+	top: 418px;
 	width: 110px;
 }
 
+.spanValProd{
+	left: 365px;
+	top: 428px;
+	width: 110px;
+}
 #spanEntradaCpfCnpj{
     left:167px;
     top: 175px;
@@ -594,17 +599,17 @@ fieldset{
 
 #spanAdicionarLote{
 	background-color: #ffd5d5;
-    border: 1px solid #AAAAAA;
-    border-radius: 5px;
-    color: #d40000;
-    display: block;
-    font-size: 13px;
-    left: 895px;
-    padding: 3px;
-    position: absolute;
-    text-align: center;
-    top: 497px;
-    width: 110px;
+	border: 1px solid #AAAAAA;
+	border-radius: 5px;
+	color: #d40000;
+	display: block;
+	font-size: 13px;
+	padding: 3px;
+	text-align: center;
+	width: 110px;
+	margin-left: 180px;
+	margin-top: 7px;
+
 }
 
 #spanAdicionarLote:after {
@@ -615,8 +620,8 @@ fieldset{
 	border-width: 10px;
 	border-style: solid;
 	border-color: transparent #ffd5d5 transparent transparent;
-	left: -19px;
-	top: 1px;
+	margin-left: -117px;
+	top: 29px;
 }
 
 #validaModLoteDataFabricFutu{

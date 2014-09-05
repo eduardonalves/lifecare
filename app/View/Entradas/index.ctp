@@ -40,7 +40,7 @@
 	<?php echo $this->Html->image('titulo-entrada.png', array('class' => 'entrada-icon', 'alt' => 'Entrada ', 'title' => 'Entrada', 'border' => '0')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption23" >Entrada</h1>
+	<h1 class="menuOption24" >Entrada</h1>
 
 		<script>
 $(document).ready(function(){
