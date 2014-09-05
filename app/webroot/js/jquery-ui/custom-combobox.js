@@ -1,9 +1,8 @@
-  (function( $ ) {
+(function( $ ) {
     $.widget( "custom.combobox", {
       _create: function() {
         this.wrapper = $( "<span>" )
           .addClass( "custom-combobox" )
-          .addClass("entrada-validação")
           .insertAfter( this.element );
  
         this.element.hide();
@@ -47,7 +46,7 @@
  
         $( "<a>" )
           .attr( "tabIndex", -1 )
-          .attr( "title", "Mostrar todos" )
+          .attr( "title", "Show All Items" )
           .tooltip()
           .appendTo( this.wrapper )
           .button({
@@ -113,13 +112,13 @@
         // Remove invalid value
         this.input
           .val( "" )
-          .attr( "title", value + " Pesquisa não encontrada" )
+          .attr( "title", value + " didn't match any item" )
           .tooltip( "open" );
         this.element.val( "" );
         this._delay(function() {
           this.input.tooltip( "close" ).attr( "title", "" );
         }, 2500 );
-        this.input.data( "ui-autocomplete" ).term = "";
+        this.input.autocomplete( "instance" ).term = "";
       },
  
       _destroy: function() {

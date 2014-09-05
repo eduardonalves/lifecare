@@ -54,12 +54,12 @@ class LotesController extends AppController {
 			$dataValidade=$this->request->data['Lote']['data_validade'];
 			$dataFabricacao= $this->request->data['Lote']['data_fabricacao'];
 			
-			$countLote= $this->Lote->find('count', array('conditions' => array('Lote.produto_id'=> $produtoId, 'Lote.numero_lote' => $numeroLote  )));	
+			$countLote= $this->Lote->find('count', array('conditions' => array('Lote.produto_id'=> $produtoId,'AND' => array('Lote.numero_lote' => $numeroLote))));	
 			$contador = $this->Lote->find('count', array(
-					'conditions' => array('Lote.produto_id' => $produtoId,  'Lote.numero_lote' => $numeroLote,)
+					'conditions' => array('Lote.produto_id' => $produtoId, 'AND' => array('Lote.numero_lote' => $numeroLote))
 				));
 			
-			if($contador ==0){
+			/*if($contador ==0){*/
 			
 				if(($dataValidade !="") &&  ($dataFabricacao !="") && ($numeroLote !="")){
 				
@@ -68,35 +68,44 @@ class LotesController extends AppController {
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Lote']['data_fabricacao']);
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Lote']['data_validade']);
 					
-					if ($this->Lote->save($this->request->data)) {
+					
+					$lotesIdenticos = $this->Lote->find('count', array('conditions' => array('Lote.produto_id'=> $produtoId,'AND' => array('Lote.numero_lote' => $numeroLote), 'AND' => array('Lote.data_validade' => $this->request->data['Lote']['data_validade']), 'AND' => array('Lote.data_fabricacao' => $this->request->data['Lote']['data_fabricacao']), 'AND' => array('Lote.parceirodenegocio_id' => $this->request->data['Lote']['parceirodenegocio_id']))));	
+					if($lotesIdenticos == 0){
+						if ($this->Lote->save($this->request->data)) {
 						
-						$lote= $this->Lote->find('first', array('recursive' => -1, 'limit' => 1,  'order' => array('Lote.id DESC')));					
-						$this->set(compact('lote'));
-						if(! $this->request->is('ajax'))
-						{
-							$this->Session->setFlash(__('The lote has been saved.'));
-							return $this->redirect(array('action' => 'index'));
+							$lote= $this->Lote->find('first', array('recursive' => -1, 'limit' => 1,  'order' => array('Lote.id DESC')));					
+							$this->set(compact('lote'));
+							if(! $this->request->is('ajax'))
+							{
+								$this->Session->setFlash(__('The lote has been saved.'));
+								return $this->redirect(array('action' => 'index'));
+							}
+						} else {
+							
+							$this->Session->setFlash(__('The lote could not be saved. Please, try again.'));
+							$this->set(compact('lote'));
 						}
-					} else {
-						
-						$this->Session->setFlash(__('The lote could not be saved. Please, try again.'));
+					}else{
+						$lote="vazio";
 						$this->set(compact('lote'));
+						
 					}
+					
 				
 				}else{
 				
-					if($numeroLote !=""){
+					/*if($numeroLote !=""){
 						$lote="liberado";
 						$this->set(compact('lote'));
 					}else{
 						$lote="vazio";
 						$this->set(compact('lote'));					
-					}
+					}*/
 					
 				}
 				
 			
-			}else{
+			/*}else{
 			
 				$produtoId=$this->request->data['Lote']['produto_id'];
 				$numeroLote = $this->request->data['Lote']['numero_lote'];
@@ -104,7 +113,7 @@ class LotesController extends AppController {
 				
 				$this->set(compact('lote'));
 				
-			}
+			}*/
 			
 
 			
@@ -177,12 +186,41 @@ class LotesController extends AppController {
 	
 		if($this->request->is('Get')){
 			$numLote= $this->request['url']['numero'];
-			$allLotes= $this->Lote->find('all', array('recursive' => 1, 'conditions'=> array('Lote.produto_id' => $numLote, 'Lote.estoque >' => 0, 'Lote.status !=' => 'VERMELHO'), 'order' => array('Lote. data_validade' => 'asc')));	
+			$allLotes= $this->Lote->find('all', array('recursive' => 1, 'conditions'=> array('Lote.produto_id' => $numLote, 'AND' => array('Lote.estoque >' => 0)), 'order' => array('Lote. data_validade' => 'asc')));	
 			$this->set(compact('allLotes'));		
 		}
 		
-
+	}
 	
+	public function carregarlotes() {
+	
+		if($this->request->is('Get')){
+			$this->layout='ajax';
+			$produto_id= $this->request['url']['id'];
+			$termo = $this->request['url']['termo'];
+			$numerolote= $this->Lote->find('all', array('recursive' => -1, 'conditions'=> array('Lote.produto_id' => $produto_id, 'AND' => array('Lote.numero_lote LIKE' => '%'.$termo.'%')), 'order' => array('Lote. data_validade' => 'asc')));	
+			$i = 0;
+			$resultado = array();
+			
+			foreach ($numerolote as $i => $num) {
+				if($num['Lote']['estoque']==''){
+					$num['Lote']['estoque']=0;
+				}
+				$resultado[$i]['value'] = $num['Lote']['numero_lote'];
+				$this->lifecareDataFuncs->formatDateToView($num['Lote']['data_validade']);
+				$this->lifecareDataFuncs->formatDateToView($num['Lote']['data_fabricacao']);
+				$resultado[$i]['label'] = 'Lote: '.$num['Lote']['numero_lote'].','.' fabricacao: '.$num['Lote']['data_fabricacao'].','.' validade: '.$num['Lote']['data_validade'].', estoque: '.$num['Lote']['estoque'];
+				$resultado[$i]['data_fabricacao'] = $num['Lote']['data_fabricacao'];
+				$resultado[$i]['data_validade'] = $num['Lote']['data_validade'];
+				$resultado[$i]['fabricante'] = $num['Lote']['parceirodenegocio_id'];
+				$resultado[$i]['id'] = $num['Lote']['id'];
+				$i++;
+			}
+			$numerolote = $resultado;
+			$this->set(compact('numerolote'));	
+			$this->set('_serialize', array('numerolote'));	
+		}
+		
 	}
 
 	

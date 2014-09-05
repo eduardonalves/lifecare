@@ -37,15 +37,17 @@
 			<div id="respostaAjax"><span id="spanNumeroLiberado">Número liberado para cadastro</span></div>
 			<div id="loaderAjax"><?php echo $this->Html->image('ajaxLoaderLifeCare.gif', array('id' => 'ajaxLoader', 'alt' => 'Carregando', 'title' => 'Carregando')); ?> <span style="position: absolute; margin-left: 7px;">Aguarde...</span></div>
 				
-				
+				<!--<p><label for="numerolote">Lote</label><br />
+				 <input type="text" name="numerolote" id="numerolote" value="" /></p>-->
 			<?php
 				echo $this->Form->create('Lote', array('url'=>array('controller'=>'lotes', 'action'=>'add')));
-
-
 				echo $this->Form->input('Lote.produto_id', array('type'=>'hidden'));
 				echo $this->Form->input('Lote.id', array('type'=>'hidden'));
+		
 				//echo $this->Form->input('Loteiten.tipo',array('value'=>'ENTRADA','type'=>'hidden'));
-				echo $this->Form->input('Lote.numero_lote',array('class'=>'tamanho-medio validacao-entrada','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','label'=>'Número do Lote<span class="campo-obrigatorio">*</span>:'));
+			
+					
+				echo $this->Form->input('Lote.numero_lote',array('class'=>'tamanho-medio','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','label'=>'Número do Lote<span class="campo-obrigatorio">*</span>:'));
 				echo '<span id="validaModLoteNumLote" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo lote</span>';
 
 				echo $this->Form->input('Lote.data_fabricacao', array('type'=>'text','required'=>'false','title'=>'Campo Obrigatório','class'=>'inputData tamanho-medio validacao-entrada','label'=>'Fabricação<span class="campo-obrigatorio">*</span>:'));
@@ -90,5 +92,8 @@
 		echo $this->Html->image('botao-adcionar2.png', array('id' => 'btn-addLote', 'alt' => 'Adicionar lote', 'title' => 'Adicionar Lote'));
 	?>
 </footer>
-
-
+<script>
+$(document).ready(function() {
+		
+});
+</script>

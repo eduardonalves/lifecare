@@ -150,7 +150,7 @@ $(document).ready(function(){
 			$(".campo-superior-produto input").addClass('shadow-vermelho').focus();
 			$('#spanValProduto').css('display','block');
 	    }else{
-		    showModal('myModal_' + 'add-lote');
+		   // showModal('myModal_' + 'add-lote');
 	    }
 	});
 

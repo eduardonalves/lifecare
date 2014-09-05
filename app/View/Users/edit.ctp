@@ -18,7 +18,11 @@
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
 	<h1 class="menuOption52">Editar Usuário</h1>
 </header>
-
+<script>
+	$(document).ready(function(){
+		$('#senhaUser').val('');
+	});
+</script>
 <section>
 	<header>Dados do usuário</header>
 	

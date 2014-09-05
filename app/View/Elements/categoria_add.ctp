@@ -84,7 +84,7 @@
 	$this->end();
 
 	$this->start('script');
-		echo $this->Html->script('picklist-autoselect.js');
+		//echo $this->Html->script('picklist-autoselect.js');
 	$this->end();
 ?>
 

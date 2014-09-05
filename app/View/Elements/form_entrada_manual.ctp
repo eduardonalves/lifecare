@@ -12,7 +12,7 @@
 <script>
 	$(document).ready(function() {
 		$('#add-fornecedor').bind('change',function(){
-			alert('teste');
+			//alert('teste');
 		});
 
 		$(function(){
@@ -405,6 +405,10 @@
 
 			<!--<fieldset class="dados-lote coluna direita">
 			<legend>Dados do Lote</legend>-->
+					<div class="loaderAjaxCarregarLoteDIV" style="display: none;">
+						<img src="/lifecare/img/ajaxLoaderLifeCare.gif" alt="Carregando" title="Carregando" class="loaderAjaxCarregarLote">
+						<span>Carregando lotes aguarde...</span>
+					</div>
 					<span class="spanlotes">Adicionar Lotes<span class="campo-obrigatorio">*</span>:</span>
 				<?php
 					/*

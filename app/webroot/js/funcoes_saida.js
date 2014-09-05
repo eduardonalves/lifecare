@@ -1589,7 +1589,8 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 			$('#spanValProduto').css('display','block');
 		}else{
 		
-			produto_id=$('#LoteProdutoId').val();
+			produto_id = $('#LoteProdutoId').val();
+			
 			$("#LoteEstoque").val("");	
 			$("#carregaSelect").load(urlInicio+'lotes/carregalote?numero='+produto_id+'', function(){
 				$('.loaderAjaxCarregarLoteDIV').hide();

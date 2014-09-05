@@ -43,17 +43,12 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('lifecare');
-		//echo $this->Html->css('jquery-ui/jquery-ui.css');
-		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-		//echo $this->Html->css('jquery-ui/custom-combobox.css');
-		//echo $this->Html->css('saidas.css');
+	
 		echo $this->fetch('css');
-		echo $this->Html->script('jquery_novo.js');
-		echo $this->Html->script('jquery-ui/jquery-ui.js');
-		echo $this->Html->script('jquery-ui/custom-combobox.js');
+		//echo $this->Html->script('jquery_novo.js');
+		//echo $this->Html->script('jquery-ui/jquery-ui.js');
+	
 		echo $this->Html->script('jquery.mask.min.js');
-		echo $this->Html->script('jquery.mask.js');
-		echo $this->Html->script('jquery.price_format.1.8.js');
 		echo $this->Html->script('jquery.price_format.1.8.min.js');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');

@@ -14,10 +14,13 @@ class UsersController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
-
-	
+		
+	public function beforeFilter() {
+		$this->Auth->userScope = array('User.status' => 1);
+	}
 	public function login() {
 		 $this->layout = 'login';
+		 
 		if ($this->Auth->login()) {
 			$this->redirect($this->Auth->redirect());
 			return $this->redirect($this->Auth->redirect());

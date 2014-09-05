@@ -267,7 +267,7 @@ $('.inputData').on("keypress",function(event){
 	}
 
 
-	$('#LoteNumeroLote').on('change', function(){
+	/*$('#LoteNumeroLote').on('change', function(){
 
 	    $('input').removeAttr('required','required');
 	    $("#LoteDataFabricacao").removeAttr("disabled","disabled").hide();
@@ -340,7 +340,7 @@ $('.inputData').on("keypress",function(event){
 
 		//alert(dadosForm);
 
-	});
+	});*/
 /***************Limpa Dados do Lote no Modal*******************************************/
 	$('#LoteNumeroLote').on('input', function() {
 		$("#LoteDataFabricacao").val("");
@@ -400,48 +400,58 @@ $('.inputData').on("keypress",function(event){
 			dataType: 'json',
 			success: function(data) {
 				//alert("teste");
-				var numeroLoteAdd = $("#LoteNumeroLote").val();
-				var quantidadeLoteAdd = $("#LoteQuantidade").val();
-				var validadeLoteAdd  = $("#LoteDataValidade").val();
-				var LoteId = data.Lote.id;
-
-				$("#bt-salvarLote").hide();
-				$("#loaderAjax").hide();
-
-				if(numeroLoteAdd !=undefined){
-				    $('.tabela-lote').append('<tr class="apargarLotes" clonadoProduto'+princ_cont+' id="linha"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
-
-				    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][lote_id]" step="any"  id="LoteId'+lote_cont+'lote_id" value="'+LoteId+'" type="hidden"/></div> ');
-				    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][qtde]" step="any" id="LoteQuantidade'+lote_cont+'qtde" value="'+quantidadeLoteAdd+'" type="hidden"/></div>');
-				    
-				    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][produto_id] step="any"  id="LoteitenProduto_id'+lote_cont+'produto_id" value="'+produtoId+'" type="hidden"></div> ');
-					
-					$('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][tipo] step="any"  id="LoteitenTipo'+lote_cont+'tipo" value="ENTRADA" type="hidden"></div> ');
 				
-				    $('.campo-superior-produto input').attr('readonly','readonly').addClass('autocompleteDesabilitado');
-				    $('.campo-superior-produto a').css('display','none');
-
-				    $("#bt-salvarLote").show();
-				    $("#myModal_add-lote").modal('hide');
-				    //$('.bt-preencher').hide();
-
-				    //console.debug(data);
-
-				    calcular();
+				if(data == 'vazio'){
+					
+					$("#loaderAjax").hide();
+					 $("#LoteNumeroLote").val("Lote Existente, Digite outro número");
+					 $('#bt-salvarLote').show();
 				}else{
-				    $("#LoteNumeroLote").val("Digite o número do lote ");
+					
+					
+				
+					var numeroLoteAdd = $("#LoteNumeroLote").val();
+					var quantidadeLoteAdd = $("#LoteQuantidade").val();
+					var validadeLoteAdd  = $("#LoteDataValidade").val();
+					var LoteId = data.Lote.id;
+	
+					$("#bt-salvarLote").hide();
+					$("#loaderAjax").hide();
+	
+					if(numeroLoteAdd !=undefined){
+					    $('.tabela-lote').append('<tr class="apargarLotes" clonadoProduto'+princ_cont+' id="linha"><td class="val-numero-lote coluna">'+numeroLoteAdd+'</td><td><input class="tamanho-qtde soma" readonly="readonly" value="'+quantidadeLoteAdd+'"/></td><td>'+validadeLoteAdd+'</td><td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" data-qtde="'+quantidadeLoteAdd+'" id=clonado'+lote_cont+' class="btnExcluir"/></td></tr> ');
+	
+					    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][lote_id]" step="any"  id="LoteId'+lote_cont+'lote_id" value="'+LoteId+'" type="hidden"/></div> ');
+					    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][qtde]" step="any" id="LoteQuantidade'+lote_cont+'qtde" value="'+quantidadeLoteAdd+'" type="hidden"/></div>');
+					    
+					    $('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][produto_id] step="any"  id="LoteitenProduto_id'+lote_cont+'produto_id" value="'+produtoId+'" type="hidden"></div> ');
+						
+						$('fieldset').append('<div class="input number clonado'+lote_cont+' clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Loteiten]['+lote_cont+'][tipo] step="any"  id="LoteitenTipo'+lote_cont+'tipo" value="ENTRADA" type="hidden"></div> ');
+					
+					    $('.campo-superior-produto input').attr('readonly','readonly').addClass('autocompleteDesabilitado');
+					    $('.campo-superior-produto a').css('display','none');
+	
+					    $("#bt-salvarLote").show();
+					    $("#myModal_add-lote").modal('hide');
+					    //$('.bt-preencher').hide();
+	
+					    //console.debug(data);
+	
+					    calcular();
+					}else{
+					    $("#LoteNumeroLote").val("Digite o número do lote ");
+					}
+					    lote_cont=lote_cont+1;
+					    $("#LoteDataFabricacao").val("");
+					    $("#LoteDataValidade").val("");
+					    $("#LoteParceirodenegocioId").val("");
+					    $("#LoteNumeroLote").val("");
+					    $("#LoteQuantidade").val("");
+					    $("#LoteLoteId").val("");
+	
+					    $("#myModal_add-lote").modal('hide');
+					    //console.debug(data);
 				}
-				    lote_cont=lote_cont+1;
-				    $("#LoteDataFabricacao").val("");
-				    $("#LoteDataValidade").val("");
-				    $("#LoteParceirodenegocioId").val("");
-				    $("#LoteNumeroLote").val("");
-				    $("#LoteQuantidade").val("");
-				    $("#LoteLoteId").val("");
-
-				    $("#myModal_add-lote").modal('hide');
-				    //console.debug(data);
-
 			}
 		});
 		}
@@ -502,7 +512,7 @@ $('.inputData').on("keypress",function(event){
 		}
 
 		lote_cont=lote_cont+1;
-		calcular();
+		calcular(); 
 	});
 
 
@@ -597,7 +607,7 @@ var princ_cont = 0;
     
     $(".bt-adicionar").bind('click', function(e){
     
-	    
+	
 	acumuladorTotal=0;
 
 		var lotes = '';
@@ -1439,5 +1449,140 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 	    $('#EntradaAddForm').submit();
 	    
 	});
+	
+/*************************** Função de add Lote *******************************/
+	var produto_id2=0;
+	var jsonlotes='';
+	$('.bt-add').bind('click',function(){
+		
+	    $('input[id*="LoteData"]').val('');
+	    $('#LoteParceirodenegocioId').val('');
+	    $('#LoteQuantidade').val('');
+		
+		$('#spanAdicionarLote').css('display','none');
+		
+		
+		nomeProduto = $('#ProdutoNome').val();
+		
+		if(nomeProduto ==''){
+			$('#spanValProduto').css('display','block');
+			
+		}else{
+			
+			produto_id2 = $('#LoteProdutoId').val();
+		
+			/*$.get('lotes/carregarlotes/?id='+produto_id2, function(jd) {
+             jsonlotes = jd;
+            
+             console.log(jsonlotes);
+         	 });*/
+		
+			/*$('.loaderAjaxCarregarLoteDIV').show();
+			produto_id=$('#LoteProdutoId').val();
+			$("#LoteEstoque").val("");	
+			$("#carregaSelect").load(urlInicio+'lotes/carregarlotes?id='+produto_id+'', function(){
+				$('.loaderAjaxCarregarLoteDIV').hide();
+				$('#add-fornecedor').bind('change',function(){
+			//alert('teste');
+				});		  	
+				$('#myModal_add-lote').modal('show');
+			});*/
+			$('#myModal_add-lote').modal('show');
+			$('#spanProdutoLote').css('display','block');
+			$("#LoteNumeroLote").autocomplete({
+				
+			    source: function (request, response) {
+			    	$("#LoteDataFabricacao").val('');
+					$("#LoteDataValidade").val('');
+					$("#LoteId").val('');
+					$("#btn-addLote").hide();
+					$("#bt-salvarLote").show();
+			        $.ajax({
+			            url: 'lotes/carregarlotes/?id='+produto_id2+'&termo='+request.term,
+			            dataType: "json",
+			            data: {
+			                SearchTerm: request.term
+			            },
+			            success: function (data) {
+			            	
+			                var parsed = data.numerolote;
+			                var newArray = new Array(parsed.length);
+			                var i = 0;
+							$().val('');
+			               $.each( parsed, function( i, entry ){
+			           			
+			                    var newObject = {
+			                        label: entry.label,
+			                        value: entry.value,
+			                        data_fabricacao: entry.data_fabricacao,
+			                        data_validade: entry.data_validade,
+			                        fabricante: entry.fabricante,
+			                        id:entry.id
+			                    };
+			                    newArray[i] = newObject;
+			                    i++;
+			                });
+							console.log(newArray);
+			                response(newArray);
+			            },
+			            error: function (message) {
+			                response([]);
+			            }
+			        });
+			    },
+			    select: function(event, ui){
+					
+					/*var dayFabricacao = ui.item.data_fabricacao.slice(8,10);
+					var monthFabricacao = ui.item.data_fabricacao.slice(5,7);
+					var yearFabricacao = ui.item.data_fabricacao.slice(0,4);
+					
+					datafabricacao =dayFabricacao+'/'+ monthFabricacao+'/'+yearFabricacao;
+					
+					var dayValidade = ui.item.data_validade.slice(8,10);
+					var monthValidadeo = ui.item.data_validade.slice(5,7);
+					var yearValidade = ui.item.data_validade.slice(0,4);
+					datavalidade = dayValidade+'/'+monthValidadeo+'/'+yearValidade;*/
+					
+					
+					$("#LoteNumeroLote").val(ui.item.numero_lote);
+					$("#LoteId").val(ui.item.id);
+					$("#LoteDataFabricacao").val(ui.item.data_fabricacao);
+					$("#LoteDataValidade").val(ui.item.data_validade);
+					$("#LoteParceirodenegocioId").val(ui.item.fabricante);
+					$("#LoteId").val(ui.item.id);
+					
+					$("#btn-addLote").show();
+					$("#bt-salvarLote").hide();
+				},
+			    minLength: 1
+			});
+				
+			
+		}
+		/*var ac_config = {
+			source: function(rec, response){
+				$.getJSON('lotes/carregarlotes/?id='+produto_id2+'&', rec, function(jd) {
+		             jsonlotes = jd;
+		            
+	         	 });
+	         	response(jsonlotes);
+			},
+			select: function(event, ui){
+				$("#numerolote").val(ui.item.numero_lote);
+				$("#LoteDataFabricacao").val(ui.item.data_fabricacao);
+				$("#LoteDataValidade").val(ui.item.data_validade);
+				
+			},
+			minLength:1
+		};
+		$("#numerolote").autocomplete(ac_config);*/
+		
+		
+					
+		
+		
+	}); 
+	
+	
 
 });

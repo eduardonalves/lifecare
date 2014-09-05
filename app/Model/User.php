@@ -24,15 +24,46 @@ App::uses('AuthComponent', 'Controller/Component');
  * @property Quicklink $Quicklink
  */
 class User extends AppModel {
+	var $validate = array(
+	    'pwd' => array(
+	        'length' => array(
+	            'rule'      => array('between', 8, 40),
+	            'message'   => 'Sua senhan deve conter entre 8 e 40 caracteres.',
+	            'on'        => 'create',  // we only need this validation on create
+	        ),
+	    ),
+	
+	    // if we have a password entered, we need it to match pwd_repeat (both create and update)
+	    // we no longer need the length validation
+	    'pwd_repeat' => array(
+	        'compare' => array(
+	            'rule'    => array('validate_passwords'),
+	            'message' => 'Por favor confirme sua senha',
+	        ),
+	    ),
+	);
 
 
+	public function validate_passwords() { //password match check
+   	 return $this->data[$this->alias]['pwd'] === $this->data[$this->alias]['pwd_repeat'];
+	}
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	public function beforeSave($options = array()) {
+	/*public function beforeSave($options = array()) {
 			if (isset($this->data[$this->alias]['password'])) {
 				$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
 			}
 			return true;
-		}
+	}*/
+	
+	public function beforeSave($options = array()) {
+	    if(!empty($this->data['User']['password'])) {
+	        $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+	    } else {
+	        unset($this->data['User']['password']);
+	    }
+	    return true;
+	}
 		//The Associations below have been created with all possible keys, those that are not needed can be removed
 /**
  * belongsTo associations
