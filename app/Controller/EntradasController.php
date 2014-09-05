@@ -179,15 +179,34 @@ class EntradasController extends NotasController {
 		if (!$this->Entrada->exists($id)) {
 			throw new NotFoundException(__('Invalid entrada'));
 		}
-		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 2);
+		$options = array('conditions' => array('Entrada.' . $this->Entrada->primaryKey => $id), 'recursive' => 0);
 		$this->set('entrada', $this->Entrada->find('first', $options));
 		
 		$findEntrada= $this->Entrada->find('first', array('conditions' => array('Entrada.id' => $id)));
 		$this->loadModel('Fornecedore');
 		$fornecedor = $this->Fornecedore->find('first', array('conditions' => array('Fornecedore.id' => $findEntrada['Entrada']['parceirodenegocio_id'])));
 		
+		$this->loadModel('Produtoiten');
+		$this->loadModel('Produto');
+		$this->loadModel('Loteiten');
+		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
+		$i=0;
+		foreach($itens as $i => $produto){
+			$produtoItem = $this->Produto->find('first', array('conditions' => array('Produto.id' => $itens[$i]['Produto']['id'])));
+			//debug($produtoItem['Tributo'][0]['cfop']);
+			if(isset($produtoItem['Tributo'][0]['cfop'])){
+				$itens[$i]['Produto']['cfop'] = $produtoItem['Tributo'][0]['cfop'];
+			}else{
+				$itens[$i]['Produto']['cfop'] = "";
+			}
+			
+			$i++;
+		}
 		
-		$this->set(compact('findentrada','fornecedor'));
+		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+		
+		
+		$this->set(compact('findentrada','fornecedor', 'itens', 'loteitens'));
 		
 		
 		
