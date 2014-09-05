@@ -110,7 +110,7 @@ class ComoperacaosController extends AppController {
 		$this->loadModel('Categoria');
 		$this->loadModel('Produto');
 		
-		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR') ));
 		
 		
 		$listaParceiros = array();
@@ -118,7 +118,7 @@ class ComoperacaosController extends AppController {
 			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
 		}
 		
-		$produtos = $this->Produto->find('list',array('recursive' => -1, 'fields' => array('Produto.nome')));
+		$produtos = $this->Produto->find('list',array('recursive' => -1, 'fields' => array('Produto.nome'), 'order' => 'Produto.nome ASC'));
 		
 		$listaProdutos = array();
 		foreach($produtos as $produto){
@@ -126,7 +126,7 @@ class ComoperacaosController extends AppController {
 		}
 		
 		$listaCategorias = array();
-		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome')));
+		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome'), 'order' => 'Categoria.nome ASC'));
 		
 //Adiciona filtros
 		

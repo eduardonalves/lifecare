@@ -32,6 +32,7 @@
 				
 				echo $this->Form->input('id',array('type'=>'hidden','value' => $configparcela['Configparcela']['id']));
 				
+				
 				if($configparcela['Configparcela']['parcela']==1){
 						//echo $this->Form->input('parcela', array('type'=>'checkbox','value' => 1, 'checked' =>'checked', 'label'=>' Parcela'));
 						echo "<div class='input checkbox'>

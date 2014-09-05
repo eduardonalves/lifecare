@@ -1583,6 +1583,15 @@ $('#EntradaValorOutros, #EntradaValorSeguro, #EntradaValorFrete').focusout(funct
 		
 	}); 
 	
+	$('#LoteParceirodenegocioId').change(function(){
+		valorselect = $(this).val();
+		if(valorselect == 'add-fabricante'){
+			
+			$('#myModal_add-lote').modal("hide");
+		}
+		
+	});
+	
 	
 
 });

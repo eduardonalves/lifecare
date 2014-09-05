@@ -224,6 +224,7 @@ class NotasController extends AppController {
 		// Add filter
 		
 		$userid = $this->Session->read('Auth.User.id');
+		$this->set(compact('userid'));
 		//debug($this->Session->read('Auth'));
 		$this->loadModel('Categoria');
 		$allCategorias = $this->Categoria->find('all', array('order' => array('Categoria.nome' => 'ASC')));

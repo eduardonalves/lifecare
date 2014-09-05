@@ -76,6 +76,7 @@
 						$("#LoteParceirodenegocioId").append("<option value='"+data.Fabricante.id+"' id='"+data.Fabricante.nome+"' class='"+data.Fabricante.cpf_cnpj+"' rel='FABRICANTE'  >"+data.Fabricante.nome+"</option>");
 						$("#LoteParceirodenegocioId").val(data.Fabricante.id);
 						$("#myModal_add-fabricante").modal('hide');
+						$('#myModal_add-lote').modal("show");
 						$(".loaderAjax").hide();
 						$(".bt-salvarFabricante").show();	
 					}
