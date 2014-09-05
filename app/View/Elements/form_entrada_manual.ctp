@@ -459,10 +459,10 @@
 									     'class'=>'bt-adicionar calcularProdutos',
 									     ));	 
 		?>
-
+</section>
 	</div>
 <!--Fim Fieldset Dados do Produto-->
-	</section>
+	
 </fieldset>
 <!--Fim Fieldset total-->
 

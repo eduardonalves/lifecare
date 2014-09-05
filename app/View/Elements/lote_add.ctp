@@ -50,13 +50,15 @@
 				echo $this->Form->input('Lote.numero_lote',array('class'=>'tamanho-medio','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','label'=>'Número do Lote<span class="campo-obrigatorio">*</span>:'));
 				echo '<span id="validaModLoteNumLote" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo lote</span>';
 
-				echo $this->Form->input('Lote.data_fabricacao', array('type'=>'text','required'=>'false','title'=>'Campo Obrigatório','class'=>'inputData tamanho-medio validacao-entrada','label'=>'Fabricação<span class="campo-obrigatorio">*</span>:'));
+				echo $this->Form->input('Lote.data_fabricacao', array('type'=>'text','required'=>'false','title'=>'Campo Obrigatório','class'=>'valiDataLote tamanho-medio validacao-entrada','label'=>'Fabricação<span class="campo-obrigatorio">*</span>:'));
 				echo '<span id="validaModLoteDataFabric" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo fabricação</span>';
 				echo '<span id="validaModLoteDataFabricFutu" class="tooltipMensagemErroDireta Msg" style="display:none">A data de Fabricação não pode ser um dia futuro</span>';
 				echo '<span id="validaModLoteDataFabricInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha a data corretamente</span>';
 				
 				
-				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'inputData tamanho-medio validacao-entrada','label'=>'Validade:'));
+				
+				echo $this->Form->input('Lote.data_validade', array('type'=>'text','required'=>'false','allowEmpty' => 'false','title'=>'Campo Obrigatório','class'=>'valiDataLote tamanho-medio validacao-entrada','label'=>'Validade:'));
+				echo '<span id="validaModLoteDataValInvalida" class="tooltipMensagemErroDireta Msg" style="display:none">Digite a Data Corretamente</span>';
 				
 				echo $this->Form->input('Lote.parceirodenegocio_id', array('type'=>'select','class'=>'select tamanho-medio validacao-entrada','label'=>'Fabricante<span class="campo-obrigatorio">*</span>:','options'=> $fabricantes));
 				echo '<span id="validaModLoteFabricante" class="tooltipMensagemErroDireta Msg" style="display:none">Preencha o campo fabricante</span>';
