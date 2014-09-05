@@ -109,17 +109,28 @@
 					</a>
 				</li>
 
-				<li class="item">
+				<li class="item" style="line-height: 15px">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Produtos","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 						?>
 
-						<span class="label">Cadastrar</span>
+						<span class="label">Cadastrar Produtos</span>
 					</a>
 				</li>
 
+				<li class="item addUnidadesComerciais">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Unidades","action"=>"add"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar Unidades Comcerciais', 'title' => 'Cadastrar Unidades Comcerciais'));
+						?>
+
+						<span class="label">Unidades Comerciais</span>
+					</a>
+				</li>
+				
 				<li class="item">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"entradas","action"=>"index"),true);?>'>
 						

@@ -486,6 +486,36 @@ legend{
 }
 
 
+
+/******** UNIDADES COMERCIAIS **********/
+
+.addUnidadesComerciais{
+	min-height: 85px;
+	line-height: 15px;
+}
+
+.fieldSetUnidade{
+	margin-bottom: 10px;
+
+}
+
+label[for="UnidadeNome"]{
+	width: 80px !important;
+}
+label[for="UnidadeAbriviacao"]{
+	width: 80px !important;
+}
+
+.salvarUnidade{
+	padding-top: 0px !important;
+	float: right;
+}
+
+.coluna_edit_unidade{
+	margin: 0 auto;
+	width: 350px;
+}
+
 /* MENSAGENS ************************************/
 .error-flash{
 	background-color:#ffd5d5;
@@ -1047,3 +1077,4 @@ cursor: pointer;
 #pagQtdResultado select{
 	margin-top:-3px;
 }
+

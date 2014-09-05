@@ -35,7 +35,13 @@ $(document).ready(function(){
 		$('#listaIndexForm').attr('action','Pedidos/addDash');
 		var ok = confirm("Gostaria de Fazer o Pedido dos Produtos Selecionados?");
 		if(ok == true){
-			$('#listaIndexForm').submit();
+			selecionados();
+			if(no<990){
+				$('#listaIndexForm input[type="hidden"]').remove();
+				$('#listaIndexForm').submit();
+			}else{
+				alert("Não é possível fazer um Pedido com mais 990 produtos!");
+			}
 		}
 	});
 	
@@ -43,9 +49,28 @@ $(document).ready(function(){
 		$('#listaIndexForm').attr('action','Cotacaos/addDash');
 		var ok = confirm("Gostaria de Fazer a Cotação dos Produtos Selecionados?");
 		if(ok == true){
-			$('#listaIndexForm').submit();
+			selecionados();
+			if(no<990){
+				$('#listaIndexForm input[type="hidden"]').remove();
+				$('#listaIndexForm').submit();
+			}else{
+				alert("Não é possível fazer uma Cotação com mais 990 produtos!");
+			}
 		}
 	});
 
+//VERIFICAR CHECKADOS
+var no = 0;
+	function selecionados(){
+		  $('.checkUno').each(function(event) { //loop through each checkbox
+               if(this.checked){//select all checkboxes with class "checkbox1"               
+					no++;
+					$(this).attr('id',$(this).attr('id')+'_');
+				}else{
+					$(this).attr('disabled','disabled');
+				}
+            });
+	}
+	
 
 });

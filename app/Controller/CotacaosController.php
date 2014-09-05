@@ -20,50 +20,21 @@ class CotacaosController extends ComoperacaosController {
 	public $components = array('Paginator','lifecareDataFuncs');
 	
 	
-	public $tiposUnidades;
-	
 	private function loadUnidade(){
-		 $this->tiposUnidades = array(
-				'UN'=>'Unidade',
-				'PC'=>'Peça',
-				'CX'=>'Caixa',
-				'CJ'=>'Conjunto',
-				'KG'=>'Kilo',
-				'G'=>'Grama',
-				'M'=>'Metro',
-				'BOL' => 'Bolsa',
-				'BIS' => 'Bisnaga',
-				'SCH' => 'Sachê',
-				'PCT' => 'Pacote',
-				'ENV' => 'Envelope',
-				'PAR' => 'Pares',
-				'M2'=>'M. Quadrado', 
-				'M3' =>'M. Cúbico',
-				'L' =>'Litro',
-				'DZ' => 'Dúzia',
-				'SAC' => 'Saco',
-				'H' => 'Hora',
-				'CM' => 'Centímetro',
-				'T' => 'Tonelada',
-				'CJ' => 'Conjunto',
-				'KIT' => 'Kit',
-				'MIL' => 'Milheiro',
-				'JG' => 'Jogo',
-				'MM' => 'Milímetro',
-				'GL' => 'Galão',
-				'RSM' => 'Resma',
-				'FD' => 'Fardo',
-				'BL' =>'Bloco',
-				'AP' => 'Ampola',
-				'FR' => 'Frasco',
-				'CP' => 'Comprimido',
-				'TB' => 'Tubo',
-				'F/A' => 'Frasco/Ampola'
-			);
-			asort($this->tiposUnidades);
-			$this->tiposUnidades = array(''=>'') + $this->tiposUnidades;
-		$this->set('tiposUnidades', $this->tiposUnidades);
+		
+		$this->loadModel('Unidade');		
+		$unidades = $this->Unidade->find('all',array('fields'=>array('Unidade.nome','Unidade.abriviacao')));
+			$tiposUnidades = array();
+		foreach($unidades as $unidade){		
+			$tiposUnidades[$unidade['Unidade']['abriviacao']] = $unidade['Unidade']['nome'];			
+		}
+		
+		asort($tiposUnidades);
+		$tiposUnidades = array(''=>'') + $tiposUnidades;
+		$this->set(compact('unidades','tiposUnidades'));
 	}
+	
+	
 /**
  * index method
  *
@@ -158,7 +129,7 @@ class CotacaosController extends ComoperacaosController {
 			$email->emailFormat('html');
 			
 			//essa linha só serve para o servidor da alemanha
-			$email->transport('Mail');
+			//$email->transport('Mail');
 
             if($email->send($mensagem)){
 				return TRUE;
@@ -309,6 +280,8 @@ public function addDash(){
 				$y++;
 			}					
 		} // post
+		
+		//debug($this->request->data['produto']);
 		
 		$produtoslista = array();
 		$j = 0;
