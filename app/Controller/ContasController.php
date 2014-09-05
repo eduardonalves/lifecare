@@ -611,7 +611,7 @@ class ContasController extends AppController {
 		
 	}	
 	
-	$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome')));
+	$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('OR' => array(array('Parceirodenegocio.tipo' => 'CLIENTE'), array('Parceirodenegocio.tipo' => 'FORNECEDOR')))));
 	
 	$listaParceiros = array();
 	foreach($parceirodenegocios as $parceirodenegocio){

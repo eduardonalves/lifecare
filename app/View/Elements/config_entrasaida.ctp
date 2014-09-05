@@ -36,7 +36,7 @@
 			?>
 					
 			<div class='esconder'>	
-				<?php echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'')); ?>
+				<?php echo $this->Form->input('user_id',array('class'=>'esconder','label'=>'', 'default' => $userid, 'type' => 'text')); ?>
 			</div>
 		
 			<?php
