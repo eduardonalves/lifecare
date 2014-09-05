@@ -23,7 +23,8 @@ $(document).ready(function(){
     });
     
 
-	$('#UserAddForm, #UserEditForm').submit(function(){
+/****** VALIDAÇÂO DO USER ADD ****/
+	$('#UserAddForm').submit(function(){
 		
 		if($('#LoginUser').val() == ''){
 			$('#msgLogin').css('display','block');
@@ -33,6 +34,23 @@ $(document).ready(function(){
 		else if($('#senhaUser').val() == ''){
 			$('#msgSenha').css('display','block');
 			$('[id*="senhaUser"]').addClass('shadow-vermelho').focus();
+			return false;
+		}
+		else if($('#add_role').val() == ''){
+			$('#msgRole').css('display','block');
+			$('[id*="add_role"]').addClass('shadow-vermelho').focus();
+			return false;
+		}
+		else
+			return true;		
+	});
+	
+/****** VALIDAÇÂO DO USER EDIT ****/
+	$('#UserEditForm').submit(function(){
+		
+		if($('#LoginUser').val() == ''){
+			$('#msgLogin').css('display','block');
+			$('[id*="LoginUser"]').addClass('shadow-vermelho').focus();
 			return false;
 		}
 		else if($('#add_role').val() == ''){

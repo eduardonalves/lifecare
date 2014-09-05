@@ -36,7 +36,7 @@
 		<?php
 			echo $this->Form->input('username',array('label'=>'Login<span class="campo-obrigatorio">*</span>:','value'=>$usuario['User']['username'],'id'=>'LoginUser','class'=>'tamanho-medio'));
 			echo '<span id="msgLogin" class="Msg-tooltipDireita" style="display:none;margin-left: 68px;position: absolute;width: 80px;">Preencha o campo Login</span>';
-			echo $this->Form->input('password',array('label'=>'Senha<span class="campo-obrigatorio">*</span>:','id'=>'senhaUser','value'=>$usuario['User']['password'],'type'=>'password','class'=>'tamanho-medio'));
+			echo $this->Form->input('password',array('label'=>'Senha:','id'=>'senhaUser','value'=>$usuario['User']['password'],'type'=>'password','class'=>'tamanho-medio'));
 			echo '<span id="msgSenha" class="Msg-tooltipDireita" style="display:none;margin-left: 68px;position: absolute;width: 80px;">Preencha o campo Senha</span>';
 		?>			
 	</section>
