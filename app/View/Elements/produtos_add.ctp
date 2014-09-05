@@ -307,10 +307,3 @@
 	?>	
 
 </footer>
-
-<div style="clear:both;"></div>
-<pre>
-<?php
-	print_r($unidades);
-?>
-</pre>
