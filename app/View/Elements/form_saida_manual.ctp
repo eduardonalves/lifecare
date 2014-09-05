@@ -333,7 +333,7 @@
 					</div>
 				</section>
 			</div>
-
+	<section class="coluna-direita"> 
 			<!--Fieldset Dados do lote-->
 			<div class="fieldsetLote">
 				<h2 class="legendEffect"><span>Dados do Lote</span></h2>
@@ -374,6 +374,7 @@
 
 		</div>
 	<!--Fim Fieldset Dados do Produto-->
+	</section>
 	</fieldset>
 <!--Fim Fieldset total-->
 

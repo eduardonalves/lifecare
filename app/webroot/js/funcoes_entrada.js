@@ -341,7 +341,8 @@ $('.inputData').on("keypress",function(event){
 		//alert(dadosForm);
 
 	});*/
-/***************Limpa Dados do Lote no Modal*******************************************/
+	
+/*************** Limpa Dados do Lote no Modal *******************************************/
 	$('#LoteNumeroLote').on('input', function() {
 		$("#LoteDataFabricacao").val("");
 		$("#LoteDataValidade").val("");
@@ -351,7 +352,7 @@ $('.inputData').on("keypress",function(event){
 		var lote_cont=0;
 
 
-/***BTN- SALVAR LOTE***/
+/*************** BTN- SALVAR LOTE ***************/
 	$('#LoteParceirodenegocioId').prepend('<option value="add-fabricante">Cadastrar</option>');
 	$('#LoteParceirodenegocioId').prepend('<option value="" selected="selected"></option>');
 	$('#LoteIndexForm').submit(function(event) {
@@ -776,12 +777,12 @@ var princ_cont = 0;
 	}
 	
 /*********************************Calculo do valor total da nota ***************************/
-    var outrosValores=0;
+    var outrosValores = 0;
 
     function calcValorNota(){
  
-		outrosAux= $("#EntradaValorOutros").val().split('.').join('').replace(',','.');
-		outros=parseFloat(outrosAux);
+		outrosAux = $("#EntradaValorOutros").val().split('.').join('').replace(',','.');
+		outros = parseFloat(outrosAux);
 		 if(isNaN(outros)){
 			outros=0;
 		}

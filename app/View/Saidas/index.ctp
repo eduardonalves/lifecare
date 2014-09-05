@@ -37,7 +37,7 @@
 	<?php echo $this->Html->image('titulo-saida.png', array('class' => 'saida-icon', 'alt' => 'Saida ', 'title' => 'Saida', 'border' => '0')); ?>
 
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	<h1 class="menuOption24" >Saida</h1>
+	<h1 class="menuOption25" >Saida</h1>
 
 		<script>
 $(document).ready(function(){
