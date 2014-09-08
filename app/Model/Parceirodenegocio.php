@@ -287,4 +287,40 @@ class Parceirodenegocio extends AppModel {
 		  ),
 
 		);
+		
+		
+		/**
+ * Define relacionamentos "Contém um"
+ *
+ * @var array
+ * @access public
+ * @link http://book.cakephp.org/pt/view/1041/hasOne
+ */
+ 
+/**
+ * Overridden paginateCount method
+ */
+public function paginateCount($conditions = null, $recursive = 0,
+                                $extra = array()) {
+
+	if(isset($extra['fields_toCount']))
+	{
+
+	$fields = $extra['fields_toCount'];
+	$parameters = compact('conditions','fields');
+	
+	}else{
+
+	$parameters = compact('conditions');
+	}
+	
+
+	if ($recursive != $this->recursive) {
+		$parameters['recursive'] = $recursive;
+	}
+	$count = $this->find('count', array_merge($parameters, $extra));
+
+	return $count;
+
+}
 }

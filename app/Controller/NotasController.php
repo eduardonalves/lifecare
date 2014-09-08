@@ -46,7 +46,7 @@ class NotasController extends AppController {
 			
 					$this->loadModel('Lote');
 					$this->loadModel('Produto');
-					$lotes = $this->Lote->find('all', array('recursive' => -1, 'conditions' => array('Lote.status NOT LIKE' => '%VERMELHO%')));
+					$lotes = $this->Lote->find('all', array('recursive' => -1, 'conditions' => array('OR' => array('Lote.status NOT LIKE' => '%VERMELHO%'))));
 					
 					foreach($lotes as $lote){
 						$hoje= date("Y-m-d");
@@ -55,39 +55,58 @@ class NotasController extends AppController {
 						
 						$diasCritico = $produto['Produto']['periodocriticovalidade'];
 						
+						if($diasCritico== ''  || $diasCritico== 'NULL'){
+							$diasCritico =36500;
+						}
+						
 						$dataCritica = date('Y-m-d', strtotime("-".$diasCritico." days",strtotime(''.$validade.'')));
 						
-						if($diasCritico !=''){
 						
+						
+						if($diasCritico !=''){
+							
+							
 							if(strtotime($hoje)  <=  strtotime($validade)){
+								
 								if($dataCritica < $hoje){
+									
 									if($lote['Lote']['status'] != 'AMARELO'){
 										$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'AMARELO');
+										$this->Lote->create();
 										$this->Lote->save($updateValidade);
+										
 									}
 									
 								}else{
+									
 									if($lote['Lote']['status'] != 'VERDE'){
 										$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
+										$this->Lote->create();
 										$this->Lote->save($updateValidade);
+										
 									}
 								}
 
 							}else{
+									
+								
 								if($lote['Lote']['status'] != 'VERMELHO'){
 									$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
+									$this->Lote->create();
 									$this->Lote->save($updateValidade);
+									
 								}
 							}
 						
 						}else{
-						
+							
 							if(strtotime($hoje)  <=  strtotime($validade)){
 								//$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERDE');
 								//$this->Lote->save($updateValidade);
 							}else{
 								if($lote['Lote']['status'] != 'VERMELHO'){
 									$updateValidade= array('id' => $lote['Lote']['id'], 'status' => 'VERMELHO');
+									$this->Lote->create();
 									$this->Lote->save($updateValidade);
 								}
 							}

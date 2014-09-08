@@ -67,7 +67,7 @@ class LotesController extends AppController {
 					$this->Lote->create();
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Lote']['data_fabricacao']);
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Lote']['data_validade']);
-					
+					$this->request->data['Lote']['status']="VERDE";
 					
 					$lotesIdenticos = $this->Lote->find('count', array('conditions' => array('Lote.produto_id'=> $produtoId,'AND' => array('Lote.numero_lote' => $numeroLote), 'AND' => array('Lote.data_validade' => $this->request->data['Lote']['data_validade']), 'AND' => array('Lote.data_fabricacao' => $this->request->data['Lote']['data_fabricacao']), 'AND' => array('Lote.parceirodenegocio_id' => $this->request->data['Lote']['parceirodenegocio_id']))));	
 					if($lotesIdenticos == 0){

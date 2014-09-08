@@ -15,9 +15,7 @@ class UsersController extends AppController {
  */
 	public $components = array('Paginator');
 		
-	public function beforeFilter() {
-		$this->Auth->userScope = array('User.status' => 1);
-	}
+	
 	public function login() {
 		 $this->layout = 'login';
 		 
@@ -186,6 +184,9 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			if($this->request->data['User']['password'] ==''){
+			 unset($this->request->data['User']['password']);
+			}
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('Usuário Editado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view',$id));

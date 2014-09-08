@@ -549,7 +549,9 @@
 															echo "</td>";
 
 															echo "<td>";
-																if(isset($parceiro['status'])){ echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'title' => '-'));}
+																if(isset($parceiro['status'])){
+																		echo $this->Html->image('semaforo-' . strtolower($parceiro['status']) . '-12x12.png', array('alt' => '-'.$parceiro['status'], 'title' => '-'));
+																	}
 															echo "</td>";
 															
 															echo "<td> -- </td>";
@@ -649,7 +651,23 @@
 					
 					<td class="nome"><?php echo $parceirodenegocio['Parceirodenegocio']['nome'];?></td>
 					<td class="cpf_cnpj"><?php echo $parceirodenegocio['Parceirodenegocio']['cpf_cnpj'];?></td>
-					<td class="status"><?php if(isset($parceirodenegocio['Parceirodenegocio']['status'])) echo $this->Html->image('semaforo-' . strtolower($parceirodenegocio['Parceirodenegocio']['status']) . '-12x12.png', array('alt' => '-'.$parceirodenegocio['Parceirodenegocio']['status'], 'title' => '-'));?></td>
+					<td class="status"><?php 
+						if(
+						isset($parceirodenegocio['Parceirodenegocio']['status'])){
+							if($parceirodenegocio['Parceirodenegocio']['status'] != ''){
+								
+								echo $this->Html->image('semaforo-' . strtolower($parceirodenegocio['Parceirodenegocio']['status']) . '-12x12.png', array('alt' => '-'.$parceirodenegocio['Parceirodenegocio']['status'], 'title' => '-'));
+							}else{
+								
+								echo $this->Html->image('semaforo-verde-12x12.png', array('alt' => '-'."VERDE", 'title' => '-'));
+							}
+							
+						}else{
+							echo $this->Html->image('semaforo-verde-12x12.png', array('alt' => '-'."VERDE", 'title' => '-'));
+						}
+						?>
+						
+						</td>
 				
 				</tr>
 
