@@ -68,7 +68,7 @@
 			if(isset($telaAbas)){
 				echo '<h1 class="menuOption'.$telaAbas.'">Consultas</h1>';
 			}else{
-				echo '<h1 class="menuOption22">Consultas</h1>';
+				echo '<h1 class="menuOption21">Consultas</h1>';
 			}
 		?>
     
