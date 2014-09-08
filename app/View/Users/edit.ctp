@@ -69,7 +69,7 @@
 		<?php
 			//Referencia para selecionar as select's
 			echo $this->form->input('Vazio.carac',array('type'=>'hidden','id'=>'infosUser','data-role'=>$usuario['Role']['roles'], 'data-status'=>$usuario['User']['status'], 'data-acesso'=>$usuario['User']['acesso']));
-			echo $this->Form->input('User.status',array('label'=>'Bloqueado:','id'=>'Bloqueado','class'=>'tamanho-medio statusBloq','type'=>'select', 'options'=>array('0' => 'NÃO','1' => 'SIM')));		
+			echo $this->Form->input('User.status',array('label'=>'Bloqueado:','id'=>'Bloqueado','class'=>'tamanho-medio statusBloq','type'=>'select', 'options'=>array('1' => 'NÃO','0' => 'SIM')));		
 		?>
 	</section>
 	
