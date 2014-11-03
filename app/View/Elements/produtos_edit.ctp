@@ -59,11 +59,15 @@
 					
 					echo $this->Form->input('Produto.codigo', array('type'=>'text','label'=>'Código:','value'=>h($produto['Produto']['id']),'class'=>'','disabled'=>'disabled'));
 
-					echo $this->Form->input('Produto.codigoEan', array('type'=>'text','label'=>'Código EAN:','value'=>h($produto['Produto']['codigoEan']),'class'=>'tamanho-medio codigoean', 'maxlength' => '20'));
-
+					echo $this->Form->input('Produto.codigoEan', array('type'=>'text','label'=>'Código Barras:','value'=>h($produto['Produto']['codigoEan']),'class'=>'tamanho-medio codigoean', 'maxlength' => '20'));
+				
+					echo $this->Form->input('Produto.registro', array('type'=>'text','label'=>'Registro Anvisa:','value'=>h($produto['Produto']['registro']),'class'=>'tamanho-medio', 'maxlength' => '20'));
 
 					echo $this->Form->input('Produto.nome', array('required'=>'true','label'=>'Nome<span class="campo-obrigatorio">*</span>:','allowEmpty' => 'false','type'=>'text','value'=>h($produto['Produto']['nome']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
 					echo '<span id="validaNome" class="Msg tooltipMensagemErroDireta" style="display:none">Preencha o campo Nome</span>';
+					
+					echo $this->Form->input('Produto.nomeComercial', array('label'=>'Nome Comercial:','type'=>'text','value'=>h($produto['Produto']['nomeComercial']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
+					echo $this->Form->input('Produto.principioAtivo', array('label'=>'Princípio Ativo:','type'=>'text','value'=>h($produto['Produto']['principioAtivo']),'class'=>'tamanho-medio validaNome','maxlength' => '100'));
 
 					
 					echo $this->Form->input('Produto.composicao', array('type'=>'text','label'=>'Composição:','value'=>h($produto['Produto']['composicao']),'class'=>'tamanho-medio', 'maxlength' => '100'));
@@ -110,6 +114,10 @@
 				</div> <!-- ## PICK-LIST ## FIM -->
 				<?php
 					echo $this->Form->input('Produto.descricao', array('rows' => '3','cols' => '4','label'=>'Descrição:','class'=>'textarea','value'=>$produto['Produto']['descricao'], 'maxlength' => '255' ));
+				?>
+				<br />
+				<?php
+					echo $this->Form->input('Produto.corredor', array('class'=>'mascara_umaLetra tamanho-pequeno', 'label'=>'Corredor:','type'=>'text','value'=>$produto['Produto']['corredor'] ));
 				?>
 
 			</div>	

@@ -355,6 +355,9 @@ $(document).ready(function(){
 					echo $this->Form->input('nome',array('class' => 'mudancaInput tamanho-medio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false'));
 					echo '<span id="validaNome" class="Msg-tooltipDireita" style="display:none">Preencha o Nome</span>';
 					
+					echo $this->Form->input('nomeFantasia',array('class' => 'tamanho-medio','label' => 'Nome Fantasia:'));
+
+					
 					$l=0;
 					foreach($parceirodenegocio['Contato'] as $contato){
 						echo $this->Form->input('Contato.'.$l.'.id', array('value'=>$contato['id']));
@@ -395,10 +398,61 @@ $(document).ready(function(){
 
 			</section>
 		</section><!---Fim section superior--->
+	
+		<!--- INICIO DOS RESPONSAVEIS --->
+		<?php 
+			$tamanho = count($parceirodenegocio['Responsavel']);	
+			if($tamanho != 0){
+		?>
+	<section  style="clear: both;">
+			<header>Responsáveis por Setor</header>			
+				<?php 					
+					$ibloc = 0;
+					$respi = 0;
+					foreach($parceirodenegocio['Responsavel'] as $responsavel){
+				?>
+					
+					<section  style="clear: both;" class="qtd_responsaveis">
+						<?php 
+							if($ibloc != 0){
+									echo "<hr />";
+								}
+							$ibloc++;
+						?>
+				
+						<section class="coluna-esquerda"> 
+							<?php 
+								echo $this->Form->input('Responsavel.'.$respi.'.id',array('value'=>$responsavel['id'] ,'type'=> 'hidden'));
+								echo $this->Form->input('Responsavel.'.$respi.'.setor',array('value'=>$responsavel['setor'] ,'class' => 'tamanho-medio','type'=> 'select','label' => 'Setor:','options'=>array(''=>'','Diretoria'=>'Diretoria', 'Expedição'=>'Expedição','Financeiro'=>'Financeiro','Faturamento'=>'Faturamento','Gerente'=>'Gerente','Representante Comercial'=>'Representante Comercial')));
+								echo $this->Form->input('Responsavel.'.$respi.'.telefone1',array('value'=>$responsavel['telefone1'] ,'class' => 'tamanho-medio maskTel','type'=> 'text','label' => 'Telefone:','placeholder'=>'(99) 9999-9999'));
+							?>
+						</section>
+						<section class="coluna-central"> 
+							<?php
+								echo $this->Form->input('Responsavel.'.$respi.'.nome',array('value'=>$responsavel['nome'] ,'class' => 'tamanho-medio','type'=> 'text','label' => 'Nome:'));
+								echo $this->Form->input('Responsavel.'.$respi.'.telefone2',array('value'=>$responsavel['telefone2'] ,'class' => 'tamanho-medio maskTel','type'=> 'text','label' => 'Celular:','placeholder'=>'(99) 99999-9999'));
+							?>
+						</section>
+						<section class="coluna-direita"> 
+							<?php
+								echo $this->Form->input('Responsavel.'.$respi.'.email',array('value'=>$responsavel['email'] ,'class' => 'tamanho-medio  verificaEmail','type'=> 'text','label' => 'E-mail:','placeholder'=>'exemplo@email.com'));
+							?>
+						</section>
+					</section>
 
-		<section class="ajusteAlignSection"> <!---section MEIO--->
-			
-			
+			<?php 
+				$respi++;
+				}
+			?>
+			<div style="clear:both;"></div>
+		</section>		
+		
+			<?php 
+				}
+			?>
+		<!--- FIM DOS RESPONSAVEIS --->
+
+		<section class="ajusteAlignSection"> <!---section MEIO--->			
 			<header class="">Endereços</header>
 			<?php
 			$z=0;
@@ -481,5 +535,3 @@ $(document).ready(function(){
     ?>
 
 </footer>
-
-

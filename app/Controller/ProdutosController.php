@@ -359,9 +359,10 @@ class ProdutosController extends AppController {
 				$this->set(compact('last'));
 				
 					
-				
+			
 				if(! $this->request->is('ajax'))
 				{
+				
 					$this->Session->setFlash(__('Produto adicionado com sucesso.'), 'default', array('class' => 'success-flash'));
 					return $this->redirect(array('action' => 'view', $last['Produto']['id']));
 				}		

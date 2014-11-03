@@ -108,7 +108,7 @@
 			foreach($parceirodenegocio['Contato'] as $contato){
 		?>	
 			<div class="segmento-esquerdo">		
-			<div class="conteudo-linha">
+				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone3'],array('class'=>'valor'));?>	</div>
 				</div>
@@ -308,6 +308,10 @@
 					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
 				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome Fantasia:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nomeFantasia'],array('class'=>'valor'));?>	</div>
+				</div>
 		</div>
 		<?php
 			foreach($parceirodenegocio['Contato'] as $contato){
@@ -316,11 +320,6 @@
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
-				</div>
-				
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Email:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['email'],array('class'=>'valor'));?>	</div>
 				</div>
 			</div>
 		<?php				
@@ -344,6 +343,11 @@
 					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone3'],array('class'=>'valor'));?>	</div>
 				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Email:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['email'],array('class'=>'valor'));?>	</div>
+				</div>
 			</div>			
 		<?php
 			}	
@@ -351,6 +355,68 @@
 
 	</section>
 </section><!---Fim section superior--->
+	
+	<?php if(isset($telaAbas)){ 
+		
+		$tamanho = count($parceirodenegocio['Responsavel']);	
+		if($tamanho > 0){
+	?>
+	
+	<section>
+	
+		<header> Responsáveis por Setor </header>
+	<?php  
+		
+		$ibloc = 0;
+		foreach($parceirodenegocio['Responsavel'] as $responsavel){
+		?>
+
+			<section  style="clear: both;">
+					<?php  if($ibloc != 0){ echo "<hr />";		}	$ibloc++; ?>
+							
+					<section class="coluna-esquerda">
+						<div class="segmento-esquerdo">								
+							<div class="conteudo-linha">
+								<div class="linha"><?php echo $this->Html->Tag('p','Setor:',array('class'=>'titulo'));?></div>
+								<div class="linha2"><?php echo $this->Html->Tag('p',$responsavel['setor'],array('class'=>'valor'));?>	</div>
+							</div>
+											
+							<div class="conteudo-linha">
+								<div class="linha"><?php echo $this->Html->Tag('p','Telefone:',array('class'=>'titulo'));?></div>
+								<div class="linha2"><?php echo $this->Html->Tag('p',$responsavel['telefone1'],array('class'=>'valor'));?>	</div>
+							</div>							
+						</div>					
+					
+					</section>
+								
+					<section class="coluna-central">
+						<div class="segmento-esquerdo">								
+							<div class="conteudo-linha">
+								<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+								<div class="linha2"><?php echo $this->Html->Tag('p',$responsavel['nome'],array('class'=>'valor'));?></div>
+							</div>
+													
+							<div class="conteudo-linha">
+								<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
+								<div class="linha2"><?php echo $this->Html->Tag('p',$responsavel['telefone2'],array('class'=>'valor'));?>	</div>
+							</div>							
+						</div>					
+					</section>
+							
+					<section class="coluna-direita">
+						<div class="segmento-esquerdo">								
+							<div class="conteudo-linha">
+								<div class="linha"><?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo'));?></div>
+								<div class="linha2"><?php echo $this->Html->Tag('p',$responsavel['email'],array('class'=>'valor'));?>	</div>
+							</div>					
+						</div>					
+					</section>
+					
+			</section>
+	<?php  }  ?>		
+	</section>	
+	<?php } } ?>		
+
 
 <section class="ajusteAlignSection"> <!---section MEIO--->
 	
@@ -455,3 +521,5 @@
 													 
     ?>
 </footer>
+
+

@@ -259,6 +259,7 @@ $(document).ready(function(){
 		$(".masc_tributos_dez").mask("0000000000");
 		$(".numberMask").mask("9999999999");
 		$(".tel").mask("(00) #0000-0000");
+		$(".mascara_umaLetra").mask("S");
 	});
 
 

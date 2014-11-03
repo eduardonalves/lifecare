@@ -285,6 +285,9 @@
 			}else{
 				echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array('FORNECEDOR'=>'Fornecedor'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1', 'style' => 'display: none'));
 				echo $this->Html->Tag('p','Fornecedor',array('class'=>'valor','style'=>'padding-top: 3px;'));
+				
+				echo $this->Form->input('nomeFantasia',array('class' => 'tamanho-medio','label' => 'Nome Fantasia:'));
+				
 				}
 
 			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4','placeholder'=>'(99) 9999-9999'));
@@ -355,6 +358,45 @@
 
 	</section>
 </section><!---Fim section superior--->
+
+<?php //CADASTRO DOS RESPONSAVEIS DOS SETORES
+	
+	if(isset($telaAbas)){ ?>
+		
+		<section  style="clear: both;">
+			<header>Responsáveis por Setor</header>
+			
+			
+				<section class="coluna-esquerda"> 
+					<?php 
+						echo $this->Form->input('Responsavel.0.setor',array('class' => 'tamanho-medio','type'=> 'select','label' => 'Setor:','options'=>array(''=>'','Diretoria'=>'Diretoria', 'Expedição'=>'Expedição','Financeiro'=>'Financeiro','Faturamento'=>'Faturamento','Gerente'=>'Gerente','Representante Comercial'=>'Representante Comercial')));
+						echo $this->Form->input('Responsavel.0.telefone1',array('class' => 'tamanho-medio maskTel','type'=> 'text','label' => 'Telefone:','placeholder'=>'(99) 9999-9999'));
+					?>
+				</section>
+				<section class="coluna-central"> 
+					<?php
+						echo $this->Form->input('Responsavel.0.nome',array('class' => 'tamanho-medio','type'=> 'text','label' => 'Nome:'));
+						echo $this->Form->input('Responsavel.0.telefone2',array('class' => 'tamanho-medio maskTel','type'=> 'text','label' => 'Celular:','placeholder'=>'(99) 99999-9999'));
+					?>
+				</section>
+				<section class="coluna-direita"> 
+					<?php
+						echo $this->Form->input('Responsavel.0.email',array('class' => 'tamanho-medio  verificaEmail','type'=> 'text','label' => 'E-mail:','placeholder'=>'exemplo@email.com'));
+					?>
+				</section>
+			<div style="clear:both;"></div>
+			<section id="area-responsaveis"> <!-- AQUI VÂO OS BLOCOS PARA CADA NOVO RESPONSAVEL-->
+				
+			</section>
+			
+		<?php
+			echo $this->html->image('novo-responsavel.png',array('alt'=>'Adicionar','title'=>'Adicionar Novo Responsável','id'=>'bt_add_respo','class'=>'bt-direita'));
+			echo $this->html->image('botao-remove.png',array('alt'=>'Remover','title'=>'Remover Responsável','id'=>'bt_rmv_respo','class'=>'bt-direita'));
+		?>
+		</section>
+		
+<?php	}// FIM CADASTRO DOS RESPONSAVEIS DOS SETORES  ?>
+
 
 <section class="ajusteAlignSection"> <!---section MEIO--->
 	<header class="">Endereços</header>

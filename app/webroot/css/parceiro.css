@@ -83,9 +83,21 @@ hr{
 	width:230px;
 }
 
+.bloco-responsavel{
+	margin-top:20px;
+}
 
 
 /* ID *****************************************************************/
+#bt_add_respo{
+	margin-top: 50px !important;
+}
+
+#bt_rmv_respo{
+	display: none;
+	margin-top: 50px !important;
+}
+
 #loader{
 	margin-top: -18px;
 	margin-left: 155px;

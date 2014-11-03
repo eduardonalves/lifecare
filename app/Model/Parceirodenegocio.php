@@ -48,6 +48,19 @@ class Parceirodenegocio extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+	'Responsavel' => array(
+			'className' => 'Responsavel',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Contato' => array(
 			'className' => 'Contato',
 			'foreignKey' => 'parceirodenegocio_id',

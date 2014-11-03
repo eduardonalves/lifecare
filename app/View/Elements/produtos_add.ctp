@@ -143,6 +143,7 @@
 				}
 
 				echo $this->Form->input('Produto.nome',array('required'=>'false','class'=>'tamanho-medio validacao-cadastrar validaNome','label'=>'Nome<span class="campo-obrigatorio">*</span>:','maxlength'=>'255','tabindex'=>'1'));
+				echo $this->Form->input('Produto.nomeComercial',array('required'=>'false','class'=>'tamanho-medio validacao-cadastrar validaNome','label'=>'Nome Comercial:','maxlength'=>'255','tabindex'=>'1'));
 				echo '<span id="validaNome" class="msg erroRight" style="display:none">Preencha o campo Nome</span>';
 				echo $this->Form->input('Produto.composicao', array('class'=>'tamanho-medio','label'=>'Composição: ','maxlength'=>'1000','tabindex'=>'4'));
 			?>
@@ -180,8 +181,10 @@
 		<div>
 
 			<?php
-				echo $this->Form->input('Produto.codigoEan',array('class'=>'tamanho-medio codigoean','type'=>'text', 'label' => 'Código EAN: ', 'maxlength' => '20','tabindex'=>'2'));
-				echo $this->Form->input('Produto.dosagem',array('class'=>'tamanho-pequeno',  'label' => 'Dosagem: ', 'maxlength' => '1000','tabindex'=>'5'));
+				echo $this->Form->input('Produto.codigoEan',array('class'=>'tamanho-medio codigoean','type'=>'text', 'label' => 'Código de Barras: ', 'maxlength' => '20','tabindex'=>'2'));
+				echo $this->Form->input('Produto.principioAtivo',array('class'=>'tamanho-medio',  'label' => 'Princípio Ativo: ', 'maxlength' => '1000','tabindex'=>'5'));
+				echo $this->Form->input('Produto.dosagem',array('class'=>'tamanho-pequeno',  'label' => 'Dosagem: ', 'maxlength' => '1000','tabindex'=>'5'));			
+				echo $this->Form->input('Produto.corredor',array('class'=>'tamanho-pequeno mascara_umaLetra',  'label' => 'Corredor: ', 'maxlength' => '1','tabindex'=>'5'));			
 			?>
 
 		</div>
@@ -191,6 +194,7 @@
 		<div>
 
 			<?php
+				echo $this->Form->input('Produto.registro', array('class'=>'tamanho-pequeno','label'=>'Registro Anvisa:','tabindex'=>'3'));
 				echo $this->Form->input('Produto.unidade', array('class'=>'validaUnidade validacao-cadastrar','required'=>'false','type'=>'select','label'=>'Unidade<span class="campo-obrigatorio">*</span>:','options'=>$tiposUnidades,'tabindex'=>'3'));
 				echo '<span id="validaUnid" class="msg erroRight" style="display:none">Selecione a Unidade</span>';
 				echo $this->Form->input('Produto.descricao', array('label'=>'Descrição:','type'=>'textarea','rows' => '3', 'cols' => '4', 'maxlength' => '1000','tabindex'=>'6'));

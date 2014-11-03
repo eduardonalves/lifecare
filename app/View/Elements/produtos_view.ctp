@@ -94,14 +94,30 @@
 				</div>
 				
 				<div class="conteudo-linha">		
-					<div class="linha"><?php echo $this->Html->Tag('p','Código EAN:',array('class'=>'titulo '));?></div>
+					<div class="linha"><?php echo $this->Html->Tag('p','Código Barras:',array('class'=>'titulo '));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['codigoEan'],array('class'=>'valor codigoean')); ?></div>
+				</div>
+				
+				<div class="conteudo-linha">	
+					<div class="linha"><?php echo $this->Html->Tag('p','Registo Anvisa:',array('class'=>'titulo')); ?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['registro'],array('class'=>'valor'));?></div>
 				</div>
 				
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['nome'],array('class'=>'valor')); ?></div>
 				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome  Comercial:',array('class'=>'titulo')); ?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['nomeComercial'],array('class'=>'valor')); ?></div>
+				</div>
+				<br />
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Princípio Ativo:',array('class'=>'titulo')); ?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['principioAtivo'],array('class'=>'valor')); ?></div>
+				</div>
+				
 				
 				<div class="conteudo-linha">	
 					<div class="linha"><?php echo $this->Html->Tag('p','Composição:',array('class'=>'titulo')); ?></div>
@@ -140,12 +156,18 @@
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['fabricante'],array('class'=>'valor')); ?></div>
 				</div>
 				-->
+				
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Descrição:',array('class'=>'titulo')); ?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['descricao'],array('class'=>'valor-descricao')); ?></div>
-					<div style="clear:both"></div>
-				</div>
 					
+				</div>
+				
+				<div class="conteudo-linha">	
+					<div class="linha"><?php echo $this->Html->Tag('p','Corredor:',array('class'=>'titulo')); ?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['corredor'],array('class'=>'valor'));?></div>
+				</div>	
+				
 			</div>					
 		</div>	
 	</section>

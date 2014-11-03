@@ -755,5 +755,94 @@ $(document).ready(function() {
 		}
 		
 	});
+	
+/*** ADICIONAR NOVOS RESPONSAVEIS POR SETOR ************************************************/	
+	var responsavel =  1;
+	var resp_valida = 0;
+	$("#bt_add_respo").click(function(){
+			
+			var setor =  $("#Responsavel"+resp_valida+"Setor").val();
+			var nome =  $("#Responsavel"+resp_valida+"Nome").val();
+			var email =  $("#Responsavel"+resp_valida+"Email").val();
+			
+			
+			
+			if( (setor) && (nome) && (email)){						
+				$('#area-responsaveis').append('<div style="clear:both;"></div>\
+					<section class="bloco-responsavel" id="blocoRespo'+responsavel+'">\
+					<hr>\
+						<section class="coluna-esquerda"> \
+								<div class="input select">\
+									<label for="Responsavel'+responsavel+'Setor">Setor:</label>\
+									<select name="data[Responsavel]['+responsavel+'][setor]" class="tamanho-medio" id="Responsavel'+responsavel+'Setor">\
+										<option value=""></option>\
+										<option value="Diretoria">Diretoria</option>\
+										<option value="Expedição">Expedição</option>\
+										<option value="Financeiro">Financeiro</option>\
+										<option value="Faturamento">Faturamento</option>\
+										<option value="Gerente">Gerente</option>\
+										<option value="Representante Comercial">Representante Comercial</option>\
+									</select>\
+								</div>\
+								\
+								<div class="input text">\
+									<label for="Responsavel'+responsavel+'Telefone1">Telefone:</label>\
+									<input name="data[Responsavel]['+responsavel+'][telefone1]" class="tamanho-medio" type="text" id="Responsavel'+responsavel+'Telefone1" placeholder="(99) 9999-9999"/>\
+								</div>\
+						</section>\
+						\
+						<section class="coluna-central"> \
+								<div class="input text">\
+									<label for="Responsavel'+responsavel+'Nome">Nome:</label>\
+									<input name="data[Responsavel]['+responsavel+'][nome]" class="tamanho-medio" type="text" id="Responsavel'+responsavel+'Nome"/>\
+								</div>\
+								\
+								<div class="input text">\
+									<label for="Responsavel0Telefone2">Celular:</label>\
+									<input name="data[Responsavel]['+responsavel+'][telefone2]" class="tamanho-medio" type="text" id="Responsavel'+responsavel+'Telefone2" placeholder="(99) 99999-9999"/>\
+								</div>				\
+						</section>\
+						\
+						<section class="coluna-direita"> \
+								<div class="input text">\
+									<label for="Responsavel'+responsavel+'Email">E-mail:</label>\
+									<input name="data[Responsavel]['+responsavel+'][email]" class="tamanho-medio verificaEmail" type="text" id="Responsavel'+responsavel+'Email" placeholder="exemplo@email.com"/>\
+								</div>			\
+						</section>\
+				</section>\
+				');
+				responsavel++;
+				resp_valida++;
+				$('#bt_rmv_respo').show();
+			}else{
+				alert('poof');
+			}
+	});
+	
+	$('#bt_rmv_respo').click(function(){
+				responsavel--;
+				resp_valida--;
+				if(responsavel != 1){					
+					$('#blocoRespo'+responsavel).remove();
+				}else{
+					$('#bt_rmv_respo').hide();				
+					$('#blocoRespo'+responsavel).remove();
+				}
+	});
+
+	
+	$('body').on('focusout','.verificaEmail',function(email){
+	    var email = $(this).val();
+	    var emailValido=/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+	    if(!emailValido.test(email)){
+			$(this).focus().addClass('shadow-vermelho');
+			$('#validaEmail').css('display','block');
+			return false
+	    }
+	    
+	});
+
+
 
 });

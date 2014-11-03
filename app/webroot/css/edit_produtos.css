@@ -6,7 +6,8 @@
 	width: 175px;
 	resize: none;
 	margin-top:4px;
-	display:inline;
+	margin-bottom: 8px;
+	display:inline;	
 }
 
 
@@ -98,6 +99,10 @@
 	top:2px;
 }
 
+label[for="ProdutoNomeComercial"], label[for="ProdutoRegistro"] {
+	width: 102px !important; 
+	margin-left: -12px !important;
+}
 
 /* PICK LIST ************************************/
 .titulo{
