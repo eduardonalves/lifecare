@@ -106,12 +106,6 @@ class SaidasController extends NotasController {
 	
 	public function index() {
 		
-		if(isset($this->request->params['named']['layout'])){
-			$telaLayout = $this->request->params['named']['layout'];
-			$telaAbas = $this->request->params['named']['abas'];
-			$this->layout =  $telaLayout;
-		}
-		
 		/*$options= array('conditions' => array('Saida.tipo' =>'SAIDA'), 'recursive' => 0);
 		$saidas = $this->Saida->find('all',$options);
 		$this->paginate = $options;
@@ -137,7 +131,7 @@ class SaidasController extends NotasController {
 		$this->loadModel('Fabricante');
 		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
 		
-		$this->set(compact('saidas','allProdutos', 'allClientes', 'fabricantes','telaLayout','telaAbas'));
+		$this->set(compact('saidas','allProdutos', 'allClientes', 'fabricantes'));
 		
 		
 		$this->Produtos->add();
