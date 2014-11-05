@@ -240,6 +240,8 @@ class NotasController extends AppController {
  
  
 	public function index() {
+		$this->layout =  'vendas';
+				
 		// Add filter
 		
 		$userid = $this->Session->read('Auth.User.id');
@@ -740,6 +742,9 @@ class NotasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		
+		$this->layout =  'vendas';
+		
 		if (!$this->Nota->exists($id)) {
 			throw new NotFoundException(__('Invalid nota'));
 		}
@@ -753,6 +758,13 @@ class NotasController extends AppController {
  * @return void
  */
 	public function add() {
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}
+			$this->layout =  'vendas';
+		
 		if ($this->request->is('post')) {
 			$this->Nota->create();
 			if ($this->Nota->saveAll($this->request->data)) {
@@ -762,9 +774,30 @@ class NotasController extends AppController {
 				$this->Session->setFlash(__('The nota could not be saved. Please, try again.'));
 			}
 		}
+				
+		$this->loadModel('Produto');
+		$this->loadModel('Tributo');
+		$allProdutos = $this->Produto->find('all', array('recursive' => -1,'group' => 'Produto.nome', 'order' => array('Produto.nome asc')));
+		$i =0;
+		foreach($allProdutos as $i => $produto){
+			$tributo = $this->Tributo->find('first', array('recursive' => -1,'conditions' => array('Tributo.produto_id' => $allProdutos[$i]['Produto']['id'])));
+			if(!empty($tributo)){
+				$allProdutos[$i]['Produto']['cfop'] = $tributo['Tributo']['cfop'];
+				
+			}
+			
+			$i++;
+		}
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('recursive' => -1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
+		$this->loadModel('Fabricante');
+		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
+		
+		
 		$parceirodenegocios = $this->Nota->Parceirodenegocio->find('list');
 		$users = $this->Nota->User->find('list');
-		$this->set(compact('parceirodenegocios', 'users'));
+		$this->set(compact('parceirodenegocios', 'users','telaLayout','telaAbas','allProdutos','allClientes','fabricantes'));
 	}
 
 /**
@@ -775,6 +808,9 @@ class NotasController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		
+		$this->layout =  'vendas';
+		
 		if (!$this->Nota->exists($id)) {
 			throw new NotFoundException(__('Invalid nota'));
 		}
