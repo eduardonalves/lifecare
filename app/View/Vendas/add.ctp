@@ -1,6 +1,6 @@
 <?php
 	$this->start('css');
-		echo $this->Html->css('saidas');
+		echo $this->Html->css('vendas');
 		echo $this->Html->css('table');
 		//echo $this->Html->css('jquery-ui/jquery.ui.css');
 		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
@@ -16,7 +16,7 @@
 		//	echo $this->Html->script('jquery-ui/jquery.ui.menu.js');
 		//	echo $this->Html->script('jquery-ui/jquery.ui.autocomplete.js');
 		//	echo $this->Html->script('jquery-ui/jquery.ui.tooltip.js');
-		echo $this->Html->script('funcoes_saida.js');
+		echo $this->Html->script('funcoes_vendas.js');
 	$this->end();
 ?>
 
@@ -69,9 +69,36 @@
 </script>
 
 <section>
-	<header id="titulo-header"></header>
+	<header id="titulo-header">Vendedor</header>
+	<?php echo $this->Form->create('Vendas',array('action'=>'add')); ?>
+		<div class="fieldset">
+			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
+			
+			<section class="coluna-esquerda">
+				<div class="input autocompleteVendedor">
+					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-vendedor">
+						<option id="optvazioForn"></option>
+						<option value="add-Vendedor">Cadastrar</option>
 
-	<?php echo $this->Form->create('Saida',array('action'=>'add')); ?>
+						<?php
+							foreach($allVendedores as $vendedor){
+								echo "<option id='".$vendedor['Vendedor']['nome']."' value='".$vendedor['Vendedor']['id']."' >";
+								echo $allCliente['Cliente']['nome'];
+								echo "</option>";
+							}
+						?>
+
+					</select>
+				</div>
+			</section>
+			<section class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher bt-preencher_Vendedor')); ?>
+			</section>
+			<section class="coluna-direita"></section>
+			
+		</div>
+	
 
 	<!--Div primeiro Campo-->
 	<div class="campo-superior-total tela-resultado">
