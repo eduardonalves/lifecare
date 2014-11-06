@@ -105,6 +105,7 @@ class VendasController extends NotasController {
 	}
 	
 	public function index() {
+		$this->layout = 'venda'; 
 		
 		/*$options= array('conditions' => array('Venda.tipo' =>'SAIDA'), 'recursive' => 0);
 		$vendas = $this->Venda->find('all',$options);
@@ -177,6 +178,9 @@ class VendasController extends NotasController {
  * @return void
  */
 	public function view($id = null) {
+		
+		$this->layout = 'venda'; 
+		
 		if (!$this->Venda->exists($id)) {
 			throw new NotFoundException(__('Invalid venda'));
 		}
@@ -206,6 +210,9 @@ class VendasController extends NotasController {
  * @return void
  */
 	public function add() {
+		
+		$this->layout = 'venda'; 
+		
 		if ($this->request->is('post')) {
 			$this->Venda->create();
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
