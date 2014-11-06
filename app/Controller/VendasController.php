@@ -273,7 +273,28 @@ class VendasController extends NotasController {
 		$this->loadModel('User');
 		$users = $this->User->find('list');
 		$produtos = $this->Produto->find('list');
-		$this->set(compact('parceirodenegocios','users', 'lotes', 'fornecedores', 'produtos'));
+		
+		
+		$this->loadModel('Tributo');
+		$allProdutos = $this->Produto->find('all', array('recursive' => -1,'group' => 'Produto.nome', 'order' => array('Produto.nome asc')));
+		$i =0;
+		foreach($allProdutos as $i => $produto){
+			$tributo = $this->Tributo->find('first', array('recursive' => -1,'conditions' => array('Tributo.produto_id' => $allProdutos[$i]['Produto']['id'])));
+			if(!empty($tributo)){
+				$allProdutos[$i]['Produto']['cfop'] = $tributo['Tributo']['cfop'];
+				
+			}
+			
+			$i++;
+		}
+		
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('recursive' => -1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
+		$this->loadModel('Fabricante');
+		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
+	
+		$this->set(compact('parceirodenegocios','users', 'lotes', 'fornecedores', 'produtos','allProdutos', 'allClientes', 'fabricantes'));
 	}
 
 
