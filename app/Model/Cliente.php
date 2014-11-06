@@ -102,6 +102,32 @@ class Cliente extends Parceirodenegocio {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Dadoscredito' => array(
+			'className' => 'Dadoscredito',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Dadosbancario' => array(
+			'className' => 'Dadosbancario',
+			'foreignKey' => 'parceirodenegocio_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
 
 	);
 
