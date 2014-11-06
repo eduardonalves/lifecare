@@ -210,60 +210,131 @@ class VendasController extends NotasController {
 	public function add() {
 		
 		$this->layout = 'venda'; 
+		$this->loadModel('Cliente');
+		$this->loadModel('Dadoscredito');
 		
 		if ($this->request->is('post')) {
-			$this->Venda->create();
-			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
-			$this->loadModel('Lote');
-			
-			$arrLotesQtde = array();
-			$verificaLote="OK";
-			foreach($this->request->data['Loteiten'] as $loteiten){
-				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
-				$posLote = $achaLote['Lote']['numero_lote'];
-				$arrLotesQtde[''.$posLote.''] = "";
-			}
-			foreach($this->request->data['Loteiten'] as $loteiten){
-				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
+			$clienteId = $this->request->data['Venda']['parceirodenegocio_id'];	
+			$clientesNota = $this->Cliente->find('first', array('recursive' => -1,'conditions' => array('Cliente.id' => $clienteId)));
+			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
+			if ($limiteCliente >= $this->request->data['Venda']['valor_total']){
+				$this->Venda->create();
+				$this->request->data['Venda']['status_financeiro'] ="OK";
+				$this->request->data['Venda']['status_estoque'] ="SEPARACAO";
+				$this->request->data['Venda']['status_faturamento'] ="PENDENTE";
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
 				
-				$posLote = $achaLote['Lote']['numero_lote'];
-				$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
+				$this->loadModel('Lote');
 				
-				if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){
-					$verificaLote="Erro";
+				$arrLotesQtde = array();
+				$verificaLote="OK";
+				foreach($this->request->data['Loteiten'] as $loteiten){
+					$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
+					$posLote = $achaLote['Lote']['numero_lote'];
+					$arrLotesQtde[''.$posLote.''] = "";
 				}
-				
-			}
-			if($verificaLote != "Erro"){
-				if ($this->Venda->saveAll($this->request->data)) {
+				foreach($this->request->data['Loteiten'] as $loteiten){
+					$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
 					
+					$posLote = $achaLote['Lote']['numero_lote'];
+					$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
 					
-					$ultimaVenda = $this->Venda->find('first', array('order' => array('Venda.id' => 'desc'), 'recursive' => -1));
-					$this->loadModel('Loteiten');
-					$this->loadModel('Produtoiten');
-					$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaVenda['Venda']['id']), 'recursive' => -1));
+					if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){
+						$verificaLote="Erro";
+					}
 					
-					foreach($lotes as $lote){
-						$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaVenda['Venda']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
+				}
+				if($verificaLote != "Erro"){
+					if ($this->Venda->saveAll($this->request->data)) {
 						
 						
-						$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
-						$this->Loteiten->save($updateLoteiten);
-						$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
-						$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+						$ultimaVenda = $this->Venda->find('first', array('order' => array('Venda.id' => 'desc'), 'recursive' => -1));
+						$this->loadModel('Loteiten');
+						$this->loadModel('Produtoiten');
+						$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaVenda['Venda']['id']), 'recursive' => -1));
+						
+						foreach($lotes as $lote){
+							$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaVenda['Venda']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
+							
+							
+							$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
+							$this->Loteiten->save($updateLoteiten);
+							$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
+							$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+							
+						}
+						$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
+						return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
+						
+					} else {
+						$this->Session->setFlash(__('A Venda não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 						
 					}
-					$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-					return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
-					
-				} else {
-					$this->Session->setFlash(__('A saída não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
-					
+				}else{
+					$this->Session->setFlash(__('Erro, não existem lotes suficientes para atender esta saída.'));
+					return $this->redirect(array('controller' => 'vendas' ,'action' => 'index'));
 				}
 			}else{
-				$this->Session->setFlash(__('Erro, não existem lotes suficientes para atender esta saída.'));
-				return $this->redirect(array('controller' => 'vendas' ,'action' => 'index'));
+					
+					
+				$this->Venda->create();
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
+				$this->request->data['Venda']['status_financeiro'] ="PENDENTE";
+				$this->request->data['Venda']['status_estoque'] ="PENDENTE";
+				$this->request->data['Venda']['status_faturamento'] ="PENDENTE";
+				$this->loadModel('Lote');
+				
+				$arrLotesQtde = array();
+				$verificaLote="OK";
+				foreach($this->request->data['Loteiten'] as $loteiten){
+					$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
+					$posLote = $achaLote['Lote']['numero_lote'];
+					$arrLotesQtde[''.$posLote.''] = "";
+				}
+				foreach($this->request->data['Loteiten'] as $loteiten){
+					$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
+					
+					$posLote = $achaLote['Lote']['numero_lote'];
+					$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
+					
+					if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){
+						$verificaLote="Erro";
+					}
+					
+				}
+				if($verificaLote != "Erro"){
+					if ($this->Venda->saveAll($this->request->data)) {
+						
+						
+						$ultimaVenda = $this->Venda->find('first', array('order' => array('Venda.id' => 'desc'), 'recursive' => -1));
+						$this->loadModel('Loteiten');
+						$this->loadModel('Produtoiten');
+						$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaVenda['Venda']['id']), 'recursive' => -1));
+						
+						foreach($lotes as $lote){
+							$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaVenda['Venda']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
+							
+							
+							$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
+							$this->Loteiten->save($updateLoteiten);
+							$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
+							$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+							
+						}
+						$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
+						return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
+						
+					} else {
+						$this->Session->setFlash(__('A Venda não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
+						
+					}
+				}else{
+					$this->Session->setFlash(__('Erro, não existem lotes suficientes para atender esta saída.'));
+					return $this->redirect(array('controller' => 'vendas' ,'action' => 'index'));
+				}
 			}
+				
+			
 		}
 		$this->loadModel('Fornecedore');
 		$parceirodenegocios = $this->Fornecedore->find('list', array('conditions' => array('Fornecedore.tipo' => 'FORNECEDOR')));
@@ -288,7 +359,7 @@ class VendasController extends NotasController {
 			$i++;
 		}
 		
-		$this->loadModel('Cliente');
+		
 		$allClientes = $this->Cliente->find('all', array('recursive' => -1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
 		
 		$this->loadModel('Fabricante');
