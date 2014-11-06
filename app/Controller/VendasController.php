@@ -167,8 +167,6 @@ class VendasController extends NotasController {
 		$this->Produtos->constructClasses();
 	}
 	
-	
-	
 
 /**
  * view method
