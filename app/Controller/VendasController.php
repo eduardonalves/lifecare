@@ -72,7 +72,7 @@ class VendasController extends NotasController {
 				$loteEstoque=0;
 				
 				
-				$loteitensEntradas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'ENTRADA', 'Loteiten.lote_id' => $lote_id)));	
+				$loteitensEntradas= $this->Loteiten->find('all',array('recursive' => -1,'conditions' => array('Loteiten.tipo' => 'ENTRADA', 'Loteiten.lote_id' => $lote_id)));	
 				$qtdEntradaLote =0;
 				$loteEstoqueEntrada=0;
 				foreach($loteitensEntradas as $loteitenEntrada){
@@ -84,7 +84,7 @@ class VendasController extends NotasController {
 				}
 				//Buscamos todas as vendas daquele lote
 				
-				$loteitensVendas= $this->Loteiten->find('all',array('conditions' => array('Loteiten.tipo' => 'SAIDA', 'Loteiten.lote_id' => $lote_id)));	
+				$loteitensVendas= $this->Loteiten->find('all',array('recursive' => -1,'conditions' => array('Loteiten.tipo' => 'SAIDA', 'Loteiten.lote_id' => $lote_id)));	
 				$qtdVendaLote =0;
 				$loteEstoqueVenda=0; 
 				foreach($loteitensVendas as $loteitenVenda){
@@ -279,6 +279,7 @@ class VendasController extends NotasController {
 					
 				$this->Venda->create();
 				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
+				$this->request->data['Venda']['tipo'] ="PRE-VENDA";
 				$this->request->data['Venda']['status_financeiro'] ="PENDENTE";
 				$this->request->data['Venda']['status_estoque'] ="PENDENTE";
 				$this->request->data['Venda']['status_faturamento'] ="PENDENTE";
@@ -317,8 +318,8 @@ class VendasController extends NotasController {
 							
 							$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
 							$this->Loteiten->save($updateLoteiten);
-							$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
-							$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+							//$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
+							//$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
 							
 						}
 						$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
