@@ -1,4 +1,33 @@
 $(document).ready(function() {
+	
+/*** AUTO COMPLETE VENDEDOR ***********************************************/	
+	
+	$(function() {
+		$( "#add-vendedor" ).combobox();
+    });
+    
+    $("#bt-preencherCliente").click(function(){
+		$("#msgValidaParceiro").hide();
+		
+		valorVendedor =	$("#add-vendedor option:selected" ).val();
+		valorNome= $("#add-vendedor option:selected" ).attr('id');
+
+		if(!valorVendedor == ""){
+			if(valorVendedor=="add-parceiroCliente"){
+
+			}else{
+				$(".autocompleteCliente input").val('');
+				$(".autocompleteCliente input").removeAttr('required','required');
+				
+				$("#ContasreceberParceirodenegocioId").val(valorForncedor);
+				$("#ContasreceberCpfCnpj").val(valorCpfCnpj);
+				$("#ContasreceberParceiro").val(valorNome);
+			}
+		}
+    });
+	
+	
+	
 	var total=0;
 	var i=0;
 	var total=0;

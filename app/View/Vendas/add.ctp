@@ -84,7 +84,7 @@
 						<?php
 							foreach($allVendedores as $vendedor){
 								echo "<option id='".$vendedor['Vendedor']['nome']."' value='".$vendedor['Vendedor']['id']."' >";
-								echo $allCliente['Cliente']['nome'];
+								echo $vendedor['vendedor']['nome'];
 								echo "</option>";
 							}
 						?>
@@ -120,7 +120,7 @@
 <!--Fieldset total-->
 	<fieldset class="field-total">
 	<!--Fieldset Dados da nota-->
-		<div class="fieldset">
+		<div class="fieldset" id="fieldVendedor">
 			<h2 class="legendEffect"><span class="dadosVale">Dados da Nota</span></h2>
 
 			<section id="ajusteCampoObs" class="coluna-esquerda">
