@@ -775,30 +775,6 @@ class VendasController extends NotasController {
 				}
 				if($verificaLote != "Erro"){
 					if ($this->Venda->saveAll($this->request->data)) {
-<<<<<<< HEAD
-=======
-						
-						
-						$ultimaVenda = $this->Venda->find('first', array('order' => array('Venda.id' => 'desc'), 'recursive' => -1));
-						$this->loadModel('Loteiten');
-						$this->loadModel('Produtoiten');
-						$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaVenda['Venda']['id']), 'recursive' => -1));
->>>>>>> 67caa87534e0a0285bbcc0302a2cfb91e649226d
-						
-						foreach($lotes as $lote){
-							$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaVenda['Venda']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
-							
-							
-							$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
-							$this->Loteiten->save($updateLoteiten);
-							$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
-							$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
-							
-						}
-						$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-						return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
-						
-<<<<<<< HEAD
 						$ultimaVenda = $this->Venda->find('first', array('order' => array('Venda.id' => 'desc'), 'recursive' => -1));
 						$this->loadModel('Loteiten');
 						$this->loadModel('Produtoiten');
@@ -817,8 +793,7 @@ class VendasController extends NotasController {
 						$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
 						return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
 						
-=======
->>>>>>> 67caa87534e0a0285bbcc0302a2cfb91e649226d
+
 					} else {
 						$this->Session->setFlash(__('A Venda não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 						
