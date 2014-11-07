@@ -226,10 +226,10 @@
 							<?php echo $venda['Venda']['id'];?>
 						</td>
 						<td>
-							<?php echo $venda['Venda']['vendedor_id'];?>
+							<?php echo $venda['Venda']['nomevendedor'];?>
 						</td>
 						<td>
-							<?php echo $venda['Venda']['parceiro'];?>
+							<?php echo $venda['Venda']['nomecliente'];?>
 						</td>
 						<td>
 							<?php echo formatDateToView($venda['Venda']['data']);?>

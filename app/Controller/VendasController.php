@@ -328,6 +328,10 @@ class VendasController extends NotasController {
 						}
 			
 						$vendas = $this->Venda->find('all',array('conditions'=> $this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Venda.id', 'Venda.*'), 'order' => 'Venda.data DESC'));
+						
+						
+						
+						
 						$valortotal=0;
 						foreach($vendas as  $venda){
 							$valortotal= $valortotal + $venda['Venda']['valor_total'];
@@ -347,13 +351,34 @@ class VendasController extends NotasController {
 						$cntOperacoes = count($vendas);
 						$vendas = $this->Paginator->paginate('Venda');
 						
-						foreach($vendas as $venda) {
-							
+						
+						$i=0;
+						foreach($vendas as $i => $venda){
 							$this->lifecareDataFuncs->formatDateToView($venda['Venda']['data_inici']);
 							$this->lifecareDataFuncs->formatDateToView($venda['Venda']['data_fim']);
 							$this->lifecareDataFuncs->formatDateToView($venda['Venda']['data_entrega']);
-							$this->lifecareDataFuncs->formatDateToView($venda['Venda']['recebimento']);
+							$this->lifecareDataFuncs->formatDateToView($venda['Venda']['recebimento']);	
+								
+							$cliente = $this->Parceirodenegocio->find('first', array('recursive' => -1,'conditions' => array('Parceirodenegocio.id' => $venda['Venda']['parceirodenegocio_id'])));
+							if(!empty($cliente)){
+								$vendas[$i]['Venda']['nomecliente']= $cliente['Parceirodenegocio']['nome'];
+								
+							}else{
+								$vendas[$i]['Venda']['nomecliente']="";
+							}
 							
+							
+							$this->loadModel('Vendedor');
+							$vendedor = $this->Vendedor->find('first', array('recursive' => -1,'conditions' => array('Vendedor.id' => $venda['Venda']['vendedor_id'])));
+							
+							if(!empty($vendedor)){
+								$vendas[$i]['Venda']['nomevendedor']= $vendedor['Vendedor']['nome'];	
+							}else{
+								
+								$vendas[$i]['Venda']['nomevendedor']= "";
+							}
+							$i++;
+						
 						}
 							
 						$this->set(compact('userid','vendas', 'cntOperacoes'));
