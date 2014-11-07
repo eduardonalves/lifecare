@@ -13,7 +13,7 @@
 
 	$this->start('modais');
 		echo $this->element('quicklink_compras', array('modal'=>'add-quicklink'));
-		echo $this->element('vendedor_add', array('modal'=>'vendedor-add'));
+		
 	$this->end();
 	
 	function formatDateToView(&$data){
