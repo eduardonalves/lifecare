@@ -35,7 +35,7 @@
 	.linha2{ margin-left: 10px;float: left; width: 190px;}
 	/* id */
 	#creditos_header{
-		float: right;
+		float: left;
 		font-size: 13px;
 		min-width: 200px;
 	}
