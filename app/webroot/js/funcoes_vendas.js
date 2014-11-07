@@ -37,8 +37,8 @@ $(document).ready(function() {
 		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 		valorNome= $("#add-cliente option:selected" ).attr('id');
 		valorLimiteCredito = parseFloat($("#add-cliente option:selected").attr('data-limite'));
-		totalLimiteCredito = valorLimiteCredito.toFixed(2);
-
+		totalLimiteCredito = parseFloat(valorLimiteCredito).toFixed(2);
+		
 		if(!valorCliente==""){
 			if(valorCliente=="add-Cliente"){
 				}else{
@@ -48,13 +48,15 @@ $(document).ready(function() {
 					$("#parceiro_id").val(valorCliente);
 					$("#cpfcnpj_parceiro").text(valorCpfCnpj);
 					$("#nome_parceiro").text(valorNome);
-					$("#credito_cliente").text(totalLimiteCredito);
-					$("#credito_cliente").priceFormat({
-						prefix: '',
-						centsSeparator: ',',
-						centsLimit: 2,
-						thousandsSeparator: '.'
-					});
+					$("#valorCreditoClienteAux").val(totalLimiteCredito).priceFormat({
+							prefix: '',
+							centsSeparator: ',',
+							centsLimit: 2,
+							thousandsSeparator: '.',
+						});
+						
+					valorCreditoClienteAux = $("#valorCreditoClienteAux").val();
+					$("#credito_cliente").text(valorCreditoClienteAux);
 				}
 		}
 	});
@@ -625,10 +627,11 @@ $('.inputData').on("keypress",function(event){
 
     var verificarClasseSaidaManual;	
     
+    var acumuladorTotal=0;
     $(".bt-adicionar").bind('click', function(e){
     
 	    
-	acumuladorTotal=0;
+	
 
 		var lotes = '';
 		var table = $('.tabela-lote');
@@ -672,15 +675,18 @@ $('.inputData').on("keypress",function(event){
 	    }
 	    
 	    
-	    resultTotal = vlTotal  + acumuladorTotal;
+	    resultTotal = parseFloat(vlTotal  + acumuladorTotal).toFixed(5);
 	    
+	    $("#VendaValorTotal").val(resultTotal);
 	    
-	    $("#valorTotalVenda").text(resultTotal.toFixed(5)).priceFormat({
+	    $("#valorTotalVendaAux").val(resultTotal).priceFormat({
 			prefix: '',
 			centsSeparator: ',',
 			centsLimit: 5,
-			thousandsSeparator: '',
-	    });;
+			thousandsSeparator: ''
+	    });
+	    
+	    $("#valorTotalVenda").text( $("#valorTotalVendaAux").val() );
 	    
 	    	    
 	    var lote;
