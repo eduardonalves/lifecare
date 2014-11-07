@@ -77,6 +77,8 @@
 			<ul>
 				<li>Crédito do Cliente: &nbsp;R$&nbsp;<span id="credito_cliente"></span></li>
 				<li>Valor Total da Venda: &nbsp;R$&nbsp;<span id="valorTotalVenda"></span></li>
+				<input type="hidden" id="valorCreditoClienteAux">
+				<input type="hidden" id="valorTotalVendaAux">
 			</ul>
 			
 			
