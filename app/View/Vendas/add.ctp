@@ -69,7 +69,7 @@
 </script>
 
 <section>
-	
+	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
 	<section id="creditos_header">
 		<fieldset>
 			<legend>Valores de Crédito</legend>
@@ -86,7 +86,7 @@
 	</section>
 	
 	<header id="titulo-header">Dados do Vendedor</header>
-	<?php echo $this->Form->create('Vendas',array('action'=>'add')); ?>
+	
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
 			

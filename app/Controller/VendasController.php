@@ -743,6 +743,7 @@ class VendasController extends NotasController {
 		$this->loadModel('Dadoscredito');
 		
 		if ($this->request->is('post')) {
+			
 			$clienteId = $this->request->data['Venda']['parceirodenegocio_id'];	
 			$clientesNota = $this->Cliente->find('first', array('recursive' => -1,'conditions' => array('Cliente.id' => $clienteId)));
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
