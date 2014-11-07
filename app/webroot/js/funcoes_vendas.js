@@ -683,12 +683,9 @@ $('.inputData').on("keypress",function(event){
 	    }
 
 		$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td class="whiteSpace"><span>'+nome+'</span></td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td><td><img rel="tooltip" title="'+lotes+'" src="../app/webroot/img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
-		//$('#tabela-principal').append('<tr class="valbtconfimar" ><td>'+codigo+'</td><td class="whiteSpace"><span>'+nome+'</span></td><td>'+unidade+'</td><td class="descricao"><span title="'+descricao+'">'+descricao+'&nbsp;</span></td><td>'+qtde+'</td><td>'+valor_unitario+'</td><td class=total_clonado'+princ_cont+'>'+valor_totalAux+'</td> <td><img rel="tooltip" title="'+lotes+'" src="../app/webroot/img/icon-dash2.png"/></td> <td><img title="Remover" alt="Remover" src="../app/webroot/img/lixeira.png" id=clonado'+princ_cont+' class="btnRemove"/></td></tr>');
-		
 
-		//$("#vale").trigger("change");
+
 		$('.apargarLotes').remove();
-	//	$('.apargarLotes').hide();
 		$('#btn-addLote').hide();
 		$('.ui-widget').removeAttr('readonly','readonly');
 		$('.ui-widget').removeClass('autocompleteDesabilitado');
@@ -702,22 +699,18 @@ $('.inputData').on("keypress",function(event){
 		$('#qtdTotalProduto').val('');
 		$('#ProdutoitenValorUnitario').val('');
 		$('#ProdutoitenValorTotal').val('');
-		$('#ProdutoitenCfop').val('');
-		$('#ProdutoitenValorIcms').val('');
-		$('#ProdutoitenValorIpi').val('');
 		$('#Lote').val('');
 		$('.campo-superior-produto input').val('');
 		$('.selectProduto').val('');
 		$('#ProdutoNome').val('');
-
-	/*	$('#tabela-hiddenLote').append('<tr style="display:none"><td class="val-numero-lote">'+numeroLoteAdd+'</td></tr>'); */
 		
-		//Campos hidden tabela principal
-		$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][produto_id] step="any"  id="ProdutoitenProduto_id'+princ_cont+'produto_id" value="'+produtoId+'" type="hidden"></div> ');
-		$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][qtde] step="any"  id="ProdutoitenQtde'+princ_cont+'qtde" value="'+qtde+'" type="hidden"></div> ');
-		$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_total] step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
-		$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][valor_unitario] step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.split('.').join('').replace(',','.')+'" type="hidden"></div> ');
-		$('fieldset').append('<div class="input number clonadoProduto'+princ_cont+'" style="position:absolute"><input name="data[Produtoiten]['+princ_cont+'][tipo] step="any"  id="ProdutoitenTipo'+princ_cont+'tipo" value="SAIDA" type="hidden"></div> ');
+		$('.lista_hidden_produtos').append('<div class="produto_hidden'+princ_cont+'">\
+			<input name="data[Produtoiten]['+princ_cont+'][produto_id]" step="any"  id="ProdutoitenProduto_id'+princ_cont+'produto_id" value="'+produtoId+'" type="hidden">\
+			<input name="data[Produtoiten]['+princ_cont+'][qtde]" step="any"  id="ProdutoitenQtde'+princ_cont+'qtde" value="'+qtde+'" type="hidden">\
+			<input name="data[Produtoiten]['+princ_cont+'][valor_total]" step="any"  id="ProdutoitenValorTotal'+princ_cont+'valor_total" value="'+valor_totalAux.split('.').join('').replace(',','.')+'" type="hidden">\
+			<input name="data[Produtoiten]['+princ_cont+'][valor_unitario]" step="any"  id="Produtoitenvalor_unitario'+princ_cont+'valor_unitario" value="'+valor_unitario.split('.').join('').replace(',','.')+'" type="hidden">\
+			<input name="data[Produtoiten]['+princ_cont+'][tipo]" step="any"  id="ProdutoitenTipo'+princ_cont+'tipo" value="SAIDA" type="hidden">\
+		</div>');
 		
 		princ_cont++;
 
@@ -745,150 +738,7 @@ $('.inputData').on("keypress",function(event){
 		return true;
 	    }
 	}
-	
-/*********************************Calculo do valor total da nota ***************************/
-    var outrosValores=0;
 
-    function calcValorNota(){
- 
-		outrosAux= $("#SaidaValorOutros").val().split('.').join('').replace(',','.');
-		outros=parseFloat(outrosAux);
-		 if(isNaN(outros)){
-			outros=0;
-		}
-		
-		suguroAux = $("#SaidaValorSeguro").val().split('.').join('').replace(',','.');
-		seguro=parseFloat(suguroAux);
-		if(isNaN(seguro)){
-			seguro=0;
-		}
-		
-		freteAux = $("#SaidaValorFrete").val().split('.').join('').replace(',','.');
-		frete=parseFloat(freteAux);
-		if(isNaN(frete)){
-			frete=0;
-		}
-		
-		produtosAux = $("#SaidaValorTotalProdutos").val().split('.').join('').replace(',','.');
-		produtos=parseFloat(produtosAux);
-		if(isNaN(produtos)){
-			produtos=0;
-		}
-		
-		ipiAux = $("#SaidaValorIpi").val().split('.').join('').replace(',','.');
-		ipi=parseFloat(ipiAux);
-		if(isNaN(ipi)){
-			ipi=0;
-		}
-		
-		icmsAux = $("#SaidaValorIcms").val().split('.').join('').replace(',','.');
-		icms=parseFloat(icmsAux);
-		if(isNaN(icms)){
-			icms=0;
-		}
-		
-		
-		
-		novoTotalNota=	outros+  seguro + frete + produtos;
-		
-		$('#SaidaValorTotal').val(novoTotalNota.toFixed(5)).priceFormat({
-		    prefix: '',
-		    centsSeparator: ',',
-			centsLimit: 5,
-			thousandsSeparator: '',
-		});
-		
-    }
-
-    function somarIcmsIpi(){
-
-	icmsTxt=$("#ProdutoitenValorIcms").val().split('.').join('').replace(',','.');
-	icms=parseFloat(icmsTxt);
-	if(isNaN(icms)){
-		icms=0;
-	}
-	$("#ProdutoitenValorIcms").val(icms);
-	
-	ipiTxt=$("#ProdutoitenValorIpi").val().split('.').join('').replace(',','.');
-	ipi=parseFloat(ipiTxt);
-	if(isNaN(ipi)){
-		ipi=0;
-	}
-	
-	
-	
-	vlIcmsAntigoAux= $("#SaidaValorIcms").val().split('.').join('').replace(',','.');
-	vlIcmsAntigo=parseFloat(vlIcmsAntigoAux);
-	if(isNaN(vlIcmsAntigo)){
-		vlIcmsAntigo=0;
-	}
-	//alert(vlIcmsAntigo);
-	//alert(icms);
-	vlIcmsNovo=vlIcmsAntigo + icms;
-	$("#SaidaValorIcms").val(vlIcmsNovo.toFixed(5)).priceFormat({
-	    prefix: '',
-	    centsSeparator: ',',
-		centsLimit: 5,
-		thousandsSeparator: '',
-	});
-	
-	
-
-	vlIpiAntigoAux= $("#SaidaValorIpi").val().split('.').join('').replace(',','.');
-	vlIpiAntigo=parseFloat(vlIpiAntigoAux);
-	if(isNaN(vlIpiAntigo)){
-		vlIpiAntigo=0;
-	}
-	
-	vlIpiNovo=vlIpiAntigo + ipi;
-	$("#SaidaValorIpi").val(vlIpiNovo.toFixed(5)).priceFormat({
-	    prefix: '',
-	    centsSeparator: ',',
-		centsLimit: 5,
-		thousandsSeparator: '',
-	});
-	
-
-    }
-
-$('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
-
-	intoutros=0;
-	intseguro=0;
-	intfrete=0;
-	inttotalNotaAux=0;
-	outrosValores=0;
-  outros = $('#SaidaValorOutros').val().split('.').join('').replace(',','.');
-  seguro = $('#SaidaValorSeguro').val().split('.').join('').replace(',','.');
-  frete = $('#SaidaValorFrete').val().split('.').join('').replace(',','.');
-  totalNotaAux = $("#SaidaValorTotal").val().split('.').join('').replace(',','.');
-  intoutros= parseFloat(outros);
-  intseguro=parseFloat(seguro);
-  intfrete=parseFloat(frete);
-   inttotalNotaAux=parseFloat(totalNotaAux);
-
-   if(isNaN(intoutros)){
-		intoutros=0;
-	}
-
-	  if(isNaN(intseguro)){
-			intseguro=0;
-		}
-   if(isNaN(intfrete)){
-			intfrete=0;
-		}
-
- if(isNaN(inttotalNotaAux)){
-			inttotalNotaAux=0;
-		}
-
-
-	outrosValores = intoutros + intseguro +intfrete;
-
-	calcValorNota();
-
-
-    });
 
 /************************** Validações Campos de Saidas ********************************/
      $('.autocompleteCliente,ui-autocomplete-input').keydown(function(){
@@ -960,12 +810,13 @@ $('#SaidaValorOutros, #SaidaValorSeguro, #SaidaValorFrete').focusout(function(){
 		acumuladorTotal=0;
 		e.preventDefault();
 
-		id= $(this).attr('id');
+		id = $(this).attr('id');
 		numero= id.substr(7);
-		txtVal=$('.total_clonado'+numero).text().split('.').join('').replace(',','.');
+		
+		txtVal = $('.total_clonado'+numero).text().split('.').join('').replace(',','.');
 
 		//$('div[class*="clonado"]').remove();
-		$('.clonadoProduto'+numero).remove();
+		$('.produto_hidden'+numero).remove();
 		
 		Excluir($(this));
 
