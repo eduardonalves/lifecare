@@ -43,10 +43,10 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('lifecare');
-		//echo $this->Html->css('jquery-ui/jquery-ui.css');
-		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
-		//echo $this->Html->css('jquery-ui/custom-combobox.css');
-		//echo $this->Html->css('saidas.css');
+		echo $this->Html->css('jquery-ui/jquery-ui.css');
+		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		echo $this->Html->css('financeiro_geral.css');
+		echo $this->Html->css('compras_geral.css');
 		echo $this->fetch('css');
 		echo $this->Html->script('jquery_novo.js');
 		echo $this->Html->script('jquery-ui/jquery-ui.js');
@@ -58,6 +58,7 @@
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');
 		echo $this->Html->script('funcoes_globais.js');
+		echo $this->Html->script('funcoes_financeiro.js');
 		echo $this->fetch('script');
 	?>
 
@@ -83,7 +84,7 @@
 					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'><span>Financeiro</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>/?parametro=operacoes'><span>Compras</span></a></li>
-					<li><a href='<?php echo $this->Html->url(array("controller"=>"vendas","action"=>"index"),true);?>'><span>Vendas</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"vendas","action"=>"index"),true);?>/?parametro=pedidos'><span>Vendas</span></a></li>
 
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
@@ -100,7 +101,7 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendas","action"=>"index"),true);?>/?parametro=produtos'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendas","action"=>"index"),true);?>/?parametro=pedidos'>
 						
 						<?php 
 							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));

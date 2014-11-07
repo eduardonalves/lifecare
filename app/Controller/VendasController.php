@@ -140,7 +140,7 @@ class VendasController extends NotasController {
 	}*/
 	
 	public function index() {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		
 		$userid = $this->Session->read('Auth.User.id');
 		if($_GET['parametro'] == 'pedidos'){
