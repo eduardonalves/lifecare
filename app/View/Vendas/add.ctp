@@ -86,6 +86,9 @@
 	</section>
 	
 	<header id="titulo-header">Dados do Vendedor</header>
+
+	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
+
 	
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
@@ -113,6 +116,7 @@
 				</div>
 				
 				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('Venda.valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
 				
 			</section>
 			<section class="coluna-direita"></section>
@@ -134,8 +138,17 @@
 						<option value="add-Cliente">Cadastrar</option>
 
 						<?php
+						
 							foreach($allClientes as $allCliente){
-								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
+								
+								$limiteDisponivel = 0;
+								
+								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+									
+									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
+								}
+								
+								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
 								echo $allCliente['Cliente']['nome'];
 								echo "</option>";
 							}

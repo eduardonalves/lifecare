@@ -748,6 +748,7 @@ class VendasController extends NotasController {
 			$clientesNota = $this->Cliente->find('first', array('recursive' => -1,'conditions' => array('Cliente.id' => $clienteId)));
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
 			if ($limiteCliente >= $this->request->data['Venda']['valor_total']){
+				
 				$this->Venda->create();
 				$this->request->data['Venda']['status_financeiro'] ="OK";
 				$this->request->data['Venda']['status_estoque'] ="SEPARACAO";
@@ -796,6 +797,7 @@ class VendasController extends NotasController {
 						
 
 					} else {
+						
 						$this->Session->setFlash(__('A Venda não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 						
 					}
