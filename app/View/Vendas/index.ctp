@@ -10,9 +10,10 @@
 		
 	$this->end();
 
-<<<<<<< HEAD
+
 	$this->start('modais');
 		echo $this->element('quicklink_compras', array('modal'=>'add-quicklink'));
+		echo $this->element('vendedor_add', array('modal'=>'vendedor-add'));
 	$this->end();
 	
 	function formatDateToView(&$data){
@@ -541,6 +542,3 @@
 <?php //echo $this->element('ComParceiroFornecedor_associa', array('modal'=>'add-associaFornecedor')); ?>
 
 	<div style="clear:both;"></div>
-<?php
-	echo $this->element('vendedor_add');
-?>
