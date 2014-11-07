@@ -31,24 +31,6 @@
 </header>
 
 <section>
-	<section id="creditos_header">
-		<fieldset>	
-			<legend>Valores de Crédito</legend>
-			<ul>
-				<?php
-					if(count($cliente['Dadoscredito']) > 0){
-						$creditoCliente = $cliente['Dadoscredito'][count($cliente['Dadoscredito'])-1]['limite'] - $cliente['Dadoscredito'][count($cliente['Dadoscredito'])-1]['limite_usado']; 
-					}else{
-						$creditoCliente = 0;
-					}
-				?>
-
-				<li>Crédito do Cliente: &nbsp;R$&nbsp;<span><?php echo number_format($creditoCliente,2,',','.'); ?></span></li>
-				<li>Valor Total da Venda: &nbsp;R$&nbsp;<span><?php echo number_format($findVenda['Venda']['valor_total'],2,',','.'); ?></span></li>
-			</ul>			
-		</fieldset>		
-	</section>
-
 <!-- ###################################################################################################################################################################3 -->
 	<section>
 		<header id="titulo-header">Dados do Vendedor</header>
@@ -94,6 +76,25 @@
 <!-- ###################################################################################################################################################################3 -->
 	<section>
 		<header id="titulo-header">Produtos da Venda</header>
+			
+			<section id="creditos_header">
+				<fieldset>	
+					<legend>Valores de Crédito</legend>
+					<ul>
+						<?php
+							if(count($cliente['Dadoscredito']) > 0){
+								$creditoCliente = $cliente['Dadoscredito'][count($cliente['Dadoscredito'])-1]['limite'] - $cliente['Dadoscredito'][count($cliente['Dadoscredito'])-1]['limite_usado']; 
+							}else{
+								$creditoCliente = 0;
+							}
+						?>
+
+						<li>Crédito do Cliente: &nbsp;R$&nbsp;<span><?php echo number_format($creditoCliente,2,',','.'); ?></span></li>
+						<li>Valor Total da Venda: &nbsp;R$&nbsp;<span><?php echo number_format($findVenda['Venda']['valor_total'],2,',','.'); ?></span></li>
+					</ul>			
+				</fieldset>		
+			</section>
+			
 			<table id="tabela-principal" cellpadding="0" cellspacing="0">
 				<thead>					
 					<th><?php echo ('Código'); ?></th>
@@ -119,10 +120,21 @@
 					<?php } ?>	
 						<td>
 					<?php
+						$totalLotes = count($findVenda['Loteiten'])-1;
+						$s = 0;
+						$listalotes = '';
 						foreach($findVenda['Loteiten'] as $loteNome){
-							echo $loteNome['numerolote'];
+							if($s == $totalLotes){
+								$listalotes = $listalotes . $loteNome['numerolote'] .  '. ';
+							}else{
+								$listalotes = $listalotes . $loteNome['numerolote'] .  ', ';
+							}
+						$s++;
 						}
+						
+						echo $this->Html->image('icon-dash2.png', array('class' => '', 'alt' => '', 'title' =>$listalotes ));						
 					?>
+						
 						</td>			
 					</tr>	
 				</tbody>
@@ -130,16 +142,11 @@
 			</table>
 	</section>
 	<footer>
-		<?php
-			echo $this->html->image('voltar.png',array('alt'=>'Voltar','title'=>'Voltar','id'=>'voltar2','class'=>'bt-voltar voltar',));
-			echo $this->html->image('botao-confirmar.png',array('alt'=>'Confirmar','title'=>'Confirmar','id'=>'avancar2','class'=>'bt-confirmar',));
-		?>
+		<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendas","action"=>"index"),true);?>/?parametro=pedidos'>
+			<?php 
+				echo $this->Html->image('voltar.png', array('class' => 'bt-voltar', 'alt' => 'Voltar', 'title' => 'Voltar'));
+			?>
+		</a>			
 	</footer>
 </section>
 
-<div style="clear:both;	"></div>
-<pre>
-<?php
-	print_r($findVenda);
-?>
-</pre>
