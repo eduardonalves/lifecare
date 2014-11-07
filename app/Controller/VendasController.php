@@ -770,7 +770,8 @@ class VendasController extends NotasController {
 				$this->request->data['Venda']['status_financeiro'] ="OK";
 				$this->request->data['Venda']['status_estoque'] ="SEPARACAO";
 				$this->request->data['Venda']['status_faturamento'] ="PENDENTE";
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Venda']['data']);
+				$this->request->data['Venda']['status_geral'] ="PENDENTE";
+				$this->request->data['Venda']['data']= date('Y-m-d');
 				
 				$this->loadModel('Lote');
 				

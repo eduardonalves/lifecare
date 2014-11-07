@@ -207,7 +207,7 @@
 						<th id="prazo_entrega" class="colunaConta prazo_entrega"><?php echo $this->Paginator->sort('status_financeiro', 'Sit. Financeira'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 						<th id="forma_pagamento" class="colunaConta forma_pagamento"><?php echo $this->Paginator->sort('status_estoque', 'Sit. Estoque'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 						<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status_faturamento', 'Sit Faturamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-						<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('status_pedido','Sit. Geral'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+						<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('status_geral','Sit. Geral'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 	
 	
 					</tr>
@@ -238,10 +238,10 @@
 							<?php echo "R$ " . number_format($venda['Venda']['valor_total'], 2, ',', '.'); ?>
 						</td>
 						<td>
-							<?php echo formatDateToView($venda['Venda']['status_estoque']);?>
+							<?php echo formatDateToView($venda['Venda']['status_financeiro']);?>
 						</td>
 						<td>
-							<?php echo formatDateToView($venda['Venda']['status_financeiro']);?>
+							<?php echo formatDateToView($venda['Venda']['status_estoque']);?>
 						</td>
 						<td>
 							<?php echo formatDateToView($venda['Venda']['status_faturamento']);?>
