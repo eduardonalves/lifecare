@@ -913,13 +913,20 @@ class VendasController extends NotasController {
 			$i++;
 		}
 		
+
+		$this->loadModel('Vendedor');
+		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
 		
-		$allClientes = $this->Cliente->find('all', array('recursive' => -1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
+		
+		
 		
 		$this->loadModel('Fabricante');
 		$fabricantes = $this->Fabricante->find('list', array('recursive' => -1,'conditions' => array('Fabricante.tipo' => 'FABRICANTE'),'order' => 'Fabricante.nome ASC'));
 	
-		$this->set(compact('parceirodenegocios','users', 'lotes', 'fornecedores', 'produtos','allProdutos', 'allClientes', 'fabricantes'));
+		$this->set(compact('parceirodenegocios','users', 'lotes', 'fornecedores', 'produtos','allProdutos', 'allClientes', 'fabricantes','allVendedores'));
 	}
 
 

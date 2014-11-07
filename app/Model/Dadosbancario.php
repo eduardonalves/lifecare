@@ -22,6 +22,13 @@ class Dadosbancario extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Cliente' => array(
+			'className' => 'Cliente',
+			'foreignKey' => 'parceirodenegocio_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 }
