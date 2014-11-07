@@ -677,6 +677,8 @@ $('.inputData').on("keypress",function(event){
 	    
 	    resultTotal = parseFloat(vlTotal  + acumuladorTotal).toFixed(5);
 	    
+	    $("#VendaValorTotal").val(resultTotal);
+	    
 	    $("#valorTotalVendaAux").val(resultTotal).priceFormat({
 			prefix: '',
 			centsSeparator: ',',
