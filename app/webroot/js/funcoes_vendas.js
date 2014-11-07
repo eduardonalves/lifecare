@@ -36,6 +36,8 @@ $(document).ready(function() {
 		valorCliente =	$("#add-cliente option:selected" ).val();
 		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 		valorNome= $("#add-cliente option:selected" ).attr('id');
+		valorLimiteCredito = parseFloat($("#add-cliente option:selected").attr('data-limite'));
+		totalLimiteCredito = valorLimiteCredito.toFixed(2);
 
 		if(!valorCliente==""){
 			if(valorCliente=="add-Cliente"){
@@ -46,6 +48,13 @@ $(document).ready(function() {
 					$("#parceiro_id").val(valorCliente);
 					$("#cpfcnpj_parceiro").text(valorCpfCnpj);
 					$("#nome_parceiro").text(valorNome);
+					$("#credito_cliente").text(totalLimiteCredito);
+					$("#credito_cliente").priceFormat({
+						prefix: '',
+						centsSeparator: ',',
+						centsLimit: 2,
+						thousandsSeparator: '.'
+					});
 				}
 		}
 	});
