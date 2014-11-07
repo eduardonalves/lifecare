@@ -28,8 +28,22 @@
 	.linha{ float: left;}
 	.linha2{ margin-left: 10px;float: left; width: 190px;}
 	/* id */
+	#creditos_header{
+		float: right;
+		font-size: 13px;
+		min-width: 200px;
+	}
+	#creditos_header fieldset{
+		padding: 10px;
+	}
 	
-	
+	#creditos_header ul{
+		font-size: 13px;
+		list-style: none;
+		text-align: left;
+		margin: 0;
+		padding: 0;
+	}
 	
 	/* tag */
 
