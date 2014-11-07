@@ -971,6 +971,8 @@ $('.inputData').on("keypress",function(event){
 		var atual_saida = id.substr(7);
 
 		proximo_saida=parseInt(atual_saida);
+		$(".autocompleteVendedor").css('display', 'none');
+		$(".bt_preencher").css('display', 'none');
 		$('.campo-obrigatorio').hide();
 		$( "#SaidaNotaFiscal, #SaidaData" ).removeAttr( "title" );
 		$('.desabilita').attr('readonly', 'readonly');
@@ -1020,6 +1022,9 @@ $('.inputData').on("keypress",function(event){
 		//	alert(nova_saida);
 
 			if(proximo_saida==3){
+				
+				$(".autocompleteVendedor").css('display', 'block');
+				$(".bt_preencher").css('display', 'block');
 
 				$('.desabilita').removeAttr('readonly','readonly');
 				$('.ui-widget').removeAttr('readonly','readonly');
