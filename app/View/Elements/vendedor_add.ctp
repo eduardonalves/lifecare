@@ -77,7 +77,7 @@
 			echo $this->Form->create('Vendedor', array('required'=>false,'url'=>array('controller'=>'Vendedors', 'action'=>'add'), 'class'=>'modal-form')); 
 			echo $this->Form->input('Vendedor.nome',array('type'=>'text', 'class'=>'campo-obrigatorio', 'label'=>'Nome<span class="campo-obrigatorio">*</span>:'));
 			echo "<span id='spanVendedorNome'  class='MsgVendedorNome Msg validaVendedor tooltipMensagemErroDireta' style='display:none'>Preencha o campo Nome</span>";
-			echo $this->Form->input('Vendedor.cpf',array('type'=>'text', 'class'=>'campo-obrigatorio','label'=>'Cpf do Cliente<span class="campo-obrigatorio">*</span>:'));
+			echo $this->Form->input('Vendedor.cpf',array('type'=>'text', 'class'=>'campo-obrigatorio','label'=>'Cpf do Vendedor<span class="campo-obrigatorio">*</span>:'));
 			echo "<span id='spanVendedorCpf'  class='MsgVendedorCpf Msg validaCpf tooltipMensagemErroDireta' style='display:none'>Preencha o campo como o cpf</span>";
 			echo $this->Form->input('Vendedor.ativo',array('type'=>'hidden','value'=>'1'));	
 			

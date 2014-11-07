@@ -222,9 +222,10 @@
 						<td class="actions">
 							
 							<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'Vendas','action' => 'view', $venda['Venda']['id']))); ?>
+							<?php /*
 							<hr style="top:15px; position:relative;" />
 							<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar', 'style'=>'top:3px;', 'url'=>array('controller' => 'Vendas','action' => 'edit', $venda['Venda']['id']))); ?>
-
+							*/ ?>
 						</td>
 						<td>
 							<?php echo $venda['Venda']['id'];?>

@@ -67,12 +67,12 @@ class Vendedor extends AppModel {
                 'rule' => 'alphaNumeric',
                 'required' => true,
                 'message' => 'Campo requerido'
-			),
+			)
 
-        'cpf' => array(
+       /* 'cpf' => array(
                 'rule' => 'alphaNumeric',
                 'required' => true,
                 'message' => 'Campo requerido'
-        )
+        )*/
 	);
 }
