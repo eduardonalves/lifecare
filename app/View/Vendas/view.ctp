@@ -115,17 +115,14 @@
 							<td><?php echo $produtosLis['produto_descricao']; ?></td>
 							<td><?php echo $produtosLis['qtde']; ?></td>
 							<td><?php echo $produtosLis['valor_unitario']; ?></td>
-							<td><?php echo $produtosLis['valor_total']; ?></td>
-									
-						
-										
+							<td><?php echo $produtosLis['valor_total']; ?></td>			
 					<?php } ?>	
 						<td>
-							<?php
-								foreach($findVenda['Loteiten'] as $loteNome){
-									echo $loteNome['numerolote'];
-								}
-							?>
+					<?php
+						foreach($findVenda['Loteiten'] as $loteNome){
+							echo $loteNome['numerolote'];
+						}
+					?>
 						</td>			
 					</tr>	
 				</tbody>
