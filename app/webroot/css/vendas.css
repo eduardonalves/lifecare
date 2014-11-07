@@ -24,6 +24,12 @@
 		margin-left: 5px;
 	}
 	
+	.conteudo-linha-canto2{
+		display: inline-block;
+		font-size: 13px;
+		margin-left: 10px;
+	}
+	
 	
 	.linha{ float: left;}
 	.linha2{ margin-left: 10px;float: left; width: 190px;}

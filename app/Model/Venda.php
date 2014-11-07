@@ -32,6 +32,13 @@ class Venda extends Nota {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Vendedor' => array(
+			'className' => 'Vendedor',
+			'foreignKey' => 'vendedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 		
 	);
