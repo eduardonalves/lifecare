@@ -70,22 +70,7 @@
 
 <section>
 	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
-	<section id="creditos_header">
-		<fieldset>
-			<legend>Valores de Crédito</legend>
-			
-			<ul>
-				<li>Crédito do Cliente: &nbsp;R$&nbsp;<span id="credito_cliente"></span></li>
-				<li>Valor Total da Venda: &nbsp;R$&nbsp;<span id="valorTotalVenda"></span></li>
-				<input type="hidden" id="valorCreditoClienteAux">
-				<input type="hidden" id="valorTotalVendaAux">
-			</ul>
-			
-			
-			
-		</fieldset>
-		
-	</section>
+	
 	
 	<header id="titulo-header">Dados do Vendedor</header>
 
@@ -293,7 +278,22 @@
 	
 	</fieldset>
 <!--Fim Fieldset total-->
-
+	<section id="creditos_header">
+		<fieldset>
+			<legend>Valores de Crédito</legend>
+			
+			<ul>
+				<li>Crédito do Cliente: &nbsp;R$&nbsp;<span id="credito_cliente"></span></li>
+				<li>Valor Total da Venda: &nbsp;R$&nbsp;<span id="valorTotalVenda"></span></li>
+				<input type="hidden" id="valorCreditoClienteAux">
+				<input type="hidden" id="valorTotalVendaAux">
+			</ul>
+			
+			
+			
+		</fieldset>
+		
+	</section>
 	<div class="saidas add">
 		<table id="tabela-principal" cellpadding="0" cellspacing="0">
 			<thead>
