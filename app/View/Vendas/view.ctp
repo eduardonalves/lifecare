@@ -115,8 +115,8 @@
 							<td><?php echo $produtosLis['produto_unidade']; ?></td>
 							<td><?php echo $produtosLis['produto_descricao']; ?></td>
 							<td><?php echo $produtosLis['qtde']; ?></td>
-							<td><?php echo $produtosLis['valor_unitario']; ?></td>
-							<td><?php echo $produtosLis['valor_total']; ?></td>			
+							<td><?php echo 'R$ '. number_format($produtosLis['valor_unitario'],2,',','.'); ?></td>
+							<td><?php echo 'R$ '. number_format($produtosLis['valor_total'],2,',','.'); ?></td>			
 							<td>
 								<?php
 									foreach($findVenda['Loteiten'] as $loteNome){
