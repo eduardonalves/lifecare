@@ -116,7 +116,7 @@ class VendedorsController extends AppController {
 				$ultimmoVendedor= $this->Vendedor->find('first', array('order' => array('Vendedor.id' => 'desc'), 'recursive' =>-1));
 				
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller'=>'Vendas','action' => 'index/?parametro=pedidos'));
 			} else {
 				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}

@@ -6,7 +6,7 @@
 	}
 	
 	$this->start('css');
-	//echo $this->Html->css('modal_vendedor');
+	 echo $this->Html->css('modal_vendedor');
 	$this->end();
 
 	$this->start('script');
@@ -63,7 +63,7 @@
 		echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 	?>
 	
-	 <h1>Cadastrar Vendedor</h1>
+		<h1 class="menuOption53" >Cadastrar Vendedor</h1>
 	
 </header>
 
