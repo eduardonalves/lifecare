@@ -1,4 +1,5 @@
-<?php
+<?php echo $this->element('vendedor_add');
+ /*
 	$this->start('css');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
@@ -133,3 +134,4 @@
 		echo $this->Form->end();
 	?>
 </footer>
+*/ ?>

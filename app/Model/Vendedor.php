@@ -48,4 +48,18 @@ class Vendedor extends AppModel {
 		),
 	);
 
+	public $validate = array(
+        
+            'nome' => array(
+                'rule' => 'alphaNumeric',
+                'required' => true,
+                'message' => 'Campo requerido'
+			),
+
+        'cpf' => array(
+                'rule' => 'alphaNumeric',
+                'required' => true,
+                'message' => 'Campo requerido'
+        )
+	);
 }

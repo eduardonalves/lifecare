@@ -5,7 +5,3 @@
 	<h1 class="menuOption51" >Consultar</h1>
 
 </header>
-
-<?php
-echo $this->element('vendedor_add');
-?>

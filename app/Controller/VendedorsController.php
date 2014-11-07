@@ -108,24 +108,12 @@ class VendedorsController extends AppController {
 	
 
 	public function add() {
-		$this->layout = 'vendedors';
+		$this->layout = 'venda';
 		if ($this->request->is('post')) {
 			$this->Vendedor->create();
 			if ($this->Vendedor->saveAll($this->request->data)) {
 			
 				$ultimmoVendedor= $this->Vendedor->find('first', array('order' => array('Vendedor.id' => 'desc'), 'recursive' =>-1));
-				
-				$saveConfLote= array('numero_lote' => 1, 'data_validade' => 1, 'vendedor_id' => $ultimmoVendedor['Vendedor']['id']);
-				$this->Vendedor->Configlote->save($saveConfLote);
-				
-				$saveConfignota= array('data' => 1, 'tipo' => 1, 'nota_fiscal' =>1, 'vendedor_id' => $ultimmoVendedor['Vendedor']['id']);
-				$this->Vendedor->Confignota->save($saveConfignota);
-				
-				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'vendedor_id' => $ultimmoVendedor['Vendedor']['id']);
-				$this->Vendedor->Configproduto->save($saveConfigproduto);
-				
-				$saveConfigproduto= array('nome' => 1, 'codigo' => 1, 'vendedor_id' => $ultimmoVendedor['Vendedor']['id']);
-				$this->Vendedor->Configproduto->save($saveConfigproduto);
 				
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
