@@ -10,6 +10,7 @@
 		
 	$this->end();
 
+<<<<<<< HEAD
 	$this->start('modais');
 		echo $this->element('quicklink_compras', array('modal'=>'add-quicklink'));
 	$this->end();
@@ -34,6 +35,7 @@
 
 		<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
 		<h1 class="menuOption51" >Consultar</h1>
+		
 	</header>
 
 	<section> <!---section superior--->
@@ -539,3 +541,6 @@
 <?php //echo $this->element('ComParceiroFornecedor_associa', array('modal'=>'add-associaFornecedor')); ?>
 
 	<div style="clear:both;"></div>
+<?php
+	echo $this->element('vendedor_add');
+?>
