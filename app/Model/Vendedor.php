@@ -46,6 +46,19 @@ class Vendedor extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Venda' => array(
+			'className' => 'Venda',
+			'foreignKey' => 'vendedor_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
 	);
 
 	public $validate = array(

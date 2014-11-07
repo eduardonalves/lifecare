@@ -716,18 +716,35 @@ class VendasController extends NotasController {
 		
 		$this->loadModel('Produtoiten');
 		$this->loadModel('Loteiten');
+		$this->loadModel('Lote');
+		$this->loadModel('Produto');
+			
 		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
-		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+				
 		
-		$findVenda= $this->Venda->find('first', array('conditions' => array('Venda.id' => $id)));
+		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+		$findVenda= $this->Venda->find('first', array('conditions' => array('Venda.id' => $id),'recursive'=>1));
+		
+		$i = 0;
+		foreach($findVenda['Loteiten'] as $i => $lotesProduto){
+			$lote_id = $this->Lote->find('first',array('conditions'=>array('Lote.id'=>$lotesProduto['lote_id'])));
+			$findVenda['Loteiten'][$i]['numerolote'] = $lote_id['Lote']['numero_lote']; 
+		$i++;
+		}
+		
+		$j = 0;
+		foreach($findVenda['Produtoiten'] as $j => $produtoIten){
+			$produto = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$produtoIten['produto_id'])));
+			$findVenda['Produtoiten'][$j]['produto_nome'] = $produto['Produto']['nome']; 
+			$findVenda['Produtoiten'][$j]['produto_unidade'] = $produto['Produto']['unidade']; 
+			$findVenda['Produtoiten'][$j]['produto_descricao'] = $produto['Produto']['descricao']; 
+		$j++;
+		}
+	
 		$this->loadModel('Cliente');
 		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findVenda['Venda']['parceirodenegocio_id'])));
 		
-		
-		$this->set(compact('findvenda','cliente','itens', 'loteitens'));
-		
-		
-		
+		$this->set(compact('findVenda','cliente','itens', 'loteitens'));		
 
 	}
 

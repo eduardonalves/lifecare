@@ -11,7 +11,7 @@
 	$this->start('modais');
 		echo $this->element('quicklink_addfinanceiro', array('modal'=>'add-quicklink'));
 	$this->end();
-	
+
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){
@@ -28,18 +28,18 @@
 $(document).ready(function() {
 	var usoInicioPhp = '<?php ?>' ;
 	var usoGet = '$_GET["ql"]';
-	
+
 	$('.quitar').click(function(){
 		modal=$(this).attr('id');
 		$('#modal-'+modal).modal('show');
 	});
-	
+
 	$('.bt-quitar').click(function(e){
-		
+
 		var idcheck=  $(this).attr('id');
 		var expReg01 = /\D+/gi;
 		var numero= idcheck.replace(expReg01,'');
-		
+
 		if($("#ContaDataPagamento"+numero).val() == ''){
 		$("#spanQuitarData"+numero).show();
 		}else{
@@ -49,13 +49,13 @@ $(document).ready(function() {
 			$('#quitar'+numero).submit();
 		}
 		});
-		
+
 	$('.bt-quitar').click(function(e){
-			
+
 			var idcheck=  $(this).attr('id');
 			var expReg01 = /\D+/gi;
 			var numero= idcheck.replace(expReg01,'');
-			
+
 			if($("#ContaDataPagamento"+numero).val() == ''){
 				$("#spanQuitarData"+numero).show();
 			}else{
@@ -65,7 +65,7 @@ $(document).ready(function() {
 				$('#quitar'+numero).submit();
 			}
 		});
-	
+
     });
 </script>
 
@@ -78,7 +78,7 @@ $(document).ready(function() {
 	    setTimeout(function(){
 		    location.reload();
 	    }, 2000);
-    });	
+    });
 </script>
 
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 <header> <!---header--->
 	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 
-	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->	
+	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
 	<h1 class="menuOption31">Consultas</h1>
 </header> <!---Fim header--->
 
@@ -98,7 +98,7 @@ $(document).ready(function() {
 	<header>Consulta por Movimentação e/ou Parceiro de Negócios</header>
 
 	<fieldset class="filtros">
-		
+
 		<?php
 		    $ql= $_GET['ql'];
 		    if($ql ==''){
@@ -120,13 +120,13 @@ $(document).ready(function() {
 				echo $this->Form->postLink($this->Html->image('botao-excluir2.png',array('id'=>'quick-editar','alt' =>__('Delete'),'title' => __('Delete'))), array('controller' => 'quicklinks','action' => 'delete',  $_GET['ql']),array('escape' => false, 'confirm' => __('Deseja excluir?')));
 			}
 		?>
-		
+
 		<div class="content-filtros">
 
 			<!------------------ Dados da Movimentação ------------------>
 			<section id="filtro-movimentacao" class="coluna-esquerda">
 				<span id="titulo">Dados da Movimentação</span>
-	
+
 				<?php
 					echo $this->Search->create();
 					echo "<div class='tipoMovimentacao'>";
@@ -139,10 +139,10 @@ $(document).ready(function() {
 					//FAZER O JAVASCRIPT PARA RECEBER O TIPO DE MOVIMENTAÇÃO SEMELHANTE AO DE SELEÇÃO DE ENTRADA E SAIDA(CONSULTA ESTOQUE)
 					echo $this->Search->input('tipoMovimentacao', array('type' => 'hidden'));
 					echo "</div>";
-					
+
 					echo $this->Search->input('identificacao', array('label' => 'Ident. Documento:','class'=>'tamanho-medio input-alinhamento'));
 				?>
-				
+
 				<div class="inputSearchData divMarginLeft">
 					<?php
 						echo $this->Search->input('data_emissao', array('label' => 'Emissão:','class'=>'', 'type' => 'text'));
@@ -156,62 +156,62 @@ $(document).ready(function() {
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
-				
+
 				<div class="divMarginLeft" >
 					<?php
 						echo $this->Search->input('status_conta', array('label' => 'Status:','class'=>''));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
-				
+
 				<div class="divMarginLeft" >
 					<?php
 						echo $this->Search->input('nomeCentroCusto', array('label' => 'Centro de Custo:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
-				
+
 				<div class="divMarginLeft" >
 					<?php
 						echo $this->Search->input('nomeTipodeconta', array('label' => 'Receita/Despesa:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
-				
+
 				<div class="divMarginLeft" >
 					<?php
 						echo $this->Search->input('descricao', array('label' => 'Obs:','class'=>'tamanho-medio input-alinhamento'));
 						//echo $this->html->tag('span','a',array('class'=>'a-data'));
 					?>
 				</div>
-				
+
 				<?php
 					echo $this->Html->image('expandir.png', array('id'=>'bt-expandir', 'alt'=>'', 'title'=>''));
 				?>
 			</section>
-			
-			
+
+
 			<!------------------ FILTRO Das Parcelas ------------------>
 			<section id="filtro-parceiro" class="coluna-central">
-				
+
 				<?php 
 					echo $this->Form->input('', array('label' => 'Dados das Parcelas','type'=>'checkbox', 'id' => 'checkparcela' , 'value' => 'parcelas'));
 					?>
-				
+
 				<div class="formaPagamento">
 					<?php
 						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
 					?>
-				</div>	
+				</div>
 				<div class="inputSearchValor">
 					<?php
 						echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'tamanho-medio dinheiro_duasCasas'));
 					?>
 				</div>
-				
+
 				<div class="inputSearchData">
-					<?php	
-						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));									
+					<?php
+						echo $this->Search->input('data_vencimento', array('type'=>'text','label' => 'Vencimento:','class'=>''));
 					?>
 				</div>
 				<div class="inputSearchDuplicata" style="margin-top: 55px">
@@ -227,9 +227,9 @@ $(document).ready(function() {
 				<div class="boxParceiro">
 					<span>Dados do Parceiro de Negócio</span>
 				</div>
-			
+
 				<div class="informacoesParceiro">
-					
+
 				<?php
 					echo $this->Search->input('nome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 					echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
@@ -238,18 +238,18 @@ $(document).ready(function() {
 				</div>
 				<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 			</section>
-			
-			
+
+
 			<footer>
 				<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); ?>
-			</footer>	
+			</footer>
 
 		</div>
-			
+
 		<?php echo $this->Form->end(); ?>
 
-	</fieldset>	
-	
+	</fieldset>
+
 </section>
 
 <!------------------ CONSULTA ------------------>
@@ -271,45 +271,45 @@ $(document).ready(function() {
 					    foreach($configCont as $campo=>$campoLabel)
 					    {
 						if($campo=='parcelas'){
-						
+
 						}else if($campo == 'nome_parceiro' ){
-							
+
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-							
+
 						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-			
+
 						}else{
 							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 						}
 					     
 					    }
-			
+
 					?>
 				</tr>
-			
+
 				<?php
 				$j=0;
-				
+
 				foreach ($contas as $conta): ?>
-			
+
 			    <tr>
 					<td class="actions">
 					    <?php 
 							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $conta['Conta']['id'])));
-							
+
 							echo "<hr />";
-							
+
 							echo "<a href='myModal_add-view_parcelas".$j."' class='bt-showmodal'>"; 
 							echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Parcelas','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Parcelas'));
 							echo "</a>";
-						
+
 							echo "<hr />";
-						
+
 							echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
 							'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$conta['Conta']['parceirodenegocio_id'])));
 						?>
-						
+
 						<div class="modal fade" id="myModal_add-view_parcelas<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-body">
 						<?php
@@ -318,13 +318,13 @@ $(document).ready(function() {
 							<header id="cabecalho">
 							<?php 
 								echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-							?>	
+							?>
 								<h1>Visualização das Parcelas</h1>
 							</header>
-			
+
 							<section>
 							<header>Parcelas</header>
-			
+
 							<section class="coluna-modal">
 								<table>
 								<thead>
@@ -343,56 +343,56 @@ $(document).ready(function() {
 									<th>Status</th>
 								    </tr>
 								</thead>
-								
+
 								<?php
-								
+
 									foreach($conta['Parcela'] as $parcela){
 									echo "<tr><td>";
-										echo $parcela['identificacao_documento'];															
-									echo "</td>";	
-									
+										echo $parcela['identificacao_documento'];
+									echo "</td>";
+
 									echo "<td>";
 										formatDateToView($parcela['data_vencimento']);
-										echo $parcela['data_vencimento'];															
+										echo $parcela['data_vencimento'];
 									echo "</td>";
-									
+
 									echo "<td>";
 										formatDateToView($parcela['data_pagamento']);
-										echo $parcela['data_pagamento'];															
+										echo $parcela['data_pagamento'];
 									echo "</td>";
-									
+
 									echo "<td>";
-										echo $parcela['periodocritico'];															
+										echo $parcela['periodocritico'];
 									echo "</td>";
-									
+
 									echo "<td class='whiteSpace'>R$ ";
-										echo number_format($parcela['valor'], 2, ',', '.');  															
+										echo number_format($parcela['valor'], 2, ',', '.');  
 									echo "</td>";
-									
+
 									echo "<td class='whiteSpace'R$ ";
-										echo number_format($parcela['juros'], 2, ',', '.');  															
+										echo number_format($parcela['juros'], 2, ',', '.');  
 									echo "</td>";
-									
+
 									echo "<td class='whiteSpace'>R$";
 										echo number_format($parcela['desconto'], 2, ',', '.');
 									echo "</td>";
-									
+
 									echo "<td>";
 										echo $parcela['parcela'];
 									echo "</td>";
-									
+
 									echo "<td>";
 										echo $parcela['banco'];
 									echo "</td>";
-								
+
 									echo "<td>";
 										echo $parcela['agencia'];
 									echo "</td>";
-									
+
 									echo "<td>";
 										echo $parcela['conta'];
 									echo "</td>";
-									
+
 									echo "<td>";
 										echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
 									echo "</td>";
@@ -404,13 +404,13 @@ $(document).ready(function() {
 								</table>
 							</section>
 							</section>
-						</div>	
+						</div>
 						</div>
 					</td>
 					    
 					<?php 
-												
-				    foreach($configCont as $campo=>$campoLabel){							
+
+				    foreach($configCont as $campo=>$campoLabel){
 						if($campo=="status"){
 						    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($conta['Conta']['status']) . '-12x12.png', array('alt' => $conta['Conta']['status'], 'title' => $conta['Conta']['status'])) . "&nbsp;</td>";
 						    //Monter uma tabela dentro de um modal
@@ -419,7 +419,7 @@ $(document).ready(function() {
 						    //Monter uma tabela dentro de um modal
 						}else if($campo=="nome_parceiro"){
 						   echo "<td class=\"$campo whiteSpace\"><span title=\"" . $conta['Conta'][$campo] . "\">" . $conta['Conta'][$campo] . "&nbsp;</span></td>";
-						
+
 						}else if($campo=="valor"){
 							echo "<td class=\"$campo\">R$ " . number_format($conta['Conta'][$campo], 2, ',', '.') . "&nbsp;</td>";
 						}else if($campo=="forma_pagamento"){
@@ -435,34 +435,34 @@ $(document).ready(function() {
 							echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 						}
 							$j=$j+1;
-					}						
+					}
 					?>
-			</tr>			
+			</tr>
 				<?php endforeach; ?>
 		<? } ?>
 
 <?php
     }
 	//fim de Consulta de contas
-?>	
+?>
 <?php 
 //Inicio da checagem das colunas de parcelas
 	$j = 0;
 	if(isset($_GET['parametro']) && $_GET['parametro']=='parcelas'){
-		
+
     		if(isset($configparcela)){ ?>
 				<tr>
 				    <th class="colunaConta">Ações</th>
 					<?php 
-						
+
 						foreach($configCont as $campo=>$campoLabel){
 							if($campo == 'nome_parceiro'){
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-				
+
 							}
 						     
 					    }
-						
+
 					    foreach($configparc as $campo => $campoLabel){
 							if($campo=='parcelas'){
 								 //echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\"  style='background-color:#FFFAE7'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
@@ -471,7 +471,7 @@ $(document).ready(function() {
 							}else if($campo == 'nome_parceiro' ){
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else if($campo == 'parceirodenegocio_id' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
-								
+
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 							}else{
 								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
@@ -479,45 +479,45 @@ $(document).ready(function() {
 						}
 					?>
 				</tr>
-			
+
 	<?php }
 		$j=0;
 		foreach ($parcelas as $parcela): 
-		
+
 	?>
 	<tr>
 		<td class="actions">
 		    <?php 
 				echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Conta','title'=>'Visualizar Conta','url'=>array('controller' => 'contas','action' => 'view', $parcela['Conta'][0]['id'])));
-				
+
 				echo "<hr />";
-				
+
 				echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Parceiro de Negócio','title'=>'Visualizar Parceiro de Negócio',
 				'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$parcela['Conta'][0]['parceirodenegocio_id'])));
-				
+
 				echo "<hr />";
-				
+
 				echo $this->Html->image('botao-quitar2.png',array('id'=>'quitar'.$j.'', 'class' => 'quitar','alt' =>__('Quitar parcela'),'title' => __('Quitar parcela')));
 			?>
-			
+
 		</td>
 		<?php
-		
-			foreach($configCont as $campo=>$campoLabel){							
+
+			foreach($configCont as $campo=>$campoLabel){
 					if($campo=="nome_parceiro"){
 						   echo "<td class=\"$campo whiteSpace\">" . $parcela['Parcela']['nome_parceiro'] . "&nbsp;</td>"; 
-						}							
+						}
 			}
-		
+
 		    foreach($configparc as $campo=>$campoLabel){
 		    	if($campo=="status"){
 				    echo "<td class='status'>" . $this->Html->image('semaforo-' . strtolower($parcela['Parcela']['status']) . '-12x12.png', array('alt' => $parcela['Parcela']['status'], 'title' => $parcela['Parcela']['status'])) . "&nbsp;</td>";
 				    //Monter uma tabela dentro de um modal
 				}else if($campo=="obs"){
-					
-						
+
+
 						echo "<td class=\"$campo\">" . $parcela['Conta'][0]['descricao'] . "&nbsp;</td>";
-					
+
 				}else if($campo=="valor"){
 					echo "<td class=\"$campo whiteSpace\">R$ " . number_format($parcela['Parcela'][$campo], 2, ',', '.') . "&nbsp;</td>";
 				}else if($campo=="juros"){
@@ -530,30 +530,30 @@ $(document).ready(function() {
 					}
 				}else{
 					echo "<td class=\"$campo\">" . $parcela['Parcela'][$campo] . "&nbsp;</td>";
-				}		    	
-				
-				
+				}		    
+
+
 			}
-			
+
 		?>
 	</tr>
-	
+
 		<div id="<?php echo "modal-quitar".$j; ?>" class="modal modalQuitar" style="display: none;">
 					<header id="cabecalho">
-						
+
 						<?php echo $this->Html->image('cadastrar-titulo.png', array('id' => 'cadastrar', 'alt' => 'Quitar', 'title' => 'Quitar')); ?>
-						
+
 						<h1>Quitar parcela</h1>
 					</header>
-					
-					<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>	
+
+					<?php echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;')); ?>
 
 					<section><header>Data do Pagamento</header></section>
-					
-					<section>	
+
+					<section>
 						<section class="coluna-central">
-							<div>	
-								
+							<div>
+
 								<?php
 									echo $this->Form->create('Conta', array('id' => 'quitar'.$j.'','class' => 'bt-salvar-quitar'.$j.'', 'action' => 'quitarParcela/'. $parcela['Parcela']['id'].''));
 									echo "<div class=\"ui-widget\">";
@@ -563,37 +563,37 @@ $(document).ready(function() {
 									echo "<span id='spanQuitarDataInvalida".$j."' class='Msg Msg-tooltipDireita' style='display:none'>Data de pagamento não pode ser menor que Data de Emissão</span>";
 									echo "<div style='clear:both;'></div>";
 									echo $this->Form->input('Parcela.descricao',array('label' => 'Observação:','class'=>'tamanho-grande','type' => 'textarea','value' => $parcela['Parcela']['descricao'], 'style'=>'display: inline'));
-									
+
 									echo $this->Form->input('Parcela.juros',array('label' => 'Juros:','class'=>'tamanho-grande dinheiro_duasCasas','type' => 'text','value' => $parcela['Parcela']['juros'], 'style'=>'display: inline'));
-									
+
 									echo $this->Form->input('parcela_id',array('value' => $parcela['Parcela']['id'], 'type' => 'hidden'));
 								?>
-								
-								
+
+
 							</div>
 						</section>
 					</section>
-					
+
 					<footer>
-						
+
 						<?php
 							echo $this->Html->image('botao-salvar.png',array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Quitar', 'title' => 'Quitar'));
 							//echo $this->form->submit('botao-salvar.png' ,  array('id'=>'bt-salvar-quitar'.$j.'','class' => 'bt-salvar bt-quitar', 'alt' => 'Salvar', 'title' => 'Salvar')); 
 							echo $this->form->end();
 						?>
-						
+
 					</footer>
 		</div>
-	
+
 	<?php
 	$j = $j + 1;
 	endforeach;
 	?>
-	
+
 <?php
     }
 	//fim de Consulta de parcelas
-?>	
+?>
 	    </table>
 		<?php echo $this->element('paginador_inferior');?>
 	    </div>
@@ -606,7 +606,7 @@ $(document).ready(function() {
 		nome = $(this).attr('href');
 		$('#'+nome).modal('show');
 			    
-	    });	
-		
+	    });
+
 	});
 </script>
