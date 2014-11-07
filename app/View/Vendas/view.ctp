@@ -117,25 +117,19 @@
 							<td><?php echo $produtosLis['qtde']; ?></td>
 							<td><?php echo $produtosLis['valor_unitario']; ?></td>
 							<td><?php echo $produtosLis['valor_total']; ?></td>			
+							<td>
+								<?php
+									foreach($findVenda['Loteiten'] as $loteNome){
+										if($produtosLis['produto_id'] == $loteNome['produto_id']){
+											echo $loteNome['numerolote'] . "<br/>";
+										}
+									}
+								
+								?>		
+							</td>
 					<?php } ?>	
-						<td>
-					<?php
-						$totalLotes = count($findVenda['Loteiten'])-1;
-						$s = 0;
-						$listalotes = '';
-						foreach($findVenda['Loteiten'] as $loteNome){
-							if($s == $totalLotes){
-								$listalotes = $listalotes . $loteNome['numerolote'] .  '. ';
-							}else{
-								$listalotes = $listalotes . $loteNome['numerolote'] .  ', ';
-							}
-						$s++;
-						}
-						
-						echo $this->Html->image('icon-dash2.png', array('class' => '', 'alt' => '', 'title' =>$listalotes ));						
-					?>
-						
-						</td>			
+									
+									
 					</tr>	
 				</tbody>
 				
