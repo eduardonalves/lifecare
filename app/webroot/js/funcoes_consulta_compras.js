@@ -28,6 +28,7 @@ $(document).ready(function(){
 			$('.some').css('display','initial');
 			
 			$('#bt-expandirOperacao').css('top','260px');
+			$('.btVenda').css('top','175px');
 			
 			$('#bt-expandirOperacao').css('transform','rotate(180deg)');
 			$('#bt-expandirOperacao').css('-ms-transform','rotate(180deg)');
