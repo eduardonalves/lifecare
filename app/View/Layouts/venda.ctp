@@ -121,7 +121,17 @@
 						<span class="label">Cadastrar Venda</span>
 					</a>
 				</li>
+				
+				<li class="item" style="line-height: 15px">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendedors","action"=>"add"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+						?>
 
+						<span class="label">Cadastrar Vendedor</span>
+					</a>
+				</li>
 			
 			</ul>
 		</nav><!-- nav-lateral -->
