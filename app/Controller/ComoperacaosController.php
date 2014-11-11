@@ -75,7 +75,7 @@ class ComoperacaosController extends AppController {
 		
 		//$this->set('comoperacaos', $comoperacaos);
 
-//Converte datas para formato do BD
+	//Converte datas para formato do BD
 	if(isset($this->request->data['filter'])){
 		foreach($this->request->data['filter'] as $key=>$value){
 			if(isset($this->request->data['filter']['data_inici'])){
@@ -249,6 +249,533 @@ class ComoperacaosController extends AppController {
 						$this->request->data['filter']['data_inici']=$dataIncio;
 						$this->request->data['filter']['data_inici-between']=$dataTermino;
 						$this->request->data['filter']['tipoOperacao']="PEDIDO COTACAO";
+					}
+		
+					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));
+					
+					$this->Paginator->settings = array(
+						'Comoperacao' => array(
+							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
+							'fields_toCount' => 'DISTINCT Comoperacao.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Comoperacao.data_inici DESC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					
+					$cntOperacoes = count($comoperacaos);
+					$comoperacaos = $this->Paginator->paginate('Comoperacao');
+					
+					foreach($comoperacaos as $comoperacao) {
+						
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_inici']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_fim']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['data_entrega']);
+						$this->lifecareDataFuncs->formatDateToView($comoperacao['Comoperacao']['recebimento']);
+						
+						}
+						
+					$this->set(compact('userid','comoperacaos', 'cntOperacoes'));
+					
+			
+				}else if($_GET['parametro'] == 'produtos'){
+					$this->Filter->addFilters(
+						array(
+							
+							//Filtros OPERAÇÃO
+							
+							'tipoOperacao' => array(
+				                '_Comoperacao.tipo' => array(
+				                    'operator' => 'LIKE',
+			                         'explode' => array(
+				                    	'concatenate' => 'OR'
+				               		 )
+								)
+				            ),
+				            'data_inici' => array(
+					            '_Comoperacao.data_inici' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+				            'data_fim' => array(
+					            '_Comoperacao.data_fim' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+					        'valor' => array(
+					            '_Comoperacao.valor' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+							'ide' => array(
+								'_Comoperacao.id' => array(
+									'operator' => 'LIKE',
+								)
+							),
+					         'data_entrega' => array(
+					            '_Comoperacao.data_entrega' => array(
+					                'operator' => 'BETWEEN',
+					                'between' => array(
+					                    'text' => __(' e ', true)
+					                )
+					            )
+					        ),
+							'recebimento' => array(
+								'Comoperacao.recebimento' => array(
+									'operator' => 'BETWEEN',
+									'between' => array(
+										'text' => __(' e ', true)
+									)
+								)
+							),
+				            'status_operacao' => array(
+				                '_Comoperacao.status' => array(
+				                    'operator' => 'LIKE',
+				               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO')
+								)
+				            ),
+				            'forma_pagamento' => array(
+				                '_Comoperacao.forma_pagamento' => array(
+				                    'operator' => 'LIKE',
+				                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+								)
+				            ),
+				            //Filtros FORNECEDOR
+				            
+				            'nomeParceiro' => array(
+				                '_Parceirodenegocio.nome' => array(
+				                    'operator' => 'LIKE',
+				                    'select' => array(''=> '', $listaParceiros)
+				                )
+				            ),
+				            'statusParceiro' => array(
+				                '_Parceirodenegocio.status' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+				                )
+				            ),
+				            
+				            //Filtros PRODUTOS
+				            
+				            'produtoNome' => array(
+				                'Produto.nome' => array(
+				                    'operator' => 'LIKE',
+				                    'select' => array(''=> '', $listaProdutos)
+			
+				                )
+				            ),
+				            'produtoNivel' => array(
+				                'Produto.nivel' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+				                )
+				            ),
+				            'codProd' => array(
+				                'Produto.id' => array(
+				                    'operator' => '='
+			
+				                )
+				            ),
+				            'produtoCategoria' => array(
+				                '_Categoria.nome' => array(
+				                    'operator' => 'LIKE',
+									'select' => array(''=>'', $listaCategorias)
+				                )
+				            ),
+				            
+				            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
+				           'produtoRespNome' => array(
+								'Produto.nome' => array(
+									'operator' => '='
+								)
+				           ),
+				        )
+					);
+			
+					$this->loadModel('Produto');
+					$this->loadModel('Parceirodenegocio');
+					$parceiroSelect = $this->Parceirodenegocio->find('all',array('conditions'=>array('Parceirodenegocio.tipo'=>'FORNECEDOR'),'recursive'=>-1));
+					
+					$produtos = $this->Produto->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Produto.id', 'Produto.*'), 'order' => 'Produto.nome ASC'));
+					$this->Paginator->settings = array(
+						'Produto' => array(
+							'fields' => array('DISTINCT Produto.id', 'Produto.*'),
+							'fields_toCount' => 'DISTINCT Produto.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Produto.nome ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+					
+					$cntProdutos = count($produtos);
+					$produtos = $this->Paginator->paginate('Produto');
+						
+					$this->set(compact('produtos', 'cntProdutos','parceiroSelect'));
+						
+				
+				}elseif($_GET['parametro'] == 'fornecedores'){
+					$this->Filter->addFilters(
+					array(
+						
+						//Filtros OPERAÇÃO
+						
+						'tipoOperacao' => array(
+			                '_Comoperacao.tipo' => array(
+			                    'operator' => 'LIKE',
+		                         'explode' => array(
+			                    	'concatenate' => 'OR'
+			               		 )
+							)
+			            ),
+			            'data_inici' => array(
+				            '_Comoperacao.data_inici' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+			            'data_fim' => array(
+				            '_Comoperacao.data_fim' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+				        'data_entrega' => array(
+				            '_Comoperacao.data_entrega' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+						'recebimento' => array(
+							'Comoperacao.recebimento' => array(
+								'operator' => 'BETWEEN',
+								'between' => array(
+									'text' => __(' e ', true)
+								)
+							)
+						),
+				        'valor' => array(
+				            '_Comoperacao.valor' => array(
+				                'operator' => 'BETWEEN',
+				                'between' => array(
+				                    'text' => __(' e ', true)
+				                )
+				            )
+				        ),
+				        'ide' => array(
+								'_Comoperacao.id' => array(
+									'operator' => 'LIKE',
+								)
+							),
+			            'status_operacao' => array(
+			                '_Comoperacao.status' => array(
+			                    'operator' => 'LIKE',
+			               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+							)
+			            ),
+			            'forma_pagamento' => array(
+			                '_Comoperacao.forma_pagamento' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+							)
+			            ),
+			            //Filtros FORNECEDOR
+			            
+			            'nomeParceiro' => array(
+			                'Parceirodenegocio.nome' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array(''=> '', $listaParceiros)
+			                )
+			            ),
+			            'statusParceiro' => array(
+			                'Parceirodenegocio.status' => array(
+			                    'operator' => 'LIKE',
+								'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+			                )
+			            ),
+			            
+			            //Filtros PRODUTOS
+			            
+			            'produtoNome' => array(
+			                '_Produto.nome' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array(''=> '', $listaProdutos)
+			                )
+			            ),
+			            'produtoNivel' => array(
+			                '_Produto.nivel' => array(
+			                    'operator' => 'LIKE',
+								'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+			                )
+			            ),
+			            'codProd' => array(
+			                '_Produto.id' => array(
+			                    'operator' => '='
+		
+			                )
+			            ),
+			            
+			            
+				            //RESPOSTAS E PRODUTOS (PRODUTOS QUE TENHAM SIDO RESPONDIDO)
+				           'produtoRespNome' => array(
+								'_Produto.nome' => array(
+									'operator' => '='
+								)
+				           ),
+				        )
+					);
+					
+					$this->loadModel('Parceirodenegocio');
+					
+					
+					$parceirodenegocios = $this->Parceirodenegocio->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*'), 'order' => 'Parceirodenegocio.nome ASC'));
+					$this->Paginator->settings = array(
+						'Parceirodenegocio' => array(
+							'fields' => array('DISTINCT Parceirodenegocio.id', 'Parceirodenegocio.*'),
+							'fields_toCount' => 'DISTINCT Parceirodenegocio.id',
+							'limit' => $this->request['url']['limit'],
+							'order' => 'Parceirodenegocio.nome ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+			
+					$cntParceiros = count($parceirodenegocios);
+					$parceirodenegocios = $this->Paginator->paginate('Parceirodenegocio');
+					$this->set(compact('parceirodenegocios', 'cntParceiros'));
+						
+				}
+		
+
+		/**QuickLink**/
+		$quicklinksList = array();
+		$this->loadModel('Quicklink');
+		$quicklinks= $this->Quicklink->find('all', array('conditions'=>array('Quicklink.user_id' => $userid,'Quicklink.tipo' => 'COMERCIAL'), 'order' => array('Quicklink.nome' => 'ASC')));
+		foreach($quicklinks as $link)
+		{
+			array_push($quicklinksList, array('data-url'=>$link['Quicklink']['url'], 'name'=>$link['Quicklink']['nome'], 'value'=>$link['Quicklink']['id']));
+		}
+		array_unshift($quicklinksList, array('data-url' => Router::url(array('controller'=>'Comoperacaos', 'action'=>'index')) . '/?&limit=' . $this->request->query['limit'], 'name'=>'', 'value'=>''));
+		$this->set(compact('users','userid', 'quicklinks','quicklinksList'));
+		if ($this->request->is('post')) {
+			
+			//salva o post do quicklink
+			if(isset($this->request->data['Quicklink'])){
+					$this->Quicklink->create();
+					if($this->Quicklink->save($this->request->data)) {
+						$this->Session->setFlash(__('A pesquisa rápida Foi Salva.'),'default',array('class'=>'success-flash'));
+						return $this->redirect($this->referer());
+					}else{
+						$this->Session->setFlash(__('A Pesquisa Rápida não pode ser salva. Por favor, Tente Novamente.'),'default',array('class'=>'error-flash'));
+
+					}
+				}
+		}
+}
+
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function comercial() {
+		$this->layout = 'compras';
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
+		//$comoperacaos=  $this->Paginator->paginate('Comoperacao');
+		
+		//$this->set('comoperacaos', $comoperacaos);
+
+	//Converte datas para formato do BD
+	if(isset($this->request->data['filter'])){
+		foreach($this->request->data['filter'] as $key=>$value){
+			if(isset($this->request->data['filter']['data_inici'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici']);
+			}
+			if(isset($this->request->data['filter']['data_inici-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici-between']);
+			}	
+			if(isset($this->request->data['filter']['data_fim'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_fim']);
+			}
+			if(isset($this->request->data['filter']['data_fim-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_fim-between']);
+			}
+			if(isset($this->request->data['filter']['recebimento'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_recebimento']);
+			}	
+			if(isset($this->request->data['filter']['recebimento-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['recebimento-between']);
+			}
+			if(isset($this->request->data['filter']['data_entrega'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega']);
+			}	
+			if(isset($this->request->data['filter']['data_entrega-between'])){
+				$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega-between']);
+			}
+		}
+		
+	}	
+
+		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Categoria');
+		$this->loadModel('Produto');
+		
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR') ));
+		
+		
+		$listaParceiros = array();
+		foreach($parceirodenegocios as $parceirodenegocio){
+			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		}
+		
+		$produtos = $this->Produto->find('list',array('recursive' => -1, 'fields' => array('Produto.nome'), 'order' => 'Produto.nome ASC'));
+		
+		$listaProdutos = array();
+		foreach($produtos as $produto){
+			array_push($listaProdutos, array($produto => $produto));
+		}
+		
+		$listaCategorias = array();
+		$listaCategorias = $this->Categoria->find('list',array('fields'=> array('Categoria.nome'), 'order' => 'Categoria.nome ASC'));
+		
+//Adiciona filtros
+		
+		
+		if($_GET['parametro'] == 'operacoes'){
+			$this->Filter->addFilters(
+			array(
+				
+				//Filtros OPERAÇÃO
+				
+				'tipoOperacao' => array(
+	                'Comoperacao.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+	            'data_inici' => array(
+		            'Comoperacao.data_inici' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_entrega' => array(
+		            'Comoperacao.data_entrega' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		         'recebimento' => array(
+		            'Comoperacao.recebimento' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+	            'data_fim' => array(
+		            'Comoperacao.data_fim' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'valor' => array(
+		            'Comoperacao.valor' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'ide' => array(
+	                'Comoperacao.id' => array(
+	                    'operator' => '=',
+	                )
+	            ),
+	            'status_operacao' => array(
+	                'Comoperacao.status' => array(
+	                    'operator' => 'LIKE',
+	               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+					)
+	            ),
+	            'forma_pagamento' => array(
+	                'Comoperacao.forma_pagamento' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+					)
+	            ),
+	            //Filtros FORNECEDOR
+	            
+	            'nomeParceiro' => array(
+	                '_Parceirodenegocio.nome' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array(''=> '', $listaParceiros)
+	                )
+	            ),
+	            'statusParceiro' => array(
+	                '_Parceirodenegocio.status' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+	                )
+	            ),
+	            
+	            //Filtros PRODUTOS
+	            
+	            'produtoNome' => array(
+	                '_Produto.nome' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=> '', $listaProdutos)
+	                )
+	            ),
+	            'produtoNivel' => array(
+	                '_Produto.nivel' => array(
+	                    'operator' => 'LIKE',
+						'select' => array(''=>'', 'AMARELO'=>'AMARELO', 'VERDE'=>'VERDE', 'VERMELHO'=>'VERMELHO')
+	                )
+	            ),
+	            'codProd' => array(
+	                '_Produto.id' => array(
+	                    'operator' => '='
+
+	                )
+	            ),
+	        )
+		);
+		
+					$conditiosAux= $this->Filter->getConditions();
+				
+					if(empty($conditiosAux)){
+				
+						$dataIncio = date("Y-m-01");
+						$dataTermino= date("Y-m-t");
+						$this->request->data['filter']['data_inici']=$dataIncio;
+						$this->request->data['filter']['data_inici-between']=$dataTermino;
+						$this->request->data['filter']['tipoOperacao']="PDVENDA CTVENDA";
 					}
 		
 					$comoperacaos = $this->Comoperacao->find('all',array('conditions'=>$this->Filter->getConditions(),'recursive' => 1, 'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'), 'order' => 'Comoperacao.data_inici DESC'));

@@ -1,17 +1,17 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Cotacaovendas Model
+ * PedidoModel
  *
  * @property User $User
  * @property Comitensdaoperacao $Comitensdaoperacao
  * @property Comresposta $Comresposta
- * @property Comtokencotacaovenda $Comtokencotacaovenda
+ * @property Comtokencotacao $Comtokencotacao
  */
  
 App::Import('Model', 'Comoperacao');
-class Cotacaovenda extends Comoperacao {
-	var $name = 'Cotacaovenda';
+class Comoperacaovenda extends Comoperacao {
+	var $name = 'Comoperacaovenda';
 	public $useTable = 'comoperacaos'; 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -63,8 +63,8 @@ class Cotacaovenda extends Comoperacao {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Comtokencotacaovenda' => array(
-			'className' => 'Comtokencotacaovenda',
+		'Comtokencotacao' => array(
+			'className' => 'Comtokencotacao',
 			'foreignKey' => 'comoperacao_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -92,27 +92,4 @@ class Cotacaovenda extends Comoperacao {
 			'finderQuery' => '',
 		)
 	);
-	public function paginateCount($conditions = null, $recursive = 0,
-                                $extra = array()) {
-
-	if(isset($extra['fields_toCount']))
-	{
-
-	$fields = $extra['fields_toCount'];
-	$parameters = compact('conditions','fields');
-	
-	}else{
-
-	$parameters = compact('conditions');
-	}
-	
-
-	if ($recursive != $this->recursive) {
-		$parameters['recursive'] = $recursive;
-	}
-	$count = $this->find('count', array_merge($parameters, $extra));
-
-	return $count;
-
-}
 }
