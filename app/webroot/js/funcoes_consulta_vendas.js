@@ -154,13 +154,13 @@ $(document).ready(function(){
 		
 		var me = $(this).attr('id');
 		
-		if ( me == 'QuicklinkNomePEDIDO' ) {
+		if ( me == 'QuicklinkNomePDVENDA' ) {
 			
-			$('#QuicklinkNomeCOTACAO').attr('checked', false);
+			$('#QuicklinkNomeCTVENDA').attr('checked', false);
 			
 		} else {
 			
-			$('#QuicklinkNomePEDIDO').attr('checked', false);
+			$('#QuicklinkNomePDVENDA').attr('checked', false);
 
 		}
 		
@@ -289,26 +289,27 @@ var valorAux=$('#filterTipoOperacao').val();
 		var valorSaida2 =valorAux.substr(8,5);
 	}
 
-	if(valorEntrada == 'COTACAO'){
-		$('#QuicklinkNomeCOTACAO').attr('checked', true);
-	}else if(valorEntrada == 'PEDIDO'){
-		$('#QuicklinkNomePEDIDO').attr('checked', true);
+	if(valorEntrada == 'CTVENDA'){
+		alert(1);
+		$('#QuicklinkNomeCTVENDA').attr('checked', true);
+	}else if(valorEntrada == 'PDVENDA'){
+		$('#QuicklinkNomePDVENDA').attr('checked', true);
 	}
 	
 	if(valorSaida2 != ''){
-		$('#QuicklinkNomePEDIDO').attr('checked', true);
-		$('#QuicklinkNomeCOTACAO').attr('checked', true);
+		$('#QuicklinkNomePDVENDA').attr('checked', true);
+		$('#QuicklinkNomeCTVENDA').attr('checked', true);
 	}
 
-	$("#QuicklinkNomeCOTACAO, #QuicklinkNomePEDIDO").bind('click', function(){
-		if($('#QuicklinkNomeCOTACAO').is(':checked')){
-			if($('#QuicklinkNomePEDIDO').is(':checked')){
-				$('#filterTipoOperacao').val('PEDIDO COTACAO');
+	$("#QuicklinkNomeCTVENDA, #QuicklinkNomePDVENDA").bind('click', function(){
+		if($('#QuicklinkNomeCTVENDA').is(':checked')){
+			if($('#QuicklinkNomePDVENDA').is(':checked')){
+				$('#filterTipoOperacao').val('PDVENDA CTVENDA');
 			}else{
-				$('#filterTipoOperacao').val('COTACAO');
+				$('#filterTipoOperacao').val('CTVENDA');
 			}
-		}else if($('#QuicklinkNomePEDIDO').is(':checked')){
-				$('#filterTipoOperacao').val('PEDIDO');
+		}else if($('#QuicklinkNomePDVENDA').is(':checked')){
+				$('#filterTipoOperacao').val('PDVENDA');
 			}
 			else{
 				$('#filterTipoOperacao').val(' ');
