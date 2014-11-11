@@ -242,8 +242,8 @@ $(document).ready(function() {
 				$('#frmPgto').val($('#normalFrm  option:selected').val());
 				$('#inputConfirma').show();
 				
-				
-				$('span[id*="msg"').hide();
+				//
+				$('span[id*="msg"]').hide();
 				$('.confirmaInput').attr('readonly','readonly');
 				$('.confirmaInput').attr('onfocus','this.blur();');
 				$('.confirmaInput').attr('disabled','disabled');
