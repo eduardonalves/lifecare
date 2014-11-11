@@ -43,30 +43,23 @@
 					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
 					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
 					
-					
-					echo "<div id='inputNormais'>";
-						echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-					echo "</div>";
-					echo "<div id='inputConfirma' style='display:none;'>";
-						echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
-					echo "</div>";
 				?>
 			</section>
 			
 			<section class="coluna-central">
 				<?php
-				
-					
-					echo $this->Form->input('prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
-
-
+					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 				?>
 			</section>
 			
 			<section class="coluna-direita">
 				<?php
-					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
-
+					echo "<div id='inputNormais'>";
+					echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+					echo "</div>";
+					echo "<div id='inputConfirma' style='display:none;'>";
+					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+					echo "</div>";
 				?>
 			</section>
 		</section>
@@ -82,8 +75,8 @@
 	
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
-			
-			<section class="coluna-esquerda">
+			<span id="msgVendedorVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Vendedor</span>
+			<section class="coluna-esquerda confirma">
 				<div class="input autocompleteVendedor">
 					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-vendedor">
@@ -99,7 +92,7 @@
 				</div>
 			</section>
 			<section class="coluna-central">
-				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencherVendedor')); ?>
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencherVendedor')); ?>
 				<div class="inputFalsa">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
@@ -118,9 +111,10 @@
 
 	<!--Fieldset Do CLIENTE-->
 		<div id="fieldCliente" class="fieldset">
+			<span id="msgClienteVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Cliente</span>
 			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
 
-			<section class="coluna-esquerda">
+			<section class="coluna-esquerda confirma">
 				<div class="input autocompleteCliente tela-resultado">
 					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-cliente" tabindex="7">
@@ -149,7 +143,7 @@
 			</section>
 
 			<section id="campoSaidaNome" class="coluna-central">
-				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencher_Cliente')); ?>
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencher_Cliente')); ?>
 				<div class="inputFalsa">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_parceiro"></p></div>

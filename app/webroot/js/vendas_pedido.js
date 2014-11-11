@@ -23,8 +23,13 @@ $(document).ready(function() {
 				
 				$("#vendedorId_hidden").val(valorVendedor);
 				$("#nome_vendedor").text(valorNome);
+				$('.hideMsg').hide();
 			}
+		}else{
+			$('#msgVendedorVazio').show();		
 		}
+		
+		
     });
 	
 /*** AUTO COMPLETE CLIENTE*********************************************/	
@@ -34,6 +39,9 @@ $(document).ready(function() {
     });
     
    $("#bt-preencher_Cliente").click(function(){
+	   
+	 
+		
 		valorCliente =	$("#add-cliente option:selected" ).val();
 		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 		valorNome= $("#add-cliente option:selected" ).attr('id');
@@ -58,7 +66,11 @@ $(document).ready(function() {
 						
 					valorCreditoClienteAux = $("#valorCreditoClienteAux").val();
 					$("#credito_cliente").text(valorCreditoClienteAux);
+					$('.hideMsg').hide();
 				}
+				
+		}else{
+			$('#msgClienteVazio').show();			
 		}
 	});
 	
@@ -278,12 +290,16 @@ $(document).ready(function() {
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			
-		}else if(in_fornecedor == 0 && $('#validaProd').val() == 0){
-			$('#msgValidaFor').show();			
+		}else if($('#vendedorId_hidden').val() == ''){
+			
+			$('#msgVendedorVazio').show();
+			
+		}else if($('#parceiro_id').val() == ''){
+			
+			$('#msgClienteVazio').show();
 			
 		}else if(in_produto <= 0){
 			$('#msgValidaProduto').show();
-						
 		}else{
 			if($('span[id*=spanStatus]').hasClass('aberto')){
 				$('#msgValidaConfirmaProduto').show();

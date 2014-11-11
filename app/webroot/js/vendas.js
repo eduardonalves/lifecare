@@ -100,15 +100,29 @@
 			 return ret;
 		 }
 	}
-
+ 
+/********************* Autocomplete Fornecedor *********************/
+    $(function(){
+		$("#add-fornecedor").combobox();
+	});
+	
 /********************* Autocomplete Produtos *********************/
     $(function(){
 		$("#add-produtos").combobox();
 	});
 
+/**************** Modal Parceiro de negocio tipo Fornecedor *****************/
+    $('body').on('click', '#ui-id-1 a',function(){
+		valorCad= $(this).text();
+		if(valorCad=="Cadastrar"){
+			$(".autocompleteFornecedor input").val('');
+			$("#myModal_add-parceiroFornecedor").modal('show');
+		}
+
+    });
     
 /**************** Modal Produtos *****************/
-    $('body').on('click', '#ui-id- a',function(){
+    $('body').on('click', '#ui-id-2 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 		    $(".autocompleteProduto input").val('');
