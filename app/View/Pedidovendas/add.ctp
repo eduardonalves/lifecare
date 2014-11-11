@@ -29,21 +29,25 @@
 
 <section>
 		<header>Dados da Venda</header>
-		<?php echo $this->Form->create('Pedidovenda');?>
+		<?php echo $this->Form->create('PDVENDA');?>
 		<section>
 			<!-- INICIO COTAÇÕES -->
 			<section class="coluna-esquerda">
-				<?php
+				<?php				
 					echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
 					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
 					echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 					
+					$dataHoje = date('d/m/Y');
+					echo $this->Form->input('data_inici',array('value' => $dataHoje, 'label'=>'Data da Venda:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text', 'readonly', 'onfocus'=>'this.blur();', 'style' => 'background: rgb(250, 250, 250);'));
+					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
+					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
+					
+					
 					echo "<div id='inputNormais'>";
-						echo $this->Form->input('vale',array('id'=>'normalVale','type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
 						echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 					echo "</div>";
 					echo "<div id='inputConfirma' style='display:none;'>";
-						echo $this->Form->input('Vazio.vale',array('id'=>'tipoVale','type'=>'text','label'=>'Tipo:','class'=>'tamanho-pequeno borderZero','disabled' =>'disabled'));
 						echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
 					echo "</div>";
 				?>
@@ -52,10 +56,6 @@
 			<section class="coluna-central">
 				<?php
 				
-					$dataHoje = date('d/m/Y');
-					echo $this->Form->input('data_inici',array('value' => $dataHoje, 'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text', 'readonly', 'onfocus'=>'this.blur();', 'style' => 'background: rgb(250, 250, 250);'));
-					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
-					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
 					
 					echo $this->Form->input('prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 
