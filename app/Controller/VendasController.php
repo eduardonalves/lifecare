@@ -185,10 +185,17 @@ class VendasController extends NotasController {
 			$this->loadModel('Parceirodenegocio');
 			$this->loadModel('Categoria');
 			$this->loadModel('Produto');
+			$this->loadModel('Vendedors');
 			
+			$vendedores = $this->Vendedors->find('list',array( 'recursive' => -1, 'fields' => array('Vendedors.nome'), 'order' => 'Vendedors.nome ASC'));
+			$listaVendedores = array();
+			foreach($vendedores as $vendedor){
+				array_push($listaVendedores, array($vendedor => $vendedor));
+			}
+		
+		
 			$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE') ));
-			
-			
+					
 			$listaParceiros = array();
 			foreach($parceirodenegocios as $parceirodenegocio){
 				array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
@@ -267,15 +274,21 @@ class VendasController extends NotasController {
 						)
 					),
 					'status_operacao' => array(
-						'Venda.status' => array(
+						'Venda.status_geral' => array(
 							'operator' => 'LIKE',
-							 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+							 'select' => array('' => '','OK' => 'Ok', 'PENDENTE' => 'Pendente', 'CANCELADO' => 'Cancelado')
 						)
 					),
 					'forma_pagamento' => array(
 						'Venda.forma_pagamento' => array(
 							'operator' => 'LIKE',
 							'select' => array('' => '','BOLETO' => 'BOLETO','DINHEIRO' => 'DINHEIRO', 'CARTAOD' => 'CARTAO DE DÉBITO' , 'CARTAOC' => 'CARTAO DE CRÉDITO', 'CHEQUE' => 'CHEQUE', 'VALE' => 'VALE')
+						)
+					),
+					'nomeVendedor' => array(
+						'Vendedor.nome' => array(
+							'operator' => 'LIKE',
+							'select' => array(''=> '', $listaVendedores)
 						)
 					),
 					//Filtros FORNECEDOR
@@ -289,7 +302,7 @@ class VendasController extends NotasController {
 					'statusParceiro' => array(
 						'Parceirodenegocio.status' => array(
 							'operator' => 'LIKE',
-							'select' => array(''=>'', 'VERDE'=>'VERDE', 'AMARELO'=>'AMARELO', 'VERMELHO'=>'VERMELHO','CINZA' => 'CINZA', 'CANCELADO' => 'CANCELADO')
+							'select' => array(''=>'', 'OK'=>'ok','BLOQUEADO'=>'Bloqueado')
 						)
 					),
 					
