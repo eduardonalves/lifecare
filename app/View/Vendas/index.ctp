@@ -6,7 +6,7 @@
 	$this->end();
 
 	$this->start('script');
-		echo $this->Html->script('funcoes_consulta_compras.js');
+		echo $this->Html->script('funcoes_consulta_vendas.js');
 		
 	$this->end();
 
@@ -83,7 +83,7 @@
 							'type' => 'select',
 							'class' => 'operacao',
 							'multiple' => 'checkbox',
-							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Venda'),
+							'options' => array('CTVENDA' => 'Cotação', 'PDVENDA' => 'Venda'),
 							'style' => 'float:left',
 						));
 						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
