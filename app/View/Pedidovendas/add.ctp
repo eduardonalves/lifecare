@@ -1,14 +1,14 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras_pedido');
+	    echo $this->Html->css('vendas_pedido');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('compras_pedido.js');
+		echo $this->Html->script('vendas_pedido.js');
 	$this->end();
 	
 	
@@ -74,55 +74,102 @@
 		<div style="clear:both;"></div>
 		
 		<!-- INICIO CLIENTE -->	
-		<section class="coluna-Fornecedor_Pedido">
 			
-			<header>Cliente</header>
-			<div class="confirma">
-			<section class="coluna-esquerda" >
-				<div class="input autocompleteFornecedor conta">
-					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha o Cliente</span>
-					<label id="SpanPesquisarFornecedor">Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
-						<option></option>
-						<option value="add-parceiroFornecedor">Cadastrar</option>
+	<header id="titulo-header">Dados do Vendedor</header>
+
+	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
+
+	
+		<div class="fieldset">
+			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
+			
+			<section class="coluna-esquerda">
+				<div class="input autocompleteVendedor">
+					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-vendedor">
+						<option id="optvazioForn"></option>
+						<?php
+							foreach($allVendedores as $vendedor){
+								echo "<option id='".$vendedor['Vendedor']['nome']."' value='".$vendedor['Vendedor']['id']."' >";
+								echo $vendedor['Vendedor']['nome'];
+								echo "</option>";
+							}
+						?>
+					</select>
+				</div>
+			</section>
+			<section class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencherVendedor')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
+				</div>
+				
+				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('Venda.valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
+				
+			</section>
+			<section class="coluna-direita"></section>
+			
+		</div>
+
+<!-- ###################################################################################################################################################################3 -->
+<header id="titulo-header">Dados do Cliente</header>
+
+	<!--Fieldset Do CLIENTE-->
+		<div id="fieldCliente" class="fieldset">
+			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
+
+			<section class="coluna-esquerda">
+				<div class="input autocompleteCliente tela-resultado">
+					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-cliente" tabindex="7">
+						<option id="optvazioForn"></option>
+						<option value="add-Cliente">Cadastrar</option>
 
 						<?php
-							foreach($parceirodenegocios as $parceirodenegocio)
-							{
-								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
-								echo $parceirodenegocio['Parceirodenegocio']['nome'];
+						
+							foreach($allClientes as $allCliente){
+								
+								$limiteDisponivel = 0;
+								
+								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+									
+									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
+								}
+								
+								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
+								echo $allCliente['Cliente']['nome'];
 								echo "</option>";
 							}
 						?>
 
 					</select>
-				</div>		
+				</div>
 			</section>
-		
-			<section class="coluna-central">
-				<?php	
-					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-											 'title'=>'Adicionar',
-											 'class'=>'bt-addItens_Pedido_forne pedidovendasLimite',
-											 'id'=>'bt-adicionarFornecedor'
-											 ));
-					?>
+
+			<section id="campoSaidaNome" class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencher_Cliente')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_parceiro"></p></div>
+				</div>
 			</section>
-			</div>
-			<div style="clear:both;"></div>
-			
-			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
-				<table id="tbl_fornecedores" class="ultimoFornecedor">
-					<thead>
-						<th>Nome do Cliente</th>
-						<th>CPF/CNPJ</th>					
-						<th class="confirma" >Ações</th>					
-					</thead>
-							
-				</table>
+
+			<span id="spanSaidaCpfCnpj" class="MsgCpfCnpj tooltipMensagemErroTopo" style="display:none">Preencha os Dados do Cliente</span>
+
+			<section class="coluna-direita" id="campo-SaidaCnpj">
+				
+				<div class="inputFalsa">	
+					<div class="labelFalsa2"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="cpfcnpj_parceiro" class="textoMenor"></p></div>
+				</div>	
+				<?php
+					echo $this->Form->input('parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
+				?>
 			</section>
+		</div>
 	
-		</section>
 	
 		<!-- INICIO PRODUTOS -->
 		<section class="coluna-Produto_Pedido">
