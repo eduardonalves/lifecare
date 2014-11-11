@@ -42,7 +42,7 @@ class CotacaovendasController extends ComoperacaosController {
  */
 	public function index() {
 		
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		$this->Cotacaovenda->recursive = 0;
 		$this->set('cotacaovendas', $this->Paginator->paginate());
 	}
@@ -57,7 +57,7 @@ class CotacaovendasController extends ComoperacaosController {
  
  	
 	public function view($id = null) {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
@@ -177,7 +177,7 @@ class CotacaovendasController extends ComoperacaosController {
 	}
 	
 	public function add() {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
@@ -248,7 +248,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
 
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;

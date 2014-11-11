@@ -23,12 +23,12 @@
     <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-    <h1 class="menuOption45">Cadastrar Pedidovendas</h1>
+    <h1 class="menuOption53">Cadastrar Venda</h1>
 	
 </header>
 
 <section>
-		<header>Cadastro de Cotações</header>
+		<header>Dados da Venda</header>
 		<?php echo $this->Form->create('Pedidovenda');?>
 		<section>
 			<!-- INICIO COTAÇÕES -->
@@ -73,15 +73,15 @@
 		
 		<div style="clear:both;"></div>
 		
-		<!-- INICIO FORNECEDOR -->	
+		<!-- INICIO CLIENTE -->	
 		<section class="coluna-Fornecedor_Pedido">
 			
-			<header>Fornecedor</header>
+			<header>Cliente</header>
 			<div class="confirma">
 			<section class="coluna-esquerda" >
 				<div class="input autocompleteFornecedor conta">
-					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Fornecedores</span>
-					<label id="SpanPesquisarFornecedor">Buscar Fornecedor<span class="campo-obrigatorio">*</span>:</label>
+					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha o Cliente</span>
+					<label id="SpanPesquisarFornecedor">Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
 						<option></option>
 						<option value="add-parceiroFornecedor">Cadastrar</option>
@@ -114,7 +114,7 @@
 			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
 				<table id="tbl_fornecedores" class="ultimoFornecedor">
 					<thead>
-						<th>Nome do Fornecedor</th>
+						<th>Nome do Cliente</th>
 						<th>CPF/CNPJ</th>					
 						<th class="confirma" >Ações</th>					
 					</thead>
