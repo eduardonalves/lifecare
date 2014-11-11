@@ -67,6 +67,9 @@ class Vendedor extends AppModel {
                 'rule' => 'alphaNumeric',
                 'required' => true,
                 'message' => 'Campo requerido'
+<<<<<<< HEAD
+			)
+=======
 			),
 
        'cpf' => array(
@@ -74,5 +77,6 @@ class Vendedor extends AppModel {
                 'required' => true,
                 'message' => 'Campo requerido'
         )*/
+>>>>>>> ec71ff2b1315820a8f5f0366841ff5a4c7c90eae
 	);
 }

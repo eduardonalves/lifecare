@@ -111,53 +111,14 @@ class VendedorsController extends AppController {
 		$this->layout = 'venda';
 		if ($this->request->is('post')) {
 			$this->Vendedor->create();
-			if ($this->Vendedor->saveAll($this->request->data)) {
+			if ($this->Vendedor->save($this->request->data)) {
 			
-				$ultimmoVendedor= $this->Vendedor->find('first', array('order' => array('Vendedor.id' => 'desc'), 'recursive' =>-1));
-				
 				$this->Session->setFlash(__('Usuário cadastrado com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('controller'=>'Vendas','action' => 'index/?parametro=pedidos'));
 			} else {
 				$this->Session->setFlash(__('Erro ao cadastrar usuário. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		}
-		
-		$this->loadModel('Funcionario');
-		$funcionarios = $this->Funcionario->find('all');
-		
-		$this->loadModel('Role');
-		$roles = $this->Role->find('all');
-		
-		//CONFIG'ss
-		
-		$this->loadModel('Configcobranca');
-		$configcobranca = $this->Configcobranca->find('all');
-		
-		
-		$this->loadModel('Configconta');
-		$configconta = $this->Configconta->find('all');
-		
-		
-		$this->loadModel('Configlote');
-		$configlote = $this->Configlote->find('all');
-		
-		
-		$this->loadModel('Confignota');
-		$confignota = $this->Confignota->find('all');
-		
-		
-		$this->loadModel('Configparceiro');
-		$configparceiro = $this->Configparceiro->find('all');
-		
-		
-		$this->loadModel('Configparcela');
-		$configparcela = $this->Configparcela->find('all');
-				
-		$this->loadModel('Configproduto');
-		$configproduto = $this->Configproduto->find('all');
-				
-		
-		$this->set(compact('funcionarios','roles','configcobranca','configconta','configlote','confignota','configparceiro','configparcela','configproduto'));
 	}
 /**
  * edit method
