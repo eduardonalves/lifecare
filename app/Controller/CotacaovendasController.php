@@ -1,0 +1,368 @@
+<?php
+App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
+/**
+ * Cotacaovendas Controller
+ *
+ * @property Cotacaovenda $Cotacaovenda
+ * @property PaginatorComponent $Paginator
+ */
+ App::import('Controller', 'Comoperacaos');
+
+class CotacaovendasController extends ComoperacaosController {
+
+
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator','lifecareDataFuncs');
+	
+	
+	private function loadUnidade(){
+		
+		$this->loadModel('Unidade');		
+		$unidades = $this->Unidade->find('all',array('fields'=>array('Unidade.nome','Unidade.abriviacao')));
+			$tiposUnidades = array();
+		foreach($unidades as $unidade){		
+			$tiposUnidades[$unidade['Unidade']['abriviacao']] = $unidade['Unidade']['nome'];			
+		}
+		
+		asort($tiposUnidades);
+		$tiposUnidades = array(''=>'') + $tiposUnidades;
+		$this->set(compact('unidades','tiposUnidades'));
+	}
+	
+	
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		
+		$this->layout = 'compras';
+		$this->Cotacaovenda->recursive = 0;
+		$this->set('cotacaovendas', $this->Paginator->paginate());
+	}
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+ 
+ 	
+	public function view($id = null) {
+		$this->layout = 'compras';
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		
+		if (!$this->Cotacaovenda->exists($id)) {
+			throw new NotFoundException(__('Invalid cotacaovenda'));
+		}
+	
+		$this->loadModel('Comitensdaoperacao');
+		$cotacaovenda = $this->Cotacaovenda->find('first',array('conditions'=>array('Cotacaovenda.id' => $id)));
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		
+		$this->loadModel('Comresposta');
+		$resposta = $this->Comresposta->find('all',array('conditions'=>array('Comresposta.comoperacao_id'=> $id),'recursive'=>1));
+	
+		$this->loadModel('Produto');
+		$j=0;
+		foreach($resposta as $j => $respostaList){
+			$x=0;
+			foreach($resposta[$j]['Comitensresposta'] as $x => $itensResposta){
+				$respostaIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$resposta[$j]['Comitensresposta'][$x]['produto_id'])));
+				$resposta[$j]['Comitensresposta'][$x]['produto_nome'] = $respostaIten['Produto']['nome'];
+			$x++;
+			}
+		$j++;
+		}
+	
+			
+		$this->loadModel('Empresa');
+		$empresa = $this->Empresa->find('first');
+		
+		$this->set(compact('cotacaovenda','userid','itens','resposta','empresa','itensRespostas'));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+ 
+	public $uses = array();
+
+    public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
+
+			$this->loadModel('Empresa');	 
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			
+			
+       		$this->Session->write("extraparams",$mensagem);
+			
+			
+			
+			
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
+	
+            $email = new CakeEmail('smtp');
+
+            $email->to($destinatario);
+			$email->from('cirurgica.simoes@gmail.com');
+            $email->subject($remetente);
+			$email->template('cotacaovenda','default');
+			$email->emailFormat('html');
+			
+			//essa linha só serve para o servidor da alemanha
+			$email->transport('Mail');
+
+            if($email->send($mensagem)){
+				return TRUE;
+
+            }else{
+            	return FALSE;	
+            }
+
+        
+
+    }
+ 	
+	public function cancelarCotacao($id = null) {
+		//~ $this->request->onlyAllow('post', 'cancelarCotacao');
+		//~ if (!$this->Cotacaovenda->exists()) {
+			//~ throw new NotFoundException(__('Invalid Cotacaovenda'));
+		//~ }
+		//~ 
+		$this->loadModel('Comtokencotacao');
+		$this->loadModel('Contato');
+		$ultimaCotacao= $this->Cotacaovenda->find('first',array('conditions' => array('Cotacaovenda.id' => $id)));
+		$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.comoperacao_id' => $id)));
+		foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
+			$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);	
+			$remetente="cirurgica.simoes@gmail.com";
+			
+			$mensagem['corpo'] = "Informamos que a cotação de numero".$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca']."\n";
+			$mensagem['corpo'] +="Foi cancelada, por favor desconsidere esta solicitação de cotação"."\n";
+			if(!empty($contato)){
+				if($contato['Contato']['email'] !=""){
+					$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+				}
+			}
+		}
+		$upDateCotacao = array('id' => $id, 'status' => 'CANCELADO');
+		$this->Cotacaovenda->save($upDateCotacao);
+		return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index/?parametro=operacoes'));
+	}
+	
+	public function add() {
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
+		
+		if ($this->request->is('post')) {
+			$this->Cotacaovenda->create();
+		
+			if ($this->Cotacaovenda->saveAll($this->request->data)) {
+				$ultimaCotacao= $this->Cotacaovenda->find('first',array('order' => array('Cotacaovenda.id' => 'DESC')));
+				
+				$this->loadModel('Contato');
+				
+				foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
+					
+					$contato = $this->Contato->find('first', 
+						array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Contato.parceirodenegocio_id' => $fornecedor['id']
+							),	
+						)
+					);
+					
+					$this->loadModel('Comtokencotacao');
+					
+					$flag="FALSE";
+					while($flag =='FALSE') {
+						$numero=date('Ymd');
+						$numeroAux= rand(0, 99999999);
+						$numero = $numero.$numeroAux;
+						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+						if(empty($ultimaComtokencotacao)){
+							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacaovenda']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
+							$this->Comtokencotacao->create();
+							$this->Comtokencotacao->save($dadosComOp);
+							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+							$flag="TRUE";
+						}
+						
+					}
+					$mensagem = array();
+					
+
+					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
+					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
+					
+					$remetente="cirurgica.simoes@gmail.com";
+					
+					if(!empty($contato)){
+						if($contato['Contato']['email'] !=""){
+							$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+						}
+					}
+				}
+				
+
+				//debug($this->request->data);
+				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
+				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
+				return $this->redirect(array('controller' => 'Cotacaovendas','action' => 'view',$ultimaCotacao['Cotacaovenda']['id']));
+			} else {
+				$this->Session->setFlash(__('A cotação não pode ser salva. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+
+			}
+		}
+		$this->loadModel('Produto');
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Cotacaovenda->User->find('list');
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+	}
+	
+public function addDash(){
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$this->loadUnidade();
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
+		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
+		$this->loadModel('Contato');
+		$this->loadModel('Produto');
+		$this->loadModel('ProdutosParceirodenegocio');
+		
+		$listaProdutoId = array();		
+		if($this->request->data){ 
+			$y = 0;
+			foreach($this->request->data['produto'] as $y => $listaids){
+				if($this->request->data['produto'][$y] != 0){
+					$listaProdutoId[] = $this->request->data['produto'][$y];
+				}
+				$y++;
+			}					
+		} // post
+		
+		//debug($this->request->data['produto']);
+		
+		$produtoslista = array();
+		$j = 0;
+		foreach($listaProdutoId  as $ids){
+			$produtoslista[] = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$listaProdutoId[$j]),'recursive'=>-1));
+			$j++;
+		}
+		
+//		debug($produtoslista);
+
+		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
+
+		$this->loadModel('Parceirodenegocio');
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		
+		$users = $this->Cotacaovenda->User->find('list');
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','produtoslista'));
+	}
+	
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		$this->layout = 'compras';
+		$userid = $this->Session->read('Auth.User.id');
+		$username=$this->Session->read('Auth.User.username');
+		
+		if (!$this->Cotacaovenda->exists($id)) {
+			throw new NotFoundException(__('Cotação inválida'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Cotacaovenda->saveAll($this->request->data)) {
+				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('A cotação não pode ser salva. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+			}
+		} else {
+			$options = array('conditions' => array('Cotacaovenda.' . $this->Cotacaovenda->primaryKey => $id));
+			$this->request->data = $this->Cotacaovenda->find('first', $options);
+		}
+		
+		$this->loadModel('Comoperacao');
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		
+		$users = $this->Cotacaovenda->User->find('list');
+		$this->set(compact('users','comoperacao','itens','userid'));
+	}
+
+
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->Cotacaovenda->id = $id;
+		if (!$this->Cotacaovenda->exists()) {
+			throw new NotFoundException(__('Cotação inválida'));
+		}
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->Cotacaovenda->delete()) {
+			$this->Session->setFlash(__('A cotação foi deletada com sucesso.'),'default',array('class'=>'success-flash'));
+		} else {
+			$this->Session->setFlash(__('A cotação não pode ser deletada. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}}
