@@ -1,14 +1,15 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras_cotacaovendas');
+		echo $this->Html->css('compras_cotacaovendas');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('compras.js');
+		echo $this->Html->script('vendas.js');
+		echo $this->Html->script('funcoes_vendas.js');
 	$this->end();
 	
 	
@@ -20,7 +21,9 @@
 ?>
 
 <header>
-    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+    <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); 
+		//echo $modulo;
+    ?>
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <h1 class="menuOption52">Cadastrar Cotações</h1>
@@ -35,7 +38,7 @@
 		<section class="coluna-esquerda">
 			<?php
 				echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
-				echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'Cotacaovenda'));	
+				echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'CTVENDA'));	
 				echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 				
 				$dataHoje = date('d/m/Y');
@@ -66,61 +69,100 @@
 			?>
 		</section>
 	
-	<!-- INICIO Cliente -->	
-	<section>
-		<header>Cliente</header>
-		<div class='confirma'>
+	<header id="titulo-header">Dados do Vendedor</header>
+
+	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
+
+	
+		<div class="fieldset">
+			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
+			
 			<section class="coluna-esquerda">
-				<div class="input autocompleteFornecedor conta">
-					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha o Cliente</span>
-					<span id="msgValidaFor2" class="Msg tooltipMensagemErroTopo" style="display:none">Esse Cliente já foi adicionado, por favor, escolha outro.</span>
-					<label id="SpanPesquisarFornecedor">Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
-						<option></option>
-						<option value="add-parceiroFornecedor">Cadastrar</option>
+				<div class="input autocompleteVendedor">
+					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-vendedor">
+						<option id="optvazioForn"></option>
+						<?php
+							foreach($allVendedores as $vendedor){
+								echo "<option id='".$vendedor['Vendedor']['nome']."' value='".$vendedor['Vendedor']['id']."' >";
+								echo $vendedor['Vendedor']['nome'];
+								echo "</option>";
+							}
+						?>
+					</select>
+				</div>
+			</section>
+			<section class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencherVendedor')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
+				</div>
+				
+				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('Venda.valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
+				
+			</section>
+			<section class="coluna-direita"></section>
+			
+		</div>
+
+<!-- ###################################################################################################################################################################3 -->
+<header id="titulo-header">Dados do Cliente</header>
+
+	<!--Fieldset Do CLIENTE-->
+		<div id="fieldCliente" class="fieldset">
+			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
+
+			<section class="coluna-esquerda">
+				<div class="input autocompleteCliente tela-resultado">
+					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-cliente" tabindex="7">
+						<option id="optvazioForn"></option>
+						<option value="add-Cliente">Cadastrar</option>
 
 						<?php
-							foreach($parceirodenegocios as $parceirodenegocio)
-							{
-								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
-								echo $parceirodenegocio['Parceirodenegocio']['nome'];
+						
+							foreach($allClientes as $allCliente){
+								
+								$limiteDisponivel = 0;
+								
+								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+									
+									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
+								}
+								
+								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
+								echo $allCliente['Cliente']['nome'];
 								echo "</option>";
 							}
 						?>
 
 					</select>
-				</div>			
-			</section>	
-			
-			<section class="coluna-central"> 
-				<?php	
-					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-											 'title'=>'Adicionar',
-											 'class'=>'bt-addForne',
-											 'id'=>'bt-adicionarFornecedor'
-											 ));
-				?>
+				</div>
 			</section>
-			</div>
-			<section class="coluna-direita">
-				<?php
+
+			<section id="campoSaidaNome" class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencher_Cliente')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_parceiro"></p></div>
+				</div>
+			</section>
+
+			<span id="spanSaidaCpfCnpj" class="MsgCpfCnpj tooltipMensagemErroTopo" style="display:none">Preencha os Dados do Cliente</span>
+
+			<section class="coluna-direita" id="campo-SaidaCnpj">
 				
-					
+				<div class="inputFalsa">	
+					<div class="labelFalsa2"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="cpfcnpj_parceiro" class="textoMenor"></p></div>
+				</div>	
+				<?php
+					echo $this->Form->input('parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
 				?>
 			</section>
-	</section>
-			<div style="clear:both;"></div>
-			<section class="tabela_fornecedores">
-				<table id="tbl_fornecedores" >
-					<thead>
-						<th>Nome do Cliente</th>
-						<th>CPF/CNPJ</th>					
-						<th class="confirma">Ações</th>					
-					</thead>
-							
-				</table>
-			</section>
-	
+		</div>
 	
 	<!-- INICIO PRODUTOS -->
 	<section>
@@ -164,7 +206,7 @@
 				<?php
 							
 					echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
-					echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));		
+					echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>2));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
 				?>
