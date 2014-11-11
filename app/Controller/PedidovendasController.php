@@ -55,7 +55,7 @@ class PedidovendasController extends ComoperacaosController {
  */
 	public function view($id = null) {
 		
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 			
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
@@ -92,7 +92,7 @@ class PedidovendasController extends ComoperacaosController {
  * @return void
  */
 	public function add(){
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
 		$this->loadModel('Contato');
@@ -186,7 +186,7 @@ class PedidovendasController extends ComoperacaosController {
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
 
 		$this->loadModel('Parceirodenegocio');
-		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR')));
+		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;
@@ -291,7 +291,7 @@ public function addDash(){
  * @return void
  */
 	public function edit($id = null) {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		$userid = $this->Session->read('Auth.User.id');
 		
 		

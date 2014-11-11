@@ -112,7 +112,18 @@
 				</li>
 
 				<li class="item" style="line-height: 15px">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendas","action"=>"add"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Cotacaovendas","action"=>"add"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+						?>
+
+						<span class="label">Cadastrar Cotação</span>
+					</a>
+				</li>
+				
+				<li class="item" style="line-height: 15px">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Pedidovendas","action"=>"add"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));

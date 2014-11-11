@@ -73,9 +73,7 @@
 				<!------------------ Dados da Operação ------------------>
 				<section id="filtro-operacao" class="coluna-esquerda">
 					<div class="boxParceiro">
-						<?php 
-							echo $this->Form->input('', array('label' =>'Dados do Operação','type'=>'checkbox', 'id' => 'checkop' , 'value' => 'operacoes'));
-						?>
+						<span> Dados da Operação </span>
 					</div>
 
 					<?php
@@ -85,7 +83,7 @@
 							'type' => 'select',
 							'class' => 'operacao',
 							'multiple' => 'checkbox',
-							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
+							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Venda'),
 							'style' => 'float:left',
 						));
 						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));
@@ -97,13 +95,6 @@
 						echo $this->Search->input('data_inici', array('label' => 'Data da Venda:','class'=>'', 'type' => 'text'));
 					?>
 					</div>
-
-					<div class="inputSearchData some">
-					<?php
-						echo $this->Search->input('data_entrega', array('label' => 'Previsão de Entrega:','class'=>'', 'type' => 'text'));
-					?>
-					</div>
-
 					<div class="inputSearchValor">
 						<?php
 							echo $this->Search->input('valor', array('type'=>'text','label' => 'Valor:','class'=>'dinheiro_duasCasas'));
@@ -116,21 +107,22 @@
 					?>
 					</div>
 					
-					<div class="formaPagamento" >
-					<?php
-						echo $this->Search->input('forma_pagamento', array('label' => 'Forma de Pagamento:','class'=>'tamanho-medio input-alinhamento'));
-					?>
-					</div>
-					
+									
 					<div class="" >
 						<?php
 							echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>'tamanho-medio'));
 						?>
 					</div>
+					<div class="" >
+						<?php
+							echo $this->Search->input('nomeVendedor', array('label' => 'Vendedor:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
+						?>
+					</div>
+					
 					
 					
 					<?php
-						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirOperacao', 'alt'=>'', 'title'=>''));
+						echo $this->Html->image('expandir.png', array('id'=>'bt-expandirOperacao', 'class'=>'btVenda','alt'=>'', 'title'=>''));
 					?>
 					
 					<div id="msgFiltroOperacao" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
@@ -140,28 +132,23 @@
 				<!------------------ Filtro Do Produto ------------------>
 				<section id="filtro-produto" class="coluna-central">
 					<div class="boxParceiro">
-						<?php 
-							echo $this->Form->input('', array('label' => 'Dados do Produto','type'=>'checkbox', 'id' => 'checkproduto' , 'value' => 'produtos'));
-						?>
+						<span>Dados do Produto</span>
 					</div>
 					<div class="informacoesProduto">
 						<?php
 							echo $this->Search->input('produtoNome', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 							echo $this->Search->input('codProd', array('label' => 'Código:','class'=>'tamanho-medio input-alinhamento'));
-							echo $this->Search->input('produtoCategoria', array('type'=>'select','label' => 'Categoria:','class'=>'tamanho-medio input-alinhamento'));
-							echo $this->Search->input('produtoNivel', array('type'=>'select','label' => 'Nível em Estoque:','class'=>'tamanho-medio input-alinhamento'));
+							
 						?>
 					</div>
 					
 					<div id="msgFiltroProduto" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
-				<!------------------ Filtro Do Fornecedor ------------------>
+				<!------------------ Filtro Do Cliente ------------------>
 				<section id="filtro-parceiro" class="coluna-direita">
 					<div class="boxParceiro">
-						<?php 
-							echo $this->Form->input('', array('label' =>'Dados do Fornecedor','type'=>'checkbox', 'id' => 'checkfor' , 'value' => 'fornecedores'));
-						?>
+						<span>Dados do Cliente</span>
 					</div>
 					<div class="informacoesParceiro">
 						<?php
@@ -222,9 +209,10 @@
 						<td class="actions">
 							
 							<?php echo $this->Html->image('botao-tabela-visualizar.png',array('title'=>'Visualizar','url'=>array('controller' => 'Vendas','action' => 'view', $venda['Venda']['id']))); ?>
+							<?php /*
 							<hr style="top:15px; position:relative;" />
 							<?php echo $this->Html->image('botao-tabela-editar.png',array('title'=>'Editar', 'style'=>'top:3px;', 'url'=>array('controller' => 'Vendas','action' => 'edit', $venda['Venda']['id']))); ?>
-
+							*/ ?>
 						</td>
 						<td>
 							<?php echo $venda['Venda']['id'];?>
