@@ -150,6 +150,21 @@ $(document).ready(function(){
 		}
 	}
 
+	$('.operacao input').click( function(){
+		
+		var me = $(this).attr('id');
+		
+		if ( me == 'QuicklinkNomePEDIDO' ) {
+			
+			$('#QuicklinkNomeCOTACAO').attr('checked', false);
+			
+		} else {
+			
+			$('#QuicklinkNomePEDIDO').attr('checked', false);
+
+		}
+		
+	});
 /*** SUBMITAR FILTRO CONSULTA ***************************/
 
 	$("#quick-filtrar-compras").click(function(e){
