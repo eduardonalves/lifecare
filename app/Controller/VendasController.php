@@ -804,7 +804,7 @@ class VendasController extends NotasController {
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
 			if(empty($limiteCliente)){
 				$this->Session->setFlash(__('Erro, Este cliente não Possui Limite Cadastrado. Por favor cadastre um limite para este cliente'));
-				$this->Session->setFlash(__('rro, Este Cliente Não Possui Limite Cadastrado..'), 'default', array('class' => 'error-flash'));
+				
 			}else{
 				if ($limiteCliente >= $this->request->data['Venda']['valor_total']){
 					
