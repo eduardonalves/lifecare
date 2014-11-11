@@ -65,20 +65,15 @@ $(document).ready(function() {
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 			$(".autocompleteCliente input").val('');
-			$("#myModal_add-cliente").modal('show');
+			$("#myModal_add-parceiroFornecedor").modal('show');
 			$("#spanClienteCPFExistente").hide();
 		}
 	});
 	
-
-
-
-
 	
 	var total=0;
 	var i=0;
 	var total=0;
-
 	
 /*** Validação de Datas ***********************************************/
 

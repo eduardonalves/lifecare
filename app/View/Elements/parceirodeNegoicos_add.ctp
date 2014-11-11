@@ -194,6 +194,8 @@
 									$("#tblPedido").css('margin-top','10px');
 								}
 								
+							}else if($('#moduloCompras').val() == '2'){
+								$("#add-cliente").append("<option selected='selected'  id='"+data.Parceirodenegocio.id+"' data-nome='"+data.Parceirodenegocio.nome+"' data-cpf='"+data.Parceirodenegocio.cpf_cnpj+"'>"+data.Parceirodenegocio.nome+"</option>");
 							}else{
 								$("#add-"+tipoModal.toLowerCase()).append("<option value='"+data.Parceirodenegocio.id+"' class='"+data.Parceirodenegocio.cpf_cnpj+"' id='"+data.Parceirodenegocio.nome+"' rel='"+tipoModal+"'>"+data.Parceirodenegocio.nome+"</option>");
 							}						
@@ -246,11 +248,15 @@
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
     <?php
+	if(!isset($modulo)){
 		if(isset($telaAbas)){
 			echo '<h1 class="menuOption'.$telaAbas.'">Cadastrar Fornecedor</h1>';
 		}else{
 			echo '<h1 class="menuOption32">Cadastrar Parceiro</h1>';
 		}
+	}else{
+		echo '<h1 class="menuOption32">Cadastrar Cliente</h1>';
+	}
     ?>
     
 </header>
@@ -270,7 +276,9 @@
 ?>    
 
 <section> <!---section superior--->
-	<?php if(!isset($telaAbas)){ ?>
+	
+	<?php if(!isset($modulo)){
+			if(!isset($telaAbas)){ ?>
 		<header>Dados Gerais do Parceiro</header>
 	<?php }else{ ?>
 		<header>Dados Gerais do Fornecedor</header>
@@ -547,6 +555,223 @@
 
 	</section>
 </section>	
+
+
+<?php /*#########################################################################################################################################################*/
+
+	}else{
+	?>
+		<header>Dados Gerais do Cliente</header>
+		<section class="coluna-esquerda">
+
+		<?php
+			echo $this->Form->input('tipo',array('class' => 'obrigatorio','label' => 'Classificação<span class="campo-obrigatorio">*</span>:','id' => 'ParceirodenegocioClassificacao','options'=>array('CLIENTE'=>'Cliente'),'type' => 'select','div' =>array( 'class' => 'input select'),'tabindex'=>'1', 'style' => 'display: none'));
+			echo $this->Html->Tag('p','Cliente',array('class'=>'valor','style'=>'padding-top: 3px;'));
+
+			echo $this->Form->input('Contato.0.telefone1',array('class' => 'tamanho-medio obrigatorio Nao-Letras maskTel','label' => 'Telefone 1<span class="campo-obrigatorio">*</span>:', 'id' => 'ParceirodenegocioTelefone1', 'maxlength'=>'11','tabindex'=>'4','placeholder'=>'(99) 9999-9999'));
+			echo '<span id="validaTelefone" class="msg erroRight" style="display:none">Preencha o Telefone</span>';
+
+			echo $this->Form->input('Contato.0.fax',array('class' => 'tamanho-medio Nao-Letras maskTel','label' => 'Fax:', 'maxlength'=>'11','tabindex'=>'7','placeholder'=>'(99) 9999-9999'));
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<?php
+			echo $this->Form->input('nome',array('class' => 'tamanho-medio obrigatorio','label' => 'Nome<span class="campo-obrigatorio">*</span>:','required'=>'false','maxlength'=>'50','tabindex'=>'2'));
+			echo '<span id="validaNome" class="msg erroRight" style="display:none">Preencha o Nome</span>';
+
+			echo $this->Form->input('Contato.0.telefone2',array('class' => 'tamanho-medio Nao-Letras maskTel','label' => 'Telefone 2:', 'id' => 'ParceirodenegocioTelefone2', 'maxlength'=>'11','tabindex'=>'5','placeholder'=>'(99) 9999-9999'));
+			echo '<span id="validaTelefone22" class="Msg-tooltipDireita" style="display:none">Preencha o Corretamente</span>';
+
+			echo $this->Form->input('Contato.0.email',array('class' => 'tamanho-medio','type'=> 'text','label' => 'Email:','maxlength'=>'50','tabindex'=>'8','placeholder'=>'exemplo@email.com'));
+			echo '<span id="validaEmail" class="Msg-tooltipAbaixo" style="display:none">Preencha o email Corretamente</span>';
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+
+		<?php
+			echo $this->Form->input('cpf_cnpj',array('type'=>'text','class' => 'tamanho-medio','label'=>'', 'div' => array('class' => 'input text'),'tabindex'=>'3'));
+			echo "<div id='idcnpj'><label class='label-cnpj'>CNPJ:</label></div>";
+			echo "<span id='msgValidaDocumento' class='Msg tooltipMensagemErroTopo' style='display:none'>Já existe um cadastrado com esse nº de documento</span>";
+			echo "<span id='msgValidaDocumento2' class='Msg tooltipMensagemErroTopo' style='display:none'>Nº de documento liberado para cadastro</span>";
+			echo "<div id='loader' class='loaderAjaxIdentificacao' style='display:none'>";
+			echo "<span>Verificando aguarde...</span>";
+			echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando',
+																 'title'=>'Carregando',
+																 'class'=>'loaderAjaxCategoria',
+																 ));
+			echo "</div>";
+			
+			echo '<span id="validaCPF" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFCnpj" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ</span>';
+			echo '<span id="validaCPFTamanho" class="Msg-tooltipAbaixo" style="display:none">Preencha o CPF/CNPJ Corretamente</span>';
+
+			echo $this->Form->input('Contato.0.telefone3',array('class' => 'tamanho-medio Nao-Letras maskCel','label' => 'Celular:' , 'maxlength'=>'11','tabindex'=>'6','placeholder'=>'(99) 99999-9999'));
+			echo '<span id="validaCelular" class="Msg-tooltipAbaixo" style="display:none">Preencha o Corretamente</span>';
+			echo $this->Form->input('bloqueado',array('tabindex'=>'11','label' => 'Bloqueado:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => 'obrigatorio'));
+		?>
+
+	</section>
+</section><!---Fim section superior--->
+
+
+<section class="ajusteAlignSection"> <!---section MEIO--->
+	<header class="">Endereços</header>
+
+	<div class="area-endereco enderecoLength"> 
+		<div class="bloco-area">
+			<section class="coluna-esquerda">
+
+				<?php	
+					echo $this->Form->input('Endereco.0.tipo',array('label' => 'Tipo<span class="campo-obrigatorio">*</span>:','type' => 'select','readonly' => 'true','id'=>'tipo0','options'=>array('PRINCIPAL'=>'Principal'),'div' =>array( 'class' => 'input select'),'tabindex'=>'','style'=>'display: none;'));
+					echo '<span id="valida0tipo" class="msg erroRight" style="display:none">Preencha o Tipo</span>';
+					echo $this->Html->Tag('p','Principal',array('class'=>'valor','style'=>'padding-top: 3px;'));
+
+					echo $this->Form->input('Endereco.0.numero', array('label'=>'Número:','class' => 'tamanho-medio','tabindex'=>'12'));
+
+					echo $this->Form->input('Endereco.0.bairro', array('label'=>'Bairro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'15'));
+					echo '<span id="valida0Bairro" class="msg erroRight" style="display:none">Preencha o Bairro</span>';
+				?>
+
+			</section>
+
+			<section class="coluna-central" >
+
+				<?php
+					echo $this->Form->input('Endereco.0.cep', array('label'=>'CEP<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio maskCep obrigatorio','maxlength'=>'12','tabindex'=>'10','placeholder'=>'99999-999'));
+
+					echo $this->html->image('consultas.png',array('id'=>'consultaCEP0','class'=>'buscarCEP','style'=>'margin-left:10px;cursor:pointer;'));
+					echo '<span id="valida0Cep1" class="msg erroRight" style="display:none">Preencha o CEP</span>';
+					echo '<span id="valida0Cep2" class="msg erroRight" style="display:none">Preencha corretamente o CEP</span>';
+					echo '<span id="valida0Cep3" class="msg erroRight" style="display:none">Endereço não encontrado para o cep digitado.</span>';
+
+					echo $this->Form->input('Endereco.0.uf', array('label'=>'UF<span class="campo-obrigatorio">*</span>:','type' => 'text','maxlength'=>'25','class' => 'estado obrigatorio tamanho-medio','div' => array('class' => 'inputCliente input text divUf'),'tabindex'=>'13'));
+					echo '<span id="valida0Uf" class="msg erroRight" style="display:none">Preencha o campo Estado</span>';
+					
+					echo $this->Form->input('Endereco.0.complemento', array('label'=>'Complemento:','maxlength'=>'25','class' => 'tamanho-medio','tabindex'=>'16'));
+				?>
+
+			</section>
+
+			<section class="coluna-direita" >
+
+				<?php
+					echo $this->Form->input('Endereco.0.logradouro', array('label'=>'Logradouro<span class="campo-obrigatorio">*</span>:','class' => 'tamanho-medio obrigatorio','tabindex'=>'11'));
+					echo '<span id="valida0Logradouro" class="msg erroBottom" style="display:none">Preencha o Logradouro</span>';
+
+					echo $this->Form->input('Endereco.0.cidade', array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:', 'type' => 'text','class' => 'cidade obrigatorio tamanho-medio','tabindex'=>'14'));
+					echo '<span id="valida0Cidade" class="msg erroBottom" style="display:none">Preencha o campo Cidade</span>';
+
+					echo $this->Form->input('Endereco.0.ponto_referencia', array('label'=>'Ponto de Referência:','maxlength'=>'50','type' => 'textarea','tabindex'=>'17'));
+				?>
+
+			</section>
+		</div>	
+	</div>
+
+	<div class="fake-footer">
+
+		<?php
+			echo $this->html->image('endereco-adional.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco de Endereços','id'=>'bt-addEndereco','class'=>'bt-direita'));
+			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco de Endereços','id'=>'remove-area-endereco','class'=>'bt-direita'));
+		?>
+
+		<span id="validaEndBloco" class="Msg-tooltipEsquerda" style="display:none">São necessarios os campos obrigatórios para adicionar novo bloco</span>
+	</div>
+</section><!--fim Meio-->
+
+<section class="ajusteAlignSection"> <!---section MEIO--->
+	<header class="">Dados Bancários</header>
+
+	<div class="area-dadosbanc">
+		<div class="bloco-area">
+			<section class="coluna-esquerda">
+
+				<?php 
+					echo $this->Form->input('Dadosbancario.0.nome_banco',array('label' => 'Nome do Banco:','class' => 'tamanho-medio','tabindex'=>'18','maxlength' => '50'));
+
+					echo $this->Form->input('Dadosbancario.0.numero_agencia',array('label' => 'Número da Agência:','class' => 'tamanho-pequeno agencia','tabindex'=>'21','maxlength' => '25'));
+
+					echo $this->Form->input('Dadosbancario.0.gerente',array('label' => 'Gerente:','class' => 'tamanho-pequeno','tabindex'=>'24','maxlength' => '50'));
+				?>
+
+			</section>
+
+			<section class="coluna-central" >
+
+				<?php
+					echo $this->Form->input('Dadosbancario.0.numero_banco',array('label' => 'Número do Banco:','class' => 'tamanho-medio','tabindex'=>'19','maxlength' => '25'));
+
+					echo $this->Form->input('Dadosbancario.0.conta',array('label' => 'Conta:','class' => 'tamanho-pequeno','id' => 'DadosbancarioConta0','tabindex'=>'22','maxlength' => '25'));
+				?>
+
+			</section>
+
+			<section class="coluna-direita" >
+
+				<?php
+					echo $this->Form->input('Dadosbancario.0.nome_agencia',array('label' => 'Nome da Agência:','class' => 'tamanho-pequeno','tabindex'=>'50'));
+
+					echo $this->Form->input('Dadosbancario.0.telefone_banco',array('label' => 'Telefone:','class' => 'tamanho-medio maskTel','tabindex'=>'23','maxlength' => '15','placeholder'=>'(99) 9999-9999'));
+				?>
+
+			</section>
+		</div>
+	</div>
+
+	<div class="fake-footer">
+
+		<?php
+			echo $this->html->image('banco-adional.png',array('alt'=>'Adicionar','title'=>'Adicionar Bloco Dados Bancários','id'=>'add-area-dadosbanc','class'=>'bt-direita'));	
+			echo $this->html->image('botao-remove.png',array('alt'=>'Adicionar','title'=>'Remover Bloco Dados Bancários','id'=>'remove-area-dadosbanc','class'=>'bt-direita'));
+		?>
+
+		<span id="validaBancBloco" class="Msg-tooltipEsquerda" style="display:none">São necessarios os campos Número da Agência e Conta para adicionar novo bloco</span>
+	</div>
+</section><!--fim Meio-->
+
+<!--<section class="areaCliente">-->
+<section><!---section Baixo--->	
+	<header class="">Dados de Crédito</header>
+
+	<section class="coluna-esquerda">
+
+		<?php
+			echo $this->Form->input('Dadoscredito.0.limite',array('label' => 'Limite de Crédito:','type' => 'text','class' => 'tamanho-medio  dinheiro_duasCasas','tabindex'=>'25'));
+			echo '<span id="validaLimite" class="Msg-tooltipDireita" style="display:none">Preencha o Limite</span>';
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<?php
+			echo $this->Form->input('Dadoscredito.0.validade_limite',array('label' => 'Validade do Limite:','type' => 'text','class' => 'tamanho-pequeno inputData','tabindex'=>'26'));
+			echo '<span id="validaValidade1" class="Msg-tooltipDireita" style="display:none">Preencha a Validade</span>';
+			echo '<span id="validaValidade2" class="Msg-tooltipDireita" style="display:none">Nao é possivel selecionar data passada</span>';
+			echo '<span id="validaValidade3" class="Msg-tooltipDireita" style="display:none">Preencha corretamente a data</span>';
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+
+		<?php
+			echo $this->Form->input('Dadoscredito.0.bloqueado',array('label' => 'Bloqueado:','options'=>array('Não' => 'Não', 'Sim' => 'Sim'),'type' => 'select','class' => '','tabindex'=>'29'));
+			echo '<span id="validaBloqueado" class="Msg-tooltipDireita" style="display:none">Selecione se Bloqueado</span>';
+			echo $this->Form->input('Dadoscredito.0.user_id', array('type'=> 'hidden', 'value' => $userid));
+		?>
+
+	</section>
+</section>	
+	
+	<?php
+		} ?>
+	
 
 <footer>
     <div id="LoadAjaxProduto" class="loaderAjax" style="display:none">

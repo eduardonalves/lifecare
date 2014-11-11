@@ -183,6 +183,11 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
 		
+		if(isset($this->request->params['named']['modulo'])){
+			$modulo =  $this->request->params['named']['modulo'];
+		}
+		
+		
 		if ($this->request->is('post')) {
 			$this->Cotacaovenda->create();
 		
@@ -250,6 +255,14 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->loadModel('Parceirodenegocio');
 		$parceirodenegocios = $this->Parceirodenegocio->find('all', array('recursive' => -1,'order' => 'Parceirodenegocio.nome ASC','conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE')));
 		
+		$this->loadModel('Vendedor');
+		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
+		
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
+		
+		
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;
 		
@@ -257,7 +270,7 @@ class CotacaovendasController extends ComoperacaosController {
 		
 		
 		$users = $this->Cotacaovenda->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','teste','modulo','allVendedores','allClientes'));
 	}
 	
 public function addDash(){
