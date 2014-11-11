@@ -190,12 +190,19 @@ class PedidovendasController extends ComoperacaosController {
 
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;
+		
+		$this->loadModel('Vendedor');
+		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
+		
+		$this->loadModel('Cliente');
+		$allClientes = $this->Cliente->find('all', array('recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		
 
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 
 
 		$users = $this->Pedidovenda->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','allVendedores','allClientes'));
 	}
 
 public function addDash(){

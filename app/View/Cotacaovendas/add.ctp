@@ -1,7 +1,7 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-		echo $this->Html->css('compras_cotacaovendas');
+		echo $this->Html->css('cotacaovendas');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
@@ -9,7 +9,6 @@
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
 		echo $this->Html->script('vendas.js');
-		echo $this->Html->script('funcoes_vendas.js');
 	$this->end();
 	
 	
