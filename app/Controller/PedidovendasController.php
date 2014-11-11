@@ -98,10 +98,10 @@ class PedidovendasController extends ComoperacaosController {
 		$this->loadModel('Contato');
 		$this->loadModel('ProdutosParceirodenegocio');
 		$this->loadModel('Dadoscredito');
-
+		$this->loadModel('Cliente');
 		if ($this->request->is('post')) {
 			
-			$clienteId = $this->request->data['Pedidovenda']['parceirodenegocio_id'];	
+			$clienteId = $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'];	
 			$clientesNota = $this->Cliente->find('first', array('recursive' => -1,'conditions' => array('Cliente.id' => $clienteId)));
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
 			
