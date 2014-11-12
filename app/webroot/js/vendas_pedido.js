@@ -3,18 +3,11 @@ $(document).ready(function() {
 	function insereCredito(valor){
 		$('#creditoClienteHide').val(valor);
 		$('#creditoCliente').val('R$ ' + valor);
-		$("#creditoCliente").priceFormat({
-			allowNegative: true,
-			prefix: 'R$ ',
-			centsSeparator: ',',
-			thousandsSeparator: '.',
-			limit: 15
-		});	
+		//$("#creditoCliente").val(valor);
 	}
     
 	function calculaCredito(total,credito){
 		sobra = credito - total ;
-		alert(sobra);
 		return sobra;
 	}
 
@@ -433,6 +426,12 @@ $(document).ready(function() {
 			$(this).hide();
 			
 			calculaTotal('TotalPedido');
+			
+			if($('#creditoClienteHide').val() != ''){
+				$('#creditoClienteHide').val('');
+				var credito = calculaCredito(parseFloat($('#totalProdutoHide').val()),parseFloat($('#creditoClienteHide').val()));
+				insereCredito(credito);
+			}
 		}
 	});
 	
@@ -463,6 +462,8 @@ $(document).ready(function() {
 			totalPedido += valor;
 		});
 		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
+		$('#totalProdutoHide').val(totalPedido);
+		
 	}
 
 /******** CALCULO VALOR UNITARIO   **************************/

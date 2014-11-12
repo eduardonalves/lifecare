@@ -218,14 +218,18 @@
 						?>
 					</section>
 					
-								
-					
-				</div>
 					<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
-					</section>
+						<input type="hidden" id="totalProdutoHide"/>
+						<input type="hidden" id="creditoClienteHide"/>
+			</section>			
+					
+				</div>
+					
+					
 					
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
