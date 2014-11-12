@@ -177,12 +177,12 @@
 								<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
 								<select class="tamanho-medio limpa" id="add-produtos">
 									<option></option>
-									<option value="add-produto">Cadastrar</option>
+									<!--<option value="add-produto">Cadastrar</option>-->
 
 									<?php
 										foreach($produtos as $produto)
 										{
-											echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."'>";
+											echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
 											echo $produto['Produto']['nome'];
 											echo "</option>";
 										}
@@ -211,7 +211,7 @@
 						<?php
 							
 								
-							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno dinheiro_duasCasas','type'=>'text','maxlength'=>'15'));		
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));		
 							echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 							echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));
 							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
@@ -267,5 +267,4 @@
 		echo $this->Form->end();
 	?>	
 </footer>
-
 
