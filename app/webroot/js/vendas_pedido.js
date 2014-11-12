@@ -1,5 +1,23 @@
 $(document).ready(function() {
 
+	function insereCredito(valor){
+		$('#creditoClienteHide').val(valor);
+		$('#creditoCliente').val('R$ ' + valor);
+		$("#creditoCliente").priceFormat({
+			allowNegative: true,
+			prefix: 'R$ ',
+			centsSeparator: ',',
+			thousandsSeparator: '.',
+			limit: 15
+		});	
+	}
+    
+	function calculaCredito(total,credito){
+		sobra = credito - total ;
+		alert(sobra);
+		return sobra;
+	}
+
 
 /*** AUTO COMPLETE VENDEDOR *******************************************/	
 	
@@ -47,6 +65,23 @@ $(document).ready(function() {
 		valorNome= $("#add-cliente option:selected" ).attr('id');
 		valorLimiteCredito = parseFloat($("#add-cliente option:selected").attr('data-limite'));
 		totalLimiteCredito = parseFloat(valorLimiteCredito).toFixed(2);
+		
+		if($('#totalProdutoHide').val() == ''){
+			if(totalLimiteCredito != ''){  //VERIFICA CREDITO
+				insereCredito(totalLimiteCredito);		
+			}else{
+				insereCredito(0.00);		
+			}			
+		}else{
+			if(valorLimiteCredito != ''){
+				var credito = calculaCredito( parseFloat($('#totalProdutoHide').val()),valorLimiteCredito);
+				insereCredito(credito);
+			}else{
+				credito = calculaCredito( parseFloat($('#totalProdutoHide').val()),0.00);
+				insereCredito(credito);
+			}	
+		}
+
 		
 		if(!valorCliente==""){
 			if(valorCliente=="add-Cliente"){
@@ -163,6 +198,7 @@ $(document).ready(function() {
 /********************* Preencher Dados Produtos *********************/    
     var in_produto = 0;
     var valorTotal = 0;
+
     
     $("body").on('click','#bt-adicionarProduto',function(){		
 		
@@ -177,16 +213,33 @@ $(document).ready(function() {
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();	
 			valorUnit = $("#produtoValor").val();		
-
+			
+						
 			//CALCULA O VALOR TOTAL 
 			valorTotal = 0;
 			if($("#produtoValor").val() != ''){
 				qtd = parseInt(valorQtd);
 				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
 				valor = parseFloat(valor);
-			
 				valorTotal = valor*qtd;
 				valorMoeda = float2moeda(valorTotal);
+				valorUnit = float2moeda(parseFloat(valorUnit));
+				
+				if($('#creditoClienteHide').val() != ''){
+					var credito = calculaCredito(valorTotal,parseFloat($('#creditoClienteHide').val()));
+					insereCredito(credito);
+				}else{
+					$("#totalProdutoHide").val(valorTotal);		
+					$("#totalProduto").val(valorTotal);	
+					$("#totalProduto").priceFormat({
+						allowNegative: true,
+						prefix: 'R$ ',
+						centsSeparator: ',',
+						thousandsSeparator: '.',
+						limit: 15
+					});		
+				}
+				
 			}else{
 				valorMoeda = '0,00';
 				valorUnit = '0,00';

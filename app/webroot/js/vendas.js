@@ -1,5 +1,9 @@
  $(document).ready(function() {
 
+	function calcCreditoCLiente(seletor){
+		limite = $(seletor).attr('data-limite');
+		$('#creditoCliente').val(float2moeda(limite));
+	}
 
 /*** AUTO COMPLETE VENDEDOR *******************************************/	
 	
@@ -41,7 +45,7 @@
 		valorNome= $("#add-cliente option:selected" ).attr('id');
 		valorLimiteCredito = parseFloat($("#add-cliente option:selected").attr('data-limite'));
 		totalLimiteCredito = parseFloat(valorLimiteCredito).toFixed(2);
-		
+		calcCreditoCLiente("#add-cliente option:selected");
 		if(!valorCliente==""){
 			if(valorCliente=="add-Cliente"){
 				}else{
@@ -111,15 +115,25 @@
     
 /**************** Modal Produtos *****************/
     $('body').on('click', '#ui-id-3 a',function(){
-		valorCad1= $(this).text();
-		if(valorCad1=="Cadastrar"){
+		valorCad1 = $(this).text();
+		if(valorCad1 == "Cadastrar"){
 		    $(".autocompleteProduto input").val('');
 		    $("#myModal_add-produtos").modal('show');
 		}else{
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
-			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
-			$("#produtoValor").val(float2moeda(valorVenda));
 			$('#produtoUnid').val(valorUnid);
+			
+			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
+			
+			if(valorVenda == ''){
+				$("#produtoValor").val(0.00);
+			}else{
+				$("#produtoValor").val(float2moeda(valorVenda));
+			}
+			
+			
+			
+			
 		}
 	});
 	
@@ -200,6 +214,7 @@
 			
 			//CALCULA O VALOR TOTAL 
 			valorTotal = 0;
+			
 			if($("#produtoValor").val() != ''){
 				qtd = parseInt(valorQtd);
 				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
