@@ -853,7 +853,7 @@ class VendasController extends NotasController {
 								
 							}
 							$this->Session->setFlash(__('A Venda foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-							debug($limiteCliente);
+							
 							//return $this->redirect(array('controller' => 'vendas' ,'action' => 'view', $ultimaVenda['Venda']['id']));
 							
 

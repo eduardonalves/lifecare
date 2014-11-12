@@ -29,7 +29,7 @@
 
 <section>
 		<header>Dados da Venda</header>
-		<?php echo $this->Form->create('PDVENDA');?>
+		<?php echo $this->Form->create('Pedidovenda');?>
 		<section>
 			<!-- INICIO COTAÇÕES -->
 			<section class="coluna-esquerda">
@@ -70,8 +70,7 @@
 			
 	<header id="titulo-header">Dados do Vendedor</header>
 
-	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
-
+	
 	
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
@@ -159,7 +158,7 @@
 					<div class="textoFalsa"><p id="cpfcnpj_parceiro" class="textoMenor"></p></div>
 				</div>	
 				<?php
-					echo $this->Form->input('parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
+					echo $this->Form->input('Parceirodenegocio.0.parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
 				?>
 			</section>
 		</div>

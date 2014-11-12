@@ -202,7 +202,7 @@ class PedidovendasController extends ComoperacaosController {
 					}
 					$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
-					debug($this->request->data);
+					
 				}else{
 					$this->Session->setFlash(__('O pedidovenda não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 	
@@ -435,7 +435,7 @@ public function addDash(){
 				$email->attachments(array($pdf));
 				
 				$mensagemHtml = array('mensagem' => 'teste de mensagem');
-				//$this->set('extraparams', $mensagem);
+				$this->set('extraparams', $mensagem);
                 if($email->send($mensagem)){
 					return TRUE;
                 }else{

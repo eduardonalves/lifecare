@@ -159,7 +159,7 @@
 					<div class="textoFalsa"><p id="cpfcnpj_parceiro" class="textoMenor"></p></div>
 				</div>	
 				<?php
-					echo $this->Form->input('parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
+					echo $this->Form->input('Parceirodenegocio.0.parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
 				?>
 			</section>
 		</div>
