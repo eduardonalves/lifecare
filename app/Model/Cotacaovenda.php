@@ -63,8 +63,8 @@ class Cotacaovenda extends Comoperacao {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Comtokencotacaovenda' => array(
-			'className' => 'Comtokencotacaovenda',
+		'Comtokencotacao' => array(
+			'className' => 'Comtokencotacao',
 			'foreignKey' => 'comoperacao_id',
 			'dependent' => false,
 			'conditions' => '',
