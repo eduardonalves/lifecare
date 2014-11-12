@@ -122,6 +122,8 @@ $(document).ready(function() {
 		    $("#myModal_add-produtos").modal('show');
 		}else{
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
+			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
+			$("#produtoValor").val(float2moeda(valorVenda));
 			$('#produtoUnid').val(valorUnid);
 		}
 	});
@@ -173,9 +175,9 @@ $(document).ready(function() {
 			valorId = $("#add-produtos option:selected" ).attr('id');
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
-			valorObs = $("#produtoObs").val();		
+			valorObs = $("#produtoObs").val();	
 			valorUnit = $("#produtoValor").val();		
-		
+
 			//CALCULA O VALOR TOTAL 
 			valorTotal = 0;
 			if($("#produtoValor").val() != ''){

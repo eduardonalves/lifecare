@@ -25,7 +25,7 @@
 				$("#nome_vendedor").text(valorNome);
 			}
 		}else{
-			alert('asd');
+			$('#msgVendedorVazio').show();	
 		}
     });
 	
@@ -61,18 +61,11 @@
 					valorCreditoClienteAux = $("#valorCreditoClienteAux").val();
 					$("#credito_cliente").text(valorCreditoClienteAux);
 				}
+		}else{
+			$('#msgClienteVazio').show();	
 		}
 	});
 	
-	$('body').on('click', '#ui-id-3 a',function(){
-		valorCad= $(this).text();
-		if(valorCad=="Cadastrar"){
-			$(".autocompleteCliente input").val('');
-			$("#myModal_add-parceiroFornecedor").modal('show');
-			$("#spanClienteCPFExistente").hide();
-		}
-	});
-
 /**** FUNÇÔES **/
 
 	function float2moeda(num){
@@ -101,18 +94,13 @@
 		 }
 	}
  
-/********************* Autocomplete Fornecedor *********************/
-    $(function(){
-		$("#add-fornecedor").combobox();
-	});
-	
 /********************* Autocomplete Produtos *********************/
     $(function(){
 		$("#add-produtos").combobox();
 	});
 
 /**************** Modal Parceiro de negocio tipo Fornecedor *****************/
-    $('body').on('click', '#ui-id-1 a',function(){
+    $('body').on('click', '#ui-id-2 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 			$(".autocompleteFornecedor input").val('');
@@ -122,13 +110,15 @@
     });
     
 /**************** Modal Produtos *****************/
-    $('body').on('click', '#ui-id-2 a',function(){
-		valorCad= $(this).text();
-		if(valorCad=="Cadastrar"){
+    $('body').on('click', '#ui-id-3 a',function(){
+		valorCad1= $(this).text();
+		if(valorCad1=="Cadastrar"){
 		    $(".autocompleteProduto input").val('');
 		    $("#myModal_add-produtos").modal('show');
 		}else{
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
+			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
+			$("#produtoValor").val(float2moeda(valorVenda));
 			$('#produtoUnid').val(valorUnid);
 		}
 	});
@@ -206,7 +196,25 @@
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();		
-
+			valorUnit = $("#produtoValor").val();	
+			
+			//CALCULA O VALOR TOTAL 
+			valorTotal = 0;
+			if($("#produtoValor").val() != ''){
+				qtd = parseInt(valorQtd);
+				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
+				valor = parseFloat(valor);
+			
+				valorTotal = valor*qtd;
+				valorMoeda = float2moeda(valorTotal);
+				valorUnit = float2moeda(parseFloat(valorUnit));
+			}else{
+				valorMoeda = '0,00';
+				valorUnit = '0,00';
+				valorTotal = '0,00';
+			}
+			
+			
 			//Adiciona os valores na tabela pra visualização
 			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
 					\
@@ -222,7 +230,9 @@
 					</td>\
 					\
 					\<td>'+valorUnid+'</td>\
+					\<td>'+valorUnit+'</td>\
 					\
+					\<td>'+valorTotal+'</td>\
 					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
@@ -244,11 +254,20 @@
 			
 			in_produto++;
 			
+			calculaTotal('TotalPedido');
 					
 		}
 	});
 
-
+	function calculaTotal(classe){
+		var totalPedido = 0;
+		$('.'+classe).each(function(){			
+			valor = $(this).val().split('.').join('').replace(',','.');
+			valor = parseFloat(valor);		
+			totalPedido += valor;
+		});
+		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
+	}
 /********************* REMOVER Produtos *************************/    
 	var inicio = 0;
 	var fim = 0;
@@ -328,9 +347,13 @@
 		}else if($('.dataFim').val() == ''){
 			$('#msgDataFinal').show();
 			
-		}else if(in_fornecedor == 0 && $('#validaCada').val() == 0){
-			$('#msgValidaFor').show();	
+		}else if($('#vendedorId_hidden').val() == ''){
+			$('#msgVendedorVazio').show();
 					
+		}else if($('#parceiro_id').val() == ''){
+			
+			$('#msgClienteVazio').show();
+			
 		}else if(in_produto <= 0 ){			
 			$('#msgValidaProduto').show();
 		

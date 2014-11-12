@@ -75,7 +75,7 @@
 	
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
-			
+			<span id="msgVendedorVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Vendedor</span>
 			<section class="coluna-esquerda">
 				<span id="msgDataInicial" class="Msg-tooltipDireita hideMsg" style="display:none;">Preencha a Data Inicial</span>
 				<div class="input autocompleteVendedor">
@@ -109,11 +109,10 @@
 
 <!-- ###################################################################################################################################################################3 -->
 <header id="titulo-header">Dados do Cliente</header>
-
 	<!--Fieldset Do CLIENTE-->
 		<div id="fieldCliente" class="fieldset">
+			<span id="msgClienteVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Cliente</span>
 			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
-
 			<section class="coluna-esquerda">
 				<div class="input autocompleteCliente tela-resultado">
 					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
@@ -174,12 +173,12 @@
 					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio limpa" id="add-produtos">
 						<option></option>
-						<option value="add-produto">Cadastrar</option>
+						<!--<option value="add-produto" id="addProduto">Cadastrar</option>-->
 
 						<?php
 							foreach($produtos as $produto)
 							{
-								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."'>";
+								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
 								echo $produto['Produto']['nome'];
 								echo "</option>";
 							}
@@ -205,12 +204,18 @@
 			<section class="coluna-central">
 				<?php
 							
+					echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));		
 					echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>2));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
 				?>
 			</section>	 
+			<section class="coluna-central">
+						<?php
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+						?>
+					</section>
 			</div>	
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
@@ -218,6 +223,8 @@
 						<th >Nome do Produto</th>
 						<th style="width: 80px !important;">Quantidade</th>									
 						<th style="width: 70px;">Unidade</th>
+						<th style="width: 150px;">Valor Unitário</th>
+						<th>Valor Total</th>
 						<th style="width: 150px;">Observação</th>		
 						<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
 						<th class="confirma">Ações</th>					
