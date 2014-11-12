@@ -225,15 +225,18 @@
 					</td>\
 					\
 					<td>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\	<span id="msgValidaQtde'+in_produto+'" class="Msg Msg-tooltipDireita" style="display:none;left: 54%;">Preencha a Quantidade do Produto</span>\
 					</td>\
 					\
 					\<td>'+valorUnid+'</td>\
-					\<td>'+valorUnit+'</td>\
-					\
-					\<td>'+valorTotal+'</td>\
-					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
+					<td>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+					\</td>\
+					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+					</td>\
+					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
 					\	<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
@@ -444,10 +447,31 @@
 		
 		$('.Msg').hide();			
 		
-		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
-		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
-		$('.produtoTr_'+nId+' input').removeClass('borderZero');
+		$('.inputEditavel'+nId).removeAttr('readonly','readonly');
+		$('.inputEditavel'+nId).removeAttr('onfocus','this.blur();');
+		$('.inputEditavel'+nId).removeClass('borderZero');		
+	});
+	
+
+	$('body').on('focusout','.qtdE',function(){
+		id = $(this).attr('id');
+		nId = id.substring(7);	
 		
+		itenQtd = $(this).val();
+		qtd = parseInt(itenQtd);
+		
+		valor = $('#vU'+nId).val().split('.').join('').replace(',','.');
+		valor = parseFloat(valor);
+		
+		total = valor*qtd;
+		
+		$('#valorTotal'+nId).val(float2moeda(total));
+		
+		if(total != '' && total != 'undefined' && total){
+			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+		}else{
+			$('#spanValTotal'+nId).text("R$ 0,00");
+		}		
 		
 	});
 
