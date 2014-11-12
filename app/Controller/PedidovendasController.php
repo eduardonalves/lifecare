@@ -46,6 +46,29 @@ class PedidovendasController extends ComoperacaosController {
 		$this->set('pedidovendas', $this->Paginator->paginate());
 	}
 
+	//Seta o Limite Usado do Cliente
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento){
+		
+		if($formaPagamento !="DEPOSITO A VISTA"  || $formaPagamento !="DINHEIRO"){
+			$this->loadModel('Dadoscredito');
+		
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+				$novoLimiteUsado =  $limiteUsado + $valorConta;
+				$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			
+				$this->Dadoscredito->save($updateDadosCredito);
+			}
+		}
+		
+	
+	}
+
+
+	
+
 /**
  * view method
  *
@@ -106,7 +129,7 @@ class PedidovendasController extends ComoperacaosController {
 			$modulo =  $this->request->params['named']['modulo'];
 		}
 		
-
+		$this->request->data['Pedidovenda']['tipo'] = 'PDVENDA';
 		if ($this->request->is('post')) {
 			
 			$clienteId = $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'];	
@@ -120,11 +143,13 @@ class PedidovendasController extends ComoperacaosController {
 					$this->request->data['Pedidovenda']['status_financeiro'] ="OK";
 					$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
 					$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
+					$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
 					$this->loadModel('Lote');
 				}else{
 					$this->request->data['Pedidovenda']['status_financeiro'] ="PENDENTE";
 					$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
 					$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
+					$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
 					$this->loadModel('Lote');
 				}
 				$this->Pedidovenda->create();
@@ -200,6 +225,7 @@ class PedidovendasController extends ComoperacaosController {
 							$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 						}
 					}
+					$this->setLimiteUsadoAdd($clienteId,$this->request->data['Pedidovenda']['valor'], $this->request->data['Pedidovenda']['forma_pagamento']);
 					$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
 					
@@ -226,7 +252,7 @@ class PedidovendasController extends ComoperacaosController {
 		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
 		
 		$this->loadModel('Cliente');
-		$allClientes = $this->Cliente->find('all', array('recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		$allClientes = $this->Cliente->find('all', array('fields' => array('DISTINCT Cliente.id', 'Cliente.*'),'recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
 		
 
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;

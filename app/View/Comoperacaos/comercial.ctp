@@ -209,12 +209,21 @@
 					<th id="id" class="colunaConta id"><?php echo $this->Paginator->sort('id','Código'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="tipo" class="colunaConta tipo"><?php echo $this->Paginator->sort('tipo','Tipo'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="data_inici" class="colunaConta data_inici"><?php echo $this->Paginator->sort('data_inici','Data de Início', array('style'=>'vertical-align:text-top;')); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="data_fim" class="colunaConta data_fim"><?php echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div></th>
+					<!--<th id="data_fim" class="colunaConta data_fim"><?php //echo $this->Paginator->sort('data_fim','Data de Fim'); ?> <div id='indica-ordem' class='posicao-seta'></div></th>-->
 					<th id="valor" class="colunaConta valor tbFixCompras"><?php echo $this->Paginator->sort('valor'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="prazo_entrega" class="colunaConta prazo_entrega"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<!--<th id="prazo_entrega" class="colunaConta prazo_entrega"><?php echo $this->Paginator->sort('prazo_entrega'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>-->
 					<th id="forma_pagamento" class="colunaConta forma_pagamento"><?php echo $this->Paginator->sort('forma_pagamento'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="status_financeiro" class="colunaConta status"><?php echo $this->Paginator->sort('status_financeiro', 'Sit.Financ'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					
+					<th id="status_gerencial" class="colunaConta status_gerencial"><?php echo $this->Paginator->sort('status_gerencial', 'Sit.Ger'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					
+					<th id="status_estoque" class="colunaConta status_estoque"><?php echo $this->Paginator->sort('status_estoque', 'Sit.Estq'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					
+					<th id="status_faturamento" class="colunaConta status_faturamento"><?php echo $this->Paginator->sort('status_faturamento', 'Sit.Fatur'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					
+					
 					<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
-					<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Nome do(s) Fornecedor(es)'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Cliente'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 
 
 				</tr>
@@ -397,12 +406,35 @@
 						
 					</td>
 					<td class="id"><?php echo $comoperacao['Comoperacao']['id']; ?>&nbsp;</td>
-					<td class="tipo"><?php echo $comoperacao['Comoperacao']['tipo']; ?>&nbsp;</td>
+					<td class="tipo">
+						<?php 
+						if($comoperacao['Comoperacao']['tipo'] =="CTVENDA"){
+							echo "COTAÇÃO"; 
+						}else if($comoperacao['Comoperacao']['tipo'] =="PDVENDA"){
+							echo "PEDIDO"; 
+						}else{
+							
+							echo "---";
+						}
+						
+						?>
+						&nbsp;</td>
 					<td class="data_inici"><?php echo formatDateToView($comoperacao['Comoperacao']['data_inici']); ?>&nbsp;</td>
-					<td class="data_fim"><?php echo formatDateToView($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>
+					<!--<td class="data_fim"><?php echo formatDateToView($comoperacao['Comoperacao']['data_fim']); ?>&nbsp;</td>-->
 					<td class="valor"><?php echo "R$ " . number_format($comoperacao['Comoperacao']['valor'], 2, ',', '.'); ?>&nbsp;</td>
-					<td class="prazo_entrega"><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>
+					<!--<td class="prazo_entrega"><?php echo $comoperacao['Comoperacao']['prazo_entrega']; ?>&nbsp;</td>-->
 					<td class="forma_pagamento"><?php echo $comoperacao['Comoperacao']['forma_pagamento']; ?>&nbsp;</td>
+					
+					
+					
+					
+					<td class="status"><?php echo $comoperacao['Comoperacao']['status_financeiro']; ?>&nbsp;</td>
+					<td class="status"><?php echo $comoperacao['Comoperacao']['status_gerencial']; ?>&nbsp;</td>
+					<td class="status"><?php echo $comoperacao['Comoperacao']['status_estoque']; ?>&nbsp;</td>
+					<td class="status"><?php echo $comoperacao['Comoperacao']['status_faturamento']; ?>&nbsp;</td>
+					
+					
+					
 					<td class="status"><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
 					<td class="Parceirodenegocio"><?php echo $comoperacao['Parceirodenegocio'][0]['nome'];
 								if($comoperacao['Comoperacao']['tipo'] == 'COTACAO')  echo '...'; ?>&nbsp;</td>
