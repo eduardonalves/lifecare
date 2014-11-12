@@ -8,7 +8,7 @@
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('vendas.js');
+		echo $this->Html->script('vendas_pedido.js');
 	$this->end();
 	
 	
@@ -107,7 +107,7 @@
 			
 		</div>
 
-<!-- ###################################################################################################################################################################3 -->
+<!-- ###################################################################################################################################################################-->
 <header id="titulo-header">Dados do Cliente</header>
 	<!--Fieldset Do CLIENTE-->
 		<div id="fieldCliente" class="fieldset">
@@ -126,7 +126,7 @@
 								
 								$limiteDisponivel = 0;
 								
-								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+								if (isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
 									
 									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
 								}
@@ -178,6 +178,7 @@
 						<?php
 							foreach($produtos as $produto)
 							{
+								
 								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
 								echo $produto['Produto']['nome'];
 								echo "</option>";
@@ -214,7 +215,10 @@
 			<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
+						<input type="hidden" id="totalProdutoHide"/>
+						<input type="hidden" id="creditoClienteHide"/>
 					</section>
 			</div>	
 			<section class="tabela_fornecedores">
@@ -253,8 +257,9 @@
 							    'style' => 'display:none;'
 							    
 	    ));
-		    echo $this->Form->end();
+		echo $this->Form->end();
 	?>	
 </footer>
+
 
 
