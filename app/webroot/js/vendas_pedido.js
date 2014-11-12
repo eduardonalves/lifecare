@@ -205,7 +205,7 @@ $(document).ready(function() {
 					</td>\
 					\
 					<td>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
 					</td>\
 					\
@@ -216,7 +216,7 @@ $(document).ready(function() {
 					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
 						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
 					</td>\
-					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
+					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
 						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
@@ -397,9 +397,9 @@ $(document).ready(function() {
 		
 		$('.Msg').hide();			
 		
-		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
-		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
-		$('.produtoTr_'+nId+' input').removeClass('borderZero');		
+		$('.inputEditavel'+nId).removeAttr('readonly','readonly');
+		$('.inputEditavel'+nId).removeAttr('onfocus','this.blur();');
+		$('.inputEditavel'+nId).removeClass('borderZero');		
 	});
 
 	function calculaTotal(classe){
