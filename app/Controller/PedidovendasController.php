@@ -97,8 +97,16 @@ class PedidovendasController extends ComoperacaosController {
 		$this->loadUnidade();
 		$this->loadModel('Contato');
 		$this->loadModel('ProdutosParceirodenegocio');
+
 		$this->loadModel('Dadoscredito');
 		$this->loadModel('Cliente');
+
+		
+		if(isset($this->request->params['named']['modulo'])){
+			$modulo =  $this->request->params['named']['modulo'];
+		}
+		
+
 		if ($this->request->is('post')) {
 			
 			$clienteId = $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'];	
@@ -225,7 +233,7 @@ class PedidovendasController extends ComoperacaosController {
 
 
 		$users = $this->Pedidovenda->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','allVendedores','allClientes'));
+		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','allVendedores','allClientes','modulo'));
 	}
 
 public function addDash(){

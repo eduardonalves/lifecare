@@ -77,6 +77,7 @@
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
 			
 			<section class="coluna-esquerda">
+				<span id="msgDataInicial" class="Msg-tooltipDireita hideMsg" style="display:none;">Preencha a Data Inicial</span>
 				<div class="input autocompleteVendedor">
 					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-vendedor">

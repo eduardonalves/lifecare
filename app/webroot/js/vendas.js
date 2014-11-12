@@ -24,6 +24,8 @@
 				$("#vendedorId_hidden").val(valorVendedor);
 				$("#nome_vendedor").text(valorNome);
 			}
+		}else{
+			alert('asd');
 		}
     });
 	

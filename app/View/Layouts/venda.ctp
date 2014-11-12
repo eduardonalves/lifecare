@@ -123,7 +123,7 @@
 				</li>
 				
 				<li class="item" style="line-height: 15px">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Pedidovendas","action"=>"add"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Pedidovendas","action"=>"add","modulo"=>"vendas"),true);?>'>
 						
 						<?php 
 							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
