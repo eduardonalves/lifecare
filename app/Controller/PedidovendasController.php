@@ -209,15 +209,17 @@ class PedidovendasController extends ComoperacaosController {
 
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Empresa');
+		$this->loadModel('Vendedor');
 		
 		$empresa = $this->Empresa->find('first');
 		
+		$pedidovenda = $this->Pedidovenda->find('first', array('recursive'=>'1','fields'=>'Pedidovenda.*','conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id)));
 		
-		$pedidovenda = $this->Pedidovenda->find('first', array('fields'=>'Pedidovenda.*','conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id)));
-		
+		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$pedidovenda['Pedidovenda']['vendedor_id'])));			
+			
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedidovenda['Parceirodenegocio'][0]['id'] )));	
 		
-		$this->set(compact('pedidovenda','userid','itens','parceirodenegocio','empresa'));
+		$this->set(compact('vendedor','pedidovenda','userid','itens','parceirodenegocio','empresa'));
 	}
 
 	

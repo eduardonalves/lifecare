@@ -48,7 +48,7 @@
 <header>
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
-    <h1 class="menuOption41">Consulta do Pedidovenda</h1>
+    <h1 class="menuOption51">Consulta da Venda</h1>
 </header>
 
 <div>
@@ -82,8 +82,28 @@
 
 			?>
 		</section>
+	
+	<section>
+	<header>Dados do Vendedor</header>
+		<section  class="coluna-esquerda">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
 		
-	<header>Dados do Fornecedor</header>
+		<section  class="coluna-central">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
+		
+	<header>Dados do Cliente</header>
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
@@ -173,19 +193,18 @@
 			?>
 		</section>
 		
-	<header>Dados do Pedidovenda</header>
+	<header>Dados da Venda</header>
 	
 	<!-- INICIO PEDIDOS -->
 	<fieldset>
-		<legend>Dados do Pedidovenda</legend>
+		<legend>Dados da Venda</legend>
 		<section class="coluna-esquerda" style="float: left;">
 			
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
 
-				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['forma_pagamento']),'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Total do Pedidovenda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
 				
 			?>
 			
@@ -200,10 +219,10 @@
 					$tipoOperacao = "Pedidovenda";
 				}
 				
-				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
-				
-				echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_pagamento'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_entrega'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
+
+				//echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_pagamento'],'disabled'=>'disabled'));
+				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_entrega'],'disabled'=>'disabled'));
 
 
 			?>
@@ -213,9 +232,10 @@
 		<section class="coluna-direita" style="float: left;">
 
 			<?php
-				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));	
-				echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>formatDateToView($pedidovenda['Pedidovenda']['data_entrega']),'disabled'=>'disabled'));	
-				if(isset($pedidovenda['Pedidovenda']['recebimento'])) echo $this->Form->input('Comoperacao.recebimento',array('type'=>'text','label'=>'Data de Recebimento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['recebimento'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
+				//echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));	
+				//echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>formatDateToView($pedidovenda['Pedidovenda']['data_entrega']),'disabled'=>'disabled'));	
+			//	if(isset($pedidovenda['Pedidovenda']['recebimento'])) echo $this->Form->input('Comoperacao.recebimento',array('type'=>'text','label'=>'Data de Recebimento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['recebimento'])),'disabled'=>'disabled'));
 
 			?>
 
@@ -261,11 +281,9 @@
 		if($pedidovenda['Pedidovenda']['status'] != 'CANCELADO'){
 
 
-			echo "<a href='myModal_add-confirma' class='bt-showmodal'>"; 
-				echo $this->Html->image('botao-recebido.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Confirmar Recebimento do Pedidovenda','title' => 'Confirmar Recebimento do Pedidovenda'));
-			echo "</a>";
+			echo $this->Html->image('bt-cancel.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
 		
-			echo $this->Form->postLink($this->Html->image('botao-reenviar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Reenviar Pedidovenda'),'title' => __('Reenviar Pedidovenda'))), array('controller' => 'Pedidovendas','action' => 'reeviarpedido',$pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Reenviar este Pedidovenda?', $pedidovenda['Pedidovenda']['id'])));
+		
 			
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
 									'title'=>'Imprimir',
@@ -285,11 +303,11 @@
 								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
 
 							?>	
-							<h1>Recebimento de Pedidovenda</h1>
+							<h1>Recebimento da Venda</h1>
 							</header>
 			
 							<section>
-								<header>Data do Recebimento do Pedidovenda</header>
+								<header>Data do Recebimento da Venda</header>
 								<div class="recebimentoData">
 									<?php
 										echo $this->Form->create('Pedidovenda',array('action'=>'confirmarEntrega',$pedidovenda['Pedidovenda']['id']));
@@ -323,7 +341,7 @@
 								echo $this->Html->image('titulo-consultar.png', array('id' => 'imprimir', 'alt' => 'Imprimir', 'title' => 'Imprimir'));
 								echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right'));
 							?>
-							<h1>Impressão de Pedidovenda</h1>
+							<h1>Impressão da Venda</h1>
 						</header>
 						
 						<section>
@@ -383,8 +401,30 @@
 											
 									</section>
 									</fieldset>
+									
 									<fieldset>
-										<legend>Dados do Fornecedor</legend>
+										<legend>Dados do Vendedor</legend>
+										<section>
+											<section class="coluna-esquerda">
+												<div class="segmento-direita">															
+														<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+														</div>	
+												</div>	
+											</section>
+											<section class="coluna-central">
+												<div class="segmento-direita">															
+														<div class="conteudo-linha">
+															<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
+															<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+														</div>	
+												</div>	
+											</section>
+										</section>
+									</fieldset>
+									<fieldset>
+										<legend>Dados do Cliente</legend>
 									<section>
 											<section class="coluna-esquerda">
 												<div class="segmento-direita">															
@@ -460,7 +500,7 @@
 									</section>
 									</fieldset>
 									<fieldset>
-										<legend>Dados do Pedidovenda</legend>
+										<legend>Dados da Venda</legend>
 									<section>
 											<section class="coluna-esquerda">
 													<div class="segmento-esquerdo">															
@@ -468,48 +508,30 @@
 																<div class="linha"><?php echo $this->Html->Tag('p','Código:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['id'],array('class'=>'valor'));?>	</div>
 															</div>
-															
-															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Data de Início:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['data_inici'],array('class'=>'valor'));?>	</div>
-															</div>
-															
+																													
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Forma de Pagamento:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['forma_pagamento'],array('class'=>'valor'));?>	</div>
 															</div>
-															
-															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Previsão de Entrega:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['data_entrega'],array('class'=>'valor'));?>	</div>
-															</div>
+					
 															
 													</div>													
 											</section>
 											
 											<section class="coluna-central" style="width: 255px !important; margin-left: 16px !important;">
-													<div class="segmento-esquerdo">															
+													<div class="segmento-esquerdo">		
+														
+														
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Prazo de Pagamento:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['prazo_pagamento'],array('class'=>'valor'));?>	</div>
+																<div class="linha"><?php echo $this->Html->Tag('p','Data da Venda:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['data_inici'],array('class'=>'valor'));?>	</div>
 															</div>
-															
+																											
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Prazo de Entrega:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['prazo_entrega'],array('class'=>'valor'));?>	</div>
-															</div>		
-															
-															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status'],array('class'=>'valor'));?>	</div>
-															</div>													
-															
-															<?php if(isset($pedidovenda['Pedidovenda']['recebimento'])){ ?>
-																<div class="conteudo-linha">
-																	<div class="linha"><?php echo $this->Html->Tag('p','Previsão de Recebimento:',array('class'=>'titulo'));?></div>
-																	<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($pedidovenda['Pedidovenda']['recebimento']),array('class'=>'valor'));?>	</div>
-																</div>
-															<?php }?>
+																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['valor'],array('class'=>'valor'));?>	</div>
+															</div>
+													
 															
 													</div>
 											</section>
@@ -611,4 +633,5 @@
 		}
 	
 </script>
+
 
