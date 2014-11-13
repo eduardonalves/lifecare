@@ -205,6 +205,7 @@
 							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
 						?>
 					</section>
+					</div>
 					
 					<section class="coluna-central">
 						<?php
@@ -226,7 +227,7 @@
 						<input type="hidden" id="creditoClienteHide"/>
 			</section>			
 					
-				</div>
+				
 					
 					
 					

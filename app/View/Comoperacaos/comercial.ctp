@@ -32,7 +32,7 @@
 	<header>
 		<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 		
-		<h1 class="menuOption41">Consultar</h1>
+		<h1 class="menuOption51">Consultar</h1>
 	</header>
 
 	<section> <!---section superior--->

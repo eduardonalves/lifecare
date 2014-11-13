@@ -8,7 +8,7 @@ $(document).ready(function() {
     
 	function calculaCredito(total,credito){
 		sobra = credito - total ;
-		return sobra;
+		return sobra.toFixed(2);
 	}
 
 
