@@ -66,8 +66,125 @@ class PedidovendasController extends ComoperacaosController {
 	
 	}
 
-
-	
+	public function setSeparaLote(&$idPedido){
+		
+		$this->loadModel('Comitensdaoperacao');
+		$this->loadModel('Comlotesoperacao');
+		$this->loadModel('Lote');
+		$this->loadModel('Produto');
+		$itens = $this->Comitensdaoperacao->find('all', array('conditions' => array('Comitensdaoperacao.comoperacao_id' => $idPedido)));
+		
+		$testeLoteitens = $this->Comlotesoperacao->find('all', array('Comlotesoperacao.comoperacao_id' => $idPedido));
+		if(empty($testeLoteitens)){
+			
+			foreach($itens as $iten){
+					$qteItem = $iten['Comitensdaoperacao']['qtde'];
+					$produtoId = $iten['Comitensdaoperacao']['produto_id'];
+					$qtdeSeparada =0;
+					
+					
+					while($qteItem > $qtdeSeparada){
+						
+						$lote = $this->Lote->find('first', array('conditions' =>  array('Lote.produto_id' => $produtoId),'order' => array('Lote.data_validade DESC')));
+						
+						$qtdLtDisp = $lote['Lote']['estoque'] - $lote['Lote']['reserva']; 
+						if($qteItem <= $qtdLtDisp ){
+						
+							$qtdeSeparada = $qteItem;
+							$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
+							$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
+							
+							$qtdeSeparadaProd =  $qteItem;
+							$qtdeSeparadaProd = $qteItem;
+							$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
+							$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
+				
+				
+				
+							
+							$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
+							$this->Lote->create();
+							$this->Lote->save($upDateLote);
+							
+							
+							$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
+							$this->Produto->create();
+							$this->Produto->save($upDateProduto);
+							
+							$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
+							 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
+							  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
+							$this->Comlotesoperacao->create();
+							$this->Comlotesoperacao->save($loteOperacao);
+							
+							
+							
+						}else{
+							$qtdeSeparada = $qtdLtDisp;
+							$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
+							$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
+							
+							$qtdeSeparadaProd =  $qteItem;
+							$qtdeSeparadaProd = $qteItem;
+							$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
+							$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
+				
+				
+				
+							
+							$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
+							$this->Lote->create();
+							$this->Lote->save($upDateLote);
+							
+							
+							$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
+							$this->Produto->create();
+							$this->Produto->save($upDateProduto);
+							
+							$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
+							 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
+							  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
+							$this->Comlotesoperacao->create();
+							$this->Comlotesoperacao->save($loteOperacao);
+						}
+					}			
+					
+					
+				
+			}
+		}
+		
+		
+	}
+	public function setAutorizacaoPedido(){
+			$this->layout = 'venda';
+			$userid = $this->Session->read('Auth.User.id');
+			
+			$id = $_GET['pedido'];
+			
+			$this->setSeparaLote($id);
+			
+			/*if (!$this->Pedidovenda->exists($id)) {
+				throw new NotFoundException(__('Pedidovenda inválido.'));
+			}
+			if ($this->request->is(array('post', 'put'))) {
+				$this->request->data['Pedidovenda']['autorizado_por']=$userid;
+				$this->request->data['Pedidovenda']['status_gerencial']="OK";
+				$this->request->data['Pedidovenda']['status_faturamento']="SEPARACAO";
+				
+				
+				if ($this->Pedidovenda->save($this->request->data)) {
+					$this->Session->setFlash(__('O pedidovenda foi autorizado com sucesso.'),'default',array('class'=>'success-flash'));
+					return $this->redirect(array('action' => 'view', $id));
+				} else {
+					$this->Session->setFlash(__('O pedidovenda não pode ser autorizado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+				}
+			} else {
+				$options = array('conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id));
+				$this->request->data = $this->Pedidovenda->find('first', $options);
+			}*/
+				
+	}
 
 /**
  * view method

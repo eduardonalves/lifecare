@@ -1,13 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Comitensdaoperacao Model
+ * Comlotesoperacao Model
  *
  * @property Comoperacao $Comoperacao
- * @property Produto $Produto
- * @property Parceirodenegocio $Parceirodenegocio
+ * @property Lote $Lote
  */
-class Comitensdaoperacao extends AppModel {
+class Comlotesoperacao extends AppModel {
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -25,9 +24,9 @@ class Comitensdaoperacao extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Pedido' => array(
-			'className' => 'Pedido',
-			'foreignKey' => 'comoperacao_id',
+		'Lote' => array(
+			'className' => 'Lote',
+			'foreignKey' => 'lote_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -38,23 +37,13 @@ class Comitensdaoperacao extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
-	public $hasMany = array(
-		'Comlotesoperacao' => array(
-			'className' => 'Comlotesoperacao',
+		),
+		'Comitensdaoperacao' => array(
+			'className' => 'Comitensdaoperacao',
 			'foreignKey' => 'comitensdaoperacao_id',
-			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		
-		
+			'order' => ''
+		)
 	);
 }

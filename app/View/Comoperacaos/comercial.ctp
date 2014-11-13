@@ -253,10 +253,8 @@
 								if(isset($comoperacao['Parceirodenegocio'][0]['id'])){
 									echo $this->html->image('parceiro.png',array('alt'=>'Visualizar Fornecedor','title'=>'Visualizar Fornecedor',
 									'url'=>array('controller'=>'Parceirodenegocios','action'=>'view',$comoperacao['Parceirodenegocio'][0]['id'],'abas'=>'41','layout'=>'compras')));
-								}else{
-									echo "...";
+									
 								}
-								
 							}
 							
 							echo "<hr style='margin-top: 0px !important;'/>";
@@ -302,7 +300,9 @@
 									echo "</td>";
 									
 									echo "<td>";
-										echo $parceiro['nome'];
+										if(isset($parceiro['nome'])){
+											echo $parceiro['nome'];
+										}
 									echo "</td>";
 									
 									echo "<td>";
@@ -436,7 +436,7 @@
 					
 					
 					<td class="status"><?php echo $comoperacao['Comoperacao']['status']; ?>&nbsp;</td>
-					<td class="Parceirodenegocio"><?php echo $comoperacao['Parceirodenegocio'][0]['nome'];
+					<td class="Parceirodenegocio"><?php if(isset($comoperacao['Parceirodenegocio'][0]['nome'])){ echo $comoperacao['Parceirodenegocio'][0]['nome'];}
 								if($comoperacao['Comoperacao']['tipo'] == 'COTACAO')  echo '...'; ?>&nbsp;</td>
 				</tr>
 
