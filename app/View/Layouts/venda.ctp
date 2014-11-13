@@ -84,7 +84,7 @@
 					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'><span>Financeiro</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>/?parametro=operacoes'><span>Compras</span></a></li>
-					<li><a href='<?php echo $this->Html->url(array("controller"=>"vendas","action"=>"index"),true);?>/?parametro=operacoes'><span>Vendas</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"comercial"),true);?>/?parametro=operacoes'><span>Vendas</span></a></li>
 
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
@@ -101,7 +101,7 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendas","action"=>"index"),true);?>/?parametro=operacoes'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"comercial"),true);?>/?parametro=operacoes'>
 						
 						<?php 
 							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));

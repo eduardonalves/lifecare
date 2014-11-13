@@ -43,13 +43,20 @@
 				$dataHoje = date('d/m/Y');
 				echo $this->Form->input('data_inici',array('value'=>$dataHoje,'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text','readonly'=>'readonly','onfocus'=>'this.blur();','style' => 'background: rgb(250, 250, 250);'));
 				
+				echo "<div id='inputNormais'>";
+					echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+				echo "</div>";
+				echo "<div id='inputConfirma' style='display:none;'>";
+					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+				echo "</div>";
 				
+				/*
 				echo "<div id='divSelPgto'>";
 				echo $this->Form->input('forma_pagamento',array('id'=>'pagamento','type'=>'select','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo','DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 				echo "</div>";
 				echo "<div id='divFrmPgto' style='display:none;'>";
 					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-pequeno borderZero','disabeld'=>'disabled'));
-				echo "</div>";
+				echo "</div>";*/
 			?>
 		</section>
 		
@@ -76,7 +83,7 @@
 		<div class="fieldset">
 			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
 			<span id="msgVendedorVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Vendedor</span>
-			<section class="coluna-esquerda">
+			<section class="coluna-esquerda confirma">
 				<span id="msgDataInicial" class="Msg-tooltipDireita hideMsg" style="display:none;">Preencha a Data Inicial</span>
 				<div class="input autocompleteVendedor">
 					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
@@ -93,7 +100,7 @@
 				</div>
 			</section>
 			<section class="coluna-central">
-				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencherVendedor')); ?>
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencherVendedor')); ?>
 				<div class="inputFalsa">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
@@ -113,7 +120,7 @@
 		<div id="fieldCliente" class="fieldset">
 			<span id="msgClienteVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Cliente</span>
 			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
-			<section class="coluna-esquerda">
+			<section class="coluna-esquerda confirma">
 				<div class="input autocompleteCliente tela-resultado">
 					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-cliente" tabindex="7">
@@ -142,7 +149,7 @@
 			</section>
 
 			<section id="campoSaidaNome" class="coluna-central">
-				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher','id'=>'bt-preencher_Cliente')); ?>
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencher_Cliente')); ?>
 				<div class="inputFalsa">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_parceiro"></p></div>
@@ -201,7 +208,7 @@
 				?>
 			
 			</section>
-			
+		
 			<section class="coluna-central">
 				<?php
 							
@@ -211,7 +218,8 @@
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
 				?>
-			</section>	 
+			</section>	
+				<div> 
 			<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		

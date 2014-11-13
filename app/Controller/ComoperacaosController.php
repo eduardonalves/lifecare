@@ -594,7 +594,7 @@ class ComoperacaosController extends AppController {
  * @return void
  */
 	public function comercial() {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		
 		$userid = $this->Session->read('Auth.User.id');
 		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
