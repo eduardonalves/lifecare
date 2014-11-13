@@ -219,7 +219,7 @@
 					$tipoOperacao = "cotacaovenda";
 				}
 				
-				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($cotacaovenda['Cotacaovenda']['valor'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Cotação:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($cotacaovenda['Cotacaovenda']['valor'])),'disabled'=>'disabled'));
 
 				//echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$cotacaovenda['cotacaovenda']['prazo_pagamento'],'disabled'=>'disabled'));
 				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$cotacaovenda['cotacaovenda']['prazo_entrega'],'disabled'=>'disabled'));
@@ -232,7 +232,7 @@
 		<section class="coluna-direita" style="float: left;">
 
 			<?php
-				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($cotacaovenda['Cotacaovenda']['data_inici'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Cotação:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($cotacaovenda['Cotacaovenda']['data_inici'])),'disabled'=>'disabled'));
 				//echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$cotacaovenda['cotacaovenda']['status'],'disabled'=>'disabled'));	
 				//echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>formatDateToView($cotacaovenda['cotacaovenda']['data_entrega']),'disabled'=>'disabled'));	
 			//	if(isset($cotacaovenda['cotacaovenda']['recebimento'])) echo $this->Form->input('Comoperacao.recebimento',array('type'=>'text','label'=>'Data de Recebimento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView($cotacaovenda['cotacaovenda']['recebimento'])),'disabled'=>'disabled'));
@@ -523,12 +523,12 @@
 														
 														
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Data da Venda:',array('class'=>'titulo'));?></div>
+																<div class="linha"><?php echo $this->Html->Tag('p','Data da Cotação:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$cotacaovenda['Cotacaovenda']['data_inici'],array('class'=>'valor'));?>	</div>
 															</div>
 																											
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
+																<div class="linha"><?php echo $this->Html->Tag('p','Total da Cotação:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$cotacaovenda['Cotacaovenda']['valor'],array('class'=>'valor'));?>	</div>
 															</div>
 													
