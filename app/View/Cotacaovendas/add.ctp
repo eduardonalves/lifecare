@@ -219,7 +219,7 @@
 						?>
 						<input type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
-					</section>
+			</section>
 			</div>	
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
