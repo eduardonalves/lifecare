@@ -379,12 +379,35 @@ class CotacaovendasController extends ComoperacaosController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	
+	
+	
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento){
+		
+		if($formaPagamento !="DEPOSITO A VISTA"  || $formaPagamento !="DINHEIRO"){
+			$this->loadModel('Dadoscredito');
+		
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+				$novoLimiteUsado =  $limiteUsado + $valorConta;
+				$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			
+				$this->Dadoscredito->save($updateDadosCredito);
+			}
+		}
+		
+	
+	}
+	
+	
 	//Transforma Uma Cotação em Pedido
 
 
 	public function converteEmPedido($id = null) {
 
-		if ($this->request->is('post')) {	
+		if ($this->request->is('GET')) {	
 			$resposta=$this->Cotacaovenda->find('first',array('fields'=> 'Cotacaovenda.*','conditions' => array('Cotacaovenda.id' => $id)));
 
 
@@ -418,13 +441,13 @@ class CotacaovendasController extends ComoperacaosController {
 				}
 				
 				$pedido = array('data_inici'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Cotacaovenda']['valor'],
-				 'forma_pagamento' =>  $resposta['Cotacaovenda']['forma_pagamento'], 'prazo_pagamento' => $resposta['Cotacaovenda']['prazo_pagamento'], 'tipo' => 'PDVENDA', 'status' => 'ABERTO',
+				 'forma_pagamento' =>  $resposta['Cotacaovenda']['forma_pagamento'], 'prazo_pagamento' => $resposta['Cotacaovenda']['prazo_pagamento'],'vendedor_id' => $resposta['Cotacaovenda']['vendedor_id'], 'tipo' => 'PDVENDA', 'status' => 'ABERTO',
 				 'status_estoque' => 'PENDENTE', 'status_gerencial'=> 'PENDENTE', 'status_faturamento' => $statusFaturamento);
 				
-
+				$this->setLimiteUsadoAdd($resposta['Parceirodenegocio'][0]['id'], $resposta['Cotacaovenda']['valor'], $resposta['Cotacaovenda']['forma_pagamento']);
 				$this->Pedidovenda->create();
 				$this->Pedidovenda->save($pedido); 
-				$ultimoPedido = $this->Pedidovenda->find('first', array('order' => array('Pedido.id ' => 'DESC')));
+				$ultimoPedido = $this->Pedidovenda->find('first', array('order' => array('Pedidovenda.id ' => 'DESC')));
 
 				$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id']);
 
@@ -476,7 +499,7 @@ class CotacaovendasController extends ComoperacaosController {
 					$numero = $numero.$numeroAux;
 					$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
 					if(empty($ultimaComtokencotacao)){
-						$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedido']['id'], 'parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'codigoseguranca' => $numero);
+						$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'codigoseguranca' => $numero);
 
 						$this->Comtokencotacao->save($dadosComOp);
 
