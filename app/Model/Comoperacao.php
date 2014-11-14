@@ -25,6 +25,13 @@ class Comoperacao extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Vendedor' => array(
+			'className' => 'Vendedor',
+			'foreignKey' => 'vendedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 

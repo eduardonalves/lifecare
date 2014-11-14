@@ -77,7 +77,7 @@
 	
 	<header id="titulo-header">Dados do Vendedor</header>
 
-	<?php echo $this->Form->create('Venda',array('action'=>'add')); ?>
+	<?php echo $this->Form->create('Cotacaovenda',array('action'=>'add')); ?>
 
 	
 		<div class="fieldset">
@@ -107,7 +107,7 @@
 				</div>
 				
 				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
-				<?php echo $this->Form->input('Venda.valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
+				<?php //echo $this->Form->input('valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
 				
 			</section>
 			<section class="coluna-direita"></section>

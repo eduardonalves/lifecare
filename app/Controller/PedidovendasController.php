@@ -697,6 +697,8 @@ class PedidovendasController extends ComoperacaosController {
 			
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
 			$cotacaovenda['Cotacaovenda']['tipo']='PDVENDA';
+			$cotacaovenda['Cotacaovenda']['codcotacao']= $id;
+			$cotacaovenda['Cotacaovenda']['id']="";
 			if(empty($exitente)){
 
 				if(empty($limiteCliente)){
@@ -720,30 +722,36 @@ class PedidovendasController extends ComoperacaosController {
 
 			
 			
-				$this->Pedidovenda->save($cotacaovenda);
-				$ultimoPedido = $this->Pedidovenda->find('first', array('order' => array('Pedidovenda.id ' => 'DESC')));
-				$this->setLimiteUsadoAdd($clienteId,$cotacaovenda['Cotacaovenda']['valor'], $cotacaovenda['Cotacaovenda']['forma_pagamento']);
-				
-				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $clienteId)));
-				
+				if($this->Cotacaovenda->saveAll($cotacaovenda)){
+					$ultimoPedido = $this->Cotacaovenda->find('first', array('order' => array('Cotacaovenda.id ' => 'DESC')));
+					$this->setLimiteUsadoAdd($clienteId,$cotacaovenda['Cotacaovenda']['valor'], $cotacaovenda['Cotacaovenda']['forma_pagamento']);
+					
+					$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $clienteId)));
+					
+			
+					$remetente= "cirurgica.simoes@gmail.com";
+	
+					if(!empty($contato)){
+						if($contato['Contato']['email'] !=''){
+							
+							$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+							
+							$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
+							return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Cotacaovenda']['id']));
 		
-				$remetente= "cirurgica.simoes@gmail.com";
-
-				if(!empty($contato)){
-					if($contato['Contato']['email'] !=''){
+						}
+		
+					}else{
+						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso. Informe seu cliente sobre este pedido, pois o envio automático do email não foi possível'),'default',array('class'=>'success-flash'));	
+						return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Cotacaovenda']['id']));
 						
-						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-						
-						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
-						return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
-	
 					}
-	
+					
 				}else{
-					$this->Session->setFlash(__('Seu pedido foi salvo com sucesso. Informe seu cliente sobre este pedido, pois o envio automático do email não foi possível'),'default',array('class'=>'success-flash'));	
-					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
+					$this->Session->setFlash(__('Erro, não foi possivel salvar seu pedido'),'default',array('class'=>'error-flash'));
 					
 				}
+				
 			}else{
 				$this->Session->setFlash(__('Erro, já existe um pedido feito com esta cotação'));	
 				return $this->redirect(array('controller' => 'Cotacaovendas','action' => 'view',$cotacaovenda['Pedidovenda']['comoperacao_id']));
