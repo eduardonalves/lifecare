@@ -282,7 +282,8 @@
 
 
 			echo $this->Html->image('bt-cancel.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
-		
+			echo $this->Form->postLink($this->Html->image('bt-transvenda.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Transformar em Venda'),'title' => __('Transformar em Venda'))), array('controller' => 'Pedidovendas','action' => 'converteEmPedido', $cotacaovenda['Cotacaovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Transformar esta Cotação em Venda # %s?', $cotacaovenda['Cotacaovenda']['id'])));
+
 		
 			
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
