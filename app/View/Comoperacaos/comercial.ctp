@@ -236,7 +236,7 @@
 				<tr>
 					<td class="actions ad">
 						<?php 
-							if($comoperacao['Comoperacao']['tipo'] == 'COTACAO'){
+							if($comoperacao['Comoperacao']['tipo'] == 'CTVENDA'){
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Cotação','title'=>'Visualizar Cotação','url'=>array('controller' => 'Cotacaovendas','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 								
 								echo "<hr style='margin-top: 0px !important;'/>";
@@ -245,7 +245,7 @@
 								//echo $this->Html->image('lista-user.png',array('alt'=>'Visualizar Lista de Fornecedores','class' => 'bt-visualizarParcela img-lista img-listaparceiro','title'=>'Visualizar Lista de Fornecedores'));
 								//echo "</a>";
 								
-							}else{
+							}else if($comoperacao['Comoperacao']['tipo'] == 'PDVENDA'){
 								echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Pedido','title'=>'Visualizar Pedido','url'=>array('controller' => 'Pedidovendas','action' => 'view', $comoperacao['Comoperacao']['id']))); 
 								
 								echo "<hr style='margin-top: 0px !important;'/>";
@@ -340,7 +340,6 @@
 								<table>
 								<thead>
 								    <tr>
-									<th>Ações</th>
 									<th>Código</th>
 									<th>Nome</th>
 									<th>Descrição</th>
@@ -356,10 +355,10 @@
 								
 									foreach($comoperacao['Produto'] as $produto){
 
-									echo "<tr><td>";
-										echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto',
-										'url'=>array('controller'=>'Produtos','action'=>'view',$produto['id'],'abas'=>'41','layout'=>'compras')));
-									echo "</td>";
+									echo "<tr>";
+									//	echo $this->html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto',
+										//'url'=>array('controller'=>'Produtos','action'=>'view',$produto['id'],'abas'=>'41','layout'=>'compras')));
+								//	echo "</td>";
 
 									echo "<td>";
 										echo $produto['id'];
