@@ -412,7 +412,7 @@
 						if($comoperacao['Comoperacao']['tipo'] =="CTVENDA"){
 							echo "COTAÇÃO"; 
 						}else if($comoperacao['Comoperacao']['tipo'] =="PDVENDA"){
-							echo "PEDIDO"; 
+							echo "VENDA"; 
 						}else{
 							
 							echo "---";
