@@ -219,7 +219,7 @@
 					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
 				?>
 			</section>	
-				<div> 
+		</div>			
 			<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
@@ -228,7 +228,8 @@
 						<input type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
 			</section>
-			</div>	
+		
+			
 			<section class="tabela_fornecedores">
 				<table id="tbl_produtos" >
 					<thead>
