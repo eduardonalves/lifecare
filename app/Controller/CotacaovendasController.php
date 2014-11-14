@@ -67,30 +67,22 @@ class CotacaovendasController extends ComoperacaosController {
 			throw new NotFoundException(__('Invalid cotacaovenda'));
 		}
 	
-		$this->loadModel('Comitensdaoperacao');
 		$cotacaovenda = $this->Cotacaovenda->find('first',array('conditions'=>array('Cotacaovenda.id' => $id)));
+		
+		$this->loadModel('Comitensdaoperacao');
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
-		$this->loadModel('Comresposta');
-		$resposta = $this->Comresposta->find('all',array('conditions'=>array('Comresposta.comoperacao_id'=> $id),'recursive'=>1));
+		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Vendedor');
 	
-		$this->loadModel('Produto');
-		$j=0;
-		foreach($resposta as $j => $respostaList){
-			$x=0;
-			foreach($resposta[$j]['Comitensresposta'] as $x => $itensResposta){
-				$respostaIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$resposta[$j]['Comitensresposta'][$x]['produto_id'])));
-				$resposta[$j]['Comitensresposta'][$x]['produto_nome'] = $respostaIten['Produto']['nome'];
-			$x++;
-			}
-		$j++;
-		}
-	
+		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$cotacaovenda['Cotacaovenda']['vendedor_id'])));			
+		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $cotacaovenda['Parceirodenegocio'][0]['id'] )));	
+		
 			
 		$this->loadModel('Empresa');
 		$empresa = $this->Empresa->find('first');
 		
-		$this->set(compact('cotacaovenda','userid','itens','resposta','empresa','itensRespostas'));
+		$this->set(compact('vendedor','cotacaovenda','userid','itens','parceirodenegocio','empresa'));
 	}
 
 /**
