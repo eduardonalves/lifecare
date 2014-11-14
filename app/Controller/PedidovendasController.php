@@ -74,7 +74,9 @@ class PedidovendasController extends ComoperacaosController {
 		$this->loadModel('Produto');
 		$itens = $this->Comitensdaoperacao->find('all', array('conditions' => array('Comitensdaoperacao.comoperacao_id' => $idPedido)));
 		
-		$testeLoteitens = $this->Comlotesoperacao->find('all', array('Comlotesoperacao.comoperacao_id' => $idPedido));
+		
+		$testeLoteitens = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comoperacao_id' => $idPedido)));
+		
 		if(empty($testeLoteitens)){
 			
 			foreach($itens as $iten){
@@ -83,69 +85,97 @@ class PedidovendasController extends ComoperacaosController {
 					$qtdeSeparada =0;
 					
 					
-					while($qteItem > $qtdeSeparada){
+					while($qteItem >= $qtdeSeparada){
 						
-						$lote = $this->Lote->find('first', array('conditions' =>  array('Lote.produto_id' => $produtoId),'order' => array('Lote.data_validade DESC')));
+						$lote = $this->Lote->find('first', array('conditions' =>  array('Lote.produto_id' => $produtoId),'order' => array('Lote.data_validade ASC')));
 						
-						$qtdLtDisp = $lote['Lote']['estoque'] - $lote['Lote']['reserva']; 
-						if($qteItem <= $qtdLtDisp ){
 						
-							$qtdeSeparada = $qteItem;
-							$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
-							$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
-							
-							$qtdeSeparadaProd =  $qteItem;
-							$qtdeSeparadaProd = $qteItem;
-							$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
-							$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
-				
-				
-				
-							
-							$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
-							$this->Lote->create();
-							$this->Lote->save($upDateLote);
-							
-							
-							$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
-							$this->Produto->create();
-							$this->Produto->save($upDateProduto);
-							
+						
+						if(empty($lote)){
 							$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
-							 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
-							  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
+							 'lote_id' => 0, 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
+							  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $iten['Comitensdaoperacao']['qtde'], 'tipo', 'SEPARAR');
 							$this->Comlotesoperacao->create();
 							$this->Comlotesoperacao->save($loteOperacao);
-							
-							
-							
+							$qtdeSeparada = $iten['Comitensdaoperacao']['qtde'];
 						}else{
-							$qtdeSeparada = $qtdLtDisp;
-							$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
-							$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
 							
-							$qtdeSeparadaProd =  $qteItem;
-							$qtdeSeparadaProd = $qteItem;
-							$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
-							$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
-				
-				
-				
+							if($lote['Lote']['reserva'] ==""){
+								$lote['Lote']['reserva'] =0;
+							}
 							
-							$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
-							$this->Lote->create();
-							$this->Lote->save($upDateLote);
+							if($lote['Lote']['estoque'] ==""){
+								$lote['Lote']['estoque']=0;
+							}
+
+							$qtdLtDisp = $lote['Lote']['estoque'] - $lote['Lote']['reserva']; 
+							if($qteItem <= $qtdLtDisp ){
 							
-							
-							$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
-							$this->Produto->create();
-							$this->Produto->save($upDateProduto);
-							
-							$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
-							 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
-							  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
-							$this->Comlotesoperacao->create();
-							$this->Comlotesoperacao->save($loteOperacao);
+								$qtdeSeparada = $qteItem;
+								$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
+								$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
+								
+								$qtdeSeparadaProd =  $qteItem;
+								$qtdeSeparadaProd = $qteItem;
+								$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
+								$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
+					
+					
+					
+								
+								$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
+								$this->Lote->create();
+								$this->Lote->save($upDateLote);
+								
+								
+								$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
+								$this->Produto->create();
+								$this->Produto->save($upDateProduto);
+								
+								$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
+								 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
+								  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
+								$this->Comlotesoperacao->create();
+								$this->Comlotesoperacao->save($loteOperacao);
+								
+								
+								
+							}else{
+									
+								
+								if($qtdLtDisp > 0){
+									$qtdeSeparada = $qtdeSeparada + $qtdLtDisp;	
+									$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
+									$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
+									
+									$qtdeSeparadaProd =  $qteItem;
+									
+									$qtdeNovaReservaProd = $iten['Produto']['reserva'] + $qtdeSeparada;
+									$disponivelNovaProd  = $iten['Produto']['estoque'] - $qtdeNovaReservaProd;
+						
+						
+						
+									
+									$upDateLote= array('id' =>  $lote['Lote']['id'], 'reserva' => $qtdeNovaReserva, 'disponivel' => $disponivelNova);
+									$this->Lote->create();
+									$this->Lote->save($upDateLote);
+									
+									
+									$upDateProduto= array('id' =>  $iten['Produto']['id'] , 'reserva' => $qtdeNovaReservaProd, 'disponivel' => $disponivelNovaProd);
+									$this->Produto->create();
+									$this->Produto->save($upDateProduto);
+									
+									$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo', 'SAIDA');
+									$this->Comlotesoperacao->create();
+									$this->Comlotesoperacao->save($loteOperacao);
+								}else{
+									
+									$qtdeSeparada = 0;
+									
+								}	
+								
+	
+							}
 						}
 					}			
 					
@@ -161,6 +191,7 @@ class PedidovendasController extends ComoperacaosController {
 			$userid = $this->Session->read('Auth.User.id');
 			
 			$id = $_GET['pedido'];
+			
 			
 			$this->setSeparaLote($id);
 			
