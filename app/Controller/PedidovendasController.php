@@ -212,15 +212,11 @@ class PedidovendasController extends ComoperacaosController {
 		
 		
 	}
+	
 	public function setAutorizacaoPedido($id){
 			$this->layout = 'venda';
 			$userid = $this->Session->read('Auth.User.id');
-			
-		
-			
-			
-			
-			
+
 			if (!$this->Pedidovenda->exists($id)) {
 				throw new NotFoundException(__('Pedidovenda inválido.'));
 			}
@@ -239,8 +235,7 @@ class PedidovendasController extends ComoperacaosController {
 			} else {
 				$options = array('conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id));
 				$this->request->data = $this->Pedidovenda->find('first', $options);
-			}
-				
+			}				
 	}
 
 /**
