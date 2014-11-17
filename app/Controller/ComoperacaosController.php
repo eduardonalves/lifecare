@@ -1377,6 +1377,38 @@ public $uses = array();
 		$this->set(compact('userid','comoperacaos','vendedor'));		
 	}
 
+/**
+ *  VIEW SEPARAÇÃO 
+ */
+	
+	public function viewsepara($id = null){
+		
+		
+		$userid = $this->Session->read('Auth.User.id');
+		
+		if (!$this->Comoperacao->exists($id)) {
+			throw new NotFoundException(__('Invalid comoperacao'));
+		}
+		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+			
+		$this->loadModel('Vendedor');
+		$this->loadModel('Produto');
+		
+		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
+		
+		$i = 0;
+		foreach($comoperacao['Comitensdaoperacao'] as $i => $operacoes){
+			$produto_id = $operacoes['produto_id'];
+			$produto = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$produto_id)));
+			$comoperacao['Comitensdaoperacao'][$i]['produto_nome'] = $produto['Produto']['nome'];
+			$i++;
+		}
+			
+		$this->loadModel('Comitensdaoperacao');
+		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
+		$this->set(compact('userid','itens','comoperacao','vendedor'));
+		
+	}
 	
 }
 	

@@ -18,9 +18,9 @@
 ?>
 
 <header>
-	<?php echo $this->Html->image('titulo-consultar.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
+	<?php echo $this->Html->image('ico-separa-verde.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
 		
-	<h1 class="menuOption21">Consulta Separação</h1>
+	<h1 class="menuOption26">Consulta Separação</h1>
 </header>
 
 <section>
@@ -45,7 +45,7 @@
 					
 					<td>
 						<?php 
-							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produtos para Separar','title'=>'Visualizar Produtos para Separar','url'=>array('controller' => 'Cotacaovendas','action' => 'view', $operacao['Comoperacao']['id']))); 
+							echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produtos para Separar','title'=>'Visualizar Produtos para Separar','url'=>array('controller' => 'Comoperacaos','action' => 'viewsepara', $operacao['Comoperacao']['id']))); 
 						?>
 					</td>
 					<td><?php echo $operacao['Comoperacao']['id'] ?></td>
@@ -65,12 +65,3 @@
 </section>
 
 
-
-
-
-	<div style="clear:both;"></div>
-	<pre>
-		<?php
-			print_r($comoperacaos);
-		?>
-	</pre>
