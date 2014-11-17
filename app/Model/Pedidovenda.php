@@ -57,6 +57,19 @@ class Pedidovenda extends Comoperacao {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Comlotesoperacao' => array(
+			'className' => 'Comlotesoperacao',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Comresposta' => array(
 			'className' => 'Comresposta',
 			'foreignKey' => 'comoperacao_id',
@@ -82,7 +95,33 @@ class Pedidovenda extends Comoperacao {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'Nota' => array(
+			'className' => 'Nota',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Saida' => array(
+			'className' => 'Saida',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 	public $hasAndBelongsToMany = array(
 		'Parceirodenegocio' => array(

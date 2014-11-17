@@ -24,6 +24,13 @@ class Comlotesoperacao extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Pedidovenda' => array(
+			'className' => 'Pedidovenda',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Lote' => array(
 			'className' => 'Lote',
 			'foreignKey' => 'lote_id',

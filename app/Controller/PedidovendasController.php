@@ -83,6 +83,7 @@ class PedidovendasController extends ComoperacaosController {
 			
 			foreach($itens as $iten){
 					$qteItem = $iten['Comitensdaoperacao']['qtde'];
+					
 					$produtoId = $iten['Comitensdaoperacao']['produto_id'];
 					$qtdeSeparada =0;
 					$totalSeparado =0;
@@ -98,7 +99,7 @@ class PedidovendasController extends ComoperacaosController {
 									
 								
 								$totalSeparado = $qteItem;
-								$qtdeNovaReserva = $lote['Lote']['reserva'] + $qtdeSeparada;
+								$qtdeNovaReserva = $lote['Lote']['reserva'] + $qteItem;
 								$disponivelNova  = $lote['Lote']['estoque'] - $qtdeNovaReserva;
 								
 								
@@ -120,7 +121,7 @@ class PedidovendasController extends ComoperacaosController {
 								
 								$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
 								 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
-								  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo'=> 'SAIDA');
+								  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qteItem, 'tipo'=> 'SAIDA');
 								$this->Comlotesoperacao->create();
 								$this->Comlotesoperacao->save($loteOperacao);
 								
@@ -759,5 +760,6 @@ class PedidovendasController extends ComoperacaosController {
 		}
 	}
 
+	
 
 }

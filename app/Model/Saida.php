@@ -32,6 +32,13 @@ class Saida extends Nota {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Pedidovenda' => array(
+			'className' => 'Pedidovenda',
+			'foreignKey' => 'comperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 		
 	);
