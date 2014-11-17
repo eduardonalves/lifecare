@@ -25,6 +25,13 @@ class Comoperacao extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Vendedor' => array(
+			'className' => 'Vendedor',
+			'foreignKey' => 'vendedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 
@@ -62,6 +69,19 @@ class Comoperacao extends AppModel {
 		),
 		'Comtokencotacao' => array(
 			'className' => 'Comtokencotacao',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Comlotesoperacao' => array(
+			'className' => 'Comlotesoperacao',
 			'foreignKey' => 'comoperacao_id',
 			'dependent' => false,
 			'conditions' => '',

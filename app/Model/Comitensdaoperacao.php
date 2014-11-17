@@ -40,5 +40,21 @@ class Comitensdaoperacao extends AppModel {
 			'order' => ''
 		)
 	);
-	
+	public $hasMany = array(
+		'Comlotesoperacao' => array(
+			'className' => 'Comlotesoperacao',
+			'foreignKey' => 'comitensdaoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		
+		
+	);
 }

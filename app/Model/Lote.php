@@ -53,7 +53,21 @@ class Lote extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Comlotesoperacao' => array(
+			'className' => 'Comlotesoperacao',
+			'foreignKey' => 'lote_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
+		
 	);
 
 

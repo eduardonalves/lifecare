@@ -32,7 +32,7 @@ class Comtokencotacao extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Cotacao' => array(
+		'Cotacaovenda' => array(
 			'className' => 'Cotacao',
 			'foreignKey' => 'comoperacao_id',
 			'conditions' => '',

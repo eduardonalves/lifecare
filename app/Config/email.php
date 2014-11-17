@@ -39,19 +39,19 @@ class EmailConfig {
 
 	public $default = array(
 		'transport' => 'Mail',
-		'from' => 'ti.dev@vento-consulting.com',
+		'from' => 'eduardonascimento@techinmove.com.br',
 		'charset' => 'utf-8',
 		'headerCharset' => 'utf-8',
 	);
 
 	public $smtp = array(
 		'transport' => 'Smtp',
-		'from' => array('ti.dev@vento-consulting.com' => 'Ti Dev Team'),
-		'host' => 'ssl://smtp.gmail.com',
+		'from' => array('eduardonascimento@techinmove.com.br' => 'Ti Dev Team'),
+		'host' => 'ssl://smtp.techinmove.com',
 		'port' => 465,
 		'timeout' => 30,
-		'username' => 'ti.dev@vento-consulting.com',
-		'password' => 'tecdev2014',
+		'username' => 'eduardonascimento@techinmove.com.br',
+		'password' => 'abc123',
 		'client' => null,
 		'log' => false,
 		'charset' => 'utf-8',

@@ -28,6 +28,13 @@ class Cotacaovenda extends Comoperacao {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Vendedor' => array(
+			'className' => 'Vendedor',
+			'foreignKey' => 'vendedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 
@@ -63,8 +70,8 @@ class Cotacaovenda extends Comoperacao {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Comtokencotacaovenda' => array(
-			'className' => 'Comtokencotacaovenda',
+		'Comtokencotacao' => array(
+			'className' => 'Comtokencotacao',
 			'foreignKey' => 'comoperacao_id',
 			'dependent' => false,
 			'conditions' => '',

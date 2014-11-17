@@ -61,6 +61,7 @@ class ComoperacaosController extends AppController {
 	}
 	
 	
+	
 /**
  * index method
  *
@@ -594,7 +595,7 @@ class ComoperacaosController extends AppController {
  * @return void
  */
 	public function comercial() {
-		$this->layout = 'compras';
+		$this->layout = 'venda';
 		
 		$userid = $this->Session->read('Auth.User.id');
 		$comoperacaos=$this->Comoperacao->find('list', array('recursive' => 1));
@@ -1349,4 +1350,41 @@ public $uses = array();
 			$this->Session->setFlash(__('The comoperacao could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+		
+		
+/**
+ *  INDEX SEPARAÇÃO 
+ *  
+ */
+
+	public function separacao(){
+		
+		$userid = $this->Session->read('Auth.User.id');
+		$comoperacaos=$this->Comoperacao->find('all', array('order'=>array('Comoperacao.status_estoque ASC'),'conditions'=>array('Comoperacao.tipo'=>'PDVENDA','or'=>array(array('Comoperacao.status_estoque'=>'SEPARACAO'),array('Comoperacao.status_estoque'=>'SEPARADO')))));
+		
+		$this->loadModel('Vendedor');
+		
+		$i;
+		foreach($comoperacaos as $i => $comoperacao){
+			$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
+			if(!empty($vendedor)){
+				$comoperacaos[$i]['Comoperacao']['vendedor_nome'] = $vendedor['Vendedor']['nome'];
+			}
+			$i++;
+		}
+		
+		$this->set(compact('userid','comoperacaos','vendedor'));		
+	}
+
+	
+}
+	
+	
+
+
+
+
+
+
+

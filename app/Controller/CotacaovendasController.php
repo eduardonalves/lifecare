@@ -67,30 +67,22 @@ class CotacaovendasController extends ComoperacaosController {
 			throw new NotFoundException(__('Invalid cotacaovenda'));
 		}
 	
-		$this->loadModel('Comitensdaoperacao');
 		$cotacaovenda = $this->Cotacaovenda->find('first',array('conditions'=>array('Cotacaovenda.id' => $id)));
+		
+		$this->loadModel('Comitensdaoperacao');
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
 		
-		$this->loadModel('Comresposta');
-		$resposta = $this->Comresposta->find('all',array('conditions'=>array('Comresposta.comoperacao_id'=> $id),'recursive'=>1));
+		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Vendedor');
 	
-		$this->loadModel('Produto');
-		$j=0;
-		foreach($resposta as $j => $respostaList){
-			$x=0;
-			foreach($resposta[$j]['Comitensresposta'] as $x => $itensResposta){
-				$respostaIten = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$resposta[$j]['Comitensresposta'][$x]['produto_id'])));
-				$resposta[$j]['Comitensresposta'][$x]['produto_nome'] = $respostaIten['Produto']['nome'];
-			$x++;
-			}
-		$j++;
-		}
-	
+		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$cotacaovenda['Cotacaovenda']['vendedor_id'])));			
+		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $cotacaovenda['Parceirodenegocio'][0]['id'] )));	
+		
 			
 		$this->loadModel('Empresa');
 		$empresa = $this->Empresa->find('first');
 		
-		$this->set(compact('cotacaovenda','userid','itens','resposta','empresa','itensRespostas'));
+		$this->set(compact('vendedor','cotacaovenda','userid','itens','parceirodenegocio','empresa'));
 	}
 
 /**
@@ -182,7 +174,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->loadUnidade();
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
-		
+		$this->request->data['Cotacaovenda']['tipo']='CTVENDA';
 		if(isset($this->request->params['named']['modulo'])){
 			$modulo =  $this->request->params['named']['modulo'];
 		}
@@ -259,7 +251,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
 		
 		$this->loadModel('Cliente');
-		$allClientes = $this->Cliente->find('all', array('recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
+		$allClientes = $this->Cliente->find('all', array('fields' => array('DISTINCT Cliente.id', 'Cliente.*'),'recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
 		
 		
 		
@@ -273,7 +265,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','teste','modulo','allVendedores','allClientes'));
 	}
 	
-public function addDash(){
+	public function addDash(){
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
@@ -378,4 +370,152 @@ public function addDash(){
 			$this->Session->setFlash(__('A cotação não pode ser deletada. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
-	}}
+	}
+	
+	
+	
+	public function setLimiteUsadoAdd(&$clienteId, &$valorConta, &$formaPagamento){
+		
+		if($formaPagamento !="DEPOSITO A VISTA"  || $formaPagamento !="DINHEIRO"){
+			$this->loadModel('Dadoscredito');
+		
+			$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id' => 'desc')));
+			if(isset($dadosCredito) && !empty($dadosCredito)){
+				$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+			
+				$novoLimiteUsado =  $limiteUsado + $valorConta;
+				$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+			
+				$this->Dadoscredito->save($updateDadosCredito);
+			}
+		}
+		
+	
+	}
+	
+	
+	//Transforma Uma Cotação em Pedido
+
+
+	public function converteEmPedido($id = null) {
+
+		if ($this->request->is('GET')) {	
+			$resposta=$this->Cotacaovenda->find('first',array('fields'=> 'Cotacaovenda.*','conditions' => array('Cotacaovenda.id' => $id)));
+
+
+			
+
+			$updateResp = array('id' => $id, 'status' => 'FECHADA');
+			$this->Cotacaovenda->save($updateResp);
+
+			$this->loadModel('Pedidovenda');
+			$this->loadModel('Comitensdaoperacao');
+
+			$this->loadModel('ComoperacaosParceirodenegocio');
+			$this->loadModel('ProdutosParceirodenegocio');
+			$this->loadModel('Dadoscredito');
+
+			$hoje = date('Y-m-d');
+			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id']), 'order' => array('Dadoscredito.id Desc')));
+			$userid = $this->Session->read('Auth.User.id');
+	
+
+				
+				
+				if ($limiteCliente >=  $resposta['Cotacaovenda']['valor']){
+					$statusFaturamento="OK";
+				}else{
+					$statusFaturamento="PENDENTE";
+				}
+				if(empty($limiteCliente)){
+					$statusFaturamento="PENDENTE";
+					$limiteCliente=0;
+				}
+				
+				$pedido = array('data_inici'=> $hoje, 'data_fim' => $hoje, 'user_id' => $userid, 'valor' => $resposta['Cotacaovenda']['valor'],
+				 'forma_pagamento' =>  $resposta['Cotacaovenda']['forma_pagamento'], 'prazo_pagamento' => $resposta['Cotacaovenda']['prazo_pagamento'],'vendedor_id' => $resposta['Cotacaovenda']['vendedor_id'], 'tipo' => 'PDVENDA', 'status' => 'ABERTO',
+				 'status_estoque' => 'PENDENTE', 'status_gerencial'=> 'PENDENTE', 'status_faturamento' => $statusFaturamento);
+				
+				$this->setLimiteUsadoAdd($resposta['Parceirodenegocio'][0]['id'], $resposta['Cotacaovenda']['valor'], $resposta['Cotacaovenda']['forma_pagamento']);
+				$this->Pedidovenda->create();
+				$this->Pedidovenda->save($pedido); 
+				$ultimoPedido = $this->Pedidovenda->find('first', array('order' => array('Pedidovenda.id ' => 'DESC')));
+
+				$parceiroComoperacaoUp= array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id']);
+
+				if($this->ComoperacaosParceirodenegocio->save($parceiroComoperacaoUp)){
+					foreach($resposta['Comitensresposta'] as $its){
+						if($its['valor_unit']!=''){
+							$itens = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'produto_id' => $its['produto_id'], 'valor_unit' => $its['valor_unit'], 'qtde' => $its['qtde'], 'valor_total' => $its['valor_total'] , 'obs' => $its['obs']);	
+							$this->Comitensdaoperacao->create();
+							$this->Comitensdaoperacao->save($itens);
+							$produtosParceirodenegocio = $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id'], 'AND' => array('ProdutosParceirodenegocio.produto_id' => $its['produto_id']))));
+							if(empty($produtosParceirodenegocio)){
+								$viculaFornecedor = array('parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id'], 'produto_id' => $its['produto_id']);
+								$this->ProdutosParceirodenegocio->save($viculaFornecedor);
+							}
+
+						}
+
+					}
+
+				}
+				$this->loadModel('Contato');
+				$this->loadModel('ProdutosParceirodenegocio');
+				$this->loadModel('Produto');
+				$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id'])));
+				$ultimoPedido = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id ' => $ultimoPedido['Pedidovenda']['id'])));
+
+				$i=0;
+				foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+					$ultimoPedido['Comitensdaoperacao'][$i];
+					$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+					$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+					//Relacionamos fornecedores a produtos
+
+					$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $resposta['Parceirodenegocio'][0]['id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
+					if(empty($inter)){
+						$upProdFornec = array('parceirodenegocio_id' => $resposta['Parceirodenegocio'][0]['id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
+						$this->ProdutosParceirodenegocio->save($upProdFornec);
+					}
+
+					$i++;
+				}
+
+				$this->loadModel('Comtokencotacao');
+
+				$flag="FALSE";
+				while($flag =='FALSE') {
+					$numero=date('Ymd');
+					$numeroAux= rand(0, 99999999);
+					$numero = $numero.$numeroAux;
+					$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+					if(empty($ultimaComtokencotacao)){
+						$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $resposta['Comresposta']['parceirodenegocio_id'], 'codigoseguranca' => $numero);
+
+						$this->Comtokencotacao->save($dadosComOp);
+
+						$flag="TRUE";
+					}
+
+				}
+				$remetente= "cirurgica.simoes@gmail.com";
+
+
+				if(!empty($contato)){
+					if($contato['Contato']['email'] !=''){
+						
+						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
+						return $this->redirect(array('controller' => 'Pedidovenda','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
+
+					}
+
+				}
+			
+		}
+	}
+	
+
+
+}

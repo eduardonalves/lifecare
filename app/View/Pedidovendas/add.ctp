@@ -1,14 +1,14 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras_pedido');
+	    echo $this->Html->css('vendas_pedido');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('compras_pedido.js');
+		echo $this->Html->script('vendas_pedido.js');
 	$this->end();
 	
 	
@@ -33,40 +33,33 @@
 		<section>
 			<!-- INICIO COTAÇÕES -->
 			<section class="coluna-esquerda">
-				<?php
+				<?php				
 					echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
 					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
 					echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 					
-					echo "<div id='inputNormais'>";
-						echo $this->Form->input('vale',array('id'=>'normalVale','type'=>'select','label'=>'Tipo:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array('0'=>'Comum','1' => 'Vale')));
-						echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
-					echo "</div>";
-					echo "<div id='inputConfirma' style='display:none;'>";
-						echo $this->Form->input('Vazio.vale',array('id'=>'tipoVale','type'=>'text','label'=>'Tipo:','class'=>'tamanho-pequeno borderZero','disabled' =>'disabled'));
-						echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
-					echo "</div>";
+					$dataHoje = date('d/m/Y');
+					echo $this->Form->input('data_inici',array('value' => $dataHoje, 'label'=>'Data da Venda:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text', 'readonly', 'onfocus'=>'this.blur();', 'style' => 'background: rgb(250, 250, 250);'));
+					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
+					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
+					
 				?>
 			</section>
 			
 			<section class="coluna-central">
 				<?php
-				
-					$dataHoje = date('d/m/Y');
-					echo $this->Form->input('data_inici',array('value' => $dataHoje, 'label'=>'Data de Início:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text', 'readonly', 'onfocus'=>'this.blur();', 'style' => 'background: rgb(250, 250, 250);'));
-					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
-					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
-					
-					echo $this->Form->input('prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
-
-
+					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 				?>
 			</section>
 			
 			<section class="coluna-direita">
 				<?php
-					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
-
+					echo "<div id='inputNormais'>";
+					echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
+					echo "</div>";
+					echo "<div id='inputConfirma' style='display:none;'>";
+					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+					echo "</div>";
 				?>
 			</section>
 		</section>
@@ -74,55 +67,102 @@
 		<div style="clear:both;"></div>
 		
 		<!-- INICIO CLIENTE -->	
-		<section class="coluna-Fornecedor_Pedido">
 			
-			<header>Cliente</header>
-			<div class="confirma">
-			<section class="coluna-esquerda" >
-				<div class="input autocompleteFornecedor conta">
-					<span id="msgValidaFor" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha o Cliente</span>
-					<label id="SpanPesquisarFornecedor">Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa fornecedorADD" id="add-fornecedor">
-						<option></option>
-						<option value="add-parceiroFornecedor">Cadastrar</option>
+	<header id="titulo-header">Dados do Vendedor</header>
+
+	
+	
+		<div class="fieldset">
+			<h2 class="legendEffect"><span class="tributoVale">Dados do Vendedor</span></h2>
+			<span id="msgVendedorVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Vendedor</span>
+			<section class="coluna-esquerda confirma">
+				<div class="input autocompleteVendedor">
+					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-vendedor">
+						<option id="optvazioForn"></option>
+						<?php
+							foreach($allVendedores as $vendedor){
+								echo "<option id='".$vendedor['Vendedor']['nome']."' value='".$vendedor['Vendedor']['id']."' >";
+								echo $vendedor['Vendedor']['nome'];
+								echo "</option>";
+							}
+						?>
+					</select>
+				</div>
+			</section>
+			<section class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencherVendedor')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
+				</div>
+				
+				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('Venda.valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
+				
+			</section>
+			<section class="coluna-direita"></section>
+			
+		</div>
+
+<!-- ###################################################################################################################################################################3 -->
+<header id="titulo-header">Dados do Cliente</header>
+
+	<!--Fieldset Do CLIENTE-->
+		<div id="fieldCliente" class="fieldset">
+			<span id="msgClienteVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Cliente</span>
+			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
+
+			<section class="coluna-esquerda confirma">
+				<div class="input autocompleteCliente tela-resultado">
+					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
+					<select class="tamanho-medio" id="add-cliente" tabindex="7">
+						<option id="optvazioForn"></option>
+						<option value="add-Cliente">Cadastrar</option>
 
 						<?php
-							foreach($parceirodenegocios as $parceirodenegocio)
-							{
-								echo "<option id='".$parceirodenegocio['Parceirodenegocio']['id']."' data-nome='".$parceirodenegocio['Parceirodenegocio']['nome']."' data-cpf='".$parceirodenegocio['Parceirodenegocio']['cpf_cnpj']."'>";
-								echo $parceirodenegocio['Parceirodenegocio']['nome'];
+						
+							foreach($allClientes as $allCliente){
+								
+								$limiteDisponivel = 0;
+								
+								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+									
+									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
+								}
+								
+								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
+								echo $allCliente['Cliente']['nome'];
 								echo "</option>";
 							}
 						?>
 
 					</select>
-				</div>		
+				</div>
 			</section>
-		
-			<section class="coluna-central">
-				<?php	
-					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-											 'title'=>'Adicionar',
-											 'class'=>'bt-addItens_Pedido_forne pedidovendasLimite',
-											 'id'=>'bt-adicionarFornecedor'
-											 ));
-					?>
+
+			<section id="campoSaidaNome" class="coluna-central">
+				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencher_Cliente')); ?>
+				<div class="inputFalsa">	
+					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="nome_parceiro"></p></div>
+				</div>
 			</section>
-			</div>
-			<div style="clear:both;"></div>
-			
-			<section id="tblPedido" class="tabela_fornecedores" style="margin-top:20px;">
-				<table id="tbl_fornecedores" class="ultimoFornecedor">
-					<thead>
-						<th>Nome do Cliente</th>
-						<th>CPF/CNPJ</th>					
-						<th class="confirma" >Ações</th>					
-					</thead>
-							
-				</table>
+
+			<span id="spanSaidaCpfCnpj" class="MsgCpfCnpj tooltipMensagemErroTopo" style="display:none">Preencha os Dados do Cliente</span>
+
+			<section class="coluna-direita" id="campo-SaidaCnpj">
+				
+				<div class="inputFalsa">	
+					<div class="labelFalsa2"><?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo')); ?></div>
+					<div class="textoFalsa"><p id="cpfcnpj_parceiro" class="textoMenor"></p></div>
+				</div>	
+				<?php
+					echo $this->Form->input('Parceirodenegocio.0.parceirodenegocio_id', array('id'=>'parceiro_id','type' => 'hidden'));
+				?>
 			</section>
+		</div>
 	
-		</section>
 	
 		<!-- INICIO PRODUTOS -->
 		<section class="coluna-Produto_Pedido">
@@ -136,12 +176,12 @@
 								<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
 								<select class="tamanho-medio limpa" id="add-produtos">
 									<option></option>
-									<option value="add-produto">Cadastrar</option>
+									<!--<option value="add-produto">Cadastrar</option>-->
 
 									<?php
 										foreach($produtos as $produto)
 										{
-											echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-unidade='".$produto['Produto']['unidade']."'>";
+											echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
 											echo $produto['Produto']['nome'];
 											echo "</option>";
 										}
@@ -165,26 +205,31 @@
 							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
 						?>
 					</section>
+					</div>
 					
 					<section class="coluna-central">
 						<?php
 							
 								
-							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno dinheiro_duasCasas','type'=>'text','maxlength'=>'15'));		
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));		
 							echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 							echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));
 							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
 						?>
 					</section>
 					
-								
-					
-				</div>
 					<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
-					</section>
+						<input type="hidden" id="totalProdutoHide"/>
+						<input type="hidden" id="creditoClienteHide"/>
+			</section>			
+					
+				
+					
+					
 					
 				<section class="tabela_fornecedores">
 					<table id="tbl_produtos" >
@@ -226,5 +271,4 @@
 		echo $this->Form->end();
 	?>	
 </footer>
-
 

@@ -1,5 +1,75 @@
  $(document).ready(function() {
 
+	function calcCreditoCLiente(seletor){
+		limite = $(seletor).attr('data-limite');
+		$('#creditoCliente').val(float2moeda(limite));
+	}
+
+/*** AUTO COMPLETE VENDEDOR *******************************************/	
+	
+	$(function() {
+		$( "#add-vendedor" ).combobox();
+    });
+    
+    $("#bt-preencherVendedor").click(function(){
+
+		$("#msgValidaParceiro").hide();
+		
+		valorVendedor =	$("#add-vendedor option:selected" ).val();
+		valorNome= $("#add-vendedor option:selected" ).attr('id');
+
+		if(!valorVendedor == ""){
+			if(valorVendedor=="add-preencherVendedor"){
+
+			}else{
+				$(".autocompleteVendedor input").val('');
+				$(".autocompleteVendedor input").removeAttr('required','required');
+				
+				$("#vendedorId_hidden").val(valorVendedor);
+				$("#nome_vendedor").text(valorNome);
+			}
+		}else{
+			$('#msgVendedorVazio').show();	
+		}
+    });
+	
+/*** AUTO COMPLETE CLIENTE*********************************************/	
+
+	$(function() {
+		$( "#add-cliente" ).combobox();
+    });
+    
+   $("#bt-preencher_Cliente").click(function(){
+		valorCliente =	$("#add-cliente option:selected" ).val();
+		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
+		valorNome= $("#add-cliente option:selected" ).attr('id');
+		valorLimiteCredito = parseFloat($("#add-cliente option:selected").attr('data-limite'));
+		totalLimiteCredito = parseFloat(valorLimiteCredito).toFixed(2);
+		calcCreditoCLiente("#add-cliente option:selected");
+		if(!valorCliente==""){
+			if(valorCliente=="add-Cliente"){
+				}else{
+					$(".autocompleteCliente input").val('');
+					$(".autocompleteCliente input").removeAttr('required','required');
+				
+					$("#parceiro_id").val(valorCliente);
+					$("#cpfcnpj_parceiro").text(valorCpfCnpj);
+					$("#nome_parceiro").text(valorNome);
+					$("#valorCreditoClienteAux").val(totalLimiteCredito).priceFormat({
+							prefix: '',
+							centsSeparator: ',',
+							centsLimit: 2,
+							thousandsSeparator: '.',
+						});
+						
+					valorCreditoClienteAux = $("#valorCreditoClienteAux").val();
+					$("#credito_cliente").text(valorCreditoClienteAux);
+				}
+		}else{
+			$('#msgClienteVazio').show();	
+		}
+	});
+	
 /**** FUNÇÔES **/
 
 	function float2moeda(num){
@@ -28,18 +98,13 @@
 		 }
 	}
  
-/********************* Autocomplete Fornecedor *********************/
-    $(function(){
-		$("#add-fornecedor").combobox();
-	});
-	
 /********************* Autocomplete Produtos *********************/
     $(function(){
 		$("#add-produtos").combobox();
 	});
 
 /**************** Modal Parceiro de negocio tipo Fornecedor *****************/
-    $('body').on('click', '#ui-id-1 a',function(){
+    $('body').on('click', '#ui-id-2 a',function(){
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 			$(".autocompleteFornecedor input").val('');
@@ -49,14 +114,26 @@
     });
     
 /**************** Modal Produtos *****************/
-    $('body').on('click', '#ui-id-2 a',function(){
-		valorCad= $(this).text();
-		if(valorCad=="Cadastrar"){
+    $('body').on('click', '#ui-id-3 a',function(){
+		valorCad1 = $(this).text();
+		if(valorCad1 == "Cadastrar"){
 		    $(".autocompleteProduto input").val('');
 		    $("#myModal_add-produtos").modal('show');
 		}else{
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			$('#produtoUnid').val(valorUnid);
+			
+			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
+			
+			if(valorVenda == ''){
+				$("#produtoValor").val(0.00);
+			}else{
+				$("#produtoValor").val(float2moeda(valorVenda));
+			}
+			
+			
+			
+			
 		}
 	});
 	
@@ -133,7 +210,26 @@
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();		
-
+			valorUnit = $("#produtoValor").val();	
+			
+			//CALCULA O VALOR TOTAL 
+			valorTotal = 0;
+			
+			if($("#produtoValor").val() != ''){
+				qtd = parseInt(valorQtd);
+				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
+				valor = parseFloat(valor);
+			
+				valorTotal = valor*qtd;
+				valorMoeda = float2moeda(valorTotal);
+				valorUnit = float2moeda(parseFloat(valorUnit));
+			}else{
+				valorMoeda = '0,00';
+				valorUnit = '0,00';
+				valorTotal = '0,00';
+			}
+			
+			
 			//Adiciona os valores na tabela pra visualização
 			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
 					\
@@ -144,13 +240,18 @@
 					</td>\
 					\
 					<td>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 					\	<span id="msgValidaQtde'+in_produto+'" class="Msg Msg-tooltipDireita" style="display:none;left: 54%;">Preencha a Quantidade do Produto</span>\
 					</td>\
 					\
 					\<td>'+valorUnid+'</td>\
-					\
-					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
+					<td>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+					\</td>\
+					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
+						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+					</td>\
+					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-grande borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 					\
 					<td class="confirma">\
 					\	<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
@@ -171,11 +272,20 @@
 			
 			in_produto++;
 			
+			calculaTotal('TotalPedido');
 					
 		}
 	});
 
-
+	function calculaTotal(classe){
+		var totalPedido = 0;
+		$('.'+classe).each(function(){			
+			valor = $(this).val().split('.').join('').replace(',','.');
+			valor = parseFloat(valor);		
+			totalPedido += valor;
+		});
+		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
+	}
 /********************* REMOVER Produtos *************************/    
 	var inicio = 0;
 	var fim = 0;
@@ -255,9 +365,13 @@
 		}else if($('.dataFim').val() == ''){
 			$('#msgDataFinal').show();
 			
-		}else if(in_fornecedor == 0 && $('#validaCada').val() == 0){
-			$('#msgValidaFor').show();	
+		}else if($('#vendedorId_hidden').val() == ''){
+			$('#msgVendedorVazio').show();
 					
+		}else if($('#parceiro_id').val() == ''){
+			
+			$('#msgClienteVazio').show();
+			
 		}else if(in_produto <= 0 ){			
 			$('#msgValidaProduto').show();
 		
@@ -348,10 +462,31 @@
 		
 		$('.Msg').hide();			
 		
-		$('.produtoTr_'+nId+' input').removeAttr('readonly','readonly');
-		$('.produtoTr_'+nId+' input').removeAttr('onfocus','this.blur();');
-		$('.produtoTr_'+nId+' input').removeClass('borderZero');
+		$('.inputEditavel'+nId).removeAttr('readonly','readonly');
+		$('.inputEditavel'+nId).removeAttr('onfocus','this.blur();');
+		$('.inputEditavel'+nId).removeClass('borderZero');		
+	});
+	
+
+	$('body').on('focusout','.qtdE',function(){
+		id = $(this).attr('id');
+		nId = id.substring(7);	
 		
+		itenQtd = $(this).val();
+		qtd = parseInt(itenQtd);
+		
+		valor = $('#vU'+nId).val().split('.').join('').replace(',','.');
+		valor = parseFloat(valor);
+		
+		total = valor*qtd;
+		
+		$('#valorTotal'+nId).val(float2moeda(total));
+		
+		if(total != '' && total != 'undefined' && total){
+			$('#spanValTotal'+nId).text("R$ "+float2moeda(total));
+		}else{
+			$('#spanValTotal'+nId).text("R$ 0,00");
+		}		
 		
 	});
 

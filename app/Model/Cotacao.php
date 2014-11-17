@@ -62,20 +62,8 @@ class Cotacao extends Comoperacao {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
-		'Comtokencotacao' => array(
-			'className' => 'Comtokencotacao',
-			'foreignKey' => 'comoperacao_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
 		)
+		
 	);
 	public $hasAndBelongsToMany = array(
 		'Parceirodenegocio' => array(

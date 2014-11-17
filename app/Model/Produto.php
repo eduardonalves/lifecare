@@ -71,6 +71,19 @@ class Produto extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Comlotesoperacao' => array(
+			'className' => 'Comlotesoperacao',
+			'foreignKey' => 'produto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Tributo' => array(
 			'className' => 'Tributo',
 			'foreignKey' => 'produto_id',
