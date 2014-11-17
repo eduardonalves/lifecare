@@ -11,6 +11,7 @@
 	<section id="passos-bar">
 	
 		<div id="passos-bar-total">
+			
 			<div class="linha-verde complete"></div>
 			
 			<div class="circle complete">
@@ -28,6 +29,7 @@
 			<div class="circle">
 				<span></span>
 			</div>
+			
 		</div>
 	
 </section>
@@ -47,14 +49,20 @@
 				</div>
 				
 				<div class="input file">
+					
 					<label for="doc_file">Buscar Arquivo(.xml):</label>
+					
 					<input id="doc_file" class="campo-buscar" type="file" name="data[Nota][doc_file]"/>
 					<input type="text" id="valor"/>
+					
 					<a id="teste" href="#"><img id="bt-buscar" src="../img/botao-buscar2.png"/></a>
+					
 				</div>
 
 				<div class="submit">
+					
 					<input id="bt-submit" type="image" src="../img/botao-confirmar.png"/>
+					
 				</div>
 
 			</form>

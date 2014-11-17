@@ -149,6 +149,17 @@
 						<span class="label">Cadastrar Pedidos</span>
 					</a>
 				</li>
+				<li class="item">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"produtos","action"=>"fgvupload"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('upload-planilha.png', array('id' => 'upload-planilha-icon', 'alt' => 'Upload FGV', 'title' => 'Atualizar Dados FGV'));
+						?>
+
+						<span class="label">Atualizar preços FGV</span>
+					</a>
+				</li>
+
 				<!--	
 					<li class="item">
 
