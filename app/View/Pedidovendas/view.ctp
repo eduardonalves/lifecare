@@ -275,12 +275,27 @@
 		if($pedidovenda['Pedidovenda']['status'] != 'CANCELADO'){
 
 
-			echo $this->Html->image('bt-cancel.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
+
+		
 			//echo $this->Html->image('bt-faturamento.png',array('id'=>'','style'=>'float:right;cursor:pointer;margin-right:5px;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
 			echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
 				echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
 			echo "</a>";
 			echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
+			echo $this->Form->postLink(
+				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' =>  $pedidovenda['Pedidovenda']['id'], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda')),
+				array('controller' => 'Pedidovendas', 'action' => 'cancelar',  $pedidovenda['Pedidovenda']['id']),
+				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar o pedido número %s?', $pedidovenda['Pedidovenda']['id']))
+			);
+			
+			echo $this->Form->postLink(
+
+					$this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))),
+					array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),
+					array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id']))
+
+				);
+
 			
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
 									'title'=>'Imprimir',
