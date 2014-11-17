@@ -282,9 +282,11 @@
 
 
 			echo $this->Html->image('bt-cancel.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
+			//echo $this->Html->image('bt-faturamento.png',array('id'=>'','style'=>'float:right;cursor:pointer;margin-right:5px;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
+			echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
+				echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
+			echo "</a>";
 			echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
-
-		
 			
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
 									'title'=>'Imprimir',
@@ -633,6 +635,29 @@
 			}
 		}
 	
+	
 </script>
-
+		
+	<div class="modal fade" id="myModal_add-faturar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>	
+				<h1>Faturamento da Venda</h1>
+			</header>
+			
+			<section>
+				<header>Tipo de Faturamento</header>
+			
+				<section class="coluna-modal">
+						
+				</section>
+			
+			</section>
+		</div>
+	</div>
 
