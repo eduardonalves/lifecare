@@ -108,7 +108,11 @@ $(document).ready(function(){
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
    <?php
 		if(!isset($telaAbas)){
-			echo '<h1 class="menuOption31">Editar Parceiro</h1>';
+			if($telaLayout == 'venda'){
+				echo '<h1 class="menuOption'.$telaAbas.'">Editar Cliente</h1>';
+			}else{
+				echo '<h1 class="menuOption31">Editar Parceiro</h1>';
+			}
     ?>
 </header>
 
@@ -116,9 +120,15 @@ $(document).ready(function(){
 
 	<?php if(!isset($telaAbas)){ ?>
 		<header>Dados Gerais do Parceiro</header>
-	<?php }else{ ?>
-		<header>Dados Gerais do Fornecedor</header>
-	<?php } ?>
+	<?php }else{ 
+			if($telaLayout == 'venda'){
+		?>
+				<header>Dados Gerais do Cliente</header>
+		<?php
+			}else{
+		?>
+				<header>Dados Gerais do Fornecedor</header>
+		<?php } } ?>
 	
 	<?php
 		if(isset($telaLayout) && isset($telaAbas))
@@ -521,7 +531,7 @@ $(document).ready(function(){
 	
 	
 	<?php
-		echo $this->element('dados_comoperacao');
+		//echo $this->element('dados_comoperacao');
 	}
 	?>
 

@@ -153,7 +153,18 @@
 						<span class="label">Sa&iacute;da</span>
 					</a>
 				</li>
-			
+				
+				<li class="item">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"comoperacaos","action"=>"separacao"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('ico-separa.png', array('id' => 'saida-icon', 'alt' => 'Separação', 'title' => 'Separação'));
+						?>
+
+						<span class="label">Separação</span>
+					</a>
+				</li>
+				
 				<!--
 					<li class="item">
 

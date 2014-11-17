@@ -400,10 +400,14 @@ class ParceirodenegociosController extends AppController {
 			if ($this->Parceirodenegocio->saveAll($this->request->data)) {
 				$this->setStatusParceiro($id);
 				$this->Session->setFlash(__('Parceiro editado com sucesso.'), 'default', array('class' => 'success-flash'));
-				if(isset($telaLayout))
+				if(isset($telaLayout)){
+					if($telaLayout == 'venda'){						
+						return $this->redirect(array('action' => 'view',$id,'layout' => 'venda','abas' => '51'));
+					}else{
 						return $this->redirect(array('action' => 'view',$id,'layout' => 'compras','abas' => '41'));
-					else
-						return $this->redirect(array('action' => 'view',$id));
+					}
+				}else
+					return $this->redirect(array('action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('Não foi possível editar o Parceiro. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}

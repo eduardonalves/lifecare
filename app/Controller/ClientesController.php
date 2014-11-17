@@ -37,11 +37,22 @@ class ClientesController extends ParceirodenegociosController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Cliente->exists($id)) {
-			throw new NotFoundException(__('Invalid cliente'));
+		$this->layout = 'venda';
+		$this->loadModel('Parceirodenegocio');
+	
+		$cliente = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id'=>$id)));
+		
+		if(empty($cliente)){
+			$this->Session->setFlash(__('Cliente Não Encontrado.'));
 		}
-		$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
-		$this->set('cliente', $this->Cliente->find('first', $options));
+		
+		
+		//~ if (!$this->Cliente->exists($id)) {
+			//~ throw new NotFoundException(__('Invalid cliente'));
+		//~ }
+		//~ $options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
+		
+		$this->set(compact('cliente'));
 	}
 
 /**

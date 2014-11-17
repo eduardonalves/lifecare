@@ -256,7 +256,186 @@
 		//}
 
 
-	}else{ //PARCEIRO DE NEGOCIOS COMPRAS
+	}else if($telaLayout == 'venda'){
+		//############################################################################################################################################
+		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Cliente</h1>'
+	?>			
+		</header>
+		
+<section> <!---section superior--->	
+	<header>Dados Gerais do Cliente</header>
+	
+	<section class="coluna-esquerda">
+
+		<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Classificação:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['tipo'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
+		<?php
+			foreach($parceirodenegocio['Contato'] as $contato){
+		?>
+			<div class="segmento-esquerdo">
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 1:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone1'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Fax:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['fax'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+			</div>
+		<?php
+			}			
+		?>
+
+	</section>
+
+	<section class="coluna-central" >
+
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome Fantasia:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['nomeFantasia'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
+		<?php
+			foreach($parceirodenegocio['Contato'] as $contato){
+		?>
+			<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		<?php				
+			}
+		?>
+
+	</section>
+
+	<section class="coluna-direita" >
+		<div class="segmento-esquerdo">				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CNPJ:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));?>	</div>
+				</div>
+		</div>
+		<?php
+			foreach($parceirodenegocio['Contato'] as $contato){
+		?>	
+			<div class="segmento-esquerdo">		
+			<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Celular:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone3'],array('class'=>'valor'));?>	</div>
+				</div>
+				
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Email:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$contato['email'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>			
+		<?php
+			}	
+		?>
+
+	</section>
+</section><!---Fim section superior--->
+		
+<section class="ajusteAlignSection"> <!---section MEIO--->
+	
+	
+	<header class="">Endereços</header>
+	<?php
+	$z=0;
+	foreach($parceirodenegocio['Endereco'] as $endereco){
+	?>
+	<div class="area-endereco"> 
+		<div class="bloco-area">
+			<fieldset class="dadosRepetidos">
+				<legend>Endereço  <?php echo $z+1; ?></legend>
+			<section class="coluna-esquerda">
+				<?php	
+					echo $this->Form->input('Endereco.id', array('value'=>$endereco['id']));
+				?>				
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Tipo:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['tipo'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['numero'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['bairro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
+
+			</section>
+		
+			<section class="coluna-central" >
+				<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cep'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['uf'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['complemento'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
+			</section>
+
+			<section class="coluna-direita" >
+					<div class="segmento-esquerdo">		
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['logradouro'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['cidade'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Ponto de Referência:',array('class'=>'titulo'));?></div>
+							<div class="linha2" style="margin-bottom:15px;"><?php echo $this->Html->Tag('p',$endereco['ponto_referencia'],array('class'=>'valor'));?>	</div>
+						</div>
+						
+					</div>
+			</section>
+
+			</fieldset>
+		</div>	
+	</div>
+		<?php $z++;} ?>
+</section><!--fim Meio-->
+	
+	<?php	
+	//############################################################################################################################################
+	} else{ //PARCEIRO DE NEGOCIOS COMPRAS
 		echo '<h1 class="menuOption'.$telaAbas.'">Visualizar Fornecedor</h1>';
 		
 	?>
@@ -508,10 +687,18 @@
 <footer>
     <?php
 		if(isset($telaLayout) && isset($telaAbas)){
-			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+			if($telaLayout == 'venda'){
+				echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
 													 'class'=>'bt-editar',
-													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'],'layout' => $telaLayout,'abas' => '41')));
+													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'],'layout' => $telaLayout,'abas' => '51')));
+									}else{
+										echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
+												     'title'=>'Editar',
+													 'class'=>'bt-editar',
+													 'url'=>array('action'=>'edit',$parceirodenegocio['Parceirodenegocio']['id'],'layout' => $telaLayout,'abas' => '41')));			
+													
+												}
 		}else{
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',
 												     'title'=>'Editar',
