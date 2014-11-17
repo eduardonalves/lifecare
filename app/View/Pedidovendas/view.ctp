@@ -220,22 +220,16 @@
 				}
 				
 				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
-
-				//echo $this->Form->input('Comoperacao.prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_pagamento'],'disabled'=>'disabled'));
-				//echo $this->Form->input('Comoperacao.prazo_entrega',array('label'=>'Prazo de Entrega:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['prazo_entrega'],'disabled'=>'disabled'));
-
-
+				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
 			?>
-			
+	
 		</section>
 		
 		<section class="coluna-direita" style="float: left;">
-
 			<?php
-				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
-				//echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));	
-				//echo $this->Form->input('Comoperacao.data_entrega',array('label'=>'Previsão de Entrega:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>formatDateToView($pedidovenda['Pedidovenda']['data_entrega']),'disabled'=>'disabled'));	
-			//	if(isset($pedidovenda['Pedidovenda']['recebimento'])) echo $this->Form->input('Comoperacao.recebimento',array('type'=>'text','label'=>'Data de Recebimento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['recebimento'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_estoque',array('type'=>'text','label'=>'Status Estoque:','class'=>'tamanho-medio desabilita borderZero', 'value'=>$pedidovenda['Pedidovenda']['status_estoque'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
 
 			?>
 
@@ -516,8 +510,19 @@
 																<div class="linha"><?php echo $this->Html->Tag('p','Forma de Pagamento:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['forma_pagamento'],array('class'=>'valor'));?>	</div>
 															</div>
-					
 															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Estoque:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_estoque'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Gerencial:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_gerencial'],array('class'=>'valor'));?>	</div>
+															</div>
+					
+														
+					
 													</div>													
 											</section>
 											
@@ -534,6 +539,13 @@
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['valor'],array('class'=>'valor'));?>	</div>
 															</div>
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Financeiro:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_financeiro'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+															
 													
 															
 													</div>
@@ -660,4 +672,3 @@
 			</section>
 		</div>
 	</div>
-
