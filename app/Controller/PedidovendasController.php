@@ -449,19 +449,59 @@ class PedidovendasController extends ComoperacaosController {
 		if (!$this->Pedidovenda->exists($id)) {
 			throw new NotFoundException(__('Pedidovenda inválido.'));
 		}
+
 		if ($this->request->is(array('post', 'put'))) {
+
 			if ($this->Pedidovenda->save($this->request->data)) {
 				$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('O pedidovenda não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 			}
+
 		} else {
+
 			$options = array('conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id));
 			$this->request->data = $this->Pedidovenda->find('first', $options);
+
 		}
-				
+
 		
+	}
+
+	public function cancelar($id = null){
+
+		$this->Pedidovenda->id = $id;
+
+		if (!$this->Pedidovenda->exists()) {
+			
+			$this->Session->setFlash(__('O pedido requisitado não pode ser encontrado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+		
+		} else {
+			
+			$this->Pedidovenda->saveField('status', 'CANCELADO');
+			
+			$queryString = "UPDATE produtos
+						INNER JOIN (Select SUM(qtde) qtde from comitensdaoperacaos where comoperacao_id=" . $id . " group by produto_id) citens
+						SET produtos.reserva = IF(produtos.reserva IS NULL, 0-citens.qtde, produtos.reserva-citens.qtde),
+						produtos.disponivel = IF(produtos.reserva IS NULL, 0+citens.qtde, produtos.reserva+citens.qtde)";
+
+			try {
+			
+				$pedido = $this->Pedidovenda->query($queryString);
+			
+			} catch (Exception $e) {
+			
+				$this->Session->setFlash(__('Erro ao cancelar pedido. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));				
+			}
+			
+			$data = array('Pedidovenda'=> array('Status'=>'CANCELADO'));
+			
+				$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
+
+		}
+
+		return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 	}
 
 /**

@@ -281,8 +281,20 @@
 		if($pedidovenda['Pedidovenda']['status'] != 'CANCELADO'){
 
 
-			echo $this->Html->image('bt-cancel.png',array('id'=>'','style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
-			echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
+			// echo $this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' => $this->params['pass'][0], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
+			echo $this->Form->postLink(
+				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' =>  $pedidovenda['Pedidovenda']['id'], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda')),
+				array('controller' => 'Pedidovendas', 'action' => 'cancelar',  $pedidovenda['Pedidovenda']['id']),
+				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar o pedido número %s?', $pedidovenda['Pedidovenda']['id']))
+			);
+			
+			echo $this->Form->postLink(
+
+					$this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))),
+					array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),
+					array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id']))
+
+				);
 
 		
 			
