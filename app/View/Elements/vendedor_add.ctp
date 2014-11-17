@@ -63,7 +63,7 @@
 		echo $this->Html->image('cadastrar-titulo.png', array('id' => 'Cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 	?>
 	
-		<h1 class="menuOption53" >Cadastrar Vendedor</h1>
+		<h1 class="menuOption54" >Cadastrar Vendedor</h1>
 	
 </header>
 

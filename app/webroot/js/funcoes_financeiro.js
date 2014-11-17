@@ -469,6 +469,12 @@ $(document).ready(function() {
 	}
     );
 
+    $( ".upload-fgv" ).hover(function(){
+	    $(this).after('<span id="msgExtensoes" class="DinamicaMsg Msg-tooltipAbaixo" style="top: 150px;">Extensões válidas: xls.<br/>Tamanho máximo permitido 2mb.</span>');
+	},function(){
+	  //  $('#msgExtensoes').remove();
+	}
+    );
 
 /****************** Mascara Data *************************/
     $('input[id*=Data],input[id*=data]').mask('99/99/9999');
