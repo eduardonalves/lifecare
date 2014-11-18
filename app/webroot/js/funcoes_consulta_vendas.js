@@ -150,21 +150,6 @@ $(document).ready(function(){
 		}
 	}
 
-	$('.operacao input').click( function(){
-		
-		var me = $(this).attr('id');
-		
-		if ( me == 'QuicklinkNomePDVENDA' ) {
-			
-			$('#QuicklinkNomeCTVENDA').attr('checked', false);
-			
-		} else {
-			
-			$('#QuicklinkNomePDVENDA').attr('checked', false);
-
-		}
-		
-	});
 /*** SUBMITAR FILTRO CONSULTA ***************************/
 
 	$("#quick-filtrar-compras").click(function(e){
@@ -290,29 +275,29 @@ var valorAux=$('#filterTipoOperacao').val();
 	}
 
 	if(valorEntrada == 'CTVENDA'){
-		alert(1);
-		$('#QuicklinkNomeCTVENDA').attr('checked', true);
+		$('#QuicklinkNomeCOTACAO').attr('checked', true);
 	}else if(valorEntrada == 'PDVENDA'){
-		$('#QuicklinkNomePDVENDA').attr('checked', true);
+		$('#QuicklinkNomePEDIDO').attr('checked', true);
 	}
 	
 	if(valorSaida2 != ''){
-		$('#QuicklinkNomePDVENDA').attr('checked', true);
-		$('#QuicklinkNomeCTVENDA').attr('checked', true);
+		$('#QuicklinkNomePEDIDO').attr('checked', true);
+		$('#QuicklinkNomeCOTACAO').attr('checked', true);
 	}
 
-	$("#QuicklinkNomeCTVENDA, #QuicklinkNomePDVENDA").bind('click', function(){
-		if($('#QuicklinkNomeCTVENDA').is(':checked')){
-			if($('#QuicklinkNomePDVENDA').is(':checked')){
+	$("#QuicklinkNomeCOTACAO, #QuicklinkNomePEDIDO").bind('click', function(){
+		if($('#QuicklinkNomeCOTACAO').is(':checked')){
+			if($('#QuicklinkNomePEDIDO').is(':checked')){
 				$('#filterTipoOperacao').val('PDVENDA CTVENDA');
 			}else{
 				$('#filterTipoOperacao').val('CTVENDA');
 			}
-		}else if($('#QuicklinkNomePDVENDA').is(':checked')){
+		}else if($('#QuicklinkNomePEDIDO').is(':checked')){
 				$('#filterTipoOperacao').val('PDVENDA');
 			}
 			else{
-				$('#filterTipoOperacao').val(' ');
+				return false;
+				//$('#filterTipoOperacao').val(' ');
 			}
 	});
 
