@@ -1,13 +1,22 @@
 @charset "utf-8";
 
 
-.modal. .modal-body{
-width: 450px !important;
+.modal, .modal-body{
+	width: 450px !important;
+	height: 180px !important;
 }
 
-#myModal_add-faturar .coluna-modal{
-	background: blue;
+.coluna-modal{
+	clear: both;
+	top: 10px;
+	left: 50px;
+	width: 360px;
 }
+
+.bt-Faturar{
+	margin: -27px -50px 0px;
+}
+
 
 .ui-menu{
 	max-height: 300px !important;

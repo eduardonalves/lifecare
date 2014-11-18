@@ -672,16 +672,16 @@
 			
 			<section>
 				<header>Tipo de Faturamento</header>
-			
+			</section>
 				<section class="coluna-modal">
 						<?php
 							echo $this->Form->create('Saidas', array('action' => 'convertePedidoEmSaida/'.$pedidovenda['Pedidovenda']['id']));
 								echo $this->Form->input('Saida.forma_de_entrada',array('label'=>'Tipo do Faturamento:','type'=>'select','options'=>array(''=>'','0'=>'Vale','1'=>'Nota')));
-								echo $this->form->submit('bt-faturar.png',array('class' => 'bt-salvar', 'alt' => 'Salvar', 'title' => 'Salvar', 'id' => 'bt-salvar-entrada-manual'));
+								echo $this->form->submit('bt-faturar.png',array('class' => 'bt-Faturar', 'alt' => 'Faturar', 'title' => 'Faturar'));
 							echo $this->Form->end();						
 						?>
 				</section>
 			
-			</section>
+
 		</div>
 	</div>
