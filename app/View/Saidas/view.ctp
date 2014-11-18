@@ -347,9 +347,24 @@
 
 			</table>
 		</div>
+		<?php echo $this->Form->end(); ?>
 	</section>
 </div>
 <footer>
+
+	<?php
+		if (! strstr($saida['Saida']['tipo'], 'CANCELADA')){
+			echo $this->Form->postLink(
+				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-saida', 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Nota','title' => 'Cancelar Nota')),
+				array('controller' => 'saidas', 'action' => 'cancelar',  $saida['Saida']['id']),
+				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar a nota número %s?', $saida['Saida']['id']))
+			);
+		}
+
+	?>
+	
+	<br />
+	<br />
 
 	<?php
 		echo $this->html->image('botao-imprimircom-novo.png',array('alt'=>'Confirmar',
