@@ -87,7 +87,7 @@ class PedidovendasController extends ComoperacaosController {
 					$produtoId = $iten['Comitensdaoperacao']['produto_id'];
 					$qtdeSeparada =0;
 					$totalSeparado =0;
-					$lotes = $this->Lote->find('all', array('order' => 'Lote.data_validade ASC','recursive' => -1,'conditions' => array('AND' => array('Lote.produto_id' => $produtoId), array('Lote.estoque >' =>0))));
+					$lotes = $this->Lote->find('all', array('order' => 'Lote.data_validade ASC','recursive' => -1,'conditions' => array('AND' => array('Lote.produto_id' => $produtoId), array('Lote.estoque >' =>0), array('Lote.status !=' => 'VERMELHO'))));
 					$qtdCheck = "FALSE";
 					$restante =0;
 					foreach($lotes as $lote){
@@ -222,17 +222,29 @@ class PedidovendasController extends ComoperacaosController {
 				throw new NotFoundException(__('Pedidovenda inválido.'));
 			}
 			if ($this->request->is(array('post', 'put'))) {
-				$this->request->data['Pedidovenda']['autorizado_por']=$userid;
-				$this->request->data['Pedidovenda']['status_gerencial']="OK";
-				$this->request->data['Pedidovenda']['status_faturamento']="SEPARACAO";
-				$this->setSeparaLote($id);
+					
+				$pedidoAprovado = $this->Pedidovenda->find('first', array('conditions' => array('AND' => array(array('Pedidovenda.id' => $id), array('Pedidovenda.status_gerencial' => 'OK')))));
 				
-				if ($this->Pedidovenda->save($this->request->data)) {
-					$this->Session->setFlash(__('O pedidovenda foi autorizado com sucesso.'),'default',array('class'=>'success-flash'));
+				if(empty($pedidoAprovado)){
+					$this->request->data['Pedidovenda']['id']=$id;
+					$this->request->data['Pedidovenda']['autorizado_por']=$userid;
+					$this->request->data['Pedidovenda']['status_gerencial']="OK";
+						$this->request->data['Pedidovenda']['status_estoque']="SEPARACAO";
+					$this->request->data['Pedidovenda']['status_faturamento']="PENDENTE";
+					$this->setSeparaLote($id);
+					
+					if ($this->Pedidovenda->save($this->request->data)) {
+						$this->Session->setFlash(__('O pedidovenda foi autorizado com sucesso.'),'default',array('class'=>'success-flash'));
+						return $this->redirect(array('action' => 'view', $id));
+					} else {
+						$this->Session->setFlash(__('O pedidovenda não pode ser autorizado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+					}
+				}else{
+					$this->Session->setFlash(__('Este pedido já foi aprovado'),'default',array('class'=>'error-flash'));
 					return $this->redirect(array('action' => 'view', $id));
-				} else {
-					$this->Session->setFlash(__('O pedidovenda não pode ser autorizado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 				}
+				
+				
 			} else {
 				$options = array('conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id));
 				$this->request->data = $this->Pedidovenda->find('first', $options);
@@ -266,7 +278,7 @@ class PedidovendasController extends ComoperacaosController {
 		$empresa = $this->Empresa->find('first');
 		
 		
-		$pedidovenda = $this->Pedidovenda->find('first', array('fields'=>'Pedidovenda.*','conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id)));
+		$pedidovenda = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id' => $id)));
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedidovenda['Parceirodenegocio'][0]['id'] )));	
 		

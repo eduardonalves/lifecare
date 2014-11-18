@@ -1409,6 +1409,56 @@ public $uses = array();
 		$this->set(compact('userid','itens','comoperacao','vendedor'));
 		
 	}
+
+	public function checkLote($id = null) {
+		if ($this->request->is(array('post', 'put'))) {
+			$this->loadModel('Comlotesoperacao');
+			$updateComLote = array('id' => $id, 'status_stoque' => 'OK');
+			$this->Comlotesoperacao->save($updateComLote);
+		}
+	}
+	
+	public function checkLoteRestante($id = null) {
+		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
+		if ($this->request->is(array('post', 'put'))) {
+			$this->loadModel('Comlotesoperacao');
+			if($qteEmEstoque == 0 ){
+				$this->Comlotesoperacao->delete($id );
+				if($this-> Comlotesoperacao->save($this->request->data)){
+					$resposta ="OK";
+					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+				}else{
+					$resposta ="Não Foi Possível Salvar";
+				}
+			}else{
+				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
+				if($this-> Comlotesoperacao->save($this->request->data)){
+					$resposta ="OK";
+					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+				}else{
+					$resposta ="Não Foi Possível Salvar";
+				}
+				
+			}
+		}
+	}
+	
+	public function ajusteReservaLote(&$lote_id, &$produto_id, &$qtde) {
+		$this->loadModel('Lote');
+		$this->loadModel('Produto');
+		$produto = $this->Produto->find('first',array('conditions' => array('Produto.id' => $produto_id)));
+		$reservaProd = $produto['Produto']['reserva'] - $qtde;
+		$dispProd = $produto['Produto']['estoque'] - $reservaProd;
+		$updateProduto= array('id' => $produto['Produto']['id'], 'reserva' =>  $reservaProd, 'disponivel' => $dispProd);
+		$this->Produto->save($updateProduto);
+		
+		$lote = $this->Lote->find('first',array('conditions' => array('Lote.id' => $lote_id)));
+		$reservaLote = $lote['Lote']['reserva'] - $qtde;
+		$dispLote= $lote['Lote']['estoque'] - $reservaLote;
+		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
+		$this->Lote->save($updateLote);
+		
+	}
 	
 }
 	

@@ -92,7 +92,33 @@ class Comoperacao extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'Nota' => array(
+			'className' => 'Nota',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Saida' => array(
+			'className' => 'Saida',
+			'foreignKey' => 'comoperacao_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 public $hasAndBelongsToMany = array(
 	'Parceirodenegocio' => array(
