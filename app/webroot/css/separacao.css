@@ -1,5 +1,48 @@
 @charset "utf-8";
 
+.tabela-simples{
+	border: 1px solid rgb(120, 123, 120);
+}
+.tabela-simples thead tr{
+	height: 25px;
+	background: white !important;	
+}
+
+.tabela-simples thead tr td{
+	width: 100px;
+	border: 1px solid rgb(120, 123, 120);
+}
+
+.tabela-simples tbody tr:nth-child(even){
+	background: #D3D3D3;
+	
+}
+.tdLote{
+background: #CAECD5;
+border: 2px solid #7FDA91 !important;
+}
+.verde{
+	background: rgba(208, 239, 206, 1);
+}
+
+.triangulo{
+	border-bottom: 10px solid  #CAECD5;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	position: relative;
+	float: left;
+	left: 145px;
+	top: -10px;
+}
+
+.corpoTd{
+background: #fff;
+bottom: 5px;
+}
+
+.coluna-td{
+	float: left;
+}
 
 /* TAG ****************************************************************/
 hr{

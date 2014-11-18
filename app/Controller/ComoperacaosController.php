@@ -1374,6 +1374,8 @@ public $uses = array();
 			$i++;
 		}
 		
+		
+		
 		$this->set(compact('userid','comoperacaos','vendedor'));		
 	}
 
@@ -1393,6 +1395,12 @@ public $uses = array();
 			
 		$this->loadModel('Vendedor');
 		$this->loadModel('Produto');
+		$this->loadModel('Lote');
+		
+		for($j=0;$j<count($comoperacao['Produto']);$j++){
+			$comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
+			
+		}		
 		
 		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
 		

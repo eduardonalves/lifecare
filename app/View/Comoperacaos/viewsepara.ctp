@@ -100,45 +100,54 @@
 			<?php 			
 				$j = 0;
 				foreach($comoperacao['Comitensdaoperacao']  as $itens){
-					
+					 
 			?>
 				<tr>
 					<td><?php echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Produto','title'=>'Visualizar Produto','url'=>array('controller' => 'Produtos','action' => 'view', $itens['produto_id'])));  ?></td>
-					<td><?php  //LOTES
-							echo "<a href='myModal_add-view_lotes".$j."' class='bt-showmodal'>";
-								echo $this->Html->image('listar.png',array('alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
-							echo "</a>";
+					<td  id="TDICOLote<?php echo $j;?>" ><?php  //LOTES
+							echo $this->Html->image('listar.png',array('alt'=>'Lotes','class' => 'bt-lotes img-lista','id'=>'lote'.$j,'title'=>'Visualizar Lista de Produtos'));
 						?>
-								
-						<div class="modal fade" id="myModal_add-view_lotes<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-body">
-						<?php
-							echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
-						?>
-							<header id="cabecalho">
-							<?php 
-								echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-							?>	
-								<h1>Visualização dos Lotes</h1>
-							</header>
-			
-							<section>
-								<header>Lotes do Produto</header>
-			
-								<section class="coluna-modal">
-							
-								</section>
-							</section>
-						</div>
-						</div>
-
-						
-						</td>
+					</td>
 					<td><?php echo $itens['produto_nome']; ?></td>
 					<td><?php echo $itens['qtde']; ?></td>
 					<td><?php echo $itens['obs']; ?></td>
 				</tr>
-					
+				<tr style="display:none;" id="linhaLote<?php echo $j;?>" > 
+					<td class="tdLote" colspan="5">
+						<span class="triangulo" id="tri<?php echo $j;?>"></span>
+						<section class="corpoTd">
+								<table class="tabela-simples">
+									<thead>
+										<tr>
+											<td>Lote</td>
+											<td>Quantidade</td>
+											<td>Trocar Lote</td>
+											<td>Confirmar Lote</td>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<?php											
+											foreach($comoperacao['Produto'][$j]['lotes'] as $lote){
+										?>				
+												<tr>
+													<td><?php echo $lote['Lote']['numero_lote']?></td>
+													<td><?php echo $lote['Lote']['estoque']?></td>
+													<td>Botão</td>
+													<td>Botão</td>
+												
+												
+												</tr>
+											
+										<?php
+											}
+										?>
+									
+									</tbody>	
+								</table>
+						</section>					
+					</td> 
+				</tr>
 			<?php $j++; } ?>				
 		</tbody>	
 	</table>
@@ -148,12 +157,30 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 	    $(".bt-showmodal").click(function(){
-		nome = $(this).attr('href');
-		$('#'+nome).modal('show');
+			nome = $(this).attr('href');
+			$('#'+nome).modal('show');
 	    });
+	    
+	    
+	    $( ".bt-lotes" ).click(function() {			
+			var n = $(this).attr('id');
+			n = n.substring(4);
+			
+			$( "#linhaLote"+n ).slideToggle( "fast");
+			$( "#linhaLote"+n+" td" ).css('display','table-cell');
+			//$( "corpoTd" ).fadeIn( "slow" );
+			
+			
+		});
 		
 	});
 </script>	
 	
-	
+	<div style="clear:both;"></div>
+	<br />
+<pre>
+	<?php
+		print_r($comoperacao['Produto'][1]['lotes']);
+	?>
+</pre>
 	
