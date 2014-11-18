@@ -266,7 +266,7 @@ class PedidovendasController extends ComoperacaosController {
 		$empresa = $this->Empresa->find('first');
 		
 		
-		$pedidovenda = $this->Pedidovenda->find('first', array('fields'=>'Pedidovenda.*','conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id)));
+		$pedidovenda = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id' => $id)));
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedidovenda['Parceirodenegocio'][0]['id'] )));	
 		

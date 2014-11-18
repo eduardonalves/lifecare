@@ -89,7 +89,7 @@
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
 				</div>
 			</div>
 		</section>		
@@ -98,7 +98,7 @@
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
 				</div>
 			</div>
 		</section>		

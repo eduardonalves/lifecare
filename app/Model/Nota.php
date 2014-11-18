@@ -71,11 +71,18 @@ class Nota extends AppModel {
 		),
 		'Pedidovenda' => array(
 			'className' => 'Pedidovenda',
-			'foreignKey' => 'comperacao_id',
+			'foreignKey' => 'comoperacao_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),'Comoperacao' => array(
+			'className' => 'Comoperacao',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		
 	);
 
 /**
