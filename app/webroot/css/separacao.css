@@ -1,5 +1,25 @@
 @charset "utf-8";
 
+
+/* MODAIS*/
+
+.modal-body-Completalote{
+	width: 550px;
+
+}
+
+.orglotes{
+	cursor: pointer;
+}
+
+.cabecalho{
+	border:none !important;
+	margin: -10px 0px !important;
+}
+
+/* Tabelas*/
+
+
 .tabela-simples{
 	border: 1px solid rgb(120, 123, 120);
 }
@@ -19,7 +39,7 @@
 }
 .tdLote{
 background: #CAECD5;
-border: 2px solid #7FDA91 !important;
+border: 1px solid #7FDA91 !important;
 }
 .verde{
 	background: rgba(208, 239, 206, 1);

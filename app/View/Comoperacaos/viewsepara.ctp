@@ -121,24 +121,58 @@
 										<tr>
 											<td>Lote</td>
 											<td>Quantidade</td>
-											<td>Trocar Lote</td>
+											<td>Completar Lote</td>
 											<td>Confirmar Lote</td>
 										</tr>
 									</thead>
 									
 									<tbody>
 										<?php											
-											foreach($comoperacao['Produto'][$j]['lotes'] as $lote){
+											foreach($itens['lotes'] as $lote){
 										?>				
 												<tr>
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
-													<td><?php echo $lote['Lote']['estoque']?></td>
-													<td>Botão</td>
-													<td>Botão</td>
+													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
+													<td>
+														<?php
+															
+															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
+																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+															echo "</a>";
+														?>
+														
+														<?php // MODAL DE TROCAR DE LOTE ##############################################################################################################?>
+														<div class="modal fade" id="myModal_add-troca_lote<?php echo $j; ?>" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+															<div class="modal-body modal-body-Completalote">
+															<?php
+																echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+															?>
+																<header class="cabecalho">
+																<?php 
+																	echo $this->Html->image('completaLote.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+																?>	
+																	<h1>Completar Lotes</h1>
+																</header>
 												
-												
-												</tr>
-											
+																<section>
+																<header>Informações dos Lote</header>
+																</section>
+																
+																<section class="coluna-modal">
+																	<?php
+																	
+																	
+																	?>																
+																</section>
+															</div>
+														</div>
+													</td>
+													<td>
+														<?php
+															echo $this->Html->image('bt-confirmaLote.png',array('alt'=>'Organizar Lotes','class' => 'img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+														?>
+													</td>											
+												</tr>										
 										<?php
 											}
 										?>
@@ -170,7 +204,6 @@
 			$( "#linhaLote"+n+" td" ).css('display','table-cell');
 			//$( "corpoTd" ).fadeIn( "slow" );
 			
-			
 		});
 		
 	});
@@ -180,7 +213,7 @@
 	<br />
 <pre>
 	<?php
-		print_r($comoperacao['Produto'][1]['lotes']);
+		print_r($comoperacao['Comitensdaoperacao']);
 	?>
 </pre>
 	
