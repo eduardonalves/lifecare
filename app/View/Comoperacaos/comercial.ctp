@@ -1,12 +1,12 @@
 <?php
 	$this->start('css');
-		echo $this->Html->css('consulta_compras');
+		echo $this->Html->css('consulta_vendas');
 		echo $this->Html->css('table');
 		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	$this->end();
 
 	$this->start('script');
-		echo $this->Html->script('funcoes_consulta_compras.js');
+		echo $this->Html->script('funcoes_consulta_vendas.js');
 		
 	$this->end();
 

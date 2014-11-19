@@ -216,13 +216,13 @@ class SaidasController extends NotasController {
 			$verificaLote="OK";
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = "";
 			}
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
 				
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
 				
 				if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){
@@ -345,6 +345,58 @@ class SaidasController extends NotasController {
 			$this->Session->setFlash(__('A saída não foi deletada. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function cancelar($id = null){
+		
+		App::uses('VendasController', 'Controller');
+		
+		$this->loadModel('loteiten');
+		$this->loadModel('produtoiten');
+		$this->loadModel('nota');
+
+		$this->Saida->id = $id;
+
+		if (!$this->Saida->exists()) {
+
+			$this->Session->setFlash(__('A nota não pode ser encontrada. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+
+		} else {
+
+			$this->request->onlyAllow('post', 'cancelar');
+
+			try {
+
+				$this->loteiten->updateAll(array('loteiten.tipo' => "'SAIDA CANCELADA'"), array('loteiten.nota_id =' => $id));
+				$this->produtoiten->updateAll(array('produtoiten.tipo' => "'SAIDA CANCELADA'"), array('produtoiten.nota_id =' => $id));
+				$this->nota->updateAll(array('nota.tipo' => "'SAIDA CANCELADA'"), array('nota.id =' => $id));
+				
+				$loteitens = $this->loteiten->find('all',array( 'conditions'=>array('loteiten.nota_id =' => $id)));
+				
+				$vendasController = new VendasController;
+
+				foreach ( $loteitens as $loteiten ){
+					
+
+					$vendasController->calcularNivelProduto($loteiten['loteiten']['produto_id']);
+					$vendasController->calcularEstoqueLote($loteiten['loteiten']['lote_id']);
+				
+				}
+				
+				
+				$this->Session->setFlash(__('A nota foi cancelada com sucesso.'),'default',array('class'=>'success-flash'));			
+
+
+			} catch (Exception $e) {
+			
+				$this->Session->setFlash(__('Erro ao cancelar nota. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));				
+			}
+			
+
+		}
+		
+		return $this->redirect(array('controller' => 'notas','action' => 'index','?' => array('parametro'=>'itensdoproduto', 'limit'=>15)));		
+
 	}
 
 /**
