@@ -4,6 +4,10 @@
 		echo $this->Html->css('separacao');
 	$this->end();
 	
+	$this->start('script');
+		echo $this->Html->script('separacaoLotes.js');
+	$this->end();
+	
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){
@@ -137,7 +141,7 @@
 														<?php
 															
 															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
-																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 															echo "</a>";
 														?>
 														
@@ -159,10 +163,20 @@
 																</section>
 																
 																<section class="coluna-modal">
-																	<?php
-																	
-																	
-																	?>																
+																	<section class="coluna_esquerda_modal">
+																		<label>
+																			<span>Selecionar Lote:</span>
+																			<select class="selectLote" id="todoslotes<?php echo $j; ?>">
+																				<option> </option>
+																				<?php
+																					foreach($comoperacao['Produto'][$j]['lotes'] as $todosLotes){
+																						echo "<option data-qtd='".$todosLotes['Lote']['estoque']."' >". $todosLotes['Lote']['numero_lote'] ."</option>";
+																					}
+																				?>																
+																			</select>
+																		</label>
+																	</section>
+		
 																</section>
 															</div>
 														</div>
@@ -213,7 +227,7 @@
 	<br />
 <pre>
 	<?php
-		print_r($comoperacao['Comitensdaoperacao']);
+		print_r($comoperacao);
 	?>
 </pre>
 	

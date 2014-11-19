@@ -1384,8 +1384,7 @@ public $uses = array();
  */
 	
 	public function viewsepara($id = null){
-		
-		
+				
 		$userid = $this->Session->read('Auth.User.id');
 		
 		if (!$this->Comoperacao->exists($id)) {
@@ -1400,7 +1399,6 @@ public $uses = array();
 		
 		for($j=0;$j<count($comoperacao['Produto']);$j++){
 			$comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
-			
 		}		
 		
 		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
