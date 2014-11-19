@@ -52,6 +52,20 @@ $(document).ready(function() {
 				?>
 			</select>
 		</div>
+		<?php
+			echo $this->Form->create('Comoperacao',array('action'=>'checkLoteRestante'));
+				echo $this->Form->input('comloteitem');
+				echo $this->Form->input('qtde');
+				echo $this->Form->input('comlotesoperacaos.0.lote_id',array('type'=>'text'));
+				echo $this->Form->input('comlotesoperacaos.0.comoperacao_id',array('type'=>'text'));
+				echo $this->Form->input('comlotesoperacaos.0.produto_id',array('type'=>'text'));
+				echo $this->Form->input('comlotesoperacaos.0.comitensdeoperacao',array('type'=>'text'));
+				echo $this->Form->input('comlotesoperacaos.0.qtde',array('type'=>'text'));
+				echo $this->Form->input('comlotesoperacaos.0.tipo',array('type'=>'text','value'=>'SAIDA'));
+				
+				
+				echo $this->Form->submit();
+		?>
 </div>
 
 
