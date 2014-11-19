@@ -5,7 +5,7 @@ $(document).ready(function(){
 		$('.loaderAjaxCarregarLoteDIV').show();
 		var produto_id = $(this).attr('data-produtoId');
 			
-		$("#carregaSelect").load(urlInicio+'lotes/carregalote?numero='+produto_id+'', function(){
+		$("#carregaSelect").load(urlInicio+'lotes/carregalotevalidade?numero='+produto_id+'', function(){
 			$('.loaderAjaxCarregarLoteDIV').hide();
 			$('#myModal_add-troca_lote').modal('show');
 		});
