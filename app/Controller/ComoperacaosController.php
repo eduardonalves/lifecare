@@ -1466,7 +1466,7 @@ public $uses = array();
 					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
 				}else{
-					$resposta ="Não Foi Possível Salvar";
+					$resposta ="Erro";
 				}
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
@@ -1474,7 +1474,7 @@ public $uses = array();
 					$resposta ="OK";
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
 				}else{
-					$resposta ="Não Foi Possível Salvar";
+					$resposta ="Erro";
 				}
 				
 			}
