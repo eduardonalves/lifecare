@@ -1410,11 +1410,40 @@ public $uses = array();
 		
 	}
 
+	public function checkLoteTodos(&$id) {
+		$this->loadModel('Comoperacao');
+		$this->loadModel('Comlotesoperacao');
+		$checklotes="NOK";
+		$qtdItens=0;
+		$qtdOk = 0 ;
+		$comlotesoperacao = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $id)));
+		$comlotesoperacaoTodos = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])));
+		foreach($comlotesoperacaoTodos as $todos){
+				
+			if($todos['Comlotesoperacao']['status_estoque']== "OK"){
+				$qtdOk = $qtdOk +1;
+			}
+			$qtdItens= $qtdItens +1;
+		}
+		if($qtdOk == $qtdItens){
+			$upDateComoperacao = array('id'=> $comlotesoperacao['Comlotesoperacao']['comoperacao_id'], 'status_estoque' => 'SEPARADO');
+			$this->Comoperacao->save($upDateComoperacao);
+		}
+	}
 	public function checkLote($id = null) {
 		if ($this->request->is(array('post', 'put'))) {
 			$this->loadModel('Comlotesoperacao');
 			$updateComLote = array('id' => $id, 'status_stoque' => 'OK');
-			$this->Comlotesoperacao->save($updateComLote);
+			
+			if($this->Comlotesoperacao->save($updateComLote)){
+				
+				$resposta ="OK";
+				$this->checkLoteTodos($id);
+			}else{
+				$resposta ="Erro";
+			}
+			
+			$this->set(compact('resposta'));
 		}
 	}
 	
@@ -1426,6 +1455,7 @@ public $uses = array();
 				$this->Comlotesoperacao->delete($id );
 				if($this-> Comlotesoperacao->save($this->request->data)){
 					$resposta ="OK";
+					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
 				}else{
 					$resposta ="Não Foi Possível Salvar";

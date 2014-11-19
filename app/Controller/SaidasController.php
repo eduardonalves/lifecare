@@ -216,13 +216,13 @@ class SaidasController extends NotasController {
 			$verificaLote="OK";
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = "";
 			}
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
 				
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
 				
 				if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){

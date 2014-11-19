@@ -301,6 +301,7 @@ class PedidovendasController extends ComoperacaosController {
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
 		$this->loadModel('Contato');
+		$this->loadModel('Produto');
 		$this->loadModel('ProdutosParceirodenegocio');
 
 		$this->loadModel('Dadoscredito');
@@ -321,99 +322,119 @@ class PedidovendasController extends ComoperacaosController {
 			if(empty($limiteCliente)){
 				$this->Session->setFlash(__('Erro, Este cliente não Possui Limite Cadastrado. Por favor cadastre um limite para este cliente'));
 			}else{
-				if ($limiteCliente >= $this->request->data['Pedidovenda']['valor']){
-					$this->request->data['Pedidovenda']['status_financeiro'] ="OK";
-					$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
-					$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
-					$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
-					$this->loadModel('Lote');
-				}else{
-					$this->request->data['Pedidovenda']['status_financeiro'] ="PENDENTE";
-					$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
-					$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
-					$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
-					$this->loadModel('Lote');
+				
+				
+				$arrProdQtde = array();
+				$posProduto = array();
+				$verificaEstoque="OK";
+				foreach($this->request->data['Comitensdaoperacao'] as $iten){
+					$arrProdQtde[''.$iten['produto_id'].''] ="";
 				}
-				$this->Pedidovenda->create();
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_inici']);
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_fim']);
-				$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_unit']);
-				//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_total']);
-				$j=0;
-				$total=0;
-				foreach($this->request->data['Comitensdaoperacao'] as $j => $itensop){
-					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_unit']);
-					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
-					$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
-				}
-				$this->request->data['Pedidovenda']['valor'] = $total;
-				if(isset($this->request->data['Pedidovenda']['prazo_entrega'])){
-					if($this->request->data['Pedidovenda']['prazo_entrega'] != ''){
-						$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
-						$dataPrev = date('Y-m-d', strtotime("+".$this->request->data['Pedidovenda']['prazo_entrega']." days",strtotime(''.$this->request->data['Pedidovenda']['data_inici'].'')));
-						$this->request->data['Pedidovenda']['data_entrega']=$dataPrev;
+				foreach($this->request->data['Comitensdaoperacao'] as $iten){
+					$arrProdQtde[''.$iten['produto_id'].''] = $arrProdQtde[''.$iten['produto_id'].''] + $iten['qtde'];
+					$achaProduto = $this->Produto->find('first', array('conditions' => array('Produto .id' => $iten['produto_id']), 'recursive' => -1));
+					if($arrProdQtde[''.$iten['produto_id'].'']  > $achaProduto['Produto']['estoque']){
+						$verificaEstoque = "Erro"; 
 					}
 				}
 				
-				$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
-	
-	
-				$this->loadModel('Produto');
-				$total = 0;
-				if ($this->Pedidovenda->saveAll($this->request->data)) {
-	
-					$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
-					$ultimoPedido = $this->Pedidovenda->find('first',array('order' => array('Pedidovenda.id' => 'DESC')));
-	
-					$i=0;
-					foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
-						$ultimoPedido['Comitensdaoperacao'][$i];
-						$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
-						$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-						//Relacionamos fornecedores a produtos
-	
-						$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
-						if(empty($inter)){
-							$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
-							$this->ProdutosParceirodenegocio->save($upProdFornec);
-	
-						}
-	
-						$i++;
+				if($verificaEstoque != "Erro"){
+					if ($limiteCliente >= $this->request->data['Pedidovenda']['valor']){
+						$this->request->data['Pedidovenda']['status_financeiro'] ="OK";
+						$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
+						$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
+						$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
+						$this->loadModel('Lote');
+					}else{
+						$this->request->data['Pedidovenda']['status_financeiro'] ="PENDENTE";
+						$this->request->data['Pedidovenda']['status_estoque'] ="PENDENTE";
+						$this->request->data['Pedidovenda']['status_faturamento'] ="PENDENTE";
+						$this->request->data['Pedidovenda']['status_gerencial'] ="PENDENTE";
+						$this->loadModel('Lote');
 					}
-	
-	
-					$this->loadModel('Comtokencotacao');
-	
-						$flag="FALSE";
-						while($flag =='FALSE') {
-							$numero=date('Ymd');
-							$numeroAux= rand(0, 99999999);
-							$numero = $numero.$numeroAux;
-							$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-							if(empty($ultimaComtokencotacao)){
-								$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'codigoseguranca' => $numero);
-	
-								$this->Comtokencotacao->save($dadosComOp);
-	
-								$flag="TRUE";
-							}
-	
-						}
-	
-					$remetente= "cirurgica.simoes@gmail.com";
-					if(!empty($contato)){
-						if($contato['Contato']['email'] !=''){
-							$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+					$this->Pedidovenda->create();
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_inici']);
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_fim']);
+					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_unit']);
+					//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_total']);
+					$j=0;
+					$total=0;
+					foreach($this->request->data['Comitensdaoperacao'] as $j => $itensop){
+						$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_unit']);
+						$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
+						$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
+					}
+					$this->request->data['Pedidovenda']['valor'] = $total;
+					if(isset($this->request->data['Pedidovenda']['prazo_entrega'])){
+						if($this->request->data['Pedidovenda']['prazo_entrega'] != ''){
+							$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
+							$dataPrev = date('Y-m-d', strtotime("+".$this->request->data['Pedidovenda']['prazo_entrega']." days",strtotime(''.$this->request->data['Pedidovenda']['data_inici'].'')));
+							$this->request->data['Pedidovenda']['data_entrega']=$dataPrev;
 						}
 					}
-					$this->setLimiteUsadoAdd($clienteId,$this->request->data['Pedidovenda']['valor'], $this->request->data['Pedidovenda']['forma_pagamento']);
-					$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
-					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
 					
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
+		
+		
+					$this->loadModel('Produto');
+					$total = 0;
+					if ($this->Pedidovenda->saveAll($this->request->data)) {
+		
+						$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
+						$ultimoPedido = $this->Pedidovenda->find('first',array('order' => array('Pedidovenda.id' => 'DESC')));
+		
+						$i=0;
+						foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+							$ultimoPedido['Comitensdaoperacao'][$i];
+							$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+							$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+							//Relacionamos fornecedores a produtos
+		
+							$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
+							if(empty($inter)){
+								$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
+								$this->ProdutosParceirodenegocio->save($upProdFornec);
+		
+							}
+		
+							$i++;
+						}
+		
+		
+						$this->loadModel('Comtokencotacao');
+		
+							$flag="FALSE";
+							while($flag =='FALSE') {
+								$numero=date('Ymd');
+								$numeroAux= rand(0, 99999999);
+								$numero = $numero.$numeroAux;
+								$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+								if(empty($ultimaComtokencotacao)){
+									$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'codigoseguranca' => $numero);
+		
+									$this->Comtokencotacao->save($dadosComOp);
+		
+									$flag="TRUE";
+								}
+		
+							}
+		
+						$remetente= "cirurgica.simoes@gmail.com";
+						if(!empty($contato)){
+							if($contato['Contato']['email'] !=''){
+								$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+							}
+						}
+						$this->setLimiteUsadoAdd($clienteId,$this->request->data['Pedidovenda']['valor'], $this->request->data['Pedidovenda']['forma_pagamento']);
+						$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
+						return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
+						
+					}else{
+						$this->Session->setFlash(__('O pedidovenda não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+		
+					}
 				}else{
-					$this->Session->setFlash(__('O pedidovenda não pode ser salvo. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
-	
+					$this->Session->setFlash(__('Erro, não exite estoque suficiente para atender esta saída.'),'default',array('class'=>'error-flash'));
 				}
 			}
 			
