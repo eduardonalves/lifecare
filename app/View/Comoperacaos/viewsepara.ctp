@@ -139,47 +139,10 @@
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
 													<td>
 														<?php
-															
 															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
 																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 															echo "</a>";
-														?>
-														
-														<?php // MODAL DE TROCAR DE LOTE ##############################################################################################################?>
-														<div class="modal fade" id="myModal_add-troca_lote<?php echo $j; ?>" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-															<div class="modal-body modal-body-Completalote">
-															<?php
-																echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
-															?>
-																<header class="cabecalho">
-																<?php 
-																	echo $this->Html->image('completaLote.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-																?>	
-																	<h1>Completar Lotes</h1>
-																</header>
-												
-																<section>
-																<header>Informações dos Lote</header>
-																</section>
-																
-																<section class="coluna-modal">
-																	<section class="coluna_esquerda_modal">
-																		<label>
-																			<span>Selecionar Lote:</span>
-																			<select class="selectLote" id="todoslotes<?php echo $j; ?>">
-																				<option> </option>
-																				<?php
-																					foreach($comoperacao['Produto'][$j]['lotes'] as $todosLotes){
-																						echo "<option data-qtd='".$todosLotes['Lote']['estoque']."' >". $todosLotes['Lote']['numero_lote'] ."</option>";
-																					}
-																				?>																
-																			</select>
-																		</label>
-																	</section>
-		
-																</section>
-															</div>
-														</div>
+														?>													
 													</td>
 													<td>
 														<?php
@@ -223,6 +186,40 @@
 	});
 </script>	
 	
+	<div class="loaderAjaxCarregarLoteDIV" style="display:none">
+
+		<?php echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando','title'=>'Carregando','class'=>'loaderAjaxCarregarLote',)); ?>
+
+		<span>Carregando lotes aguarde...</span>
+	</div>	
+	
+<?php // MODAL DE TROCAR DE LOTE ##############################################################################################################?>
+	<div class="modal fade" id="myModal_add-troca_lote" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body modal-body-Completalote">
+		<?php
+			echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+		?>
+			<header class="cabecalho">
+			<?php 
+				echo $this->Html->image('completaLote.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+			?>	
+				<h1>Completar Lotes</h1>
+			</header>
+
+			<section>
+			<header>Informações dos Lote</header>
+			</section>
+			
+			<section class="coluna-modal">
+				<section class="coluna_esquerda_modal">
+					
+					<div id="carregaSelect">					
+					</div>
+
+				</section>
+			</section>
+		</div>
+	</div>
 	<div style="clear:both;"></div>
 	<br />
 <pre>

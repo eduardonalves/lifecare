@@ -1397,9 +1397,9 @@ public $uses = array();
 		$this->loadModel('Lote');
 		$this->loadModel('Comlotesoperacao');
 		
-		for($j=0;$j<count($comoperacao['Produto']);$j++){
-			$comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
-		}		
+		//~ for($j=0;$j<count($comoperacao['Produto']);$j++){
+			//~ $comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
+		//~ }		
 		
 		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
 		
