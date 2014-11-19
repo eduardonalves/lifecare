@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
  */
 App::import('Controller', 'Notas');
 App::import('Controller', 'Produtos');
+
 class VendasController extends NotasController {
 
 /**

@@ -99,7 +99,7 @@
 												}else if($campo == "parceirodenegocio_id"){
 													echo "<td class=\"$campo\"><span title=\"". $produtoiten['Nota']['parceiro']. "\">" . h($produtoiten['Nota']['parceiro']) . "&nbsp;</span></td>";
 												}else if($campo == "tipo"){
-													if($produtoiten['Nota']['tipo']=="SAIDA"){
+													if($produtoiten['Nota']['tipo']=="SAIDA" || $produtoiten['Nota']['tipo']=="SAIDA CANCELADA" ){
 														echo "<td class=\"$campo\"><span title=\"". $produtoiten['Nota']['tipo']. "\">" . $this->Html->link($produtoiten['Nota']['tipo'], array('controller' => 'saidas', 'action' => 'view', $produtoiten['Nota']['id'])). "&nbsp;</span></td>";
 													}else{
 														echo "<td class=\"$campo\"><span title=\"". $produtoiten['Nota']['tipo']. "\">" . $this->Html->link($produtoiten['Nota']['tipo'], array('controller' => 'entradas', 'action' => 'view', $produtoiten['Nota']['id'])). "&nbsp;</span></td>";

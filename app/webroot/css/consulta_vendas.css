@@ -1,0 +1,480 @@
+@charset "utf-8";
+
+/* TESTE ************************************************************/
+
+
+/* TAG ****************************************************************/
+label{
+	margin-bottom:5px !important;
+}
+
+label[for="filterIdentificacao"]{
+	-webkit-logical-width: 145px !important;
+}
+
+label[for="checkparcela"]{
+	color: #333;
+	display: block;
+	font-size: 15px !important;
+	text-align: left;
+	width: 170px;
+}
+
+
+/* CLASS **************************************************************/
+.statusMovimentacao{
+	display:block;
+	position: relative;
+	clear: both;
+	top:4px;
+}
+
+.boxParceiro{
+	margin-bottom: 20px;
+}
+
+.boxParceiro label{
+	font-size: 15px !important;
+	margin-top: -4px;
+}
+
+
+.tipoOperacao{
+	margin-left: -164px;
+}
+
+.informacoesParceiro{
+	margin: 0px -40px;
+}
+
+.divMarginLeft{
+	-webkit-margin-start: 7px;
+}
+
+.filtros{
+	background-color:white;
+	display:block;
+	float:left;
+	height:100%;
+	margin-top:-15px;
+	padding:10px;
+	position:relative;
+	width:1067px;
+}
+
+.content-filtros{
+	display:block;
+	float:left;
+	margin: 10px 0px 0px 3px;
+	padding:0;
+	position:relative;
+	width:100%;
+}
+
+.dados-produto{
+	margin-top:-11px;
+}
+
+.input-alinhamento{
+	margin-top:3px;
+}
+
+.msgFiltro{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	bottom:13px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	left:-110px;
+	margin-left:50%;
+	padding:4px 11px;
+	position:absolute;
+}
+
+.inputSearchData input[type='text']{
+	height:20px;
+	margin-top:3px;
+	width:70px !important;
+	padding-top: 0px !important;
+	line-height:16px;
+}
+
+#filtro-movimentacao select{
+	margin-top:3px;
+}
+
+.inputSearchData span{
+	float: left;
+	margin: 5px 10px 0px 10px;
+	font-size:13px;
+}
+
+.inputSearchValor span{
+	float: left;
+	margin: 5px 10px 0px 10px;
+	font-size:13px;
+}
+
+.inputSearchValor input[type='text']{
+	height:20px;
+	margin-top:3px;
+	width:70px !important;
+	padding-top: 0px !important;
+	line-height:16px;
+}
+
+.msgModal{
+	background-color:#FFD5D5;
+	border-radius:4px;
+	color:#D40000;
+	display:none;
+	font-size:13px;
+	height:20px;
+	left:-65px;
+	margin-left: 50%;
+	padding:4px 11px;
+	position:absolute;
+	top:295px;
+	width:115px;
+}
+
+.areaTabela{
+	overflow:visible;
+	width:1090px;
+}
+
+.paging{
+	clear:both;
+	float:left;
+	width:100%;
+	margin-top:15px;
+}
+
+.separador{
+	font-size:13px;
+	line-height:13px;
+	position:relative;
+	top:-3px;
+}
+
+.paging-direito{
+	clear:both;
+	display:inline-flex;
+	float:right;
+	margin-bottom:2px;
+	position:relative;
+	width:436px;
+}
+
+.resultado-total{
+	float:right;
+	font-size:13px;
+	margin:4px 54px 0px 0px;
+}
+
+/* ID *****************************************************************/
+#quick-select{
+	float:left;
+	width:225px;
+}
+
+#quick-salvar{
+	border:0px !important;
+	float:left;
+	margin-left:8px;
+}
+
+#quick-editar{
+	border:0px !important;
+	margin-left:5px;
+}
+
+#filtro-operacao{
+	background-color: #F0F5DB;
+	border: 1px solid rgb(171, 200, 55);
+	border-radius: 8px;
+	height: 100% !important;
+	min-height: 173px;
+	-webkit-logical-height: 175px;
+	margin: 5px 0px 0px -5px;
+	padding: 6px;
+	width: 350px;
+}
+
+#titulo{
+	color:#333;
+	display:block;
+	font-size:15px;
+	margin:0px 0px 15px 10px;
+	text-align:left;
+	width:170px;
+}
+
+#filtro-produto{
+	background-color:#FFFAE7;
+	border:1px solid rgb(255, 212, 42);
+	border-radius:8px;
+	height: 100% !important;
+	min-height: 175px;
+	-webkit-logical-height: 175px;
+	margin:5px 0px 0px 7px;
+	padding:5px;
+	width:335px;
+}
+
+#filtro-parceiro{
+	background-color:#c9f0e8;
+	border:1px solid #37c8ab;
+	border-radius: 8px;
+	height:100% !important;
+	min-height: 175px;
+	-webkit-logical-height: 175px;
+	margin-top:5px;
+	padding:5px;
+	width:333px;
+}
+
+
+#quick-filtrar{
+	border: none;
+	bottom: 5px;
+	position: relative;
+	
+}
+
+#paginatorFirst{
+	background-image:url(../img/botao-tabela-primeiro.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:16px;
+}
+
+#paginatorLast{
+	background-image:url(../img/botao-tabela-ultimo.png);
+	display:inline-block;
+	height:15px;
+	width:16px;
+}
+
+#bt-expandirOperacao{
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+	top: 160px;
+}
+
+#bt-expandirResposta{
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+	top: 160px;
+}
+
+#filterStatusOperacao{
+	margin-top:3px;
+}
+
+#filterStatusResposta{
+	margin-top:3px;
+}
+
+/* HERANÇA ************************************************************/
+section[id*='filtro'] input{
+	margin-top:3px;
+}
+
+section[id*='filtro'] label{
+	line-height:25px;
+}
+
+.modal-body header img {
+position: relative;
+height: 24px;
+float: left;
+}
+
+.modal-body header h1{
+position: relative;
+float: left;
+margin-top: -6px;
+left: 10px;
+font-size: 30px;
+color: #008000;
+}
+
+.modal-body section header {
+position: relative;
+float: left;
+border-bottom: 3px #CCCCCC solid;
+width: 100%;
+text-align: right;
+margin: 20px 0px;
+font-family: arial;
+color: #008000;
+font-size: 20px;
+}
+
+.modal-body footer {
+position: relative;
+float: left;
+display: block;
+width: 100%;
+margin-top: 60px;
+margin-bottom: 50px;
+}
+
+.content-filtros img{
+	position:absolute;
+	right:10px;
+	top:5px
+}
+
+.operacao label{
+	font-size:13px !important;
+	line-height:20px !important;
+	margin: -4px 0px 0px 0px;
+	text-align:left !important;
+	width:30px !important;
+}
+
+.operacao input[type="checkbox"]{
+	margin: 0px 3px 0px 40px;
+}
+
+.paging-direito img{
+	display:block;
+	float: right;
+}
+
+.paging-direito label{
+	line-height:20px;
+}
+
+.prev a{
+	background-image:url(../img/botao-tabela-voltar.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:9px;
+}
+
+.next a{
+	background-image:url(../img/botao-tabela-adiantar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
+
+#filtro-lote .error-message-quicklink{
+	display:none;
+}
+
+/******* MODAL DA VISUALISAÇÂO DAS PARCELAS ******/
+.modal{
+	left: 32% !important;
+}
+.modal-body{
+	width: 1000px;
+	height: auto !important;
+	max-height: 400px !important;
+}
+
+#myModal_add-quicklink{
+	width: 536px;
+	left: 50% !important;
+}
+
+#myModal_add-quicklink .modal-body{
+	width: 500px;
+}
+#filterStatusConta{
+	float:left;
+	margin-top:3px;
+}
+
+#idcpf{
+	float: left;
+	position:absolute;
+	margin-top: 5px;
+}
+
+#idcnpj{
+	float: left;
+	position:absolute;
+	margin-top: 5px;
+}
+
+.label-cpf{
+	float:right;
+	font-size:13px;
+	margin-top:-4px;
+	width:65px !important;
+	margin-left: -31px;
+}
+
+.label-cnpj{
+	margin-left:-12px;
+	margin-top:-4px;
+	width:50px !important;
+}
+
+#inputcnpj{
+	position:relative;   
+	margin-left:87px;
+}
+
+#inputcpf{
+	position:relative;
+	z-index: 1;
+	margin-left: 37px;
+}
+
+#ClienteCpfCnpj{
+	position:absolute;
+	height:16px;
+}
+
+#cpf_cnpj{margin-top:3px}
+
+#vazioDataEmissao{
+    left: 328px;
+    top: 75px;
+    width: 76px;
+    z-index: 1;
+}
+
+#vazioDataQuitacao{
+    left: 328px;
+    top: 100px;
+    width: 76px;
+    z-index: 1;
+}
+
+#vazioDataVencimento{
+    left: 328px;
+    top: 80px;
+    width: 76px;
+    z-index: 99;
+}
+
+#vazioFilterValor{
+    left: 328px;
+    top: 55px;
+    width: 76px;
+    z-index: 99;
+}
+
+#filtro-parceiro label{
+	width:150px !important;
+}
+
+#valor{
+	min-width:100px;
+}
+
+.valor{
+	min-width:100px;
+}
