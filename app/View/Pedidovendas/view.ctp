@@ -1,7 +1,7 @@
 <?php 
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras');
+	    echo $this->Html->css('PedidosVendas');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all');
 	    echo $this->Html->css('jquery-ui/custom-combobox');
 		echo $this->Html->css('PrintArea');
@@ -274,29 +274,22 @@
 		
 		if($pedidovenda['Pedidovenda']['status'] != 'CANCELADO'){
 
-
-
-		
+	
 			//echo $this->Html->image('bt-faturamento.png',array('id'=>'','style'=>'float:right;cursor:pointer;margin-right:5px;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
-			echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
-				echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
-			echo "</a>";
-			echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
 			echo $this->Form->postLink(
 				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' =>  $pedidovenda['Pedidovenda']['id'], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda')),
 				array('controller' => 'Pedidovendas', 'action' => 'cancelar',  $pedidovenda['Pedidovenda']['id']),
 				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar o pedido número %s?', $pedidovenda['Pedidovenda']['id']))
 			);
 			
-			echo $this->Form->postLink(
+		
+			echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
+				echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
+			echo "</a>";
 
-					$this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))),
-					array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),
-					array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id']))
-
-				);
-
-			
+			echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
+	
+						
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
 									'title'=>'Imprimir',
 									'id'=>'confirmaImprimir',
@@ -679,11 +672,16 @@
 			
 			<section>
 				<header>Tipo de Faturamento</header>
-			
+			</section>
 				<section class="coluna-modal">
-						
+						<?php
+							echo $this->Form->create('Saidas', array('action' => 'convertePedidoEmSaida/'.$pedidovenda['Pedidovenda']['id']));
+								echo $this->Form->input('Saida.forma_de_entrada',array('label'=>'Tipo do Faturamento:','type'=>'select','options'=>array(''=>'','0'=>'Vale','1'=>'Nota')));
+								echo $this->form->submit('bt-faturar.png',array('class' => 'bt-Faturar', 'alt' => 'Faturar', 'title' => 'Faturar'));
+							echo $this->Form->end();						
+						?>
 				</section>
 			
-			</section>
+
 		</div>
 	</div>

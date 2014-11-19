@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
  */
 App::import('Controller', 'Notas');
 App::import('Controller', 'Produtos');
+
 class SaidasController extends NotasController {
 
 /**
@@ -215,13 +216,13 @@ class SaidasController extends NotasController {
 			$verificaLote="OK";
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = "";
 			}
 			foreach($this->request->data['Loteiten'] as $loteiten){
 				$achaLote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $loteiten['lote_id']), 'recursive' => -1));
 				
-				$posLote = $achaLote['Lote']['numero_lote'];
+				$posLote = $achaLote['Lote']['id'];
 				$arrLotesQtde[''.$posLote.''] = $arrLotesQtde[''.$posLote.''] + $loteiten['qtde'];
 				
 				if( $arrLotesQtde[''.$posLote.''] > $achaLote['Lote']['estoque']){
@@ -463,8 +464,8 @@ class SaidasController extends NotasController {
 	}
 	
 	public function tiradaReserva(){
-		$idSaida = $_GET['pedido'];	
 		
+		$idSaida = $_GET['pedido'];	
 		$this->loadModel('Pedidovenda');
 		$this->loadModel('Comitensdaoperacao');
 		$this->loadModel('Comlotesoperacao');
@@ -502,6 +503,7 @@ class SaidasController extends NotasController {
 	
 	//Metodo que converte Pedido de venda em saída (Faturamento)
 	public function convertePedidoEmSaida($id = null) {
+		
 		$this->loadModel('Pedidovenda');
 		$this->loadModel('Produto');
 		$this->loadModel('Produtoiten');
@@ -517,13 +519,13 @@ class SaidasController extends NotasController {
 		$this->request->data['Saida']['nota_fiscal'] = 1;
 		$this->request->data['Saida']['valor_total'] = $pedidoVenda['Pedidovenda']['valor'];
 		$this->request->data['Saida']['comoperacao_id'] = $pedidoVenda['Pedidovenda']['id'];
+		
 		if(isset($pedidoVenda['Pedidovenda']['valor_desconto'])){
 			$this->request->data['Saida']['valor_desconto'] = $pedidoVenda['Pedidovenda']['valor_desconto'];
 		}
-		
-		
+	
 		//Verifico se a forma de entrada é um vale
-		if($this->request->data['Saida']['forma_de_entrada'] == 1){
+		if($this->request->data['Saida']['forma_de_entrada'] == 0){
 			
 			$this->request->data['Saida']['valor_total_produtos']  = "CALCULAR";
 			$this->request->data['Saida']['nota_fiscal'] = "TRATAR";
@@ -546,16 +548,12 @@ class SaidasController extends NotasController {
 		}
 		$i=0;
 		foreach ($pedidoVenda['Comitensdaoperacao'] as $iten) {
-			
-			
+				
 			$this->request->data['Produtoiten'][$i]['produto_id'] = $iten['produto_id'];
 			$this->request->data['Produtoiten'][$i]['valor_unitario'] = $iten['valor_unit'];
 			$this->request->data['Produtoiten'][$i]['valor_total'] = $iten['valor_total'];
 			$this->request->data['Produtoiten'][$i]['qtde'] = $iten['qtde'];
 			$this->request->data['Produtoiten'][$i]['tipo'] = "SAIDA";
-			
-			
-			
 			
 			//Se for nota, buscar dados fiscais do produto
 			
@@ -616,11 +614,13 @@ class SaidasController extends NotasController {
 			}
 			$this->tiradaReserva($ultimaSaida['Saida']['id']);
 			$this->Session->setFlash(__('A saída foi Salva com sucesso.'), 'default', array('class' => 'success-flash'));
-			
+			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+
 		
 		} else {
 			$this->Session->setFlash(__('A saída não pode ser salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
-			
+			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+
 		}
 	}
 	

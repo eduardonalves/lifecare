@@ -49,7 +49,7 @@
 						?>
 					</td>
 					<td><?php echo $operacao['Comoperacao']['id'] ?></td>
-					<td><?php echo $operacao['Parceirodenegocio'][0]['nome'] ?></td>
+					<td><?php if(!empty($operacao['Parceirodenegocio'][0]['nome'])){ echo $operacao['Parceirodenegocio'][0]['nome']; }?></td>
 					<td><?php echo formatDateToView($operacao['Comoperacao']['data_inici']); ?></td>
 					<td><?php if(!empty($operacao['Comoperacao']['vendedor_nome'])){ echo $operacao['Comoperacao']['vendedor_nome']; }?></td>
 					<td><?php echo $operacao['Comoperacao']['autorizado_por'] ?></td>
@@ -64,4 +64,10 @@
 	
 </section>
 
+<div style="clear:both;"></div>
+<pre>
+	<?php
+		print_r($comoperacaos);
+	?>
 
+</pre>
