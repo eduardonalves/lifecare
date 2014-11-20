@@ -237,11 +237,4 @@
 			</section>
 		</div>
 	</div>
-	<div style="clear:both;"></div>
-	<br />
-<pre>
-	<?php
-		print_r($comoperacao);
-	?>
-</pre>
-	
+

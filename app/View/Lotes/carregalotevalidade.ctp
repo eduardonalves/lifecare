@@ -9,57 +9,82 @@ $(document).ready(function() {
 	var tipo = '';
 	var lote_id = '';
 	var qtd_nolote = '';
+	var lote_nome = '';
+	var idSalvar = 0;
+	var verifica = 0;
 	
 	$("#add-lote_saida").change(function(){
-		
-		idPrinc = $('#identificacao').val(); 	
-		comloteitem = $('#vazio-comloteitem'+idPrinc).val();
-		comoperacao_id = $('#vazio-comoperacaoid'+idPrinc).val();
-		produto_id = $('#vazio-produtoid'+idPrinc).val();
-		comitensdaoperacao_id = $('#vazio-comitensdaoperacaoid'+idPrinc).val();
-		tipo = $('#vazio-tipo'+idPrinc).val();
-		lote_id = $('option:selected', this).val();
-		qtd_nolote = $('option:selected', this).attr('data-estoque');
-		$('#qtd_novoLote').val(qtd_nolote);
-		
-	});	
+			idPrinc = $('#identificacao').val(); 	
+			comloteitem = $('#vazio-comloteitem'+idPrinc).val();
+			comoperacao_id = $('#vazio-comoperacaoid'+idPrinc).val();
+			produto_id = $('#vazio-produtoid'+idPrinc).val();
+			comitensdaoperacao_id = $('#vazio-comitensdaoperacaoid'+idPrinc).val();
+			tipo = $('#vazio-tipo'+idPrinc).val();
+			lote_id = $('option:selected', this).val();
+			qtd_nolote = $('option:selected', this).attr('data-estoque');
+			$('#qtd_novoLote').val(qtd_nolote);
+			lote_nome = $('option:selected', this).attr('id');
+	});		
 	
 	$('#bt-adicionarLote').click(function(){
-		
-		//Adiciona os valores na tabela pra visualização
-		//$('#formHiddenTrocaLote').append('<tr class="fornecedorTr_'+in_fornecedor+'"><td>'+valorNome+'</td> <td>'+valorCpfCnpj+'</td> <td class="confirma"><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+in_fornecedor+' class="btnRemoveForne"/></td></tr>');
-		
-		var qtd_novolote = $('#qtd_novoLote').val();
+		if( $('#add-lote_saida option:selected').hasClass('inserido') || $('#add-lote_saida option:selected').val() == '' ){
+			alert('Insira um Lote Valido');
+			$('#add-lote_saida').val('');
+			$('#qtd_novoLote').val('');
+		}else{			
+			var qtd_novolote = $('#qtd_novoLote').val();
+				
+			$('#tabela-lotes').append('\
+			\<tr id="linhaLote'+idSalvar+'">\
+				<td class="nameLote">'+lote_nome+'</td>\
+				<td>'+qtd_novolote+'</td>\
+				<td><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+idSalvar+' class="btnRemoveLote"/></td>\
+			\</tr>\
+			');
+				
+			//SETA AS INPUT HIDDEN	
+			$('#formHiddenTrocaLote').append('\
+			\<section id="comLoteOperacao'+idSalvar+'">\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][comloteitem]" step="any" class="existe" value="'+comloteitem+'" type="hidden">\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][comoperacao_id]" step="any" class="existe"  value="'+comoperacao_id+'" type="hidden">\
+				\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][produto_id]" step="any" class="existe"  value="'+produto_id+'" type="hidden">\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][comitensdeoperacao_id]" step="any" class="existe"  value="'+comitensdaoperacao_id+'" type="hidden">\
+				\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][tipo]" step="any" class="existe"  value="'+tipo+'" type="hidden">\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][qtde]" step="any" class="existe"  value="'+qtd_novolote+'" type="hidden">\
+				<input name="data[comlotesoperacaos]['+idSalvar+'][lote_id]" step="any" id="loteIdHide'+idSalvar+'"  value="'+lote_id+'" type="hidden">\
+			\</section>');
 			
-		//SETA AS INPUT HIDDEN	
-		$('#formHiddenTrocaLote').append('\
-		\<section id="comLoteOperacao'+idPrinc+'">\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][comloteitem]" step="any" class="existe" value="'+comloteitem+'" type="hidden">\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][comoperacao_id]" step="any" class="existe"  value="'+comoperacao_id+'" type="hidden">\
-			\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][produto_id]" step="any" class="existe"  value="'+produto_id+'" type="hidden">\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][comitensdeoperacao_id]" step="any" class="existe"  value="'+comitensdaoperacao_id+'" type="hidden">\
-			\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][tipo]" step="any" class="existe"  value="'+tipo+'" type="hidden">\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][qtde]" step="any" class="existe"  value="'+qtd_novolote+'" type="hidden">\
-			<input name="data[comlotesoperacaos]['+idPrinc+'][lote_id]" step="any" class="existe"  value="'+lote_id+'" type="hidden">\
-		\</section>');
+			idSalvar = idSalvar + 1;
+			$('#add-lote_saida option:selected').addClass('inserido');
+			$('#add-lote_saida').val('');
+			$('#qtd_novoLote').val('');
+			$('#submitLotes').show();
+			verifica++;
 			
+		}
 		
 	});
 	
+	$('body').on('click','.btnRemoveLote', function(){		
+		var n = $(this).attr('id');
+		n = n.substring(8);
+		var lot = $('#loteIdHide'+n).val();
+		$('#add-lote_saida option').each(function(){
+			if($(this).val() == lot){
+				$(this).removeClass('inserido');
+				$('#tabela-lotes #linhaLote'+n).remove();
+				$('#comLoteOperacao'+n).remove();		
+			}
+		});
 	
-	/*		echo $this->Form->input('comloteitem');
-			echo $this->Form->input('qtde');
-			echo $this->Form->input('comlotesoperacaos.0.lote_id',array('type'=>'text'));
-			
-			echo $this->Form->input('comlotesoperacaos.0.comoperacao_id',array('type'=>'text'));
-			echo $this->Form->input('comlotesoperacaos.0.produto_id',array('type'=>'text'));
-			echo $this->Form->input('comlotesoperacaos.0.comitensdeoperacao',array('type'=>'text'));
-			
-			echo $this->Form->input('comlotesoperacaos.0.qtde',array('type'=>'text'));
-			echo $this->Form->input('comlotesoperacaos.0.tipo',array('type'=>'text','value'=>'SAIDA'));
-			*/	
+		verifica--;		
+		if(verifica == 0){
+				$('#submitLotes').hide();
+			}
+	});
+	
 });
 </script>
 
@@ -69,7 +94,7 @@ $(document).ready(function() {
 <div class="carregaLote">
 	
 	<input type="hidden" id="identificacao">		
-	
+	<section>
 		<div class="input autocompleteLote">
 			<label>Pesquisar Lote<span class="campo-obrigatorio">*</span>:</label>
 			<select class="tamanho-medio" id="add-lote_saida">
@@ -92,19 +117,41 @@ $(document).ready(function() {
 			</select>
 		</div>
 		
-		<label>
-			<span>Quantidade do Lote:
-			<input type="text" id="qtd_novoLote" class="tamanho-pequeno">
-			</span>
-		</label>
+		<?php
+			echo $this->Form->input('putQtd',array('label'=>'Quantidade do Lote:','id'=>'qtd_novoLote','class'=>'tamanho-pequeno'));
+			echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar Lote','title'=>'Adicionar Lote','class'=>'bt_preencher','id'=>'bt-adicionarLote'));
+		?>
+		</section>
+		<section class="section-Tabela-Lote">
+			<table>
+				<thead>
+					<tr>
+						<td>Lote</td>
+						<td>Quantidade</td>
+						<td>Remover</td>
+					</tr>
+				</thead>
+				
+				<tbody id="tabela-lotes"> 
+				
+				
+				</tbody>
+			</table>
+		
+		</section>
+		<secttion style="clear:both;display: block;padding-top: 30px;">
 		<?php
 			echo $this->Form->create('Comoperacao',array('action'=>'checkLoteRestante','id'=>'formHiddenTrocaLote'));
-				
-					
-			echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar Lote','title'=>'Adicionar Lote','class'=>'bt_preencher','id'=>'bt-adicionarLote'));
-
+				echo $this->form->submit('botao-salvar.png',array(
+								'id'=>'submitLotes',
+							    'class'=>'bt-salvar',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    'style'=>'display:none'
+				));
 			echo $this->Form->end();
 		?>
+		</secttion>
 </div>
 
 

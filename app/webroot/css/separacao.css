@@ -2,9 +2,23 @@
 
 
 /* MODAIS*/
+.loaderAjaxCarregarLoteDIV{
+	margin: 0 auto;
+	width: 250px;
+	height: 20px;
+	text-align: center;
+	padding-top: 25px;
+}
 
-.coluna_esquerda_modal{
-	
+.section-Tabela-Lote{
+	margin-top: 20px;
+	position: relative;
+	display: block;
+	clear: both;
+
+}
+.inserido{
+	background: #FF8585;
 }
 
 .modal-body-Completalote{
@@ -19,6 +33,10 @@
 .cabecalho{
 	border:none !important;
 	margin: -10px 0px !important;
+}
+
+#bt-adicionarLote{
+	margin: 0px 80px;
 }
 
 /* Tabelas*/
