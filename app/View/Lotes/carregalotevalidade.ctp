@@ -14,7 +14,9 @@ $(document).ready(function() {
 	var lote_nome = '';
 	var idSalvar = 0;
 	var verifica = 0;
-<<<<<<< HEAD
+
+	var quantidadeEncontrada = $('#quantidadeEncontrada').val();
+
 
 	$('#submitLotes').on('click', function(){
 
@@ -34,9 +36,7 @@ $(document).ready(function() {
 		return false;
 		
 	});
-=======
-	var quantidadeEncontrada = $('#quantidadeEncontrada').val();
->>>>>>> 0c0a54006545969dd0bdcc9d05be55298891c904
+
 	
 	$("#add-lote_saida").change(function(){
 			idPrinc = $('#identificacao').val(); 	
