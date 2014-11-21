@@ -30,6 +30,7 @@ $(document).ready(function() {
 		}).fail(function(data, data1, data2) {
 			
 			alert('Erro ao checar lote.');
+			console.log(data2);
 			
 		});
 		
