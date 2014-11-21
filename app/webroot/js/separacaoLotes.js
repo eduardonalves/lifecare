@@ -19,27 +19,35 @@ $(document).ready(function(){
 		var produto_id = $(this).attr('data-produtoId');
 		var nid = $(this).attr('id');
 		nid = nid.substring(7);
+		var encontradaInput = parseInt($('#encontradaInput'+nid).val());
+		var qtd_achada = parseInt($('#vazio-qtd_achada'+nid).val());
 		
-		$('.loaderAjaxCarregarLoteDIV').show();
-	
-		var encontradaInput = $('#encontradaInput'+nid).val();
-		var qtd_operacao = $('#vazio-qtd_operacao'+nid).val();
-	
-		var falta = qtd_operacao - encontradaInput;
+		if(encontradaInput > 0 && encontradaInput < qtd_achada){
 		
-		if(falta<0){
-			//Não falta Produtos
-			falta = 0;
+			
+			$('.loaderAjaxCarregarLoteDIV').show();
+		
+			var encontradaInput = $('#encontradaInput'+nid).val();
+			var qtd_operacao = $('#vazio-qtd_operacao'+nid).val();
+		
+			var falta = qtd_operacao - encontradaInput;
+			
+			if(falta<0){
+				//Não falta Produtos
+				falta = 0;
+			}
+			
+			$("#carregaSelect").load(urlInicio+'lotes/carregalotevalidade?numero='+produto_id+'', function(){
+				$('.loaderAjaxCarregarLoteDIV').hide();
+				$('#myModal_add-troca_lote').modal('show');
+				$('#identificacao').val(nid);
+				$('#quantidadeEncontrada').val(encontradaInput);
+				$('#quantidadeEncontradaForm').val(encontradaInput);
+				$('#quantidadeFalta').val(falta);
+			});
+		}else{
+			alert('Valor Maior que a Quantidade no Estoque.');
 		}
-		
-		$("#carregaSelect").load(urlInicio+'lotes/carregalotevalidade?numero='+produto_id+'', function(){
-			$('.loaderAjaxCarregarLoteDIV').hide();
-			$('#myModal_add-troca_lote').modal('show');
-			$('#identificacao').val(nid);
-			$('#quantidadeEncontrada').val(encontradaInput);
-			$('#quantidadeEncontradaForm').val(encontradaInput);
-			$('#quantidadeFalta').val(falta);
-		});
 				
 	});
 		
