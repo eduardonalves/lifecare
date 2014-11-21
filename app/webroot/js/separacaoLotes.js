@@ -21,14 +21,13 @@ $(document).ready(function(){
 		nid = nid.substring(7);
 		
 		$('.loaderAjaxCarregarLoteDIV').show();
+	
 		var encontradaInput = $('#encontradaInput'+nid).val();
-		alert(encontradaInput);
 		var qtd_operacao = $('#vazio-qtd_operacao'+nid).val();
 	
-		var qtdLote = $('#vazio-qtd_achada'+nid).val();
 		var falta = qtd_operacao - encontradaInput;
 		
-		if(falta<qtdLote){
+		if(falta<0){
 			//Não falta Produtos
 			falta = 0;
 		}
