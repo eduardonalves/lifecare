@@ -154,7 +154,7 @@
 															echo "</div>";
 															
 															// HIDDENS' PARA ENVIAR PARA O MODAL
-																echo $this->Form->input('vazio.qtd_operacao',array('value'=> $itens['qtde'],'id' => 'vazio-qtd_operacao'.$j, 'type' => 'hidden'));
+																echo $this->Form->input('vazio.qtd_operacao',array('value'=> $lote['Comlotesoperacao']['qtde'],'id' => 'vazio-qtd_operacao'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.qtd_achada',array('value'=> $lote['Comlotesoperacao']['qtde'],'id' => 'vazio-qtd_achada'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comloteitem',array('value'=> $lote['Comlotesoperacao']['id'], 'id' => 'vazio-comloteitem'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comoperacao_id',array('value'=> $comoperacao['Comoperacao']['id'], 'id' => 'vazio-comoperacaoid'.$j, 'type' => 'hidden'));

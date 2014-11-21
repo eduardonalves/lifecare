@@ -37,11 +37,11 @@ $(document).ready(function() {
 			$('#qtd_novoLote').val('');
 		}else{			
 			var qtd_novolote = $('#qtd_novoLote').val();
-			if(qtd_novolote>0){
-				if(qtd_novolote > quantidadeFalta){
-					alert('Essa quantia é Superior a Encontrada.');
-				}else{
-					quantidadeFalta = quantidadeFalta - qtd_novolote;
+			//if(qtd_novolote>0){
+				//if(qtd_novolote > quantidadeFalta){
+				//	alert('Essa quantia é Superior a Encontrada.');
+				//}else{
+					//quantidadeFalta = quantidadeFalta - qtd_novolote;
 								
 					$('#tabela-lotes').append('\
 					\<tr id="linhaLote'+idSalvar+'">\
@@ -68,16 +68,16 @@ $(document).ready(function() {
 					idSalvar = idSalvar + 1;
 					
 					$('#add-lote_saida option:selected').addClass('inserido');
-					$('#quantidadeFalta').val(quantidadeFalta);
+				//	$('#quantidadeFalta').val(quantidadeFalta);
 					$('#add-lote_saida').val('');
 					$('#qtd_novoLote').val('');
 					$('#submitLotes').show();
 					verifica++;	
 					
-				}
-			}else{
-				alert('Entre com um valor Maior que zero');
-			}		
+			//	}
+			//}else{
+			//	alert('Entre com um valor Maior que zero');
+			//}		
 		}		
 	});
 	

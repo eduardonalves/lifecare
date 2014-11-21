@@ -22,7 +22,9 @@ $(document).ready(function(){
 		
 		$('.loaderAjaxCarregarLoteDIV').show();
 		var encontradaInput = $('#encontradaInput'+nid).val();
+		alert(encontradaInput);
 		var qtd_operacao = $('#vazio-qtd_operacao'+nid).val();
+	
 		var qtdLote = $('#vazio-qtd_achada'+nid).val();
 		var falta = qtd_operacao - encontradaInput;
 		
