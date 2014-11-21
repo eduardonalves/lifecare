@@ -1461,6 +1461,7 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
+		
 		$id = $this->request->data['Comperacao']['comloteitem'];
 		$qteEmEstoque = $this->request->data['Comoperacao']['qtde'];
 		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
@@ -1468,8 +1469,8 @@ public $uses = array();
 		if ($this->request->is(array('post', 'put'))) {
 			$this->loadModel('Comlotesoperacao');
 			if($qteEmEstoque == 0 ){
-				$this->Comlotesoperacao->delete($id );
-				if($this-> Comlotesoperacao->save($this->request->data)){
+				$this->Comlotesoperacao->delete($id);
+				if($this->Comlotesoperacao->save($this->request->data)){
 					$resposta ="OK";
 					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
@@ -1486,6 +1487,8 @@ public $uses = array();
 				}
 				
 			}
+			
+			$this->set(compact('resposta'));
 		}
 	}
 	

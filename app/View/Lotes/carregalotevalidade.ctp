@@ -12,6 +12,25 @@ $(document).ready(function() {
 	var lote_nome = '';
 	var idSalvar = 0;
 	var verifica = 0;
+
+	$('#submitLotes').on('click', function(){
+
+		var $fields = $('#formHiddenTrocaLote').serialize();
+		var $url = '<?php echo Router::url(array('controller'=>'comoperacaos', 'action'=>'checkLoteRestante'), true); ?>/';
+
+		$.post($url, $fields, function($data){
+			
+			$('.tabela-simples tbody').html($data);
+			
+		}).fail(function(data, data1, data2) {
+			
+			alert('Erro ao checar lote.');
+			
+		});
+		
+		return false;
+		
+	});
 	
 	$("#add-lote_saida").change(function(){
 			idPrinc = $('#identificacao').val(); 	
