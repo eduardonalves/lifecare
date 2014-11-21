@@ -14,7 +14,6 @@ $(document).ready(function() {
 	var lote_nome = '';
 	var idSalvar = 0;
 	var verifica = 0;
-	var quantidadeFalta = $('#quantidadeFalta').val();
 	var quantidadeEncontrada = $('#quantidadeEncontrada').val();
 	
 	$("#add-lote_saida").change(function(){
@@ -35,18 +34,20 @@ $(document).ready(function() {
 			alert('Insira um Lote Valido');
 			$('#add-lote_saida').val('');
 			$('#qtd_novoLote').val('');
-		}else{			
-			var qtd_novolote = $('#qtd_novoLote').val();
-			//if(qtd_novolote>0){
-				//if(qtd_novolote > quantidadeFalta){
-				//	alert('Essa quantia é Superior a Encontrada.');
-				//}else{
-					//quantidadeFalta = quantidadeFalta - qtd_novolote;
+		}else{
+			var quantidadeFalta = parseInt($('#quantidadeFalta').val());			
+			var qtd_novolote = parseInt($('#qtd_novoLote').val());
+			
+			if(qtd_novolote>0){
+				if(qtd_novolote > quantidadeFalta){
+					alert('Essa quantia é Superior a necessária.');
+				}else{
+					quantidadeFalta = quantidadeFalta - qtd_novolote;
 								
 					$('#tabela-lotes').append('\
 					\<tr id="linhaLote'+idSalvar+'">\
 						<td class="nameLote">'+lote_nome+'</td>\
-						<td>'+qtd_novolote+'</td>\
+						<td>'+qtd_novolote+'<input type="hidden" id="qtdInserida'+idSalvar+'" value="'+qtd_novolote+'"/></td>\
 						<td><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+idSalvar+' class="btnRemoveLote"/></td>\
 					\</tr>\
 					');
@@ -68,16 +69,16 @@ $(document).ready(function() {
 					idSalvar = idSalvar + 1;
 					
 					$('#add-lote_saida option:selected').addClass('inserido');
-				//	$('#quantidadeFalta').val(quantidadeFalta);
+					$('#quantidadeFalta').val(quantidadeFalta);
 					$('#add-lote_saida').val('');
 					$('#qtd_novoLote').val('');
 					$('#submitLotes').show();
 					verifica++;	
 					
-			//	}
-			//}else{
-			//	alert('Entre com um valor Maior que zero');
-			//}		
+				}
+			}else{
+				alert('Entre com um valor Maior que zero');
+			}		
 		}		
 	});
 	
@@ -85,7 +86,11 @@ $(document).ready(function() {
 		var n = $(this).attr('id');
 		n = n.substring(8);
 		var lot = $('#loteIdHide'+n).val();
-		
+		var qtdInserida = $('#qtdInserida'+n).val();
+		var qtdInserida = $('#qtdInserida'+n).val();
+		var qtdFaltando = $('#quantidadeFalta').val();	
+		x = parseInt(qtdInserida)+parseInt(qtdFaltando);
+		$('#quantidadeFalta').val(x);
 		$('#add-lote_saida option').each(function(){
 			if($(this).val() == lot){
 				$(this).removeClass('inserido');
