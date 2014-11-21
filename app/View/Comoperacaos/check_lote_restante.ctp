@@ -1,5 +1,5 @@
 <?php
 
-echo $resposta;
+echo json_encode($resposta);
 
 ?>

@@ -121,7 +121,7 @@ class PedidovendasController extends ComoperacaosController {
 								
 								$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
 								 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
-								  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qteItem, 'tipo'=> 'SAIDA');
+								  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qteItem, 'tipo'=> 'SAIDA', 'status_estoque' => 'PENDENTE');
 								$this->Comlotesoperacao->create();
 								$this->Comlotesoperacao->save($loteOperacao);
 								
@@ -165,7 +165,7 @@ class PedidovendasController extends ComoperacaosController {
 							
 										$loteOperacao = array('comoperacao_id' => $iten['Comitensdaoperacao']['comoperacao_id'],
 										 'lote_id' => $lote['Lote']['id'], 'produto_id' => $iten['Comitensdaoperacao']['produto_id'],
-										  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo'=> 'SAIDA');
+										  'comitensdaoperacao_id' => $iten['Comitensdaoperacao']['id'], 'qtde' => $qtdeSeparada, 'tipo'=> 'SAIDA', 'status_estoque' => 'PENDENTE');
 										$this->Comlotesoperacao->create();
 										$this->Comlotesoperacao->save($loteOperacao);
 								
