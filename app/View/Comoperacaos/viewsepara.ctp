@@ -125,6 +125,7 @@
 										<tr>
 											<td>Lote</td>
 											<td>Qtd. Estoque</td>
+											<td>Status</td>
 											<td>Completar Lote</td>
 											<td>Confirmar Lote</td>
 										</tr>
@@ -137,6 +138,7 @@
 												<tr>
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
+													<td><?php echo $lote['Comlotesoperacao']['status_estoque']?></td>
 													<td>
 														<?php
 															

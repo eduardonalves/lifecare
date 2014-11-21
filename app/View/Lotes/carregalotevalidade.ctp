@@ -109,7 +109,6 @@ $(document).ready(function() {
 		n = n.substring(8);
 		var lot = $('#loteIdHide'+n).val();
 		var qtdInserida = $('#qtdInserida'+n).val();
-		var qtdInserida = $('#qtdInserida'+n).val();
 		var qtdFaltando = $('#quantidadeFalta').val();	
 		x = parseInt(qtdInserida)+parseInt(qtdFaltando);
 		$('#quantidadeFalta').val(x);
