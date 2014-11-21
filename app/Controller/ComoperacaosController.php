@@ -1436,7 +1436,7 @@ public $uses = array();
 		$qtdOk = 0 ;
 		$comlotesoperacao = $this->Comlotesoperacao->find('first', array('conditions' => array('Comlotesoperacao.id' => $id)));
 		
-		
+		debug($comlotesoperacao);
 		$qtdItens = $this->Comlotesoperacao->find('count', array(
 	        'conditions' => array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])
 	   	));
@@ -1482,20 +1482,31 @@ public $uses = array();
 				
 				
 				$this->Comlotesoperacao->delete($id );
-				if($this-> Comlotesoperacao->save($this->request->data)){
-					$this->checkLoteTodos($id);
-					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
-					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
-				}else{
-					$resposta ="Erro";
+				foreach($this->request->data['comlotesoperacaos'] as $iten){
+					$iten['comitensdaoperacao_id']= $iten['comitensdeoperacao_id'];
+					$iten['status_estoque']="OK";
+					if($this-> Comlotesoperacao->save($iten)){
+						$comlotesoperacao = $this->Comlotesoperacao->find('first', array('order' => array('Comlotesoperacao.id' => 'desc'), 'recursive' =>-1));	
+						$this->checkLoteTodos($comlotesoperacao['Comlotesoperacao']['id']);
+						$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+						$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
+					}else{
+						$resposta ="Erro";
+					}
+					
 				}
+				
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
-				if($this-> Comlotesoperacao->save($this->request->data)){
-					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
-					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));				
-				}else{
-					$resposta ="Erro";
+				$this->Comlotesoperacao->save($updateComlotesoperacao );
+				foreach($this->request->data['comlotesoperacaos'] as $iten){
+					$iten['status_estoque']="OK";
+					if($this-> Comlotesoperacao->save($iten)){
+						$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));	
+						$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+					}else{
+						$resposta ="Erro";
+					}
 				}
 				
 			}
