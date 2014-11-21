@@ -1461,8 +1461,8 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
-		$id = $this->request->data['Comperaacao']['comloteitem'];
-		$qteEmEstoque = $this->request->data['Comperaacao']['qtde'];
+		$id = $this->request->data['Comperacao']['comloteitem'];
+		$qteEmEstoque = $this->request->data['Comoperacao']['qtde'];
 		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
 		
 		if ($this->request->is(array('post', 'put'))) {
