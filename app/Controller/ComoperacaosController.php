@@ -1442,7 +1442,7 @@ public $uses = array();
 	   	));
 		
 		$qtdOk = $this->Comlotesoperacao->find('count', array(
-	        'conditions' => array('AND'=> array(array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id']), array('comlotesoperacao.status_estoque' => 'OK')))
+	        'conditions' => array('AND'=> array(array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id']), array('Comlotesoperacao.status_estoque' => 'OK')))
 	   	));
 		
 		
