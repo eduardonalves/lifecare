@@ -1434,17 +1434,21 @@ public $uses = array();
 		$checklotes="NOK";
 		$qtdItens=0;
 		$qtdOk = 0 ;
-		$comlotesoperacao = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $id)));
-		$comlotesoperacaoTodos = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])));
-		foreach($comlotesoperacaoTodos as $todos){
-				
-			if($todos['Comlotesoperacao']['status_estoque']== "OK"){
-				$qtdOk = $qtdOk +1;
-			}
-			$qtdItens= $qtdItens +1;
-		}
+		$comlotesoperacao = $this->Comlotesoperacao->find('first', array('conditions' => array('Comlotesoperacao.id' => $id)));
+		
+		
+		$qtdItens = $this->Comlotesoperacao->find('count', array(
+	        'conditions' => array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])
+	   	));
+		
+		$qtdOk = $this->Comlotesoperacao->find('count', array(
+	        'conditions' => array('AND'=> array(array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id']), array('comlotesoperacao.status_estoque' => 'OK')))
+	   	));
+		
+		
 		if($qtdOk == $qtdItens){
 			$upDateComoperacao = array('id'=> $comlotesoperacao['Comlotesoperacao']['comoperacao_id'], 'status_estoque' => 'SEPARADO');
+			
 			$this->Comoperacao->save($upDateComoperacao);
 		}
 	}
@@ -1466,13 +1470,17 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
-		$id = $this->request->data['Comperacao']['comloteitem'];
-		$qteEmEstoque = $this->request->data['Comoperacao']['qtde'];
+			
+		$this->loadModel('Comlotesoperacao');	
+		$id = $this->request->data['comlotesoperacaos'][0]['comloteitem'];
+		$qteEmEstoque = $this->request->data['Comoperacao']['encontrada'];
 		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
 		
 		if ($this->request->is(array('post', 'put'))) {
 			$this->loadModel('Comlotesoperacao');
 			if($qteEmEstoque == 0 ){
+				
+				
 				$this->Comlotesoperacao->delete($id );
 				if($this-> Comlotesoperacao->save($this->request->data)){
 					$this->checkLoteTodos($id);
