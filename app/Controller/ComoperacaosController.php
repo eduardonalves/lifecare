@@ -1480,7 +1480,7 @@ public $uses = array();
 			$this->loadModel('Comlotesoperacao');
 			if($qteEmEstoque == 0 ){
 				
-				
+				$this->ajusteReservaLoteSoma($comlotesoperacao['Comlotesoperacao']['lote_id'], $this->request->data['emFalta']);
 				$this->Comlotesoperacao->delete($id );
 				foreach($this->request->data['comlotesoperacaos'] as $iten){
 					$iten['comitensdaoperacao_id']= $iten['comitensdeoperacao_id'];
@@ -1488,7 +1488,7 @@ public $uses = array();
 					if($this-> Comlotesoperacao->save($iten)){
 						$comlotesoperacao = $this->Comlotesoperacao->find('first', array('order' => array('Comlotesoperacao.id' => 'desc'), 'recursive' =>-1));	
 						
-						$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+						$this->ajusteReservaLote($iten['lote_id'], $iten['qtde']);
 						$this->checkLoteTodos($comlotesoperacao['Comlotesoperacao']['id']);
 						$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
 					}else{
@@ -1500,11 +1500,12 @@ public $uses = array();
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
 				$this->Comlotesoperacao->save($updateComlotesoperacao );
+				$this->ajusteReservaLoteSoma($comlotesoperacao['Comlotesoperacao']['lote_id'], $this->request->data['emFalta']);
 				foreach($this->request->data['comlotesoperacaos'] as $iten){
 					$iten['status_estoque']="OK";
 					if($this-> Comlotesoperacao->save($iten)){
 						$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));	
-						$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+						$this->ajusteReservaLote($iten['lote_id'], $iten['qtde']);
 					}else{
 						$resposta ="Erro";
 					}
@@ -1518,19 +1519,22 @@ public $uses = array();
 	}
 	
 	
-	public function ajusteReservaLote(&$lote_id, &$produto_id, &$qtde) {
+	public function ajusteReservaLote(&$lote_id, &$qtde) {
 		$this->loadModel('Lote');
-		$this->loadModel('Produto');
-		$produto = $this->Produto->find('first',array('conditions' => array('Produto.id' => $produto_id)));
-		$reservaProd = $produto['Produto']['reserva'] - $qtde;
-		$dispProd = $produto['Produto']['estoque'] - $reservaProd;
-		$updateProduto= array('id' => $produto['Produto']['id'], 'reserva' =>  $reservaProd, 'disponivel' => $dispProd);
-		$this->Produto->save($updateProduto);
+		$lote = $this->Lote->find('first',array('conditions' => array('Lote.id' => $lote_id)));
+		$reservaLote =  $lote['Lote']['reserva'] + $qtde;
+		$dispLote = $lote['Lote']['estoque'] - $reservaLote;
+		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
+		$this->Lote->save($updateLote);
 		
+	}
+	
+	public function ajusteReservaLoteSoma(&$lote_id, &$qtde) {
+		$this->loadModel('Lote');
 		$lote = $this->Lote->find('first',array('conditions' => array('Lote.id' => $lote_id)));
 		$reservaLote = $lote['Lote']['reserva'] - $qtde;
-		$dispLote= $lote['Lote']['estoque'] - $reservaLote;
-		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
+		$dispLote = $lote['Lote']['estoque'] - $reservaLote;
+		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  0, 'disponivel' => 0);
 		$this->Lote->save($updateLote);
 		
 	}
