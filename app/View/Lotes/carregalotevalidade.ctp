@@ -15,6 +15,7 @@ $(document).ready(function() {
 	var idSalvar = 0;
 	var verifica = 0;
 	var quantidadeFalta = $('#quantidadeFalta').val();
+	var quantidadeEncontrada = $('#quantidadeEncontrada').val();
 	
 	$("#add-lote_saida").change(function(){
 			idPrinc = $('#identificacao').val(); 	
@@ -37,8 +38,8 @@ $(document).ready(function() {
 		}else{			
 			var qtd_novolote = $('#qtd_novoLote').val();
 			if(qtd_novolote>0){
-				if(qtd_novolote>quantidadeFalta){
-					alert('essa quantidade é Superior ao necessário.');
+				if(qtd_novolote > quantidadeFalta){
+					alert('Essa quantia é Superior a Encontrada.');
 				}else{
 					quantidadeFalta = quantidadeFalta - qtd_novolote;
 								
@@ -84,6 +85,7 @@ $(document).ready(function() {
 		var n = $(this).attr('id');
 		n = n.substring(8);
 		var lot = $('#loteIdHide'+n).val();
+		
 		$('#add-lote_saida option').each(function(){
 			if($(this).val() == lot){
 				$(this).removeClass('inserido');
