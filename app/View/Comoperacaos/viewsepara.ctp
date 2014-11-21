@@ -6,6 +6,24 @@
 	
 	$this->start('script');
 		echo $this->Html->script('separacaoLotes.js');
+		
+		?>
+		
+		<script>
+		
+		$(window).load( function (){
+			
+			$(".orglote").on('click', function(){
+				
+				alert($(this).attr('data-lotesoperacao-id'));
+				
+			});
+			
+		});
+
+		</script>
+		
+		<?php
 	$this->end();
 	
 	function formatDateToView(&$data){
@@ -169,7 +187,7 @@
 													</td>
 													<td>
 														<?php
-															echo $this->Html->image('bt-confirmaLote.png',array('alt'=>'Organizar Lotes','class' => 'img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+															echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 															
 														?>
 														

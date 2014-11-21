@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 
 	$('#submitLotes').on('click', function(){
-
+return true;
 		var $fields = $('#formHiddenTrocaLote').serialize();
 		var $url = '<?php echo Router::url(array('controller'=>'comoperacaos', 'action'=>'checkLoteRestante'), true); ?>/';
 
