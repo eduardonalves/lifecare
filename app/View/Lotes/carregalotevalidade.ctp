@@ -37,12 +37,11 @@ $(document).ready(function() {
 		}else{			
 			var qtd_novolote = $('#qtd_novoLote').val();
 			if(qtd_novolote>0){
-				quantidadeFalta = quantidadeFalta - qtd_novolote;
-				if(quantidadeFalta<0){
+				if(qtd_novolote>quantidadeFalta){
 					alert('essa quantidade é Superior ao necessário.');
 				}else{
-					
-					
+					quantidadeFalta = quantidadeFalta - qtd_novolote;
+								
 					$('#tabela-lotes').append('\
 					\<tr id="linhaLote'+idSalvar+'">\
 						<td class="nameLote">'+lote_nome+'</td>\
