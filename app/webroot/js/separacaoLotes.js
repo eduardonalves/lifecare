@@ -22,7 +22,7 @@ $(document).ready(function(){
 		var encontradaInput = parseInt($('#encontradaInput'+nid).val());
 		var qtd_achada = parseInt($('#vazio-qtd_achada'+nid).val());
 		
-		if(encontradaInput > 0 && encontradaInput < qtd_achada){
+		if(encontradaInput >= 0 && encontradaInput < qtd_achada){
 		
 			
 			$('.loaderAjaxCarregarLoteDIV').show();
