@@ -142,6 +142,17 @@
 															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
 																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 															echo "</a>";
+															
+															// HIDDENS' PARA ENVIAR PARA O MODAL
+																echo $this->Form->input('vazio.comloteitem',array('value'=> $lote['Comlotesoperacao']['id'], 'id' => 'vazio-comloteitem'.$j, 'type' => 'hidden'));
+																echo $this->Form->input('vazio.comoperacao_id',array('value'=> $comoperacao['Comoperacao']['id'], 'id' => 'vazio-comoperacaoid'.$j, 'type' => 'hidden'));
+																//echo $this->Form->input('vazio.lote_id',array('value'=>$lote['Comlotesoperacao']['lote_id'] ,'id'=>'vazio-loteid'.$j,'type'=>'hidden'));
+																echo $this->Form->input('vazio.produto_id',array('value'=> $itens['produto_id'] ,'id'=>'vazio-produtoid'.$j,'type'=>'hidden'));
+																echo $this->Form->input('vazio.comitensdeoperacao',array('value'=>$lote['Comlotesoperacao']['comitensdaoperacao_id'] ,'id'=>'vazio-comitensdaoperacaoid'.$j,'type'=>'hidden'));																
+																//echo $this->Form->input('vazio.qtde',array('value'=>$lote['Comlotesoperacao']['qtde'] ,'id'=>'vazio-qtde'.$j,'type'=>'hidden'));
+																echo $this->Form->input('vazio.tipo',array('id'=>'vazio-tipo'.$j,'value'=>'SAIDA','type'=>'hidden'));
+															// HIDDENS' PARA ENVIAR PARA O MODAL
+															
 														?>													
 													</td>
 													<td>
@@ -226,11 +237,4 @@
 			</section>
 		</div>
 	</div>
-	<div style="clear:both;"></div>
-	<br />
-<pre>
-	<?php
-		print_r($comoperacao);
-	?>
-</pre>
-	
+

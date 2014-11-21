@@ -64,10 +64,3 @@
 	
 </section>
 
-<div style="clear:both;"></div>
-<pre>
-	<?php
-		print_r($comoperacaos);
-	?>
-
-</pre>
