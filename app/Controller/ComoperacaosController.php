@@ -1384,31 +1384,36 @@ public $uses = array();
  */
 	
 	public function viewsepara($id = null){
-		
-		
+				
 		$userid = $this->Session->read('Auth.User.id');
 		
 		if (!$this->Comoperacao->exists($id)) {
 			throw new NotFoundException(__('Invalid comoperacao'));
 		}
-		$comoperacao = $this->Comoperacao->find('first',array('conditions'=>array('Comoperacao.id' => $id)));
+		$comoperacao = $this->Comoperacao->find('first',array('recursive'=>'1','conditions'=>array('Comoperacao.id' => $id)));
 			
 		$this->loadModel('Vendedor');
 		$this->loadModel('Produto');
 		$this->loadModel('Lote');
+		$this->loadModel('Comlotesoperacao');
 		
-		for($j=0;$j<count($comoperacao['Produto']);$j++){
-			$comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
-			
-		}		
+		//~ for($j=0;$j<count($comoperacao['Produto']);$j++){
+			//~ $comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
+		//~ }		
 		
 		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
 		
 		$i = 0;
 		foreach($comoperacao['Comitensdaoperacao'] as $i => $operacoes){
+			
 			$produto_id = $operacoes['produto_id'];
 			$produto = $this->Produto->find('first',array('conditions'=>array('Produto.id'=>$produto_id)));
 			$comoperacao['Comitensdaoperacao'][$i]['produto_nome'] = $produto['Produto']['nome'];
+			
+			$lotes = $this->Comlotesoperacao->find('all',array('recursive'=>'0','conditions'=>array('Comlotesoperacao.comitensdaoperacao_id'=>$operacoes['id'])));
+		
+			$comoperacao['Comitensdaoperacao'][$i]['lotes'] = $lotes;
+			
 			$i++;
 		}
 			
@@ -1455,8 +1460,11 @@ public $uses = array();
 		}
 	}
 	
-	public function checkLoteRestante($id = null) {
+	public function checkLoteRestante() {
+		$id = $this->request->data['Comperaacao']['comloteitem'];
+		$qteEmEstoque = $this->request->data['Comperaacao']['qtde'];
 		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
+		
 		if ($this->request->is(array('post', 'put'))) {
 			$this->loadModel('Comlotesoperacao');
 			if($qteEmEstoque == 0 ){
@@ -1466,7 +1474,7 @@ public $uses = array();
 					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
 				}else{
-					$resposta ="Não Foi Possível Salvar";
+					$resposta ="Erro";
 				}
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
@@ -1474,7 +1482,7 @@ public $uses = array();
 					$resposta ="OK";
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
 				}else{
-					$resposta ="Não Foi Possível Salvar";
+					$resposta ="Erro";
 				}
 				
 			}

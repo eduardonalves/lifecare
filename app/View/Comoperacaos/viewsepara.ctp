@@ -4,6 +4,10 @@
 		echo $this->Html->css('separacao');
 	$this->end();
 	
+	$this->start('script');
+		echo $this->Html->script('separacaoLotes.js');
+	$this->end();
+	
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){
@@ -121,24 +125,31 @@
 										<tr>
 											<td>Lote</td>
 											<td>Quantidade</td>
-											<td>Trocar Lote</td>
+											<td>Completar Lote</td>
 											<td>Confirmar Lote</td>
 										</tr>
 									</thead>
 									
 									<tbody>
 										<?php											
-											foreach($comoperacao['Produto'][$j]['lotes'] as $lote){
+											foreach($itens['lotes'] as $lote){
 										?>				
 												<tr>
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
-													<td><?php echo $lote['Lote']['estoque']?></td>
-													<td>Botão</td>
-													<td>Botão</td>
-												
-												
-												</tr>
-											
+													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
+													<td>
+														<?php
+															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
+																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+															echo "</a>";
+														?>													
+													</td>
+													<td>
+														<?php
+															echo $this->Html->image('bt-confirmaLote.png',array('alt'=>'Organizar Lotes','class' => 'img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+														?>
+													</td>											
+												</tr>										
 										<?php
 											}
 										?>
@@ -170,17 +181,56 @@
 			$( "#linhaLote"+n+" td" ).css('display','table-cell');
 			//$( "corpoTd" ).fadeIn( "slow" );
 			
-			
 		});
 		
 	});
 </script>	
 	
+	<div class="loaderAjaxCarregarLoteDIV" style="display:none">
+
+		<?php echo $this->html->image('ajaxLoaderLifeCare.gif',array('alt'=>'Carregando','title'=>'Carregando','class'=>'loaderAjaxCarregarLote',)); ?>
+
+		<span>Carregando lotes aguarde...</span>
+	</div>	
+	
+<?php // MODAL DE TROCAR DE LOTE ##############################################################################################################?>
+	<div class="modal fade" id="myModal_add-troca_lote" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body modal-body-Completalote">
+		<?php
+			echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+		?>
+			<header class="cabecalho">
+			<?php 
+				echo $this->Html->image('completaLote.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+			?>	
+				<h1>Completar Lotes</h1>
+			</header>
+
+			<section>
+			<header>Informações dos Lote</header>
+			</section>
+			
+			<section class="coluna-modal">
+				<section class="coluna_esquerda_modal">
+					
+					<div id="carregaSelect">					
+					</div>
+					
+					
+					<div>
+						
+						
+					</div>
+
+				</section>
+			</section>
+		</div>
+	</div>
 	<div style="clear:both;"></div>
 	<br />
 <pre>
 	<?php
-		print_r($comoperacao['Produto'][1]['lotes']);
+		print_r($comoperacao);
 	?>
 </pre>
 	

@@ -192,6 +192,16 @@ class LotesController extends AppController {
 		
 	}
 	
+	public function carregalotevalidade() {
+	
+		if($this->request->is('Get')){
+			$numLote= $this->request['url']['numero'];
+			$allLotes= $this->Lote->find('all', array('recursive' => 1, 'conditions'=> array('AND' =>  array(array('Lote.produto_id' => $numLote), array('Lote.estoque >' => 0), array('Lote.status !=' => 'VERMELHO'))), 'order' => array('Lote. data_validade' => 'asc')));	
+			$this->set(compact('allLotes'));		
+		}
+		
+	}
+	
 	public function carregarlotes() {
 	
 		if($this->request->is('Get')){
