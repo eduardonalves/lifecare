@@ -594,6 +594,11 @@ class ComoperacaosController extends AppController {
  *
  * @return void
  */
+ 	public function Lotesvencidos() {
+ 		$this->loadModel('Lote');
+		$this->Lote->virtualFields['total_vencido'] = 'SUM(Lote.estoque)';
+		$lotesvencidos = $this->Lote->find('all', array('fields' => array('total_vencido'), 'recursive' => -1,'conditions' => array('AND' => array(array('Lote.produto_id' => $id), array('Lote.status' => 'VERMELHO')))));
+	}
 	public function comercial() {
 		$this->layout = 'venda';
 		
@@ -1429,17 +1434,21 @@ public $uses = array();
 		$checklotes="NOK";
 		$qtdItens=0;
 		$qtdOk = 0 ;
-		$comlotesoperacao = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $id)));
-		$comlotesoperacaoTodos = $this->Comlotesoperacao->find('find', array('conditions' => array('Comlotesoperacao.id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])));
-		foreach($comlotesoperacaoTodos as $todos){
-				
-			if($todos['Comlotesoperacao']['status_estoque']== "OK"){
-				$qtdOk = $qtdOk +1;
-			}
-			$qtdItens= $qtdItens +1;
-		}
+		$comlotesoperacao = $this->Comlotesoperacao->find('first', array('conditions' => array('Comlotesoperacao.id' => $id)));
+		
+		
+		$qtdItens = $this->Comlotesoperacao->find('count', array(
+	        'conditions' => array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])
+	   	));
+		
+		$qtdOk = $this->Comlotesoperacao->find('count', array(
+	        'conditions' => array('AND'=> array(array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id']), array('comlotesoperacao.status_estoque' => 'OK')))
+	   	));
+		
+		
 		if($qtdOk == $qtdItens){
 			$upDateComoperacao = array('id'=> $comlotesoperacao['Comlotesoperacao']['comoperacao_id'], 'status_estoque' => 'SEPARADO');
+			
 			$this->Comoperacao->save($upDateComoperacao);
 		}
 	}
@@ -1461,33 +1470,51 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
+<<<<<<< HEAD
 		
 		$id = $this->request->data['Comperacao']['comloteitem'];
 		$qteEmEstoque = $this->request->data['Comoperacao']['qtde'];
+=======
+			
+		$this->loadModel('Comlotesoperacao');	
+		$id = $this->request->data['comlotesoperacaos'][0]['comloteitem'];
+		$qteEmEstoque = $this->request->data['Comoperacao']['encontrada'];
+>>>>>>> 0c0a54006545969dd0bdcc9d05be55298891c904
 		$comlotesoperacao = $this->Comlotesoperacao->find('first',array('conditions' => array(array('Comlotesoperacao.id' => $id))));
 		
 		if ($this->request->is(array('post', 'put'))) {
 			$this->loadModel('Comlotesoperacao');
 			if($qteEmEstoque == 0 ){
+<<<<<<< HEAD
 				$this->Comlotesoperacao->delete($id);
 				if($this->Comlotesoperacao->save($this->request->data)){
 					$resposta ="OK";
+=======
+				
+				
+				$this->Comlotesoperacao->delete($id );
+				if($this-> Comlotesoperacao->save($this->request->data)){
+>>>>>>> 0c0a54006545969dd0bdcc9d05be55298891c904
 					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
 				}else{
 					$resposta ="Erro";
 				}
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
 				if($this-> Comlotesoperacao->save($this->request->data)){
-					$resposta ="OK";
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));				
 				}else{
 					$resposta ="Erro";
 				}
 				
 			}
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 0c0a54006545969dd0bdcc9d05be55298891c904
 			$this->set(compact('resposta'));
 		}
 	}

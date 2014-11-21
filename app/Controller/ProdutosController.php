@@ -280,6 +280,11 @@ class ProdutosController extends AppController {
 		$ultimosValores = $this->Produto->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO','_Produto.id'=>$id)));
 
 		
+		
+		
+		
+		
+		
 		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp','id'));
 			
 	}
@@ -394,26 +399,18 @@ class ProdutosController extends AppController {
 				
 				//Calculamos as entradas do produto
 				
-				$produtos=$this->Produto->find('all', array('conditions' => array('Produto.id' => $last['Produto']['id'])));
+				$produtos=$this->Produto->find('all', array('recursive' => -1 ,'conditions' => array('Produto.id' => $last['Produto']['id'])));
 			
 				foreach($produtos as $produto){
 					
 					$this->loadModel('Produtoiten');
-					$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
-					$entradas=0;
+					$this->Produtoiten->virtualFields['qtde_estoque'] = 'SUM(Produtoiten.qtde)';
 					
-					foreach ($produtoItensEntradas as $produtoItenEntrada){
-						$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
-						$entradas = $entradas + $qtdeEntrada;
-					}
-					
-					$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
-					$saidas=0;
-					foreach ($produtoItensSaidas as $produtoItenSaida){
-						$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
-						$saidas=$saidas + $qtdeSaida;
-					}
+					$entradas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'ENTRADA')))));
+					$saidas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'Saida')))));
+					$estoque = $entradas[0]['Produtoiten']['qtde_estoque'] - $saidas[0]['Produtoiten']['qtde_estoque'];
 					$estoque =$entradas-$saidas;
+					
 					if($estoque >= $produto['Produto']['estoque_desejado']){
 						$nivel='VERDE';
 					}else if($estoque >= $produto['Produto']['estoque_minimo']){
