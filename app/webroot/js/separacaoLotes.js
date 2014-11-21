@@ -15,7 +15,7 @@ $(document).ready(function(){
 		$('#encontrada'+nid).show();		
 	});
 	
-	$('.orglotes').click(function(){
+	$('.orglotes').on('click', function(){
 		var produto_id = $(this).attr('data-produtoId');
 		var nid = $(this).attr('id');
 		nid = nid.substring(7);
