@@ -2,6 +2,23 @@
 
 
 /* MODAIS*/
+
+.orglotes,.cancelCompleta{
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.qtdEncontrada{
+	margin: 0 auto !important;
+	background: #D3D3D3;
+}
+
+label[for*='encontrada']{
+/*
+	display: none;
+*/
+}
+
 .loaderAjaxCarregarLoteDIV{
 	margin: 0 auto;
 	width: 250px;
