@@ -1503,6 +1503,7 @@ public $uses = array();
 		}
 	}
 	
+	
 	public function ajusteReservaLote(&$lote_id, &$produto_id, &$qtde) {
 		$this->loadModel('Lote');
 		$this->loadModel('Produto');
