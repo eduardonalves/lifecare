@@ -1470,8 +1470,7 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		
 		$id = $this->request->data['Comperacao']['comloteitem'];
 		$qteEmEstoque = $this->request->data['Comoperacao']['qtde'];
