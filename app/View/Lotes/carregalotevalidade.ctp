@@ -185,7 +185,7 @@ return true;
 			</table>
 		
 		</section>
-		<secttion style="clear:both;display: block;padding-top: 30px;">
+		<section style="clear:both;display: block;padding-top: 30px;">
 		<?php
 			echo $this->Form->create('Comoperacao',array('action'=>'checkLoteRestante','id'=>'formHiddenTrocaLote'));
 				echo $this->Form->input('encontrada',array('id'=>'quantidadeEncontradaForm','type'=>'hidden'));

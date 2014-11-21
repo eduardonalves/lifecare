@@ -1453,7 +1453,7 @@ public $uses = array();
 		}
 	}
 	public function checkLote($id = null) {
-		if ($this->request->is(array('post', 'put'))) {
+		if ($this->request->is(array('post', 'put','ajax'))) {
 			$this->loadModel('Comlotesoperacao');
 			$updateComLote = array('id' => $id, 'status_stoque' => 'OK');
 			

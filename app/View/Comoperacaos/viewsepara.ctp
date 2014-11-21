@@ -15,7 +15,16 @@
 			
 			$(".orglote").on('click', function(){
 				
-				alert($(this).attr('data-lotesoperacao-id'));
+				var $id = $(this).attr('data-lotesoperacao-id');
+				//alert($(this).attr('data-lotesoperacao-id'));
+				alert("http://localhost/lifecare/Comoperacaos/checkLote/"+$id);
+				$.ajax({
+					url: "http://localhost/lifecare/Comoperacaos/checkLote/"+$id,
+					}).done(function($data) {
+						
+						$('.td-status-com-' + $id).html($data);
+						console.log($data);
+				});
 				
 			});
 			
@@ -156,7 +165,7 @@
 												<tr>
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
-													<td><?php echo $lote['Comlotesoperacao']['status_estoque']?></td>
+													<td class="td-status-com-<?php echo $lote['Comlotesoperacao']['id']; ?>"></td>
 													<td>
 														<?php
 															
@@ -164,7 +173,7 @@
 															
 															echo "<div id='encontrada".$j."' style='display:none;'>";
 																echo $this->Form->input('vazio.qtd_encontrada',array('label'=>'Qtd. Encontrada:','id'=>'encontradaInput'.$j,'class'=>'q-ip tamanho-pequeno qtdEncontrada'));
-																														
+
 																echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
 																	echo $this->Html->image('bt-ok.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 																echo "</a>";
