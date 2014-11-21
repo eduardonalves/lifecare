@@ -124,7 +124,7 @@
 									<thead>
 										<tr>
 											<td>Lote</td>
-											<td>Quantidade</td>
+											<td>Qtd. Estoque</td>
 											<td>Completar Lote</td>
 											<td>Confirmar Lote</td>
 										</tr>
@@ -139,11 +139,23 @@
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
 													<td>
 														<?php
-															echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
-																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
-															echo "</a>";
+															
+															echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));
+															
+															echo "<div id='encontrada".$j."' style='display:none;'>";
+																echo $this->Form->input('vazio.qtd_encontrada',array('label'=>'Qtd. Encontrada:','id'=>'encontradaInput'.$j,'class'=>'q-ip tamanho-pequeno qtdEncontrada'));
+																														
+																echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
+																	echo $this->Html->image('bt-ok.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																echo "</a>";
+
+																echo $this->Html->image('bt-XLote.png',array('alt'=>'Cancelar','class' => 'cancelCompleta','id'=>'cancelCompleta'.$j,'title'=>'Cancelar'));
+
+															echo "</div>";
 															
 															// HIDDENS' PARA ENVIAR PARA O MODAL
+																echo $this->Form->input('vazio.qtd_operacao',array('value'=> $itens['qtde'],'id' => 'vazio-qtd_operacao'.$j, 'type' => 'hidden'));
+																echo $this->Form->input('vazio.qtd_achada',array('value'=> $lote['Comlotesoperacao']['qtde'],'id' => 'vazio-qtd_achada'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comloteitem',array('value'=> $lote['Comlotesoperacao']['id'], 'id' => 'vazio-comloteitem'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comoperacao_id',array('value'=> $comoperacao['Comoperacao']['id'], 'id' => 'vazio-comoperacaoid'.$j, 'type' => 'hidden'));
 																//echo $this->Form->input('vazio.lote_id',array('value'=>$lote['Comlotesoperacao']['lote_id'] ,'id'=>'vazio-loteid'.$j,'type'=>'hidden'));
@@ -158,13 +170,14 @@
 													<td>
 														<?php
 															echo $this->Html->image('bt-confirmaLote.png',array('alt'=>'Organizar Lotes','class' => 'img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+															
 														?>
+														
 													</td>											
 												</tr>										
 										<?php
 											}
-										?>
-									
+										?>									
 									</tbody>	
 								</table>
 						</section>					
@@ -182,16 +195,13 @@
 			nome = $(this).attr('href');
 			$('#'+nome).modal('show');
 	    });
-	    
-	    
+
 	    $( ".bt-lotes" ).click(function() {			
 			var n = $(this).attr('id');
 			n = n.substring(4);
-			
 			$( "#linhaLote"+n ).slideToggle( "fast");
 			$( "#linhaLote"+n+" td" ).css('display','table-cell');
-			//$( "corpoTd" ).fadeIn( "slow" );
-			
+			//$( "corpoTd" ).fadeIn( "slow" );			
 		});
 		
 	});
@@ -238,3 +248,13 @@
 		</div>
 	</div>
 
+<?php
+/*
+<div style="clear:both;"></div>
+<pre>
+
+	print_r($comoperacao['Comitensdaoperacao']);
+
+
+</pre>*/
+?>

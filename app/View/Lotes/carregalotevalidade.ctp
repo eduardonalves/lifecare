@@ -1,6 +1,8 @@
 <script>
 $(document).ready(function() {
-	
+	jQuery(function($){
+		$(".naoLetras").mask("000000000000000000");
+	});
 	var idPrinc = '';
 	var comloteitem = '';
 	var comoperacao_id = '';
@@ -12,6 +14,7 @@ $(document).ready(function() {
 	var lote_nome = '';
 	var idSalvar = 0;
 	var verifica = 0;
+	var quantidadeFalta = $('#quantidadeFalta').val();
 	
 	$("#add-lote_saida").change(function(){
 			idPrinc = $('#identificacao').val(); 	
@@ -33,38 +36,49 @@ $(document).ready(function() {
 			$('#qtd_novoLote').val('');
 		}else{			
 			var qtd_novolote = $('#qtd_novoLote').val();
-				
-			$('#tabela-lotes').append('\
-			\<tr id="linhaLote'+idSalvar+'">\
-				<td class="nameLote">'+lote_nome+'</td>\
-				<td>'+qtd_novolote+'</td>\
-				<td><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+idSalvar+' class="btnRemoveLote"/></td>\
-			\</tr>\
-			');
-				
-			//SETA AS INPUT HIDDEN	
-			$('#formHiddenTrocaLote').append('\
-			\<section id="comLoteOperacao'+idSalvar+'">\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][comloteitem]" step="any" class="existe" value="'+comloteitem+'" type="hidden">\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][comoperacao_id]" step="any" class="existe"  value="'+comoperacao_id+'" type="hidden">\
-				\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][produto_id]" step="any" class="existe"  value="'+produto_id+'" type="hidden">\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][comitensdeoperacao_id]" step="any" class="existe"  value="'+comitensdaoperacao_id+'" type="hidden">\
-				\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][tipo]" step="any" class="existe"  value="'+tipo+'" type="hidden">\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][qtde]" step="any" class="existe"  value="'+qtd_novolote+'" type="hidden">\
-				<input name="data[comlotesoperacaos]['+idSalvar+'][lote_id]" step="any" id="loteIdHide'+idSalvar+'"  value="'+lote_id+'" type="hidden">\
-			\</section>');
-			
-			idSalvar = idSalvar + 1;
-			$('#add-lote_saida option:selected').addClass('inserido');
-			$('#add-lote_saida').val('');
-			$('#qtd_novoLote').val('');
-			$('#submitLotes').show();
-			verifica++;
-			
-		}
-		
+			if(qtd_novolote>0){
+				quantidadeFalta = quantidadeFalta - qtd_novolote;
+				if(quantidadeFalta<0){
+					alert('essa quantidade é Superior ao necessário.');
+				}else{
+					
+					
+					$('#tabela-lotes').append('\
+					\<tr id="linhaLote'+idSalvar+'">\
+						<td class="nameLote">'+lote_nome+'</td>\
+						<td>'+qtd_novolote+'</td>\
+						<td><img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id=excluir_'+idSalvar+' class="btnRemoveLote"/></td>\
+					\</tr>\
+					');
+						
+					//SETA AS INPUT HIDDEN	
+					$('#formHiddenTrocaLote').append('\
+					\<section id="comLoteOperacao'+idSalvar+'">\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][comloteitem]" step="any" class="existe" value="'+comloteitem+'" type="hidden">\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][comoperacao_id]" step="any" class="existe"  value="'+comoperacao_id+'" type="hidden">\
+						\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][produto_id]" step="any" class="existe"  value="'+produto_id+'" type="hidden">\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][comitensdeoperacao_id]" step="any" class="existe"  value="'+comitensdaoperacao_id+'" type="hidden">\
+						\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][tipo]" step="any" class="existe"  value="'+tipo+'" type="hidden">\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][qtde]" step="any" class="existe"  value="'+qtd_novolote+'" type="hidden">\
+						<input name="data[comlotesoperacaos]['+idSalvar+'][lote_id]" step="any" id="loteIdHide'+idSalvar+'"  value="'+lote_id+'" type="hidden">\
+					\</section>');
+					
+					idSalvar = idSalvar + 1;
+					
+					$('#add-lote_saida option:selected').addClass('inserido');
+					$('#quantidadeFalta').val(quantidadeFalta);
+					$('#add-lote_saida').val('');
+					$('#qtd_novoLote').val('');
+					$('#submitLotes').show();
+					verifica++;	
+					
+				}
+			}else{
+				alert('Entre com um valor Maior que zero');
+			}		
+		}		
 	});
 	
 	$('body').on('click','.btnRemoveLote', function(){		
@@ -93,7 +107,12 @@ $(document).ready(function() {
 
 <div class="carregaLote">
 	
-	<input type="hidden" id="identificacao">		
+	<input type="hidden" id="identificacao"> <!--  -->		
+	<!-- PEGA A QUANDIDATE ENCONTRADA DO LOTE PARA O MODAL -->	
+	<?php
+		echo $this->Form->input('emFalta',array('label'=>'Qtd. Em Falta:','id'=>'quantidadeFalta','class'=>'tamanho-medio borderZero','readonly'=>'readonly','onfocus'=>'this.blur();'));
+		echo $this->Form->input('encontrada',array('label'=>'Qtd. Encontrada:','id'=>'quantidadeEncontrada','class'=>'tamanho-pequeno borderZero','readonly'=>'readonly','onfocus'=>'this.blur();'));
+	?>
 	<section>
 		<div class="input autocompleteLote">
 			<label>Pesquisar Lote<span class="campo-obrigatorio">*</span>:</label>
@@ -118,7 +137,7 @@ $(document).ready(function() {
 		</div>
 		
 		<?php
-			echo $this->Form->input('putQtd',array('label'=>'Quantidade do Lote:','id'=>'qtd_novoLote','class'=>'tamanho-pequeno'));
+			echo $this->Form->input('putQtd',array('label'=>'Quantidade do Lote:','id'=>'qtd_novoLote','class'=>'naoLetras tamanho-pequeno'));
 			echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar Lote','title'=>'Adicionar Lote','class'=>'bt_preencher','id'=>'bt-adicionarLote'));
 		?>
 		</section>
@@ -142,6 +161,8 @@ $(document).ready(function() {
 		<secttion style="clear:both;display: block;padding-top: 30px;">
 		<?php
 			echo $this->Form->create('Comoperacao',array('action'=>'checkLoteRestante','id'=>'formHiddenTrocaLote'));
+				echo $this->Form->input('encontrada',array('id'=>'quantidadeEncontradaForm','type'=>'hidden'));
+
 				echo $this->form->submit('botao-salvar.png',array(
 								'id'=>'submitLotes',
 							    'class'=>'bt-salvar',
