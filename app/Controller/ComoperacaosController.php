@@ -1471,6 +1471,7 @@ public $uses = array();
 	
 	public function checkLoteRestante() {
 			
+			
 		$this->loadModel('Comlotesoperacao');	
 		$id = $this->request->data['comlotesoperacaos'][0]['comloteitem'];
 		$qteEmEstoque = $this->request->data['Comoperacao']['encontrada'];
