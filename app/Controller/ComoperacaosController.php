@@ -594,6 +594,11 @@ class ComoperacaosController extends AppController {
  *
  * @return void
  */
+ 	public function Lotesvencidos() {
+ 		$this->loadModel('Lote');
+		$this->Lote->virtualFields['total_vencido'] = 'SUM(Lote.estoque)';
+		$lotesvencidos = $this->Lote->find('all', array('fields' => array('total_vencido'), 'recursive' => -1,'conditions' => array('AND' => array(array('Lote.produto_id' => $id), array('Lote.status' => 'VERMELHO')))));
+	}
 	public function comercial() {
 		$this->layout = 'venda';
 		
@@ -1470,22 +1475,23 @@ public $uses = array();
 			if($qteEmEstoque == 0 ){
 				$this->Comlotesoperacao->delete($id );
 				if($this-> Comlotesoperacao->save($this->request->data)){
-					$resposta ="OK";
 					$this->checkLoteTodos($id);
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
 				}else{
 					$resposta ="Erro";
 				}
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
 				if($this-> Comlotesoperacao->save($this->request->data)){
-					$resposta ="OK";
 					$this->ajusteReservaLote($comlotesoperacao['Comlotesoperacao']['lote_id'], $comlotesoperacao['Comlotesoperacao']['produto_id'], $qteEmEstoque);
+					$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));				
 				}else{
 					$resposta ="Erro";
 				}
 				
 			}
+			$this->set(compact('resposta'));
 		}
 	}
 	
