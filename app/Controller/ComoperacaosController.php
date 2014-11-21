@@ -1436,7 +1436,7 @@ public $uses = array();
 		$qtdOk = 0 ;
 		$comlotesoperacao = $this->Comlotesoperacao->find('first', array('conditions' => array('Comlotesoperacao.id' => $id)));
 		
-		debug($comlotesoperacao);
+		
 		$qtdItens = $this->Comlotesoperacao->find('count', array(
 	        'conditions' => array('Comlotesoperacao.comoperacao_id' => $comlotesoperacao['Comlotesoperacao']['comoperacao_id'])
 	   	));
@@ -1510,8 +1510,10 @@ public $uses = array();
 				}
 				
 			}
-			$this->set(compact('resposta'));
+			
 		}
+			
+			$this->set(compact('resposta'));
 	}
 	
 	
