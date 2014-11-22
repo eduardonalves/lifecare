@@ -16,14 +16,15 @@
 			$(".orglote").on('click', function(){
 				
 				var $id = $(this).attr('data-lotesoperacao-id');
-				//alert($(this).attr('data-lotesoperacao-id'));
-				alert("http://localhost/lifecare/Comoperacaos/checkLote/"+$id);
+				
+				
 				$.ajax({
 					url: "http://localhost/lifecare/Comoperacaos/checkLote/"+$id,
 					}).done(function($data) {
-						
-						$('.td-status-com-' + $id).html($data);
 						console.log($data);
+						$('.td-status-com-' + $id).html($data);
+						$('.valorseparado').html('Separado');
+						
 				});
 				
 			});
@@ -104,7 +105,7 @@
 			?>
 			<div class="conteudo-linha">
 				<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
-				<div class="linha2"><?php echo $this->Html->Tag('p',$status_estoque,array('class'=>'valor'));?>	</div>
+				<div class="linha2"><?php echo $this->Html->Tag('p',$status_estoque,array('class'=>'valor valorseparado'));?>	</div>
 			</div>
 			
 			<div class="conteudo-linha">
@@ -187,7 +188,7 @@
 																echo $this->Form->input('vazio.qtd_achada',array('value'=> $lote['Comlotesoperacao']['qtde'],'id' => 'vazio-qtd_achada'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comloteitem',array('value'=> $lote['Comlotesoperacao']['id'], 'id' => 'vazio-comloteitem'.$j, 'type' => 'hidden'));
 																echo $this->Form->input('vazio.comoperacao_id',array('value'=> $comoperacao['Comoperacao']['id'], 'id' => 'vazio-comoperacaoid'.$j, 'type' => 'hidden'));
-																//echo $this->Form->input('vazio.lote_id',array('value'=>$lote['Comlotesoperacao']['lote_id'] ,'id'=>'vazio-loteid'.$j,'type'=>'hidden'));
+																echo $this->Form->input('vazio.lote_id',array('value'=>$lote['Comlotesoperacao']['lote_id'] ,'id'=>'vazio-loteid'.$j,'type'=>'hidden'));
 																echo $this->Form->input('vazio.produto_id',array('value'=> $itens['produto_id'] ,'id'=>'vazio-produtoid'.$j,'type'=>'hidden'));
 																echo $this->Form->input('vazio.comitensdeoperacao',array('value'=>$lote['Comlotesoperacao']['comitensdaoperacao_id'] ,'id'=>'vazio-comitensdaoperacaoid'.$j,'type'=>'hidden'));																
 																//echo $this->Form->input('vazio.qtde',array('value'=>$lote['Comlotesoperacao']['qtde'] ,'id'=>'vazio-qtde'.$j,'type'=>'hidden'));

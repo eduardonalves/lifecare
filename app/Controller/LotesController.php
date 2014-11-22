@@ -196,7 +196,8 @@ class LotesController extends AppController {
 	
 		if($this->request->is('Get')){
 			$numLote= $this->request['url']['numero'];
-			$allLotes= $this->Lote->find('all', array('recursive' => 1, 'conditions'=> array('AND' =>  array(array('Lote.produto_id' => $numLote), array('Lote.estoque >' => 0), array('Lote.status !=' => 'VERMELHO'))), 'order' => array('Lote. data_validade' => 'asc')));	
+			$loteid= $this->request['url']['lote'];
+			$allLotes= $this->Lote->find('all', array('recursive' => 1, 'conditions'=> array('AND' =>  array(array('Lote.produto_id' => $numLote), array('Lote.estoque >' => 0), array('Lote.status !=' => 'VERMELHO'), array('Lote.id !=' => $loteid))), 'order' => array('Lote. data_validade' => 'asc')));	
 			$this->set(compact('allLotes'));		
 		}
 		

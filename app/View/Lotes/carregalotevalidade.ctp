@@ -19,15 +19,16 @@ $(document).ready(function() {
 
 
 	$('#submitLotes').on('click', function(){
-
+		$('#submitLotes').hide();
 		var $fields = $('#formHiddenTrocaLote').serialize();
 		var $url = '<?php echo Router::url(array('controller'=>'comoperacaos', 'action'=>'checkLoteRestante'), true); ?>/';
 
 		$.post($url, $fields, function($data){
 			
 			$('.tabela-simples tbody').html($data);
-			
+			$('#myModal_add-troca_lote').modal('hide');
 		}).fail(function(data, data1, data2) {
+			$('#submitLotes').show();
 			
 			alert('Erro ao checar lote.');
 			console.log(data);
@@ -111,6 +112,7 @@ $(document).ready(function() {
 		var lot = $('#loteIdHide'+n).val();
 		var qtdInserida = $('#qtdInserida'+n).val();
 		var qtdFaltando = $('#quantidadeFalta').val();	
+		
 		x = parseInt(qtdInserida)+parseInt(qtdFaltando);
 		$('#quantidadeFalta').val(x);
 		$('#add-lote_saida option').each(function(){
@@ -190,7 +192,8 @@ $(document).ready(function() {
 		<?php
 			echo $this->Form->create('Comoperacao',array('action'=>'checkLoteRestante','id'=>'formHiddenTrocaLote'));
 				echo $this->Form->input('encontrada',array('id'=>'quantidadeEncontradaForm','type'=>'hidden'));
-
+				echo $this->Form->input('idloteantigo',array('id'=>'idloteantigo','type'=>'hidden'));
+				echo $this->Form->input('qtdefalta',array('id'=>'qtdefalta','type'=>'hidden'));
 				echo $this->form->submit('botao-salvar.png',array(
 								'id'=>'submitLotes',
 							    'class'=>'bt-salvar',

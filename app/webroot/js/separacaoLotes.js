@@ -9,6 +9,7 @@ $(document).ready(function(){
 	});
 	
 	$('.completar').click(function(){
+		
 		var nid = $(this).attr('id');
 		nid = nid.substring(9);		
 		$(this).hide();
@@ -16,6 +17,7 @@ $(document).ready(function(){
 	});
 	
 	$('.orglotes').on('click', function(){
+		
 		var produto_id = $(this).attr('data-produtoId');
 		var nid = $(this).attr('id');
 		nid = nid.substring(7);
@@ -29,7 +31,7 @@ $(document).ready(function(){
 		
 			var encontradaInput = $('#encontradaInput'+nid).val();
 			var qtd_operacao = $('#vazio-qtd_operacao'+nid).val();
-		
+			var loteId =$('#vazio-loteid'+nid).val();
 			var falta = qtd_operacao - encontradaInput;
 			
 			if(falta<0){
@@ -37,13 +39,15 @@ $(document).ready(function(){
 				falta = 0;
 			}
 			
-			$("#carregaSelect").load(urlInicio+'lotes/carregalotevalidade?numero='+produto_id+'', function(){
+			$("#carregaSelect").load(urlInicio+'lotes/carregalotevalidade?numero='+produto_id+'&lote='+loteId+'', function(){
 				$('.loaderAjaxCarregarLoteDIV').hide();
+				$('#idloteantigo').val(loteId);
 				$('#myModal_add-troca_lote').modal('show');
 				$('#identificacao').val(nid);
 				$('#quantidadeEncontrada').val(encontradaInput);
 				$('#quantidadeEncontradaForm').val(encontradaInput);
 				$('#quantidadeFalta').val(falta);
+				$('#qtdefalta').val(falta);
 			});
 		}else{
 			alert('Valor Maior que a Quantidade no Estoque.');
