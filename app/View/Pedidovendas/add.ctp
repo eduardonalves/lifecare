@@ -99,6 +99,7 @@
 				
 				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
 				<?php echo $this->Form->input('valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
+				<?php echo $this->Form->input('valor', array('id'=>'valorPedido','type' => 'hidden', 'value'=>'00')); ?>
 				
 			</section>
 			<section class="coluna-direita"></section>

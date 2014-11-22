@@ -331,10 +331,12 @@ $(document).ready(function() {
 	});
 	
 	
+/**************Valor Pedido*****************/
 
 /******** TELA DE CONFIRMACAO   ************/
 	$('#confirmaDados').click(function(){
-	
+		var valorTot= $("#totalProdutoHide").val();
+		$('#valorPedido').val(valorTot);
 		if($('.dataInicio').val() == ''){
 			$('#msgDataInicial').show();
 			
