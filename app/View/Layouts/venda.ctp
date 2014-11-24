@@ -132,7 +132,11 @@
 						<span class="label">Cadastrar Venda</span>
 					</a>
 				</li>
+				<?php
 				
+				if ( $this->Session->read('Auth.User.Role.alias') == 'admin' ){
+				
+				?>
 				<li class="item" style="line-height: 15px">
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Vendedors","action"=>"add"),true);?>'>
 						
@@ -143,7 +147,9 @@
 						<span class="label">Cadastrar Vendedor</span>
 					</a>
 				</li>
-			
+				<?php
+				}
+				?>
 			</ul>
 		</nav><!-- nav-lateral -->
 
