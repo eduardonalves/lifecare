@@ -221,8 +221,8 @@ $(document).ready(function(){
             case('produtos'):
 				window.open(urlPadrao+"&parametro=produtos"+limit,"_self");
                 break;
-            case('fornecedores'):
-				window.open(urlPadrao+"&parametro=fornecedores"+limit,"_self");
+            case('clientes'):
+				window.open(urlPadrao+"&parametro=clientes"+limit,"_self");
                 break;
             case('operacoes'):
 					window.open(urlPadrao+"&parametro=operacoes"+limit,"_self");
@@ -236,7 +236,7 @@ $(document).ready(function(){
 	var get = get();
 	var parametro = get.parametro;
 
-	var urlPadrao = urlInicio+"comoperacaos/index/?";
+	var urlPadrao = urlInicio+"comoperacaos/comercial/?";
 	var limit = get.limit;
 
 	if(String(limit) != String('') && String(limit) != String('undefined')) { limit = '&limit=' + limit; } else { limit=''; }
@@ -249,7 +249,7 @@ $(document).ready(function(){
 		$("#checkproduto").attr('checked', true);
 		$("#checkop").attr('checked', false);
 		$("#checkfor").attr('checked', false);
-	}else if(parametro == 'fornecedores'){
+	}else if(parametro == 'clientes'){
 		$("#checkfor").attr('checked', true);
 		$("#checkproduto").attr('checked', false);
 		$("#checkop").attr('checked', false);

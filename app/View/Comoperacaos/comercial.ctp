@@ -163,17 +163,17 @@
 					<div id="msgFiltroProduto" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
 				</section>
 
-				<!------------------ Filtro Do Fornecedor ------------------>
+				<!------------------ Filtro Do Cliente ------------------>
 				<section id="filtro-parceiro" class="coluna-direita">
 					<div class="boxParceiro">
 						<?php 
-							echo $this->Form->input('', array('label' =>'Dados do Fornecedor','type'=>'checkbox', 'id' => 'checkfor' , 'value' => 'fornecedores'));
+							echo $this->Form->input('', array('label' =>'Dados do Cliente','type'=>'checkbox', 'id' => 'checkfor' , 'value' => 'clientes'));
 						?>
 					</div>
 					<div class="informacoesParceiro">
 						<?php
 							echo $this->Search->input('nomeParceiro', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
-							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('status_operacao', array('type'=>'select','label' => array('text'=>'Status:', 'style'=>'display:block !important;'),'class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
 					<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
@@ -194,7 +194,7 @@
 	<!------------------ CONSULTA ------------------>
 	<div class="areaTabela">
 	
-	<?php echo $this->element('paginador_superior'); ?>
+	<?php  echo $this->element('paginador_superior'); ?>
 	
 		<div class="tabelas" id="contas">
 			<table cellpadding="0" cellspacing="0" style="font-size: 12px !important;">
@@ -664,7 +664,7 @@
 				}
 				//fim tabela produtos
 				//TABELA FORNECEDORES
-				else if(isset($_GET['parametro']) && $_GET['parametro']=='fornecedores'){
+				else if(isset($_GET['parametro']) && $_GET['parametro']=='clientes'){
 				?>
 				
 				<tr>
