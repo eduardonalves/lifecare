@@ -58,7 +58,7 @@
 					echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 					echo "</div>";
 					echo "<div id='inputConfirma' style='display:none;'>";
-					echo $this->Form->input('forma_pagamento',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','readonly' => 'readonly','onfocus'=>'this.blur();'));
+					echo $this->Form->input('forma_pagamento',array('style'=>'background: #fff !important','id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','readonly' => 'readonly','onfocus'=>'this.blur();'));
 					echo "</div>";
 				?>
 			</section>
@@ -204,15 +204,20 @@
 							echo $this->form->input('vazio.vazio',array('label'=>'Qtd. Disponível:','id'=>'qtd_dispo_prod','Class'=>'tamanho-medio borderZero','onfocus'=>'this.blur();','readonly'=>'readonly'));
 							echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 							echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
+							echo '<span id="msgQtdVazia1" class="Msg-tooltipDireita" style="display:none;left:250px;width: 150px;">Quantidade Disponível Insuficiente</span>';
 							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
 						?>
 					</section>
 					</div>
 					
 					<section class="coluna-central">
-						<?php								
-							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
-							echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+						<div class="confirma">
+							<?php								
+								echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
+								echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+							?>
+						</div>
+						<?php
 							echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));
 							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
 						?>

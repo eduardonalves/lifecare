@@ -107,7 +107,7 @@ $(document).ready(function(){
 
     <!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
    <?php
-		if(!isset($telaAbas)){
+		if(isset($telaAbas)){
 			if($telaLayout == 'venda'){
 				echo '<h1 class="menuOption'.$telaAbas.'">Editar Cliente</h1>';
 			}else{
