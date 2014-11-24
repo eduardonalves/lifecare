@@ -88,6 +88,33 @@
 				<div class="input autocompleteVendedor">
 					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-vendedor">
+						<?php
+
+						if ( count($allVendedores) == 1 ){
+
+							echo "<option id='".$allVendedores[0]['Vendedor']['nome']."' value='".$allVendedores[0]['Vendedor']['id']."' >";
+							echo $allVendedores[0]['Vendedor']['nome'];
+							echo "</option>";
+							echo "</select>";
+						?>
+						<script>
+						
+							$(window).load( function(){
+								
+								$("#add-vendedor").trigger('change');
+								$('#bt-preencherVendedor').trigger('click');	
+								$('.autocompleteVendedor').css('display','none');
+								$('#bt-preencherVendedor').css('display','none');
+								$('.inputFalsa').css('margin-left','-70px');
+								$('.inputFalsa').css('margin-top','10px');
+								
+							});
+						
+						</script>
+						
+						<?php
+						}else{
+						?>
 						<option id="optvazioForn"></option>
 						<?php
 							foreach($allVendedores as $vendedor){
@@ -95,8 +122,9 @@
 								echo $vendedor['Vendedor']['nome'];
 								echo "</option>";
 							}
+							echo "</select>";
+						}
 						?>
-					</select>
 				</div>
 			</section>
 			<section class="coluna-central">

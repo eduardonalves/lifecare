@@ -442,7 +442,7 @@ class PedidovendasController extends ComoperacaosController {
 			
 
 		}
-
+		
 		$this->loadModel('Produto');
 		$produtos = $this->Produto->find('all', array('recursive' => -1,'order' => 'Produto.nome ASC'));
 
@@ -451,9 +451,21 @@ class PedidovendasController extends ComoperacaosController {
 
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;
+
+		$user = $this->Session->read('Auth.User');;
+		$usuarioTipo = $user['Role']['alias'];
 		
 		$this->loadModel('Vendedor');
-		$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
+		
+		if ($usuarioTipo == 'Ven1' || $usuarioTipo == 'Ven2' || $usuarioTipo == 'ven3'){
+
+			$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC', 'conditions'=>array('Vendedor.id'=>$userid)));
+
+		} else {
+			
+			$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
+			
+		}
 		
 		$this->loadModel('Cliente');
 		$allClientes = $this->Cliente->find('all', array('fields' => array('DISTINCT Cliente.id', 'Cliente.*'),'recursive' => 1,'conditions' => array('Cliente.tipo' => 'CLIENTE'),'order' => 'Cliente.nome ASC'));
