@@ -264,7 +264,8 @@ class PedidovendasController extends ComoperacaosController {
 			
 		$userid = $this->Session->read('Auth.User.id');
 		$username=$this->Session->read('Auth.User.username');
-
+		$user = $this->Session->read('Auth.User');
+		
 		if (!$this->Pedidovenda->exists($id)) {
 			throw new NotFoundException(__('Invalid pedidovenda'));
 		}
@@ -282,7 +283,7 @@ class PedidovendasController extends ComoperacaosController {
 		
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $pedidovenda['Parceirodenegocio'][0]['id'] )));	
 		
-		$this->set(compact('pedidovenda','userid','itens','parceirodenegocio','empresa'));
+		$this->set(compact('pedidovenda','userid','itens','parceirodenegocio','empresa','user'));
 	}
 
 	
