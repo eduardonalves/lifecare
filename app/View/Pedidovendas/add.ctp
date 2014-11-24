@@ -182,7 +182,7 @@
 									<?php
 										foreach($produtos as $produto)
 										{
-											echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
+											echo "<option id='".$produto['Produto']['id']."' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
 											echo $produto['Produto']['nome'];
 											echo "</option>";
 										}
@@ -200,7 +200,8 @@
 													 ));
 						?>			
 					
-						<?php			
+						<?php	
+							echo $this->form->input('vazio.vazio',array('label'=>'Qtd. Disponível:','id'=>'qtd_dispo_prod','Class'=>'tamanho-medio borderZero','onfocus'=>'this.blur();','readonly'=>'readonly'));
 							echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 							echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
 							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
