@@ -253,7 +253,7 @@
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
-						<input type="hidden" id="totalProdutoHide"/>
+						<input name="data[Cotacaovenda][valor]" type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
 			</section>
 		
