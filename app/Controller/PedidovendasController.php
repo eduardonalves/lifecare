@@ -311,10 +311,10 @@ class PedidovendasController extends ComoperacaosController {
 		if(isset($this->request->params['named']['modulo'])){
 			$modulo =  $this->request->params['named']['modulo'];
 		}
-		
+				
 		$this->request->data['Pedidovenda']['tipo'] = 'PDVENDA';
 		if ($this->request->is('post')) {
-			
+	
 			$clienteId = $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'];	
 			$clientesNota = $this->Cliente->find('first', array('recursive' => -1,'conditions' => array('Cliente.id' => $clienteId)));
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
@@ -364,7 +364,7 @@ class PedidovendasController extends ComoperacaosController {
 						$this->lifecareFuncs->converterMoedaToBD($this->request->data['Comitensdaoperacao'][$j]['valor_total']);
 						$total= $total + $this->request->data['Comitensdaoperacao'][$j]['valor_total'];
 					}
-					$this->request->data['Pedidovenda']['valor'] = $total;
+					$this->request->data['Pedidovenda']['valor'] = $total - $this->request->data['Pedidovenda']['desconto'];
 					if(isset($this->request->data['Pedidovenda']['prazo_entrega'])){
 						if($this->request->data['Pedidovenda']['prazo_entrega'] != ''){
 							$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);

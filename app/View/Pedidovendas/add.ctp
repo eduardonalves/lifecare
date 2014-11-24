@@ -35,7 +35,7 @@
 			<section class="coluna-esquerda">
 				<?php				
 					echo $this->Form->input('user_id',array('type'=>'hidden','value'=>$userid));
-					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PEDIDO'));	
+					echo $this->Form->input('tipo',array('type'=>'hidden','value'=>'PDVENDA'));	
 					echo $this->Form->input('status',array('type'=>'hidden','value'=>'ABERTO'));	
 					
 					$dataHoje = date('d/m/Y');
@@ -58,7 +58,7 @@
 					echo $this->Form->input('forma_pagamento',array('id'=>'normalFrm', 'type'=>'select','label'=>'Forma de Pagamento:','class'=>'confirmaInput tamanho-pequeno desabilita','options' => array(''=>'','BOLETO' => 'Boleto','CHEQUE' => 'Cheque', 'CREDITO' => 'Crédito', 'DEBITO' => 'Débito', 'DEPOSITO A VISTA' => 'Depósito a Vista','DEPOSITO A PRAZO' => 'Depósito a Prazo', 'DINHEIRO' => 'Dinheiro', 'VALE' => 'Vale' )));
 					echo "</div>";
 					echo "<div id='inputConfirma' style='display:none;'>";
-					echo $this->Form->input('Vazio.frmPgto',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','disabled' => 'disabled'));
+					echo $this->Form->input('forma_pagamento',array('id'=>'frmPgto','type'=>'text','label'=>'Forma de Pagamento:','class'=>'borderZero tamanho-pequeno','readonly' => 'readonly','onfocus'=>'this.blur();'));
 					echo "</div>";
 				?>
 			</section>
@@ -98,8 +98,9 @@
 				</div>
 				
 				<?php echo $this->Form->input('vendedor_id', array('id'=>'vendedorId_hidden','type' => 'hidden')); ?>
-				<?php echo $this->Form->input('valor_total', array('id'=>'VendaValorTotal','type' => 'hidden', 'value'=>'102')); ?>
-				<?php echo $this->Form->input('valor', array('id'=>'valorPedido','type' => 'hidden', 'value'=>'00')); ?>
+				<?php echo $this->Form->input('vazio.valor_original', array('id'=>'ValorOriginal','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('valor', array('id'=>'valorPedido','type' => 'hidden')); ?>
+				<?php echo $this->Form->input('desconto', array('id'=>'valorDescontoHide','type' => 'hidden')); ?>
 				
 			</section>
 			<section class="coluna-direita"></section>
@@ -191,7 +192,6 @@
 								</select>
 							</div>		
 					
-					
 						<?php	
 							echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
 													 'title'=>'Adicionar',
@@ -210,11 +210,9 @@
 					</div>
 					
 					<section class="coluna-central">
-						<?php
-							
-								
-							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));		
-							echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+						<?php								
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
+							echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 							echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));
 							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
 						?>
@@ -223,8 +221,14 @@
 					<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+							?>
+						
+						<span id="spanMensagemDescontoFocus" class="Msg-tooltipDireita hideMsg" style="display:none;margin: 20px 0px 0px 245px;">O valor do desconto é superior ao valor da venda.</span>	
+						<?php
+							echo $this->Form->input('vazio.vazio',array('label'=>'Desconto da Venda:','id'=>'valorDesconto','class'=>'tamanho-pequeno confirmaInput dinheiro_duasCasas','type'=>'text'));		
 							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
+					
 						<input type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
 			</section>			

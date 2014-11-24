@@ -10,6 +10,34 @@ $(document).ready(function() {
 		sobra = credito - total ;
 		return sobra.toFixed(2);
 	}
+	
+	function calculaDesconto(valor,desconto,mensagem){
+		desconto = parseFloat(desconto.split('.').join('').replace(',','.'));
+		if(desconto > 0 && desconto < valor){
+			novo_total = valor - desconto;
+			//alert(novo_total);
+			$('#totalProdutoHide').val(novo_total);
+			$('#valorPedido').val(novo_total);
+			$('#totalProduto').val('R$ '+float2moeda(novo_total));
+		}else if(desconto == 0 || desconto == ''){
+			$('#totalProdutoHide').val($('#ValorOriginal').val());
+			$('#valorPedido').val($('#ValorOriginal').val());
+			$('#totalProduto').val('R$ '+float2moeda($('#ValorOriginal').val()));
+		}else if(valor > 0 && desconto > valor){
+			$(mensagem).show();
+			$('#valorDescontoHide').val('');
+			$('#valorDesconto').val('');
+		}
+		
+		
+	}
+/*** AUTO COMPLETE VENDEDOR *******************************************/	
+	$('#valorDesconto').focusout(function(){
+		desc = $("#valorDesconto").val();
+		$('#valorDescontoHide').val(desc);
+		total = $('#totalProdutoHide').val();
+		calculaDesconto(total,desc,'#spanMensagemDescontoFocus');	
+	});
 
 
 /*** AUTO COMPLETE VENDEDOR *******************************************/	
@@ -152,10 +180,7 @@ $(document).ready(function() {
 			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
 			$("#produtoValor").val(float2moeda(valorVenda));
 			$('#produtoUnid').val(valorUnid);			
-			
-			
-			
-			
+
 			if($("#add-produtos option:selected" ).attr('data-estoque') != ''){
 				estoque = parseInt($("#add-produtos option:selected" ).attr('data-estoque'));
 			}else{ estoque = 0;	}
@@ -213,13 +238,13 @@ $(document).ready(function() {
 
     
     $("body").on('click','#bt-adicionarProduto',function(){		
-		
+			
 		if($(".autocompleteProduto input").val() == ''){
 			$('#msgValidaProduto').show();
 		}else if($("#produtoQtd").val() == ''){
 			$('#msgQtdVazia').show();
-		}else if($("#produtoQtd").val() > $("#qtd_dispo_prod").val()){
-			alert('Estoque Insuficiente');
+	//	}//else if($("#produtoQtd").val() > $("#qtd_dispo_prod").val()){
+			//alert('Estoque Insuficiente');
 		}else{
 			valorNome = $("#add-produtos option:selected" ).attr('data-nome');
 			valorId = $("#add-produtos option:selected" ).attr('id');
@@ -310,6 +335,7 @@ $(document).ready(function() {
 			in_produto++;
 			
 			calculaTotal('TotalPedido');
+			calculaDesconto($('#totalProdutoHide').val(),$('#valorDesconto').val(),'#spanMensagemDescontoFocus');
 		}
 	});
 
@@ -388,7 +414,7 @@ $(document).ready(function() {
 				$('span[id*="msg"]').hide();
 				$('.confirmaInput').attr('readonly','readonly');
 				$('.confirmaInput').attr('onfocus','this.blur();');
-				$('.confirmaInput').attr('disabled','disabled');
+				//$('.confirmaInput').attr('disabled','disabled');
 				$('.confirmaInput').addClass('borderZero');
 				$('#confirmaDados').hide();
 				$('.confirma').hide();
@@ -485,6 +511,8 @@ $(document).ready(function() {
 		});
 		$('#totalProduto').val('R$ '+float2moeda(totalPedido));
 		$('#totalProdutoHide').val(totalPedido);
+		$('#valorPedido').val(totalPedido);
+		$('#ValorOriginal').val(totalPedido);
 		
 	}
 
