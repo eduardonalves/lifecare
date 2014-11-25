@@ -32,6 +32,15 @@ class Vendedor extends AppModel {
  *
  * @var array
  */
+	public $belongsTo = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
 	public $hasMany = array(
 		'Nota' => array(
 			'className' => 'Nota',
