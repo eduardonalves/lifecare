@@ -452,15 +452,16 @@ class PedidovendasController extends ComoperacaosController {
 		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
 		$allCategorias = $categorias;
 
-		$user = $this->Session->read('Auth.User');;
-		$usuarioTipo = $user['Role']['alias'];
-		
+		$user = $this->Session->read('Auth.User');
+
 		$this->loadModel('Vendedor');
 		
-		if ($usuarioTipo == 'Ven1' || $usuarioTipo == 'Ven2' || $usuarioTipo == 'ven3'){
+		$isVendedor = $this->Vendedor->find('count', array('recursive'=>-1, 'conditions'=>array('Vendedor.user_id'=>$user['id'])));
 
-			$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC', 'conditions'=>array('Vendedor.id'=>$userid)));
+		if ($isVendedor >= 1 ){
 
+			$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC', 'conditions'=>array('Vendedor.user_id'=>$userid)));
+		
 		} else {
 			
 			$allVendedores = $this->Vendedor->find('all',array('recursive'=>-1,'order'=>'Vendedor.nome ASC'));
