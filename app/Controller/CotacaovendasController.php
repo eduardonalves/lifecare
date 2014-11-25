@@ -92,7 +92,78 @@ class CotacaovendasController extends ComoperacaosController {
  */
  
 	public $uses = array();
+	public function eviaEmailPedido(&$destinatario, &$remetente, &$mensagem){
+				
+			 //test file for check attachment 
+		$this->loadModel('Empresa');
+			 
+		$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+		$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+		$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+		$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+		$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+		$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+		$mensagem['Mensagem']['corpo']="Esta é um envio de cotação de produtos, sob o código: ".$mensagem['Cotacaovenda']['id'].", caso receba este email por engano entre em contato com ".$remetente." "; 
+		
+		$this->loadModel('Comtokencotacao');
+		$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Cotacaovenda']['id'])));
+		if(!empty($token)){
+			$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+		}else{
+			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.comoperacao_id' => $mensagem['Cotacaovenda']['id'])));
+			
+			if(!empty($token)){
+				$mensagem['Mensagem']['url'] = Router::url('/', true)."Comrespostas/confirmacao/".$token['Comtokencotacao']['codigoseguranca']."";	
+			}
+		}
+		 
+		
+		 $file_name= APP."webroot/img/cake.icon.png";
+		$extraparams= $mensagem;
+		$this->Session->write('extraparams',$extraparams);
+		 $this->set(compact('extraparams'));
+		 $this->pdfConfig = array(
+			 'orientation' => 'portrait',
+			 'filename' => 'Invoice_'. 3
+		 );
+		 
+		 $CakePdf = new CakePdf();
+		// $this->Email->delivery = 'smtp';
+		 $CakePdf->template('confirmpdfcotacao', 'default');
+		 //get the pdf string returned
+		 $pdf = $CakePdf->output();
+		 //or write it to file directly
+		 $pdf = $CakePdf->write(APP . 'webroot'. DS .'files' . DS . 'Cotacaovenda'.$mensagem['Cotacaovenda']['id'].'.pdf');
+		 $pdf = APP . 'webroot'. DS .'files' . DS . 'Cotacaovenda'.$mensagem['Cotacaovenda']['id'].'.pdf';
+		 
+		 //Writing external parameters in session
+			$extraparams =$mensagem;
+			
+			
+			$email = new CakeEmail('smtp');
 
+			$email->to($destinatario);
+			$email->from('cirurgica.simoes@gmail.com');
+			$email->subject($remetente);
+			//a linha abaixo só serve para o servidor da alemanha
+			$email->transport('Mail');
+			//$email->template = 'confirm';
+			$email->template('cotacaovenda','default');
+			$email->emailFormat('html');
+			
+			$email->attachments(array($pdf));
+			
+			$mensagemHtml = array('mensagem' => 'teste de mensagem');
+			$this->set('extraparams', $mensagem);
+			if($email->send($mensagem)){
+				return TRUE;
+			}else{
+				
+				$this->set('extraparams', $mensagem);
+				return FALSE;	
+			}
+
+	}
     public function eviaEmail(&$destinatario, &$remetente, &$mensagem){
 
 			$this->loadModel('Empresa');	 
@@ -184,7 +255,7 @@ class CotacaovendasController extends ComoperacaosController {
 			$this->Cotacaovenda->create();
 		
 			if ($this->Cotacaovenda->saveAll($this->request->data)) {
-				$ultimaCotacao= $this->Cotacaovenda->find('first',array('order' => array('Cotacaovenda.id' => 'DESC')));
+				$ultimaCotacao = $this->Cotacaovenda->find('first',array('order' => array('Cotacaovenda.id' => 'DESC')));
 				
 				$this->loadModel('Contato');
 				
@@ -200,7 +271,7 @@ class CotacaovendasController extends ComoperacaosController {
 					);
 					
 					$this->loadModel('Comtokencotacao');
-					
+					$this->loadModel('Produto');
 					$flag="FALSE";
 					while($flag =='FALSE') {
 						$numero=date('Ymd');
@@ -216,6 +287,14 @@ class CotacaovendasController extends ComoperacaosController {
 						}
 						
 					}
+					
+					$i=0;
+					foreach($ultimaCotacao['Comitensdaoperacao'] as $i => $itens){
+						$ultimaCotacao['Comitensdaoperacao'][$i];
+						$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimaCotacao['Comitensdaoperacao'][$i]['produto_id'])));
+						$ultimaCotacao['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+						$i++;
+					}
 					$mensagem = array();
 					
 
@@ -226,7 +305,7 @@ class CotacaovendasController extends ComoperacaosController {
 					
 					if(!empty($contato)){
 						if($contato['Contato']['email'] !=""){
-							$this->eviaEmail($contato['Contato']['email'], $remetente, $mensagem);
+							$this->eviaEmailPedido($contato['Contato']['email'], $remetente, $ultimaCotacao);
 						}
 					}
 				}
@@ -235,6 +314,7 @@ class CotacaovendasController extends ComoperacaosController {
 				//debug($this->request->data);
 				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
 				//return $this->redirect(array('controller' => 'Comoperacaos','action' => 'index','?parametro=operacoes'));
+				//debug($ultimaCotacao);
 				return $this->redirect(array('controller' => 'Cotacaovendas','action' => 'view',$ultimaCotacao['Cotacaovenda']['id']));
 			} else {
 				$this->Session->setFlash(__('A cotação não pode ser salva. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));

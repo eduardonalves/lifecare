@@ -571,7 +571,7 @@ class PedidovendasController extends ComoperacaosController {
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
-			$mensagem['Mensagem']['corpo']="Esta é um envio de pedidovenda de compras, sob o código: ".$mensagem['Pedidovenda']['id'].", caso receba este email por engano entre em contato com ".$remetente." "; 
+			$mensagem['Mensagem']['corpo']="Esta é um comunicado de pedido de venda, sob o código: ".$mensagem['Pedidovenda']['id'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			$this->loadModel('Comtokencotacao');
 			$token = $this->Comtokencotacao->find('first', array('conditions' => array('Comtokencotacao.codigoseguranca' => $mensagem['Pedidovenda']['id'])));
@@ -597,7 +597,7 @@ class PedidovendasController extends ComoperacaosController {
 			 
 			 $CakePdf = new CakePdf();
 			// $this->Email->delivery = 'smtp';
-			 $CakePdf->template('confirmpdf', 'default');
+			 $CakePdf->template('pedidovenda', 'default');
 			 //get the pdf string returned
 			 $pdf = $CakePdf->output();
 			 //or write it to file directly

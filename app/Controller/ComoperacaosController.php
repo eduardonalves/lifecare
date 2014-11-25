@@ -1223,7 +1223,51 @@ public $uses = array();
 		}*/
 
 /*****************************************************/ 
- 
+	public function enviaEmailTrocaLote($idLote, $loteitennovos, $pedido_id){
+			$this->layout = 'noerror';
+			$mensagem = array();
+			$this->loadModel('Empresa');
+			$this->loadModel('Lote');			
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			//$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			$loteAntigo= $this->Lote->find('first', array('conditions' => array('Lote.id' => $idLote)));
+			$mensagem['Mensagem']['loteantigo'] = $loteAntigo['Lote']['numero_lote'];
+			$mensagem['Mensagem']['pedido_id']= $pedido_id;
+			$ltNovos="";
+			foreach($loteitennovos as $novo){
+				$lote= $this->Lote->find('first', array('conditions' => array('Lote.id' => $novo['lote_id'])));
+				$ltNovos= $ltNovos."Numero Lote: ".$lote['Lote']['numero_lote']." Qtde: ".$novo['qtde']."<br />";
+				
+			}
+			$mensagem['Mensagem']['lotestrocados'] = $ltNovos;
+       		$this->Session->write("extraparams",$mensagem);
+			
+			
+			
+			
+			$extraparams= $mensagem;
+			 $this->set(compact('extraparams'));
+	
+            $email = new CakeEmail('smtp');
+
+            $email->to('eduardonalves@gmail.com');
+			$email->from('cirurgica.simoes@gmail.com');
+            $email->subject('eduardonalves@gmail.com');
+			$email->template('trocalote','default');
+			$email->emailFormat('html');
+			
+			//essa linha só serve para o servidor da alemanha
+			$email->transport('Mail');
+
+          $email->send($mensagem);
+			
+        
+
+    }
 	public function add(){
 		$this->layout = 'compras';
 		$userid = $this->Session->read('Auth.User.id');
@@ -1470,7 +1514,7 @@ public $uses = array();
 	}
 	
 	public function checkLoteRestante() {
-			
+		$this->layout = 'noerror';
 		$this->loadModel('Comlotesoperacao');	
 		$id = $this->request->data['comlotesoperacaos'][0]['comloteitem'];
 		$qteEmEstoque = $this->request->data['Comoperacao']['encontrada'];
@@ -1491,13 +1535,14 @@ public $uses = array();
 						
 						$this->ajusteReservaLote($iten['lote_id'], $iten['qtde']);
 						$this->checkLoteTodos($comlotesoperacao['Comlotesoperacao']['id']);
+						
 						$resposta = $this->Comlotesoperacao->find('all', array('conditions' => array('Comlotesoperacao.comitensdaoperacao_id'=> $comlotesoperacao['Comlotesoperacao']['comitensdaoperacao_id'])));
 					}else{
 						$resposta ="Erro";
 					}
 					
 				}
-				
+				$this->enviaEmailTrocaLote($loteAntigo,$this->request->data['comlotesoperacaos'], $comlotesoperacao['Comlotesoperacao']['comoperacao_id']);
 			}else{
 				$updateComlotesoperacao = array('id' => $id, 'qtde' => $qteEmEstoque);
 				$this->Comlotesoperacao->save($updateComlotesoperacao );
@@ -1512,7 +1557,7 @@ public $uses = array();
 						$resposta ="Erro";
 					}
 				}
-				
+				$this->enviaEmailTrocaLote($loteAntigo,$this->request->data['comlotesoperacaos'], $comlotesoperacao['Comlotesoperacao']['comoperacao_id']);
 			}
 			
 		}
