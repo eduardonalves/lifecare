@@ -520,38 +520,63 @@ class PedidovendasController extends ComoperacaosController {
 	public function cancelar($id = null){
 
 		$this->Pedidovenda->id = $id;
-
+		$ultimaPedido= $this->Pedidovenda->find('first',array('conditions' => array('Pedidovenda.id' => $id)));
 		if (!$this->Pedidovenda->exists()) {
 			
 			$this->Session->setFlash(__('O pedido requisitado não pode ser encontrado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		
 		} else {
 			
-			$this->Pedidovenda->saveField('status', 'CANCELADO');
-			
-			$queryString = "UPDATE produtos
-						INNER JOIN (Select SUM(qtde) qtde from comitensdaoperacaos where comoperacao_id=" . $id . " group by produto_id) citens
-						SET produtos.reserva = IF(produtos.reserva IS NULL, 0-citens.qtde, produtos.reserva-citens.qtde),
-						produtos.disponivel = IF(produtos.reserva IS NULL, 0+citens.qtde, produtos.reserva+citens.qtde)";
-
-			try {
-			
-				$pedido = $this->Pedidovenda->query($queryString);
-			
-			} catch (Exception $e) {
-			
-				$this->Session->setFlash(__('Erro ao cancelar pedido. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));				
+			if($ultimaPedido['Comlotesoperacao']['status'] !="CANCELADO"){
+				
+				$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
+				if($this->Pedidovenda->save($upDatePedido)){
+					if($ultimaPedido['Pedidovenda']['status_gerencial'] == "OK"){
+						foreach($ultimaPedido['Comlotesoperacao'] as $lote){
+							$this->ajusteReservaLoteMenos($lote['lote_id'], $lote['qtde'], $lote['produto_id']);
+						}
+					}	
+					
+					
+				}else{
+					$this->Session->setFlash(__('O pedido não pode ser cancelado.Tente novamente'),'default',array('class'=>'error-flash'));
+				}
+				$this->setLimiteUsadoMenos($id);
+				$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
+				
+			}else{
+				$this->Session->setFlash(__('Este pedido já foi cancelado.'),'default',array('class'=>'error-flash'));
 			}
 			
-			$data = array('Pedidovenda'=> array('Status'=>'CANCELADO'));
-			
-				$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
-
+			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 		}
 
-		return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+		
 	}
 
+
+	public function setLimiteUsadoMenos(&$id){
+				
+		
+		$pedidovenda = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id' => $id)));
+		
+		if(!empty($pedidovenda)){
+			if($pedidovenda['Pedidovenda']['forma_pagamento']  != "DEPOSITO A VISTA" && $pedidovenda['Pedidovenda']['forma_pagamento']  != "DINHEIRO"){
+				$this->loadModel('Dadoscredito');
+			
+				$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $pedidovenda['Parceirodenegocio'][0]['id'] ), 'order' => array('Dadoscredito.id' => 'desc')));
+				if(isset($dadosCredito) && !empty($dadosCredito)){
+					$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+				
+					$novoLimiteUsado =  $limiteUsado - $pedidovenda['Pedidovenda']['valor'];
+					$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+				
+					$this->Dadoscredito->save($updateDadosCredito);
+				}
+			}
+		}	
+			
+	}
 /**
  * delete method
  *
@@ -719,15 +744,32 @@ class PedidovendasController extends ComoperacaosController {
 				}
 			}
 		}
-		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
-		$this->Pedidovenda->save($upDatePedido);
+		
+		
 		$this->Session->setFlash(__('O pedidovenda foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
 		return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 	}
 
 	
 	
-	
+	public function ajusteReservaLoteMenos(&$lote_id, &$qtde, &$produto_id) {
+		$this->loadModel('Lote');
+		$this->loadModel('Produto');
+		
+		$lote = $this->Lote->find('first',array('recursive'=> -1,'conditions' => array('Lote.id' => $lote_id)));
+		$reservaLote =  $lote['Lote']['reserva'] - $qtde;
+		
+		$dispLote = $lote['Lote']['estoque'] + $reservaLote;
+		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
+		$this->Lote->save($updateLote);
+		
+		$produto = $this->Produto->find('first',array('recursive'=> -1,'conditions' => array('Produto.id' => $produto_id)));
+		$reservaProduto =  $produto['Produto']['reserva'] - $qtde;
+		$dispProduto = $produto['Produto']['estoque'] - $reservaProduto;
+		$updateProduto = array('id' => $produto['Produto']['id'], 'reserva' =>  $reservaProduto, 'disponivel' => $dispProduto);
+		$this->Produto->save($updateProduto);
+		
+	}
 	public function reeviarpedido($id) {
 		
 		if ($this->request->is('post')) {	
