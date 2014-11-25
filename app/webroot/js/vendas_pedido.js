@@ -251,7 +251,7 @@ $(document).ready(function() {
 
 			$('#msgQtdIndisponivel').show();
 
->>>>>>> Glauber
+
 		}else{
 			valorNome = $("#add-produtos option:selected" ).attr('data-nome');
 			valorId = $("#add-produtos option:selected" ).attr('id');
