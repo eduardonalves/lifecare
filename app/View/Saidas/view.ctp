@@ -292,7 +292,7 @@
 							echo "<td>".$prodIten['Produtoiten']['qtde']."</td>";
 							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_unitario']."</td>";	
 							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_total']."</td>";		
-							echo "<td class='valor'>".$prodIten['Produto']['cfop']."</td>";	
+							echo "<td class='valor'>".$prodIten['Produtoiten']['cfop']."</td>";	
 							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_icms']."</td>";		
 							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_ipi']."</td>";
 							
