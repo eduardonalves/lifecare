@@ -182,7 +182,6 @@
 			
 			<?php
 				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
-
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data de Início:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedido['Pedido']['data_inici'])),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedido['Pedido']['forma_pagamento']),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Total do Pedido:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedido['Pedido']['valor'])),'disabled'=>'disabled'));
@@ -558,13 +557,8 @@
 					</div>
 				</div>
 	<?php
-		}
-	
+		}	
 	?>
-
-	
-	
-	
 </footer>
 
 <script type="text/javascript">
@@ -594,9 +588,10 @@
 	/** Validação Data Início e Confirmação ao Confirmar Pedido **************************************************/
 	
 	function validaData(){
-		if($("#dataRecebimento").val() != '' || validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida")){
+		if($("#dataRecebimento").val() == '' || validacaoEntreDatas($("#ComoperacaoDataInici").val(),$("#dataRecebimento").val(),"#spanDataInvalida") == true){
 				$("#dataRecebimento").val("");
 				$("#dataRecebimento").addClass('shadow-vermelho');
+				
 		}
 	}
 	
