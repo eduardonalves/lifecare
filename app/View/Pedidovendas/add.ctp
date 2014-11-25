@@ -238,11 +238,8 @@
 							echo $this->form->input('vazio.vazio',array('label'=>'Qtd. Disponível:','id'=>'qtd_dispo_prod','Class'=>'tamanho-medio borderZero','onfocus'=>'this.blur();','readonly'=>'readonly'));
 							echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 							echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
-<<<<<<< HEAD
-							echo '<span id="msgQtdVazia1" class="Msg-tooltipDireita" style="display:none;left:250px;width: 150px;">Quantidade Disponível Insuficiente</span>';
-=======
+							//echo '<span id="msgQtdVazia1" class="Msg-tooltipDireita" style="display:none;left:250px;width: 150px;">Quantidade Disponível Insuficiente</span>';
 							echo '<span id="msgQtdIndisponivel" class="Msg-tooltipDireita" style="display:none;">Quantidade não disponível em estoque</span>';
->>>>>>> Glauber
 							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
 						?>
 					</section>

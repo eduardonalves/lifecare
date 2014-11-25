@@ -768,8 +768,9 @@ class PedidovendasController extends ComoperacaosController {
 		$this->loadModel('Cotacaovenda');
 		$this->loadModel('Dadoscredito');
 		$this->loadModel('Contato');
-		$id = $_GET['id'];
-		if ($this->request->is('GET')) {	
+		
+		
+		if ($this->request->is('Post')) {	
 		
 			$cotacaovenda =$this->Cotacaovenda->find('first',array('fields'=> 'Cotacaovenda.*','conditions' => array('Cotacaovenda.id' => $id)));
 			
@@ -780,14 +781,17 @@ class PedidovendasController extends ComoperacaosController {
 
 			$exitente= $this->Pedidovenda->find('first',array( 'fields'=> 'Pedidovenda.*','conditions' => array('Pedidovenda.codcotacao' => $id)));
 
-			$clienteId = $cotacaovenda['Parceirodenegocio'][0]['parceirodenegocio_id'];	
+			$clienteId = $cotacaovenda['Parceirodenegocio'][0]['id'];	
 			
 			$limiteCliente = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $clienteId), 'order' => array('Dadoscredito.id Desc')));
+			
 			$cotacaovenda['Cotacaovenda']['tipo']='PDVENDA';
 			$cotacaovenda['Cotacaovenda']['codcotacao']= $id;
 			$cotacaovenda['Cotacaovenda']['id']="";
+			
+			
 			if(empty($exitente)){
-
+				
 				if(empty($limiteCliente)){
 					$this->Session->setFlash(__('Erro, Este cliente não Possui Limite Cadastrado. Por favor cadastre um limite para este cliente'));
 				}else{
