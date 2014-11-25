@@ -58,8 +58,12 @@ $(document).ready(function() {
 	});		
 	
 	$('#bt-adicionarLote').click(function(){
-		if( $('#add-lote_saida option:selected').hasClass('inserido') || $('#add-lote_saida option:selected').val() == '' ){
-			alert('Insira um Lote Valido');
+		if($('#add-lote_saida option:selected').val() == '' ){
+			$('#msgLoteVazio').show();
+			//alert('Escolha um Lote');
+		}else if( $('#add-lote_saida option:selected').hasClass('inserido')){
+			$('#msgLoteInserido').show();
+			//alert('Insira um Lote Valido');
 			$('#add-lote_saida').val('');
 			$('#qtd_novoLote').val('');
 		}else{
@@ -68,7 +72,7 @@ $(document).ready(function() {
 			
 			if(qtd_novolote>0){
 				if(qtd_novolote > quantidadeFalta){
-					alert('Essa quantia é Superior a necessária.');
+					$('#msgLoteQtdSuperior').show();
 				}else{
 					quantidadeFalta = quantidadeFalta - qtd_novolote;
 								
@@ -101,13 +105,21 @@ $(document).ready(function() {
 					$('#add-lote_saida').val('');
 					$('#qtd_novoLote').val('');
 					$('#submitLotes').show();
+					$('.hideMsg').hide();
 					verifica++;	
 					
 				}
 			}else{
-				alert('Entre com um valor Maior que zero');
+				$('#msgLoteQtdVazio').show();
+				
+				//alert('Entre com um valor Maior que zero');
 			}		
 		}		
+	});
+	
+	
+	$('body').on('click','.hideMsg', function(){
+		$('.hideMsg').hide();
 	});
 	
 	$('body').on('click','.btnRemoveLote', function(){		
@@ -149,6 +161,8 @@ $(document).ready(function() {
 	?>
 	<section>
 		<div class="input autocompleteLote">
+			<span id="msgLoteVazio" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Selecione um Lote.</span>
+			<span id="msgLoteInserido" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Esse Lote Já foi Utilizado.</span>
 			<label>Pesquisar Lote<span class="campo-obrigatorio">*</span>:</label>
 			<select class="tamanho-medio" id="add-lote_saida">
 				<option id="optvazioForn"></option>
@@ -170,6 +184,8 @@ $(document).ready(function() {
 			</select>
 		</div>
 		
+		<span id="msgLoteQtdVazio" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Entre com um valor maior que zero.</span>
+		<span id="msgLoteQtdSuperior" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Essa quantia é Superior a necessária.</span>
 		<?php
 			echo $this->Form->input('putQtd',array('label'=>'Quantidade do Lote:','id'=>'qtd_novoLote','class'=>'naoLetras tamanho-pequeno'));
 			echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar Lote','title'=>'Adicionar Lote','class'=>'bt_preencher','id'=>'bt-adicionarLote'));
