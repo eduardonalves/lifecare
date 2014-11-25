@@ -50,12 +50,12 @@ $(document).ready(function(){
 				$('#qtdefalta').val(falta);
 			});
 		}else{
-			alert('Valor Maior que a Quantidade no Estoque.');
+			$('#msgQtdMaior'+nid).show();
+			//alert('Quantidade Inserida maior que a Quantidade no Estoque.');
 		}
 				
 	});
 		
 	//lote_venda
-		
 
 });

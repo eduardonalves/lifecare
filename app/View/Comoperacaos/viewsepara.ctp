@@ -168,6 +168,7 @@
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
 													<td class="td-status-com-<?php echo $lote['Comlotesoperacao']['id']; ?>"></td>
 													<td>
+														<span id="msgQtdMaior<?php echo $j;?>" class="Msg-tooltipDireita msgAviso hideMsg" style="display:none;">Quantidade Inserida maior que a Quantidade no Estoque.</span>
 														<?php
 															
 															echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));

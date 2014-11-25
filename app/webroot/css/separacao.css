@@ -1,6 +1,44 @@
 @charset "utf-8";
 
+/* Avisos*/
 
+#msgLoteQtdVazio, #msgLoteQtdSuperior{
+	margin: -40px 160px 0px !important;
+}
+
+#msgLoteQtdVazio:after, #msgLoteQtdSuperior:after{
+	border-color: #ffd5d5 transparent transparent transparent;
+	left: 60px;
+	top: 36px !important;
+
+}
+
+.loteVazioInserido{
+	margin: -30px 180px 0px !important;
+}
+
+.loteVazioInserido:after{
+	top:20px !important;
+}
+
+.msgAviso{
+	background-color: #ffd5d5;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	color: #d40000;
+	display: block;
+	font-size: 13px;
+	padding: 3px;
+	position: absolute;
+	text-align: center;
+	margin: -50px 60px 0px;
+	width: 200px;
+}
+.msgAviso:after{
+	border-color: #ffd5d5 transparent transparent transparent;
+	left: 60px;
+	top: 36px;
+}
 /* MODAIS*/
 
 .orglotes,.cancelCompleta{
@@ -14,9 +52,7 @@
 }
 
 label[for*='encontrada']{
-/*
-	display: none;
-*/
+	width: 100px !important;
 }
 
 .loaderAjaxCarregarLoteDIV{
@@ -68,7 +104,7 @@ label[for*='encontrada']{
 }
 
 .tabela-simples thead tr td{
-	width: 100px;
+	width: 80px;
 	border: 1px solid rgb(120, 123, 120);
 }
 
