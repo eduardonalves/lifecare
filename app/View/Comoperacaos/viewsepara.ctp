@@ -17,11 +17,10 @@
 				
 				var $id = $(this).attr('data-lotesoperacao-id');
 				
-				
 				$.ajax({
 					url: "http://localhost/lifecare/Comoperacaos/checkLote/"+$id,
 					}).done(function($data) {
-						console.log($data);
+						
 						$('.td-status-com-' + $id).html($data);
 						$('.valorseparado').html('Separado');
 						

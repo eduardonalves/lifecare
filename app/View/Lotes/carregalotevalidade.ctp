@@ -21,17 +21,21 @@ $(document).ready(function() {
 	$('#submitLotes').on('click', function(){
 		$('#submitLotes').hide();
 		var $fields = $('#formHiddenTrocaLote').serialize();
-		var $url = '<?php echo Router::url(array('controller'=>'comoperacaos', 'action'=>'checkLoteRestante'), true); ?>/';
+		var $url = '<?php echo Router::url(array('controller'=>'Comoperacaos', 'action'=>'checkLoteRestante'), true); ?>/';
 
 		$.post($url, $fields, function($data){
 			
-			$('.tabela-simples tbody').html($data);
+			$code = $data.substr($data.search('<tr class="ilote">'));
+			
+			$('.tabela-simples tbody').html('');
+			$('.tabela-simples tbody').html($code);
+
 			$('#myModal_add-troca_lote').modal('hide');
+
 		}).fail(function(data, data1, data2) {
 			$('#submitLotes').show();
 			
 			alert('Erro ao checar lote.');
-			console.log(data);
 			
 		});
 		

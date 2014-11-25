@@ -1,9 +1,10 @@
 <?php
 $lotes = $resposta;
+$j = 0;
 foreach($lotes as $lote){
-	$j = 0;
+	
 	?>
-												<tr>
+												<tr class="ilote">
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
 													<td class="td-status-com-<?php echo $lote['Comlotesoperacao']['id']; ?>"></td>
@@ -16,7 +17,7 @@ foreach($lotes as $lote){
 																echo $this->Form->input('vazio.qtd_encontrada',array('label'=>'Qtd. Encontrada:','id'=>'encontradaInput'.$j,'class'=>'q-ip tamanho-pequeno qtdEncontrada'));
 
 																echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
-																	echo $this->Html->image('bt-ok.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$itens['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																	echo $this->Html->image('bt-ok.png',array('alt'=>'Organizar Lotes','data-produtoId'=>$lote['Comitensdaoperacao']['produto_id'],'class' => 'orglotes img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
 																echo "</a>";
 
 																echo $this->Html->image('bt-XLote.png',array('alt'=>'Cancelar','class' => 'cancelCompleta','id'=>'cancelCompleta'.$j,'title'=>'Cancelar'));
