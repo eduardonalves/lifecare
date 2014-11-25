@@ -726,7 +726,7 @@ class ComoperacaosController extends AppController {
 	            'status_operacao' => array(
 	                'Comoperacao.status' => array(
 	                    'operator' => 'LIKE',
-	               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+	               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'EXPIRADO' => 'EXPIRADO','ENTREGUE'=>'ENTREGUE')
 					)
 	            ),
 	            'forma_pagamento' => array(

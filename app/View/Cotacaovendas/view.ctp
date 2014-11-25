@@ -530,7 +530,7 @@
 																											
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Cotação:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$cotacaovenda['Cotacaovenda']['valor'],array('class'=>'valor'));?>	</div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($cotacaovenda['Cotacaovenda']['valor']),array('class'=>'valor'));?>	</div>
 															</div>
 													
 															
