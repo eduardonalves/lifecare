@@ -643,7 +643,7 @@ class ComoperacaosController extends AppController {
 		$this->loadModel('Categoria');
 		$this->loadModel('Produto');
 		
-		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR') ));
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'CLIENTE') ));
 		
 		
 		$listaParceiros = array();
@@ -726,7 +726,10 @@ class ComoperacaosController extends AppController {
 	            'status_operacao' => array(
 	                'Comoperacao.status' => array(
 	                    'operator' => 'LIKE',
-	               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'EXPIRADO' => 'EXPIRADO','ENTREGUE'=>'ENTREGUE')
+
+	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+	               		'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADA' => 'FECHADA')
+
 					)
 	            ),
 	            'forma_pagamento' => array(
@@ -874,7 +877,7 @@ class ComoperacaosController extends AppController {
 				            'status_operacao' => array(
 				                '_Comoperacao.status' => array(
 				                    'operator' => 'LIKE',
-				               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO')
+				               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADA' => 'FECHADA')
 								)
 				            ),
 				            'forma_pagamento' => array(
@@ -956,7 +959,9 @@ class ComoperacaosController extends AppController {
 					$this->set(compact('produtos', 'cntProdutos','parceiroSelect'));
 						
 				
-				}elseif($_GET['parametro'] == 'fornecedores'){
+				}elseif($_GET['parametro'] == 'clientes'){
+
+					
 					$this->Filter->addFilters(
 					array(
 						
@@ -1018,7 +1023,7 @@ class ComoperacaosController extends AppController {
 			            'status_operacao' => array(
 			                '_Comoperacao.status' => array(
 			                    'operator' => 'LIKE',
-			               		 'select' => array('' => '','ABERTO' => 'Aberto', 'FECHADO' => 'Fechado', 'RESPONDIDO' => 'Respondido')
+			               		 'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADA' => 'FECHADA')
 							)
 			            ),
 			            'forma_pagamento' => array(
@@ -1073,6 +1078,13 @@ class ComoperacaosController extends AppController {
 				        )
 					);
 					
+					$conditiosAux= $this->Filter->getConditions();
+				
+					if(empty($conditiosAux)){
+				
+						$this->request->data['filter']['tipoOperacao']="PDVENDA CTVENDA";
+					}
+
 					$this->loadModel('Parceirodenegocio');
 					
 					

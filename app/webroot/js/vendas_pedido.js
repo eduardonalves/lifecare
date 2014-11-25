@@ -243,8 +243,15 @@ $(document).ready(function() {
 			$('#msgValidaProduto').show();
 		}else if($("#produtoQtd").val() == ''){
 			$('#msgQtdVazia').show();
+/*
 		}else if($("#produtoQtd").val() > $("#qtd_dispo_prod").val()){
 			$('#msgQtdVazia1').show();
+*/
+		}else if (parseInt($("#add-produtos option:selected" ).attr('data-quantidade-valida')) < parseInt($("#produtoQtd").val())) {
+
+			$('#msgQtdIndisponivel').show();
+
+>>>>>>> Glauber
 		}else{
 			valorNome = $("#add-produtos option:selected" ).attr('data-nome');
 			valorId = $("#add-produtos option:selected" ).attr('id');

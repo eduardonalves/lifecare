@@ -63,7 +63,7 @@
 		
 		<section class="coluna-direita">
 			<?php
-				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
+				echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'Nao-Letras confirmaInput tamanho-pequeno prazo-pagamento','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
 			?>
 		</section>
 	
@@ -80,6 +80,33 @@
 				<div class="input autocompleteVendedor">
 					<label>Pesquisar Vendedor<span class="campo-obrigatorio">*</span>:</label>
 					<select class="tamanho-medio" id="add-vendedor">
+						<?php
+
+						if ( count($allVendedores) == 1 ){
+
+							echo "<option id='".$allVendedores[0]['Vendedor']['nome']."' value='".$allVendedores[0]['Vendedor']['id']."' >";
+							echo $allVendedores[0]['Vendedor']['nome'];
+							echo "</option>";
+							echo "</select>";
+						?>
+						<script>
+						
+							$(window).load( function(){
+								
+								$("#add-vendedor").trigger('change');
+								$('#bt-preencherVendedor').trigger('click');	
+								$('.autocompleteVendedor').css('display','none');
+								$('#bt-preencherVendedor').css('display','none');
+								$('.inputFalsa').css('margin-left','-70px');
+								$('.inputFalsa').css('margin-top','10px');
+								
+							});
+						
+						</script>
+						
+						<?php
+						}else{
+						?>
 						<option id="optvazioForn"></option>
 						<?php
 							foreach($allVendedores as $vendedor){
@@ -87,8 +114,9 @@
 								echo $vendedor['Vendedor']['nome'];
 								echo "</option>";
 							}
+							echo "</select>";
+						}
 						?>
-					</select>
 				</div>
 			</section>
 			<section class="coluna-central">
@@ -217,7 +245,7 @@
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
-						<input type="hidden" id="totalProdutoHide"/>
+						<input name="data[Cotacaovenda][valor]" type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
 			</section>
 		
