@@ -299,28 +299,29 @@ class ProdutosController extends AppController {
 			App::uses('Folder', 'Utility');
 			App::uses('File', 'Utility');
 			App::uses('Xml', 'Utility');
-			
+
 			require APP . 'Vendor' . DS . 'PHPExcel_1.8.0/Classes/PHPExcel.php';
 
 			if ( ! ( isset($this->request->data['planilha']) && $this->request->data['planilha'] != '') ){
-				
+
 				$this->Session->setFlash(__('Selecione um arquivo de planilha.'), 'default', array('class' => 'error-flash'));
+
 				return false;
 
 			}
-			
+
 			$filename = APP . 'uploads' . DS . 'planilhasFgv' . DS . $this->request->data['planilha'];
 
 			if (move_uploaded_file($this->request->params['form']['doc_xls']['tmp_name'],$filename)){
-				
+
 				try {
-					
+
 					if (! strstr($this->request->params['form']['doc_xls']['type'], 'excel'))  {
-						
+
 						throw new Exception('Tipo de arquivo inválido.');
-						
+
 					}
-				
+
 					$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
 					$cacheSettings = array( 'memoryCacheSize' => '10GB');
 
@@ -335,7 +336,9 @@ class ProdutosController extends AppController {
 				} catch (Exception $e) {
 					
 					$this->Session->setFlash(__('Erro ao carregar. Certifique-se de que enviou um xls válido.'), 'default', array('class' => 'error-flash'));
+
 					unlink($filename);
+
 					return false;
 					
 				}
@@ -344,29 +347,33 @@ class ProdutosController extends AppController {
 
 					$codigo = utf8_decode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $linha)->getValue());
 					$valor = utf8_decode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $linha)->getValue());
-						
+
 					if ( $codigo != '' && $codigo != 0){
-							
+
 						$produtoId = $this->Produto->find('first', array('conditions' => array('Produto.codigoFGV' => $codigo), 'order' => array('Produto.codigoFGV' => 'desc'), 'recursive' => -1));
-						
+
 						if ( count($produtoId) > 0 ){
 
 							$produtoId['Produto']['precoFGV'] = $valor;
-							
+
 							$this->Produto->save($produtoId);
+
 						}
-					
+
 					}
-						
+
 				}
-				
+
 				$this->Session->setFlash(__('Dados FGV atualizados com sucesso.'), 'default', array('class' => 'success-flash'));
+
 				unlink($filename);
 
 			} else {
-				
+
 				$this->Session->setFlash(__('Erro ao fazer upload de planilha.'), 'default', array('class' => 'error-flash'));
+
 				unlink($filename);
+
 			}
 	}
 }
