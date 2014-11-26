@@ -463,9 +463,9 @@ class SaidasController extends NotasController {
 	public function uploadxml_saida(){
 	}
 	
-	public function tiradaReserva(){
+	public function tiradaReserva(&$idSaida){
 		
-		$idSaida = $_GET['pedido'];	
+		
 		$this->loadModel('Pedidovenda');
 		$this->loadModel('Comitensdaoperacao');
 		$this->loadModel('Comlotesoperacao');

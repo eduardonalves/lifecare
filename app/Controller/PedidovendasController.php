@@ -759,7 +759,7 @@ class PedidovendasController extends ComoperacaosController {
 		$lote = $this->Lote->find('first',array('recursive'=> -1,'conditions' => array('Lote.id' => $lote_id)));
 		$reservaLote =  $lote['Lote']['reserva'] - $qtde;
 		
-		$dispLote = $lote['Lote']['estoque'] + $reservaLote;
+		$dispLote = $lote['Lote']['estoque'] - $reservaLote;
 		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
 		$this->Lote->save($updateLote);
 		

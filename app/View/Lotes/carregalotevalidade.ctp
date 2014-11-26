@@ -31,6 +31,7 @@ $(document).ready(function() {
 			$('.tabela-simples tbody').html($code);
 
 			$('#myModal_add-troca_lote').modal('hide');
+			location.reload();
 
 		}).fail(function(data, data1, data2) {
 			$('#submitLotes').show();
