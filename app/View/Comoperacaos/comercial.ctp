@@ -81,7 +81,7 @@
 							'type' => 'select',
 							'class' => 'operacao',
 							'multiple' => 'checkbox',
-							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Pedido'),
+							'options' => array('COTACAO' => 'Cotação', 'PEDIDO' => 'Venda'),
 							'style' => 'float:left',
 						));
 						echo $this->Search->input('tipoOperacao', array('type' => 'hidden'));

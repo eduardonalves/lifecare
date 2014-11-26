@@ -228,9 +228,10 @@
 		<section class="coluna-direita" style="float: left;">
 			<?php
 				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','class'=>'tamanho-medio borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_faturamento',array('label'=>'Status Faturamento:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_faturamento'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.status_estoque',array('type'=>'text','label'=>'Status Estoque:','class'=>'tamanho-medio desabilita borderZero', 'value'=>$pedidovenda['Pedidovenda']['status_estoque'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
 			?>
 
 		</section>
@@ -523,14 +524,21 @@
 															</div>
 															
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Status Estoque:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_estoque'],array('class'=>'valor'));?>	</div>
+																<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status'],array('class'=>'valor'));?>	</div>
+															</div>	
+															
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Financeiro:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_financeiro'],array('class'=>'valor'));?>	</div>
 															</div>
 															
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Status Gerencial:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_gerencial'],array('class'=>'valor'));?>	</div>
-															</div>												
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Faturamento:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_faturamento'],array('class'=>'valor'));?>	</div>
+															</div>
+															
+																									
 					
 													</div>													
 											</section>
@@ -548,15 +556,15 @@
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($pedidovenda['Pedidovenda']['valor']),array('class'=>'valor'));?>	</div>
 															</div>
-															
 															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Status Financeiro:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_financeiro'],array('class'=>'valor'));?>	</div>
-															</div>
-															<div class="conteudo-linha">
-																<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status'],array('class'=>'valor'));?>	</div>
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Gerencial:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_gerencial'],array('class'=>'valor'));?>	</div>
 															</div>		
+															<div class="conteudo-linha">
+																<div class="linha"><?php echo $this->Html->Tag('p','Status Estoque:',array('class'=>'titulo'));?></div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_estoque'],array('class'=>'valor'));?>	</div>
+															</div>
+															
 																													
 													</div>
 											</section>
