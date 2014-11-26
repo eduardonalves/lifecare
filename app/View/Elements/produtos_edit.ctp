@@ -127,6 +127,7 @@
 				<br />
 				<?php
 					echo $this->Form->input('Produto.corredor', array('class'=>'mascara_umaLetra tamanho-pequeno', 'label'=>'Corredor:','type'=>'text','value'=>$produto['Produto']['corredor'] ));
+					echo $this->Form->input('Produto.codigoFGV', array('class'=>'tamanho-pequeno', 'label'=>'Código FGV:','type'=>'text','value'=>$produto['Produto']['codigoFGV']));
 					echo $this->Form->input('Produto.precoFGV', array('class'=>'dinheiro_duasCasas tamanho-pequeno', 'label'=>'Preço FGV:','type'=>'text','value'=>$produto['Produto']['precoFGV']));
 				?>
 

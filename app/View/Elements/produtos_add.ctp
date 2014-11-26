@@ -185,6 +185,7 @@
 				echo $this->Form->input('Produto.principioAtivo',array('class'=>'tamanho-medio',  'label' => 'Princípio Ativo: ', 'maxlength' => '1000','tabindex'=>'5'));
 				echo $this->Form->input('Produto.dosagem',array('class'=>'tamanho-pequeno',  'label' => 'Dosagem: ', 'maxlength' => '1000','tabindex'=>'5'));			
 				echo $this->Form->input('Produto.corredor',array('class'=>'tamanho-pequeno mascara_umaLetra',  'label' => 'Corredor: ', 'maxlength' => '1','tabindex'=>'5'));			
+				echo $this->Form->input('Produto.codigoFGV',array('class'=>'tamanho-pequeno',  'label' => 'Código FGV: ','tabindex'=>'5'));			
 				echo $this->Form->input('Produto.precoFGV',array('class'=>'tamanho-pequeno dinheiro',  'label' => 'Preço FGV: ','tabindex'=>'5'));			
 			?>
 
