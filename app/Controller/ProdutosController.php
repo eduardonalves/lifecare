@@ -291,7 +291,7 @@ class ProdutosController extends AppController {
 
 
 	public function fgvupload(){
-		
+		$this->loadModel('Produto');
 		$this->layout = 'compras';
 
 		if ($this->request->is('post')) {
@@ -309,8 +309,10 @@ class ProdutosController extends AppController {
 				return false;
 
 			}
-
-			$filename = APP . 'uploads' . DS . 'planilhasFgv' . DS . $this->request->data['planilha'];
+			$file = explode('\\', $this->request->data['planilha']);
+			$file = $file[count($file)-1];
+			
+			$filename = APP . 'uploads' . DS . 'planilhasFgv' . DS . $file;
 
 			if (move_uploaded_file($this->request->params['form']['doc_xls']['tmp_name'],$filename)){
 
@@ -349,14 +351,12 @@ class ProdutosController extends AppController {
 					$valor = utf8_decode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $linha)->getValue());
 
 					if ( $codigo != '' && $codigo != 0){
-
-						$produtoId = $this->Produto->find('first', array('conditions' => array('Produto.codigoFGV' => $codigo), 'order' => array('Produto.codigoFGV' => 'desc'), 'recursive' => -1));
+						
+						$produtoId = $this->Produto->find('first', array('fields'=>array('Produto.*'),'conditions' => array('Produto.codigofgv' => $codigo), 'order' => array('Produto.codigoFGV' => 'desc'), 'recursive' => -1));
 
 						if ( count($produtoId) > 0 ){
 
-							$produtoId['Produto']['precoFGV'] = $valor;
-
-							$this->Produto->save($produtoId);
+							$this->Produto->query("update produtos set precofgv='$valor' where id='" . $produtoId['Produto']['id'] . "'");
 
 						}
 
