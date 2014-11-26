@@ -176,7 +176,7 @@ class ProdutosController extends AppController {
 			throw new NotFoundException(__('Produto Inválido.'), 'default', array('class' => 'error-flash'));
 		}
 		
-		$options = array('conditions' => array('Produto.' . $this->Produto->primaryKey => $id), 'recursive'=>1);
+		$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id), 'recursive'=>1);
 		
 		$this->request->data = $this->Produto->find('first', $options);
 		
@@ -409,7 +409,7 @@ class ProdutosController extends AppController {
 					$entradas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'ENTRADA')))));
 					$saidas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'Saida')))));
 					$estoque = $entradas[0]['Produtoiten']['qtde_estoque'] - $saidas[0]['Produtoiten']['qtde_estoque'];
-					$estoque =$entradas-$saidas;
+					$estoque = (float) $entradas - (float) $saidas;
 					
 					if($estoque >= $produto['Produto']['estoque_desejado']){
 						$nivel='VERDE';
@@ -504,7 +504,7 @@ class ProdutosController extends AppController {
 						$entradas = $entradas + $qtdeEntrada;
 					}
 					
-					$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
+					$produtoItensSaidas= $this->Produtoiten->find('all', array('fields'=>array('Produto.*'),'conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
 					$saidas=0;
 					foreach ($produtoItensSaidas as $produtoItenSaida){
 						$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
@@ -579,9 +579,9 @@ class ProdutosController extends AppController {
 				$this->Session->setFlash(__('Não foi possível salvar as alterações. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
-			$options = array('conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
+			$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
 			$this->request->data = $this->Produto->find('first', $options);
-			$options = array('conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
+			$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
 			$this->set('produto', $this->Produto->find('first', $options));
 		}
 		
@@ -589,8 +589,9 @@ class ProdutosController extends AppController {
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 
 		$tributos = $this->Produto->Tributo->find('list');
-		$options = array('conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
+		$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
 		$this->set('produto', $this->Produto->find('first', $options));
+		
 		//carregamos todos os lotes do produto e limitamos a 5
 		$this->loadModel('Lote');
 		$lotes = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'limit' => 5, 'recursive' => 1, 'order' => 'Lote.id DESC'));
@@ -606,11 +607,12 @@ class ProdutosController extends AppController {
 		
 		$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $id, 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
 		$saidas=0;
+		
 		foreach ($produtoItensSaidas as $produtoItenSaida){
 			$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
 			$saidas=$saidas + $qtdeSaida;
 		}
-		$estoque =$entradas-$saidas;
+		$estoque = $entradas - $saidas;
 		
 		
 		$this->loadModel('Tributo');
@@ -620,9 +622,7 @@ class ProdutosController extends AppController {
 		//foreach($lotes as $lote){
 			
 		//}
-		
 
-		
 		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
 		
 		//$this->set(compact('categorias', 'tributos'));

@@ -90,15 +90,13 @@
 						?>
 						<script>
 						
-							$(window).load( function(){
-								
+							$(window).load( function(){								
 								$("#add-vendedor").trigger('change');
 								$('#bt-preencherVendedor').trigger('click');	
 								$('.autocompleteVendedor').css('display','none');
 								$('#bt-preencherVendedor').css('display','none');
-								$('.inputFalsa').css('margin-left','-70px');
-								$('.inputFalsa').css('margin-top','10px');
-								
+								$('.vendedorNome').css('margin-left','-70px');
+								$('.vendedorNome').css('margin-top','10px');								
 							});
 						
 						</script>
@@ -121,7 +119,7 @@
 			</section>
 			<section class="coluna-central">
 				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencherVendedor')); ?>
-				<div class="inputFalsa">	
+				<div class="inputFalsa vendedorNome">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
 				</div>
