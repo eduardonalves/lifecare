@@ -168,6 +168,11 @@
 					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Produto']['corredor'],array('class'=>'valor'));?></div>
 				</div>	
 				
+				<div class="conteudo-linha">	
+					<div class="linha"><?php echo $this->Html->Tag('p','Preço FGV:',array('class'=>'titulo')); ?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p', converterMoeda($produto['Produto']['precoFGV']),array('class'=>'valor'));?></div>
+				</div>	
+				
 			</div>					
 		</div>	
 	</section>
@@ -367,5 +372,3 @@
 		}
 	?>
 </footer>
-
-
