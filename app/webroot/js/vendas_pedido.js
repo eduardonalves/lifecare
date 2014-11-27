@@ -168,6 +168,25 @@ $(document).ready(function() {
     $(function(){
 		$("#add-produtos").combobox();
 	});
+	
+	var bloqueia = function(){
+		 $('#add-produtos option').each(function(){
+			status = $(this).attr('data-bloq');
+			texto = $(this).text();
+			if(status == "bloqueado"){
+				$('#ui-id-3 li a').each(function(){
+					if($(this).text() == texto){
+						$(this).css('background','#ccc');
+						$(this).addClass('bloqueado');
+					}
+				});
+			}
+		});
+	};
+
+	$('body').on('click','.autocompleteProduto .custom-combobox-toggle',function(){
+		bloqueia();
+	});
 
 /**************** Modal Produtos *****************/
     $('body').on('click', '#ui-id-3 a',function(){
@@ -175,10 +194,13 @@ $(document).ready(function() {
 		if(valorCad=="Cadastrar"){
 		    $(".autocompleteProduto input").val('');
 		    $("#myModal_add-produtos").modal('show');
+		}else if($(this).hasClass('bloqueado')){
+			alert('Produto Bloqueado!');
+			$(".autocompleteProduto input").val('');			
 		}else{
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorVenda = $("#add-produtos option:selected" ).attr('data-preVenda');
-			$("#produtoValor").val(float2moeda(valorVenda));
+			$("#valorNormal").val(float2moeda(valorVenda));
 			$('#produtoUnid').val(valorUnid);			
 
 			if($("#add-produtos option:selected" ).attr('data-estoque') != ''){
@@ -259,90 +281,99 @@ $(document).ready(function() {
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();	
 			valorUnit = $("#produtoValor").val();		
-							
-			//CALCULA O VALOR TOTAL 
-			valorTotal = 0;
-			if($("#produtoValor").val() != ''){
-				qtd = parseInt(valorQtd);
-				valor = $("#produtoValor").val().split('.').join('').replace(',','.');
-				valor = parseFloat(valor);
-				valorTotal = valor*qtd;
-				valorMoeda = float2moeda(valorTotal);
-				valorUnit = float2moeda(parseFloat(valorUnit));
-				
-				if($('#creditoClienteHide').val() != ''){
-					var credito = calculaCredito(valorTotal,parseFloat($('#creditoClienteHide').val()));
-					insereCredito(credito);
+			
+			valorNormal = $("#valorNormal").val().split('.').join('').replace(',','.');	
+			valorVenda = $("#produtoValor").val().split('.').join('').replace(',','.');
+			
+			if(valorVenda == '' || valorVenda == undefined){
+				$('#spanVendaMenor2').show();
+			}else if(valorVenda < valorNormal){
+				$('#spanVendaMenor').show();
+			}else{				
+				//CALCULA O VALOR TOTAL 
+				valorTotal = 0;
+				if($("#produtoValor").val() != ''){
+					qtd = parseInt(valorQtd);
+					valor = $("#produtoValor").val().split('.').join('').replace(',','.');
+					valor = parseFloat(valor);
+					valorTotal = valor*qtd;
+					valorMoeda = float2moeda(valorTotal);
+					valorUnit = float2moeda(parseFloat(valorUnit));
+					
+					if($('#creditoClienteHide').val() != ''){
+						var credito = calculaCredito(valorTotal,parseFloat($('#creditoClienteHide').val()));
+						insereCredito(credito);
+					}else{
+						$("#totalProdutoHide").val(valorTotal);		
+						$("#totalProduto").val(valorTotal);	
+						$("#totalProduto").priceFormat({
+							allowNegative: true,
+							prefix: 'R$ ',
+							centsSeparator: ',',
+							thousandsSeparator: '.',
+							limit: 15
+						});		
+					}
+					
 				}else{
-					$("#totalProdutoHide").val(valorTotal);		
-					$("#totalProduto").val(valorTotal);	
-					$("#totalProduto").priceFormat({
-						allowNegative: true,
-						prefix: 'R$ ',
-						centsSeparator: ',',
-						thousandsSeparator: '.',
-						limit: 15
-					});		
+					valorMoeda = '0,00';
+					valorUnit = '0,00';
+					valorTotal = '0,00';
 				}
 				
-			}else{
-				valorMoeda = '0,00';
-				valorUnit = '0,00';
-				valorTotal = '0,00';
-			}
-			
-			
-			
-			//Adiciona os valores na tabela pra visualização
-			$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
-					\
-					<td class="whiteSpace">\
-							<span title="'+valorNome+'">'+valorNome+'</span>\
-							\<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
-						\
-					</td>\
-					\
-					<td>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
-					\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
-					</td>\
-					\
-					\<td>'+valorUnid+'</td>\
-					<td>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
-					\</td>\
-					<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
-						<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
-					</td>\
-					<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
-					\
-					<td class="confirma">\
-						<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
-						<img title="Editar" alt="Editar" src="/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
-						<img title="Confirmar" alt="Confirmar" src="/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
-						<img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
-					</td>\
-				</tr>');
 				
-			$("#vU"+in_produto).priceFormat({
-				prefix: '',
-				centsSeparator: ',',
-				thousandsSeparator: '.',
-				limit: 15
-			});	
-			
-			//Limpa as Input's
-			$("#add-produtos").val('');
-			$(".autocompleteProduto input").val('');
-			$("#produtoUnit").val('');
-			$("#produtoQtd").val('').removeAttr('required');
-			$("#produtoObs").val('');	
-			$('#produtoUnid').val('');
-			$("#produtoValor").val('')
-			in_produto++;
-			
-			calculaTotal('TotalPedido');
-			calculaDesconto($('#totalProdutoHide').val(),$('#valorDesconto').val(),'#spanMensagemDescontoFocus');
+				
+				//Adiciona os valores na tabela pra visualização
+				$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
+						\
+						<td class="whiteSpace">\
+								<span title="'+valorNome+'">'+valorNome+'</span>\
+								\<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
+							\
+						</td>\
+						\
+						<td>\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
+						</td>\
+						\
+						\<td>'+valorUnid+'</td>\
+						<td>\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						\</td>\
+						<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+						</td>\
+						<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
+						\
+						<td class="confirma">\
+							<span id="spanStatus'+in_produto+'" class="fechado" style="display:none;"></span>\
+							<img title="Editar" alt="Editar" src="/app/webroot/img/botao-tabela-editar.png" id="editi'+in_produto+'" class="btnEditi" />\
+							<img title="Confirmar" alt="Confirmar" src="/app/webroot/img/bt-confirm.png" id="confir'+in_produto+'" class="btnConfirm" style="display:none;"  />\
+							<img title="Remover" alt="Remover" src="/app/webroot/img/lixeira.png" id="excluirP_'+in_produto+'" class="btnRemoveProdu"/>\
+						</td>\
+					</tr>');
+					
+				$("#vU"+in_produto).priceFormat({
+					prefix: '',
+					centsSeparator: ',',
+					thousandsSeparator: '.',
+					limit: 15
+				});	
+				
+				//Limpa as Input's
+				$("#add-produtos").val('');
+				$(".autocompleteProduto input").val('');
+				$("#produtoUnit").val('');
+				$("#produtoQtd").val('').removeAttr('required');
+				$("#produtoObs").val('');	
+				$('#produtoUnid').val('');
+				$("#produtoValor").val('')
+				in_produto++;
+				
+				calculaTotal('TotalPedido');
+				calculaDesconto($('#totalProdutoHide').val(),$('#valorDesconto').val(),'#spanMensagemDescontoFocus');
+			}
 		}
 	});
 
@@ -564,29 +595,5 @@ $(document).ready(function() {
 		}else{
 			$('#spanValTotal'+nId).text("R$ 0,00");
 		}		
-		
-	});
-	
+	});	
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

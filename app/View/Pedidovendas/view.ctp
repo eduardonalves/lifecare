@@ -243,7 +243,8 @@
 						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
-						<th>Valor Unitário</th>									
+						<th>Valor Produto</th>									
+						<th>Valor Venda</th>									
 						<th>Valor Total</th>									
 						<th>Observação</th>									
 					</thead>
@@ -253,6 +254,9 @@
 							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 							echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+							echo '<td>';
+								echo converterMoeda($produtos['Produto']['preco_venda']);
+							echo '</td>';
 							echo '<td>';
 								echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 							echo '</td>';
@@ -575,7 +579,8 @@
 															<th>Nome do Produto</th>
 															<th>Quantidade</th>
 															<th>Unidade</th>
-															<th>Valor Unitário</th>
+															<th>Valor Produto</th>
+															<th>Valor Venda</th>
 															<th>Valor Total</th>
 															<th>Observação</th>
 														</thead>
@@ -585,6 +590,9 @@
 																echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 																echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 																echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Produto']['preco_venda']);
+																echo '</td>';
 																echo '<td>';
 																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 																echo '</td>';
