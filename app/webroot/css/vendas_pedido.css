@@ -103,8 +103,8 @@ input[type="text"]:disabled{
 }
 
 .bt-addItens_Pedido{
-	margin-top: -26px;
-	margin-left: 190px;
+	margin-top: -27px;
+	margin-left: 180px;
 	position:absolute;
 	z-index: 1;
 }

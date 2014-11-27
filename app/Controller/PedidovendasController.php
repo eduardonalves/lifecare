@@ -359,6 +359,8 @@ class PedidovendasController extends ComoperacaosController {
 		$this->layout = 'venda';
 		$userid = $this->Session->read('Auth.User.id');
 		$this->loadUnidade();
+		$this->loadModel('User');
+		$usuario = $this->User->find('first',array('conditions'=>array('User.id'=>$userid)));
 		$this->loadModel('Contato');
 		$this->loadModel('Produto');
 		$this->loadModel('ProdutosParceirodenegocio');
@@ -491,7 +493,7 @@ class PedidovendasController extends ComoperacaosController {
 
 
 		$users = $this->Pedidovenda->User->find('list');
-		$this->set(compact('users','produtos','parceirodenegocios','userid','allCategorias','categorias','allVendedores','allClientes','modulo'));
+		$this->set(compact('usuario','users','produtos','parceirodenegocios','userid','allCategorias','categorias','allVendedores','allClientes','modulo'));
 	}
 
 

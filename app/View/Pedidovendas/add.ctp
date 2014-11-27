@@ -210,12 +210,21 @@
 									<?php
 										foreach($produtos as $produto)
 										{
+											if($produto['Produto']['bloqueado'] != 1){
+												$quantidadeValida = (int) $produto['Produto']['estoque'] - (int) $produto['Produto']['reserva'];
+												echo "<option id='".$produto['Produto']['id']."' data-bloq='liberado' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."' data-quantidade-valida='". $quantidadeValida ."'>";
 
-											$quantidadeValida = (int) $produto['Produto']['estoque'] - (int) $produto['Produto']['reserva'];
-											echo "<option id='".$produto['Produto']['id']."' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."' data-quantidade-valida='". $quantidadeValida ."'>";
-
-											echo $produto['Produto']['nome'];
-											echo "</option>";
+												echo $produto['Produto']['nome'];
+												echo "</option>";
+												
+											}else{
+												
+												$quantidadeValida = (int) $produto['Produto']['estoque'] - (int) $produto['Produto']['reserva'];
+												echo "<option  id='".$produto['Produto']['id']."' data-bloq='bloqueado' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."' data-quantidade-valida='". $quantidadeValida ."'>";
+													echo $produto['Produto']['nome'] . "  (BLOQUEADO)";
+												echo "</option>";
+												
+											}
 										}
 									?>
 
@@ -231,6 +240,7 @@
 						?>			
 					
 						<?php	
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Produto:','id'=>'valorNormal','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
 							echo $this->form->input('vazio.vazio',array('label'=>'Qtd. Disponível:','id'=>'qtd_dispo_prod','Class'=>'tamanho-medio borderZero','onfocus'=>'this.blur();','readonly'=>'readonly'));
 							echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
 							echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
@@ -244,7 +254,9 @@
 					<section class="coluna-central">
 						<div class="confirma">
 							<?php								
-								echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
+								echo $this->Form->input('vazio.vazio',array('label'=>'Valor Venda:','id'=>'produtoValor','class'=>'confirmaInput dinheiro_duasCasas confirma tamanho-pequeno','type'=>'text','maxlength'=>'15'));	
+								echo '<span id="spanVendaMenor" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 170px;z-index: 99999;">Valor da Venda não pode ser menor que o valor Normal</span>';
+								echo '<span id="spanVendaMenor2" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 110px;z-index: 99999;">Preencha o Valor da Venda</span>';
 								echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 							?>
 						</div>
@@ -261,7 +273,10 @@
 						
 						<span id="spanMensagemDescontoFocus" class="Msg-tooltipDireita hideMsg" style="display:none;margin: 20px 0px 0px 245px;">O valor do desconto é superior ao valor da venda.</span>	
 						<?php
-							echo $this->Form->input('vazio.vazio',array('label'=>'Desconto da Venda:','id'=>'valorDesconto','class'=>'tamanho-pequeno confirmaInput dinheiro_duasCasas','type'=>'text'));		
+							
+							if(isset($usuario['Role']['alias']) && $usuario['Role']['alias'] == 'admin'){
+								echo $this->Form->input('vazio.vazio',array('label'=>'Desconto da Venda:','id'=>'valorDesconto','class'=>'tamanho-pequeno confirmaInput dinheiro_duasCasas','type'=>'text'));		
+							}
 							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
 					
@@ -313,4 +328,3 @@
 		echo $this->Form->end();
 	?>	
 </footer>
-

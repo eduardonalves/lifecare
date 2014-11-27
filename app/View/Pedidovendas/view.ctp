@@ -253,7 +253,8 @@
 						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
-						<th>Valor Unitário</th>									
+						<th>Valor Produto</th>									
+						<th>Valor Venda</th>									
 						<th>Valor Total</th>									
 						<th>Observação</th>									
 					</thead>
@@ -263,6 +264,9 @@
 							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 							echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+							echo '<td>';
+								echo converterMoeda($produtos['Produto']['preco_venda']);
+							echo '</td>';
 							echo '<td>';
 								echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 							echo '</td>';
@@ -564,7 +568,7 @@
 																											
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($pedidovenda['Pedidovenda']['valor']),array('class'=>'valor'));?>	</div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['valor'],array('class'=>'valor'));?>	</div>
 															</div>
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Status Gerencial:',array('class'=>'titulo'));?></div>
@@ -585,7 +589,8 @@
 															<th>Nome do Produto</th>
 															<th>Quantidade</th>
 															<th>Unidade</th>
-															<th>Valor Unitário</th>
+															<th>Valor Produto</th>
+															<th>Valor Venda</th>
 															<th>Valor Total</th>
 															<th>Observação</th>
 														</thead>
@@ -595,6 +600,9 @@
 																echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 																echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 																echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Produto']['preco_venda']);
+																echo '</td>';
 																echo '<td>';
 																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 																echo '</td>';
