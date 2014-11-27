@@ -52,12 +52,13 @@
 </header>
 
 <div>
+<!-- 
 <section>
 	
 	<header>Dados da Empresa</header>
 	
 	<!-- INFORMAÇÕES DA EMPRESA-->
-		
+	<!-- 	
 		<section class="coluna-esquerda" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
@@ -82,7 +83,16 @@
 
 			?>
 		</section>
+-->
+		<?php
+
+		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
+		
+		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
+
+		?>
 	
+	<?php echo ($isVendedor) ? '<!--' : ''; ?>
 	<section>
 	<header>Dados do Vendedor</header>
 		<section  class="coluna-esquerda">
@@ -102,7 +112,7 @@
 				</div>
 			</div>
 		</section>		
-		
+	<?php echo ($isVendedor) ? '-->' : ''; ?>
 	<header>Dados do Cliente</header>
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
