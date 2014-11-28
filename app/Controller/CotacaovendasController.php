@@ -21,6 +21,9 @@ class CotacaovendasController extends ComoperacaosController {
 	
 	
 	public function setAutorizacaoCotacao($id){
+				
+			$this->loadModel('Comtokencotacao');
+			$this->loadModel('Pedidovenda');
 			$this->layout = 'venda';
 			$userid = $this->Session->read('Auth.User.id');
 
@@ -106,8 +109,8 @@ class CotacaovendasController extends ComoperacaosController {
 				
 				
 			} else {
-				$options = array('conditions' => array('Pedidovenda.' . $this->Pedidovenda->primaryKey => $id));
-				$this->request->data = $this->Pedidovenda->find('first', $options);
+				$options = array('conditions' => array('Cotacaovenda.' . $this->Cotacaovenda->primaryKey => $id));
+				$this->request->data = $this->Cotacaovenda->find('first', $options);
 			}				
 	}
 	
@@ -530,7 +533,7 @@ class CotacaovendasController extends ComoperacaosController {
 
 	public function converteEmPedido($id = null) {
 
-		if ($this->request->is('GET')) {	
+		if ($this->request->is('Post')) {	
 			$resposta=$this->Cotacaovenda->find('first',array('fields'=> 'Cotacaovenda.*','conditions' => array('Cotacaovenda.id' => $id)));
 
 
@@ -635,7 +638,6 @@ class CotacaovendasController extends ComoperacaosController {
 
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
-						
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
 						return $this->redirect(array('controller' => 'Pedidovenda','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
