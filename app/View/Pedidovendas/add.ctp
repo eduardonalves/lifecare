@@ -255,7 +255,7 @@
 						<div class="confirma">
 							<?php								
 								echo $this->Form->input('vazio.vazio',array('label'=>'Valor Venda:','id'=>'produtoValor','class'=>'confirmaInput dinheiro_duasCasas confirma tamanho-pequeno','type'=>'text','maxlength'=>'15'));	
-								echo '<span id="spanVendaMenor" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 170px;z-index: 99999;">Valor da Venda não pode ser menor que o valor Normal</span>';
+								echo '<span id="spanVendaMenor" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 170px;z-index: 99999;">Valor da Venda não pode ser menor que o valor do Produto</span>';
 								echo '<span id="spanVendaMenor2" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 110px;z-index: 99999;">Preencha o Valor da Venda</span>';
 								echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
 							?>

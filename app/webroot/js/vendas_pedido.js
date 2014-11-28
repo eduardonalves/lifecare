@@ -183,10 +183,9 @@ $(document).ready(function() {
 			}
 		});
 	};
-
-	$('body').on('click','.autocompleteProduto .custom-combobox-toggle',function(){
-		bloqueia();
-	});
+	
+	$('body').on('keyup','.autocompleteProduto input',function(){ bloqueia(); });	
+	$('body').on('click','.autocompleteProduto .custom-combobox-toggle',function(){ bloqueia(); });
 
 /**************** Modal Produtos *****************/
     $('body').on('click', '#ui-id-3 a',function(){
@@ -217,8 +216,6 @@ $(document).ready(function() {
 			}else{				
 				$("#qtd_dispo_prod").val(0);	
 			}
-			
-
 		}
 	});
 	
@@ -282,10 +279,9 @@ $(document).ready(function() {
 			valorObs = $("#produtoObs").val();	
 			valorUnit = $("#produtoValor").val();		
 			
-			valorNormal = $("#valorNormal").val().split('.').join('').replace(',','.');	
-			valorVenda = $("#produtoValor").val().split('.').join('').replace(',','.');
-			
-			if(valorVenda == '' || valorVenda == undefined){
+			valorNormal = parseFloat($("#valorNormal").val().split('.').join('').replace(',','.'));	
+			valorVenda = parseFloat($("#produtoValor").val().split('.').join('').replace(',','.'));
+			if(isNaN(valorVenda) || valorVenda == 0){
 				$('#spanVendaMenor2').show();
 			}else if(valorVenda < valorNormal){
 				$('#spanVendaMenor').show();
@@ -368,7 +364,9 @@ $(document).ready(function() {
 				$("#produtoQtd").val('').removeAttr('required');
 				$("#produtoObs").val('');	
 				$('#produtoUnid').val('');
-				$("#produtoValor").val('')
+				$("#produtoValor").val('');
+				$("#valorNormal").val('');
+				$("#qtd_dispo_prod").val('');
 				in_produto++;
 				
 				calculaTotal('TotalPedido');
