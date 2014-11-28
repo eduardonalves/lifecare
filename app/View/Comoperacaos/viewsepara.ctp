@@ -112,12 +112,19 @@
 				<div class="linha2"><?php echo $this->Html->Tag('p',$autorizado_por,array('class'=>'valor'));?>	</div>
 			</div>	
 		</div>
+		<?php
+			//echo $this->Form->postLink($this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;cursor:pointer;','alt' =>__('Confirmar Entrega'),'title' => __('Confirmar Entrega'))), array('controller' => 'Comoperacaos','action' => 'confirmaentrega', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Confirma entrega de Produtos da nota # %s?', $comoperacao['Comoperacao']['id'])));
+			echo "<a href='myModal_add-confirma_entrega' class='bt-showmodal'>";
+				echo $this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;','alt'=>'Organizar Lotes','class' => 'orglotes img-lista','id'=>'Orglote','title'=>'Organizar Lotes'));
+			echo "</a>";
+		
+		?>
 	</section>
 </section>
 
 <section>
 	<header>Produtos da Venda</header>
-	<table> 
+	<table>
 		<thead>
 			<tr>
 				<td>Ações</td>
@@ -284,13 +291,33 @@
 		</div>
 	</div>
 
-<?php
-/*
-<div style="clear:both;"></div>
-<pre>
+<!-- Confirma Entrega ############################################################################ -->
 
-	print_r($comoperacao['Comitensdaoperacao']);
+	<div class="modal fade" id="myModal_add-confirma_entrega" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body modal-body-confirma_entrega">
+		<?php
+			echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+		?>
+			<header class="cabecalho">
+			<?php 
+				echo $this->Html->image('caminhao.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+			?>	
+				<h1>Entrega de Produtos</h1>
+			</header>
+
+			<section>
+			<header>Confirmar Entrega</header>
+			</section>
+			
+			<section class="conteudo-modal-entrega">
+					<?php
+						echo $this->Form->create('Comoperacoes');
+							echo $this->Form->input('data_entrega',array('id'=>'entredaDate','class'=>'tamanho-pequeno','label'=>'Data de Entrega:','type'=>'text'));
+							echo $this->form->submit('botao-confirmar.png',array('class' => 'bt-confirmar', 'alt' => 'Faturar', 'title' => 'Faturar'));
+						echo $this->Form->end();						
+					?>
+			</section>
+		</div>
+	</div>
 
 
-</pre>*/
-?>

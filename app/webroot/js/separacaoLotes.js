@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	
+	$('#entredaDate').mask('99/99/9999');
+
 	$('.cancelCompleta').click(function(){
 		var nid = $(this).attr('id');
 		nid = nid.substring(14);		
@@ -8,8 +10,7 @@ $(document).ready(function(){
 		$('#completar'+nid).show();
 	});
 	
-	$('.completar').click(function(){
-		
+	$('.completar').click(function(){		
 		var nid = $(this).attr('id');
 		nid = nid.substring(9);		
 		$(this).hide();
