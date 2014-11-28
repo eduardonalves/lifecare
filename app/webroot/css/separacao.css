@@ -2,6 +2,24 @@
 
 /* Avisos*/
 
+.modal-body-confirma_entrega{
+	height: 160px !important;
+}
+
+.conteudo-modal-entrega{
+	margin: 0 auto;
+	width: 400px;
+	height: 30px;
+	clear: both;
+	padding: 0px 30px;
+}
+
+.bt-confirmar{
+	padding: 0 !important;
+	float: right;
+	margin-right: 100px;
+}
+
 #msgLoteQtdVazio, #msgLoteQtdSuperior{
 	margin: -40px 160px 0px !important;
 }

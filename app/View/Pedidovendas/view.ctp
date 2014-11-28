@@ -220,6 +220,8 @@
 
 				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['forma_pagamento']),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.prazo_pagamento',array('type'=>'text','label'=>'Prazo de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['prazo_pagamento']),'disabled'=>'disabled'));
+				
 				
 			?>
 			
@@ -236,6 +238,10 @@
 				
 				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.prev',array('type'=>'text','label'=>'Previsão de Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['prev'])),'disabled'=>'disabled'));
+				if(isset($pedidovenda['Pedidovenda']['data_entrega'])){
+					echo $this->Form->input('Comoperacao.data_entrega',array('type'=>'text','label'=>'Data da Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['data_entrega'])),'disabled'=>'disabled'));
+				}
 			?>
 	
 		</section>

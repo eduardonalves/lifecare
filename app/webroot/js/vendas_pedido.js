@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
+	
+	$('#previsao_entrega').mask('99/99/9999');
+	
 	function insereCredito(valor){
 		$('#creditoClienteHide').val(valor);
 		$('#creditoCliente').val('R$ ' + valor);

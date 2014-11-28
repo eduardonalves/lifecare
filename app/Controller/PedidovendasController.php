@@ -430,12 +430,13 @@ class PedidovendasController extends ComoperacaosController {
 						if($this->request->data['Pedidovenda']['prazo_entrega'] != ''){
 							$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
 							$dataPrev = date('Y-m-d', strtotime("+".$this->request->data['Pedidovenda']['prazo_entrega']." days",strtotime(''.$this->request->data['Pedidovenda']['data_inici'].'')));
+							
 							$this->request->data['Pedidovenda']['data_entrega']=$dataPrev;
 						}
 					}
 					
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prazo_entrega']);
-		
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['prev']);
 		
 					$this->loadModel('Produto');
 					$total = 0;
