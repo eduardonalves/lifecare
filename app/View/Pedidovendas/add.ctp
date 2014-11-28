@@ -42,7 +42,8 @@
 					echo $this->Form->input('data_inici',array('value' => $dataHoje, 'label'=>'Data da Venda:','class'=>'borderZero dataInicio tamanho-pequeno inputData','type'=>'text', 'readonly', 'onfocus'=>'this.blur();', 'style' => 'background: rgb(250, 250, 250);'));
 					echo '<span id="msgDataInicial" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial</span>';
 					echo '<span id="msgDataInicialErrada" class="Msg-tooltipDireita" style="display:none;">Preencha a Data Inicial Corretamente</span>';
-					
+					echo $this->Form->input('prev',array('label'=>'Previsão de Entrega:','class'=>'inputData tamanho-pequeno','type'=>'text'));
+
 				?>
 			</section>
 			

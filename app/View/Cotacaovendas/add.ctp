@@ -8,7 +8,7 @@
 
 	$this->start('script');
 		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
-		echo $this->Html->script('vendas_pedido.js');
+		echo $this->Html->script('cotacaos_vendas.js');
 	$this->end();
 	
 	
@@ -97,8 +97,8 @@
 								$('#bt-preencherVendedor').trigger('click');	
 								$('.autocompleteVendedor').css('display','none');
 								$('#bt-preencherVendedor').css('display','none');
-								$('.inputFalsa').css('margin-left','-70px');
-								$('.inputFalsa').css('margin-top','10px');
+								$('.vendedorNome').css('margin-left','-70px');
+								$('.vendedorNome').css('margin-top','10px');
 								
 							});
 						
@@ -121,7 +121,7 @@
 			</section>
 			<section class="coluna-central">
 				<?php echo $this->html->image('preencher2.png',array('alt'=>'Preencher','title'=>'Preencher','class'=>'bt_preencher confirma','id'=>'bt-preencherVendedor')); ?>
-				<div class="inputFalsa">	
+				<div class="inputFalsa vendedorNome">	
 					<div class="labelFalsa"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo')); ?></div>
 					<div class="textoFalsa"><p id="nome_vendedor"></p></div>
 				</div>
@@ -134,12 +134,15 @@
 			
 		</div>
 
-<!-- ###################################################################################################################################################################-->
+
+<!-- ###################################################################################################################################################################3 -->
 <header id="titulo-header">Dados do Cliente</header>
+
 	<!--Fieldset Do CLIENTE-->
 		<div id="fieldCliente" class="fieldset">
 			<span id="msgClienteVazio" class="Msg-tooltipDireita hideMsg" style="display:none;">Selecione o Cliente</span>
 			<h2 class="legendEffect"><span>Dados do Cliente</span></h2>
+
 			<section class="coluna-esquerda confirma">
 				<div class="input autocompleteCliente tela-resultado">
 					<label>Pesquisar Cliente<span class="campo-obrigatorio">*</span>:</label>
@@ -153,7 +156,7 @@
 								
 								$limiteDisponivel = 0;
 								
-								if (isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
+								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
 									
 									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
 								}
@@ -190,87 +193,119 @@
 			</section>
 		</div>
 	
-	<!-- INICIO PRODUTOS -->
-	<section>
-		<header>Produtos</header>
-		<div class='confirma'>
-			<section class="coluna-esquerda">
-				<div class="input autocompleteProduto conta">
-					<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
-					<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio limpa" id="add-produtos">
-						<option></option>
-						<!--<option value="add-produto" id="addProduto">Cadastrar</option>-->
-
-						<?php
-							foreach($produtos as $produto)
-							{
-								
-								echo "<option id='".$produto['Produto']['id']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."'>";
-								echo $produto['Produto']['nome'];
-								echo "</option>";
-							}
-						?>
-
-					</select>
-				</div>		
-		
-				<?php	
-					echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
-											 'title'=>'Adicionar',
-											 'class'=>'bt-addItens sumir',
-											 'id'=>'bt-adicionarProduto'
-											 ));
-							 
-					echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
-					echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
-					echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
-				?>
+	
+		<!-- INICIO PRODUTOS -->
+		<section class="coluna-Produto_Pedido">
 			
-			</section>
-		
-			<section class="coluna-central">
-				<?php
-							
-					echo $this->Form->input('vazio.vazio',array('label'=>'Valor:','id'=>'produtoValor','class'=>'confirmaInput tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));		
-					echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput tamanho-medio ','type'=>'textarea','maxlength'=>'99'));		
-					echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>2));		
-					echo $this->Form->input('vazio.vazio',array('id'=>'validaCada','type'=>'hidden','value'=>0));		
-					echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));				
-				?>
-			</section>	
-		</div>			
-			<section class="coluna-central">
+				<header>Produtos</header>
+				<div class="confirma">
+					<section class="coluna-esquerda">
+						
+							<div class="input autocompleteProduto conta" style="width: 355px;">
+								<span id="msgValidaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Escolha os Produtos</span>
+								<label id="SpanPesquisarFornecedor">Buscar Produto<span class="campo-obrigatorio">*</span>:</label>
+								<select class="tamanho-medio limpa" id="add-produtos">
+									<option></option>
+									<!--<option value="add-produto">Cadastrar</option>-->
+
+									<?php
+										foreach($produtos as $produto)
+										{
+											if($produto['Produto']['bloqueado'] != 1){
+												$quantidadeValida = (int) $produto['Produto']['estoque'] - (int) $produto['Produto']['reserva'];
+												echo "<option id='".$produto['Produto']['id']."' data-bloq='liberado' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."' data-quantidade-valida='". $quantidadeValida ."'>";
+
+												echo $produto['Produto']['nome'];
+												echo "</option>";
+												
+											}else{
+												
+												$quantidadeValida = (int) $produto['Produto']['estoque'] - (int) $produto['Produto']['reserva'];
+												echo "<option  id='".$produto['Produto']['id']."' data-bloq='bloqueado' data-reserva='".$produto['Produto']['reserva']."' data-estoque='".$produto['Produto']['estoque']."' data-nome='".$produto['Produto']['nome']."' data-preVenda='".$produto['Produto']['preco_venda']."' data-unidade='".$produto['Produto']['unidade']."' data-quantidade-valida='". $quantidadeValida ."'>";
+													echo $produto['Produto']['nome'] . "  (BLOQUEADO)";
+												echo "</option>";
+												
+											}
+										}
+									?>
+
+								</select>
+							</div>		
+					
+						<?php	
+							echo $this->html->image('botao-adicionar2.png',array('alt'=>'Adicionar',
+													 'title'=>'Adicionar',
+													 'class'=>'bt-addItens_Pedido',
+													 'id'=>'bt-adicionarProduto'
+													 ));
+						?>			
+					
+						<?php	
+							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Produto:','id'=>'valorNormal','class'=>'confirmaInput confirma tamanho-pequeno borderZero','type'=>'text','maxlength'=>'15','readonly'=>'readonly','onfocus'=>'this.blur();'));	
+							echo $this->form->input('vazio.vazio',array('label'=>'Qtd. Disponível:','id'=>'qtd_dispo_prod','Class'=>'tamanho-medio borderZero','onfocus'=>'this.blur();','readonly'=>'readonly'));
+							echo $this->Form->input('vazio.vazio',array('label'=>'Quantidade<span class="campo-obrigatorio">*</span>:','id'=>'produtoQtd','class'=>'Nao-Letras confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'15'));		
+							echo '<span id="msgQtdVazia" class="Msg-tooltipDireita" style="display:none;">Preencha a Quantidade</span>';
+							// echo '<span id="msgQtdVazia1" class="Msg-tooltipDireita" style="display:none;left:250px;width: 150px;">Quantidade Disponível Insuficiente</span>';
+							echo '<span id="msgQtdIndisponivel" class="Msg-tooltipDireita" style="display:none;">Quantidade não disponível em estoque</span>';
+							echo $this->Form->input('vazio.vazio',array('label'=>'','id'=>'produtoUnid','class'=>'produtoUnid_Pedido tamanho-pequeno borderZero','type'=>'text','disabled'=>'disabled'));
+						?>
+					</section>
+					</div>
+					
+					<section class="coluna-central">
+						<div class="confirma">
+							<?php								
+								echo $this->Form->input('vazio.vazio',array('label'=>'Valor Venda:','id'=>'produtoValor','class'=>'confirmaInput dinheiro_duasCasas confirma tamanho-pequeno','type'=>'text','maxlength'=>'15'));	
+								echo '<span id="spanVendaMenor" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 170px;z-index: 99999;">Valor da Venda não pode ser menor que o valor do Produto</span>';
+								echo '<span id="spanVendaMenor2" class="Msg-tooltipDireita" style="display:none;margin: -5px 0px 0px 245px;width: 110px;z-index: 99999;">Preencha o Valor da Venda</span>';
+								echo $this->Form->input('vazio.vazio',array('label'=>'Observação:','id'=>'produtoObs','class'=>'confirmaInput confirma tamanho-medio','type'=>'textarea','maxlength'=>'99'));		
+							?>
+						</div>
+						<?php
+							echo $this->Form->input('vazio.vazio',array('id'=>'moduloCompras','type'=>'hidden','value'=>1));
+							echo $this->Form->input('vazio.vazio',array('id'=>'validaProd','type'=>'hidden','value'=>0));	
+						?>
+					</section>
+					
+					<section class="coluna-central">
 						<?php
 							echo $this->Form->input('vazio.vazio',array('label'=>'Valor Total:','id'=>'totalProduto','class'=>'tamanho-pequeno dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
+							?>
+						
+						<span id="spanMensagemDescontoFocus" class="Msg-tooltipDireita hideMsg" style="display:none;margin: 20px 0px 0px 245px;">O valor do desconto é superior ao valor da venda.</span>	
+						<?php
+							
+							if(isset($usuario['Role']['alias']) && $usuario['Role']['alias'] == 'admin'){
+								echo $this->Form->input('vazio.vazio',array('label'=>'Desconto da Venda:','id'=>'valorDesconto','class'=>'tamanho-pequeno confirmaInput dinheiro_duasCasas','type'=>'text'));		
+							}
 							echo $this->Form->input('vazio.vazio',array('label'=>'Crédito do Cliente:','id'=>'creditoCliente','class'=>'tamanho-medio dinheiro_duasCasas borderZero','type'=>'text','readonly'=>'readonly','disabled','onfocus'=>'this.blur();'));		
 						?>
-						<input name="data[Cotacaovenda][valor]" type="hidden" id="totalProdutoHide"/>
+					
+						<input type="hidden" id="totalProdutoHide"/>
 						<input type="hidden" id="creditoClienteHide"/>
-			</section>
-		
+			</section>			
+					
+				<section class="tabela_fornecedores">
+					<table id="tbl_produtos" >
+						<thead>
+							<th>Nome do Produto</th>
+							<th style="width: 80px !important;">Quantidade<span class="campo-obrigatorio">*</span></th>									
+							<th style="width: 70px;">Unidade</th>
+							<th style="width: 150px;">Valor Unitário</th>
+							<th>Valor Total</th>
+							<th style="width: 150px;">Observação</th>
+							<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
+							<th class="confirma">Ações</th>					
+						</thead>
+								
+					</table>
+				</section>
+		</section>
 			
-			<section class="tabela_fornecedores">
-				<table id="tbl_produtos" >
-					<thead>
-						<th >Nome do Produto</th>
-						<th style="width: 80px !important;">Quantidade</th>									
-						<th style="width: 70px;">Unidade</th>
-						<th style="width: 150px;">Valor Unitário</th>
-						<th>Valor Total</th>
-						<th style="width: 150px;">Observação</th>		
-						<span id="msgValidaConfirmaProduto" class="Msg tooltipMensagemErroTopo" style="display:none">Confirme as Informações do Produto</span>
-						<th class="confirma">Ações</th>					
-					</thead>
-							
-				</table>
-			</section>
-	</section>
 	
-		
-	<section id="area_inputHidden"></section>
+		<section id="area_inputHidden"></section>
 	
-	<section id="area_inputHidden_Produto"></section>
+		<section id="area_inputHidden_Produto"></section>
 	
 </section>
 
