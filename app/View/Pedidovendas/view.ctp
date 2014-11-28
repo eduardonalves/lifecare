@@ -51,7 +51,11 @@
     <h1 class="menuOption51">Consulta da Venda</h1>
 </header>
 
+
+
 <div>
+	
+	
 <!-- 
 <section>
 	
@@ -84,36 +88,8 @@
 			?>
 		</section>
 -->
-		<?php
-
-		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
-		
-		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
-
-		?>
-	
-	<?php echo ($isVendedor) ? '<!--' : ''; ?>
 	<section>
-	<header>Dados do Vendedor</header>
-		<section  class="coluna-esquerda">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-		
-		<section  class="coluna-central">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-	<?php echo ($isVendedor) ? '-->' : ''; ?>
-	<header>Dados do Cliente</header>
+<header>Dados do Cliente</header>
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
@@ -202,7 +178,36 @@
 				
 			?>
 		</section>
+		<?php
+
+		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
 		
+		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
+
+		?>
+	
+	<?php echo ($isVendedor) ? '<!--' : ''; ?>
+
+	<header>Dados do Vendedor</header>
+		<section  class="coluna-esquerda">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
+		
+		<section  class="coluna-central">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
+	<?php echo ($isVendedor) ? '-->' : ''; ?>
+			
 	<header>Dados da Venda</header>
 	
 	<!-- INICIO PEDIDOS -->
