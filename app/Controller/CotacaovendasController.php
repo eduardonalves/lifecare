@@ -30,7 +30,7 @@ class CotacaovendasController extends ComoperacaosController {
 			if (!$this->Cotacaovenda->exists($id)) {
 				throw new NotFoundException(__('Cotacao inválida.'));
 			}
-			if ($this->request->is(array('post', 'put'))) {
+			if ($this->request->is(array('post', 'put', 'get'))) {
 					
 				$cotacaoAprovada = $this->Cotacaovenda->find('first', array('conditions' => array('AND' => array(array('Cotacaovenda.id' => $id), array('Cotacaovenda.status_gerencial' => 'OK')))));
 				
