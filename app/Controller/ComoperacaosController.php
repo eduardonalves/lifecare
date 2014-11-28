@@ -1422,10 +1422,133 @@ public $uses = array();
 	public function separacao(){
 		
 		$userid = $this->Session->read('Auth.User.id');
-		$comoperacaos=$this->Comoperacao->find('all', array('order'=>array('Comoperacao.status_estoque ASC'),'conditions'=>array('Comoperacao.tipo'=>'PDVENDA','or'=>array(array('Comoperacao.status_estoque'=>'SEPARACAO'),array('Comoperacao.status_estoque'=>'SEPARADO')))));
+		
 		
 		$this->loadModel('Vendedor');
+		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Produto');
 		
+		$parceirodenegocios = $this->Parceirodenegocio->find('list',array( 'recursive' => -1, 'fields' => array('Parceirodenegocio.nome'), 'order' => 'Parceirodenegocio.nome ASC', 'conditions' => array('Parceirodenegocio.tipo' => 'FORNECEDOR') ));
+		
+		
+		$listaParceiros = array();
+		foreach($parceirodenegocios as $parceirodenegocio){
+			array_push($listaParceiros, array($parceirodenegocio => $parceirodenegocio));
+		}
+		
+		$produtos = $this->Produto->find('list',array('recursive' => -1, 'fields' => array('Produto.nome'), 'order' => 'Produto.nome ASC'));
+		
+		$listaProdutos = array();
+		foreach($produtos as $produto){
+			array_push($listaProdutos, array($produto => $produto));
+		}
+		
+		$this->Filter->addFilters(
+			array(
+				
+				//Filtros OPERAÇÃO
+				
+				'tipoOperacao' => array(
+	                'Comoperacao.tipo' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+	            'nomeParceiro' => array(
+			                'Parceirodenegocio.nome' => array(
+			                    'operator' => 'LIKE',
+			                    'select' => array(''=> '', $listaParceiros)
+			                )
+			            ),
+			      'data_inici' => array(
+		            'Comoperacao.data_inici' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'data_entrega' => array(
+		            'Comoperacao.data_entrega' => array(
+		                'operator' => 'BETWEEN',
+		                'between' => array(
+		                    'text' => __(' e ', true)
+		                )
+		            )
+		        ),
+		        'status_operacao' => array(
+	                'Comoperacao.status' => array(
+	                    'operator' => 'LIKE',
+
+	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+	               		'select' => array('' => '','ABERTO' => 'ABERTO', 'FINALIZADA' => 'FINALIZADA', 'CANCELADO' => 'CANCELADO')
+
+					)
+	            ),
+	            'status_estoque' => array(
+	                'Comoperacao.status_estoque' => array(
+	                    'operator' => 'LIKE',
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 )
+					)
+	            ),
+				
+	            //Filtros PRODUTOS
+	            
+	            'produtoNome' => array(
+	                '_Produto.nome' => array(
+	                    'operator' => 'LIKE',
+	                    'select' => array(''=> '', $listaProdutos)
+	                )
+	            ),
+	            
+				
+				
+				//AVISO NÃO COLOCAR O FILTRO ABAIXO NA TELA
+				'status_operacaonot' => array(
+	                'Comoperacao.status' => array(
+	                    'operator' => '!=',
+
+	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+	               		'select' => array('CANCELADO' => 'CANCELADO')
+
+					)
+	            ),
+           )
+		); 
+		$comoperacaos=$this->Comoperacao->find('all', array('order'=>array('Comoperacao.status_estoque ASC, Comoperacao.data_inici ASC '),	
+					'conditions'=>$this->Filter->getConditions()	
+						));
+		$conditiosAux = $this->Filter->getConditions();
+				
+		if(empty($conditiosAux)){
+	
+			$dataIncio = date("Y-m-01");
+			$dataTermino= date("Y-m-t");
+			$this->request->data['filter']['data_inici'] = $dataIncio;
+			$this->request->data['filter']['data_inici-between']= $dataTermino;
+			$this->request->data['filter']['tipoOperacao']="PDVENDA";
+			$this->request->data['filter']['status_operacaonot']="CANCELADO";
+			$this->request->data['filter']['status_estoque']="SEPARADO SEPARACAO";
+		}else{
+			$this->request->data['filter']['tipoOperacao']="PDVENDA";
+			$this->request->data['filter']['status_operacaonot']="CANCELADO";
+			$this->request->data['filter']['status_estoque']="SEPARADO SEPARACAO";
+		}
+		$this->Paginator->settings = array(
+						'Comoperacao' => array(
+							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
+							'fields_toCount' => 'DISTINCT Comoperacao.id',
+							'limit' => 15,
+							'order' => 'Comoperacao.status_estoque ASC, Comoperacao.data_inici ASC',
+							'conditions' => $this->Filter->getConditions()
+						)
+					);
+			
+		$comoperacaos = $this->Paginator->paginate('Comoperacao');
 		$i;
 		foreach($comoperacaos as $i => $comoperacao){
 			$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$comoperacao['Comoperacao']['vendedor_id'])));
@@ -1434,9 +1557,6 @@ public $uses = array();
 			}
 			$i++;
 		}
-		
-		
-		
 		$this->set(compact('userid','comoperacaos','vendedor'));		
 	}
 
@@ -1596,6 +1716,28 @@ public $uses = array();
 		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
 		$this->Lote->save($updateLote);
 		
+	}
+	
+	public function confirmaentrega($id = null) {
+		$this->loadModel('Pedidovenda');
+		$this->loadModel('Saida');
+		$pedido = $this->Pedidovenda->find('first', array('recursive' => -1, 'conditions' => array('AND' => 
+			array('Pedidovenda.id' => $id), 
+			array('Pedido.status !=' => 'Cancelado')
+			)));
+		if(!empty($pedido)){
+			if($pedido['Pedidovenda']['status_faturamento'] == 'Faturado'){
+				$updatePedido = array('id' => $id, 'status_estoque' => 'ENTREGUE');
+				$saida = $this->Saida->find('first',array('conditions' => array( array('Pedido.comoperacao_id' => $id), array('Pedido.status !=' => 'CANCELADO'))));
+				$this->Pedidovenda->create();
+				$this->Pedidovenda->save($updatePedido);
+				if(!empty($saida)){
+					$updateSaida = array('id' => $saida['Saida']['id'], 'status_estoque' => 'ENTREGUE', 'status' => 'FINALIZADA');
+					$this->Saida->create();
+					$this->Saida->save($updateSaida);
+				}
+			}
+		}	
 	}
 	
 }

@@ -18,7 +18,7 @@
 				var $id = $(this).attr('data-lotesoperacao-id');
 				
 				$.ajax({
-					url: "http://localhost/lifecare/Comoperacaos/checkLote/"+$id,
+					url: urlInicio+"Comoperacaos/checkLote/"+$id,
 					}).done(function($data) {
 						
 						$('.td-status-com-' + $id).html($data);

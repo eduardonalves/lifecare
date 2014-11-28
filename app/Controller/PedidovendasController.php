@@ -217,23 +217,81 @@ class PedidovendasController extends ComoperacaosController {
 	public function setAutorizacaoPedido($id){
 			$this->layout = 'venda';
 			$userid = $this->Session->read('Auth.User.id');
+			$this->loadModel('Contato');
+			$this->loadModel('Produto');
+			$this->loadModel('ProdutosParceirodenegocio');
+	
+			$this->loadModel('Dadoscredito');
+			$this->loadModel('Cliente');
 
 			if (!$this->Pedidovenda->exists($id)) {
 				throw new NotFoundException(__('Pedidovenda inválido.'));
 			}
 			if ($this->request->is(array('post', 'put'))) {
 					
-				$pedidoAprovado = $this->Pedidovenda->find('first', array('conditions' => array('AND' => array(array('Pedidovenda.id' => $id), array('Pedidovenda.status_gerencial' => 'OK')))));
+				$pedidoAprovado = $this->Pedidovenda->find('first', array('conditions' => array('AND' => array(array('Pedidovenda.id' => $id), array('Pedidovenda.status_gerencial' => 'OK'), array('Pedidovenda.status !=' => 'CANCELADO')))));
+				
+				
 				
 				if(empty($pedidoAprovado)){
+					
+					
 					$this->request->data['Pedidovenda']['id']=$id;
 					$this->request->data['Pedidovenda']['autorizado_por']=$userid;
 					$this->request->data['Pedidovenda']['status_gerencial']="OK";
-						$this->request->data['Pedidovenda']['status_estoque']="SEPARACAO";
+					$this->request->data['Pedidovenda']['status_estoque']="SEPARACAO";
 					$this->request->data['Pedidovenda']['status_faturamento']="PENDENTE";
 					$this->setSeparaLote($id);
 					
 					if ($this->Pedidovenda->save($this->request->data)) {
+						$ultimoPedido = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id' => $id)));
+						$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' =>$ultimoPedido['Parceirodenegocio'][0]['id'])));
+						
+		
+						$i=0;
+						foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
+							
+							$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
+							$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+							//Relacionamos fornecedores a produtos
+		
+							$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $ultimoPedido['Parceirodenegocio'][0]['id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
+							if(empty($inter)){
+								$upProdFornec = array('parceirodenegocio_id' => $ultimoPedido['Parceirodenegocio'][0]['id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
+								$this->ProdutosParceirodenegocio->save($upProdFornec);
+		
+							}
+		
+							$i++;
+						}
+		
+		
+						$this->loadModel('Comtokencotacao');
+		
+						/*$flag="FALSE";
+						while($flag =='FALSE') {
+							$numero=date('Ymd');
+							$numeroAux= rand(0, 9999999999999999999999999);
+							$numero = $numero.$numeroAux;
+							$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+							if(empty($ultimaComtokencotacao)){
+								$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $ultimoPedido['Parceirodenegocio'][0]['id'], 'codigoseguranca' => $numero);
+		
+								$this->Comtokencotacao->save($dadosComOp);
+		
+								$flag="TRUE";
+							}
+		
+						}*/
+						
+						$remetente= "cirurgica.simoes@gmail.com";
+						if(!empty($contato)){
+							if($contato['Contato']['email'] !=''){
+								$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
+							}
+						}
+						$this->setLimiteUsadoAdd($ultimoPedido['Parceirodenegocio'][0]['id'],$ultimoPedido['Pedidovenda']['valor'], $ultimoPedido['Pedidovenda']['forma_pagamento']);
+						
 						$this->Session->setFlash(__('O pedidovenda foi autorizado com sucesso.'),'default',array('class'=>'success-flash'));
 						return $this->redirect(array('action' => 'view', $id));
 					} else {
@@ -383,52 +441,9 @@ class PedidovendasController extends ComoperacaosController {
 					$total = 0;
 					if ($this->Pedidovenda->saveAll($this->request->data)) {
 		
-						$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'])));
+						
+		
 						$ultimoPedido = $this->Pedidovenda->find('first',array('order' => array('Pedidovenda.id' => 'DESC')));
-		
-						$i=0;
-						foreach($ultimoPedido['Comitensdaoperacao'] as $i => $itens){
-							$ultimoPedido['Comitensdaoperacao'][$i];
-							$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimoPedido['Comitensdaoperacao'][$i]['produto_id'])));
-							$ultimoPedido['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-							//Relacionamos fornecedores a produtos
-		
-							$inter= $this->ProdutosParceirodenegocio->find('first', array('conditions' => array('ProdutosParceirodenegocio.parceirodenegocio_id'=>  $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'AND' => array('produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']))));
-							if(empty($inter)){
-								$upProdFornec = array('parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'produto_id' =>  $ultimoPedido['Comitensdaoperacao'][$i]['produto_id']);
-								$this->ProdutosParceirodenegocio->save($upProdFornec);
-		
-							}
-		
-							$i++;
-						}
-		
-		
-						$this->loadModel('Comtokencotacao');
-		
-							$flag="FALSE";
-							while($flag =='FALSE') {
-								$numero=date('Ymd');
-								$numeroAux= rand(0, 99999999);
-								$numero = $numero.$numeroAux;
-								$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-								if(empty($ultimaComtokencotacao)){
-									$dadosComOp = array('comoperacao_id' => $ultimoPedido['Pedidovenda']['id'], 'parceirodenegocio_id' => $this->request->data['Parceirodenegocio'][0]['parceirodenegocio_id'], 'codigoseguranca' => $numero);
-		
-									$this->Comtokencotacao->save($dadosComOp);
-		
-									$flag="TRUE";
-								}
-		
-							}
-		
-						$remetente= "cirurgica.simoes@gmail.com";
-						if(!empty($contato)){
-							if($contato['Contato']['email'] !=''){
-								$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-							}
-						}
-						$this->setLimiteUsadoAdd($clienteId,$this->request->data['Pedidovenda']['valor'], $this->request->data['Pedidovenda']['forma_pagamento']);
 						$this->Session->setFlash(__('O pedidovenda foi salvo com sucesso.'),'default',array('class'=>'success-flash'));
 						return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Pedidovenda']['id']));
 						
@@ -522,38 +537,63 @@ class PedidovendasController extends ComoperacaosController {
 	public function cancelar($id = null){
 
 		$this->Pedidovenda->id = $id;
-
+		$ultimaPedido= $this->Pedidovenda->find('first',array('conditions' => array('Pedidovenda.id' => $id)));
 		if (!$this->Pedidovenda->exists()) {
 			
 			$this->Session->setFlash(__('O pedido requisitado não pode ser encontrado. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
 		
 		} else {
 			
-			$this->Pedidovenda->saveField('status', 'CANCELADO');
-			
-			$queryString = "UPDATE produtos
-						INNER JOIN (Select SUM(qtde) qtde from comitensdaoperacaos where comoperacao_id=" . $id . " group by produto_id) citens
-						SET produtos.reserva = IF(produtos.reserva IS NULL, 0-citens.qtde, produtos.reserva-citens.qtde),
-						produtos.disponivel = IF(produtos.reserva IS NULL, 0+citens.qtde, produtos.reserva+citens.qtde)";
-
-			try {
-			
-				$pedido = $this->Pedidovenda->query($queryString);
-			
-			} catch (Exception $e) {
-			
-				$this->Session->setFlash(__('Erro ao cancelar pedido. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));				
+			if($ultimaPedido['Comlotesoperacao']['status'] !="CANCELADO"){
+				
+				$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
+				if($this->Pedidovenda->save($upDatePedido)){
+					if($ultimaPedido['Pedidovenda']['status_gerencial'] == "OK"){
+						foreach($ultimaPedido['Comlotesoperacao'] as $lote){
+							$this->ajusteReservaLoteMenos($lote['lote_id'], $lote['qtde'], $lote['produto_id']);
+						}
+					}	
+					
+					
+				}else{
+					$this->Session->setFlash(__('O pedido não pode ser cancelado.Tente novamente'),'default',array('class'=>'error-flash'));
+				}
+				$this->setLimiteUsadoMenos($id);
+				$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
+				
+			}else{
+				$this->Session->setFlash(__('Este pedido já foi cancelado.'),'default',array('class'=>'error-flash'));
 			}
 			
-			$data = array('Pedidovenda'=> array('Status'=>'CANCELADO'));
-			
-				$this->Session->setFlash(__('O pedido foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
-
+			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 		}
 
-		return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+		
 	}
 
+
+	public function setLimiteUsadoMenos(&$id){
+				
+		
+		$pedidovenda = $this->Pedidovenda->find('first', array('conditions' => array('Pedidovenda.id' => $id)));
+		
+		if(!empty($pedidovenda)){
+			if($pedidovenda['Pedidovenda']['forma_pagamento']  != "DEPOSITO A VISTA" && $pedidovenda['Pedidovenda']['forma_pagamento']  != "DINHEIRO"){
+				$this->loadModel('Dadoscredito');
+			
+				$dadosCredito = $this->Dadoscredito->find('first', array('conditions' => array('Dadoscredito.parceirodenegocio_id' => $pedidovenda['Parceirodenegocio'][0]['id'] ), 'order' => array('Dadoscredito.id' => 'desc')));
+				if(isset($dadosCredito) && !empty($dadosCredito)){
+					$limiteUsado = $dadosCredito['Dadoscredito']['limite_usado'];
+				
+					$novoLimiteUsado =  $limiteUsado - $pedidovenda['Pedidovenda']['valor'];
+					$updateDadosCredito = array('id' =>  $dadosCredito['Dadoscredito']['id'],'limite_usado' => $novoLimiteUsado);
+				
+					$this->Dadoscredito->save($updateDadosCredito);
+				}
+			}
+		}	
+			
+	}
 /**
  * delete method
  *
@@ -721,15 +761,32 @@ class PedidovendasController extends ComoperacaosController {
 				}
 			}
 		}
-		$upDatePedido = array('id' => $id, 'status' => 'CANCELADO');
-		$this->Pedidovenda->save($upDatePedido);
+		
+		
 		$this->Session->setFlash(__('O pedidovenda foi cancelado com sucesso.'),'default',array('class'=>'success-flash'));
 		return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 	}
 
 	
 	
-	
+	public function ajusteReservaLoteMenos(&$lote_id, &$qtde, &$produto_id) {
+		$this->loadModel('Lote');
+		$this->loadModel('Produto');
+		
+		$lote = $this->Lote->find('first',array('recursive'=> -1,'conditions' => array('Lote.id' => $lote_id)));
+		$reservaLote =  $lote['Lote']['reserva'] - $qtde;
+		
+		$dispLote = $lote['Lote']['estoque'] - $reservaLote;
+		$updateLote = array('id' => $lote['Lote']['id'], 'reserva' =>  $reservaLote, 'disponivel' => $dispLote);
+		$this->Lote->save($updateLote);
+		
+		$produto = $this->Produto->find('first',array('recursive'=> -1,'conditions' => array('Produto.id' => $produto_id)));
+		$reservaProduto =  $produto['Produto']['reserva'] - $qtde;
+		$dispProduto = $produto['Produto']['estoque'] - $reservaProduto;
+		$updateProduto = array('id' => $produto['Produto']['id'], 'reserva' =>  $reservaProduto, 'disponivel' => $dispProduto);
+		$this->Produto->save($updateProduto);
+		
+	}
 	public function reeviarpedido($id) {
 		
 		if ($this->request->is('post')) {	
@@ -802,49 +859,46 @@ class PedidovendasController extends ComoperacaosController {
 						$cotacaovenda['Cotacaovenda']['status_financeiro'] ="OK";
 						$cotacaovenda['Cotacaovenda']['status_estoque'] ="PENDENTE";
 						$cotacaovenda['Cotacaovenda']['status_faturamento'] ="PENDENTE";
-						$cotacaovenda['Cotacaovenda']['status_gerencial'] ="PENDENTE";
-						
+						if($cotacaovenda['Cotacaovenda']['status_gerencial'] != "OK"){
+							$cotacaovenda['Cotacaovenda']['status_gerencial'] ="PENDENTE";
+						}
+							
 					}else{
 						$cotacaovenda['Cotacaovenda']['status_financeiro'] ="PENDENTE";
 						$cotacaovenda['Cotacaovenda']['status_estoque'] ="PENDENTE";
 						$cotacaovenda['Cotacaovenda']['status_faturamento'] ="PENDENTE";
-						$cotacaovenda['Cotacaovenda']['status_gerencial'] ="PENDENTE";
+						if($cotacaovenda['Cotacaovenda']['status_gerencial'] != "OK"){
+							$cotacaovenda['Cotacaovenda']['status_gerencial'] ="PENDENTE";
+						}
 						
 					}
 				}
 				
 
 			
-			
-				if($this->Cotacaovenda->saveAll($cotacaovenda)){
-					$ultimoPedido = $this->Cotacaovenda->find('first', array('order' => array('Cotacaovenda.id ' => 'DESC')));
-					$this->setLimiteUsadoAdd($clienteId,$cotacaovenda['Cotacaovenda']['valor'], $cotacaovenda['Cotacaovenda']['forma_pagamento']);
-					
-					$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $clienteId)));
-					
-			
-					$remetente= "cirurgica.simoes@gmail.com";
-	
-					if(!empty($contato)){
-						if($contato['Contato']['email'] !=''){
-							
-							$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
-							
-							$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
-							return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Cotacaovenda']['id']));
-		
-						}
-		
+				if($cotacaovenda['Cotacaovenda']['status_gerencial'] == "OK"){
+					if($this->Cotacaovenda->saveAll($cotacaovenda)){
+						$ultimoPedido = $this->Cotacaovenda->find('first', array('order' => array('Cotacaovenda.id ' => 'DESC')));
+						$this->setLimiteUsadoAdd($clienteId,$cotacaovenda['Cotacaovenda']['valor'], $cotacaovenda['Cotacaovenda']['forma_pagamento']);
+						
+						$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $clienteId)));
+						
+				
+						$remetente= "cirurgica.simoes@gmail.com";
+						
+						
+							$this->setAutorizacaoPedido($ultimoPedido['Cotacaovenda']['id']);
+						
+						
 					}else{
-						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso. Informe seu cliente sobre este pedido, pois o envio automático do email não foi possível'),'default',array('class'=>'success-flash'));	
-						return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$ultimoPedido['Cotacaovenda']['id']));
+						$this->Session->setFlash(__('Erro, não foi possivel salvar seu pedido'),'default',array('class'=>'error-flash'));
 						
 					}
-					
 				}else{
-					$this->Session->setFlash(__('Erro, não foi possivel salvar seu pedido'),'default',array('class'=>'error-flash'));
 					
-				}
+					$this->Session->setFlash(__('Erro, cotação ainda não aprovada, aprove a cotação para transforma-la em pedido '),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('controller' => 'Cotacaovendas','action' => 'view',$id));
+				}	
 				
 			}else{
 				$this->Session->setFlash(__('Erro, já existe um pedido feito com esta cotação'));	

@@ -463,9 +463,9 @@ class SaidasController extends NotasController {
 	public function uploadxml_saida(){
 	}
 	
-	public function tiradaReserva(){
+	public function tiradaReserva(&$idSaida){
 		
-		$idSaida = $_GET['pedido'];	
+		
 		$this->loadModel('Pedidovenda');
 		$this->loadModel('Comitensdaoperacao');
 		$this->loadModel('Comlotesoperacao');
@@ -520,107 +520,134 @@ class SaidasController extends NotasController {
 		$this->request->data['Saida']['valor_total'] = $pedidoVenda['Pedidovenda']['valor'];
 		$this->request->data['Saida']['comoperacao_id'] = $pedidoVenda['Pedidovenda']['id'];
 		
-		if(isset($pedidoVenda['Pedidovenda']['valor_desconto'])){
-			$this->request->data['Saida']['valor_desconto'] = $pedidoVenda['Pedidovenda']['valor_desconto'];
-		}
-	
-		//Verifico se a forma de entrada é um vale
-		if($this->request->data['Saida']['forma_de_entrada'] == 0){
-			
-			$this->request->data['Saida']['valor_total_produtos']  = "CALCULAR";
-			$this->request->data['Saida']['nota_fiscal'] = "TRATAR";
-			$this->request->data['Saida']['vb_icms'] = "TRATAR";
-			$this->request->data['Saida']['valor_icms'] = "TRATAR";
-			$this->request->data['Saida']['vb_cst'] = "TRATAR";
-			$this->request->data['Saida']['valor_cst'] = "TRATAR";
-			$this->request->data['Saida']['valor_frete'] = $this->request->data['Saida']['valor_frete'];
-			$this->request->data['Saida']['valor_seguro'] = $this->request->data['Saida']['valor_seguro'];
-			$this->request->data['Saida']['vii'] = "TRATAR";
-			$this->request->data['Saida']['valor_ipi'] = "TRATAR";
-			$this->request->data['Saida']['valor_pis'] = 	"TRATAR";
-			$this->request->data['Saida']['v_cofins'] = 	"TRATAR";
-			$this->request->data['Saida']['valor_outros'] = "TRATAR";
-			$this->request->data['Saida']['transp_id'] = "TRATAR";
-			$this->request->data['Saida']['origem'] = "TRATAR";
-			$this->request->data['Saida']['chave_acesso'] = "TRATAR";
-			$this->request->data['Saida']['forma_entrada'] = 1;
-			$this->request->data['Saida']['devolucao'] = 0;
-		}
-		$i=0;
-		foreach ($pedidoVenda['Comitensdaoperacao'] as $iten) {
-				
-			$this->request->data['Produtoiten'][$i]['produto_id'] = $iten['produto_id'];
-			$this->request->data['Produtoiten'][$i]['valor_unitario'] = $iten['valor_unit'];
-			$this->request->data['Produtoiten'][$i]['valor_total'] = $iten['valor_total'];
-			$this->request->data['Produtoiten'][$i]['qtde'] = $iten['qtde'];
-			$this->request->data['Produtoiten'][$i]['tipo'] = "SAIDA";
-			
-			//Se for nota, buscar dados fiscais do produto
-			
-			$produto = $this->Produto->find('first', array('recursive' => -1,'conditions' => array('Produto.id' => $iten['produto_id'])));
-			$tributo = $this->Tributo->find('first', array('recursive' => -1,'conditions' => array('Tributo.produto_id' => $iten['produto_id'])));
-			
-			if($this->request->data['Saida']['forma_de_entrada'] == 1){
-				
-			$this->request->data['Produtoiten'][$i]['unidae'] = $produto['Produto']['unidade'];
-			
-			$this->request->data['Produtoiten'][$i]['cfop'] = $tributo['Tributo']['cfop'];
-			$this->request->data['Produtoiten'][$i]['valorbase_icms'] =  $iten['valor_total'];
-			$this->request->data['Produtoiten'][$i]['percentual_icms'] =  $tributo['Tributo']['al_icms'];
-			$this->request->data['Produtoiten'][$i]['valor_icms']= ($iten['valor_total'] * $tributo['Tributo']['al_icms'] ) / 100;
-			$this->request->data['Produtoiten'][$i]['valorbase_st'] =  $iten['valor_total'];
-			$this->request->data['Produtoiten'][$i]['percentual_st'] = $tributo['Tributo']['al_cst'];
-			$this->request->data['Produtoiten'][$i]['valor_st'] = ($iten['valor_total'] * $tributo['Tributo']['al_cst']) / 100;
-			$this->request->data['Produtoiten'][$i]['percentual_ipi'] = $tributo['Tributo']['al_ipi'];
-			$this->request->data['Produtoiten'][$i]['valor_ipi'] = ($iten['valor_total'] *  $tributo['Tributo']['al_ipi']) / 100;
-			$this->request->data['Produtoiten'][$i]['percentual_cofins'] = $tributo['Tributo']['al_confins'];
-			$this->request->data['Produtoiten'][$i]['valorbase_cofins']  = $iten['valor_total'] ;
-			$this->request->data['Produtoiten'][$i]['valor_cofins'] = ( $iten['valor_total']  /  $tributo['Tributo']['al_confins'])/ 100;
-			}
-			
-			$i++;
-		}
-		$j=0;
+		$saidaExistente = $this->Saida->find('first', array('conditions' => array('Saida.comoperacao_id' => $id)));
 		
-		foreach ($pedidoVenda['Comlotesoperacao'] as $lote) {
-			$this->request->data['Loteiten'][$j]['produto_id'] = $lote['produto_id'];
-			$this->request->data['Loteiten'][$j]['lote_id'] = $lote['lote_id'];
-			$this->request->data['Loteiten'][$j]['qtde'] = $lote['qtde'];
-			$this->request->data['Loteiten'][$j]['tipo'] = "SAIDA";
-			$j++;
-		}
+		if($pedidoVenda['Pedidovenda']['status_estoque'] != "SEPARADO"){
+				
+			$this->Session->setFlash(__('Este pedido ainda não foi separado, por isso não pode ser faturado.'), 'default', array('class' => 'error-flash'));
+			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+			
+		}else{
+			
 		
-		$this->Saida->create();
-		if($this->Saida->saveAll($this->request->data)){
+			if(empty($saidaExistente)){
+				if(isset($pedidoVenda['Pedidovenda']['valor_desconto'])){
+					$this->request->data['Saida']['valor_desconto'] = $pedidoVenda['Pedidovenda']['valor_desconto'];
+				}
 			
-			
-			$ultimaSaida = $this->Saida->find('first', array('order' => array('Saida.id' => 'desc'), 'recursive' => -1));
-			
-			
-			
-			
-			$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaSaida['Saida']['id']), 'recursive' => -1));
+				//Verifico se a forma de entrada é um vale
+				if($this->request->data['Saida']['forma_de_entrada'] == 1){
 					
-			foreach($lotes as $lote){
-				$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaSaida['Saida']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
+					$this->request->data['Saida']['valor_total_produtos']  =$this->request->data['Saida']['valor_total_produtos'];
+					$this->request->data['Saida']['valor_frete'] = $this->request->data['Saida']['valor_frete'];
+					$this->request->data['Saida']['valor_seguro'] = $this->request->data['Saida']['valor_seguro'];
+					$this->request->data['Saida']['forma_entrada'] = 1;
+					$this->request->data['Saida']['devolucao'] = 0;
+					/*$this->request->data['Saida']['nota_fiscal'] = "TRATAR";
+					$this->request->data['Saida']['vb_icms'] = "TRATAR";
+					$this->request->data['Saida']['valor_icms'] = "TRATAR";
+					$this->request->data['Saida']['vb_cst'] = "TRATAR";
+					$this->request->data['Saida']['valor_cst'] = "TRATAR";
+					
+					$this->request->data['Saida']['vii'] = "TRATAR";
+					$this->request->data['Saida']['valor_ipi'] = "TRATAR";
+					$this->request->data['Saida']['valor_pis'] = 	"TRATAR";
+					$this->request->data['Saida']['v_cofins'] = 	"TRATAR";
+					$this->request->data['Saida']['valor_outros'] = "TRATAR";
+					$this->request->data['Saida']['transp_id'] = "TRATAR";
+					$this->request->data['Saida']['origem'] = "TRATAR";
+					$this->request->data['Saida']['chave_acesso'] = "TRATAR";
+					*/
+				}
+				$i=0;
+				foreach ($pedidoVenda['Comitensdaoperacao'] as $iten) {
+						
+					$this->request->data['Produtoiten'][$i]['produto_id'] = $iten['produto_id'];
+					$this->request->data['Produtoiten'][$i]['valor_unitario'] = $iten['valor_unit'];
+					$this->request->data['Produtoiten'][$i]['valor_total'] = $iten['valor_total'];
+					$this->request->data['Produtoiten'][$i]['qtde'] = $iten['qtde'];
+					$this->request->data['Produtoiten'][$i]['tipo'] = "SAIDA";
+					
+					//Se for nota, buscar dados fiscais do produto
+					
+					$produto = $this->Produto->find('first', array('recursive' => -1,'conditions' => array('Produto.id' => $iten['produto_id'])));
+					$tributo = $this->Tributo->find('first', array('recursive' => -1,'conditions' => array('Tributo.produto_id' => $iten['produto_id'])));
+					
+					if($this->request->data['Saida']['forma_de_entrada'] == 1){
+						
+					$this->request->data['Produtoiten'][$i]['unidae'] = $produto['Produto']['unidade'];
+					
+						$this->request->data['Produtoiten'][$i]['cfop'] = $tributo['Tributo']['cfop'];
+						$this->request->data['Produtoiten'][$i]['valorbase_icms'] =  $iten['valor_total'];
+						$this->request->data['Produtoiten'][$i]['percentual_icms'] =  $tributo['Tributo']['al_icms'];
+						$this->request->data['Produtoiten'][$i]['valor_icms']= ($iten['valor_total'] * $tributo['Tributo']['al_icms'] ) / 100;
+						$this->request->data['Produtoiten'][$i]['valorbase_st'] =  $iten['valor_total'];
+						$this->request->data['Produtoiten'][$i]['percentual_st'] = $tributo['Tributo']['al_cst'];
+						$this->request->data['Produtoiten'][$i]['valor_st'] = ($iten['valor_total'] * $tributo['Tributo']['al_cst']) / 100;
+						$this->request->data['Produtoiten'][$i]['percentual_ipi'] = $tributo['Tributo']['al_ipi'];
+						$this->request->data['Produtoiten'][$i]['valor_ipi'] = ($iten['valor_total'] *  $tributo['Tributo']['al_ipi']) / 100;
+						$this->request->data['Produtoiten'][$i]['percentual_cofins'] = $tributo['Tributo']['al_confins'];
+						$this->request->data['Produtoiten'][$i]['valorbase_cofins']  = $iten['valor_total'] ;
+						$this->request->data['Produtoiten'][$i]['valor_cofins'] = ( $iten['valor_total']  /  $tributo['Tributo']['al_confins'])/ 100;
+					}
+					
+					$i++;
+				}
+				$j=0;
 				
+				foreach ($pedidoVenda['Comlotesoperacao'] as $lote) {
+					$this->request->data['Loteiten'][$j]['produto_id'] = $lote['produto_id'];
+					$this->request->data['Loteiten'][$j]['lote_id'] = $lote['lote_id'];
+					$this->request->data['Loteiten'][$j]['qtde'] = $lote['qtde'];
+					$this->request->data['Loteiten'][$j]['tipo'] = "SAIDA";
+					$j++;
+				}
 				
-				$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
-				$this->Loteiten->save($updateLoteiten);
-				$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
-				$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+				$this->Saida->create();
+				if($this->Saida->saveAll($this->request->data)){
+					
+					
+					$ultimaSaida = $this->Saida->find('first', array('order' => array('Saida.id' => 'desc'), 'recursive' => -1));
+					
+					
+					
+					
+					$lotes = $this->Loteiten->find('all', array( 'conditions' => array('Loteiten.nota_id ' => $ultimaSaida['Saida']['id']), 'recursive' => -1));
+							
+					foreach($lotes as $lote){
+						$produtoitens_id = $this->Produtoiten->find('first', array('conditions' => array('Produtoiten.nota_id' => $ultimaSaida['Saida']['id'], 'Produtoiten.produto_id' => $lote['Loteiten']['produto_id']), 'recursive' => -1));
+						
+						
+						$updateLoteiten = array('id' =>  $lote['Loteiten']['id'], 'produtoiten_id' => $produtoitens_id['Produtoiten']['id']);	
+						$this->Loteiten->save($updateLoteiten);
+						$this->calcularNivelProduto($lote['Loteiten']['produto_id']);
+						$this->calcularEstoqueLote($lote['Loteiten']['lote_id']);
+						
+						
+					}
+					$this->tiradaReserva($ultimaSaida['Saida']['id']);
+					$upFaturamento = array('id' => $id, 'status_faturamento' => 'FATURADO');
+					$this->Pedidovenda->create();
+					$this->Pedidovenda->save($upFaturamento);
+					$this->Session->setFlash(__('A saída foi Salva com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+		
 				
+				} else {
+					$this->Session->setFlash(__('A saída não pode ser salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
+					
+					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
+		
+				}
+				
+			}else{
+					
+				
+				$this->Session->setFlash(__('Este pedido já foi faturado. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
+				return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 				
 			}
-			$this->tiradaReserva($ultimaSaida['Saida']['id']);
-			$this->Session->setFlash(__('A saída foi Salva com sucesso.'), 'default', array('class' => 'success-flash'));
-			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
-
 		
-		} else {
-			$this->Session->setFlash(__('A saída não pode ser salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
-			return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
-
 		}
 	}
 	
