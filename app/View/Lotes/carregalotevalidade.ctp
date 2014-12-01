@@ -54,7 +54,8 @@ $(document).ready(function() {
 			tipo = $('#vazio-tipo'+idPrinc).val();
 			lote_id = $('option:selected', this).val();
 			qtd_nolote = $('option:selected', this).attr('data-estoque');
-			$('#qtd_novoLote').val(qtd_nolote);
+			//$('#qtd_novoLote').val(qtd_nolote);
+			$('#mostraQtdLote').val(qtd_nolote);
 			lote_nome = $('option:selected', this).attr('id');
 	});		
 	
@@ -183,12 +184,16 @@ $(document).ready(function() {
 
 				?>
 			</select>
+			
+			<div class="mostraQtdLote">
+				<?php echo $this->Form->input('va',array('label'=>'Qtd no Lote:','id'=>'mostraQtdLote','class'=>'borderZero tamanho-pequeno','readonly'=>'readonly','onfocus'=>'this.blur();')); ?>
+			</div>
 		</div>
 		
 		<span id="msgLoteQtdVazio" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Entre com um valor maior que zero.</span>
 		<span id="msgLoteQtdSuperior" class="Msg-tooltipDireita loteVazioInserido msgAviso hideMsg" style="display:none;">Essa quantia é Superior a necessária.</span>
 		<?php
-			echo $this->Form->input('putQtd',array('label'=>'Quantidade do Lote:','id'=>'qtd_novoLote','class'=>'naoLetras tamanho-pequeno'));
+			echo $this->Form->input('putQtd',array('label'=>'Quantidade:','id'=>'qtd_novoLote','class'=>'naoLetras tamanho-pequeno'));
 			echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar Lote','title'=>'Adicionar Lote','class'=>'bt_preencher','id'=>'bt-adicionarLote'));
 		?>
 		</section>

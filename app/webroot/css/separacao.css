@@ -1,18 +1,68 @@
 @charset "utf-8";
 
-/* Avisos*/
 
-.modal-body-confirma_entrega{
-	height: 160px !important;
+
+/********* SEPARAÇÃO CONSULTA *********/
+.boxTitulo{
+	margin: 5px 10px 10px;
+	font-size: 15px;
+	display: block;
 }
 
-.conteudo-modal-entrega{
-	margin: 0 auto;
-	width: 400px;
-	height: 30px;
+.inputSearchData input[type='text']{
+	height:20px;
+	margin-top:3px;
+	width:70px !important;
+	padding-top: 0px !important;
+	line-height:16px;
+}
+
+
+.statusSelect{
 	clear: both;
-	padding: 0px 30px;
+	margin-bottom: 3px;
 }
+.informacoesOperacao select{
+	height: 23px !important;
+
+}
+
+#spanDataFinalIni{
+	float: right;
+	position: absolute;
+	margin: 0px 0px 0px 335px;
+	width: 150px;
+	z-index: 1;
+}
+
+#spanDataFinalEntre{
+	float: right;
+	position: absolute;
+	margin: 25px 0px 0px 335px;
+	width: 150px;
+	z-index: 1;
+}
+
+#spanDataFinalIni:after, #spanDataFinalEntre:after{
+	border-color: transparent #ffd5d5 transparent transparent !important;
+	top: 5px;
+	left: -20px;
+}
+
+.informacoesProduto label{
+	width: auto !important;
+	margin-left: 30px;
+	margin-top: 4px;
+}
+
+.overflowLista{
+	height:200px !important;
+}
+.borderRadius{
+	border-radius: 5px !important;
+}
+
+/* Avisos*/
 
 .bt-confirmar{
 	padding: 0 !important;
@@ -59,6 +109,18 @@
 }
 /* MODAIS*/
 
+.modal-body-confirma_entrega{
+	height: 160px !important;
+}
+
+.conteudo-modal-entrega{
+	margin: 0 auto;
+	width: 400px;
+	height: 30px;
+	clear: both;
+	padding: 0px 30px;
+}
+
 .orglotes,.cancelCompleta{
 	float: left;
 	margin-left: 10px;
@@ -69,8 +131,15 @@
 	background: #D3D3D3;
 }
 
-label[for*='encontrada']{
-	width: 100px !important;
+.mostraQtdLote{
+	float: right !important;
+	margin-right: 60px;
+}	
+#mostraQtdLote{
+	padding: 0;
+}
+label[for*='mostraQtdLote']{
+	width: 90px !important;
 }
 
 .loaderAjaxCarregarLoteDIV{

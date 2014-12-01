@@ -93,9 +93,9 @@
 		<div class="segmento-esquerdo">
 			<?php
 				if($comoperacao['Comoperacao']['status_estoque'] == 'SEPARACAO'){
-					$status_estoque = 'Separação';
-				}else if($comoperacao['Comoperacao']['status_estoque'] == 'SEPARADO'){
-					$status_estoque = 'Separado';
+					$status_estoque = 'SEPARAÇÃO';
+				}else{
+					$status_estoque = $comoperacao['Comoperacao']['status_estoque'];
 				}
 				
 				$autorizado_por = '';
@@ -177,10 +177,13 @@
 														<span id="msgQtdMaior<?php echo $j;?>" class="Msg-tooltipDireita msgAviso hideMsg" style="display:none;">Quantidade Inserida maior que a Quantidade no Estoque.</span>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
-															
-																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));
-																
-																echo "<div id='encontrada".$j."' style='display:none;'>";
+																//VERIFICA O TIPO DO USUARIO CASO NÂO TENHA PERMISSÂO NÂO PODE MODIFICAR O LOTE
+																if($usuario['Role']['alias'] == 'admin' || $usuario['Role']['alias'] == 'gestor' || $usuario['Role']['alias'] == 'gerente'){
+																	echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));
+																}else{//SE NÂO TIVER PERMISSÂO MOSTRA OS TRAÇOS NO LUGAR DO BOTÂO.
+																	echo "----"; 
+																}
+																	echo "<div id='encontrada".$j."' style='display:none;'>";
 																echo $this->Form->input('vazio.qtd_encontrada',array('label'=>'Qtd. Encontrada:','id'=>'encontradaInput'.$j,'class'=>'q-ip tamanho-pequeno qtdEncontrada'));
 
 																echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
@@ -210,7 +213,11 @@
 													<td>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
-																echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																//if($usuario['Role']['alias'] == 'admin' || $usuario['Role']['alias'] == 'gestor' || $usuario['Role']['alias'] == 'gerente'){
+																	echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																//}else{
+																//	echo "----";
+																//}
 															}else{
 																echo "OK";
 															}

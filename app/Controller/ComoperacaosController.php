@@ -1257,10 +1257,7 @@ public $uses = array();
 			}
 			$mensagem['Mensagem']['lotestrocados'] = $ltNovos;
        		$this->Session->write("extraparams",$mensagem);
-			
-			
-			
-			
+
 			$extraparams= $mensagem;
 			 $this->set(compact('extraparams'));
 	
@@ -1487,14 +1484,16 @@ public $uses = array();
 
 					)
 	            ),
-	            'status_estoque' => array(
+	             'status_estoque' => array(
 	                'Comoperacao.status_estoque' => array(
 	                    'operator' => 'LIKE',
-                         'explode' => array(
-	                    	'concatenate' => 'OR'
-	               		 )
+
+	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
+	               		'select' => array('' => '','SEPARADO' => 'SEPARADO', 'SEPARACAO' => 'SEPARACAO')
+
 					)
 	            ),
+	    
 				
 	            //Filtros PRODUTOS
 	            
@@ -1577,6 +1576,7 @@ public $uses = array();
 		$this->loadModel('Produto');
 		$this->loadModel('Lote');
 		$this->loadModel('Comlotesoperacao');
+		$this->loadModel('User');
 		
 		//~ for($j=0;$j<count($comoperacao['Produto']);$j++){
 			//~ $comoperacao['Produto'][$j]['lotes'] = $this->Lote->find('all',array('recursive'=>'-1','conditions'=>array('Lote.produto_id'=>$comoperacao['Produto'][$j]['id'])));
@@ -1597,10 +1597,12 @@ public $uses = array();
 			
 			$i++;
 		}
-			
+		
+		$usuario = $this->User->find('first',array('conditions'=>array('User.id'=>$userid)));	
+		
 		$this->loadModel('Comitensdaoperacao');
 		$itens = $this->Comitensdaoperacao->find('all',array('conditions'=>array('Comitensdaoperacao.comoperacao_id' => $id)));
-		$this->set(compact('userid','itens','comoperacao','vendedor'));
+		$this->set(compact('usuario','userid','itens','comoperacao','vendedor'));
 		
 	}
 
