@@ -1,6 +1,76 @@
 @charset "utf-8";
 
+/********* ESTILO TABELA DE IMPRESSAO *********/
 
+#tabela-impressao,
+#tabela-impressao thead tr,
+#tabela-impressao tbody tr,
+#tabela-impressao th,
+#tabela-impressao td{
+	border: 1px solid #ccc;
+	text-align: left;
+}
+
+#tabela-impressao .td-lotes{
+	padding: 5px;
+}
+
+#tabela-impressao thead tr{
+	background: #F2F2F2;
+	border: 1px solid #ccc !important;
+}
+
+#tabela-impressao thead tr th:last-child, td:last-child {
+	border-right: 1px solid #ccc !important;
+}
+
+/* ---------------------- */
+
+#tabela-lotes{
+	margin-left: 40px;
+	width: auto;
+}
+#tabela-lotes td{
+	padding: 0;
+	margin: 0;
+	text-align: center !important;	
+}
+
+#tabela-lotes,
+#tabela-lotes thead td,
+#tabela-lotes tbody td,
+#tabela-lotes td,
+#tabela-lotes thead tr,
+#tabela-lotes tr{
+	border-top: none !important;
+	border-right: none !important;
+	border-left: none !important;
+	border-bottom: 1px solid #ccc;
+}
+
+#tabela-lotes tbody td:last-child {
+	border-left: 1px solid #ccc !important;
+}
+
+.td-auto-pequena{
+	min-width: 50px !important;
+}
+
+.td-auto-media{
+	min-width: 120px !important;
+}
+
+.td-auto-grande{
+	width: 600px !important;
+}
+
+#myModal_imprimir fieldset{
+	width: 790px !important;
+	margin: 0 auto !important;
+	padding: 0;
+	display: block;
+	clear: both;	
+}
 
 /********* SEPARAÇÃO CONSULTA *********/
 .boxTitulo{
