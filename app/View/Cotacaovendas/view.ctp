@@ -156,7 +156,7 @@
 			
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
+					<div class="linha"><?php echo $this->Html->Tag('p','Status Faturamento:',array('class'=>'titulo'));?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['status'],array('class'=>'valor'));?>	</div>
 				</div>
 			</div>

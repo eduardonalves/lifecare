@@ -15,7 +15,19 @@
 			
 			$(".orglote").on('click', function(){
 				
+				if ($(this).hasClass('disable')){
+					
+					return false;
+				}
+				
 				var $id = $(this).attr('data-lotesoperacao-id');
+				var $meImage = $(this).attr('src');
+				var me = $(this);
+				
+				$(this).attr('src', '<?php echo $this->Html->url('/img/ajaxLoaderLifeCare.gif'); ?>');
+				$(this).addClass('disable');
+				
+				$(this).after('<span class="label-aguarde"> Aguarde...</span>');
 				
 				$.ajax({
 					url: urlInicio+"Comoperacaos/checkLote/"+$id,
@@ -23,8 +35,19 @@
 						
 						$('.td-status-com-' + $id).html($data);
 						$('.valorseparado').html('Separado');
+
+						$('.completar-lote').html('OK');
+						$('.confirmar-lote').html('OK');
+
+					}).fail( function(){
+
+						alert('Falha ao confirmar o lote.');
 						
-				});
+						me.attr('src', $meImage);
+						me.next('.label-aguarde').remove();
+						me.removeClass('disable');
+					
+					});
 				
 			});
 			
@@ -166,7 +189,7 @@
 													<td><?php echo $lote['Lote']['numero_lote']?></td>
 													<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
 													<td class="td-status-com-<?php echo $lote['Comlotesoperacao']['id']; ?>"><?php echo $lote['Comlotesoperacao']['status_estoque']; ?></td>
-													<td>
+													<td class='completar-lote'>
 														<span id="msgQtdMaior<?php echo $j;?>" class="Msg-tooltipDireita msgAviso hideMsg" style="display:none;">Quantidade Inserida maior que a Quantidade no Estoque.</span>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
@@ -191,7 +214,7 @@
 																	echo $this->Form->input('vazio.comoperacao_id',array('value'=> $comoperacao['Comoperacao']['id'], 'id' => 'vazio-comoperacaoid'.$j, 'type' => 'hidden'));
 																	echo $this->Form->input('vazio.lote_id',array('value'=>$lote['Comlotesoperacao']['lote_id'] ,'id'=>'vazio-loteid'.$j,'type'=>'hidden'));
 																	echo $this->Form->input('vazio.produto_id',array('value'=> $itens['produto_id'] ,'id'=>'vazio-produtoid'.$j,'type'=>'hidden'));
-																	echo $this->Form->input('vazio.comitensdeoperacao',array('value'=>$lote['Comlotesoperacao']['comitensdaoperacao_id'] ,'id'=>'vazio-comitensdaoperacaoid'.$j,'type'=>'hidden'));																
+																	echo $this->Form->input('vazio.comitensdeoperacao',array('value'=>$lote['Comlotesoperacao']['comitensdaoperacao_id'] ,'id'=>'vazio-comitensdaoperacaoid'.$j,'type'=>'hidden'));
 																	//echo $this->Form->input('vazio.qtde',array('value'=>$lote['Comlotesoperacao']['qtde'] ,'id'=>'vazio-qtde'.$j,'type'=>'hidden'));
 																	echo $this->Form->input('vazio.tipo',array('id'=>'vazio-tipo'.$j,'value'=>'SAIDA','type'=>'hidden'));
 																// HIDDENS' PARA ENVIAR PARA O MODAL
@@ -200,7 +223,7 @@
 															}
 														?>													
 													</td>
-													<td>
+													<td class='confirmar-lote'>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
 																echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));

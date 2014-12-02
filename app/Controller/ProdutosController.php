@@ -289,6 +289,27 @@ class ProdutosController extends AppController {
 			
 	}
 
+		public function calculaQuantVencidos($id=NULL){
+			
+						
+			$this->loadModel('Lote');
+			$this->loadModel('Produto');
+
+			if ($id === NULL){
+				
+				$produtos = $this->Lote->find('all', array('recursive' => -1, 'conditions' => array('Lote.data_validade <' => date("Y-m-d H:i:s"))));
+			
+			}else{
+				
+				$produtos = $this->Lote->find('all', array('recursive' => -1, 'conditions' => array('Lote.produto_id' => $id,'Lote.data_validade <' => date("Y-m-d H:i:s"))));
+			}
+			
+			foreach ($produtos as $produto)
+			{
+				print_r($produto);
+			}
+			
+		}
 
 	public function fgvupload(){
 		$this->loadModel('Produto');

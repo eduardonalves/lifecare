@@ -230,8 +230,6 @@ class NotasController extends AppController {
 			
 		}
 		
-		
-
 /**
  * index method
  *

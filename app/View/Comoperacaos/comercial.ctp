@@ -222,7 +222,7 @@
 					<th id="status_faturamento" class="colunaConta status_faturamento"><?php echo $this->Paginator->sort('status_faturamento', 'Sit.Fatur'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					
 					
-					<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
+					<th id="status" class="colunaConta status"><?php echo $this->Paginator->sort('status', 'Status Fat.'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 					<th id="Parceirodenegocio" class="colunaConta _Parceirodenegocio.nome"><?php echo $this->Paginator->sort('_Parceirodenegocio.nome','Cliente'); ?> <div id='indica-ordem' class='posicao-seta'></div> </th>
 
 
