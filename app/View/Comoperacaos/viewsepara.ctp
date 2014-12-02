@@ -116,9 +116,9 @@
 		<div class="segmento-esquerdo">
 			<?php
 				if($comoperacao['Comoperacao']['status_estoque'] == 'SEPARACAO'){
-					$status_estoque = 'Separação';
-				}else if($comoperacao['Comoperacao']['status_estoque'] == 'SEPARADO'){
-					$status_estoque = 'Separado';
+					$status_estoque = 'SEPARAÇÃO';
+				}else{
+					$status_estoque = $comoperacao['Comoperacao']['status_estoque'];
 				}
 				
 				$autorizado_por = '';
@@ -135,12 +135,19 @@
 				<div class="linha2"><?php echo $this->Html->Tag('p',$autorizado_por,array('class'=>'valor'));?>	</div>
 			</div>	
 		</div>
+		<?php
+			//echo $this->Form->postLink($this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;cursor:pointer;','alt' =>__('Confirmar Entrega'),'title' => __('Confirmar Entrega'))), array('controller' => 'Comoperacaos','action' => 'confirmaentrega', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Confirma entrega de Produtos da nota # %s?', $comoperacao['Comoperacao']['id'])));
+			echo "<a href='myModal_add-confirma_entrega' class='bt-showmodal'>";
+				echo $this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;','alt'=>'Organizar Lotes','class' => 'orglotes img-lista','id'=>'Orglote','title'=>'Organizar Lotes'));
+			echo "</a>";
+		
+		?>
 	</section>
 </section>
 
 <section>
 	<header>Produtos da Venda</header>
-	<table> 
+	<table>
 		<thead>
 			<tr>
 				<td>Ações</td>
@@ -193,10 +200,13 @@
 														<span id="msgQtdMaior<?php echo $j;?>" class="Msg-tooltipDireita msgAviso hideMsg" style="display:none;">Quantidade Inserida maior que a Quantidade no Estoque.</span>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
-															
-																echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));
-																
-																echo "<div id='encontrada".$j."' style='display:none;'>";
+																//VERIFICA O TIPO DO USUARIO CASO NÂO TENHA PERMISSÂO NÂO PODE MODIFICAR O LOTE
+																if($usuario['Role']['alias'] == 'admin' || $usuario['Role']['alias'] == 'gestor' || $usuario['Role']['alias'] == 'gerente'){
+																	echo $this->Html->image('bt-completarLote.png',array('alt'=>'Completar','class' => 'completar','id'=>'completar'.$j,'title'=>'Completar'));
+																}else{//SE NÂO TIVER PERMISSÂO MOSTRA OS TRAÇOS NO LUGAR DO BOTÂO.
+																	echo "----"; 
+																}
+																	echo "<div id='encontrada".$j."' style='display:none;'>";
 																echo $this->Form->input('vazio.qtd_encontrada',array('label'=>'Qtd. Encontrada:','id'=>'encontradaInput'.$j,'class'=>'q-ip tamanho-pequeno qtdEncontrada'));
 
 																echo "<a href='myModal_add-troca_lote".$j."' class='bt-showmodal'>";
@@ -226,7 +236,11 @@
 													<td class='confirmar-lote'>
 														<?php
 															if($lote['Comlotesoperacao']['status_estoque'] != "OK"){
-																echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																//if($usuario['Role']['alias'] == 'admin' || $usuario['Role']['alias'] == 'gestor' || $usuario['Role']['alias'] == 'gerente'){
+																	echo $this->Html->image('bt-confirmaLote.png',array('style'=>'cursor:pointer','data-lotesoperacao-id'=>$lote['Comlotesoperacao']['id'], 'alt'=>'Organizar Lotes','class' => 'orglote img-lista','id'=>'Orglote'.$j,'title'=>'Organizar Lotes'));
+																//}else{
+																//	echo "----";
+																//}
 															}else{
 																echo "OK";
 															}
@@ -307,13 +321,33 @@
 		</div>
 	</div>
 
-<?php
-/*
-<div style="clear:both;"></div>
-<pre>
+<!-- Confirma Entrega ############################################################################ -->
 
-	print_r($comoperacao['Comitensdaoperacao']);
+	<div class="modal fade" id="myModal_add-confirma_entrega" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body modal-body-confirma_entrega">
+		<?php
+			echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+		?>
+			<header class="cabecalho">
+			<?php 
+				echo $this->Html->image('caminhao.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+			?>	
+				<h1>Entrega de Produtos</h1>
+			</header>
+
+			<section>
+			<header>Confirmar Entrega</header>
+			</section>
+			
+			<section class="conteudo-modal-entrega">
+					<?php
+						echo $this->Form->create('Comoperacoes');
+							echo $this->Form->input('data_entrega',array('id'=>'entredaDate','class'=>'tamanho-pequeno','label'=>'Data de Entrega:','type'=>'text'));
+							echo $this->form->submit('botao-confirmar.png',array('class' => 'bt-confirmar', 'alt' => 'Faturar', 'title' => 'Faturar'));
+						echo $this->Form->end();						
+					?>
+			</section>
+		</div>
+	</div>
 
 
-</pre>*/
-?>

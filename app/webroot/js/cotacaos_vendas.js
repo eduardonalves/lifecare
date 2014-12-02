@@ -1,7 +1,5 @@
 $(document).ready(function() {
-	
-	$('#previsao_entrega').mask('99/99/9999');
-	
+
 	function insereCredito(valor){
 		$('#creditoClienteHide').val(valor);
 		$('#creditoCliente').val('R$ ' + valor);
@@ -13,32 +11,32 @@ $(document).ready(function() {
 		return sobra.toFixed(2);
 	}
 	
-	function calculaDesconto(valor,desconto,mensagem){
-		desconto = parseFloat(desconto.split('.').join('').replace(',','.'));
-		if(desconto > 0 && desconto < valor){
-			novo_total = valor - desconto;
-			//alert(novo_total);
-			$('#totalProdutoHide').val(novo_total);
-			$('#valorPedido').val(novo_total);
-			$('#totalProduto').val('R$ '+float2moeda(novo_total));
-		}else if(desconto == 0 || desconto == ''){
-			$('#totalProdutoHide').val($('#ValorOriginal').val());
-			$('#valorPedido').val($('#ValorOriginal').val());
-			$('#totalProduto').val('R$ '+float2moeda($('#ValorOriginal').val()));
-		}else if(valor > 0 && desconto > valor){
-			$(mensagem).show();
-			$('#valorDescontoHide').val('');
-			$('#valorDesconto').val('');
-		}
-		
-		
-	}
+	//~ function calculaDesconto(valor,desconto,mensagem){
+		//~ desconto = parseFloat(desconto.split('.').join('').replace(',','.'));
+		//~ if(desconto > 0 && desconto < valor){
+			//~ novo_total = valor - desconto;
+			//~ //alert(novo_total);
+			//~ $('#totalProdutoHide').val(novo_total);
+			//~ $('#valorPedido').val(novo_total);
+			//~ $('#totalProduto').val('R$ '+float2moeda(novo_total));
+		//~ }else if(desconto == 0 || desconto == ''){
+			//~ $('#totalProdutoHide').val($('#ValorOriginal').val());
+			//~ $('#valorPedido').val($('#ValorOriginal').val());
+			//~ $('#totalProduto').val('R$ '+float2moeda($('#ValorOriginal').val()));
+		//~ }else if(valor > 0 && desconto > valor){
+			//~ $(mensagem).show();
+			//~ $('#valorDescontoHide').val('');
+			//~ $('#valorDesconto').val('');
+		//~ }
+		//~ 
+		//~ 
+	//~ }
 /*** AUTO COMPLETE VENDEDOR *******************************************/	
 	$('#valorDesconto').focusout(function(){
 		desc = $("#valorDesconto").val();
 		$('#valorDescontoHide').val(desc);
 		total = $('#totalProdutoHide').val();
-		calculaDesconto(total,desc,'#spanMensagemDescontoFocus');	
+		//calculaDesconto(total,desc,'#spanMensagemDescontoFocus');	
 	});
 
 
@@ -80,8 +78,6 @@ $(document).ready(function() {
     
    $("#bt-preencher_Cliente").click(function(){
 	   
-	 
-		
 		valorCliente =	$("#add-cliente option:selected" ).val();
 		valorCpfCnpj= $("#add-cliente option:selected" ).attr('class');
 		valorNome= $("#add-cliente option:selected" ).attr('id');
@@ -372,7 +368,7 @@ $(document).ready(function() {
 				in_produto++;
 				
 				calculaTotal('TotalPedido');
-				calculaDesconto($('#totalProdutoHide').val(),$('#valorDesconto').val(),'#spanMensagemDescontoFocus');
+				//calculaDesconto($('#totalProdutoHide').val(),$('#valorDesconto').val(),'#spanMensagemDescontoFocus');
 			}
 		}
 	});

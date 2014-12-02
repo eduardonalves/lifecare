@@ -51,7 +51,11 @@
     <h1 class="menuOption51">Consulta da Venda</h1>
 </header>
 
+
+
 <div>
+	
+	
 <!-- 
 <section>
 	
@@ -84,36 +88,8 @@
 			?>
 		</section>
 -->
-		<?php
-
-		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
-		
-		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
-
-		?>
-	
-	<?php echo ($isVendedor) ? '<!--' : ''; ?>
 	<section>
-	<header>Dados do Vendedor</header>
-		<section  class="coluna-esquerda">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-		
-		<section  class="coluna-central">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-	<?php echo ($isVendedor) ? '-->' : ''; ?>
-	<header>Dados do Cliente</header>
+<header>Dados do Cliente</header>
 	
 	<!-- INFORMAÇÕES DA FOrnecedor-->
 		
@@ -202,7 +178,36 @@
 				
 			?>
 		</section>
+		<?php
+
+		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
 		
+		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
+
+		?>
+	
+	<?php echo ($isVendedor) ? '<!--' : ''; ?>
+
+	<header>Dados do Vendedor</header>
+		<section  class="coluna-esquerda">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
+		
+		<section  class="coluna-central">
+			<div class="segmento-esquerdo">
+				<div class="conteudo-linha">
+					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+				</div>
+			</div>
+		</section>		
+	<?php echo ($isVendedor) ? '-->' : ''; ?>
+			
 	<header>Dados da Venda</header>
 	
 	<!-- INICIO PEDIDOS -->
@@ -215,6 +220,8 @@
 
 				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['forma_pagamento']),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.prazo_pagamento',array('type'=>'text','label'=>'Prazo de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['prazo_pagamento']),'disabled'=>'disabled'));
+				
 				
 			?>
 			
@@ -231,6 +238,10 @@
 				
 				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.prev',array('type'=>'text','label'=>'Previsão de Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['prev'])),'disabled'=>'disabled'));
+				if(isset($pedidovenda['Pedidovenda']['data_entrega'])){
+					echo $this->Form->input('Comoperacao.data_entrega',array('type'=>'text','label'=>'Data da Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['data_entrega'])),'disabled'=>'disabled'));
+				}
 			?>
 	
 		</section>
@@ -253,7 +264,8 @@
 						<th>Nome do Produto</th>
 						<th>Quantidade</th>									
 						<th>Unidade</th>									
-						<th>Valor Unitário</th>									
+						<th>Valor Produto</th>									
+						<th>Valor Venda</th>									
 						<th>Valor Total</th>									
 						<th>Observação</th>									
 					</thead>
@@ -263,6 +275,9 @@
 							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 							echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+							echo '<td>';
+								echo converterMoeda($produtos['Produto']['preco_venda']);
+							echo '</td>';
 							echo '<td>';
 								echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 							echo '</td>';
@@ -564,7 +579,7 @@
 																											
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Venda:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($pedidovenda['Pedidovenda']['valor']),array('class'=>'valor'));?>	</div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['valor'],array('class'=>'valor'));?>	</div>
 															</div>
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Status Gerencial:',array('class'=>'titulo'));?></div>
@@ -585,7 +600,8 @@
 															<th>Nome do Produto</th>
 															<th>Quantidade</th>
 															<th>Unidade</th>
-															<th>Valor Unitário</th>
+															<th>Valor Produto</th>
+															<th>Valor Venda</th>
 															<th>Valor Total</th>
 															<th>Observação</th>
 														</thead>
@@ -595,6 +611,9 @@
 																echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
 																echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
 																echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+																echo '<td>';
+																	echo converterMoeda($produtos['Produto']['preco_venda']);
+																echo '</td>';
 																echo '<td>';
 																	echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
 																echo '</td>';

@@ -166,7 +166,7 @@ $(document).ready(function() {
 			if(data_final != null){
 				$("#filterDataVencimento, #filterDataVencimento-between").val("");
 				$("#filterDataVencimento-between").addClass("shadow-vermelho");
-				$('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipAbaixo">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
+				$('<span id="spanDataFinalParc" class="DinamicaMsg Msg-tooltipDireita">A data Final não pode ser menor que a inicial</span>').insertAfter('input[id="filterDataEmissao-between"]');
 			}
 		}else{
 			$("#filterDataVencimento-between").removeClass("shadow-vermelho");

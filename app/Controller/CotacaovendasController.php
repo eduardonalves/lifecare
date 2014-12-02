@@ -20,6 +20,100 @@ class CotacaovendasController extends ComoperacaosController {
 	public $components = array('Paginator','lifecareDataFuncs');
 	
 	
+	public function setAutorizacaoCotacao($id){
+				
+			$this->loadModel('Comtokencotacao');
+			$this->loadModel('Pedidovenda');
+			$this->layout = 'venda';
+			$userid = $this->Session->read('Auth.User.id');
+
+			if (!$this->Cotacaovenda->exists($id)) {
+				throw new NotFoundException(__('Cotacao inválida.'));
+			}
+			if ($this->request->is(array('post', 'put', 'get'))) {
+					
+				$cotacaoAprovada = $this->Cotacaovenda->find('first', array('conditions' => array('AND' => array(array('Cotacaovenda.id' => $id), array('Cotacaovenda.status_gerencial' => 'OK')))));
+				
+				if(empty($pedidoAprovado)){
+					$this->request->data['Cotacaovenda']['id']=$id;
+					$this->request->data['Cotacaovenda']['autorizado_por']=$userid;
+					$this->request->data['Cotacaovenda']['status_gerencial']="OK";
+						
+					$this->Cotacaovenda->create();
+					if ($this->Cotacaovenda->save($this->request->data)) {
+						
+						$ultimaCotacao = $this->Cotacaovenda->find('first',array('conditions' => array('Cotacaovenda.id' => $id)));
+				
+						$this->loadModel('Contato');
+						
+						foreach($ultimaCotacao['Parceirodenegocio'] as $cliente){
+							
+							$contato = $this->Contato->find('first', 
+								array(
+									'recursive' => -1,
+									'conditions' => array(
+										'Contato.parceirodenegocio_id' => $cliente['id']
+									),	
+								)
+							);
+							
+							$this->loadModel('Comtokencotacao');
+							$this->loadModel('Produto');
+							$flag="FALSE";
+							while($flag =='FALSE') {
+								$numero=date('Ymd');
+								$numeroAux= rand(0, 99999999);
+								$numero = $numero.$numeroAux;
+								$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
+								if(empty($ultimaComtokencotacao)){
+									$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacaovenda']['id'], 'parceirodenegocio_id' => $cliente['id'], 'codigoseguranca' => $numero);
+									$this->Comtokencotacao->create();
+									$this->Comtokencotacao->save($dadosComOp);
+									$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
+									$flag="TRUE";
+								}
+								
+							}
+							
+							$i=0;
+							foreach($ultimaCotacao['Comitensdaoperacao'] as $i => $itens){
+								$ultimaCotacao['Comitensdaoperacao'][$i];
+								$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimaCotacao['Comitensdaoperacao'][$i]['produto_id'])));
+								$ultimaCotacao['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
+								$i++;
+							}
+							$mensagem = array();
+							
+		
+							$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
+							$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
+							
+							$remetente="cirurgica.simoes@gmail.com";
+							
+							if(!empty($contato)){
+								if($contato['Contato']['email'] !=""){
+									$this->eviaEmailPedido($contato['Contato']['email'], $remetente, $ultimaCotacao);
+								}
+							}
+						}
+						
+						$this->Session->setFlash(__('A cotação foi autorizada com sucesso.'),'default',array('class'=>'success-flash'));
+						return $this->redirect(array('action' => 'view', $id));
+					} else {
+						$this->Session->setFlash(__('A cotação não pode ser autorizada. Por favor, tente novamente.'),'default',array('class'=>'error-flash'));
+					}
+				}else{
+					$this->Session->setFlash(__('Este pedido já foi aprovado'),'default',array('class'=>'error-flash'));
+					return $this->redirect(array('action' => 'view', $id));
+				}
+				
+				
+			} else {
+				$options = array('conditions' => array('Cotacaovenda.' . $this->Cotacaovenda->primaryKey => $id));
+				$this->request->data = $this->Cotacaovenda->find('first', $options);
+			}				
+	}
+	
 	private function loadUnidade(){
 		
 		$this->loadModel('Unidade');		
@@ -245,6 +339,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->loadUnidade();
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
+		$this->request->data['Cotacaovenda']['status_gerencial'] = "PENDENTE";
 		$this->request->data['Cotacaovenda']['tipo']='CTVENDA';
 		if(isset($this->request->params['named']['modulo'])){
 			$modulo =  $this->request->params['named']['modulo'];
@@ -255,61 +350,8 @@ class CotacaovendasController extends ComoperacaosController {
 			$this->Cotacaovenda->create();
 		
 			if ($this->Cotacaovenda->saveAll($this->request->data)) {
+				
 				$ultimaCotacao = $this->Cotacaovenda->find('first',array('order' => array('Cotacaovenda.id' => 'DESC')));
-				
-				$this->loadModel('Contato');
-				
-				foreach($ultimaCotacao['Parceirodenegocio'] as $fornecedor){
-					
-					$contato = $this->Contato->find('first', 
-						array(
-							'recursive' => -1,
-							'conditions' => array(
-								'Contato.parceirodenegocio_id' => $fornecedor['id']
-							),	
-						)
-					);
-					
-					$this->loadModel('Comtokencotacao');
-					$this->loadModel('Produto');
-					$flag="FALSE";
-					while($flag =='FALSE') {
-						$numero=date('Ymd');
-						$numeroAux= rand(0, 99999999);
-						$numero = $numero.$numeroAux;
-						$ultimaComtokencotacao = $this->Comtokencotacao->find('first',array('conditions' => array('Comtokencotacao.codigoseguranca' => $numero)));	
-						if(empty($ultimaComtokencotacao)){
-							$dadosComOp = array('comoperacao_id' => $ultimaCotacao['Cotacaovenda']['id'], 'parceirodenegocio_id' => $fornecedor['id'], 'codigoseguranca' => $numero);
-							$this->Comtokencotacao->create();
-							$this->Comtokencotacao->save($dadosComOp);
-							$ultimaComtokencotacao= $this->Comtokencotacao->find('first',array('order' => array('Comtokencotacao.id' => 'DESC')));	
-							$flag="TRUE";
-						}
-						
-					}
-					
-					$i=0;
-					foreach($ultimaCotacao['Comitensdaoperacao'] as $i => $itens){
-						$ultimaCotacao['Comitensdaoperacao'][$i];
-						$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $ultimaCotacao['Comitensdaoperacao'][$i]['produto_id'])));
-						$ultimaCotacao['Comitensdaoperacao'][$i]['produtoNome'] = $produto['Produto']['nome']; 	
-						$i++;
-					}
-					$mensagem = array();
-					
-
-					$mensagem['Mensagem']['codigo']=$ultimaComtokencotacao['Comtokencotacao']['codigoseguranca'];
-					$mensagem['Mensagem']['url']= Router::url('/', true)."Comrespostas/logincotacao";
-					
-					$remetente="cirurgica.simoes@gmail.com";
-					
-					if(!empty($contato)){
-						if($contato['Contato']['email'] !=""){
-							$this->eviaEmailPedido($contato['Contato']['email'], $remetente, $ultimaCotacao);
-						}
-					}
-				}
-				
 
 				//debug($this->request->data);
 				$this->Session->setFlash(__('A cotação foi salva com sucesso.'),'default',array('class'=>'success-flash'));
@@ -491,7 +533,7 @@ class CotacaovendasController extends ComoperacaosController {
 
 	public function converteEmPedido($id = null) {
 
-		if ($this->request->is('GET')) {	
+		if ($this->request->is('Post')) {	
 			$resposta=$this->Cotacaovenda->find('first',array('fields'=> 'Cotacaovenda.*','conditions' => array('Cotacaovenda.id' => $id)));
 
 
@@ -596,7 +638,6 @@ class CotacaovendasController extends ComoperacaosController {
 
 				if(!empty($contato)){
 					if($contato['Contato']['email'] !=''){
-						
 						$this->eviaEmail($contato['Contato']['email'], $remetente, $ultimoPedido);
 						$this->Session->setFlash(__('Seu pedido foi salvo com sucesso.'),'default',array('class'=>'success-flash'));	
 						return $this->redirect(array('controller' => 'Pedidovenda','action' => 'view',$ultimoPedido['Pedidovenda']['id']));

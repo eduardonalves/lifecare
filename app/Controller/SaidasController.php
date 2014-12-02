@@ -626,6 +626,9 @@ class SaidasController extends NotasController {
 						
 					}
 					$this->tiradaReserva($ultimaSaida['Saida']['id']);
+					$upFaturamento = array('id' => $id, 'status_faturamento' => 'FATURADO');
+					$this->Pedidovenda->create();
+					$this->Pedidovenda->save($upFaturamento);
 					$this->Session->setFlash(__('A saída foi Salva com sucesso.'), 'default', array('class' => 'success-flash'));
 					return $this->redirect(array('controller' => 'Pedidovendas','action' => 'view',$id));
 		
