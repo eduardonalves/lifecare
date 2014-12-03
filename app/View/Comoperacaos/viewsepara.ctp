@@ -2,11 +2,12 @@
 	$this->start('css');
 		echo $this->Html->css('table');
 		echo $this->Html->css('separacao');
+		echo $this->Html->css('modal_imprimirpedido');
 	$this->end();
 	
 	$this->start('script');
 		echo $this->Html->script('separacaoLotes.js');
-		
+		echo $this->Html->script('jquery.PrintArea.js');
 		?>
 		
 		<script>
@@ -137,6 +138,10 @@
 		</div>
 		<?php
 			//echo $this->Form->postLink($this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;cursor:pointer;','alt' =>__('Confirmar Entrega'),'title' => __('Confirmar Entrega'))), array('controller' => 'Comoperacaos','action' => 'confirmaentrega', $comoperacao['Comoperacao']['id']),array('escape' => false, 'confirm' => __('Confirma entrega de Produtos da nota # %s?', $comoperacao['Comoperacao']['id'])));
+			echo "<span data-modal='myModal_imprimir' class='modal-imprimir' style='cursor:pointer;'>";
+				echo $this->Html->image('botao-imprimir.png',array('style'=>'float:right;margin-right:5px;margin-top:34px;','alt'=>'Imprimir','class' => '','id'=>'Orglote','title'=>'Organizar Lotes'));
+			echo "</span>";
+			
 			echo "<a href='myModal_add-confirma_entrega' class='bt-showmodal'>";
 				echo $this->Html->image('bt-confirm-entrega.png',array('style'=>'float:right;margin-right:5px;margin-top:25px;','alt'=>'Organizar Lotes','class' => 'orglotes img-lista','id'=>'Orglote','title'=>'Organizar Lotes'));
 			echo "</a>";
@@ -268,7 +273,22 @@
 			nome = $(this).attr('href');
 			$('#'+nome).modal('show');
 	    });
-
+	    
+	    //CHAMAR MODAL DE IMPRESSÃO
+		$(".modal-imprimir").click(function(){
+			nome = $(this).attr('data-modal');
+			$('#'+nome).modal('show');
+	    });
+		
+		//CHAMA IMPRESSÃO		
+		$('.imprimir').click(function(){
+			var options = {mode: "iframe", popClose : false, };			
+			$('#impressao').css('padding','20px');
+			$('#impressao th').css('background-color','initial');
+			$('#impressao').css('min-height','200px');			
+			$( '#impressao' ).printArea(options);
+		});
+		
 	    $( ".bt-lotes" ).click(function() {			
 			var n = $(this).attr('id');
 			n = n.substring(4);
@@ -276,6 +296,8 @@
 			$( "#linhaLote"+n+" td" ).css('display','table-cell');
 			//$( "corpoTd" ).fadeIn( "slow" );			
 		});
+		
+		
 		
 	});
 </script>	
@@ -287,7 +309,7 @@
 		<span>Carregando lotes aguarde...</span>
 	</div>	
 	
-<?php // MODAL DE TROCAR DE LOTE ##############################################################################################################?>
+<?php // MODAL DE TROCAR DE LOTE ############################################################################################################## ?>
 	<div class="modal fade" id="myModal_add-troca_lote" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-body modal-body-Completalote">
 		<?php
@@ -347,6 +369,153 @@
 						echo $this->Form->end();						
 					?>
 			</section>
+		</div>
+	</div>
+	
+	
+<!-- MODAL IMPRENSÃO ############################################################################ -->
+
+	<div class="modal fade" id="myModal_imprimir" tabindex="-1" class="modal-Completalote" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body modal-body-confirma_entrega">
+		<?php
+			echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+		?>
+			<header class="cabecalho">
+			<?php 
+				echo $this->Html->image('titulo-consultar.png', array('id' => 'imprimir', 'alt' => 'Imprimir', 'title' => 'Imprimir'));
+			?>	
+				<h1>Imprimir Lista de Produtos</h1>
+			</header>
+				
+				<section> <header> Dados da Venda</header> </section>
+				
+				<section id="impressao" class="impressao">
+					<!-- INICIO DA SECTION DA IMPRESAO -->				
+		
+									<section class="coluna-esquerda">
+										<div class="segmento-esquerdo">
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Código:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',$comoperacao['Comoperacao']['id'],array('class'=>'valor'));?>	</div>
+											</div>	
+											
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Cliente:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',$comoperacao['Parceirodenegocio'][0]['nome'],array('class'=>'valor'));?>	</div>
+											</div>	
+											<?php
+												if($comoperacao['Comoperacao']['status_estoque'] == 'SEPARACAO'){
+													$status_estoque = 'SEPARAÇÃO';
+												}else{
+													$status_estoque = $comoperacao['Comoperacao']['status_estoque'];
+												}
+												
+												$autorizado_por = '';
+												if(!empty($vendedor['Comoperacao']['autorizado_por'])){ $autorizado_por = $vendedor['Comoperacao']['autorizado_por'];}
+											
+											?>
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',$status_estoque,array('class'=>'valor valorseparado'));?>	</div>
+											</div>
+											
+										</div>
+									</section>
+									
+									<section class="coluna-central"  style="width: 255px !important; margin-left: 16px !important;">
+										<div class="segmento-esquerdo">
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Data:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',formatDateToView($comoperacao['Comoperacao']['data_inici']),array('class'=>'valor'));?>	</div>
+											</div>
+											<?php 
+												$vendedor_nome = '';
+												if(!empty($vendedor['Vendedor']['nome'])){ $vendedor_nome = $vendedor['Vendedor']['nome'];}
+											?>
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Vendedor:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',$vendedor_nome,array('class'=>'valor'));?>	</div>
+											</div>	
+											
+											<div class="conteudo-linha">
+												<div class="linha"><?php echo $this->Html->Tag('p','Autorização:',array('class'=>'titulo'));?></div>
+												<div class="linha2"><?php echo $this->Html->Tag('p',$autorizado_por,array('class'=>'valor'));?>	</div>
+											</div>	
+										</div>
+									</section>
+						
+					<section>
+						<table id="tabela-impressao">
+							<thead>
+								<tr>
+									<td>Produto</td>
+									<td>Quantidade</td>
+									<td>Observação</td>
+									<td>Situação</td>
+								</tr>
+							</thead>
+
+							<tbody>
+								<?php 			
+									$y = 0;
+									foreach($comoperacao['Comitensdaoperacao']  as $itens){									 
+								?>
+									<tr>
+										<td><?php echo $itens['produto_nome']; ?></td>
+										<td><?php echo $itens['qtde']; ?></td>
+										<td><?php echo $itens['obs']; ?></td>
+										<td></td>
+									</tr>
+									<tr> 
+										<td colspan="5" class="td-lotes">
+											<section>
+													<table id="tabela-lotes" class="">
+														<thead>
+															<tr>
+																<td class="td-auto-media">Lote</td>
+																<td class="td-auto-pequena">Qtd.</td>
+																<td class="td-auto-pequena" >Ok</td>
+																<td class="td-auto-grande">Observação</td>
+															</tr>
+														</thead>
+														
+														<tbody>
+															<?php											
+																foreach($itens['lotes'] as $lote){
+															?>				
+																	<tr>
+																		<td><?php echo $lote['Lote']['numero_lote']?></td>
+																		<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
+																		<td> <div style="border: 1px solid black; width: 12px;height: 12px;margin:0 auto;"></div> </td>											
+																		<td> </td>											
+																	</tr>										
+															<?php
+																}
+															?>									
+														</tbody>	
+													</table>
+											</section>					
+										</td> 
+									</tr>
+								<?php $j++; } ?>				
+							</tbody>	
+						</table>
+					</section>
+				<!-- FINAL DA SECTION DA IMPRESAO -->
+				
+				</section>			
+						
+			
+			<?php				
+				echo $this->html->image('botao-confirmar.png',array('alt'=>'Confirmar',
+											'title'=>'Imprimir',
+											'id'=>'imprimir',
+											'class'=>'bt-confirmar imprimir',
+											'style'=>'margin-right: 5px;margin-top:20px;'
+											));				
+			?>
+			
+	
 		</div>
 	</div>
 

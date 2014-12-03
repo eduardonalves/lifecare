@@ -569,9 +569,7 @@
 											</section>
 											
 											<section class="coluna-central" style="width: 255px !important; margin-left: 16px !important;">
-													<div class="segmento-esquerdo">		
-														
-														
+													<div class="segmento-esquerdo">	
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Data da Venda:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['data_inici'],array('class'=>'valor'));?>	</div>
@@ -588,9 +586,7 @@
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Status Estoque:',array('class'=>'titulo'));?></div>
 																<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Pedidovenda']['status_estoque'],array('class'=>'valor'));?>	</div>
-															</div>
-															
-																													
+															</div>																												
 													</div>
 											</section>
 									</section>
