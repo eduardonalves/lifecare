@@ -656,20 +656,259 @@ class SaidasController extends NotasController {
 		App::uses('Xml', 'Utility');
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
 		
-		
+		$this->loadModel('Loteiten');
 		
 		$xmlArray = array(
-		    'root' => array(
-		        'nfeProc' => array(
-		            '@versao' => '2.00',
+		    'nfeProc' => array(
+		    	'@versao' => '2.00',
+	            '@xmlns' =>'http://www.portalfiscal.inf.br/nfe',
+		        'NFe' => array(
 		            '@xmlns' =>'http://www.portalfiscal.inf.br/nfe',
-		            'pref:item' => array(
-		                'item 1',
-		                'item 2'
-		            )
-		        )
+		            'infNFe' => array(
+		            	'@id' =>'NFe35131049324221000104550000002299081093174210',
+		            	'@versao' => '2.00',
+		            	'ide' => array(
+							'cUF'=> '35',
+							'cNF' => '09317421',
+							'natOp' => 'Vnd mer.adq.rec.ter.op.mer.sj.rg.sub.trb.cnd.sub.t',
+							'indPag' => '1',
+							'mod' => '55',
+							'serie' => '0',
+							'nNF' => '229908',
+							'dEmi' => '2013-10-17',
+							'tpNF' => '1',
+							'cMunFG' => '3505708',
+							'tpImp' => '1',
+							'tpImp' => '1',
+							'cDV' => '0',
+							'tpAmb' => '1',
+							'finNFe' => '1',
+							'procEmi' => '0',
+							'verProc' => '2.0.0',	
+						),
+						
+							'emit' =>  array(
+								'CNPJ' => '49324221000104',
+								'xNome' => 'FRESENIUS KABI BRASIL LTDA',	
+								'enderEmit' => array(
+									'xLgr' => 'Avenida Marginal Projetada',
+									'nro' => '1652',
+									'xBairro' => 'Sitio Tambore',
+									'cMun' => '3505708',
+									'xMun' => 'Barueri',
+									'UF' => 'SP',
+									'CEP' => '06460200',
+									'xPais' => 'Brasil',
+									'fone' => '1125041400',
+								),
+								'IE' => '206278216110',
+								'IEST' => '91006340',
+								'CRT' => '3',
+							),
+							'dest' => array(
+								'CNPJ' => '10619128000191',
+								'xNome' => 'Cirurgica Simoes Ltda',
+								'enderDest' => array(
+									'xLgr' => 'R Luiz Sobral',
+									'nro' => '484',
+									'xBairro' => 'California',
+									'cMun' => '3303500',
+									'xMun' => 'Nova Iguacu',
+									'UF' => 'RJ',
+									'CEP' => '26216110',
+									'cPais' => '1058',
+									'xPais' => 'Brasil',
+								),
+								'IE' => '78709375',
+								
+							),
+							'det' => array(),
+							'total' => array(
+								'ICMSTot'=> array(
+									
+								),
+							),
+							'transp' => array(),
+							'infAdic' => array(
+								'infCpl' => '/L.E: RUA ALAMEDA FLAMBOIANT, N 112 - PARQUE FLORA - NOVA IGUACU - RJ -/AGENDAR COM Sr. BRUNO - TEL.(21) 7842-2700./IPI com Aliquota Zero conforme Decreto 7.212 de 15/06/2010-RIPI.'
+							),
+		  
+		            ),
+		            'Signature' => array(
+						'@xmlns' => 'http://www.w3.org/2000/09/xmldsig#',
+						'SignedInfo' => array(
+							'CanonicalizationMethod' => array(
+								'@Algorithm' => 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315',
+							),
+							'SignatureMethod' => array(
+								'@Algorithm' => 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
+							),
+							'Reference' => array(
+								'@URI' => '#NFe35131049324221000104550000002299081093174210',
+								'Transforms' => array(
+									'Transform' => array(
+										'@Algorithm' => 'ttp://www.w3.org/2000/09/xmldsig#enveloped-signature',
+									),
+									'Transform' => array(
+										'@Algorithm' => 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315',
+									),
+								),
+								'DigestMethod' => array(
+									'@Algorithm' => 'http://www.w3.org/2000/09/xmldsig#sha1',
+									'DigestValue' => 'MoJvOdhcClPzGRDR0Tgxkj0bNgI',
+								),
+							),
+						),
+						'SignatureValue' => 'ejyKNrJVi5AnzWMnPUV04eZTuy9GIHr0LDt2eRIcxO8OsTlUS6OToihHzAsdvDunketPwDw',
+						'KeyInfo' => array(
+							'X509Data' =>  array(
+								'X509Certificate' => 'MIIH5TCCBc2gAwIBAgIIT6EUrww2zB8wDQYJKoZI',
+							),
+						),
+					),
+		        ),
+		        'protNFe' => array(
+					'@xmlns' => 'http://www.portalfiscal.inf.br/nfe',
+					'@versao' => '2.00',
+					'infProt' => array(
+						'tpAmb' => '1',
+						'verAplic' => 'SP_NFE_PL_006q',
+						'chNFe' => '35131049324221000104550000002299081093174210',
+						'dhRecbto' => '2013-10-17T19:09:38',
+						'nProt' => '135130634252586',
+						'digVal' => 'MoJvOdhcClPzGRDR0Tgxkj0bNgI=',
+						'cStat' => '100',
+						'xMotivo'=> 'Autorizado o uso da NF-e',
+					),
+				),
 		    )
 		);
+		
+		$i=1;
+		foreach($saida['Produtoiten'] as $itens){
+			
+			
+			$vlTributado = '838.12';
+			
+			$icms = array(
+				
+				'ICMS60' => array(
+					'orig' => '0',
+					'CST' => '60',
+				),
+				
+			);
+			
+			$ipi = array(
+				'cEnq' => '999',
+				'IPINT' => array(
+					'CST' => '53'
+				),
+				
+			);
+			$pis = array(
+				'PISNT' => array(
+					'CST' => '07'
+				)
+			
+			);
+			
+			$pisnt= array(
+				'CST' => '07'
+			);
+			$cofins= array(
+				'COFINSNT' => array(
+					'COFINSNT' => '07'
+				),
+			);
+			$det= array(
+					'@nItem' => $i,
+					'prod' => array(
+						'cProd' => '1510093',
+						'cEAN' => '7897947706644',
+						'xProd'=> 'KP RINGER LACT 500 ML',
+						'NCM' => '30049099',
+						'CFOP' => '6403',
+						'uCom' => 'PC',
+						'qCom' => '30000.0000',
+						'vUnCom' => '1.3800000000',
+						'vProd' => '41400.00',
+						'cEANTrib' => '7897947706644',
+						'uTrib' => 'PC',
+						'qTrib' => '30000.0000',
+						'vUnTrib' => '1.3800000000',
+						'indTot' => '1',
+						'med' => array(),
+					),
+					'imposto'=> array(
+						'vTotTrib' => $vlTributado,
+						'ICMS' => $icms,
+						'IPI' => $ipi,
+						'PIS' =>$pis,
+						'COFINS'=> $cofins
+					
+					),
+					'infAdProd' => 'IPI com Aliquota Zero conforme Decreto 7.212 de 15/06/2010-RIPI.'
+			
+			);
+			$comlotesoperacaos = $this->Loteiten->find('all', array('conditions' => array('Loteiten.produtoiten_id' => $itens['id'])));
+			if(!empty($comlotesoperacaos)){
+				foreach($comlotesoperacaos as $comlotesoperacao){
+					$med = array(
+						
+							'nLote' => '74GH3271',
+							'qLote' => '13440.000',
+							'dFab' => '2013-08-17',
+							'dVal' => '2015-07-17',
+							'vPMC' => '6.83'
+						
+					);
+					array_push($det['prod']['med'], $med);
+				}
+			}
+			
+			array_push($xmlArray['nfeProc']['NFe']['infNFe']['det'],$det );
+			$i++;
+		}
+			
+	
+		$icmsTotal = array(
+			'vBC' => '0.00',
+			'vICMS' => '0.00',
+			'vBCST' => '0.00',
+			'vProd' => '97348.16',
+			'vFrete' => '0.00',
+			'vSeg' => '0.00',
+			'vDesc' => '0.00',
+			'vII' => '0.00',
+			'vIPI' => '0.00',
+			'vPIS' => '0.00',
+			'vCOFINS' => '0.00',
+			'vOutro' => '0.00',
+			'vNF' => '97348.16',
+			'vTotTrib' => '19092.07',
+		);	
+		
+		$tranportadora = array(
+			'CNPJ' => '04711147001031',
+			'xNome' => 'Shuttle Logistica Integrada Ltda',
+			'IE' => '492382033110',
+			'xEnder' => 'Av Presidente Kennedy 2299',
+			'xMun' => 'Osasco',
+			'UF' => 'SP'
+		);			
+		
+		$tranportadora = array(
+			'qVol' => '1000',
+			'pesoL' => '15690.000',
+			'pesoB' => '17520.000',
+		);
+		
+		$xmlArray['nfeProc']['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
+		$mlArray['nfeProc']['NFe']['infNFe']['transp']['modFrete'] ='0';
+		$mlArray['nfeProc']['NFe']['infNFe']['transp']['transporta']=$tranportadora;
+		$mlArray['nfeProc']['NFe']['infNFe']['transp']['vol']=$tranportadora;
+		//array_push($xmlArray['nfeProc']['NFe']['infNFe']['det'], $saida['Produtoiten']); 
 		$xml = Xml::build($xmlArray);
 		$xmlString = $xml->asXML();
 		debug($xmlString);
