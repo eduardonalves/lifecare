@@ -650,6 +650,29 @@ class SaidasController extends NotasController {
 		
 		}
 	}
-	
+	public function geraNotaXml($id = null) {
+		App::uses('Folder', 'Utility');
+		App::uses('File', 'Utility');
+		App::uses('Xml', 'Utility');
+		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
+		
+		
+		
+		$xmlArray = array(
+		    'root' => array(
+		        'nfeProc' => array(
+		            '@versao' => '2.00',
+		            '@xmlns' =>'http://www.portalfiscal.inf.br/nfe',
+		            'pref:item' => array(
+		                'item 1',
+		                'item 2'
+		            )
+		        )
+		    )
+		);
+		$xml = Xml::build($xmlArray);
+		$xmlString = $xml->asXML();
+		debug($xmlString);
+	}
 	
 }
