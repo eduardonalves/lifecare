@@ -154,7 +154,7 @@ class EntradasController extends NotasController {
 					$qtdSaidaLote = $loteitenSaida['Loteiten']['qtde'];
 					$loteEstoqueSaida = $loteEstoqueSaida + $qtdSaidaLote;
 					
-					
+
 				}					
 				
 				$loteEstoque=$loteEstoqueEntrada-$loteEstoqueSaida;	
@@ -168,6 +168,8 @@ class EntradasController extends NotasController {
 				
 				
 	}
+	
+
 /**
  * view method
  *

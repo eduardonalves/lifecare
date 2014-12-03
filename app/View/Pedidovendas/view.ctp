@@ -248,7 +248,7 @@
 		
 		<section class="coluna-direita" style="float: left;">
 			<?php
-				echo $this->Form->input('Comoperacao.status',array('label'=>'Status:','class'=>'tamanho-medio borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));
+				echo $this->Form->input('Comoperacao.status',array('label'=>'Status Faturamento:','class'=>'tamanho-medio borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.status_faturamento',array('label'=>'Status Faturamento:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_faturamento'],'disabled'=>'disabled'));
 				echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
