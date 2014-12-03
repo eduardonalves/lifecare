@@ -172,11 +172,13 @@ class CotacaovendasController extends ComoperacaosController {
 		$vendedor = $this->Vendedor->find('first',array('conditions'=>array('Vendedor.id'=>$cotacaovenda['Cotacaovenda']['vendedor_id'])));			
 		$parceirodenegocio = $this->Parceirodenegocio->find('first',array('conditions'=>array('Parceirodenegocio.id' => $cotacaovenda['Parceirodenegocio'][0]['id'] )));	
 		
+		$this->loadModel('Comoperacao');
+		$hasPedido = $this->Comoperacao->find('count',array('conditions'=>array('Comoperacao.codcotacao' => $id)));
 			
 		$this->loadModel('Empresa');
 		$empresa = $this->Empresa->find('first');
 		
-		$this->set(compact('vendedor','cotacaovenda','userid','itens','parceirodenegocio','empresa'));
+		$this->set(compact('vendedor','cotacaovenda','userid','itens','parceirodenegocio','empresa','hasPedido'));
 	}
 
 /**
