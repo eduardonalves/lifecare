@@ -1,6 +1,41 @@
 $(document).ready(function(){
+
+/***************************  Checkboxes SEPARACAO E SEPARADO ******************/
+var valorAux = $('#filterStatusEstoque').val();
+
+	if(valorAux != undefined){
+		var valorEntrada=valorAux.substr(0,8);
+		var valorSaida2 =valorAux.substr(8,10);
+	}
+
+	if(valorEntrada == 'SEPARADO'){
+		$('#SEPARADO').attr('checked', true);
+	}else if(valorEntrada == 'SEPARACAO'){
+		$('#SEPARACAO').attr('checked', true);
+	}
 	
-	/***Input text com datePicker Para datas no estilo " De X a Z**/	
+	if(valorSaida2 != ''){
+		$('#SEPARADO').attr('checked', true);
+		$('#SEPARACAO').attr('checked', true);
+	}
+
+	$("#SEPARADO, #SEPARACAO").bind('click', function(){
+		if($('#SEPARADO').is(':checked')){
+			if($('#SEPARACAO').is(':checked')){
+				$('#filterStatusEstoque').val('SEPARADO SEPARACAO');
+			}else{
+				$('#filterStatusEstoque').val('SEPARADO');
+			}
+		}else if($('#SEPARACAO').is(':checked')){
+				$('#filterStatusEstoque').val('SEPARACAO');
+			}
+			else{
+				return false;
+				//$('#filterTipoOperacao').val(' ');
+			}
+	});
+	
+/********** Input text com datePicker Para datas no estilo de X a Z ***************/	
     $(".inputSearchData input[id*='between']").before("<span>a</span>");
 	
 	$(".ui-autocomplete").addClass("overflowLista");
