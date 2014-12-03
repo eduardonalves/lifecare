@@ -638,7 +638,7 @@ class ComoperacaosController extends AppController {
 		}
 		
 	}	
-
+	
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Categoria');
 		$this->loadModel('Produto');

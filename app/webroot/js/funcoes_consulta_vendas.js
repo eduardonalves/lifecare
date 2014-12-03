@@ -268,7 +268,7 @@ $(document).ready(function(){
 	});
 	
 /***************************Checkboxes COTACAO E PEDIDO***********/
-var valorAux=$('#filterTipoOperacao').val();
+var valorAux = $('#filterTipoOperacao').val();
 	if(valorAux != undefined){
 		var valorEntrada=valorAux.substr(0,7);
 		var valorSaida2 =valorAux.substr(8,5);

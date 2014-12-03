@@ -21,12 +21,10 @@
 		}
 		return $data;
 	}
-
 ?>
 
 <header>
 	<?php echo $this->Html->image('ico-separa-verde.png', array('id' => 'consultar', 'alt' => 'Consultar', 'title' => 'Consultar')); ?>
-		
 	<h1 class="menuOption26">Consulta Separação</h1>
 </header>
 
@@ -43,11 +41,24 @@
 				<section id="filtro-operacao" class="coluna-esquerda">
 					<span  class="boxTitulo">Dados da Operação</span>
 					
-					<?php echo $this->Search->create();	?>
+					<?php echo $this->Search->create();	
 					
-					<div class="informacoesOperacao">
-						<?php echo $this->Search->input('tipoOperacao', array('type' => 'hidden','value'=>'PDVENDA')); ?>
+						echo "<div class='tipoOperacao'>";
+							echo $this->Form->input('', array(
+								'type' => 'select',
+								'class' => 'operacao',
+								'multiple' => 'checkbox',
+								'options' => array('SEPARACAO' => 'Separação', 'SEPARADO' => 'Separado'),
+								'style' => 'float:left',
+							));
+							echo $this->Search->input('status_estoque', array('type'=>'hidden'));
+						echo "</div>";
 						
+					?>
+						<br />
+						<br />
+					<div class="informacoesOperacao">
+										
 						<div class="inputSearchData">
 						<?php
 							echo $this->Search->input('data_inici', array('label' => 'Data de Início:','class'=>'', 'type' => 'text'));
@@ -63,12 +74,6 @@
 						<div class="statusSelect" >
 							<?php
 								echo $this->Search->input('status_operacao', array('label' => 'Status:','class'=>'tamanho-medio'));
-							?>
-						</div>
-						
-						<div class="statusSelect" >
-							<?php
-								echo $this->Search->input('status_estoque', array('label' => 'Status Estoque:','class'=>'tamanho-medio'));
 							?>
 						</div>
 					</div>
