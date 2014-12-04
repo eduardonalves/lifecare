@@ -50,6 +50,7 @@
 			<section class="coluna-central">
 				<?php
 					echo $this->Form->input('prazo_pagamento',array('label'=>'Prazo de Pagamento:','class'=>'confirmaInput tamanho-pequeno','type'=>'text','maxlength'=>'20','after' => '<span class="afterInput">&nbsp;dia(s)</span>'));
+					echo $this->Form->input('data_entrega',array('label'=>'Data de Entrega:','id'=>'data_entrega','class'=>'confirmaInput inputData tamanho-pequeno','type'=>'text'));
 				?>
 			</section>
 			

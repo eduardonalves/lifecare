@@ -489,6 +489,13 @@ class PedidovendasController extends ComoperacaosController {
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_inici']);
 					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_fim']);
 					$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_unit']);
+
+					if(isset($this->request->data['Pedidovenda']['data_entrega'])){
+						if($this->request->data['Pedidovenda']['data_entrega'] != ''){
+							$this->lifecareDataFuncs->formatDateToBD($this->request->data['Pedidovenda']['data_entrega']);
+						}
+					}
+
 					//$this->lifecareFuncs->converterMoedaToBD($this->request->data['Pedidovenda']['valor_total']);
 					$j=0;
 					$total=0;

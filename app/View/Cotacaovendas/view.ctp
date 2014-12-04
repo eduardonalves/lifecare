@@ -286,13 +286,9 @@
 				
 				echo $this->Form->postLink($this->Html->image('bt-autorizar-cotacao.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Cotação'),'title' => __('Autorizar Cotação'))), array('controller' => 'Cotacaovendas','action' => 'setAutorizacaoCotacao', $cotacaovenda['Cotacaovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja autorizar esta Cotação # %s?', $cotacaovenda['Cotacaovenda']['id'])));
 
-			}elseif ($cotacaovenda['Cotacaovenda']['status_gerencial'] == 'OK'){
+			}elseif ($hasPedido <= 0 && $cotacaovenda['Cotacaovenda']['status_gerencial'] == 'OK'){
 				
-				if ($hasPedido <= 0 ){
-
 					echo $this->Form->postLink($this->Html->image('bt-transvenda.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Transformar em Venda'),'title' => __('Transformar em Venda'))), array('controller' => 'Pedidovendas','action' => 'converteEmPedido', $cotacaovenda['Cotacaovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Transformar esta Cotação em Venda # %s?', $cotacaovenda['Cotacaovenda']['id'])));
-					
-				}
 			
 			}
 
