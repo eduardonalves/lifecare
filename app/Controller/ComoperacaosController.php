@@ -1484,16 +1484,16 @@ public $uses = array();
 
 					)
 	            ),
-	             'status_estoque' => array(
+	            
+	    		'status_estoque' => array(
 	                'Comoperacao.status_estoque' => array(
 	                    'operator' => 'LIKE',
-
-	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
-	               		'select' => array('' => '','SEPARADO' => 'SEPARADO', 'SEPARACAO' => 'SEPARACAO')
-
+                         'explode' => array(
+	                    	'concatenate' => 'OR'
+	               		 ),
+	               		
 					)
 	            ),
-	    
 				
 	            //Filtros PRODUTOS
 	            
@@ -1512,7 +1512,7 @@ public $uses = array();
 	                    'operator' => '!=',
 
 	               		//'select' => array('' => '','ABERTO' => 'ABERTO', 'FECHADO' => 'FECHADO', 'CONFIRMADO' => 'CONFIRMADO','RESPONDIDO'=>'RESPONDIDO','ENTREGUE'=>'ENTREGUE','EXPIRADO'=>'EXPIRADO')
-	               		'select' => array('CANCELADO' => 'CANCELADO')
+	               		
 
 					)
 	            ),
