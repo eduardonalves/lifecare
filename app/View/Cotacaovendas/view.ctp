@@ -117,38 +117,20 @@
 			
 			<?php
 				//echo $this->Form->input('Vazio.input',array('label'=>'Nome:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['nome'],'disabled'=>'disabled'));
-				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['email'],'disabled'=>'disabled','style'=>'display: none;'));
+
+					echo $this->Form->input('Vazio.input',array('label'=>'E-mail:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Contato'][0]['email'],'disabled'=>'disabled','style'=>'display: none;'));
 					echo "
 					<div class='whiteSpace' style='min-width: 185px !important; font-size: 13px; margin: 12px 0px 0px 0px;'>
-						<span title='".$contato['email']."'>".$contato['email']."</span>
+						<span title='".$parceirodenegocio['Contato'][0]['email']."'>".$parceirodenegocio['Contato'][0]['email']."</span>
 					</div>";
-				}
-				
-				foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'Tipo Endereço:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['tipo'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Número:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['numero'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Bairro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['bairro'],'disabled'=>'disabled'));				
-				}
-				
+
 			?>
 		</section>
 		
 		<section  class="coluna-central" style="float: left;">
 			<?php
 				echo $this->Form->input('Vazio.input',array('label'=>'CPF/CNPJ:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['cpf_cnpj'],'disabled'=>'disabled'));	
-
-				foreach($parceirodenegocio['Contato'] as $contato){
-					echo $this->Form->input('Vazio.input',array('label'=>'Telefone 1:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$contato['telefone1'],'disabled'=>'disabled'));	
-				}
-				
-					foreach($parceirodenegocio['Endereco'] as $endereco){
-					echo $this->Form->input('Vazio.input',array('label'=>'CEP:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cep'],'disabled'=>'disabled'));	
-					echo $this->Form->input('Vazio.input',array('label'=>'Cidade:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cidade'],'disabled'=>'disabled'));	
-
-				}
-				
-			
+				echo $this->Form->input('Vazio.input',array('label'=>'Telefone 1:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Contato'][0]['telefone1'],'disabled'=>'disabled'));		
 			?>
 		</section>
 		
@@ -160,37 +142,55 @@
 					<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Parceirodenegocio']['status'],array('class'=>'valor'));?>	</div>
 				</div>
 			</div>
-			<?php
-				//echo $this->Form->input('Vazio.input',array('label'=>'Status:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Parceirodenegocio']['status'],'disabled'=>'disabled'));	
-				foreach($parceirodenegocio['Contato'] as $contato){
-				
-			?>
 				<div class="segmento-esquerdo">
 					<div class="conteudo-linha">
 						<div class="linha"><?php echo $this->Html->Tag('p','Telefone 2:',array('class'=>'titulo'));?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$contato['telefone2'],array('class'=>'valor'));?>	</div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$parceirodenegocio['Contato'][0]['telefone2'],array('class'=>'valor'));?>	</div>
 					</div>
 				</div>
-							
-			<?php
-				}
-				
-				foreach($parceirodenegocio['Endereco'] as $endereco){
-					//echo $this->Form->input('Vazio.input',array('label'=>'Logradouro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['logradouro'],'disabled'=>'disabled'));	
+		
+		</section>
+		
+		<section>
+			<?php 
+				foreach($parceirodenegocio['Endereco'] as $endereco){				
 			?>
-					<div class="segmento-esquerdo">
+			<fieldset style="padding:5px; margin-top:5px;">
+				<legend><h5 style="color:#676767;"><?php echo "Endereço " . strtolower($endereco['tipo']); ?></h5></legend>
+				
+				<section class="coluna-esquerda">
+					<?php
+					//	echo $this->Form->input('Vazio.input',array('label'=>'Tipo Endereço:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['tipo'],'disabled'=>'disabled'));	
+						echo $this->Form->input('Vazio.input',array('label'=>'UF:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['uf'],'disabled'=>'disabled'));	
+						echo $this->Form->input('Vazio.input',array('label'=>'Cidade:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Endereco'][0]['cidade'],'disabled'=>'disabled'));	
+					?>
+				</section>
+				
+				<section class="coluna-central">
+					<?php
+						echo $this->Form->input('Vazio.input',array('label'=>'Bairro:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['bairro'],'disabled'=>'disabled'));				
+						echo $this->Form->input('Vazio.input',array('label'=>'CEP:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$parceirodenegocio['Endereco'][0]['cep'],'disabled'=>'disabled'));	
+					?>					
+				</section>
+				
+				<section class="coluna-direita">
+					<?php
+						echo $this->Form->input('Vazio.input',array('label'=>'Número:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['numero'],'disabled'=>'disabled'));	
+					?>
+					<div style="clear:both;"></div>
+					<div class="segmento-esquerdo" style="margin-top: -10px;">
 						<div class="conteudo-linha">
 							<div class="linha"><?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo'));?></div>
 							<div class="linha2"><?php echo $this->Html->Tag('p',$endereco['logradouro'],array('class'=>'valor'));?>	</div>
 						</div>
 					</div>
+				</section>
 			
-			<?php	
-					echo $this->Form->input('Vazio.input',array('label'=>'UF:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['uf'],'disabled'=>'disabled'));	
-				
+			</fieldset>		
+			
+			<?php
 				}
-				
-			?>
+			?>	
 		</section>
 		
 	<header>Dados da Cotação</header>
@@ -542,7 +542,7 @@
 																											
 															<div class="conteudo-linha">
 																<div class="linha"><?php echo $this->Html->Tag('p','Total da Cotação:',array('class'=>'titulo'));?></div>
-																<div class="linha2"><?php echo $this->Html->Tag('p',converterMoeda($cotacaovenda['Cotacaovenda']['valor']),array('class'=>'valor'));?>	</div>
+																<div class="linha2"><?php echo $this->Html->Tag('p',$cotacaovenda['Cotacaovenda']['valor'],array('class'=>'valor'));?>	</div>
 															</div>
 													
 															
@@ -646,5 +646,4 @@
 		}
 	
 </script>
-
 

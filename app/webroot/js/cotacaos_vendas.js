@@ -275,10 +275,13 @@ $(document).ready(function() {
 			valorUnid = $("#add-produtos option:selected" ).attr('data-unidade');
 			valorQtd = $("#produtoQtd").val();
 			valorObs = $("#produtoObs").val();	
-			valorUnit = $("#produtoValor").val();		
 			
+			valorUnit = parseFloat($("#produtoValor").val().split('.').join('').replace(',','.'));		
+			valorUnitAux = $("#produtoValor").val().split('.').join('').replace(',','.');
+						
 			valorNormal = parseFloat($("#valorNormal").val().split('.').join('').replace(',','.'));	
 			valorVenda = parseFloat($("#produtoValor").val().split('.').join('').replace(',','.'));
+			
 			if(isNaN(valorVenda) || valorVenda == 0){
 				$('#spanVendaMenor2').show();
 			}else if(valorVenda < valorNormal){
@@ -291,6 +294,7 @@ $(document).ready(function() {
 					valor = $("#produtoValor").val().split('.').join('').replace(',','.');
 					valor = parseFloat(valor);
 					valorTotal = valor*qtd;
+					valorMoedaAux = valorTotal;
 					valorMoeda = float2moeda(valorTotal);
 					valorUnit = float2moeda(parseFloat(valorUnit));
 					
@@ -313,10 +317,10 @@ $(document).ready(function() {
 					valorMoeda = '0,00';
 					valorUnit = '0,00';
 					valorTotal = '0,00';
+					valorUnitAux = 0.00;
+					valorMoedaAux = 0.00;
 				}
-				
-				
-				
+
 				//Adiciona os valores na tabela pra visualização
 				$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
 						\
@@ -332,11 +336,12 @@ $(document).ready(function() {
 						</td>\
 						\
 						\<td>'+valorUnid+'</td>\
-						<td>\
-							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						<td>\<span id="spanValUnit'+in_produto+'">R$ '+valorUnit+'</span>\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="" id="hvU'+in_produto+'" value="'+valorUnitAux+'" type="hidden" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
 						\</td>\
 						<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
-							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+							<input  step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" value="'+valorMoedaAux+'" type="hidden">\
 						</td>\
 						<td><input name="data[Comitensdaoperacao]['+in_produto+'][obs]" step="any" class="inputEditavel'+in_produto+' existe tamanho-medio borderZero" value="'+valorObs+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;"></td>\
 						\

@@ -1,3 +1,14 @@
+<?php
+	function converterMoeda(&$valorMoeda){
+		$valorMoedaAux = explode('.' , $valorMoeda);
+		if(isset ($valorMoedaAux[1])){
+			$valorMoeda= "R$ ".$valorMoedaAux[0].','.$valorMoedaAux[1];
+		}else{
+			$valorMoeda = "R$ ".$valorMoedaAux[0].','.'00';
+		}
+		return $valorMoeda;
+	}
+?>
 <div style="font-family:arial; background-color:#F9F9F9; border:2px solid #CCCCCC; margin:0 auto; min-height:300px; width:700px;">
 	<header style="margin-top:10px; ">
 		<p style="text-align:center;">
@@ -44,8 +55,12 @@
 				<td><?php echo ' '. ($_SESSION['extraparams']['Cotacaovenda']['forma_pagamento']);?></td>
 			</tr>
 			<tr>
+				<td style="text-align:right; font-weight:bold;">Prazo de Pagamento: </td>
+				<td><?php echo ' '. ($_SESSION['extraparams']['Cotacaovenda']['prazo_pagamento']);?></td>
+			</tr>
+			<tr>
 				<td style="text-align:right; font-weight:bold;">Valor Total: </td>
-				<td><?php echo ' '. ($_SESSION['extraparams']['Cotacaovenda']['valor']);?></td>
+				<td><?php echo ' '. converterMoeda(($_SESSION['extraparams']['Cotacaovenda']['valor']));?></td>
 			</tr>
 		</table>
 		
