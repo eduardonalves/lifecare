@@ -9,7 +9,8 @@
 		return $valorMoeda;
 	}
 ?>
-<div style="font-family:arial; background-color:#F9F9F9; border:2px solid #CCCCCC; margin:0 auto; min-height:300px; width:700px;">
+
+<div style="font-family:arial; background-color:#F9F9F9; border:2px solid #CCCCCC; margin:0 auto; min-height:300px; width:770px;">
 	<header style="margin-top:10px; ">
 		<p style="text-align:center;">
 			<img src="http://lifecare.vento-consulting.com/img/login-title.png">
@@ -67,27 +68,49 @@
 		<br/>
 		
 		<table>
-			<tr>
-				<td>Produto Nome</td>
-				<td>Vl. Unit</td>
-				<td>Quantidade</td>
-				<td>Vl. Total</td>
-				<td>Observação</td>
-			</tr>
-
-			<?php
-				foreach(($_SESSION['extraparams']['Comitensdaoperacao']) as $produtos){
-					echo '<tr>';
-						echo '<td>'. $produtos['produtoNome'] .'</td>';
-						echo '<td>'. $produtos['valor_unit'] .'</td>';
-						echo '<td>'. $produtos['qtde'] .'</td>';
-						echo '<td>'. $produtos['valor_total'] .'</td>';
-						echo '<td>'. $produtos['obs'] .'</td>';
-						
-					echo '</tr>';
-				}
-			?>
+			<thead style="margin-bottom: 10px;">
+				<tr>
+					<th style="text-align:left;padding: 5px 10px;">Produto Nome</th>
+					<th style="text-align:left;padding: 5px 10px;">Vl. Unit</th>
+					<th style="text-align:left;padding: 5px 10px;">Quantidade</th>
+					<th style="text-align:left;padding: 5px 10px;">Vl. Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					$i = 0;
+					foreach(($_SESSION['extraparams']['Comitensdaoperacao']) as $produtos){
+						if($i%2 == 0){
+				?>
+					<tr>
+					    <td style="max-width:400px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;"> <?php echo $produtos['produtoNome']; ?></td>
+						<td style="max-width:90px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;" > <?php echo converterMoeda($produtos['valor_unit']);  ?></td>
+						<td style="max-width:70px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;" > <?php echo $produtos['qtde'];  ?> </td>
+						<td style="max-width:150px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;"> <?php echo converterMoeda($produtos['valor_total']);  ?></td>	
+					</tr>				
+				<?php
+					}else{
+				?>	
+					<tr style="background:#ccc;">
+					     <td style="max-width:400px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;"> <?php echo $produtos['produtoNome']; ?></td>
+						<td style="padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;" > <?php echo converterMoeda($produtos['valor_unit']);  ?></td>
+						<td style="padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;" > <?php echo $produtos['qtde'];  ?> </td>
+						<td style="max-width:150px;padding: 5px 10px;border-bottom: 1px solid #767676;border-right: 1px solid #767676;"> <?php echo converterMoeda($produtos['valor_total']);  ?></td>
+					</tr>	
+				
+				<?php
+						}
+						$i++;
+					}
+				?>
+				<tr>
+					<th style="text-align:left;padding: 5px 10px;">Valor Total:</th>
+					<td style=""></td>
+					<td style="border-right: 1px solid #767676;"></td>
+					<td style=""><?php echo ' '. converterMoeda(($_SESSION['extraparams']['Cotacaovenda']['valor']));?></td>
+				</tr>
+			</tbody>
 		</table>
-	
+		<br />
 	</div>
 </div>
