@@ -17,7 +17,7 @@ class CotacaovendasController extends ComoperacaosController {
  *
  * @var array
  */
-	public $components = array('Paginator','lifecareDataFuncs');
+	public $components = array('Paginator','lifecareDataFuncs','lifecareFuncs');
 	
 	
 	public function setAutorizacaoCotacao($id){
@@ -341,6 +341,7 @@ class CotacaovendasController extends ComoperacaosController {
 		$this->loadUnidade();
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_inici']);
 		$this->lifecareDataFuncs->formatDateToBD($this->request->data['Cotacaovenda']['data_fim']);
+				
 		$this->request->data['Cotacaovenda']['status_gerencial'] = "PENDENTE";
 		$this->request->data['Cotacaovenda']['tipo']='CTVENDA';
 		if(isset($this->request->params['named']['modulo'])){
@@ -350,7 +351,7 @@ class CotacaovendasController extends ComoperacaosController {
 		
 		if ($this->request->is('post')) {
 			$this->Cotacaovenda->create();
-		
+					
 			if ($this->Cotacaovenda->saveAll($this->request->data)) {
 				
 				$ultimaCotacao = $this->Cotacaovenda->find('first',array('order' => array('Cotacaovenda.id' => 'DESC')));
