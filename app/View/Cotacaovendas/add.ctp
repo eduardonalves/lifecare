@@ -149,24 +149,26 @@
 					<select class="tamanho-medio" id="add-cliente" tabindex="7">
 						<option id="optvazioForn"></option>
 						<option value="add-Cliente">Cadastrar</option>
-
-						<?php
-						
-							foreach($allClientes as $allCliente){
+						<?php						
+							foreach($allClientes as $allCliente){								
 								
 								$limiteDisponivel = 0;
+								$ultimoCredito = count($allCliente['Dadoscredito']) - 1;								
 								
-								if ( isset($allCliente['Dadoscredito'][0]['limite']) && isset($allCliente['Dadoscredito'][0]['limite_usado'])){
-									
-									$limiteDisponivel = $allCliente['Dadoscredito'][0]['limite']-$allCliente['Dadoscredito'][0]['limite_usado'];
-								}
-								
-								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
+								if($ultimoCredito >= 0){
+									//TERA CRÈDITO, E SERA CALCULADO
+									if(isset($allCliente['Dadoscredito'][$ultimoCredito]['limite']) && isset($allCliente['Dadoscredito'][$ultimoCredito]['limite_usado'])){
+										//SE HOUVER ALGUM LIMITE UTILIZADO									
+										$limiteDisponivel = $allCliente['Dadoscredito'][$ultimoCredito]['limite'] - $allCliente['Dadoscredito'][$ultimoCredito]['limite_usado'];
+									}else{
+										$limiteDisponivel = $allCliente['Dadoscredito'][$ultimoCredito]['limite'];
+									}
+								}								
+								echo "<option id='".$allCliente['Cliente']['nome']."' class='".$allCliente['Cliente']['cpf_cnpj']."' data-ultimo='".$ultimoCredito."' data-limite=\"".$limiteDisponivel."\" rel='".$allCliente['Cliente']['tipo']."' value='".$allCliente['Cliente']['id']."' >";
 								echo $allCliente['Cliente']['nome'];
 								echo "</option>";
 							}
 						?>
-
 					</select>
 				</div>
 			</section>
@@ -324,6 +326,3 @@
 		echo $this->Form->end();
 	?>	
 </footer>
-
-
-

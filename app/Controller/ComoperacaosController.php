@@ -1419,8 +1419,7 @@ public $uses = array();
 	public function separacao(){
 		
 		$userid = $this->Session->read('Auth.User.id');
-		
-		
+
 		$this->loadModel('Vendedor');
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Produto');
@@ -1466,7 +1465,7 @@ public $uses = array();
 		                    'text' => __(' e ', true)
 		                )
 		            )
-		        ),
+		        ),/*
 		        'data_entrega' => array(
 		            'Comoperacao.data_entrega' => array(
 		                'operator' => 'BETWEEN',
@@ -1474,7 +1473,7 @@ public $uses = array();
 		                    'text' => __(' e ', true)
 		                )
 		            )
-		        ),
+		        ),*/
 		        'status_operacao' => array(
 	                'Comoperacao.status' => array(
 	                    'operator' => 'LIKE',
@@ -1503,9 +1502,7 @@ public $uses = array();
 	                    'select' => array(''=> '', $listaProdutos)
 	                )
 	            ),
-	            
-				
-				
+
 				//AVISO NÃO COLOCAR O FILTRO ABAIXO NA TELA
 				'status_operacaonot' => array(
 	                'Comoperacao.status' => array(
@@ -1528,21 +1525,25 @@ public $uses = array();
 			$dataIncio = date("Y-m-01");
 			$dataTermino= date("Y-m-t");
 			$this->request->data['filter']['data_inici'] = $dataIncio;
-			$this->request->data['filter']['data_inici-between']= $dataTermino;
+			$this->request->data['filter']['data_inici-between'] = $dataTermino;
 			$this->request->data['filter']['tipoOperacao']="PDVENDA";
 			$this->request->data['filter']['status_operacaonot']="CANCELADO";
 			$this->request->data['filter']['status_estoque']="SEPARADO SEPARACAO";
 		}else{
 			$this->request->data['filter']['tipoOperacao']="PDVENDA";
-			$this->request->data['filter']['status_operacaonot']="CANCELADO";
+			//$this->request->data['filter']['status_operacaonot']="CANCELADO";
 			$this->request->data['filter']['status_estoque']="SEPARADO SEPARACAO";
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici-between']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_inici']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega-between']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['filter']['data_entrega']);
 		}
 		$this->Paginator->settings = array(
 						'Comoperacao' => array(
 							'fields' => array('DISTINCT Comoperacao.id', 'Comoperacao.*'),
 							'fields_toCount' => 'DISTINCT Comoperacao.id',
 							'limit' => 15,
-							'order' => 'Comoperacao.status_estoque ASC, Comoperacao.data_inici ASC',
+							'order' => 'Comoperacao.data_entrega ASC, Comoperacao.status_estoque ASC, Comoperacao.data_inici ASC',
 							'conditions' => $this->Filter->getConditions()
 						)
 					);
