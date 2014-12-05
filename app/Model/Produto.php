@@ -150,15 +150,15 @@ class Produto extends AppModel {
 			'counterQuery' => ''
 		),
 	);
-public $belongsTo = array(
-		'Produto' => array(
-			'className' => 'Origem',
-			'foreignKey' => 'origem_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-);
+	public $belongsTo = array(
+			'Origem' => array(
+				'className' => 'Origem',
+				'foreignKey' => 'origem_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
+	);
 
 /**
  * hasAndBelongsToMany associations
