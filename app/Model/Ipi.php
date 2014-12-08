@@ -7,7 +7,7 @@ App::uses('AppModel', 'Model');
  * @property Situacaotribipi $Situacaotribipi
  */
 class Ipi extends AppModel {
-
+	public $useTable = 'ipis';
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

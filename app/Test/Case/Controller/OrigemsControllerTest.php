@@ -72,7 +72,18 @@ class OrigemsControllerTest extends ControllerTestCase {
 		'app.obs_cobranca',
 		'app.quicklink',
 		'app.responsavel_setors',
-		'app.tributo'
+		'app.tributo',
+		'app.ipi',
+		'app.situacaotribipi',
+		'app.icm',
+		'app.modalidadebc',
+		'app.modalidadebcst',
+		'app.situacaotribicm',
+		'app.motivodesoneracao',
+		'app.pi',
+		'app.situacaotribpi',
+		'app.cofin',
+		'app.situacaotribcofin'
 	);
 
 /**

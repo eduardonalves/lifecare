@@ -650,11 +650,70 @@ class SaidasController extends NotasController {
 		
 		}
 	}
+
+
+
+	function dvCalcMod11($key_nfe) {
+			 $base = 9;
+			 $result = 0;
+			 $sum = 0;
+			 $factor = 2;
+			 
+			 for ($i = strlen($key_nfe); $i > 0; $i--) {
+			 $numbers[$i] = substr($key_nfe,$i-1,1);
+			 $partial[$i] = $numbers[$i] * $factor;
+			 $sum += $partial[$i];
+			 if ($factor == $base) {
+			 $factor = 1;
+			 }
+			 $factor++;
+			 }
+			 
+			 if ($result == 0) {
+			 $sum *= 10;
+			 $digit = $sum % 11;
+			 if ($digit == 10) {
+			 $digit = 0;
+			 }
+			 return $digit;
+			 } elseif ($result == 1){
+			 $rest = $sum % 11;
+			 return $rest;
+		 }
+	}
+	public function geraid(){	
+		$uf = 33; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
+		$aamm = date('ym'); //data da nota 4digitos
+		
+		$cnpj =11111111111111; //cnpj do emitente 14 digitos ***buscar 
+		$mod=01; //Modelo do Documento Fiscal 2 digitos ***buscar 
+		$serie=001; //Série do Documento Fiscal 3 digitos ***buscar 
+		$nNF =000000001; //Número do Documento Fiscal   9 digitos ***buscar 
+		$trans =2; // forma de emissão da NF-e 1 digito ***buscar 
+		$codigoacesso = mt_rand(10000000, 99999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
+	
+		$numeroaux = $uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso;
+		$numeroaux2 = $uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso;
+		$numeroaux= $this->dvCalcMod11($numeroaux);
+		$id =$numeroaux2.$numeroaux;
+		
+	
+		return $id;
+		
+	}
 	public function geraNotaXml($id = null) {
 		App::uses('Folder', 'Utility');
 		App::uses('File', 'Utility');
 		App::uses('Xml', 'Utility');
+		
+		$this->loadModel('Empresa');
+		$empresa = $this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+		
+		
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
+		
+		
+		$idnota = $this->geraid();
 		
 		$this->loadModel('Loteiten');
 		
@@ -665,7 +724,7 @@ class SaidasController extends NotasController {
 		        'NFe' => array(
 		            '@xmlns' =>'http://www.portalfiscal.inf.br/nfe',
 		            'infNFe' => array(
-		            	'@id' =>'NFe35131049324221000104550000002299081093174210',
+		            	'@id' => $idnota,
 		            	'@versao' => '2.00',
 		            	'ide' => array(
 							'cUF'=> '35',
