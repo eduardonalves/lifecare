@@ -490,6 +490,92 @@ class ProdutosController extends AppController {
 		
 	}
 
+
+public function add_tributo() {
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout =  $telaLayout;
+		}
+		
+		$this->loadUnidade();
+		
+		if ($this->request->is('post')) {
+			
+			$this->Produto->create();
+			if ($this->Produto->saveAll($this->request->data)) {
+				
+				if($this->request->is('ajax'))
+				{
+					$this->layout = 'ajaxproduto';
+				}
+				$last = $this->Produto->find('first', array('order' => array('Produto.id' => 'desc'), 'recursive' => 1));
+				
+				//Calculamos as entradas do produto
+				
+				$produtos=$this->Produto->find('all', array('recursive' => -1 ,'conditions' => array('Produto.id' => $last['Produto']['id'])));
+			
+				foreach($produtos as $produto){
+					
+					$this->loadModel('Produtoiten');
+					$this->Produtoiten->virtualFields['qtde_estoque'] = 'SUM(Produtoiten.qtde)';
+					
+					$entradas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'ENTRADA')))));
+					$saidas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'Saida')))));
+					$estoque = $entradas[0]['Produtoiten']['qtde_estoque'] - $saidas[0]['Produtoiten']['qtde_estoque'];
+					$estoque = (float) $entradas - (float) $saidas;
+					
+					if($estoque >= $produto['Produto']['estoque_desejado']){
+						$nivel='VERDE';
+					}else if($estoque >= $produto['Produto']['estoque_minimo']){
+						$nivel='AMARELO';
+					}else{
+						$nivel='VERMELHO';	
+					}
+					
+					$updateEstoqueProd= array('id' => $produto['Produto']['id'], 'estoque' => $estoque, 'nivel' => $nivel);
+					$this->Produto->save($updateEstoqueProd);
+				}
+				$this->loadModel('CategoriasProduto');
+				$this->loadModel('Categoria');
+				$semCategoria= $this->CategoriasProduto->find('count', array('conditions' => array('CategoriasProduto.produto_id' =>  $last['Produto']['id'])));
+				if($semCategoria==0){
+					
+					
+					$semCat = $this->Categoria->find('first', array('conditions' => array('Categoria.nome' => 'Sem Categoria')));
+					$saveCategoria= array('produto_id' => $last['Produto']['id'], 'categoria_id' => $semCat['Categoria']['id'] );
+					
+					$this->CategoriasProduto->save($saveCategoria);
+				}
+				$this->set(compact('last'));
+				
+					
+			
+				if(! $this->request->is('ajax'))
+				{
+				
+					$this->Session->setFlash(__('Produto adicionado com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'view', $last['Produto']['id']));
+				}		
+
+					
+		
+			} else {
+			
+				$this->Session->setFlash(__('Não foi possível adicionar o produto. Tente novamente.'), 'default', array('class' => 'error-flash'));
+			}
+			
+		} 
+		$categorias = $this->Produto->Categoria->find('list', array('order'=>'Categoria.nome ASC'));
+		$allCategorias = $categorias;
+		
+		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+		
+		$this->loadModel('Tributo');
+		$this->set(compact('categorias', 'tributos', 'allCategorias','telaAbas'));
+		
+	}
+
 /**
  * edit method
  *

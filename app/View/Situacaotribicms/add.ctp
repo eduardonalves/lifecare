@@ -3,8 +3,8 @@
 	<fieldset>
 		<legend><?php echo __('Add Situacaotribicm'); ?></legend>
 	<?php
-		echo $this->Form->input('descricao');
-		echo $this->Form->input('codigo');
+		echo $this->Form->input('descricao',array('maxlength'=>'150'));
+		echo $this->Form->input('codigo',array('type'=>'text','maxlength'=>'150'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
