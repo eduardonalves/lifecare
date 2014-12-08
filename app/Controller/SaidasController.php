@@ -681,11 +681,13 @@ class SaidasController extends NotasController {
 			 return $rest;
 		 }
 	}
-	public function geraid(){	
-		$uf = 33; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
+	public function geraid($id){
+			
+		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));		
+		$uf = $saida['Cuf']['codigo']; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
 		$aamm = date('ym'); //data da nota 4digitos
 		
-		$cnpj =11111111111111; //cnpj do emitente 14 digitos ***buscar 
+		$cnpj =$saida['Parceirodenegocio']['cpf_cnpj']; //cnpj do emitente 14 digitos ***buscar 
 		$mod=01; //Modelo do Documento Fiscal 2 digitos ***buscar 
 		$serie=001; //Série do Documento Fiscal 3 digitos ***buscar 
 		$nNF =000000001; //Número do Documento Fiscal   9 digitos ***buscar 
@@ -727,9 +729,9 @@ class SaidasController extends NotasController {
 		            	'@id' => $idnota,
 		            	'@versao' => '2.00',
 		            	'ide' => array(
-							'cUF'=> '35',
-							'cNF' => '09317421',
-							'natOp' => 'Vnd mer.adq.rec.ter.op.mer.sj.rg.sub.trb.cnd.sub.t',
+							'cUF'=> $saida['Cuf']['codigo'],
+							'cNF' => $saida['Saida']['nota_fiscal'],
+							'natOp' => $saida['Natop']['descricao'],
 							'indPag' => '1',
 							'mod' => '55',
 							'serie' => '0',
@@ -737,7 +739,6 @@ class SaidasController extends NotasController {
 							'dEmi' => '2013-10-17',
 							'tpNF' => '1',
 							'cMunFG' => '3505708',
-							'tpImp' => '1',
 							'tpImp' => '1',
 							'cDV' => '0',
 							'tpAmb' => '1',

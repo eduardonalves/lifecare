@@ -62,6 +62,20 @@ class Nota extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Cuf' => array(
+			'className' => 'Cuf',
+			'foreignKey' => 'cuf_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Natop' => array(
+			'className' => 'Natop',
+			'foreignKey' => 'natop_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Vendedor' => array(
 			'className' => 'Vendedor',
 			'foreignKey' => 'vendedor_id',
@@ -82,7 +96,83 @@ class Nota extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		
+		'Indpag' => array(
+			'className' => 'Indpag',
+			'foreignKey' => 'indpag_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Mod' => array(
+			'className' => 'Mod',
+			'foreignKey' => 'mod_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Serie' => array(
+			'className' => 'Serie',
+			'foreignKey' => 'serie_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Tpnf' => array(
+			'className' => 'Tpnf',
+			'foreignKey' => 'tpnf_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Cmunfg' => array(
+			'className' => 'Cmunfg',
+			'foreignKey' => 'cmunfg_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Tpimp' => array(
+			'className' => 'Tpimp',
+			'foreignKey' => 'tpimp_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Cdv' => array(
+			'className' => 'Cdv',
+			'foreignKey' => 'cdv_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Tpamb' => array(
+			'className' => 'Tpamb',
+			'foreignKey' => 'tpamb_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Finnfe' => array(
+			'className' => 'Finnfe',
+			'foreignKey' => 'finnfe_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Procemi' => array(
+			'className' => 'Procemi',
+			'foreignKey' => 'procemi_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Verproc' => array(
+			'className' => 'Verproc',
+			'foreignKey' => 'verproc_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 	);
 
 /**
