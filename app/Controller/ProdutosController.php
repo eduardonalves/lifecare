@@ -571,8 +571,29 @@ public function add_tributo() {
 		
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
+		/** SITUACAO TRIBUTARIA **/		
+		$this->loadModel('Situacaotribicm');
+		$situacaotribicms = $this->Situacaotribicm->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribicm.*')));
+		
+		/** ORIGEMS **/		
+		$this->loadModel('Origems');
+		$origens = $this->Origems->find('all',array('recursive'=>-1));
+			
+		/** Modalidadebcst **/		
+		$this->loadModel('Modalidadebcs');
+		$modalidadebcs = $this->Modalidadebcs->find('all',array('recursive'=>-1));
+			
+		/** Modalidadebcsts **/		
+		$this->loadModel('Modalidadebcsts');
+		$modalidadebcsts = $this->Modalidadebcsts->find('all',array('recursive'=>-1));
+			
+		/** MOTIVO DESONERACAO **/		
+		$this->loadModel('Motivodesoneracaos');
+		$motivodesoneracaos = $this->Motivodesoneracaos->find('all',array('recursive'=>1,'fields'=>array('Motivodesoneracaos.*')));
+			
+		
 		$this->loadModel('Tributo');
-		$this->set(compact('categorias', 'tributos', 'allCategorias','telaAbas'));
+		$this->set(compact('categorias', 'modalidadebcsts', 'motivodesoneracaos', 'modalidadebcs','origens', 'situacaotribicms', 'tributos', 'allCategorias','telaAbas'));
 		
 	}
 
