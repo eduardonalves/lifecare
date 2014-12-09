@@ -58,16 +58,11 @@ $(document).ready(function(){
 	
 	//SITUAÇÂO
 	$('#select_situacao_icms').click(function(){
-		$('.esconde').fadeOut();
-		
+		$('.esconde').fadeOut();		
 		codigo = $("#select_situacao_icms option:selected").attr('data-inputs');
-		if(codigo != '-'){
-				
+		if(codigo != '-'){				
 			var campos = codigo.split(',');
-			//alert(campos.length);
-			
-			var i = 0;
-			
+			var i = 0;			
 			for(i=0;i<=campos.length;i++){
 				$('#mostrar'+campos[i]).fadeIn( "slow" );
 			}
@@ -150,6 +145,23 @@ $(document).ready(function(){
 		</article>	
 		
 		<article class="coluna-central margin-label">
+			<!-- ############################################## -->
+			<div style="clear:both" id="mostrar3" data-input="3" >
+			<label>Origem:</label>
+			<select name="data[Produto][origem_id]" id="select_origem" class='tamanho-medio'>
+				<option></option>
+				<?php
+					$i = 0;
+					foreach($origens as $origen){
+				?>
+						<option value="<?php echo $origen['Origems']['codigo']?>" data-codigo="<?php echo $origen['Origems']['codigo'] ?>"><?php echo $origen['Origems']['descricao']; ?></option>
+				<?php
+					$i++;
+					}
+				?>	
+			</select>
+			</div>
+			
 			<?php
 				echo "<div class='esconde' id='mostrar4' data-input='4'>";
 					echo $this->Form->input('Icms.0.aliq_icms',array('label'=>'Aliquota ICMS:','class'=>'tamanho-medio'));

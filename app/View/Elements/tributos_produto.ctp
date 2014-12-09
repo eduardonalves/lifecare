@@ -11,3 +11,5 @@ $(document).ready(function(){
 });
 </script>
 <?php echo $this->element('tributo_icms');?>
+<?php echo $this->element('tributo_ipi');?>
+<?php echo $this->element('tributo_pis');?>

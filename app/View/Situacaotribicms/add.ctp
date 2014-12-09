@@ -5,6 +5,7 @@
 	<?php
 		echo $this->Form->input('descricao',array('maxlength'=>'150'));
 		echo $this->Form->input('codigo',array('type'=>'text','maxlength'=>'150'));
+		echo $this->Form->input('combinacao',array('type'=>'text','maxlength'=>'150'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

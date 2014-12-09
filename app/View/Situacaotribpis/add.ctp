@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php echo __('Add Situacaotribpi'); ?></legend>
 	<?php
-		echo $this->Form->input('descricao');
+		echo $this->Form->input('descricao',array('maxlength'=>'200'));
 		echo $this->Form->input('codigo');
 	?>
 	</fieldset>

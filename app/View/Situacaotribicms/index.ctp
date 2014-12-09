@@ -12,6 +12,7 @@
 		<td><?php echo h($situacaotribicm['Situacaotribicm']['id']); ?>&nbsp;</td>
 		<td><?php echo h($situacaotribicm['Situacaotribicm']['descricao']); ?>&nbsp;</td>
 		<td><?php echo h($situacaotribicm['Situacaotribicm']['codigo']); ?>&nbsp;</td>
+		<td><?php// echo h($situacaotribicm['Situacaotribicm']['combinacao']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $situacaotribicm['Situacaotribicm']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $situacaotribicm['Situacaotribicm']['id'])); ?>
@@ -42,3 +43,4 @@
 		<li><?php echo $this->Html->link(__('New Icm'), array('controller' => 'icms', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
