@@ -67,6 +67,32 @@ class Cmunfg extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Empresa' => array(
+			'className' => 'Empresa',
+			'foreignKey' => 'cmunfg_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Endereco' => array(
+			'className' => 'Endereco',
+			'foreignKey' => 'cmunfg_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 
 }

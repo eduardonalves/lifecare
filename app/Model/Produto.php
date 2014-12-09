@@ -31,6 +31,16 @@ class Produto extends AppModel {
  *
  * @var array
  */
+ 
+	public $belongsTo = array(
+		'Origem' => array(
+			'className' => 'Origem',
+			'foreignKey' => 'origem_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
 	public $hasMany = array(
 		'Lote' => array(
 			'className' => 'Lote',

@@ -26,6 +26,13 @@ class Saida extends Nota {
 			'fields' => '',
 			'order' => ''
 		),
+		'Transportadore' => array(
+			'className' => 'Transportadore',
+			'foreignKey' => 'transportadore_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Cuf' => array(
 			'className' => 'Cuf',
 			'foreignKey' => 'cuf_id',
@@ -127,6 +134,13 @@ class Saida extends Nota {
 		'Verproc' => array(
 			'className' => 'Verproc',
 			'foreignKey' => 'verproc_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Transp' => array(
+			'className' => 'Transp',
+			'foreignKey' => 'transp_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

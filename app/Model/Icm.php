@@ -19,6 +19,34 @@ class Icm extends AppModel {
  *
  * @var array
  */
+	public $hasMany = array(
+		'Nota' => array(
+				'className' => 'Nota',
+				'foreignKey' => 'transportadore_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+		),
+		'Saida' => array(
+				'className' => 'Saida',
+				'foreignKey' => 'transportadore_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+		),
+	);
 	public $belongsTo = array(
 		'Produto' => array(
 			'className' => 'Produto',

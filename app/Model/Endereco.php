@@ -22,6 +22,14 @@ class Endereco extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
+		'Cmunfg' => array(
+			'className' => 'Cmunfg',
+			'foreignKey' => 'cmunfg_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 	);
+	
 }

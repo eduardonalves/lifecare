@@ -709,13 +709,28 @@ class SaidasController extends NotasController {
 		App::uses('Xml', 'Utility');
 		
 		$this->loadModel('Empresa');
+		$this->loadModel('Produto');
+		$this->loadModel('Lote');
+		$this->loadModel('Icm');
+		$this->loadModel('Pi');
+		$this->loadModel('Ipi');
+		$this->loadModel('Cofin');
+		$this->loadModel('Parceirodenegocio');
+		$this->loadModel('Endereco');
+		$this->loadModel('Transportadore');
+		
 		$empresa = $this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 		
-		
+		$empresa['Empresa']['cnpj'] = str_replace("-","",$empresa['Empresa']['cnpj']);
+		$empresa['Empresa']['cnpj'] = str_replace("/","",$empresa['Empresa']['cnpj']);
+		$empresa['Empresa']['cnpj'] = str_replace(".","",$empresa['Empresa']['cnpj']);
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
 		
+		$cliente = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $saida['Saida']['parceirodenegocio_id'])));
 		
-		$idnota = $this->geraid();
+		$endereco = $this->endereco->find('first', array('conditions' => array('AND', array('Endereco.parceirodenegocio_id' => $cliente['Parceidenegicio']['id']), array('Endereco.tipo' => 'FATURAMENTO'))));
+		$transportadora = $this->Transportadore->find('first', array('conditions' => array('Transportadore.id' => $saida['Saida']['transportadore_id'])));
+		$idnota = $this->geraid($id);
 		
 		$this->loadModel('Loteiten');
 		
@@ -732,54 +747,55 @@ class SaidasController extends NotasController {
 							'cUF'=> $saida['Cuf']['codigo'],
 							'cNF' => $saida['Saida']['nota_fiscal'],
 							'natOp' => $saida['Natop']['descricao'],
-							'indPag' => '1',
-							'mod' => '55',
-							'serie' => '0',
-							'nNF' => '229908',
-							'dEmi' => '2013-10-17',
-							'tpNF' => '1',
-							'cMunFG' => '3505708',
-							'tpImp' => '1',
-							'cDV' => '0',
-							'tpAmb' => '1',
-							'finNFe' => '1',
-							'procEmi' => '0',
-							'verProc' => '2.0.0',	
+							'indPag' =>  $saida['Indpag']['codigo'],
+							'mod' => $saida['Mod']['codigo'],
+							'serie' => $saida['Serie']['codigo'],
+							//'nNF' => '229908',
+							'dEmi' => $saida['Saida']['data'],
+							'dSaiEnt' => $saida['Saida']['data_entrada'],
+							'tpNF' =>  $saida['Tpnf']['codigo'],
+							'cMunFG' => $saida['cmunfg']['codigo'],
+							'tpImp' =>  $saida['Tpimp']['codigo'],
+							'cDV' => $saida['Cdv']['codigo'],
+							'tpAmb' => $saida['Tpamb']['codigo'],
+							'finNFe' => $saida['Finnfe']['codigo'],
+							'procEmi' => $saida['Procemi']['codigo'],
+							'verProc' => $saida['Verproc']['codigo'],	
 						),
 						
 							'emit' =>  array(
-								'CNPJ' => '49324221000104',
-								'xNome' => 'FRESENIUS KABI BRASIL LTDA',	
+								'CNPJ' => $empresa['Empresa']['cnpj'],
+								'xNome' => $empresa['Empresa']['razao'],	
 								'enderEmit' => array(
-									'xLgr' => 'Avenida Marginal Projetada',
-									'nro' => '1652',
-									'xBairro' => 'Sitio Tambore',
-									'cMun' => '3505708',
-									'xMun' => 'Barueri',
-									'UF' => 'SP',
-									'CEP' => '06460200',
+									'xLgr' =>  $empresa['Empresa']['endereco'],
+									'nro' => $empresa['Empresa']['numero'],
+									'xBairro' => $empresa['Empresa']['bairro'],
+									'cMun' => $empresa['Cmunfg']['codigo'],
+									'xMun' => $empresa['Empresa']['cidade'],
+									'UF' => $empresa['Empresa']['uf'],
+									'CEP' => $empresa['Empresa']['cep'],
 									'xPais' => 'Brasil',
-									'fone' => '1125041400',
+									'fone' => $empresa['Empresa']['telefone'],
 								),
-								'IE' => '206278216110',
-								'IEST' => '91006340',
-								'CRT' => '3',
+								'IE' => $empresa['Empresa']['ie'],
+								//'IEST' => '91006340',
+								'CRT' => $empresa['Empresa']['crt'],
 							),
 							'dest' => array(
-								'CNPJ' => '10619128000191',
-								'xNome' => 'Cirurgica Simoes Ltda',
+								'CNPJ' => $cliente['Parceirodenegocio']['cpf_cnpj'],
+								'xNome' => $cliente['Parceirodenegocio']['nome'],
 								'enderDest' => array(
-									'xLgr' => 'R Luiz Sobral',
-									'nro' => '484',
-									'xBairro' => 'California',
-									'cMun' => '3303500',
-									'xMun' => 'Nova Iguacu',
-									'UF' => 'RJ',
-									'CEP' => '26216110',
-									'cPais' => '1058',
-									'xPais' => 'Brasil',
+									'xLgr' => $endereco['Endereco']['logradouro'],
+									'nro' => $endereco['Endereco']['numero'],
+									'xBairro' => $endereco['Endereco']['bairro'],
+									'cMun' => $endereco['Cmun']['codigo'],
+									'xMun' => $endereco['Endereco']['cidade'],
+									'UF' =>$endereco['Endereco']['uf'],
+									'CEP' => $endereco['Endereco']['cep'],
+									'cPais' => $endereco['Endereco']['cpais'],
+									'xPais' =>  $endereco['Endereco']['xpais'],
 								),
-								'IE' => '78709375',
+								'IE' => $cliente['Parceirodenegocio']['ie'],
 								
 							),
 							'det' => array(),
@@ -790,7 +806,7 @@ class SaidasController extends NotasController {
 							),
 							'transp' => array(),
 							'infAdic' => array(
-								'infCpl' => '/L.E: RUA ALAMEDA FLAMBOIANT, N 112 - PARQUE FLORA - NOVA IGUACU - RJ -/AGENDAR COM Sr. BRUNO - TEL.(21) 7842-2700./IPI com Aliquota Zero conforme Decreto 7.212 de 15/06/2010-RIPI.'
+								'infCpl' => $saida['Tpimp']['obs']
 							),
 		  
 		            ),
@@ -847,57 +863,61 @@ class SaidasController extends NotasController {
 		$i=1;
 		foreach($saida['Produtoiten'] as $itens){
 			
-			
+			$produto = $this->Produto->find('first', array('conditions' => array('Produto.id' => $itens['produto_id'])));
+			$icmsProduto = $this->Icm->find('first', array('conditions' => array('Icm.produto_id' => $itens['produto_id'])));
+			$ipiProduto = $this->Ipi->find('first', array('conditions' => array('Ipi.produto_id' => $itens['produto_id'])));
+			$pisProduto = $this->Pi->find('first', array('conditions' => array('Pi.produto_id' => $itens['produto_id'])));
+			$cofinsProduto = $this->Cofin->find('first', array('conditions' => array('Cofin.produto_id' => $itens['produto_id'])));
 			$vlTributado = '838.12';
 			
 			$icms = array(
 				
-				'ICMS60' => array(
-					'orig' => '0',
-					'CST' => '60',
+				'ICMS'.$icmsProduto['Situacaotribicm']['codigo'].'' => array(
+					'orig' => $produto['Origem']['codigo'],
+					'CST' => $icmsProduto['Situacaotribicm']['codigo'],
 				),
 				
 			);
 			
 			$ipi = array(
-				'cEnq' => '999',
+				'cEnq' => $ipiProduto['Ipi']['classe_enquadramento'],
 				'IPINT' => array(
-					'CST' => '53'
+					'CST' => $ipiProduto['Situacaotribipi']['codigo']
 				),
 				
 			);
 			$pis = array(
 				'PISNT' => array(
-					'CST' => '07'
+					'CST' => $pisProduto['Situacaotribpi']['codigo']
 				)
 			
 			);
 			
-			$pisnt= array(
+			/*$pisnt= array(
 				'CST' => '07'
-			);
+			);*/
 			$cofins= array(
 				'COFINSNT' => array(
-					'COFINSNT' => '07'
+					'COFINSNT' => $cofinsProduto['Situacaotribcofin']['codigo']
 				),
 			);
 			$det= array(
 					'@nItem' => $i,
 					'prod' => array(
-						'cProd' => '1510093',
-						'cEAN' => '7897947706644',
-						'xProd'=> 'KP RINGER LACT 500 ML',
-						'NCM' => '30049099',
-						'CFOP' => '6403',
-						'uCom' => 'PC',
-						'qCom' => '30000.0000',
-						'vUnCom' => '1.3800000000',
-						'vProd' => '41400.00',
-						'cEANTrib' => '7897947706644',
-						'uTrib' => 'PC',
-						'qTrib' => '30000.0000',
-						'vUnTrib' => '1.3800000000',
-						'indTot' => '1',
+						'cProd' => $produto['Produto']['id'],
+						'cEAN' => $produto['Produto']['codigoEan'],
+						'xProd'=> $produto['Produto']['nome'],
+						'NCM' => $produto['Produto']['ncm'],
+						'CFOP' =>  $produto['Produto']['cfop'],
+						'uCom' => $produto['Produto']['unidade'],
+						'qCom' =>$itens['qtde'],
+						'vUnCom' => $itens['valor_unitario'],
+						'vProd' =>  $itens['valor_total'],
+						'cEANTrib' => $produto['Produto']['codigoEan'],
+						'uTrib' => $produto['Produto']['unidade'],
+						'qTrib' =>$itens['qtde'],
+						'vUnTrib' => $itens['valor_unitario'],
+						'indTot' => '1', // Este campo deverá ser preenchido com: 0 – o valor do item (vProd) compõe o valor total da NF-e (vProd) 1 – o valor do item (vProd) não compõe o valor
 						'med' => array(),
 					),
 					'imposto'=> array(
@@ -908,19 +928,21 @@ class SaidasController extends NotasController {
 						'COFINS'=> $cofins
 					
 					),
-					'infAdProd' => 'IPI com Aliquota Zero conforme Decreto 7.212 de 15/06/2010-RIPI.'
+					'infAdProd' => $produto['Produto']['obs_nota']
 			
 			);
 			$comlotesoperacaos = $this->Loteiten->find('all', array('conditions' => array('Loteiten.produtoiten_id' => $itens['id'])));
+			
+			$lote = $this->Lote->find('first', array('conditions' => array('Lote.id' => $comlotesoperacaos['Comlotesoperacao']['lote_id'])));
 			if(!empty($comlotesoperacaos)){
 				foreach($comlotesoperacaos as $comlotesoperacao){
 					$med = array(
 						
-							'nLote' => '74GH3271',
-							'qLote' => '13440.000',
-							'dFab' => '2013-08-17',
-							'dVal' => '2015-07-17',
-							'vPMC' => '6.83'
+							'nLote' => $lote['Lote']['numero_lote'],
+							'qLote' => $comlotesoperacao['Comlotesoperacao']['qtde'],
+							'dFab' => $lote['Lote']['data_fabricacao'],
+							'dVal' => $lote['Lote']['data_validade'],
+							'vPMC' => $produto['Produto']['precomax_consumidor']
 						
 					);
 					array_push($det['prod']['med'], $med);
@@ -950,12 +972,12 @@ class SaidasController extends NotasController {
 		);	
 		
 		$tranportadora = array(
-			'CNPJ' => '04711147001031',
-			'xNome' => 'Shuttle Logistica Integrada Ltda',
-			'IE' => '492382033110',
-			'xEnder' => 'Av Presidente Kennedy 2299',
-			'xMun' => 'Osasco',
-			'UF' => 'SP'
+			'CNPJ' => $transportadora['Transportadore']['cnpj'],
+			'xNome' => $transportadora['Transportadore']['nome'],
+			'IE' => $transportadora['Transportadore']['ie'],
+			'xEnder' => $transportadora['Transportadore']['endereco'],
+			'xMun' => $transportadora['Transportadore']['cidade'],
+			'UF' => $transportadora['Transportadore']['uf']
 		);			
 		
 		$tranportadora = array(

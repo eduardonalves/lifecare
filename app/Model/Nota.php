@@ -55,6 +55,13 @@ class Nota extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Transportadore' => array(
+			'className' => 'Transportadore',
+			'foreignKey' => 'transportadore_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',
@@ -169,6 +176,13 @@ class Nota extends AppModel {
 		'Verproc' => array(
 			'className' => 'Verproc',
 			'foreignKey' => 'verproc_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Transp' => array(
+			'className' => 'Transp',
+			'foreignKey' => 'transp_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
