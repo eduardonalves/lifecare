@@ -4,6 +4,7 @@
 		<legend><?php echo __('Add Motivodesoneracao'); ?></legend>
 	<?php
 		echo $this->Form->input('descricao');
+		echo $this->Form->input('codigo');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

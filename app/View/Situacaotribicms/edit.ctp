@@ -2,14 +2,15 @@
 <?php echo $this->Form->create('Situacaotribicm'); ?>
 	<fieldset>
 		<legend><?php echo __('Edit Situacaotribicm'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('descricao');
-		echo $this->Form->input('codigo');
-	?>
+		<?php
+			echo $this->Form->input('id');
+			echo $this->Form->input('descricao',array('maxlength'=>'150'));
+			echo $this->Form->input('codigo',array('type'=>'text'));
+		?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
+
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>

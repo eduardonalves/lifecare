@@ -11,6 +11,11 @@
 			<?php echo h($motivodesoneracao['Motivodesoneracao']['descricao']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('codigo'); ?></dt>
+		<dd>
+			<?php echo h($motivodesoneracao['Motivodesoneracao']['codigo']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
