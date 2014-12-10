@@ -4,21 +4,28 @@ $(document).ready(function(){
 	$('#select_situacao_pis').click(function(){
 		$('.esconde').fadeOut();		
 		codigo = $("#select_situacao_pis option:selected").attr('data-inputpis');
-		if(codigo != '-'){				
-			var campos = codigo.split(',');
+		if(codigo != '-' ){				
+			if(codigo.length > 1){
+				var campos = codigo.split(',');
+			}else{
+				var campos = codigo;	
+			}
 			var i = 0;			
 			var tipo = 0;			
 			for(i=0;i<=campos.length;i++){
 				$('#mostrar_pis'+campos[i]).fadeIn( "slow" );
-				if(campos[i] == 1){ tipo = campos[i]; }
+				if(campos[i] == 4){ tipo = campos[i]; }
 			}
+			
 			
 			if(tipo != '' || tipo != 0){
 				tipo = $("#tipocalculo_pis option:selected").val();
 				if(tipo == "PORCENTAGEM"){
-					$('#tipo_aliquota_pis').fadeIn( "slow" );
+					$('.tipo_valor_pis').hide( "fast" );
+					$('.tipo_aliquota_pis').fadeIn( "slow" );
 				}else{
-					$('#tipo_valor_pis').fadeIn( "slow" );
+					$('.tipo_aliquota_pis').hide( "fast" )
+					$('.tipo_valor_pis').fadeIn( "slow" );		
 				}
 			}
 		}
@@ -27,11 +34,11 @@ $(document).ready(function(){
 	$('#tipocalculo_pis').click(function(){
 		tipo = $("#tipocalculo_pis option:selected").val();
 		if(tipo == "PORCENTAGEM"){
-			$('#tipo_valor_pis').hide( "fast" );
-			$('#tipo_aliquota_pis').fadeIn( "slow" );
+			$('.tipo_valor_pis').hide( "fast" );
+			$('.tipo_aliquota_pis').fadeIn( "slow" );
 		}else{
-			$('#tipo_aliquota_pis').hide( "fast" )
-			$('#tipo_valor_pis').fadeIn( "slow" );		
+			$('.tipo_aliquota_pis').hide( "fast" )
+			$('.tipo_valor_pis').fadeIn( "slow" );		
 		}
 	});
 	
@@ -71,8 +78,9 @@ $(document).ready(function(){
 			</div>
 			
 			<div style="clear:both">
+				<!-- MOSTRAR PIS 1 TIPO DE CÁLCULO SUB TRIB -->
 				<?php
-					echo $this->Form->input('Ipi.0.tipodecalsubtrib',array('id'=>'tipodecalsubtrib','label'=>'Tipo de cálculo Subst. Trib.','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
+					echo $this->Form->input('Pis.0.tipodecalsubtrib',array('id'=>'tipodecalsubtrib','label'=>'Tipo de cálc. Subs:','class'=>'tamanho-medio','type'=>'select','options'=>array(''=>'','PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
@@ -80,42 +88,46 @@ $(document).ready(function(){
 		</article>
 		
 		<article class="coluna-central">
-			<div style="clear:both" id="mostrar_pis1" class="esconde">
+			<!-- MOSTRAR PIS 1 TIPO DE CÁLCULO COMUM -->
+			<div style="clear:both" id="mostrar_pis4" class="esconde">
 				<?php
-					echo $this->Form->input('Pis.0.tipodecalculo',array('id'=>'tipocalculo_pis','label'=>'Tipo de Cálculo','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
+					echo $this->Form->input('Pis.0.tipodecalculo',array('id'=>'tipocalculo_pis','label'=>'Tipo de Cálculo:','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
-			<div style="clear:both" id="tipo_aliquota_pis" class="esconde">
+			<!-- ALÍQUOTA QUE IRA MOSTRAR EM ALGUNS CASOS-->
+			<div style="clear:both" id="mostrar_pis1" class="tipo_aliquota_pis esconde">
 				<?php
-					echo $this->Form->input('Pis.0.alq_pis',array('label'=>'Aliquota PIS','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pis.0.alq_pis',array('label'=>'Aliquota PIS:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
-			<div style="clear:both" id="tipo_valor_pis" class="esconde">
+			<!-- VALOR UNID TRIB-->
+			<div style="clear:both" id="mostrar_pis2" class="tipo_valor_pis esconde">
 				<?php
-					echo $this->Form->input('Pis.0.valundtrib',array('label'=>'Valor por Unid.','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pis.0.valundtrib',array('label'=>'Valor Unid. Trib. PIS:','class'=>'tamanho-medio'));
 				?>
 			</div>	
 			
+			
+			<!-- CAMPOS DO TIPO DE CALC SUBSTR TRIB-->
 			<div style="clear:both;display:none;" id="tipo_aliquota_pis_st">
 				<?php
-					echo $this->Form->input('Pis.0.alq_pisst',array('label'=>'Aliquota PIS ST','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pis.0.alq_pisst',array('label'=>'Aliquota PIS ST:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
 			<div style="clear:both;display:none;" id="tipo_valor_pis_st">
 				<?php
-					echo $this->Form->input('Pis.0.valunidpisst',array('label'=>'Valor Und. Trib. PIS ST.','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pis.0.valunidpisst',array('label'=>'Valor Und. Trib. PIS ST:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
 		</article>
 		
 		<article class="coluna-direita">
-			
-			
 		</article>	
+
 	</section>	
 </section>
 <div style="height:20px;clear:both;"></div>

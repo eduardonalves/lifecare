@@ -583,7 +583,10 @@ public function add_tributo() {
 		$this->loadModel('Situacaotribpis');
 		$situacaotribpis = $this->Situacaotribpis->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribpis.*')));
 		
-		
+		/** SITUACAO TRIBUTARIA COFINS**/		
+		$this->loadModel('Situacaotribcofins');
+		$situacaotribcofins = $this->Situacaotribcofins->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribcofins.*')));
+	
 		/** ORIGEMS **/		
 		$this->loadModel('Origems');
 		$origens = $this->Origems->find('all',array('recursive'=>-1));
@@ -602,7 +605,7 @@ public function add_tributo() {
 			
 		
 		$this->loadModel('Tributo');
-		$this->set(compact('situacaotribpis','situacaotribipi','categorias', 'modalidadebcsts', 'motivodesoneracaos', 'modalidadebcs','origens', 'situacaotribicms', 'tributos', 'allCategorias','telaAbas'));
+		$this->set(compact('situacaotribcofins','situacaotribpis','situacaotribipi','categorias', 'modalidadebcsts', 'motivodesoneracaos', 'modalidadebcs','origens', 'situacaotribicms', 'tributos', 'allCategorias','telaAbas'));
 		
 	}
 
