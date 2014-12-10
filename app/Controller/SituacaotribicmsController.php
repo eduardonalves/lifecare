@@ -36,7 +36,7 @@ class SituacaotribicmsController extends AppController {
 		if (!$this->Situacaotribicm->exists($id)) {
 			throw new NotFoundException(__('Invalid situacaotribicm'));
 		}
-		$options = array('conditions' => array('Situacaotribicm.' . $this->Situacaotribicm->primaryKey => $id));
+		$options = array('fields'=>array('Situacaotribicm.*'),'conditions' => array('Situacaotribicm.' . $this->Situacaotribicm->primaryKey => $id));
 		$this->set('situacaotribicm', $this->Situacaotribicm->find('first', $options));
 	}
 

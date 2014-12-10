@@ -16,6 +16,11 @@
 			<?php echo h($situacaotribicm['Situacaotribicm']['codigo']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Combinação'); ?></dt>
+		<dd>
+			<?php echo h($situacaotribicm['Situacaotribicm']['combinacao']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

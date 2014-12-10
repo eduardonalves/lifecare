@@ -571,9 +571,18 @@ public function add_tributo() {
 		
 		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
 		
-		/** SITUACAO TRIBUTARIA **/		
+		/** SITUACAO TRIBUTARIA  ICMS**/		
 		$this->loadModel('Situacaotribicm');
 		$situacaotribicms = $this->Situacaotribicm->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribicm.*')));
+		
+		/** SITUACAO TRIBUTARIA IPI**/		
+		$this->loadModel('Situacaotribipi');
+		$situacaotribipi = $this->Situacaotribipi->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribipi.*')));
+		
+		/** SITUACAO TRIBUTARIA PIS**/		
+		$this->loadModel('Situacaotribpis');
+		$situacaotribpis = $this->Situacaotribpis->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribpis.*')));
+		
 		
 		/** ORIGEMS **/		
 		$this->loadModel('Origems');
@@ -593,7 +602,7 @@ public function add_tributo() {
 			
 		
 		$this->loadModel('Tributo');
-		$this->set(compact('categorias', 'modalidadebcsts', 'motivodesoneracaos', 'modalidadebcs','origens', 'situacaotribicms', 'tributos', 'allCategorias','telaAbas'));
+		$this->set(compact('situacaotribpis','situacaotribipi','categorias', 'modalidadebcsts', 'motivodesoneracaos', 'modalidadebcs','origens', 'situacaotribicms', 'tributos', 'allCategorias','telaAbas'));
 		
 	}
 
