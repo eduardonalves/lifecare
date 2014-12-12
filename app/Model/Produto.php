@@ -107,6 +107,58 @@ class Produto extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Icm' => array(
+			'className' => 'Icm',
+			'foreignKey' => 'produto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Cofin' => array(
+			'className' => 'Cofin',
+			'foreignKey' => 'produto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Pi' => array(
+			'className' => 'Pi',
+			'foreignKey' => 'produto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Ipi' => array(
+			'className' => 'Ipi',
+			'foreignKey' => 'produto_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		
 		
 	);
