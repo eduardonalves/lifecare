@@ -143,8 +143,7 @@ class Produto extends AppModel {
 			'limit' => '',
 			'offset' => '',
 			'finderQuery' => '',
-		),
-		
+		),		
 		'Parceirodenegocio' => array(
 			'className' => 'Parceirodenegocio',
 			'joinTable' => 'produtos_parceirodenegocios',
@@ -171,7 +170,6 @@ class Produto extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 		)
-
 	);
 	
 //Hack Hasone
