@@ -2,10 +2,14 @@
 $(document).ready(function(){
 	//SITUAÇÂO
 	$('#select_situacao_ipi').click(function(){
-		$('.esconde').fadeOut();		
+		$('.esconde_ipi').fadeOut();		
 		codigo = $("#select_situacao_ipi option:selected").attr('data-inputipi');
 		if(codigo != '-' || codigo != ''){				
-			var campos = codigo.split(',');
+			if(codigo.length > 1){
+				var campos = codigo.split(',');
+			}else{
+				var campos = codigo;	
+			}
 			var i = 0;			
 			var tipo = 0;			
 			for(i=0;i<=campos.length;i++){
@@ -60,13 +64,13 @@ $(document).ready(function(){
 			</select>
 			</div>
 			
-			<div style="clear:both" id="mostrar_ipi1" class="esconde">
+			<div style="clear:both" id="mostrar_ipi1" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.classe_enquadramento',array('label'=>'Classe Enquadramento:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
-			<div style="clear:both" id="mostrar_ipi2" class="esconde">
+			<div style="clear:both" id="mostrar_ipi2" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.cnpj_produtor',array('label'=>'CNPJ Produtor:','class'=>'tamanho-medio'));
 				?>
@@ -74,13 +78,13 @@ $(document).ready(function(){
 		</article>
 		
 		<article class="coluna-central">
-			<div style="clear:both" id="mostrar_ipi3" class="esconde">
+			<div style="clear:both" id="mostrar_ipi3" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.codigo_selo',array('label'=>'Cód. Selo Controle IPI:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
-			<div style="clear:both" id="mostrar_ipi4" class="esconde">
+			<div style="clear:both" id="mostrar_ipi4" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.qtd_selo',array('label'=>'Qtd. Selo IPI','class'=>'tamanho-medio'));
 				?>
@@ -90,19 +94,19 @@ $(document).ready(function(){
 		
 		<article class="coluna-direita">
 			
-			<div style="clear:both" id="mostrar_ipi5" class="esconde">
+			<div style="clear:both" id="mostrar_ipi5" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.tipodecalculo',array('id'=>'tipocalculo','label'=>'Tipo de Cálculo','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
-			<div style="clear:both" id="tipo_aliquota" class="esconde">
+			<div style="clear:both" id="tipo_aliquota" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.aliq_ipi',array('label'=>'Aliquota','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
-			<div style="clear:both" id="tipo_valor" class="esconde">
+			<div style="clear:both" id="tipo_valor" class="esconde_ipi">
 				<?php
 					echo $this->Form->input('Ipi.0.valorporunid',array('label'=>'Valor por Unid.','class'=>'tamanho-medio'));
 				?>

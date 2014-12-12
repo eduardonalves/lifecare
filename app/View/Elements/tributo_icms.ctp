@@ -49,7 +49,7 @@
 	margin-right: 15px !important;
 }
 
-.esconde{
+.esconde, .esconde_ipi, .esconde_pis, .esconde_cofins{
 	display: none;
 }
 </style>
@@ -61,7 +61,11 @@ $(document).ready(function(){
 		$('.esconde').fadeOut();		
 		codigo = $("#select_situacao_icms option:selected").attr('data-inputs');
 		if(codigo != '-'){				
-			var campos = codigo.split(',');
+			if(codigo.length > 1){
+				var campos = codigo.split(',');
+			}else{
+				var campos = codigo;	
+			}
 			var i = 0;			
 			for(i=0;i<=campos.length;i++){
 				$('#mostrar'+campos[i]).fadeIn( "slow" );
@@ -98,6 +102,7 @@ $(document).ready(function(){
 			<div style="clear:both" id="mostrar1" data-input="1" class="esconde">
 			<label>Modalidade BC:</label>
 			<select name="data[Icms][0][modalidadebc_id]" id="select_modalidadebcs" class='tamanho-medio'>
+				<option data-inputs="-"></option>
 				<?php
 					$i = 0;
 					foreach($modalidadebcs as $modalidadebc){
@@ -114,6 +119,7 @@ $(document).ready(function(){
 			<div style="clear:both" id="mostrar2" data-input="2" class="esconde">
 			<label>Modalidade BC ST:</label>
 			<select name="data[Icms][0][modalidadebcst_id]" id="select_modalidadebcst" class='tamanho-medio'>
+				<option data-inputs="-"></option>
 				<?php
 					$i = 0;
 					foreach($modalidadebcsts as $modalidadebcst){
@@ -135,7 +141,7 @@ $(document).ready(function(){
 					$i = 0;
 					foreach($motivodesoneracaos as $motivodesoneracao){
 				?>
-						<option value="<?php echo $motivodesoneracao['Motivodesoneracaos']['codigo']?>" data-codigo="<?php echo $motivodesoneracao['Motivodesoneracaos']['codigo'] ?>"><?php echo $motivodesoneracao['Motivodesoneracaos']['descricao']; ?></option>
+						<option value="<?php echo $motivodesoneracao['Motivodesoneracaos']['id']?>"><?php echo $motivodesoneracao['Motivodesoneracaos']['descricao']; ?></option>
 				<?php
 					$i++;
 					}
@@ -146,7 +152,7 @@ $(document).ready(function(){
 		
 		<article class="coluna-central margin-label">
 			<!-- ############################################## -->
-			<div style="clear:both" id="mostrar3" data-input="3" >
+			<div style="clear:both">
 			<label>Origem:</label>
 			<select name="data[Produto][origem_id]" id="select_origem" class='tamanho-medio'>
 				<option></option>
@@ -164,11 +170,11 @@ $(document).ready(function(){
 			
 			<?php
 				echo "<div class='esconde' id='mostrar4' data-input='4'>";
-					echo $this->Form->input('Icms.0.aliq_icms',array('label'=>'Aliquota ICMS:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Icms.0.aliq_icms',array('label'=>'Aliquota ICMS (%):','class'=>'tamanho-medio'));
 				echo "</div>";
 				
 				echo "<div class='esconde' id='mostrar5' data-input='5'>";
-					echo $this->Form->input('Icms.0.alq_icmsst',array('label'=>'Aliquota ICMS ST:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Icms.0.alq_icmsst',array('label'=>'Aliquota ICMS ST (%):','class'=>'tamanho-medio'));
 				echo "</div>";
 				
 				echo "<div class='esconde'  id='mostrar6'  data-input='6'>";
@@ -189,6 +195,10 @@ $(document).ready(function(){
 				
 				echo "<div class='esconde'  id='mostrar9'  data-input='9'>";
 					echo $this->Form->input('Icms.0.margemvaloradic',array('label'=>'Margem Valor Adic. :','class'=>'tamanho-medio'));			
+				echo "</div>";
+				
+				echo "<div class='esconde'  id='mostrar10'  data-input='10'>";
+					echo $this->Form->input('Icms.0.reducaobasecalc',array('label'=>'Redução Base Calc.:','class'=>'tamanho-medio'));			
 				echo "</div>";
 			?>		
 		</article>

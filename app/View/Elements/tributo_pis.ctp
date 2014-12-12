@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	//SITUAÇÂO
 	$('#select_situacao_pis').click(function(){
-		$('.esconde').fadeOut();		
+		$('.esconde_pis').fadeOut();		
 		codigo = $("#select_situacao_pis option:selected").attr('data-inputpis');
 		if(codigo != '-' ){				
 			if(codigo.length > 1){
@@ -14,7 +14,7 @@ $(document).ready(function(){
 			var tipo = 0;			
 			for(i=0;i<=campos.length;i++){
 				$('#mostrar_pis'+campos[i]).fadeIn( "slow" );
-				if(campos[i] == 4){ tipo = campos[i]; }
+				if(campos[i] == 1){ tipo = campos[i]; }
 			}
 			
 			
@@ -89,21 +89,21 @@ $(document).ready(function(){
 		
 		<article class="coluna-central">
 			<!-- MOSTRAR PIS 1 TIPO DE CÁLCULO COMUM -->
-			<div style="clear:both" id="mostrar_pis4" class="esconde">
+			<div style="clear:both" id="mostrar_pis1" class="esconde_pis">
 				<?php
 					echo $this->Form->input('Pis.0.tipodecalculo',array('id'=>'tipocalculo_pis','label'=>'Tipo de Cálculo:','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
 			<!-- ALÍQUOTA QUE IRA MOSTRAR EM ALGUNS CASOS-->
-			<div style="clear:both" id="mostrar_pis1" class="tipo_aliquota_pis esconde">
+			<div style="clear:both" id="mostrar_pis2" class="tipo_aliquota_pis esconde_pis">
 				<?php
 					echo $this->Form->input('Pis.0.alq_pis',array('label'=>'Aliquota PIS:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
 			<!-- VALOR UNID TRIB-->
-			<div style="clear:both" id="mostrar_pis2" class="tipo_valor_pis esconde">
+			<div style="clear:both" id="mostrar_pis3" class="tipo_valor_pis esconde_pis">
 				<?php
 					echo $this->Form->input('Pis.0.valundtrib',array('label'=>'Valor Unid. Trib. PIS:','class'=>'tamanho-medio'));
 				?>
