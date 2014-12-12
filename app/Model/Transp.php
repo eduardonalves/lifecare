@@ -1,13 +1,16 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Cofin Model
+ * Icm Model
  *
  * @property Produto $Produto
- * @property Situacaotribcofin $Situacaotribcofin
+ * @property Modalidadebc $Modalidadebc
+ * @property Modalidadebcst $Modalidadebcst
+ * @property Situacaotribicm $Situacaotribicm
+ * @property Motivodesoneracao $Motivodesoneracao
  */
-class Cofin extends AppModel {
-
+class Icm extends AppModel {
+	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -17,22 +20,7 @@ class Cofin extends AppModel {
  * @var array
  */
  
-	public $belongsTo = array(
-		'Produto' => array(
-			'className' => 'Produto',
-			'foreignKey' => 'produto_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Situacaotribcofin' => array(
-			'className' => 'Situacaotribcofin',
-			'foreignKey' => 'situacaotribcofin_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+	
 	public $hasMany = array(
 		'Nota' => array(
 				'className' => 'Nota',
