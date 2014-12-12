@@ -534,7 +534,7 @@ public function add_tributo() {
 					}
 					
 					$updateEstoqueProd= array('id' => $produto['Produto']['id'], 'estoque' => $estoque, 'nivel' => $nivel);
-					$this->Produto->save($updateEstoqueProd);
+					$this->Produto->saveAll($updateEstoqueProd);
 				}
 				$this->loadModel('CategoriasProduto');
 				$this->loadModel('Categoria');

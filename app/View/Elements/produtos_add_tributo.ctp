@@ -137,9 +137,9 @@
 
 			<?php
 				if(!isset($modal)){	
-					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add', 'class' => 'formAddProduto'));
+					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add_tributo', 'class' => 'formAddProduto'));
 				}else{
-					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add', 'class' => 'formAddProdutoModal'));
+					echo $this->Form->create('Produto', array('controller' => 'produtos', 'action'=>'add_tributo', 'class' => 'formAddProdutoModal'));
 				}
 
 				echo $this->Form->input('Produto.nome',array('required'=>'false','class'=>'tamanho-medio validacao-cadastrar validaNome','label'=>'Nome<span class="campo-obrigatorio">*</span>:','maxlength'=>'255','tabindex'=>'1'));
