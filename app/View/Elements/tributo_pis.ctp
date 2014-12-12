@@ -63,7 +63,7 @@ $(document).ready(function(){
 			<!-- ############################################## -->
 			<div style="clear:both">
 			<label>Situação Tributária:</label>
-			<select name="data[Pis][0][situacaotribpi_id]" id="select_situacao_pis" class='tamanho-medio'>
+			<select name="data[Pi][0][situacaotribpi_id]" id="select_situacao_pis" class='tamanho-medio'>
 				<option data-inputs="-"></option>
 				<?php
 					$i = 0;
@@ -80,7 +80,7 @@ $(document).ready(function(){
 			<div style="clear:both">
 				<!-- MOSTRAR PIS 1 TIPO DE CÁLCULO SUB TRIB -->
 				<?php
-					echo $this->Form->input('Pis.0.tipodecalsubtrib',array('id'=>'tipodecalsubtrib','label'=>'Tipo de cálc. Subs:','class'=>'tamanho-medio','type'=>'select','options'=>array(''=>'','PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
+					echo $this->Form->input('Pi.0.tipodecalsubtrib',array('id'=>'tipodecalsubtrib','label'=>'Tipo de cálc. Subs:','class'=>'tamanho-medio','type'=>'select','options'=>array(''=>'','PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
@@ -91,21 +91,21 @@ $(document).ready(function(){
 			<!-- MOSTRAR PIS 1 TIPO DE CÁLCULO COMUM -->
 			<div style="clear:both" id="mostrar_pis1" class="esconde_pis">
 				<?php
-					echo $this->Form->input('Pis.0.tipodecalculo',array('id'=>'tipocalculo_pis','label'=>'Tipo de Cálculo:','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
+					echo $this->Form->input('Pi.0.tipodecalculo',array('id'=>'tipocalculo_pis','label'=>'Tipo de Cálculo:','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			
 			<!-- ALÍQUOTA QUE IRA MOSTRAR EM ALGUNS CASOS-->
 			<div style="clear:both" id="mostrar_pis2" class="tipo_aliquota_pis esconde_pis">
 				<?php
-					echo $this->Form->input('Pis.0.alq_pis',array('label'=>'Aliquota PIS:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pi.0.alq_pis',array('label'=>'Aliquota PIS:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
 			<!-- VALOR UNID TRIB-->
 			<div style="clear:both" id="mostrar_pis3" class="tipo_valor_pis esconde_pis">
 				<?php
-					echo $this->Form->input('Pis.0.valundtrib',array('label'=>'Valor Unid. Trib. PIS:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pi.0.valundtrib',array('label'=>'Valor Unid. Trib. PIS:','class'=>'tamanho-medio'));
 				?>
 			</div>	
 			
@@ -113,13 +113,13 @@ $(document).ready(function(){
 			<!-- CAMPOS DO TIPO DE CALC SUBSTR TRIB-->
 			<div style="clear:both;display:none;" id="tipo_aliquota_pis_st">
 				<?php
-					echo $this->Form->input('Pis.0.alq_pisst',array('label'=>'Aliquota PIS ST:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pi.0.alq_pisst',array('label'=>'Aliquota PIS ST:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
 			<div style="clear:both;display:none;" id="tipo_valor_pis_st">
 				<?php
-					echo $this->Form->input('Pis.0.valunidpisst',array('label'=>'Valor Und. Trib. PIS ST:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Pi.0.valunidpisst',array('label'=>'Valor Und. Trib. PIS ST:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			

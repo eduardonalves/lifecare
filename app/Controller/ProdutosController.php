@@ -179,8 +179,9 @@ class ProdutosController extends AppController {
 		$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id), 'recursive'=>1);
 		
 		$this->request->data = $this->Produto->find('first', $options);
-		
-		$this->set('produto', $this->Produto->find('first', $options));
+		$produto = $this->Produto->find('first', $options);
+	
+	
 		//print_r($this->request->data);
 		//$categorias = $this->Produto->Categoria->find('list', array('conditions' => array('Categoria.produto_id'=>$id)));
 		//$categorias = $this->Produto->Categoria->find('list');
@@ -234,10 +235,10 @@ class ProdutosController extends AppController {
 		
 		//Calculamos as entradas do produto
 		$this->loadModel('Produtoiten');
-		$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $id, 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
-		$entradas=0;
+		$produtoItensEntradas = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $id, 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
+		$entradas = 0;
 		foreach ($produtoItensEntradas as $produtoItenEntrada){
-			$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
+			$qtdeEntrada = $produtoItenEntrada['Produtoiten']['qtde'];
 			$entradas = $entradas + $qtdeEntrada;
 		}
 		
@@ -249,6 +250,24 @@ class ProdutosController extends AppController {
 		}
 		$estoque =$entradas-$saidas;
 		
+		/** CARREGAMENTO DOS IMPOSTOS QUE NÃO RETORNAM  **/
+		$this->loadModel('Modalidadebc');
+		$modalidadebc = $this->Modalidadebc->find('first',array('conditions'=>array('Modalidadebc.id'=> $produto['Icm'][0]['modalidadebc_id'] )));
+		
+		$this->loadModel('Modalidadebcst');
+		$modalidadebcst = $this->Modalidadebcst->find('first',array('conditions'=>array('Modalidadebcst.id'=> $produto['Icm'][0]['modalidadebcst_id'] )));
+				
+		$this->loadModel('Icm');
+		$icms = $this->Icm->find('first',array('conditions'=>array('Icm.id'=> $produto['Icm'][0]['id'] )));
+		
+		$this->loadModel('Ipi');
+		$ipi = $this->Ipi->find('first',array('conditions'=>array('Ipi.id'=> $produto['Ipi'][0]['id'] )));
+		
+		$this->loadModel('Pi');
+		$pis = $this->Pi->find('first',array('conditions'=>array('Pi.id'=> $produto['Pi'][0]['id'] )));
+		
+		$this->loadModel('Cofin');
+		$cofin = $this->Cofin->find('first',array('conditions'=>array('Cofin.id'=> $produto['Cofin'][0]['id'] )));
 		
 		
 		$this->loadModel('Tributo');
@@ -278,19 +297,11 @@ class ProdutosController extends AppController {
 								  )
 								  );
 		$ultimosValores = $this->Produto->Comoperacao->find('all',array('conditions'=>array('Comoperacao.tipo'=>'PEDIDO','_Produto.id'=>$id)));
-
-		
-		
-		
-		
-		
-		
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp','id'));
+		$this->set(compact('produto','modalidadebc','modalidadebcst','pis','cofin','icms','ipi','lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos','telaAbas','ultimosValores','itensOp','id'));
 			
 	}
 
-		public function calculaQuantVencidos($id=NULL){
-			
+		public function calculaQuantVencidos($id=NULL){			
 						
 			$this->loadModel('Lote');
 			$this->loadModel('Produto');
