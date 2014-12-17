@@ -416,7 +416,7 @@ class ProdutosController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add_antiga() {
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
@@ -502,7 +502,7 @@ class ProdutosController extends AppController {
 	}
 
 
-public function add_tributo() {
+public function add() {
 		if(isset($this->request->params['named']['layout'])){
 			$telaLayout = $this->request->params['named']['layout'];
 			$telaAbas = $this->request->params['named']['abas'];
@@ -780,8 +780,41 @@ public function add_tributo() {
 		//foreach($lotes as $lote){
 			
 		//}
-
-		$this->set(compact('lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
+		
+		/** SITUACAO TRIBUTARIA  ICMS**/		
+		$this->loadModel('Situacaotribicm');
+		$situacaotribicms = $this->Situacaotribicm->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribicm.*')));
+		
+		/** SITUACAO TRIBUTARIA IPI**/		
+		$this->loadModel('Situacaotribipi');
+		$situacaotribipi = $this->Situacaotribipi->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribipi.*')));
+		
+		/** SITUACAO TRIBUTARIA PIS**/		
+		$this->loadModel('Situacaotribpis');
+		$situacaotribpis = $this->Situacaotribpis->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribpis.*')));
+		
+		/** SITUACAO TRIBUTARIA COFINS**/		
+		$this->loadModel('Situacaotribcofins');
+		$situacaotribcofins = $this->Situacaotribcofins->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribcofins.*')));
+			
+		/** ORIGEMS **/		
+		$this->loadModel('Origems');
+		$origens = $this->Origems->find('all',array('recursive'=>-1));
+	
+		/** Modalidadebcst **/		
+		$this->loadModel('Modalidadebcs');
+		$modalidadebcs = $this->Modalidadebcs->find('all',array('recursive'=>-1));
+			
+		/** Modalidadebcsts **/		
+		$this->loadModel('Modalidadebcsts');
+		$modalidadebcsts = $this->Modalidadebcsts->find('all',array('recursive'=>-1));
+					
+		/** MOTIVO DESONERACAO **/		
+		$this->loadModel('Motivodesoneracaos');
+		$motivodesoneracaos = $this->Motivodesoneracaos->find('all',array('recursive'=>1,'fields'=>array('Motivodesoneracaos.*')));
+			
+		
+		$this->set(compact('situacaotribcofins','situacaotribpis','situacaotribipi','motivodesoneracaos','modalidadebcsts','modalidadebcs','origens','situacaotribicms','lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
 		
 		//$this->set(compact('categorias', 'tributos'));
 	}

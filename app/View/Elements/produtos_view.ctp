@@ -173,228 +173,262 @@
 				<div class="conteudo-linha">	
 					<div class="linha"><?php echo $this->Html->Tag('p','Preço FGV:',array('class'=>'titulo')); ?></div>
 					<div class="linha2"><?php echo $this->Html->Tag('p', converterMoeda($produto['Produto']['precoFGV']),array('class'=>'valor'));?></div>
-				</div>	
-				
+				</div>					
 			</div>					
-		</div>	
-		
-		<fieldset>
-			<legend>Dados PIS</legend>
-			<?php if(!empty($pis['Situacaotribpi']['descricao'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pis['Situacaotribpi']['descricao'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Pi'][0]['alq_pis'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Aliquota PIS.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['alq_pis'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Pi'][0]['alq_pisst'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Alquiota PIS ST.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['alq_pisst'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Pi'][0]['tipodecalculo'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Pi'][0]['tipodecalsubtrib'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc. Subst. Trib:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['tipodecalsubtrib'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Pi'][0]['valundtrib'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Valor Und. Trib.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['valundtrib'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Pi'][0]['valunidpisst'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Valor Und. Trib. ST:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['valunidpisst'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>				
-		</fieldset>
+		</div>
 	</section>
 		
 	<section class="coluna-central" >
 		<fieldset>
 			<legend>Dados ICMS</legend>
-				<?php if(!empty($icms['Situacaotribicm']['descricao'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib. ICMS:',array('class'=>'titulo')); ?></div>
-						<div class="linha2" style="width: 140px;"><?php echo $this->Html->Tag('p',$icms['Situacaotribicm']['descricao'],array('class'=>'valor-descricao')); ?></div>					
-					</div>
-				<?php } ?>
-					
-				<?php if(!empty($modalidadebc['Modalidadebc']['descricao'])){ ?>
-					<div class="conteudo-linha">
-						<div class="linha"><?php echo $this->Html->Tag('p','Modalidade BC:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$modalidadebc['Modalidadebc']['descricao'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($modalidadebcst['Modalidadebcst']['descricao'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Modalidade BC ST:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$modalidadebcst['Modalidadebcst']['descricao'],array('class'=>'valor')); ?></div>					
-					</div>				
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['aliq_icms'])){ ?>
-					<div class="conteudo-linha">
-						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota ICMS:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['aliq_icms'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['margemvaloradic'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Margem Valor Adic. :',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['margemvaloradic'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['reducaobasecalcst'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Redução Base Calc. ST:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['reducaobasecalcst'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['precounitpautast'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Preço Unit. Pauta St:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['precounitpautast'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['alq_icmsst'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota ICMS ST:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['alq_icmsst'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['motivodesoneracao_id'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Motivo Desoneração:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['motivodesoneracao_id'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['percentualbcoppropria'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Percentual BCO Própria:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['percentualbcoppropria'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-				
-				<?php if(!empty($produto['Icm'][0]['reducaobasecalc'])){ ?>
-					<div class="conteudo-linha" style="margin-bottom: 25px;">
-						<div class="linha"><?php echo $this->Html->Tag('p','Redução Base Calc.:',array('class'=>'titulo')); ?></div>
-						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['reducaobasecalc'],array('class'=>'valor')); ?></div>					
-					</div>
-				<?php } ?>
-
+				<span id="sanfona1" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
+				<div class="sanfona1 filhide" style="display:none;">
+					<?php if(!empty($icms['Situacaotribicm']['descricao'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib. ICMS:',array('class'=>'titulo')); ?></div>
+							<div class="linha2" style="width: 140px;"><?php echo $this->Html->Tag('p',$icms['Situacaotribicm']['descricao'],array('class'=>'valor-descricao')); ?></div>					
+						</div>					
+					<?php } ?>
+					<?php if(!empty($modalidadebc['Modalidadebc']['descricao'])){?>
+						<div class="conteudo-linha">
+							<?php $modbc = ''; if(!empty($modalidadebc['Modalidadebc']['descricao'])) { $modbc = $modalidadebc['Modalidadebc']['descricao'];}  ?>
+							<div class="linha"><?php echo $this->Html->Tag('p','Modalidade BC:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$modbc,array('class'=>'valor')); ?></div>					
+						</div>	
+					<?php } ?>
+					<?php if(!empty($modalidadebcst['Modalidadebc']['descricao'])){?>			
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<?php $modbcst = ''; if(!empty($modalidadebcst['Modalidadebc']['descricao'])) { $modbcst = $modalidadebcst['Modalidadebcst']['descricao'];}  ?>
+							<div class="linha"><?php echo $this->Html->Tag('p','Modalidade BC ST:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$modbcst,array('class'=>'valor')); ?></div>					
+						</div>	
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['aliq_icms'])){?>			
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Aliquota ICMS:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['aliq_icms'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['margemvaloradic'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Margem Valor Adic. :',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['margemvaloradic'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['reducaobasecalcst'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Redução Base Calc. ST:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['reducaobasecalcst'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['precounitpautast'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Preço Unit. Pauta St:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['precounitpautast'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['alq_icmsst'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Aliquota ICMS ST:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['alq_icmsst'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['motivodesoneracao_id'])){?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Motivo Desoneração:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['motivodesoneracao_id'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['percentualbcoppropria'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Percentual BCO Própria:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['percentualbcoppropria'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+					<?php if(!empty($produto['Icm'][0]['reducaobasecalc'])){ ?>
+						<div class="conteudo-linha" style="margin-bottom: 25px;">
+							<div class="linha"><?php echo $this->Html->Tag('p','Redução Base Calc.:',array('class'=>'titulo')); ?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['reducaobasecalc'],array('class'=>'valor')); ?></div>					
+						</div>
+					<?php } ?>
+				</div>
 		</fieldset>
 		
 		<fieldset>
 			<legend>Dados IPI</legend>
-			<?php if(!empty($ipi['Situacaotribipi']['descricao'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$ipi['Situacaotribipi']['descricao'],array('class'=>'valor')); ?></div>					
+			<span id="sanfona2" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
+			<div class="sanfona2 filhide" style="display:none;">
+				
+				<?php if(!empty($ipi['Situacaotribipi']['descricao'])){?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$ipi['Situacaotribipi']['descricao'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['classe_enquadramento'])){?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Classe Enquadramento:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['classe_enquadramento'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['cnpj_produtor'])){?>
+					<div class="conteudo-linha" >
+						<div class="linha"><?php echo $this->Html->Tag('p','CNPJ Produtor:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['cnpj_produtor'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['codigo_selo'])){?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Código Selo IPI:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['codigo_selo'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['qtd_selo'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Quantidade Selo IPI:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['qtd_selo'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['aliq_ipi'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota IPI:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['aliq_ipi'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['valorporunid'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Valor por Unid.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['valorporunid'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Ipi'][0]['tipodecalculo'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				
 				</div>
-			<?php } ?>
 			
-			<?php if(!empty($produto['Ipi'][0]['classe_enquadramento'])){ ?>
-				<div class="conteudo-linha" style="margin-bottom: 25px;">
-					<div class="linha"><?php echo $this->Html->Tag('p','Classe Enquadramento:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['classe_enquadramento'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['cnpj_produtor'])){ ?>
-				<div class="conteudo-linha" >
-					<div class="linha"><?php echo $this->Html->Tag('p','CNPJ Produtor:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['cnpj_produtor'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['codigo_selo'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Código Selo IPI:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['codigo_selo'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['qtd_selo'])){ ?>
-				<div class="conteudo-linha" style="margin-bottom: 25px;">
-					<div class="linha"><?php echo $this->Html->Tag('p','Quantidade Selo IPI:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['qtd_selo'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['aliq_ipi'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Aliquota IPI:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['aliq_ipi'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['valorporunid'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Valor por Unid.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['valorporunid'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Ipi'][0]['tipodecalculo'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>			
 		</fieldset>		
+		
+		<fieldset>
+			<legend>Dados COFINS</legend>
+			<span id="sanfona3" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
+			<div class="sanfona3" style="display:none;">
+				<?php if(!empty($cofin['Situacaotribcofin']['descricao'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$cofin['Situacaotribcofin']['descricao'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['tipodecalculo'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['tipodecalsubtrib'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc. Subst. Trib:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['tipodecalsubtrib'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['valorunitcofins'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Valor Unt. Cofins.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['valorunitcofins'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['valunidcofinsst'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Valor Unit. Confins ST:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['valunidcofinsst'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['aliq_cofins'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota COFINS:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['aliq_cofins'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Cofin'][0]['aliq_cofinsst'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota COFINS ST:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['aliq_cofinsst'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+			
+			</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Dados PIS</legend>
+			<span id="sanfona4" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
+			<div class="sanfona4" style="display:none;">
+				
+				<?php if(!empty($pis['Situacaotribpi']['descricao'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$pis['Situacaotribpi']['descricao'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['alq_pis'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Aliquota PIS.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['alq_pis'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['alq_pisst'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Alquiota PIS ST.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['alq_pisst'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['tipodecalculo'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['tipodecalsubtrib'])){ ?>
+					<div class="conteudo-linha" style="margin-bottom: 25px;">
+						<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc. Subst. Trib:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['tipodecalsubtrib'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['valundtrib'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Valor Und. Trib.:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['valundtrib'],array('class'=>'valor')); ?></div>					
+					</div>
+				<?php } ?>
+				<?php if(!empty($produto['Pi'][0]['valunidpisst'])){ ?>
+					<div class="conteudo-linha">
+						<div class="linha"><?php echo $this->Html->Tag('p','Valor Und. Trib. ST:',array('class'=>'titulo')); ?></div>
+						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['valunidpisst'],array('class'=>'valor')); ?></div>					
+					</div>	
+				<?php } ?>		
+			</div>			
+		</fieldset>
 	</section>
 
 	<section class="coluna-direita" >
 		<fieldset>
 			<legend>Dados do Estoque</legend>
-
 			<div class="coluna-content">
-
 				<?php
 					echo $this->Form->input('Estoque Atual:', array('type'=>'text','value'=>h($estoque),'class'=>'','id'=>'','disabled'=>'disabled'));
 					echo $this->Html->image('semaforo-icon-' . strtolower($produto['Produto']['nivel']) . '-16x16.png', array('alt' => 'Status de estoque: '.$produto['Produto']['nivel'], 'title' => 'Status de estoque'));
-				
 				?>
 
 				<?php
 					/* Não implementado */
 					/*
-					echo $this->Form->input('Compras Total', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
-					
-					echo $this->Form->input('Qtd. Vendida', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
-					
-					echo $this->Form->input('Pedidos a  Receber', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
-					
-					echo $this->Form->input('Pedidos a Entregar', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
+						echo $this->Form->input('Compras Total', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
+						echo $this->Form->input('Qtd. Vendida', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
+						echo $this->Form->input('Pedidos a  Receber', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
+						echo $this->Form->input('Pedidos a Entregar', array('type'=>'text','value'=>'adicionar','class'=>'','id'=>'','disabled'=>'disabled'));
 					*/
 					
 					echo $this->Form->input('Produto.estoque_minimo', array('type'=>'text','label'=>'Estoque Mínimo:','value'=>h($produto['Produto']['estoque_minimo']),'','class'=>'','disabled'=>'disabled'));
@@ -408,12 +442,9 @@
 					if($produto['Produto']['bloqueado']==0){
 						echo $this->Form->input('Produto.bloqueado', array('type'=>'text','label'=>'Produto Bloqueado:','value'=>'Não','class'=>'','id'=>'','disabled'=>'disabled'));
 					}
-					
 					echo $this->Form->input('Produto.ativo', array('type'=>'text','label'=>'Status de Visualização:','value'=>( $produto['Produto']['ativo'] ? "Ativo" : "Inativo" ),'class'=>'','id'=>'','disabled'=>'disabled'));
-					
 					echo $this->Form->end();
 				?>
-
 			</div>
 
 			<table align="center" class="tbl_lote">
@@ -452,65 +483,10 @@
 					</td>-->
 					<td style="border:none !important"><img src="" class="semaforo-<?php echo strtolower($lote['Lote']['status']); ?>" /></td>			
 				</tr>
-
 				<?php
 					}
 				?>
 			</table>
-		</fieldset>
-		
-		<fieldset>
-			<legend>Dados COFINS</legend>
-			<?php if(!empty($cofin['Situacaotribcofin']['descricao'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$cofin['Situacaotribcofin']['descricao'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Cofin'][0]['tipodecalculo'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Cofin'][0]['tipodecalsubtrib'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc. Subst. Trib:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['tipodecalsubtrib'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Cofin'][0]['valorunitcofins'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Valor Unt. Cofins.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['valorunitcofins'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			<?php if(!empty($produto['Cofin'][0]['valunidcofinsst'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['valunidcofinsst'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>	
-			
-			<?php if(!empty($produto['Cofin'][0]['aliq_cofins'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['aliq_cofins'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>
-			
-			
-			
-			<?php if(!empty($produto['Cofin'][0]['aliq_cofinsst'])){ ?>
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Tipo de Calc.:',array('class'=>'titulo')); ?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['aliq_cofinsst'],array('class'=>'valor')); ?></div>					
-				</div>
-			<?php } ?>			
 		</fieldset>
 	</section>
 </section><!---Fim section-superior--->
@@ -560,10 +536,8 @@
 								$i++;
 							}									
 						}				
-					echo "</tr>";
-						
-				}
-				
+					echo "</tr>";						
+				}				
 			?>
 	</table>
 	</section>
@@ -571,6 +545,86 @@
 		}
 	?>
 <footer>
+	<script>
+		$(document).ready(function(){
+			var sonfstatus1 = false;
+			var sonfstatus2 = false;
+			var sonfstatus3 = false;
+			var sonfstatus4 = false;
+			$('#sanfona1').click(function(){
+				if(sonfstatus1 != true){ sonfstatus1 = false; }
+				$('.sanfona1').toggle(function(){
+					if(sonfstatus1 == false){
+						$('#sanfona1').text('Esconder');
+						sonfstatus1 = true;
+					}else{
+						$('#sanfona1').text('Mostrar');
+						sonfstatus1 = false;
+					}
+				});
+				$('.sanfona2').hide();
+				$('.sanfona3').hide();
+				$('.sanfona4').hide();				
+				$('#sanfona2').text('Mostrar');
+				$('#sanfona3').text('Mostrar');
+				$('#sanfona4').text('Mostrar');
+			});
+			$('#sanfona2').click(function(){
+				if(sonfstatus2 != true){ sonfstatus2 = false; }
+				$('.sanfona2').toggle(function(){
+					if(sonfstatus2 == false){
+						$('#sanfona2').text('Esconder');
+						sonfstatus2 = true;
+					}else{
+						$('#sanfona2').text('Mostrar');
+						sonfstatus2 = false;
+					}
+				});
+				$('.sanfona1').hide();
+				$('.sanfona3').hide();
+				$('.sanfona4').hide();	
+				$('#sanfona1').text('Mostrar');
+				$('#sanfona3').text('Mostrar');
+				$('#sanfona4').text('Mostrar');			
+			});
+			$('#sanfona3').click(function(){
+				if(sonfstatus3 != true){ sonfstatus3 = false; }
+				$('.sanfona3').toggle(function(){
+					if(sonfstatus3 == false){
+						$('#sanfona3').text('Esconder');
+						sonfstatus3 = true;
+					}else{
+						$('#sanfona3').text('Mostrar');
+						sonfstatus3 = false;
+					}
+				});
+				$('.sanfona2').hide();
+				$('.sanfona1').hide();
+				$('.sanfona4').hide();
+				$('#sanfona2').text('Mostrar');
+				$('#sanfona1').text('Mostrar');
+				$('#sanfona4').text('Mostrar');				
+			});
+			$('#sanfona4').click(function(){
+				if(sonfstatus4 != true){ sonfstatus4 = false; }
+				$('.sanfona4').toggle(function(){
+					if(sonfstatus4 == false){
+						$('#sanfona4').text('Esconder');
+						sonfstatus4 = true;
+					}else{
+						$('#sanfona4').text('Mostrar');
+						sonfstatus4 = false;
+					}
+				});
+				$('.sanfona2').hide();
+				$('.sanfona3').hide();
+				$('.sanfona1').hide();
+				$('#sanfona2').text('Mostrar');
+				$('#sanfona3').text('Mostrar');
+				$('#sanfona1').text('Mostrar');				
+			});
+		});
+	</script>
 	<?php
 		if(isset($telaAbas)){
 			echo $this->html->image('botao-editar.png',array('alt'=>'Editar',

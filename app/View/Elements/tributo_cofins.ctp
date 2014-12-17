@@ -17,12 +17,14 @@ $(document).ready(function(){
 				if(campos[i] == 1){ tipo = campos[i]; }
 			}
 			
-			
 			if(tipo != '' || tipo != 0){
 				tipo = $("#tipocalculo_cofins option:selected").val();
 				if(tipo == "PORCENTAGEM"){
 					$('.tipo_valor_cofins').hide( "fast" );
 					$('.tipo_aliquota_cofins').fadeIn( "slow" );
+				}else if(tipo == ''){
+					$('.tipo_valor_cofins').hide();
+					$('.tipo_aliquota_cofins').hide();			
 				}else{
 					$('.tipo_aliquota_cofins').hide( "fast" )
 					$('.tipo_valor_cofins').fadeIn( "slow" );		
@@ -36,6 +38,9 @@ $(document).ready(function(){
 		if(tipo == "PORCENTAGEM"){
 			$('.tipo_valor_cofins').hide( "fast" );
 			$('.tipo_aliquota_cofins').fadeIn( "slow" );
+		}else if(tipo == ''){
+			$('.tipo_valor_cofins').hide();
+			$('.tipo_aliquota_cofins').hide();			
 		}else{
 			$('.tipo_aliquota_cofins').hide( "fast" )
 			$('.tipo_valor_cofins').fadeIn( "slow" );		
@@ -47,6 +52,9 @@ $(document).ready(function(){
 		if(tipo == "PORCENTAGEM"){
 			$('#tipo_valor_cofins_st').hide( "fast" );
 			$('#tipo_aliquota_cofins_st').fadeIn( "slow" );
+		}else if(tipo == ''){
+			$('#tipo_valor_cofins_st').hide();
+			$('#tipo_aliquota_cofins_st').hide();			
 		}else{
 			$('#tipo_aliquota_cofins_st').hide( "fast" )
 			$('#tipo_valor_cofins_st').fadeIn( "slow" );		
@@ -98,7 +106,7 @@ $(document).ready(function(){
 			<!-- ALÍQUOTA QUE IRA MOSTRAR EM ALGUNS CASOS-->
 			<div style="clear:both" id="mostrar_cofins2" class="tipo_aliquota_cofins esconde_cofins">
 				<?php
-					echo $this->Form->input('Cofin.0.alq_cofins',array('label'=>'Aliquota Cofins:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Cofin.0.aliq_cofins',array('label'=>'Aliquota Cofins:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			
@@ -113,7 +121,7 @@ $(document).ready(function(){
 			<!-- CAMPOS DO TIPO DE CALC SUBSTR TRIB-->
 			<div style="clear:both;display:none;" id="tipo_aliquota_cofins_st">
 				<?php
-					echo $this->Form->input('Cofin.0.alq_cofinsst',array('label'=>'Aliquota Cofins ST:','class'=>'tamanho-medio'));
+					echo $this->Form->input('Cofin.0.aliq_cofinsst',array('label'=>'Aliquota Cofins ST:','class'=>'tamanho-medio'));
 				?>
 			</div>
 			

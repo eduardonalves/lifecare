@@ -8,4 +8,4 @@
 	$this->end();
 ?>
 
-<?php echo $this->element('produtos_add');?>
+<?php echo $this->element('produtos_add_tributo');?>

@@ -55,7 +55,6 @@
 </style>
 <script>
 $(document).ready(function(){
-	
 	//SITUAÇÂO
 	$('#select_situacao_icms').click(function(){
 		$('.esconde').fadeOut();		
@@ -72,8 +71,6 @@ $(document).ready(function(){
 			}
 		}
 	});
-
-
 });
 </script>
 <section style="clear:both;">
@@ -83,19 +80,19 @@ $(document).ready(function(){
 		<article class="coluna-esquerda">
 			<!-- ############################################## -->
 			<div style="clear:both">
-			<label>Situação Tributária:</label>
-			<select name="data[Icm][0][situacaotribicm_id]" id="select_situacao_icms" class='tamanho-medio'>
-				<option data-inputs="-"></option>
-				<?php
-					$i = 0;
-					foreach($situacaotribicms as $situacao){
-				?>
-						<option data-inputs="<?php echo $situacao['Situacaotribicm']['combinacao']?>" value="<?php echo $situacao['Situacaotribicm']['id']?>" data-codigo="<?php echo $situacao['Situacaotribicm']['codigo'] ?>"><?php echo $situacao['Situacaotribicm']['descricao']; ?></option>
-				<?php
-					$i++;
-					}
-				?>	
-			</select>
+				<label>Situação Tributária:</label>
+				<select name="data[Icm][0][situacaotribicm_id]" id="select_situacao_icms" class='tamanho-medio'>
+					<option data-inputs="-"></option>
+					<?php
+						$i = 0;
+						foreach($situacaotribicms as $situacao){
+					?>
+							<option data-inputs="<?php echo $situacao['Situacaotribicm']['combinacao']?>" value="<?php echo $situacao['Situacaotribicm']['id']?>" data-codigo="<?php echo $situacao['Situacaotribicm']['codigo'] ?>"><?php echo $situacao['Situacaotribicm']['descricao']; ?></option>
+					<?php
+						$i++;
+						}
+					?>	
+				</select>
 			</div>
 			
 			<!-- ############################################## -->
@@ -117,19 +114,19 @@ $(document).ready(function(){
 			
 			<!-- ############################################## -->
 			<div style="clear:both" id="mostrar2" data-input="2" class="esconde">
-			<label>Modalidade BC ST:</label>
-			<select name="data[Icm][0][modalidadebcst_id]" id="select_modalidadebcst" class='tamanho-medio'>
-				<option data-inputs="-"></option>
-				<?php
-					$i = 0;
-					foreach($modalidadebcsts as $modalidadebcst){
-				?>
-						<option value="<?php echo $modalidadebcst['Modalidadebcsts']['id'] ?>"><?php echo $modalidadebcst['Modalidadebcsts']['descricao']; ?></option>
-				<?php
-					$i++;
-					}
-				?>	
-			</select>
+				<label>Modalidade BC ST:</label>
+				<select name="data[Icm][0][modalidadebcst_id]" id="select_modalidadebcst" class='tamanho-medio'>
+					<option data-inputs="-"></option>
+					<?php
+						$i = 0;
+						foreach($modalidadebcsts as $modalidadebcst){
+					?>
+							<option value="<?php echo $modalidadebcst['Modalidadebcsts']['id'] ?>"><?php echo $modalidadebcst['Modalidadebcsts']['descricao']; ?></option>
+					<?php
+						$i++;
+						}
+					?>	
+				</select>
 			</div>
 			
 			<!-- ############################################## -->
@@ -160,7 +157,7 @@ $(document).ready(function(){
 					$i = 0;
 					foreach($origens as $origen){
 				?>
-						<option value="<?php echo $origen['Origems']['codigo']?>" data-codigo="<?php echo $origen['Origems']['codigo'] ?>"><?php echo $origen['Origems']['descricao']; ?></option>
+						<option value="<?php echo $origen['Origems']['id']?>" data-codigo="<?php echo $origen['Origems']['codigo'] ?>"><?php echo $origen['Origems']['descricao']; ?></option>
 				<?php
 					$i++;
 					}

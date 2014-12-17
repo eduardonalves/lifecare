@@ -17,10 +17,13 @@ $(document).ready(function(){
 				if(campos[i] == 5){ tipo = campos[i]; }
 			}
 			
-			if(tipo != '' || tipo != 0){
+			if(tipo != 0){
 				tipo = $("#tipocalculo option:selected").val();
 				if(tipo == "PORCENTAGEM"){
 					$('#tipo_aliquota').fadeIn( "slow" );
+				}else if(tipo == ''){
+					$('#tipo_aliquota').hide( "slow" );
+					$('#tipo_valor').hide( "slow" );
 				}else{
 					$('#tipo_valor').fadeIn( "slow" );
 				}
@@ -34,6 +37,9 @@ $(document).ready(function(){
 		if(tipo == "PORCENTAGEM"){
 			$('#tipo_valor').hide( "fast" );
 			$('#tipo_aliquota').fadeIn( "slow" );
+		}else if(tipo == ''){
+			$('#tipo_aliquota').hide();
+			$('#tipo_valor').hide();			
 		}else{
 			$('#tipo_aliquota').hide( "fast" )
 			$('#tipo_valor').fadeIn( "slow" );		
@@ -96,7 +102,7 @@ $(document).ready(function(){
 			
 			<div style="clear:both" id="mostrar_ipi5" class="esconde_ipi">
 				<?php
-					echo $this->Form->input('Ipi.0.tipodecalculo',array('id'=>'tipocalculo','label'=>'Tipo de Cálculo','class'=>'tamanho-medio','type'=>'select','options'=>array('PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
+					echo $this->Form->input('Ipi.0.tipodecalculo',array('id'=>'tipocalculo','label'=>'Tipo de Cálculo','class'=>'tamanho-medio','type'=>'select','options'=>array(''=>'','PORCENTAGEM'=>'Porcentagem','VALOR'=>'Valor')));
 				?>
 			</div>	
 			

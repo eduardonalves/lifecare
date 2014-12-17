@@ -18,11 +18,14 @@ $(document).ready(function(){
 			}
 			
 			
-			if(tipo != '' || tipo != 0){
+			if(tipo != 0){
 				tipo = $("#tipocalculo_pis option:selected").val();
 				if(tipo == "PORCENTAGEM"){
-					$('.tipo_valor_pis').hide( "fast" );
-					$('.tipo_aliquota_pis').fadeIn( "slow" );
+					$('.tipo_valor_pis').hide("fast");
+					$('.tipo_aliquota_pis').fadeIn("slow");
+				}else if(tipo == ''){
+					$('.tipo_aliquota_pis').hide();
+					$('.tipo_valor_pis').hide();			
 				}else{
 					$('.tipo_aliquota_pis').hide( "fast" )
 					$('.tipo_valor_pis').fadeIn( "slow" );		
@@ -36,6 +39,9 @@ $(document).ready(function(){
 		if(tipo == "PORCENTAGEM"){
 			$('.tipo_valor_pis').hide( "fast" );
 			$('.tipo_aliquota_pis').fadeIn( "slow" );
+		}else if(tipo == ''){
+			$('.tipo_aliquota_pis').hide();
+			$('.tipo_valor_pis').hide();			
 		}else{
 			$('.tipo_aliquota_pis').hide( "fast" )
 			$('.tipo_valor_pis').fadeIn( "slow" );		
@@ -47,6 +53,9 @@ $(document).ready(function(){
 		if(tipo == "PORCENTAGEM"){
 			$('#tipo_valor_pis_st').hide( "fast" );
 			$('#tipo_aliquota_pis_st').fadeIn( "slow" );
+		}else if(tipo == ''){
+			$('#tipo_valor_pis_st').hide();
+			$('#tipo_aliquota_pis_st').hide();			
 		}else{
 			$('#tipo_aliquota_pis_st').hide( "fast" )
 			$('#tipo_valor_pis_st').fadeIn( "slow" );		
