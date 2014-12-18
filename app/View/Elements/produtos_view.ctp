@@ -183,6 +183,7 @@
 			<legend>Dados ICMS</legend>
 				<span id="sanfona1" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
 				<div class="sanfona1 filhide" style="display:none;">
+				<?php if(!empty($icms['Situacaotribicm'])){ ?>
 					<?php if(!empty($icms['Situacaotribicm']['descricao'])){ ?>
 						<div class="conteudo-linha" style="margin-bottom: 25px;">
 							<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib. ICMS:',array('class'=>'titulo')); ?></div>
@@ -251,6 +252,11 @@
 							<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Icm'][0]['reducaobasecalc'],array('class'=>'valor')); ?></div>					
 						</div>
 					<?php } ?>
+				<?php }else{
+					
+						echo "<span style='text-align:center;margin-top:5px;display:block;'>Não cadastrado.</span>";
+					}
+					 ?>
 				</div>
 		</fieldset>
 		
@@ -259,6 +265,7 @@
 			<span id="sanfona2" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
 			<div class="sanfona2 filhide" style="display:none;">
 				
+				<?php if(!empty($ipi['Situacaotribipi'])){?>
 				<?php if(!empty($ipi['Situacaotribipi']['descricao'])){?>
 					<div class="conteudo-linha">
 						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
@@ -307,7 +314,11 @@
 						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Ipi'][0]['tipodecalculo'],array('class'=>'valor')); ?></div>					
 					</div>
 				<?php } ?>
-				
+				<?php }else{
+					
+						echo "<span style='text-align:center;margin-top:5px;display:block;'>Não cadastrado.</span>";
+					}
+					 ?>
 				</div>
 			
 		</fieldset>		
@@ -316,6 +327,7 @@
 			<legend>Dados COFINS</legend>
 			<span id="sanfona3" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
 			<div class="sanfona3" style="display:none;">
+				<?php if(!empty($cofin['Situacaotribcofin'])){ ?>
 				<?php if(!empty($cofin['Situacaotribcofin']['descricao'])){ ?>
 					<div class="conteudo-linha">
 						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
@@ -358,7 +370,11 @@
 						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Cofin'][0]['aliq_cofinsst'],array('class'=>'valor')); ?></div>					
 					</div>
 				<?php } ?>
-			
+				<?php }else{
+					
+						echo "<span style='text-align:center;margin-top:5px;display:block;'>Não cadastrado.</span>";
+					}
+					 ?>
 			</div>
 		</fieldset>
 		
@@ -367,6 +383,7 @@
 			<span id="sanfona4" class="bt-sanfona" style="background: rgb(193, 234, 193);text-align:center;font-size: 14px;display:block;border-radius:4px; color: #000; padding: 3px;"> Mostrar </span>
 			<div class="sanfona4" style="display:none;">
 				
+				<?php if(!empty($pis['Situacaotribpi'])){ ?>
 				<?php if(!empty($pis['Situacaotribpi']['descricao'])){ ?>
 					<div class="conteudo-linha">
 						<div class="linha"><?php echo $this->Html->Tag('p','Situação Trib.:',array('class'=>'titulo')); ?></div>
@@ -408,7 +425,12 @@
 						<div class="linha"><?php echo $this->Html->Tag('p','Valor Und. Trib. ST:',array('class'=>'titulo')); ?></div>
 						<div class="linha2"><?php echo $this->Html->Tag('p',$produto['Pi'][0]['valunidpisst'],array('class'=>'valor')); ?></div>					
 					</div>	
-				<?php } ?>		
+				<?php } ?>	
+				<?php }else{
+					
+						echo "<span style='text-align:center;margin-top:5px;display:block;'>Não cadastrado.</span>";
+					}
+					 ?>	
 			</div>			
 		</fieldset>
 	</section>

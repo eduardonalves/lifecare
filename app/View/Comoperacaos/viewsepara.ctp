@@ -391,7 +391,7 @@
 				
 				<section id="impressao" class="impressao">
 					<!-- INICIO DA SECTION DA IMPRESAO -->				
-		
+							<div style="height:10px; background: #000;"></div>
 									<section class="coluna-esquerda">
 										<div class="segmento-esquerdo">
 											<div class="conteudo-linha">
@@ -474,6 +474,7 @@
 															<tr>
 																<td class="td-auto-media">Lote</td>
 																<td class="td-auto-pequena">Qtd.</td>
+																<td class="td-auto-pequena" >Validade</td>
 																<td class="td-auto-pequena" >Ok</td>
 																<td class="td-auto-grande">Observação</td>
 															</tr>
@@ -486,6 +487,7 @@
 																	<tr>
 																		<td><?php echo $lote['Lote']['numero_lote']?></td>
 																		<td><?php echo $lote['Comlotesoperacao']['qtde']?></td>
+																		<td><?php echo formatDateToView($lote['Lote']['data_validade']);?></td>
 																		<td> <div style="border: 1px solid black; width: 12px;height: 12px;margin:0 auto;"></div> </td>											
 																		<td> </td>											
 																	</tr>										
@@ -518,5 +520,3 @@
 	
 		</div>
 	</div>
-
-

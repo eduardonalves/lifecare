@@ -251,25 +251,26 @@ class ProdutosController extends AppController {
 		$estoque =$entradas-$saidas;
 		
 		/** CARREGAMENTO DOS IMPOSTOS QUE NÃO RETORNAM  **/
-		$this->loadModel('Modalidadebc');
-		$modalidadebc = $this->Modalidadebc->find('first',array('conditions'=>array('Modalidadebc.id'=> $produto['Icm'][0]['modalidadebc_id'] )));
-		
-		$this->loadModel('Modalidadebcst');
-		$modalidadebcst = $this->Modalidadebcst->find('first',array('conditions'=>array('Modalidadebcst.id'=> $produto['Icm'][0]['modalidadebcst_id'] )));
-				
-		$this->loadModel('Icm');
-		$icms = $this->Icm->find('first',array('conditions'=>array('Icm.id'=> $produto['Icm'][0]['id'] )));
-		
-		$this->loadModel('Ipi');
-		$ipi = $this->Ipi->find('first',array('conditions'=>array('Ipi.id'=> $produto['Ipi'][0]['id'] )));
-		
-		$this->loadModel('Pi');
-		$pis = $this->Pi->find('first',array('conditions'=>array('Pi.id'=> $produto['Pi'][0]['id'] )));
-		
-		$this->loadModel('Cofin');
-		$cofin = $this->Cofin->find('first',array('conditions'=>array('Cofin.id'=> $produto['Cofin'][0]['id'] )));
-		
-		
+		if(!empty($produto['Icm'])){
+			$this->loadModel('Modalidadebc');
+			$modalidadebc = $this->Modalidadebc->find('first',array('conditions'=>array('Modalidadebc.id'=> $produto['Icm'][0]['modalidadebc_id'] )));
+			
+			$this->loadModel('Modalidadebcst');
+			$modalidadebcst = $this->Modalidadebcst->find('first',array('conditions'=>array('Modalidadebcst.id'=> $produto['Icm'][0]['modalidadebcst_id'] )));
+					
+			$this->loadModel('Icm');
+			$icms = $this->Icm->find('first',array('conditions'=>array('Icm.id'=> $produto['Icm'][0]['id'] )));
+			
+			$this->loadModel('Ipi');
+			$ipi = $this->Ipi->find('first',array('conditions'=>array('Ipi.id'=> $produto['Ipi'][0]['id'] )));
+			
+			$this->loadModel('Pi');
+			$pis = $this->Pi->find('first',array('conditions'=>array('Pi.id'=> $produto['Pi'][0]['id'] )));
+			
+			$this->loadModel('Cofin');
+			$cofin = $this->Cofin->find('first',array('conditions'=>array('Cofin.id'=> $produto['Cofin'][0]['id'] )));
+		}
+			
 		$this->loadModel('Tributo');
 		
 		$tributos = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $id), 'recursive' => -1));
