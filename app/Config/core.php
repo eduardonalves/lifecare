@@ -35,7 +35,7 @@
  */
 
 	Configure::write('debug', 2);
-
+	
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -224,7 +224,7 @@
 	Configure::write('Session', array(
 		'defaults' => 'php'
 	));
-
+	Configure::write('Session.timeout', '14400');
 /**
  * A random string used in security hashing methods.
  */
