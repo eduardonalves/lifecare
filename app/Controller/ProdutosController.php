@@ -640,36 +640,25 @@ public function add() {
 			throw new NotFoundException(__('Produto Inválido'), 'default', array('class' => 'error-flash'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Produto->save($this->request->data)) {
+			if ($this->Produto->saveAll($this->request->data)) {
 				
-				$this->loadModel('Tributo');
-				$this->Tributo->save($this->request->data);
+				//$this->loadModel('Tributo');
+				//$this->Tributo->save($this->request->data);
 				
 				
 				$this->loadModel('CategoriasProduto');
 				$this->CategoriasProduto->saveAll($this->request->data);
 				//Calculamos as entradas do produto
 				
-				$produtos=$this->Produto->find('all', array('conditions' => array('Produto.id' => $id)));
-			
+				$produtos = $this->Produto->find('all', array('recursive' => -1,'conditions' => array('Produto.id' => $id)));
+				$this->loadModel('Produtoiten');
 				foreach($produtos as $produto){
+					$this->Produtoiten->virtualFields['qtde_estoque'] = 'SUM(Produtoiten.qtde)';
+					$entradas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'ENTRADA')))));
+					$saidas = $this->Produtoiten->find('all', array('fields' => array('qtde_estoque'), 'recursive' => -1,'conditions' => array('AND' => array(array('Produtoiten.produto_id' => $produto['Produto']['id']), array('Produtoiten.tipo' => 'Saida')))));
+					$estoque = $entradas[0]['Produtoiten']['qtde_estoque'] - $saidas[0]['Produtoiten']['qtde_estoque'];
+					//$estoque = (float) $entradas - (float) $saidas;
 					
-					$this->loadModel('Produtoiten');
-					$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
-					$entradas=0;
-					
-					foreach ($produtoItensEntradas as $produtoItenEntrada){
-						$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
-						$entradas = $entradas + $qtdeEntrada;
-					}
-					
-					$produtoItensSaidas= $this->Produtoiten->find('all', array('fields'=>array('Produto.*'),'conditions' => array('Produtoiten.produto_id' => $produto['Produto']['id'], 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
-					$saidas=0;
-					foreach ($produtoItensSaidas as $produtoItenSaida){
-						$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
-						$saidas=$saidas + $qtdeSaida;
-					}
-					$estoque =$entradas-$saidas;
 					if($estoque >= $produto['Produto']['estoque_desejado']){
 						$nivel='VERDE';
 					}else if($estoque >= $produto['Produto']['estoque_minimo']){
@@ -677,8 +666,9 @@ public function add() {
 					}else{
 						$nivel='VERMELHO';	
 					}
+					
 					$updateEstoqueProd= array('id' => $produto['Produto']['id'], 'estoque' => $estoque, 'nivel' => $nivel);
-					$this->Produto->save($updateEstoqueProd);
+					$this->Produto->saveAll($updateEstoqueProd);
 					
 					$this->loadModel('Lote');
 					$lotes = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'recursive' => -1));
@@ -731,92 +721,76 @@ public function add() {
 				}else{
 					return $this->redirect(array('action' => 'view', $id));
 				}
-				
-				$this->set(compact('postTributos'));
 			
+				$this->set(compact('postTributos'));
+				
 			} else {
 				$this->Session->setFlash(__('Não foi possível salvar as alterações. Tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
 			$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
 			$this->request->data = $this->Produto->find('first', $options);
+			//$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
+			$this->set('produto', $this->Produto->find('first', $options));
+			$categorias = $this->Produto->Categoria->find('list', array('fields'=>array('Categoria.id', 'Categoria.nome'), 'order'=>'Categoria.nome ASC'));
+			$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
+	
+			$tributos = $this->Produto->Tributo->find('list');
 			$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
 			$this->set('produto', $this->Produto->find('first', $options));
+			
+			//carregamos todos os lotes do produto e limitamos a 5
+			$this->loadModel('Lote');
+			$lotes = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'limit' => 5, 'recursive' => 1, 'order' => 'Lote.id DESC'));
+			
+			
+			
+			
+			$this->loadModel('Tributo');
+			$tributos = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $id), 'recursive' => -1));
+			
+			
+			/** SITUACAO TRIBUTARIA  ICMS**/		
+			$this->loadModel('Situacaotribicm');
+			$situacaotribicms = $this->Situacaotribicm->find('all',array('recursive'=> -1,'fields'=>array('Situacaotribicm.*')));
+			
+			/** SITUACAO TRIBUTARIA IPI**/		
+			$this->loadModel('Situacaotribipi');
+			$situacaotribipi = $this->Situacaotribipi->find('all',array('recursive'=> -1,'fields'=>array('Situacaotribipi.*')));
+			
+			/** SITUACAO TRIBUTARIA PIS**/		
+			$this->loadModel('Situacaotribpis');
+			$situacaotribpis = $this->Situacaotribpis->find('all',array('recursive'=> -1,'fields'=>array('Situacaotribpis.*')));
+			
+			/** SITUACAO TRIBUTARIA COFINS**/		
+			$this->loadModel('Situacaotribcofins');
+			$situacaotribcofins = $this->Situacaotribcofins->find('all',array('recursive'=> -1,'fields'=>array('Situacaotribcofins.*')));
+			
+			
+			
+			
+			/** ORIGEMS **/		
+			$this->loadModel('Origems');
+			$origens = $this->Origems->find('all',array('recursive'=>-1));
+		
+			/** Modalidadebcst **/		
+			$this->loadModel('Modalidadebcs');
+			$modalidadebcs = $this->Modalidadebcs->find('all',array('recursive'=>-1));
+				
+			/** Modalidadebcsts **/		
+			$this->loadModel('Modalidadebcsts');
+			$modalidadebcsts = $this->Modalidadebcsts->find('all',array('recursive'=>-1));
+						
+			/** MOTIVO DESONERACAO **/		
+			$this->loadModel('Motivodesoneracaos');
+			$motivodesoneracaos = $this->Motivodesoneracaos->find('all',array('recursive'=>1,'fields'=>array('Motivodesoneracaos.*'))); 
+				
+			
+			$this->set(compact('situacaotribcofins','situacaotribpis','situacaotribipi','motivodesoneracaos','modalidadebcsts','modalidadebcs','origens','situacaotribicms','lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
+			
 		}
 		
-		$categorias = $this->Produto->Categoria->find('list', array('fields'=>array('Categoria.id', 'Categoria.nome'), 'order'=>'Categoria.nome ASC'));
-		$categorias = array('add-categoria'=>'Cadastrar') + $categorias;
-
-		$tributos = $this->Produto->Tributo->find('list');
-		$options = array('fields'=>array('Produto.*'),'conditions' => array('Produto.' . $this->Produto->primaryKey => $id));
-		$this->set('produto', $this->Produto->find('first', $options));
-		
-		//carregamos todos os lotes do produto e limitamos a 5
-		$this->loadModel('Lote');
-		$lotes = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'limit' => 5, 'recursive' => 1, 'order' => 'Lote.id DESC'));
-		
-		//Calculamos as entradas do produto
-		$this->loadModel('Produtoiten');
-		$produtoItensEntradas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $id, 'Produtoiten.tipo' => 'ENTRADA'), 'recursive' => -1));
-		$entradas=0;
-		foreach ($produtoItensEntradas as $produtoItenEntrada){
-			$qtdeEntrada=$produtoItenEntrada['Produtoiten']['qtde'];
-			$entradas = $entradas + $qtdeEntrada;
-		}
-		
-		$produtoItensSaidas= $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.produto_id' => $id, 'Produtoiten.tipo' => 'SAIDA'), 'recursive' => -1));
-		$saidas=0;
-		
-		foreach ($produtoItensSaidas as $produtoItenSaida){
-			$qtdeSaida=$produtoItenSaida['Produtoiten']['qtde'];
-			$saidas=$saidas + $qtdeSaida;
-		}
-		$estoque = $entradas - $saidas;
-		
-		
-		$this->loadModel('Tributo');
-		$tributos = $this->Tributo->find('first', array('conditions' => array('Tributo.produto_id' => $id), 'recursive' => -1));
-		//Calculamos achamos todos os itens de entrada dos lotes desse produto
-		//$lotes2 = $this->Lote->find('all', array('conditions' => array('Lote.produto_id' => $id), 'recursive' => -1));
-		//foreach($lotes as $lote){
-			
-		//}
-		
-		/** SITUACAO TRIBUTARIA  ICMS**/		
-		$this->loadModel('Situacaotribicm');
-		$situacaotribicms = $this->Situacaotribicm->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribicm.*')));
-		
-		/** SITUACAO TRIBUTARIA IPI**/		
-		$this->loadModel('Situacaotribipi');
-		$situacaotribipi = $this->Situacaotribipi->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribipi.*')));
-		
-		/** SITUACAO TRIBUTARIA PIS**/		
-		$this->loadModel('Situacaotribpis');
-		$situacaotribpis = $this->Situacaotribpis->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribpis.*')));
-		
-		/** SITUACAO TRIBUTARIA COFINS**/		
-		$this->loadModel('Situacaotribcofins');
-		$situacaotribcofins = $this->Situacaotribcofins->find('all',array('recursive'=>-1,'fields'=>array('Situacaotribcofins.*')));
-			
-		/** ORIGEMS **/		
-		$this->loadModel('Origems');
-		$origens = $this->Origems->find('all',array('recursive'=>-1));
-	
-		/** Modalidadebcst **/		
-		$this->loadModel('Modalidadebcs');
-		$modalidadebcs = $this->Modalidadebcs->find('all',array('recursive'=>-1));
-			
-		/** Modalidadebcsts **/		
-		$this->loadModel('Modalidadebcsts');
-		$modalidadebcsts = $this->Modalidadebcsts->find('all',array('recursive'=>-1));
-					
-		/** MOTIVO DESONERACAO **/		
-		$this->loadModel('Motivodesoneracaos');
-		$motivodesoneracaos = $this->Motivodesoneracaos->find('all',array('recursive'=>1,'fields'=>array('Motivodesoneracaos.*')));
-			
-		
-		$this->set(compact('situacaotribcofins','situacaotribpis','situacaotribipi','motivodesoneracaos','modalidadebcsts','modalidadebcs','origens','situacaotribicms','lotes', 'entradas', 'saidas', 'estoque', 'qtde', 'produtoItensEntradas','tributos', 'categorias','tributos','telaAbas'));
-		
+				
 		//$this->set(compact('categorias', 'tributos'));
 	}
 
