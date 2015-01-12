@@ -1,294 +1,117 @@
-<?php 
-	$this->start('css');
-	echo $this->Html->css('entradas');
-	echo $this->Html->css('table');
-	$this->end();
-?>
-
-<div id="fase2" class="fase">
-	
-<header >
-	<?php 
-		echo $this->Html->image('titulo-entrada.png', array('id' => 'titulo-entrada', 'alt' => 'Entrada', 'title' => 'Entrada'));
-	 ?>
-	 <h1>Entrada</h1>
-	 
-	  <section id="passos-bar">
-		<div id="passos-bar-total">
-			<div class="linha-verde complete"></div>
-			
-			<div class="circle complete">
-				<span>Modo de Entrada</span>
-			</div>
-			
-			<div class="linha-verde complete"></div>
-
-			<div class="circle complete">
-				<span>Preencher Campos</span>
-			</div>
-
-			<div class="linha-verde"></div>
-
-			<div class="circle">
-				<span>Visualizar e Salvar</span>
-			</div>
-		</div>
-	
-</section>
-	 
-</header>
-
-<section>
-	<header>Entrada Manual</header>
-	
-<!--Div primeiro Campo--> 	
-	<div class="campo-superior-direito">
-		<?php
-			echo $this->Form->input('Forma de Entrada', array('name'=>'vale','id'=>'vale','options'=>array('Notas', 'Vale')));
-			echo $this->Form->input('', array('label'=>'Entrada de uma devolução','type'=>'checkbox'));
-		?>
-
-	</div>
-<!--Fim Div primeiro Campo-->	
-
-<!--Fieldset total-->
-<fieldset class="field-total">
-	
-<!--Fieldset Dados da nota-->	
-	<fieldset class="primeira-field">
-		<legend>Dados da Nota</legend>
-		
-		<section class="lateral-a-esquerda">
-			<?php
-				echo $this->Form->input('Nota.nota_fiscal', array('type'=>'text','class'=>'tamanho-medio','label'=>'Nota Fiscal:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Fornecedor.nome', array('type'=>'select','class'=>'tamanho-medio select','options'=>array('','add-fornecedor'=>'cadastrar',1,2,3),'label'=>'Fornecedor:','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-			?>
-		</section>
-		
-		<section class="lateral-central">
-			<?php
-				echo $this->Form->input('Nota.origem', array('type'=>'text','label'=>'Origem:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_frete', array('type'=>'text','label'=>'Valor de Frete:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-			?>			
-		</section>
-		
-		<section class="lateral-a-direita" id="campo-direita">
-			<?php
-				echo $this->Form->input('Nota.valor_total', array('type'=>'text','class'=>'tamanho-medio','label'=>'Valor Total:'));
-			?>
-		</section>
-	
-	</fieldset>
-<!--Fim Fieldset Dados da nota-->		
-	
-<!--Fieldset Dados tributários-->
-	<fieldset id="tributos">
-		<legend>Dados tributários da Nota</legend>
-		
-		<section class="lateral-a-esquerda">
-			<?php
-				echo $this->Form->input('Nota.vb_icms', array('type'=>'text','label'=>'Valor Base ICMS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_icms', array('type'=>'text','label'=>'Valor ICMS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_seguro', array('type'=>'text','label'=>'Valor Seguro:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-			?>
-		</section>
-		
-		<section class="lateral-central centro">
-			<?php
-				echo $this->Form->input('Nota.vb_cst', array('type'=>'text','label'=>'Valor Base ST:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_ipi', array('type'=>'text','label'=>'Valor IPI:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_desconto', array('type'=>'text','label'=>'Valor Desconto:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-			?>			
-		</section>
-		
-		<section class="lateral-a-direita direita">
-			<?php
-				
-				echo $this->Form->input('Nota.valor_pis', array('type'=>'text','label'=>'Valor PIS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.v_cofins', array('type'=>'text','label'=>'Valor COFINS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('Nota.valor_outros', array('type'=>'text','label'=>'Valor Outros:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-			?>
-		</section>
-		
-	</fieldset>
-<!--Fim Fieldset Dados tributários-->	
-	
-<!--Fieldset Dados do produto-->	
+<div class="saidas form">
+<?php echo $this->Form->create('Saida'); ?>
 	<fieldset>
-		<legend>Dados do Produto</legend>
-			
-		<div class="campo-superior-produto">
-			
-		<?php
-				echo $this->Form->input('Produto.nome', array('class'=>'tamanho-medio select','type'=>'select'));
-				
-				
-				echo $this->html->image('preencher.png',array('alt'=>'Preencher',
-												     'title'=>'Preencher',
-													 'class'=>'bt-preencher',
-													 ));
-			?>
-			
-		</div>
-		
-		<div class="lado-esquerdo">
-			<section class="lateral-a-esquerda">
-				<?php
-					echo $this->Form->input('Produto.codigo', array('type'=>'text','label'=>'Código:','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Produto.nome', array('type'=>'text','label'=>'Nome:','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Produto.dosagem', array('type'=>'text','label'=>'Dosagem:','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Produtoiten.valor_unitario', array('type'=>'text','label'=>'Valor Unitário:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					echo $this->Form->input('Produtoiten.percentual_icms', array('type'=>'text','label'=>'Percentual ICMS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					echo $this->Form->input('Produtoiten.valorbase_st', array('type'=>'text','label'=>'Valor Base ST:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					echo $this->Form->input('Nota.valor_cofins', array('type'=>'text','label'=>'Valor COFINS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					echo $this->Form->input('Nota.valor_pis:', array('type'=>'text','label'=>'Valor PIS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-					?>
-			</section>
-			
-			<section class="lateral-a-direita" id="alinhamento-direita">
-				<div class="direita-superior">
-					<?php
-						echo $this->Form->input('Produto.codigo_ean', array('type'=>'text','label'=>'Código EAN:','class'=>'tamanho-pequeno','disabled'=>'disabled'));
-						echo $this->Form->input('Produto.composicao', array('type'=>'text','label'=>'Composição:','class'=>'tamanho-pequeno','disabled'=>'disabled'));
-						echo $this->Form->input('Produto.unidade', array('type'=>'text','label'=>'Unidade:','class'=>'tamanho-pequeno'));
-						echo $this->Form->input('Produto.descricao:', array('type'=>'text','label'=>'Descrição:','class'=>'tamanho-pequeno','disabled'=>'disabled'));
-					?>
-				</div>
-				<div class="direita-infeior">
-					<?php	
-						echo $this->Form->input('Produtoiten.valor_st', array('type'=>'text','label'=>'Valor ST:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-						echo $this->Form->input('Produtoiten.valor_icms', array('type'=>'text','label'=>'Valor ICMS:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-						echo $this->Form->input('Produtoiten.valor_ipi', array('type'=>'text','label'=>'Valor IPI:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-						
-						 
-					
-					echo $this->html->image('botao-adcionar.png',array('alt'=>'Adicionar',
-																 'title'=>'Adicionar',
-																 'class'=>'bt-adicionar',
-																 ));
-			
-					?>
-				</div>
-			</section>
-			
-		</div>
-		
-<!--Fieldset Dados do lote-->		
-		<fieldset class="dados-lote">
-		<legend>Dados do Lote</legend>
-			<?php
-			
-				echo $this->Form->input('Model.Lote', array('label'=>'Lista de Lotes:','class' =>'tamanho-pequeno select-multiple', 'type'=>'select','multiple' => 'multiple','options' => array('add-lote' => 'Cadastrar', 'option' => 'Adicionar')));	
-				echo $this->Form->input('Lote.qtde', array('type'=>'text','label'=>'Quantidade:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('fabricante', array('type'=>'text','label'=>'Fabricante:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','disabled'=>'disabled'));
-				echo $this->Form->input('data_validade', array('type'=>'text','label'=>'Validade:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório'));
-				echo $this->Form->input('posicao', array('type'=>'text','label'=>'Posição:','class'=>'tamanho-pequeno','required'=>'true','allowEmpty' => 'false','title'=>'Campo Obrigatório','disabled'=>'disabled'));
-				
-				echo $this->html->image('botao-add.png',array('alt'=>'Adicionar',
-																 'title'=>'Adicionar',
-																 'class'=>'bt-add',
-																 ));
-			?>
-			
-		<table class="tabela-lote">
-
-		<tr>
-			<th>Lote</th>
-			<th>Quantidade</th>
-			<th>Validade</th>
-			<th>Ações</th>
-		</tr>
-		
-	</table>	
-			
-			
-			
-			
-			
-		</fieldset>
-<!--Fim Fieldset Dados do lote-->
-	
-	</fieldset>
-<!--Fim Fieldset Dados do Produto-->	
-		
-</fieldset>		
-<!--Fim Fieldset total-->	
-
-	<div class="entradas add">
-
-		<table id="tabela-principal" cellpadding="0" cellspacing="0">
-			<tr>
-					<th></th>
-					<th><?php echo ('cod.'); ?></th>
-					<th><?php echo ('nome'); ?></th>
-					<th><?php echo ('Qnt'); ?></th>
-					<th><?php echo ('Und'); ?></th>
-					<th><?php echo ('Dosagem'); ?></th>
-					<th><?php echo ('Lotes'); ?></th>
-					<th><?php echo ('Validade'); ?></th>
-					<th><?php echo ('V. Unitáro'); ?></th>
-					<th><?php echo ('V. Total'); ?></th>
-					<th><?php echo ('Frete'); ?></th>
-					<th><?php echo ('Desconto'); ?></th>
-					<th><?php echo ('IPI'); ?></th>
-					<th class="actions"><?php echo __('Ações'); ?></th>
-			</tr>	
-
-		</table>
-	
-	</div>
-
-<!-- Modal Lote-->
-			<?php echo $this->element('lote_add');?>
-<!-- /.modal -->
-
-<!-- Modal Fabricante -->
-			<?php echo $this->element('fabricante_add');?>
-<!-- /.modal -->
-
-<!-- Modal Fornecedor -->
-			<?php echo $this->element('fornecedor_add');?>
-<!-- /.modal -->
-
-<!-- Modal Produto-->
-	<?php echo $this->element('produtos_add');?>
-<!-- /.modal -->
-
-<!-- Modal Categoria-->
-	<?php echo $this->element('categoria_add');?>
-<!-- /.modal -->
-
-<!-- Modal Cliente -->
-			<?php echo $this->element('cliente_add');?>
-<!-- /.modal -->
-
-<footer>
-	
+		<legend><?php echo __('Add Saida'); ?></legend>
 	<?php
-	
-	
-	echo $this->html->image('voltar.png',array('alt'=>'Voltar',
-												     'title'=>'Voltar',
-												     'id'=>'voltar2',
-													 'class'=>'bt-voltar voltar',
-													 ));
-													 
-	
-	
-	echo $this->html->image('botao-editar.png',array('alt'=>'Confirmar',
-												     'title'=>'Confirmar',
-												     'id'=>'avnancar2',
-												     'class'=>'bt-confirmar avancar',
-													 ));
-													 
-													
-	
+		echo $this->Form->input('tipo');
+		echo $this->Form->input('numero_nota');
+		echo $this->Form->input('codnota');
+		echo $this->Form->input('tpemis');
+		echo $this->Form->input('cdv');
+		echo $this->Form->input('parceirodenegocio_id');
+		echo $this->Form->input('data');
+		echo $this->Form->input('data_entrada');
+		echo $this->Form->input('data_saida');
+		echo $this->Form->input('user_id');
+		echo $this->Form->input('vendedor_id');
+		echo $this->Form->input('natop_id');
+		echo $this->Form->input('comoperacao_id');
+		echo $this->Form->input('cuf_id');
+		echo $this->Form->input('indpag_id');
+		echo $this->Form->input('mod_id');
+		echo $this->Form->input('serie_id');
+		echo $this->Form->input('tpnf_id');
+		echo $this->Form->input('cmunfg_id');
+		echo $this->Form->input('tpimp_id');
+		echo $this->Form->input('cdv_id');
+		echo $this->Form->input('tpamb_id');
+		echo $this->Form->input('finnfe_id');
+		echo $this->Form->input('procemi_id');
+		echo $this->Form->input('verproc_id');
+		echo $this->Form->input('descricao');
+		echo $this->Form->input('valor_total_produtos');
+		echo $this->Form->input('nota_fiscal');
+		echo $this->Form->input('valor_total');
+		echo $this->Form->input('vb_icms');
+		echo $this->Form->input('valor_icms');
+		echo $this->Form->input('vb_cst');
+		echo $this->Form->input('valor_st');
+		echo $this->Form->input('valor_frete');
+		echo $this->Form->input('valor_seguro');
+		echo $this->Form->input('valor_desconto');
+		echo $this->Form->input('vii');
+		echo $this->Form->input('valor_ipi');
+		echo $this->Form->input('valor_pis');
+		echo $this->Form->input('v_cofins');
+		echo $this->Form->input('valor_outros');
+		echo $this->Form->input('transp_id');
+		echo $this->Form->input('modfrete');
+		echo $this->Form->input('freteproprio');
+		echo $this->Form->input('transportadore_id');
+		echo $this->Form->input('origem');
+		echo $this->Form->input('chave_acesso');
+		echo $this->Form->input('forma_de_entrada');
+		echo $this->Form->input('parceiro');
+		echo $this->Form->input('devolucao');
+		echo $this->Form->input('obs');
+		echo $this->Form->input('infoadic');
+		echo $this->Form->input('status_estoque');
+		echo $this->Form->input('status_financeiro');
+		echo $this->Form->input('status_faturamento');
+		echo $this->Form->input('status_geral');
+		echo $this->Form->input('Produto');
 	?>
-	
-</footer>
-
-</section>
-
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
 </div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-
+		<li><?php echo $this->Html->link(__('List Saidas'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Transportadores'), array('controller' => 'transportadores', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Transportadore'), array('controller' => 'transportadores', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Cufs'), array('controller' => 'cufs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cuf'), array('controller' => 'cufs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Pedidovendas'), array('controller' => 'pedidovendas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Pedidovenda'), array('controller' => 'pedidovendas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('controller' => 'comoperacaos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Comoperacao'), array('controller' => 'comoperacaos', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Indpags'), array('controller' => 'indpags', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Indpag'), array('controller' => 'indpags', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Mods'), array('controller' => 'mods', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Mod'), array('controller' => 'mods', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Series'), array('controller' => 'series', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Serie'), array('controller' => 'series', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tpnfs'), array('controller' => 'tpnfs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Tpnf'), array('controller' => 'tpnfs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Cmunfgs'), array('controller' => 'cmunfgs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cmunfg'), array('controller' => 'cmunfgs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tpimps'), array('controller' => 'tpimps', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Tpimp'), array('controller' => 'tpimps', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Cdvs'), array('controller' => 'cdvs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cdv'), array('controller' => 'cdvs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tpambs'), array('controller' => 'tpambs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Tpamb'), array('controller' => 'tpambs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Finnves'), array('controller' => 'finnves', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Finnfe'), array('controller' => 'finnves', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Procemis'), array('controller' => 'procemis', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Procemi'), array('controller' => 'procemis', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Verprocs'), array('controller' => 'verprocs', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Verproc'), array('controller' => 'verprocs', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Transps'), array('controller' => 'transps', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Transp'), array('controller' => 'transps', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Natops'), array('controller' => 'natops', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Natop'), array('controller' => 'natops', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Produtoitens'), array('controller' => 'produtoitens', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Produtoiten'), array('controller' => 'produtoitens', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Loteitens'), array('controller' => 'loteitens', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Loteiten'), array('controller' => 'loteitens', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Produtos'), array('controller' => 'produtos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Produto'), array('controller' => 'produtos', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
