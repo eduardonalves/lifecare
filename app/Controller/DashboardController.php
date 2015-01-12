@@ -1007,14 +1007,14 @@ class DashboardController extends AppController {
 		$this->layout = 'dashboard';
 		
 		$this->loadModel('Lote');
-		$lotes = $this->Lote->find('all',array('conditions' => array('OR' => array('Lote.status' => array('AMARELO', 'VERMELHO'))),'order'=>array('Lote.status'=>'asc'),'recursive'=>0));
+		$lotes = $this->Lote->find('all',array('conditions' => array('OR' => array('Lote.status' => array('AMARELO', 'VERMELHO'))),'order'=>array('Lote.status'=>'desc'),'recursive'=>0));
 		
 		foreach($lotes as $id => $lote){
 			$lotes[$id]['Lote']['data_validade'] = $this->lifecareDataFuncs->formatDateToView($lotes[$id]['Lote']['data_validade']);
 		}
 		
 		$this->loadModel('Produto');
-		$produtos = $this->Produto->find('all', array('conditions' => array('OR' => array('Produto.nivel'=>array('AMARELO','VERMELHO'))),'order'=>array('Produto.nivel'=>'asc'),'recursive'=>0));
+		$produtos = $this->Produto->find('all', array('conditions' => array('OR' => array('Produto.nivel'=>array('VERMELHO','AMARELO'))),'order'=>array('Produto.nivel'=>'desc'),'recursive'=>0));
 		
 		$this->loadgrafico2();
 		$this->graficoperiodo2();
@@ -1023,7 +1023,7 @@ class DashboardController extends AppController {
 		$anosModel = $this->Parcela->find('all',array('order'=>array('Parcela.data_vencimento'=>'asc'),'recursive' => 0, 'fields' => array('DISTINCT YEAR(Parcela.data_vencimento)')));
 		
 		$this->loadModel('Conta');
-		$contasPagars = $this->Conta->find('all', array('conditions' => array('Conta.tipo' => 'A PAGAR'),'recursive'=>0));
+		$contasPagars = $this->Conta->find('all', array('conditions' => array('Conta.tipo' => 'A PAGAR'),'recursive'=>1));
 	
 		$this->loadModel('Parcela');
 		$parcelaDash = $this->Parcela->find('all',array('order'=>array('Parcela.data_vencimento'=>'asc'),'recursive'=>-1));
@@ -1038,7 +1038,5 @@ class DashboardController extends AppController {
 		$abertos = $this->Comoperacaos->find('all',array('order'=>array('Comoperacaos.data_inici'=>'asc'),'conditions'=>array('Comoperacaos.status'=>'ABERTO','Comoperacaos.tipo'=>'COTACAO'),'recursive'=>-1));
 		
 		$this->set(compact('lotes','produtos','anosModel','contasPagars','parcelaDash','pedidos','respostas','abertos'));
-	}
-	
-	
+	}	
 }
