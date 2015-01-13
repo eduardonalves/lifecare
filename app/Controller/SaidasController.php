@@ -732,6 +732,7 @@ class SaidasController extends NotasController {
 		return $chave;
 		
 	}
+	
 	public function geraNotaXml($id = null) {
 		
 		App::uses('Folder', 'Utility');
@@ -1240,6 +1241,7 @@ class SaidasController extends NotasController {
 				'xMun' => $transportadora['Transportadore']['cidade'],
 				'UF' => $transportadora['Transportadore']['uf']
 			);	
+			
 		}else{
 			$tranportadoraData = array(
 				'CNPJ' => '10619128000191',
