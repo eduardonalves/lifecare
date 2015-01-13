@@ -598,9 +598,3 @@ $(document).ready(function(){
 <input type="hidden" id="totaldezPagarP" value="<?php echo $totaldezPagarP; ?>" />
 </div>
 
-<div style="clear:both;"></div>
-<pre>
-<?php
-	print_r($anosModel);
-?>
-</pre>
