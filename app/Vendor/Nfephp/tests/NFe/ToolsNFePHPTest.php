@@ -4,7 +4,10 @@
  * Class ToolsNFePHPTest
  * @author Antonio Spinelli <tonicospinelli85@gmail.com>
  */
+<<<<<<< HEAD
  require_once 'PHPUnit/Autoload.php';
+=======
+>>>>>>> 7fd120e92c0f400b08c80014e785305f7738eb9b
 class ToolsNFePHPTest extends PHPUnit_Framework_TestCase
 {
 
