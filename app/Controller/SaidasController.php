@@ -192,13 +192,8 @@ class SaidasController extends NotasController {
 		$findSaida= $this->Saida->find('first', array('conditions' => array('Saida.id' => $id)));
 		$this->loadModel('Cliente');
 		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findSaida['Saida']['parceirodenegocio_id'])));
-		
-		
+				
 		$this->set(compact('findsaida','cliente','itens', 'loteitens'));
-		
-		
-		
-
 	}
 
 /**
@@ -1271,6 +1266,33 @@ class SaidasController extends NotasController {
 		$xmlString = $xml->asXML();
 		debug($xmlString);
 
+	}
+	
+	
+/**
+ * FATURAMENTO
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function faturamento($id = null) {
+		if (!$this->Saida->exists($id)) {
+			throw new NotFoundException(__('Invalid saida'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Saida->save($this->request->data)) {
+				$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('A saída não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
+			}
+		} else {
+			$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id));
+			$this->request->data = $this->Saida->find('first', $options);
+		}
+		$parceirodenegocios = $this->Saida->Parceirodenegocio->find('list');
+		$this->set(compact('parceirodenegocios'));
 	}
 	
 }

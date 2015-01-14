@@ -60,7 +60,6 @@ $(document).ready(function(){
 		prevText: 'Anterior'
 	});
 	var data = new Date();
-	alert();
 
 	$('#diaEscolha').click(function(){
 		$('.carregaDia').each(function(){
