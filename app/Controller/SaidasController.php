@@ -653,34 +653,36 @@ class SaidasController extends NotasController {
 
 
 
+	
 	function dvCalcMod11($key_nfe) {
-			 $base = 9;
-			 $result = 0;
-			 $sum = 0;
-			 $factor = 2;
-			 
-			 for ($i = strlen($key_nfe); $i > 0; $i--) {
-			 $numbers[$i] = substr($key_nfe,$i-1,1);
-			 $partial[$i] = $numbers[$i] * $factor;
-			 $sum += $partial[$i];
-			 if ($factor == $base) {
-			 $factor = 1;
-			 }
-			 $factor++;
-			 }
-			 
-			 if ($result == 0) {
-			 $sum *= 10;
-			 $digit = $sum % 11;
-			 if ($digit == 10) {
-			 $digit = 0;
-			 }
-			 return $digit;
-			 } elseif ($result == 1){
-			 $rest = $sum % 11;
-			 return $rest;
-		 }
-	}
+ 	
+	 $base = 9;
+	 $result = 0;
+	 $sum = 0;
+	 $factor = 2;
+ 
+	 for ($i = strlen($key_nfe); $i > 0; $i--) {
+	 $numbers[$i] = substr($key_nfe,$i-1,1);
+	 $partial[$i] = $numbers[$i] * $factor;
+	 $sum += $partial[$i];
+	 if ($factor == $base) {
+	 $factor = 1;
+	 }
+	 $factor++;
+	 }
+	 
+	 if ($result == 0) {
+	 $sum *= 10;
+	 $digit = $sum % 11;
+	 if ($digit == 10) {
+	 $digit = 0;
+	 }
+	 return $digit;
+	 } elseif ($result == 1){
+	 $rest = $sum % 11;
+	 return $rest;
+	 }
+	 }
 	public function formataCnpj($cnpj){
 		$cnpj=str_replace('.', '', $cnpj);
 		$cnpj=str_replace('/', '', $cnpj);
@@ -689,8 +691,12 @@ class SaidasController extends NotasController {
 		$cnpj=str_replace(')', '', $cnpj);
 		return $cnpj;
 	}
+	
 	public function geraid($id){
-			
+		
+		
+		$this->loadModel('Empresa');
+		$emprasa= $this->Empresa->find('first',array('recursive'=> -1,'conditions' => array('id' => 1)));	
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));		
 		$this->Saida->id = $id;
 		$uf = $saida['Cuf']['codigo']; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
@@ -701,15 +707,16 @@ class SaidasController extends NotasController {
 		if($saida['Saida']['numero_nota']==''){
 			$saida['Saida']['numero_nota']='00000001';
 		}
-		$aamm = date('ym'); //data da nota 4digitos
+		$aamm =$this->formataCnpj($saida['Saida']['data']) ; //data da nota 4digitos
+		$aamm =substr($aamm, 2,4);
 		
-		$cnpj =$saida['Parceirodenegocio']['cpf_cnpj']; //cnpj do emitente 14 digitos ***buscar 
+		$cnpj =$emprasa['Empresa']['cnpj']; //cnpj do emitente 14 digitos ***buscar 
 		$cnpj=$this->formataCnpj($cnpj);
 		$mod= $saida['Mod']['codigo']; //Modelo do Documento Fiscal 2 digitos ***buscar 
-		$serie='000'; //Série do Documento Fiscal 3 digitos ***buscar 
+		$serie='1'; //Série do Documento Fiscal 3 digitos ***buscar 
 		$nNF =$saida['Saida']['numero_nota']; //Número do Documento Fiscal   9 digitos ***buscar 
-		$trans =2; // forma de emissão da NF-e 1 digito ***buscar 
-		$codigoacesso = (string) mt_rand(10000000, 99999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
+		$trans =1; // forma de emissão da NF-e 1 digito ***buscar 
+		$codigoacesso = mt_rand(100000000, 999999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
 		
 		$tamanhonf = strlen($nNF);
 		$restamanho = 9 -$tamanhonf;
@@ -718,27 +725,111 @@ class SaidasController extends NotasController {
 			$concZeros= $concZeros.'0';
 		}
 		$nNF=$concZeros.$nNF;
+		$auxChave=$uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso;
+		//$auxChave2 =(string)$auxChave;
 		
-		$digverificador = $this->dvCalcMod11($uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso);
-		echo $digverificador;
-		$chave  = $uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso.$digverificador;
+		$auxChave2 = $this->criaChaveAcesso($uf,$aamm,$cnpj,$serie,$nNF,$trans);
+		
+		
+		
+	
+		$chave  = $auxChave2;
+		
 		
 	
 		$this->Saida->saveField('codnota', $codigoacesso);
-		$this->Saida->saveField('cdv', $digverificador);
+		
+		
 		
 		$this->Saida->saveField('chave_acesso', $chave);
+		
+		$digverificador= substr($auxChave2, -1);
+		$this->Saida->saveField('cdv', $digverificador);
 		
 		return $chave;
 		
 	}
+
+	 function calcula_dv($chave43) {
+        $multiplicadores = array(2, 3, 4, 5, 6, 7, 8, 9);
+        $i = 42;
+        while ($i >= 0) {
+            for ($m = 0; $m < count($multiplicadores) && $i >= 0; $m++) {
+                $soma_ponderada+= $chave43[$i] * $multiplicadores[$m];
+                $i--;
+            }
+        }
+        $resto = $soma_ponderada % 11;
+        if ($resto == '0' || $resto == '1') {
+            $cDV = 0;
+        } else {
+            $cDV = 11 - $resto;
+        }
+        $this->cDV = $cDV;
+        return $cDV;
+    }
+	
+	
+	function criaChaveAcesso($cUF, $aamm, $cnpj, $serie, $numero, $tpEmis){
+	    $rNum = '';
+	    for( $x=0; $x<8; $x++ ){
+	        $rNum .= rand(0,9);
+	    }
+	   $rNum = 77660854;
+	    $modelo = '55';
+	    $serie = str_pad($serie, 3, "0", STR_PAD_LEFT);
+	    $numero = str_pad($numero, 9, "0", STR_PAD_LEFT);
+	    
+	    $chave = $cUF.$aamm.$cnpj.$modelo.$serie.$numero.$tpEmis.$rNum;
+	    //         2 + 4 + 14 +2 + 3 + 9 + 9 = 43   
+	    $chave = $chave.$this->calcDV($chave);
+	    return $chave;
+	    
+	}
+	
+	function calcDV($chave){
+	    $n = strlen($chave);
+	    //             4 4 4 4 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
+	    //               3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1
+	    $aPeso = array(4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2,9,8,7,6,5,4,3,2);
+	    if ($n != 43){
+	        echo "Erro na chave";
+	        return '';
+	    }
+	    $aChave = str_split($chave);
+	    $soma = 0;
+	    for($x=$n;$x>0;$x--){
+	        $soma += $aPeso[$x] * $aChave[$x];
+	    }
+	    $resto = $soma%11;
+	    if ($resto == 0 || $resto == 1){
+	        $dv = 0;
+	    } else {
+	        $dv = 11-$resto;
+	    }
+	    return $dv;
+	}
 	
 	public function geraNotaXml($id = null) {
+	
+	
+		
+		
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		/*App::import('Vendor', 'ConvertNFePHP', array('file' => 'Nfephp/libs/NFe/ConvertNFePHP.class.php'));
+		App::import('Vendor', 'ConvertNFePHPOpc', array('file' => 'Nfephp/libs/NFe/ConvertNFePHPOpc.class.php'));
+		App::import('Vendor', 'DaCancnfeNFePHP', array('file' => 'Nfephp/libs/NFe/DaCancnfeNFePHP.class.php'));
+		App::import('Vendor', 'DaEventoNFeNFePHP', array('file' => 'Nfephp/libs/NFe/DaEventoNFeNFePHP.class.php'));
+		App::import('Vendor', 'DanfeNFCeNFePHP', array('file' => 'Nfephp/libs/NFe/DanfeNFCeNFePHP.class.php'));
+		App::import('Vendor', 'DanfeNFePHP', array('file' => 'Nfephp/libs/NFe/DanfeNFePHP.class.php'));
+		App::import('Vendor', 'MakeNFePHP', array('file' => 'Nfephp/libs/NFe/MakeNFePHP.class.php'));
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		App::import('Vendor', 'UnConvertNFePHP', array('file' => 'Nfephp/libs/NFe/UnConvertNFePHP.class.php'));*/
 		
 		App::uses('Folder', 'Utility');
 		App::uses('File', 'Utility');
 		App::uses('Xml', 'Utility');
-		
+		$tools = new ToolsNFePHP();
 		$this->loadModel('Empresa');
 		$this->loadModel('Produto');
 		$this->loadModel('Lote');
@@ -840,7 +931,7 @@ class SaidasController extends NotasController {
 		}
 		
 		if($saida['Verproc']['codigo']==''){
-			$saida['Verproc']['codigo']='2.20';
+			$saida['Verproc']['codigo']='2.2.28';
 		}
 
 		if($saida['Indpag']['codigo']==''){
@@ -879,7 +970,7 @@ class SaidasController extends NotasController {
 		$cliente['Parceirodenegocio']['cpf_cnpj']= $this->formataCnpj($cliente['Parceirodenegocio']['cpf_cnpj']);
 		$empresa['Empresa']['cep']=$this->formataCnpj($empresa['Empresa']['cep']);
 		$endereco['Endereco']['cep'] = $this->formataCnpj($endereco['Endereco']['cep']);
-		$cliente['Parceirodenegocio']['ie']= $this->formataCnpj($endereco['Endereco']['cep']);
+		$cliente['Parceirodenegocio']['ie']= $this->formataCnpj($cliente['Parceirodenegocio']['ie']);
 		
 		$this->loadModel('Loteiten');
 		
@@ -1086,12 +1177,12 @@ class SaidasController extends NotasController {
 						'CFOP' =>  $produto['Produto']['cfop'],
 						'uCom' => $produto['Produto']['unidade'],
 						'qCom' =>$itens['qtde'],
-						'vUnCom' => $itens['valor_unitario'],
-						'vProd' =>  $itens['valor_total'],
+						'vUnCom' => number_format($itens['valor_unitario'], 2, '.',''),
+						'vProd' =>  number_format($itens['valor_total'], 2,'.', ''),
 						'cEANTrib' => $produto['Produto']['codigoEan'],
 						'uTrib' => $produto['Produto']['unidade'],
 						'qTrib' =>$itens['qtde'],
-						'vUnTrib' => $itens['valor_unitario'],
+						'vUnTrib' => number_format($itens['valor_total'], 2, '.', ''),
 						'frete' => $itens['frete'],
 						'indTot' => '1', // Este campo deverá ser preenchido com: 0 – o valor do item (vProd) compõe o valor total da NF-e (vProd) 1 – o valor do item (vProd) não compõe o valor
 						'med' => array(),
@@ -1119,7 +1210,7 @@ class SaidasController extends NotasController {
 					unset($det['prod']['frete']);	
 				
 				}	
-				$valorTotalProduto = $valorTotalProduto + $itens['valor_total'];
+				$valorTotalProduto = (float) $valorTotalProduto + (float)$itens['valor_total'];
 				
 				$icms['ICMS'.$icmsProduto['Situacaotribicm']['codigo']]['modBC']=$icmsProduto['Modalidadebc']['id'];
 				$icms['ICMS'.$icmsProduto['Situacaotribicm']['codigo']]['vBC']=$vlTributado;
@@ -1152,7 +1243,9 @@ class SaidasController extends NotasController {
 				if($produto['Produto']['obs_nota'] ==''){
 					unset($det['infAdProd']);
 				}
-				$valorTotalProduto = $valorTotalProduto + $itens['valor_total'];
+				
+				$valorTotalProduto =  $valorTotalProduto +  $itens['valor_total'];
+				
 				if($itens['frete'] != ''){
 						
 					if($freteProprio==1){
@@ -1172,6 +1265,8 @@ class SaidasController extends NotasController {
 					
 						
 				}	
+				
+				
 			}
 			
 			$comlotesoperacaos = $this->Loteiten->find('all', array('conditions' => array('Loteiten.produtoiten_id' => $itens['id'])));
@@ -1228,7 +1323,7 @@ class SaidasController extends NotasController {
 			'vCOFINS' => number_format($vcofins, 2, '.',''),
 			'vOutro' => number_format($saida['Saida']['valor_outros'], 2, '.',''),
 			'vNF' => number_format($saida['Saida']['valor_total'], 2, '.',''),
-			'vTotTrib' => $totalTributado,
+			'vTotTrib' => number_format($valorTotalProduto, 2, '.',''),
 		);	
 		
 		
@@ -1246,9 +1341,9 @@ class SaidasController extends NotasController {
 			$tranportadoraData = array(
 				'CNPJ' => '10619128000191',
 				'xNome' =>'teste',
-				'IE' => '00000',
+				'IE' => '78709375',
 				'xEnder' =>'tesges',
-				'xMun' => '00000',
+				'xMun' => 'Nova Iguacu',
 				'UF' => 'RJ'
 			);
 			
@@ -1266,10 +1361,17 @@ class SaidasController extends NotasController {
 		$xmlArray['NFe']['infNFe']['transp']['transporta'] = $tranportadoraData;
 		$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
 		
-		 
+		
+
 		$xml = Xml::build($xmlArray);
 		$xmlString = $xml->asXML();
-		debug($xmlString);
+		$xmlAssinada= $tools->signXML($xmlString, 'infNFe');
+		debug($xmlAssinada);
+		
+		
+		// Se o método não retornou FALSE, então ele retornou a nova string do XML com as tags referentes à assinatura.
+		
+		
 
 	}
 	
