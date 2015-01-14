@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Icm Model
+ * Transp Model
  *
  * @property Produto $Produto
  * @property Modalidadebc $Modalidadebc
@@ -9,7 +9,7 @@ App::uses('AppModel', 'Model');
  * @property Situacaotribicm $Situacaotribicm
  * @property Motivodesoneracao $Motivodesoneracao
  */
-class Icm extends AppModel {
+class Transp extends AppModel {
 	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

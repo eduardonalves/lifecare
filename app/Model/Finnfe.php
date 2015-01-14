@@ -26,7 +26,8 @@ App::uses('AuthComponent', 'Controller/Component');
 class Finnfe extends AppModel {
 	
 
-
+	var $name = 'Finnfe';
+	public $useTable = 'finnfes';  
 	
 /**
  * belongsTo associations

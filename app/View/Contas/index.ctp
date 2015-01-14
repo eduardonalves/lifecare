@@ -41,14 +41,14 @@ $(document).ready(function() {
 		var numero= idcheck.replace(expReg01,'');
 
 		if($("#ContaDataPagamento"+numero).val() == ''){
-		$("#spanQuitarData"+numero).show();
+			$("#spanQuitarData"+numero).show();
 		}else{
-		$("#spanQuitarData"+numero).hide();
-		e.preventDefault();
-		form= $(this).attr('id');
+			$("#spanQuitarData"+numero).hide();
+			e.preventDefault();
+			form= $(this).attr('id');
 			$('#quitar'+numero).submit();
 		}
-		});
+	});
 
 	$('.bt-quitar').click(function(e){
 
@@ -268,21 +268,19 @@ $(document).ready(function() {
 				<tr>
 				    <th class="colunaConta">Ações</th>
 					<?php 
-					    foreach($configCont as $campo=>$campoLabel)
-					    {
-						if($campo=='parcelas'){
+					    foreach($configCont as $campo=>$campoLabel){
+							if($campo=='parcelas'){
 
-						}else if($campo == 'nome_parceiro' ){
+							}else if($campo == 'nome_parceiro' ){
 
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort("Parceirodenegocio.nome", $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 
-						}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}else if($campo == 'parceirodenegocio_id' || $campo == 'nome_parceiro' || $campo == 'cnpj_parceiro' || $campo == 'status_parceiro'){
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\" style='background-color:#c9f0e8'>" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
 
-						}else{
-							echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
-						}
-					     
+							}else{
+								echo "<th id=\"$campo\" class=\"colunaConta comprimentoMinimo $campo\">" . $this->Paginator->sort($campo, $campoLabel) . "<div id='indica-ordem' class='posicao-seta'></div></th>";
+							}					     
 					    }
 
 					?>
@@ -347,57 +345,57 @@ $(document).ready(function() {
 								<?php
 
 									foreach($conta['Parcela'] as $parcela){
-									echo "<tr><td>";
-										echo $parcela['identificacao_documento'];
-									echo "</td>";
+										echo "<tr><td>";
+											echo $parcela['identificacao_documento'];
+										echo "</td>";
 
-									echo "<td>";
-										formatDateToView($parcela['data_vencimento']);
-										echo $parcela['data_vencimento'];
-									echo "</td>";
+										echo "<td>";
+											formatDateToView($parcela['data_vencimento']);
+											echo $parcela['data_vencimento'];
+										echo "</td>";
 
-									echo "<td>";
-										formatDateToView($parcela['data_pagamento']);
-										echo $parcela['data_pagamento'];
-									echo "</td>";
+										echo "<td>";
+											formatDateToView($parcela['data_pagamento']);
+											echo $parcela['data_pagamento'];
+										echo "</td>";
 
-									echo "<td>";
-										echo $parcela['periodocritico'];
-									echo "</td>";
+										echo "<td>";
+											echo $parcela['periodocritico'];
+										echo "</td>";
 
-									echo "<td class='whiteSpace'>R$ ";
-										echo number_format($parcela['valor'], 2, ',', '.');  
-									echo "</td>";
+										echo "<td class='whiteSpace'>R$ ";
+											echo number_format($parcela['valor'], 2, ',', '.');  
+										echo "</td>";
 
-									echo "<td class='whiteSpace'R$ ";
-										echo number_format($parcela['juros'], 2, ',', '.');  
-									echo "</td>";
+										echo "<td class='whiteSpace'R$ ";
+											echo number_format($parcela['juros'], 2, ',', '.');  
+										echo "</td>";
 
-									echo "<td class='whiteSpace'>R$";
-										echo number_format($parcela['desconto'], 2, ',', '.');
-									echo "</td>";
+										echo "<td class='whiteSpace'>R$";
+											echo number_format($parcela['desconto'], 2, ',', '.');
+										echo "</td>";
 
-									echo "<td>";
-										echo $parcela['parcela'];
-									echo "</td>";
+										echo "<td>";
+											echo $parcela['parcela'];
+										echo "</td>";
 
-									echo "<td>";
-										echo $parcela['banco'];
-									echo "</td>";
+										echo "<td>";
+											echo $parcela['banco'];
+										echo "</td>";
 
-									echo "<td>";
-										echo $parcela['agencia'];
-									echo "</td>";
+										echo "<td>";
+											echo $parcela['agencia'];
+										echo "</td>";
 
-									echo "<td>";
-										echo $parcela['conta'];
-									echo "</td>";
+										echo "<td>";
+											echo $parcela['conta'];
+										echo "</td>";
 
-									echo "<td>";
-										echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
-									echo "</td>";
+										echo "<td>";
+											echo $this->Html->image('semaforo-' . strtolower($parcela['status']) . '-12x12.png', array('alt' => '-'.$parcela['status'], 'title' => '-'));
+										echo "</td>";
 
-									echo "</tr>";
+										echo "</tr>";
 									}
 								?>
 
@@ -430,7 +428,8 @@ $(document).ready(function() {
 							if(isset($conta['Conta']['data_quitacao']) && $conta['Conta']['data_quitacao'] != ''){
 								echo "<td class=\"$campo\">" . $conta['Conta']['data_quitacao'] . "&nbsp;</td>";
 							}else{
-								echo "<td class=\"$campo\">&nbsp;</td>";}
+								echo "<td class=\"$campo\">&nbsp;</td>";
+							}
 						}else{
 							echo "<td class=\"$campo\">" . $conta['Conta'][$campo] . "&nbsp;</td>";
 						}
@@ -592,6 +591,7 @@ $(document).ready(function() {
 
 <?php
     }
+}
 	//fim de Consulta de parcelas
 ?>
 	    </table>

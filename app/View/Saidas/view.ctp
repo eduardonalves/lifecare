@@ -336,15 +336,10 @@
 							}
 							echo "</td>";
 							echo '</tr>';
-							
-							
-							
-					
-						}
-						
+
+						}						
 					}
 				?>
-
 			</table>
 		</div>
 		<?php echo $this->Form->end(); ?>

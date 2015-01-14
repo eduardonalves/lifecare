@@ -391,7 +391,10 @@ $(document).ready(function(){
 				<?php
 					echo $this->Form->input('Produto.corredor', array('class'=>'mascara_umaLetra tamanho-pequeno', 'label'=>'Corredor:','type'=>'text','value'=>$produto['Produto']['corredor'] ));
 					echo $this->Form->input('Produto.codigoFGV', array('class'=>'tamanho-pequeno', 'label'=>'Código FGV:','type'=>'text','value'=>$produto['Produto']['codigoFGV']));
+					
 					echo $this->Form->input('Produto.precoFGV', array('class'=>'dinheiro_duasCasas tamanho-pequeno', 'label'=>'Preço FGV:','type'=>'text','value'=>$produto['Produto']['precoFGV']));
+					echo $this->Form->input('Produto.ncm',array('class'=>'tamanho-pequeno',  'label' => 'NCM: '));
+					echo $this->Form->input('Produto.cfop',array('class'=>'tamanho-pequeno',  'label' => 'CFOP: '));
 				?>
 
 			</div>	
@@ -538,7 +541,9 @@ $(document).ready(function(){
 						echo $this->Form->input('Icm.0.margemvaloradic',array('label'=>'Margem Valor Adic. :','class'=>'tamanho-medio'));			
 					echo "</div>";				
 					echo "<div class='esconde'  id='mostrar10'  data-input='10'>";
-						echo $this->Form->input('Icm.0.reducaobasecalc',array('label'=>'Redu. Base Calc.:','class'=>'tamanho-medio'));			
+						echo $this->Form->input('Icm.0.reducaobasecalc',array('label'=>'Redu. Base Calc.:','class'=>'tamanho-medio'));	
+						
+						echo $this->Form->input('Icm.0.id',array('value'=> $produto['Icm'][0]['id'],'type'=>'hidden'));
 					echo "</div>";			
 				?>	
 			</div>			
@@ -595,6 +600,9 @@ $(document).ready(function(){
 				</div>				
 				<div style="clear:both" id="tipo_valor" class="esconde_ipi">
 					<?php echo $this->Form->input('Ipi.0.valorporunid',array('label'=>'Valor por Unid.','class'=>'tamanho-medio')); ?>
+					
+					<?php echo $this->Form->input('Ipi.0.id',array('value'=> $produto['Ipi'][0]['id'],'type'=>'hidden')); ?>
+					
 				</div>
 			</div>
 		</fieldset>
@@ -650,6 +658,7 @@ $(document).ready(function(){
 				</div>				
 				<div style="clear:both;display:none;" id="tipo_valor_pis_st">
 					<?php echo $this->Form->input('Pi.0.valunidpisst',array('label'=>'Valor Und. Trib. PIS ST:','class'=>'tamanho-medio')); ?>
+					<?php echo $this->Form->input('Pi.0.id',array('value'=> $produto['Pi'][0]['id'],'type'=>'hidden')); ?>
 				</div>			
 			</div>				
 		</fieldset>		
@@ -738,6 +747,7 @@ $(document).ready(function(){
 					<div style="clear:both;display:none;" id="tipo_valor_cofins_st">
 						<?php
 							echo $this->Form->input('Cofin.0.valunidcofinsst',array('label'=>'Valor Trib. Cofins ST:','class'=>'tamanho-medio'));
+							echo $this->Form->input('Cofin.0.id',array('value'=> $produto['Cofin'][0]['id'],'type'=>'hidden')); 
 						?>
 					</div>
 					

@@ -145,6 +145,13 @@ class Saida extends Nota {
 			'fields' => '',
 			'order' => ''
 		),
+		'Natop' => array(
+			'className' => 'Natop',
+			'foreignKey' => 'natop_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		
 	);
 //Has many

@@ -59,6 +59,16 @@ $(document).ready(function(){
 		nextText: 'Próximo',
 		prevText: 'Anterior'
 	});
+	var data = new Date();
+	alert();
+
+	$('#diaEscolha').click(function(){
+		$('.carregaDia').each(function(){
+			if($(this).text() == data.getDate()){
+				$(this).addClass('dataAtual');
+			}
+		});
+	});
 });
 </script>
 <header>
@@ -133,19 +143,23 @@ $(document).ready(function(){
 					<span class="carregaMes">Novembro</span>
 					<span class="carregaMes">Dezembro</span>
 				</div>
-				<div width="380" height="240" style="display:none;" class="dataButao anoDiv">
-					<?php					
-	
+				
+				<div width="380" height="240" style="display:none;" class="dataButao anoDiv">	
+					<p id="help1" data-title="São mostrados apenas os anos em que há alguma parcela de conta gravada."  class="tooop"> ? </p>				
+					<?php											
 						$qtdAnos = sizeof($anosModel);
 							for($i=0;$i<=$qtdAnos;$i++){
 								if(!empty($anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)'])){
 									if($anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)'] != ''){
-										echo "<span class='carregaAno'>".$anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
-									}
+										if($anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)'] == $ano){
+											echo "<span class='carregaAno dataAtual'>".$anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
+										}else{
+											echo "<span class='carregaAno'>".$anosModel[$i][0]['YEAR(`Parcela`.`data_vencimento`)']."</span>";
+										}
+									}								
 								}
-							}
-	
-					?>						
+							}	
+					?>										
 				</div>
 				
 				<div class="loaderAjaxGrafico posicaoLoader" style="display:none">
@@ -159,11 +173,10 @@ $(document).ready(function(){
 						<span>Carregando Gráfico aguarde...</span>
 					</div>
 				
-				
 				<div id="loadGrafico">	
 					<canvas id="income" width="380" height="260" class="grafico-ajuste"></canvas>
 				</div>
-				
+			
 		</div>
 	</section>	
 	
@@ -323,7 +336,7 @@ $(document).ready(function(){
 				<table class="">
 
 							<tr>
-								<th> Conta Id.</th>
+								<th> Conta.</th>
 								<th> Valor </th>
 								<th> Status </th>
 							</tr>
@@ -584,3 +597,4 @@ $(document).ready(function(){
 <input type="hidden" id="totalnovPagarP" value="<?php echo $totalnovPagarP; ?>" />
 <input type="hidden" id="totaldezPagarP" value="<?php echo $totaldezPagarP; ?>" />
 </div>
+
