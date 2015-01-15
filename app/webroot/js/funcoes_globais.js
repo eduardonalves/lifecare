@@ -376,6 +376,17 @@ $(document).ready(function(){
 
 	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
     });
+   
+/** FUNÇÃO QUE IMPEDE DIGITAR Números NA INPUT *************************/    
+     $(".Nao-Numeros").on("keypress",function(event){
+	    var charCode = event.keyCode || event.which;
+		  tecla = String.fromCharCode(charCode);
+		  if ((tecla >= "0") && (tecla <= "9")){
+			return false;
+		  }else{
+			  return true;
+		  }
+    });
     
 /** Placeholder Data *************************************************/
     $('.inputData').attr('placeholder','dd/mm/aaaa');

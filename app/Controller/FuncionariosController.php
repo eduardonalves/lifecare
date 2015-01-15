@@ -13,7 +13,7 @@ class FuncionariosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs',);
 
 /**
  * index method
@@ -21,7 +21,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		$this->Funcionario->recursive = 0;
 		$this->set('funcionarios', $this->Paginator->paginate());
 	}
@@ -34,7 +34,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		if (!$this->Funcionario->exists($id)) {
 			throw new NotFoundException(__('Invalid funcionario'));
 		}
@@ -48,10 +48,18 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function add() {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		if ($this->request->is('post')) {
 			$this->Funcionario->create();
-			if ($this->Funcionario->save($this->request->data)) {
+			
+			//Converte as datas
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['nascimento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['admissao']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['desligamento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['efetivacao']);
+			
+			if ($this->Funcionario->saveAll($this->request->data)){					
+				//debug($this->request->data);
 				$this->Session->setFlash(__('The funcionario has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

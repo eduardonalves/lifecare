@@ -197,14 +197,14 @@
 		echo $this->html->image('botao-voltar.png',array('id'=>'voltar','style'=>'float:left;cursor:pointer;display:none;'));
 		echo $this->html->image('botao-confirmar.png',array('id'=>'confirmaDados','style'=>'float:right;cursor:pointer;'));
 		
-		 echo $this->form->submit('botao-salvar.png',array(
+		echo $this->form->submit('botao-salvar.png',array(
 							    'class'=>'bt-salvar',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
 							    'style' => 'display:none;'
 							    
 	    ));
-		    echo $this->Form->end();
+		echo $this->Form->end();
 	?>	
 </footer>
 

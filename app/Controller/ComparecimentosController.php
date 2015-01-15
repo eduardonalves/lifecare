@@ -21,6 +21,7 @@ class ComparecimentosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'rh';
 		$this->Comparecimento->recursive = 0;
 		$this->set('comparecimentos', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class ComparecimentosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Comparecimento->exists($id)) {
 			throw new NotFoundException(__('Invalid comparecimento'));
 		}
@@ -46,6 +48,7 @@ class ComparecimentosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'rh';
 		if ($this->request->is('post')) {
 			$this->Comparecimento->create();
 			if ($this->Comparecimento->save($this->request->data)) {
@@ -67,6 +70,7 @@ class ComparecimentosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Comparecimento->exists($id)) {
 			throw new NotFoundException(__('Invalid comparecimento'));
 		}

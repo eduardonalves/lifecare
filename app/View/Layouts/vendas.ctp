@@ -89,6 +89,8 @@
 						<li><a href='#'><span>Comercial</span></a></li>
 						<li><a href='#'><span>Compras</span></a></li>
 					-->
+					
+					<li class='last'><a href='<?php echo $this->Html->url(array("controller"=>"Comparecimentos","action"=>"index"),true);?>'><span>RH</span></a></li>
 					<li class='last'><a href=<?php echo $this->Html->url(array("controller"=>"Users","action"=>"index"),true);?>><span>Usuário</span></a></li>
 				</ul>
 			</nav>

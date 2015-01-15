@@ -21,6 +21,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'rh';
 		$this->Cargo->recursive = 0;
 		$this->set('cargos', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Cargo->exists($id)) {
 			throw new NotFoundException(__('Invalid cargo'));
 		}
@@ -46,6 +48,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'rh';
 		if ($this->request->is('post')) {
 			$this->Cargo->create();
 			if ($this->Cargo->save($this->request->data)) {
@@ -65,6 +68,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Cargo->exists($id)) {
 			throw new NotFoundException(__('Invalid cargo'));
 		}
