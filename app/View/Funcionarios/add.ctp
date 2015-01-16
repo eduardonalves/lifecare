@@ -78,22 +78,26 @@
 	
 	<section>
 		<section class="coluna-esquerda">
-			<?php						
-				echo $this->Form->input('cargo_id',array('label'=>'Cargo<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio','type'=>'text'));
-				echo $this->Form->input('admissao',array('label'=>'Admissão<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+			
+			
+			
+			
+			<?php									
+				echo $this->Form->input('cargo_id',array('label'=>'Cargo<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio obrigatorio','type'=>'text'));
+				echo $this->Form->input('admissao',array('label'=>'Admissão:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 			?>
 		</section>
 		
 		<section class="coluna-central">
 			<?php
-				echo $this->Form->input('tipo_contrato',array('label'=>'Tipo de Contrato<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio','type'=>'select','options'=>array('efetivo'=>'Efetivo','estagio'=>'Estágio','treinamento'=>'Treinamento')));
+				echo $this->Form->input('tipo_contrato',array('label'=>'Tipo de Contrato<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio obrigatorio','type'=>'select','options'=>array('efetivo'=>'Efetivo','estagio'=>'Estágio','treinamento'=>'Treinamento')));
 				echo $this->Form->input('desligamento',array('label'=>'Desligamento:','class'=>'tamanho-pequeno inputData','type'=>'text'));
 			?>
 		</section>
 		
 		<section class="coluna-direita">
 			<?php
-				echo $this->Form->input('efetivacao',array('label'=>'Início<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData','type'=>'text'));
+				echo $this->Form->input('efetivacao',array('label'=>'Início<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-pequeno inputData obrigatorio','type'=>'text'));
 			?>
 		</section>
 	</section>
@@ -103,14 +107,22 @@
 <footer>
 	<?php
 		echo $this->html->image('botao-voltar.png',array('id'=>'voltar','style'=>'float:left;cursor:pointer;display:none;'));
-		
+				
 		echo $this->html->image('botao-salvar.png',array(
 							    'class'=>'bt-salvar',
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
 							    'id'=>'salvarFuncionario'							    
 	    ));
-		
+	    
 		echo $this->Form->end();
 	?>	
 </footer>
+
+
+<div style="clear:both"></div>
+<pre>
+	<?php
+		print_r($cargos);
+	?>
+</pre>

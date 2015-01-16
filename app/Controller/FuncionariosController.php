@@ -66,6 +66,11 @@ class FuncionariosController extends AppController {
 				$this->Session->setFlash(__('The funcionario could not be saved. Please, try again.'));
 			}
 		}
+		
+		$this->loadModel('Cargo');
+		$cargos = $this->Cargo->find('all',array('order'=>'Cargo.nome asc','recursive'=>0));
+		
+		$this->set(compact('cargos'));
 	}
 
 /**

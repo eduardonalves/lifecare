@@ -1,7 +1,21 @@
 $(document).ready(function() {
 
+ 
+/********************* Autocomplete Cargos *********************/
+    $(function(){
+		$("#add-cargo").combobox();
+	});
 
-	
+/**************** Modal Parceiro de negocio tipo Fornecedor *****************/
+    $('body').on('click', '#ui-id-1 a',function(){
+		valorCad= $(this).text();
+		if(valorCad=="Cadastrar"){
+			$(".autocompleteCargo input").val('');
+			//$("#myModal_add-parceiroFornecedor").modal('show');
+		}
+
+    });
+    
 	
 /*** Validação de Campos ***********************************************/	
 	var saveForm = true;
@@ -11,15 +25,16 @@ $(document).ready(function() {
 			if($(this).val() == ''){
 				$(this).addClass('shadow-vermelho');
 				$('<span class="validacao">Preencha este Campo!</span>').insertAfter($(this));
+				if(saveForm == true){
+					saveForm = false;
+				}
 				return false;
-				saveForm = false;
 			}
-		});	
-		
-		if(saveForm == true){	
+		});				
+		if(saveForm == true ){
 			$('#formFuncionario').submit();
 		}
-	});
+	});	
 	
 	$('.obrigatorio').focusout(function(){
 		if($(this).val() != ''){
