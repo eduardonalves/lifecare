@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
- 
+
 /********************* Autocomplete Cargos *********************/
     $(function(){
 		$("#add-cargo").combobox();
@@ -11,7 +11,9 @@ $(document).ready(function() {
 		valorCad= $(this).text();
 		if(valorCad=="Cadastrar"){
 			$(".autocompleteCargo input").val('');
-			//$("#myModal_add-parceiroFornecedor").modal('show');
+			$("#myModal_add-cargo").modal('show');
+		}else{
+			$('span[class*=validacao]').remove();
 		}
 
     });
@@ -20,11 +22,12 @@ $(document).ready(function() {
 /*** Validação de Campos ***********************************************/	
 	var saveForm = true;
 	$('#salvarFuncionario').click(function(){	
-		$('.validacao').remove();	 
+		$('span[class*=validacao]').remove(); 
 		$('.obrigatorio').each(function(){		
 			if($(this).val() == ''){
+				classe = $(this).attr('data-classe');
 				$(this).addClass('shadow-vermelho');
-				$('<span class="validacao">Preencha este Campo!</span>').insertAfter($(this));
+				$('<span class="validacao '+classe+'">Preencha este Campo!</span>').insertAfter($(this));
 				if(saveForm == true){
 					saveForm = false;
 				}
@@ -38,7 +41,7 @@ $(document).ready(function() {
 	
 	$('.obrigatorio').focusout(function(){
 		if($(this).val() != ''){
-			$('.validacao').remove();
+			$('span[class*=validacao]').remove();
 			saveForm = true;
 		}
 	});

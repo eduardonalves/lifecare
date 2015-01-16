@@ -13,7 +13,7 @@ class CargosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'RequestHandler');
 
 /**
  * index method
@@ -49,15 +49,30 @@ class CargosController extends AppController {
  */
 	public function add() {
 		$this->layout = 'rh';
+		
 		if ($this->request->is('post')) {
+		
+			$resposta = array();
+			$resposta = $this->request->data;
+			
 			$this->Cargo->create();
-			if ($this->Cargo->save($this->request->data)) {
-				$this->Session->setFlash(__('The cargo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			if($this->Cargo->save($this->request->data)) {				
+				
+				if(!$this->request->is('ajax')){
+					$this->Session->setFlash(__('Cargo Adicionado.'), 'default', array('class' => 'success-flash'));
+					//return $this->redirect(array('action' => 'view'));
+				}
+				
+				$id = $this->Cargo->find('count');
+				$resposta['id'] = $id;
 			} else {
 				$this->Session->setFlash(__('The cargo could not be saved. Please, try again.'));
 			}
+			
 		}
+		
+		
+		$this->set(compact('resposta'));
 	}
 
 /**
