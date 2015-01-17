@@ -125,10 +125,21 @@
 					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Funcionarios","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
+							echo $this->Html->image('cadastrar.png', array('id' => 'entrada-icon', 'alt' => 'Cadastrar Funcionários', 'title' => 'Cadastrar Funcionários'));
 						?>
 
 						<span class="label">Cadastrar Funcionário</span>
+					</a>
+				</li>
+				
+				<li class="item">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Cargos","action"=>"add"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('cadastrar.png', array('id' => 'entrada-icon', 'alt' => 'Gerenciar Cargos', 'title' => 'Gerenciar Cargos'));
+						?>
+
+						<span class="label">Gerenciar Cargos</span>
 					</a>
 				</li>
 
