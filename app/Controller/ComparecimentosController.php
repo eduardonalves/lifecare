@@ -26,6 +26,7 @@ class ComparecimentosController extends AppController {
 	public function beforeFilter(){
 		parent::beforeFilter();
 		$this->hoje = date('Y-m-d');
+
 	}
 	
 	public function index() {
@@ -100,42 +101,37 @@ class ComparecimentosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+
 		$this->layout = 'rh';
-		
+
 		if($id == null){
-				
-			$this->request->data['filter']['status'] = 'PRESENCA';
-			$this->request->data['filter']['date'] = $this->hoje;
-			
+
 			$this->Filter->addFilters(
 					array(
-						'compara' => array(
+						'status' => array(
 							'Comparecimento.status' => array(
 								'operator' => '='
 							)
 						),
-						'fil' => array(
-							'Comparecimento.date' => array(
-								'operator' => '='
+						'data' => array(
+							'Comparecimento.date' => array('value' => $this->hoje)
 							)
 						)
-					)
 				);
+				
 
-		
-			//$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
-			//$this->Filter->setPaginate('limit', 30);              // optional
-			
-						$this->Paginator->settings = array(
+			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
+			$this->Filter->setPaginate('limit', 30);              // optional
+
+			$this->Paginator->settings = array(
 				'Comparecimento' => array(
 					'conditions' => $this->Filter->getConditions(),
 					'order' => 'Comparecimento.status asc'
 					)
 				);
-			// Define conditions
-			//$this->Filter->setPaginate('conditions', $this->Filter->getConditions());
+
 			$this->Comparecimento->recursive = 0;
-			//$registro = $this->Comparecimento->find('all',array('conditions'=>$this->Filter->getConditions()));
+
 			$this->set('registro', $this->Paginator->paginate());
 
 		}else{
