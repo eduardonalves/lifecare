@@ -152,7 +152,7 @@
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha1"><?php echo $this->Html->Tag('p','Cargo:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$cargoFunc['Cargos']['nome'],array('class'=>'valor'));?>	</div>
+					<div class="linha2"><?php echo $this->Html->Tag('p',$funcionario['Cargo']['nome'],array('class'=>'valor'));?>	</div>
 				</div>
 				
 				<div class="conteudo-linha">

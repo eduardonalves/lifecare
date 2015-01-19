@@ -84,10 +84,10 @@
 					<select  name="data[Funcionario][cargo_id]" class="tamanho-medio obrigatorio" data-classe="validacao-combobox" id="add-cargo">
 						<option></option>
 						<option value="add-cargo">Cadastrar</option>
-
 						<?php
-							foreach($cargos as $cargo){								
-								echo "<option value='".$cargo['Cargo']['id']."'>";
+							foreach($cargos as $cargo){		
+								$selected = ($this->data['Funcionario']['cargo_id'] == $cargo['Cargo']['id']) ? 'selected="selected"' : '';
+								echo "<option value='".$cargo['Cargo']['id']."' " . $selected . ">";
 									echo $cargo['Cargo']['nome'];
 								echo "</option>";
 							}
