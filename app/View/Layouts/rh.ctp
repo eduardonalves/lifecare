@@ -101,22 +101,13 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Comparecimentos","action"=>"index"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
+							echo $this->Html->image('gerencia.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
 						?>
 
-						<span class="label">Consultas</span>
-					</a>
-				</li>
-
-				<li class="item" style="line-height: 15px">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Comparecimentos","action"=>"add"),true);?>'>
-						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
-						?>
-						<span class="label">Marcar Presença</span>
+						<span class="label">Controle Presencial</span>
 					</a>
 				</li>
 

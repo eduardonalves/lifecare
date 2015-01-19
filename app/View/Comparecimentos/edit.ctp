@@ -6,7 +6,7 @@
 ?>
 <header>
 	<?php
-		echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); 
+		echo $this->Html->image('titulo-gerenciar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); 
 	?>
 <h1 class="menuOption51">Controle Presencial</h1>
 
@@ -17,6 +17,9 @@
 	<header></header>
 
 </section>
+
+
+<div style="clear:both;"></div>
 
 <pre>
 <?php

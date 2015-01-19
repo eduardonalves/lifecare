@@ -10,7 +10,7 @@
 
 <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
-<h1 class="menuOption54">Gerenciar Cargos</h1>
+<h1 class="menuOption53">Gerenciar Cargos</h1>
 
 </header>
 

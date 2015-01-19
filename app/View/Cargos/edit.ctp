@@ -2,7 +2,7 @@
 
 <?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
-<h1 class="menuOption23">Editar Cargo</h1>
+<h1 class="menuOption53">Editar Cargo</h1>
 
 </header>
 
