@@ -274,7 +274,7 @@
  * any date & time related errors.
  */
 	//date_default_timezone_set('UTC');
-
+	date_default_timezone_set('Brazil/East');
 /**
  *
  * Cache Engine Configuration

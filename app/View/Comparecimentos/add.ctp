@@ -50,6 +50,7 @@
 																				'after'=>'</td>',
 																				'between'=> '',
 																				'separator'=>'</td><td class="td-status">',
+																				'value'=>'presente',
 																				'options'=>array('presente'=>'','faltoso'=>'','atestado'=>'')
 																				));		
 							
