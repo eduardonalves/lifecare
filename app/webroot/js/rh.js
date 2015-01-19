@@ -20,8 +20,11 @@ $(document).ready(function() {
     
 	
 /*** Validação de Campos ***********************************************/	
-	var saveForm = true;
+	
 	$('#salvarFuncionario').click(function(){	
+	
+	var saveForm = true;
+
 		$('span[class*=validacao]').remove(); 
 		$('.obrigatorio').each(function(){		
 			if($(this).val() == ''){
@@ -31,10 +34,12 @@ $(document).ready(function() {
 				if(saveForm == true){
 					saveForm = false;
 				}
+
 				return false;
 			}
 		});				
 		if(saveForm == true ){
+
 			$('#formFuncionario').submit();
 		}
 	});	
