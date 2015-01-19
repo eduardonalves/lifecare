@@ -114,9 +114,24 @@ class ComparecimentosController extends AppController {
 							)
 						),
 						'data' => array(
-							'Comparecimento.date' => array('value' => $this->hoje)
+							'Comparecimento.date' => array(
+								'operator' => '='
 							)
-						)
+						),
+
+						'funcionario' => array(
+							'Comparecimento.funcionario_id' => array(
+								'select' => $this->Filter->select('Funcionario', $this->Comparecimento->Funcionario->find('list', array('fields'=>'Funcionario.nome')))
+							)
+						),
+
+						'cargo' => array(
+							'Funcionario.cargo_id' => array(
+								'select' => $this->Filter->select('Cargo', $this->Comparecimento->Funcionario->Cargo->find('list', array('fields'=>'Cargo.nome')))
+							)
+						),
+
+					)
 				);
 				
 
