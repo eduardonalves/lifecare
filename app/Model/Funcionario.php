@@ -15,6 +15,7 @@ class Funcionario extends AppModel {
  *
  * @var array
  */
+	public $belongsTo = 'Cargo';
 	public $hasMany = array(
 		'User' => array(
 			'className' => 'User',

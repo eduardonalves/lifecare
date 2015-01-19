@@ -40,10 +40,7 @@ class FuncionariosController extends AppController {
 		}
 		$options = array('conditions' => array('Funcionario.' . $this->Funcionario->primaryKey => $id));
 		$funcionario = $this->Funcionario->find('first', $options);
-		$funcionario['Funcionario']['cargo_id'];
-		$this->loadModel('Cargos');
-		$cargoFunc = $this->Cargos->find('first',array('conditions'));
-		$this->set(compact('funcionario','cargoFunc'));
+		$this->set(compact('funcionario'));
 	}
 
 /**
