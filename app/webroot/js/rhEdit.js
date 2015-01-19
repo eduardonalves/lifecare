@@ -14,12 +14,18 @@ $(document).ready(function() {
 			$("#myModal_add-cargo").modal('show');
 		}else{
 			$('span[class*=validacao]').remove();
+			var texto = String($(".autocompleteCargo input").val());
+			$(".acheID").each(function(){
+				if($(this).text() == texto)
+					$('#cargo_hidden').val($(this).val());
+			});
+			
 		}
 
     });
     
 	
-/*** Validação de Campos ***********************************************/	
+/*** Validação de Campos E Save ADD ***********************************************/	
 	var saveForm = true;
 	$('#salvarFuncionario').click(function(){	
 		$('span[class*=validacao]').remove(); 

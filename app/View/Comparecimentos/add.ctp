@@ -1,21 +1,67 @@
-<div class="comparecimentos form">
-<?php echo $this->Form->create('Comparecimento'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Comparecimento'); ?></legend>
-	<?php
-		echo $this->Form->input('funcionario_id');
-		echo $this->Form->input('date');
-		echo $this->Form->input('status');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+	$this->start('css');
+		echo $this->Html->css('table');
+	$this->end();
+?>
 
-		<li><?php echo $this->Html->link(__('List Comparecimentos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Funcionarios'), array('controller' => 'funcionarios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Funcionario'), array('controller' => 'funcionarios', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<header>
+	<?php
+		echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); 
+	?>
+<h1 class="menuOption52"></h1>
+
+</header>
+
+
+<section>
+<header> Confirmar Presença </header>
+	
+	<section>
+		<table>
+			<thead>
+				<th>Nome</th>
+				<th>Presente</th>
+				<th>Faltoso</th>
+				<th>Atestado</th>
+				<th>Ações</th>
+			</thead>
+			
+			<tbody>
+				<?php
+					foreach($funcionarios as $funcionario){
+				?>
+					<tr>
+						<?php
+							echo $this->Form->input('funcionario_id',array('type'=>'hidden'));
+							echo $this->Form->input('date',array('type'=>'hidden'));
+							echo $this->Form->input('status',array('type'=>'hidden'));
+
+						?>
+					</tr>
+				<?php	
+					}
+				?>				
+			</tbody>
+		
+		</table>
+		
+	</section>
+	<?php 
+		
+	
+		echo $this->Form->create('Comparecimento'); 
+		
+			echo $this->Form->input('funcionario_id');
+			echo $this->Form->input('date');
+			echo $this->Form->input('status');
+			
+		echo $this->Form->end(__('Submit')); 
+		
+	?>
+</section>
+
+<pre>
+<?php
+	print_r($funcionarios);
+?>
+</pre>

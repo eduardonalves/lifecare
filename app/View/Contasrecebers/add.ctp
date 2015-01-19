@@ -90,7 +90,7 @@
 				<div class="input autocompleteCliente contas">
 					<span id="msgValidaParceiro" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Cliente</span>
 					<label>Buscar Cliente<span class="campo-obrigatorio">*</span>:</label>
-					<select class="tamanho-medio" id="add-cliente">
+					<select  class="tamanho-medio" id="add-cliente">
 						<option id="optvazioForn"></option>
 						<option value="add-parceiroCliente">Cadastrar</option>
 

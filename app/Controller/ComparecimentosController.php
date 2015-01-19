@@ -58,7 +58,7 @@ class ComparecimentosController extends AppController {
 				$this->Session->setFlash(__('The comparecimento could not be saved. Please, try again.'));
 			}
 		}
-		$funcionarios = $this->Comparecimento->Funcionario->find('list');
+		$funcionarios = $this->Comparecimento->Funcionario->find('all',array('order'=>'Funcionario.nome ASC','recursive'=>0));
 		$this->set(compact('funcionarios'));
 	}
 
