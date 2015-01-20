@@ -4,53 +4,12 @@ App::uses('AppModel', 'Model');
  * Saida Model
  *
  * @property Parceirodenegocio $Parceirodenegocio
- * @property User $User
- * @property Vendedor $Vendedor
- * @property Natop $Natop
- * @property Comoperacao $Comoperacao
- * @property Cuf $Cuf
- * @property Indpag $Indpag
- * @property Mod $Mod
- * @property Serie $Serie
- * @property Tpnf $Tpnf
- * @property Cmunfg $Cmunfg
- * @property Tpimp $Tpimp
- * @property Cdv $Cdv
- * @property Tpamb $Tpamb
- * @property Finnfe $Finnfe
- * @property Procemi $Procemi
- * @property Verproc $Verproc
- * @property Transp $Transp
- * @property Transportadore $Transportadore
- * @property Lote $Lote
- * @property Produto $Produto
  */
-class Saida extends AppModel {
-
-/**
- * Use table
- *
- * @var mixed False or table name
- */
-	public $useTable = 'notas';
-
-/**
- * Validation rules
- *
- * @var array
- */
-	public $validate = array(
-		'cdv' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+App::Import('Model', 'Nota');
+class Saida extends Nota {
+	var $name = 'Saida';
+	public $useTable = 'notas';  
+	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -67,30 +26,9 @@ class Saida extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'User' => array(
-			'className' => 'User',
-			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Vendedor' => array(
-			'className' => 'Vendedor',
-			'foreignKey' => 'vendedor_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Natop' => array(
-			'className' => 'Natop',
-			'foreignKey' => 'natop_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Comoperacao' => array(
-			'className' => 'Comoperacao',
-			'foreignKey' => 'comoperacao_id',
+		'Transportadore' => array(
+			'className' => 'Transportadore',
+			'foreignKey' => 'transportadore_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -98,6 +36,27 @@ class Saida extends AppModel {
 		'Cuf' => array(
 			'className' => 'Cuf',
 			'foreignKey' => 'cuf_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Cliente' => array(
+			'className' => 'Cliente',
+			'foreignKey' => 'parceirodenegocio_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Pedidovenda' => array(
+			'className' => 'Pedidovenda',
+			'foreignKey' => 'comoperacao_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Comoperacao' => array(
+			'className' => 'Comoperacao',
+			'foreignKey' => 'comoperacao_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -186,38 +145,51 @@ class Saida extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Transportadore' => array(
-			'className' => 'Transportadore',
-			'foreignKey' => 'transportadore_id',
+		'Natop' => array(
+			'className' => 'Natop',
+			'foreignKey' => 'natop_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
+		
 	);
+//Has many
 
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Lote' => array(
-			'className' => 'Lote',
-			'joinTable' => 'notas_lotes',
-			'foreignKey' => 'saida_id',
-			'associationForeignKey' => 'lote_id',
-			'unique' => 'keepExisting',
+	public $hasMany = array(
+		'Produtoiten' => array(
+			'className' => 'Produtoiten',
+			'foreignKey' => 'nota_id',
+			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
+			'exclusive' => '',
 			'finderQuery' => '',
+			'counterQuery' => ''
 		),
+		'Loteiten' => array(
+			'className' => 'Loteiten',
+			'foreignKey' => 'nota_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+	
+	public $hasAndBelongsToMany = array(
 		'Produto' => array(
 			'className' => 'Produto',
 			'joinTable' => 'notas_produtos',
-			'foreignKey' => 'saida_id',
+			'foreignKey' => 'nota_id',
 			'associationForeignKey' => 'produto_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',

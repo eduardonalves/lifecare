@@ -75,11 +75,11 @@ $schemesCTe="PL_CTE_104";
 //###### EMPRESA EMITENTE #######
 //###############################
 //Nome da Empresa
-$empresa='Sua Razao Social Aqui (sem acentos ou simbolos)';
+$empresa='Cirurgicas Simoes';
 //Sigla da UF
-$UF='SP';
+$UF='RJ';
 //Número do CNPJ
-$cnpj='1234567890001';
+$cnpj='10619128000191';
 
 //##############################
 //#### CERTIFICADO DIGITAL #####

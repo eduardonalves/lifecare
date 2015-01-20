@@ -35,6 +35,7 @@ class AppController extends Controller {
 
 		var $components = array(
 			'Session',
+			'Security',
 			'Acl',
 			'Auth',
 			'FilterResults.Filter' => array(
