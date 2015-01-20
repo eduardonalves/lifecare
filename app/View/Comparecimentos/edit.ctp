@@ -23,12 +23,12 @@
 <section>
 	<header></header>
 		
-		<section> <!-- FILTRO INICIO -->
+		<section style="display:inline-flex;"> <!-- FILTRO INICIO -->
 			<?php
 				echo $this->Search->create();
 			?>
 			
-			<div class="filtro-funcionario filtro-cor-verde">
+			<div class="coluna-esquerda filtro-funcionario filtro-cor-verde">
 				<span class="filtro-titulo">Busca pelo Funcinário</span>
 				<?php 
 					echo $this->Search->input('funcionario', array('label'=>'Nome:','class' => 'select-box tamanho-medio combo-autocomplete'));
@@ -38,7 +38,7 @@
 				?>
 			</div>
 			
-			<div class="filtro-comparecimento filtro-cor-amarelo">
+			<div class="coluna-central filtro-comparecimento filtro-cor-amarelo">
 				<span class="filtro-titulo">Busca pela Presença</span>
 				<?php
 					echo $this->Search->input('status',array('label'=>'Status:','class'=>'tamanho-medio'));
@@ -46,7 +46,7 @@
 				?>
 			</div>
 			
-			<div class="filtro-comparecimento filtro-cor-neutro">
+			<div class="coluna-direita filtro-comparecimento filtro-cor-neutro">
 				<span class="filtro-titulo">Contagem da Pesquisa</span>
 				
 			</div>		
@@ -59,13 +59,44 @@
 			</footer>
 			
 		</section> <!-- FILTRO FIM -->
-			
+
 		
 		<section> <!-- TABELA DE RESULTADO INICIO -->
-		
-		
-		
-		</section> <!-- TABELA DE RESULTADO INICIO -->
+			
+			<table>
+					<thead>
+						<th>Nome do Funcionário</th>
+						<th>Presente</th>
+						<th>Externo</th>
+						<th>Falta</th>
+						<th>Folga</th>
+						<th>Atestado</th>
+					</thead>
+					
+					<tbody>
+						<?php
+							$i = 0;
+							foreach($registro as $presenca){
+						?>
+							<tr>
+								
+								<td><?php echo $presenca['Funcionario']['nome']; ?></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								
+								
+							</tr>
+						
+						<?php 
+						}
+						?>
+					</tbody>
+			</table>		
+			
+		</section> <!-- TABELA DE RESULTADO FIM -->
 
 
 
