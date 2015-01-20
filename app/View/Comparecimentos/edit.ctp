@@ -63,6 +63,7 @@
 		
 		<section> <!-- TABELA DE RESULTADO INICIO -->
 			
+			<?php echo $this->element('paginador_superior'); ?>
 			<table>
 					<thead>
 						<th>Nome do Funcionário</th>
@@ -95,7 +96,8 @@
 						?>
 					</tbody>
 			</table>		
-			
+						<?php echo $this->element('paginador_inferior');?>
+
 		</section> <!-- TABELA DE RESULTADO FIM -->
 
 

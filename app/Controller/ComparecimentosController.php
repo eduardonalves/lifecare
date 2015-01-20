@@ -27,6 +27,11 @@ class ComparecimentosController extends AppController {
 		parent::beforeFilter();
 		$this->hoje = date('Y-m-d');
 
+		if(!isset($this->request->query['limit']))
+		{
+			$this->request->query['limit'] = 15;
+		}
+
 	}
 	
 	public function index() {
