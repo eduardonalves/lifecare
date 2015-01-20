@@ -110,7 +110,8 @@ class ComparecimentosController extends AppController {
 					array(
 						'status' => array(
 							'Comparecimento.status' => array(
-								'operator' => '='
+								'operator' => '=',
+								'select' => array(''=>'','PRESENTE'=>'Presente','Externo'=>'Externo','FALTA'=>'Falta','FOLGA'=>'Folga','ATESTADO'=>'Atestado')
 							)
 						),
 						'data' => array(
@@ -133,10 +134,12 @@ class ComparecimentosController extends AppController {
 
 					)
 				);
-				
-
+			
+	
 			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
 			$this->Filter->setPaginate('limit', 30);              // optional
+			
+		
 
 			$this->Paginator->settings = array(
 				'Comparecimento' => array(
@@ -145,6 +148,8 @@ class ComparecimentosController extends AppController {
 					)
 				);
 
+			
+			
 			$this->Comparecimento->recursive = 0;
 
 			$this->set('registro', $this->Paginator->paginate());

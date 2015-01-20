@@ -2,6 +2,13 @@
 	$this->start('css');
 		echo $this->Html->css('table');
 		echo $this->Html->css('comparecimento');
+		echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	    echo $this->Html->css('jquery-ui/custom-combobox.css');
+	$this->end();
+	
+	$this->start('script');
+		echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+		echo $this->Html->script('comparecimento');
 	$this->end();
 ?>
 <header>
@@ -15,6 +22,52 @@
 
 <section>
 	<header></header>
+		
+		<section> <!-- FILTRO INICIO -->
+			<?php
+				echo $this->Search->create();
+			?>
+			
+			<div class="filtro-funcionario filtro-cor-verde">
+				<span class="filtro-titulo">Busca pelo Funcinário</span>
+				<?php 
+					echo $this->Search->input('funcionario', array('label'=>'Nome:','class' => 'select-box tamanho-medio combo-autocomplete'));
+					echo "<br>";
+					
+					echo $this->Search->input('cargo', array('label'=>'Cargo:','class' => 'select-box tamanho-medio combo-autocomplete'));
+				?>
+			</div>
+			
+			<div class="filtro-comparecimento filtro-cor-amarelo">
+				<span class="filtro-titulo">Busca pela Presença</span>
+				<?php
+					echo $this->Search->input('status',array('label'=>'Status:','class'=>'tamanho-medio'));
+					echo $this->Search->input('data',array('label'=>'Data:','class'=>'tamanho-medio'));	
+				?>
+			</div>
+			
+			<div class="filtro-comparecimento filtro-cor-neutro">
+				<span class="filtro-titulo">Contagem da Pesquisa</span>
+				
+			</div>		
+			
+			<footer>
+				<?php
+					echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar')); 
+					//echo $this->Search->end(__('Filter', true));
+				?>
+			</footer>
+			
+		</section> <!-- FILTRO FIM -->
+			
+		
+		<section> <!-- TABELA DE RESULTADO INICIO -->
+		
+		
+		
+		</section> <!-- TABELA DE RESULTADO INICIO -->
+
+
 
 </section>
 
