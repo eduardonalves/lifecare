@@ -43,16 +43,21 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('lifecare');
-	
+		//echo $this->Html->css('jquery-ui/jquery-ui.css');
+		//echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+		//echo $this->Html->css('jquery-ui/custom-combobox.css');
+		//echo $this->Html->css('saidas.css');
 		echo $this->fetch('css');
-		//echo $this->Html->script('jquery_novo.js');
-		//echo $this->Html->script('jquery-ui/jquery-ui.js');
-	
-		echo $this->Html->script('jquery.mask.min.js');
-		echo $this->Html->script('jquery.price_format.1.8.min.js');
-		echo $this->Html->css('bootstrap');
-		echo $this->Html->script('bootstrap');
-		echo $this->Html->script('funcoes_globais.js');
+			echo $this->Html->script('jquery_novo.js');
+			echo $this->Html->script('jquery-ui/jquery-ui.js');
+			echo $this->Html->script('jquery-ui/custom-combobox.js');
+			echo $this->Html->script('jquery.mask.min.js');
+			echo $this->Html->script('jquery.mask.js');
+			echo $this->Html->script('jquery.price_format.1.8.js');
+			echo $this->Html->script('jquery.price_format.1.8.min.js');
+			echo $this->Html->css('bootstrap');
+			echo $this->Html->script('bootstrap');
+			echo $this->Html->script('funcoes_globais.js');
 		echo $this->fetch('script');
 	?>
 
@@ -77,15 +82,16 @@
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"dashboard","action"=>"index"),true);?>'><span>Home</span></a></li>
 					<li class='active'><a href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'><span>Estoque</span></a></li>
 					<li><a href='<?php echo $this->Html->url(array("controller"=>"Contas","action"=>"index"),true);?>/?parametro=contas'><span>Financeiro</span></a></li>
-					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>'><span>Compras</span></a></li>
-					<li><a href='<?php echo $this->Html->url(array("controller"=>"vendas","action"=>"index"),true);?>/?parametro=pedidos'><span>Vendas</span></a></li>
+					<li><a href='<?php echo $this->Html->url(array("controller"=>"Comoperacaos","action"=>"index"),true);?>/?parametro=operacoes'><span>Compras</span></a></li>
+
 					<!--
 						<li><a href='#'><span>Financeiro</span></a></li>
 						<li><a href='#'><span>Comercial</span></a></li>
 						<li><a href='#'><span>Compras</span></a></li>
 					-->
+					
 					<li class='last'><a href='<?php echo $this->Html->url(array("controller"=>"Comparecimentos","action"=>"index"),true);?>'><span>RH</span></a></li>
-					<li class='last'><a href='#'><span>Usuario</span></a></li>
+					<li class='last'><a href=<?php echo $this->Html->url(array("controller"=>"Users","action"=>"index"),true);?>><span>Usuário</span></a></li>
 				</ul>
 			</nav>
 		</section><!-- holder-1 -->
@@ -95,77 +101,40 @@
 		<nav id="nav-lateral">	
 			<ul>
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Notas","action"=>"index"),true);?>/?parametro=produtos'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Comparecimentos","action"=>"index"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('consultas.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
+							echo $this->Html->image('gerencia.png', array('id' => 'consultar-icon', 'alt' => 'Consultar', 'title' => 'Consultar'));
 						?>
 
-						<span class="label">Consultas</span>
+						<span class="label">Controle Presencial</span>
 					</a>
 				</li>
 
+							
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Produtos","action"=>"add"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Funcionarios","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('cadastrar.png', array('id' => 'aside-cadastrar-icon', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+							echo $this->Html->image('cadastrar.png', array('id' => 'entrada-icon', 'alt' => 'Cadastrar Funcionários', 'title' => 'Cadastrar Funcionários'));
 						?>
 
-						<span class="label">Cadastrar</span>
+						<span class="label">Cadastrar Funcionário</span>
 					</a>
 				</li>
-
+				
 				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"entradas","action"=>"index"),true);?>'>
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Cargos","action"=>"add"),true);?>'>
 						
 						<?php 
-							echo $this->Html->image('entrada.png', array('id' => 'entrada-icon', 'alt' => 'Entrada', 'title' => 'Entrada'));
+							echo $this->Html->image('cadastrar.png', array('id' => 'entrada-icon', 'alt' => 'Gerenciar Cargos', 'title' => 'Gerenciar Cargos'));
 						?>
 
-						<span class="label">Entrada</span>
+						<span class="label">Gerenciar Cargos</span>
 					</a>
 				</li>
 
-				<li class="item">
-					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"saidas","action"=>"index"),true);?>'>
-						
-						<?php 
-							echo $this->Html->image('saida.png', array('id' => 'saida-icon', 'alt' => 'Saida', 'title' => 'Saida'));
-						?>
-
-						<span class="label">Sa&iacute;da</span>
-					</a>
-				</li>
-			
-				<!--
-					<li class="item">
-
-						<?php 
-							echo $this->Html->image('estoque.png', array('id' => 'estoque-icon', 'alt' => 'Estoque', 'title' => 'Estoque'));
-						?>
-
-						<span class="label">Estoque<br />(N&iacute;vel)</span>
-					</li>
-						
-					<li class="item">
-
-						<?php 
-							echo $this->Html->image('emitir.png', array('id' => 'emitir-danfe-icon', 'alt' => 'Emitir DANFe', 'title' => 'Emitir DANFe'));
-						?>
-
-						<span class="label">Emitir<br />DANFe</span>
-					</li>
-
-					<li class="item">
-
-						<?php 
-							echo $this->Html->image('inventario.png', array('id' => 'inventario-icon', 'alt' => 'Inventario', 'title' => 'Inventario'));
-						?>
-
-						<span class="label">Invent&aacute;rio</span>				
-					</li>
-				-->
+				
 			</ul>
 		</nav><!-- nav-lateral -->
 

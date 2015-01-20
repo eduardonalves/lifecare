@@ -13,7 +13,7 @@ class FuncionariosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','lifecareDataFuncs', 'lifecareFuncs',);
 
 /**
  * index method
@@ -21,7 +21,7 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		$this->Funcionario->recursive = 0;
 		$this->set('funcionarios', $this->Paginator->paginate());
 	}
@@ -34,12 +34,13 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		if (!$this->Funcionario->exists($id)) {
 			throw new NotFoundException(__('Invalid funcionario'));
 		}
 		$options = array('conditions' => array('Funcionario.' . $this->Funcionario->primaryKey => $id));
-		$this->set('funcionario', $this->Funcionario->find('first', $options));
+		$funcionario = $this->Funcionario->find('first', $options);
+		$this->set(compact('funcionario'));
 	}
 
 /**
@@ -48,16 +49,30 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function add() {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		if ($this->request->is('post')) {
 			$this->Funcionario->create();
-			if ($this->Funcionario->save($this->request->data)) {
-				$this->Session->setFlash(__('The funcionario has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			
+			//Converte as datas
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['nascimento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['admissao']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['desligamento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['efetivacao']);
+			
+			if ($this->Funcionario->saveAll($this->request->data)){					
+				//debug($this->request->data);
+				$this->Session->setFlash(__('Funcionário Salvo com Sucesso.','default' ,array('class' => 'success-flash')));
+				$last = $this->Funcionario->find('count');
+				return $this->redirect(array('action' => 'view',$last));
 			} else {
 				$this->Session->setFlash(__('The funcionario could not be saved. Please, try again.'));
 			}
 		}
+		
+		$this->loadModel('Cargo');
+		$cargos = $this->Cargo->find('all',array('order'=>'Cargo.nome asc','recursive'=>0));
+		
+		$this->set(compact('cargos'));
 	}
 
 /**
@@ -68,14 +83,22 @@ class FuncionariosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->layout = 'users';
+		$this->layout = 'rh';
 		if (!$this->Funcionario->exists($id)) {
 			throw new NotFoundException(__('Invalid funcionario'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Funcionario->save($this->request->data)) {
-				$this->Session->setFlash(__('The funcionario has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				
+			//Converte as datas
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['nascimento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['admissao']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['desligamento']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Funcionario']['efetivacao']);
+			
+			if ($this->Funcionario->saveAll($this->request->data)) {
+				//debug($this->request->data);
+				$this->Session->setFlash(__('Funcionário Editado com Sucesso.','default' , array('class' => 'success-flash')));
+				return $this->redirect(array('action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('The funcionario could not be saved. Please, try again.'));
 			}
@@ -83,6 +106,12 @@ class FuncionariosController extends AppController {
 			$options = array('conditions' => array('Funcionario.' . $this->Funcionario->primaryKey => $id));
 			$this->request->data = $this->Funcionario->find('first', $options);
 		}
+			
+		$this->loadModel('Cargo');
+		$cargos = $this->Cargo->find('all',array('order'=>'Cargo.nome asc','recursive'=>0));
+		
+		$this->set(compact('cargos'));
+		
 	}
 
 /**

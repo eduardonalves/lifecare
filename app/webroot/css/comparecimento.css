@@ -1,0 +1,77 @@
+@charset "utf-8";
+
+
+/* TAG ****************************************************************/
+
+/* CLASS **************************************************************/
+.filtro-funcionario label,
+.filtro-comparecimento label{
+	float: left;
+	display: block;
+	clear: both;
+	width: 70px !important;
+	text-align: right;
+}
+
+.filtro-titulo {
+	color: #333;
+	display: block;
+	font-size: 15px;
+	margin: 0px 0px 15px 10px;
+	text-align: left;
+	width: 170px;
+}
+.ui-autocomplete{
+	max-height: 150px;
+	overflow: auto
+}
+.filtro-funcionario select, 
+.filtro-comparecimento select{
+	height: 23px;
+}
+
+.filtro-funcionario{
+	border-radius: 8px;
+	height: 100% !important;
+	min-height: 120px;
+	-webkit-logical-height: 175px;
+	margin: 5px 0px 0px 0px;
+	padding: 6px;
+	width: 335px;
+	clear:both;
+	float: left;
+}
+
+.filtro-comparecimento{
+	border-radius: 8px;
+	height: 100% !important;
+	min-height: 120px;
+	-webkit-logical-height: 175px;
+	margin: 5px 0px 10px 15px;
+	padding: 6px;
+	width: 340px;
+	float: left;
+}
+
+.filtro-cor-verde{
+	background-color: #F0F5DB;
+	border: 1px solid rgb(171, 200, 55);
+}
+.filtro-cor-amarelo{
+	background-color: #FFFAE7;
+	border: 1px solid rgb(255, 212, 42);
+}
+.filtro-cor-neutro{
+	background-color: #F7F7F7;
+	border: 1px solid rgb(184, 184, 183);
+}
+.th-status{
+	width: 70px;
+}
+
+.td-status{
+	padding-left: 35px;
+}
+/* ID *****************************************************************/
+
+/* HERANÇA ************************************************************/

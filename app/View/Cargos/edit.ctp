@@ -1,22 +1,28 @@
-<div class="cargos form">
-<?php echo $this->Form->create('Cargo'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Cargo'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('nome');
-		echo $this->Form->input('descricao');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<header>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Cargo.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Cargo.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Cargos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Funcionarios'), array('controller' => 'funcionarios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Funcionario'), array('controller' => 'funcionarios', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
+
+<h1 class="menuOption53">Editar Cargo</h1>
+
+</header>
+
+
+<section>
+<header> Cargo </header>
+		
+	<section>
+		<section class="coluna_edit_unidade">
+			<fieldset class="fieldSetUnidade"  style="height:100px;width:400px;">
+				<legend>Editar Nome do Cargo</legend>	
+				<?php
+					echo $this->Form->create('Cargo',array('action'=>'edit'));
+						echo $this->Form->input('id',array('type'=>'hidden'));
+						echo $this->Form->input('nome',array('label'=>'Nome:','class'=>'tamanho-medio'));	
+						echo $this->Form->input('descricao',array('label'=>'Descrição:','class'=>'tamanho-medio','type'=>'textarea','style'=>'height:50px;'));	
+						echo $this->form->submit('botao-salvar.png',array('class'=>'salvarUnidade','style'=>'margin-top: -22px;margin-right:-50px;clear:both;'));
+					echo $this->Form->end();
+				?>	
+			</fieldset>
+		</section>	
+	</section>
+	

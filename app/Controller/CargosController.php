@@ -13,7 +13,7 @@ class CargosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'RequestHandler');
 
 /**
  * index method
@@ -21,6 +21,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function index() {
+		$this->layout = 'rh';
 		$this->Cargo->recursive = 0;
 		$this->set('cargos', $this->Paginator->paginate());
 	}
@@ -33,6 +34,7 @@ class CargosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Cargo->exists($id)) {
 			throw new NotFoundException(__('Invalid cargo'));
 		}
@@ -46,15 +48,32 @@ class CargosController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->layout = 'rh';
+		
 		if ($this->request->is('post')) {
+		
+			$resposta = array();
+			$resposta = $this->request->data;
+			
 			$this->Cargo->create();
-			if ($this->Cargo->save($this->request->data)) {
-				$this->Session->setFlash(__('The cargo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			if($this->Cargo->save($this->request->data)) {				
+				
+				if(!$this->request->is('ajax')){
+					$this->Session->setFlash(__('Cargo adicionado com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'add'));
+				}
+				
+				$id = $this->Cargo->find('count');
+				$resposta['id'] = $id;
 			} else {
 				$this->Session->setFlash(__('The cargo could not be saved. Please, try again.'));
 			}
+			
 		}
+		
+		$cargos = $this->Cargo->find('all',array('order'=>'Cargo.nome asc','recursive'=>0));
+		
+		$this->set(compact('resposta','cargos'));
 	}
 
 /**
@@ -65,13 +84,14 @@ class CargosController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+		$this->layout = 'rh';
 		if (!$this->Cargo->exists($id)) {
 			throw new NotFoundException(__('Invalid cargo'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Cargo->save($this->request->data)) {
-				$this->Session->setFlash(__('The cargo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('Cargo Editado com sucesso.'), 'default', array('class' => 'success-flash'));
+				return $this->redirect(array('action' => 'add'));
 			} else {
 				$this->Session->setFlash(__('The cargo could not be saved. Please, try again.'));
 			}
@@ -87,7 +107,7 @@ class CargosController extends AppController {
  * @throws NotFoundException
  * @param string $id
  * @return void
- */
+ *
 	public function delete($id = null) {
 		$this->Cargo->id = $id;
 		if (!$this->Cargo->exists()) {
@@ -99,5 +119,17 @@ class CargosController extends AppController {
 		} else {
 			$this->Session->setFlash(__('The cargo could not be deleted. Please, try again.'));
 		}
-		return $this->redirect(array('action' => 'index'));
-	}}
+		return $this->redirect(array('action' => 'add'));
+	}
+*/
+	/** 
+	 * DELETE
+	 * **/
+	function delete($id){
+		if($this->Cargo->delete($id)){
+			$this->Session->setFlash(__('O cargo foi deletada!'),'default',array('class'=>'success-flash'));
+			$this->redirect(array('action'=>'add'));			
+		}
+	}
+	
+}
