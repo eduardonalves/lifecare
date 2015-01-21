@@ -172,17 +172,19 @@
 					</div>
 					<div class="informacoesParceiro">
 						<?php
-							echo $this->Search->input('nomeParceiro', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
+							echo $this->Search->input('nomeParceiro', array('label' =>'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
 							echo $this->Search->input('statusParceiro', array('type'=>'select','label' => 'Status:','class'=>'tamanho-medio input-alinhamento'));
 						?>
 					</div>
+					
 					<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>
+					
 				</section>
 
 				<footer>
 					<?php echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar-compras')); ?>
 				</footer>
-			
+							
 			</div>
 				
 			<?php echo $this->Form->end(); ?>

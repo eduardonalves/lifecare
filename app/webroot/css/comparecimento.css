@@ -4,6 +4,24 @@
 /* TAG ****************************************************************/
 
 /* CLASS **************************************************************/
+.areaTabela {
+	overflow: visible;
+	width: 1090px;
+}
+
+.separador {
+	font-size: 13px;
+	line-height: 13px;
+	position: relative;
+	top: -3px;
+}
+
+.resultado-total {
+	float: right;
+	font-size: 13px;
+	margin: 4px 54px 0px 0px;
+}
+
 .filtro-funcionario label,
 .filtro-comparecimento label{
 	float: left;
@@ -28,6 +46,10 @@
 .filtro-funcionario select, 
 .filtro-comparecimento select{
 	height: 23px;
+}
+
+.paging{
+	clear: both !important;
 }
 
 .filtro-funcionario{

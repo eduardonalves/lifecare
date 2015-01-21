@@ -591,7 +591,7 @@ $(document).ready(function() {
 
 <?php
     }
-}
+
 	//fim de Consulta de parcelas
 ?>
 	    </table>
