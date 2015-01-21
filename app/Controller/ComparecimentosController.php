@@ -22,9 +22,11 @@ class ComparecimentosController extends AppController {
  *
  * @return void
  */
-	
+
 	public function beforeFilter(){
+
 		parent::beforeFilter();
+
 		$this->hoje = date('Y-m-d');
 
 		if(!isset($this->request->query['limit']))
@@ -146,11 +148,21 @@ class ComparecimentosController extends AppController {
 			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
 			$this->Filter->setPaginate('limit', 30);              // optional
 			
-		
+			$filterConditions = $this->Filter->getConditions();
+
+			if ( (! isset($filterConditions['Comparecimento.date ='])) || ( $filterConditions['Comparecimento.date ='] == '')){
+				
+				$filterConditions['Comparecimento.date ='] = $this->hoje;
+				$this->request->data['filter']['data'] = $this->hoje;
+
+			}else{
+				
+				$this->lifecareDataFuncs->formatDateToBD($filterConditions['Comparecimento.date =']);
+			}
 
 			$this->Paginator->settings = array(
 				'Comparecimento' => array(
-					'conditions' => $this->Filter->getConditions(),
+					'conditions' => $filterConditions,
 					'order' => 'Comparecimento.status asc'
 					)
 				);			
