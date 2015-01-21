@@ -13,7 +13,7 @@ class ComparecimentosController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Session','lifecareDataFuncs','Paginator','RequestHandler');
 
 	public $hoje;
 
@@ -31,7 +31,10 @@ class ComparecimentosController extends AppController {
 		{
 			$this->request->query['limit'] = 15;
 		}
-
+		
+		if(!isset($_GET['ql'])){
+			    $_GET['ql']=0;
+			}
 	}
 	
 	public function index() {
@@ -110,7 +113,7 @@ class ComparecimentosController extends AppController {
 		$this->layout = 'rh';
 
 		if($id == null){
-
+			
 			$this->Filter->addFilters(
 					array(
 						'status' => array(
@@ -140,7 +143,6 @@ class ComparecimentosController extends AppController {
 					)
 				);
 			
-	
 			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
 			$this->Filter->setPaginate('limit', 30);              // optional
 			
@@ -151,11 +153,9 @@ class ComparecimentosController extends AppController {
 					'conditions' => $this->Filter->getConditions(),
 					'order' => 'Comparecimento.status asc'
 					)
-				);
-
+				);			
 			
-			
-			$this->Comparecimento->recursive = 0;
+			//$this->Comparecimento->recursive = 0;
 
 			$this->set('registro', $this->Paginator->paginate());
 
@@ -165,7 +165,7 @@ class ComparecimentosController extends AppController {
 				throw new NotFoundException(__('Invalid comparecimento'));
 			}
 			if ($this->request->is(array('post', 'put'))) {
-				if ($this->Comparecimento->save($this->request->data)) {
+				if ($this->Comparecimento->saveAll($this->request->data)) {
 					$this->Session->setFlash(__('The comparecimento has been saved.'));
 					return $this->redirect(array('action' => 'index'));
 				} else {
@@ -175,6 +175,11 @@ class ComparecimentosController extends AppController {
 				$options = array('conditions' => array('Comparecimento.' . $this->Comparecimento->primaryKey => $id));
 				$this->request->data = $this->Comparecimento->find('first', $options);
 			}
+			
+			
+			$resposta = array();
+			$resposta['nome'] = 'nometeste';
+			$this->set(compact('resposta'));
 		}
 		
 		$funcionarios = $this->Comparecimento->Funcionario->find('list');

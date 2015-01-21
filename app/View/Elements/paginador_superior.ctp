@@ -8,8 +8,9 @@
 	$(document).ready( function () {
 	
 		$("#select-rpp").bind( "change" , function() {
-
+	
 			$("#PaginatorIndexForm").submit();
+			$("#PaginatorEditForm").submit();
 			
 		});
 		
@@ -49,6 +50,7 @@
 				
 					echo $this->Form->input('Paginate.limit', array('type'=>'select', 'value'=>$this->request->query['limit'], 'id'=>'select-rpp', 'label'=>'Resultados por Página: ', 'options'=> array(15=>15,20=>20,40=>40,45=>45,60=>60)));
 					if(isset($_GET['parametro'])) echo $this->Form->input('Paginate.limit', array('type'=>'hidden', 'value'=>$_GET['parametro'], 'id'=>'parametro', 'name'=>'parametro'));
+
 				echo $this->Form->end();
 			?>
 		</div>
