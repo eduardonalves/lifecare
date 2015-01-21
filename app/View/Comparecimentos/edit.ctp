@@ -11,8 +11,47 @@
 		echo $this->Html->script('comparecimento');
 	$this->end();
 	
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}else{
+			$data= " / / ";
+		}
+		return $data;
+	}
+	
 	$hoje = date('Y-m-d');
 	$hojeMesmo = date('d/m/Y');
+	
+	$falta = 0;
+	$externo = 0;
+	$presente = 0;
+	$folga = 0;
+	$atestado = 0;
+	foreach($registro as $contagem){
+		
+		if($contagem['Comparecimento']['status'] == 'FALTA'){
+			$falta++;
+		}
+		if($contagem['Comparecimento']['status'] == 'EXTERNO'){
+			$externo++;
+		}
+		if($contagem['Comparecimento']['status'] == 'PRESENTE'){
+			$presente++;
+		}
+		if($contagem['Comparecimento']['status'] == 'FOLGA'){
+			$folga++;
+		}
+		if($contagem['Comparecimento']['status'] == 'ATESTADO'){
+			$atestado++;
+		}
+		
+	}
 ?>
 <header>
 	<?php
@@ -35,8 +74,7 @@
 				<span class="filtro-titulo">Busca pelo Funcinário</span>
 				<?php 
 					echo $this->Search->input('funcionario', array('label'=>'Nome:','class' => 'select-box tamanho-medio combo-autocomplete'));
-					echo "<br>";
-					
+					echo "<br>";					
 					echo $this->Search->input('cargo', array('label'=>'Cargo:','class' => 'select-box tamanho-medio combo-autocomplete'));
 				?>
 			</div>
@@ -51,7 +89,19 @@
 			
 			<div class="coluna-direita filtro-comparecimento filtro-cor-neutro">
 				<span class="filtro-titulo">Contagem da Pesquisa</span>
-				
+				<ul class="ul-Contagem">
+					<?php
+						echo "<li>Presentes: " . $presente . "</li>";
+						echo "<li>Faltas: " . $falta . "</li>";
+						echo "<li>Externo: " . $externo . "</li>";
+					?>
+				</ul>
+				<ul class="ul-Contagem" style="margin-left:80px;">
+					<?php
+						echo "<li>Folga: " . $folga . "</li>";
+						echo "<li>Atestado: " . $atestado . "</li>";
+					?>
+				</ul>
 			</div>		
 			
 			<footer>
@@ -66,74 +116,137 @@
 		
 		<section> <!-- TABELA DE RESULTADO INICIO -->
 		<div class="areaTabela">
-			<?php 
-				echo $this->element('paginador_superior'); 
-			?>
-			<table>
-					<thead>
-						<th>Nome do Funcionário</th>
-						<th class="th-status">Presente</th>
-						<th class="th-status">Externo</th>
-						<th class="th-status">Falta</th>
-						<th class="th-status">Folga</th>
-						<th class="th-status">Atestado</th>
-					</thead>
-					
-					<tbody>
-						<?php
-							$i = 0;
-							foreach($registro as $presenca){							
-								if($presenca['Comparecimento']['date'] == $hoje ){										
-						?>			
-								
-									<tr>
-						<td><?php 
-							echo $this->Form->create('Comparecimento',array('id'=>'comparecimentoEditForm'.$i));
-								echo $presenca['Funcionario']['nome']; 
-								//echo $this->Form->input('Funcionario.'.$i.'.funcionario_id',array('type'=>'hidden','value'=>$presenca['Funcionario']['id']));
-								echo $this->Form->input('Comparecimento.id',array('id'=>'idComparecimento'.$i,'value'=>$presenca['Comparecimento']['id'],'type'=>'hidden'));
-							?></td>
-						<?php
-							echo $this->Form->input('Comparecimento.status',array(
-																				'data-id'=>'Id'.$i,
-																				'class'=>'updateStatus',
-																				'label'=>false,
-																				'fieldset'=>false,
-																				'legend'=>false,
-																				'div'=>false,
-																				'type'=>'radio',	
-																				'before'=>'<td class="td-status">',
-																				'after'=>'</td>',
-																				'between'=> '',
-																				'separator'=>'</td><td class="td-status">',
-																				'value'=>$presenca['Comparecimento']['status'],
-																				'options'=>array('PRESENTE'=>'','EXTERNO'=>'','FALTA'=>'','FOLGA'=>'','ATESTADO'=>'')
-																				));		
-							echo $this->Form->end();
-							
-
-						?>
-					</tr>
-						
-						<?php
-								}else{
-									
-								} 
-								$i++;
-							}
-						?>
-					</tbody>
-			</table>		
-			<?php 
 		
-				echo $this->element('paginador_inferior');
-			?>
+					<?php 
+						if($dataTabela == 'hoje'){ //TABELA DE HOJE
+					?>
+							<?php 
+								echo $this->element('paginador_superior'); 
+							?>
+							<table>
+						<thead>
+							<th>Nome do Funcionário</th>
+							<th>Cargo</th>
+							<th class="th-status">Presente</th>
+							<th class="th-status">Externo</th>
+							<th class="th-status">Falta</th>
+							<th class="th-status">Folga</th>
+							<th class="th-status">Atestado</th>
+						</thead>
+					
+						<tbody>
+							<?php
+								$i = 0;
+								foreach($registro as $presenca){															
+							?>			
+									
+									<tr>
+										<td>
+											<?php 
+												echo $this->Form->create('Comparecimento',array('id'=>'comparecimentoEditForm'.$i));
+												echo $presenca['Funcionario']['nome']; 
+												echo $this->Form->input('Comparecimento.id',array('id'=>'idComparecimento'.$i,'value'=>$presenca['Comparecimento']['id'],'type'=>'hidden'));
+											?>
+										</td>
+								
+										<td>
+											<?php
+												echo $presenca['Funcionario']['Cargo']['nome']; 
+											?>
+										</td>
+								
+										<?php
+											echo $this->Form->input('Comparecimento.status',array(
+																								'data-id'=>'Id'.$i,
+																								'class'=>'updateStatus',
+																								'label'=>false,
+																								'fieldset'=>false,
+																								'legend'=>false,
+																								'div'=>false,
+																								'type'=>'radio',	
+																								'before'=>'<td class="td-status">',
+																								'after'=>'</td>',
+																								'between'=> '',
+																								'separator'=>'</td><td class="td-status">',
+																								'value'=>$presenca['Comparecimento']['status'],
+																								'options'=>array('PRESENTE'=>'','EXTERNO'=>'','FALTA'=>'','FOLGA'=>'','ATESTADO'=>'')
+																								));		
+											echo $this->Form->end();
+										?>
+									</tr> 
+								<?php
+									$i++;
+									}
+								?>
+						</tbody>
+						</table>		
+						<?php 
+							echo $this->element('paginador_inferior');
+													
+							}else if($dataTabela == 'passada'){ //TABELA DO PASSADO
+						?>
+							<?php 
+								echo $this->element('paginador_superior'); 
+							?>
+							<table>
+								<thead>
+									<th>Nome do Funcionário</th>
+									<th>Cargo</th>
+									<th>Data</th>
+									<th>Status</th>
+								</thead>
+								
+								<tbody>
+									<?php
+										foreach($registro as $presenca){	
+									?>	
+										<tr>
+											<td>
+												<?php 
+													echo $presenca['Funcionario']['nome']; 
+												?>
+											</td>
+											
+											<td>
+												<?php 
+													echo $presenca['Funcionario']['Cargo']['nome'];  
+												?>
+											</td>
+											
+											<td>
+												<?php 
+													echo formatDateToView($presenca['Comparecimento']['date']); 
+												?>
+											</td>
+											<td>
+												<?php 
+													echo $presenca['Comparecimento']['status']; 
+												?>
+											</td>
+										</tr>
+									<?php	
+										}
+									?>							
+								</tbody>
+							</table>		
+							<?php 
+								echo $this->element('paginador_inferior');
+							?>
+						<?php
+							}else{
+								echo "<table><tbody><tr><td>Sem resultados para a data informada.</td></tr></tbody></table>";
+							}							
+						?>
+					
+			
 			</div>
 		</section> <!-- TABELA DE RESULTADO FIM -->
 		
 
 
 </section>
+
+
 
 <script>
 	$(document).ready(function(){
@@ -145,9 +258,6 @@
 								
 				var urlAction = "<?php echo $this->Html->url(array("controller" => "Comparecimentos", "action" => "edit"));?>/"+valor+"/";
 				var dadosForm = $("#comparecimentoEditForm"+nId).serialize();
-				
-				alert(urlAction);
-				//$('.loaderAjaxIdentificacao').show();
 				
 				$.ajax({
 					type: "POST",
@@ -163,14 +273,4 @@
 
 </script>
 
-<!-- 
-<div style="clear:both;"></div>
 
-<pre>
-<?php
-	
-print_r($registro);
-	
-?>
-</pre>
--->

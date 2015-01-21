@@ -113,6 +113,15 @@ class ComparecimentosController extends AppController {
 	public function edit($id = null) {
 
 		$this->layout = 'rh';
+		
+		$funcionarioslist = $this->Comparecimento->Funcionario->find('list', array('fields'=>'Funcionario.nome','recursive'=>0));
+		$listaFuncionarios = array();
+		foreach($funcionarioslist as $funcionario){
+			array_push($listaFuncionarios, array($funcionario => $funcionario));
+		}
+		
+		
+		$cargos = $this->Comparecimento->Funcionario->Cargo->find('list', array('fields'=>array('Cargo.id','Cargo.nome'),'recursive'=>0));
 
 		if($id == null){
 			
@@ -131,14 +140,14 @@ class ComparecimentosController extends AppController {
 						),
 
 						'funcionario' => array(
-							'Comparecimento.funcionario_id' => array(
-								'select' => $this->Filter->select('Funcionario', $this->Comparecimento->Funcionario->find('list', array('fields'=>'Funcionario.nome')))
+							'Funcionario.nome' => array(
+								'select' => array(''=>'',$listaFuncionarios)
 							)
 						),
 
 						'cargo' => array(
 							'Funcionario.cargo_id' => array(
-								'select' => $this->Filter->select('Cargo', $this->Comparecimento->Funcionario->Cargo->find('list', array('fields'=>'Cargo.nome')))
+								'select' => array(''=>'',$cargos)
 							)
 						),
 
@@ -150,27 +159,37 @@ class ComparecimentosController extends AppController {
 			
 			$filterConditions = $this->Filter->getConditions();
 
-			if ( (! isset($filterConditions['Comparecimento.date ='])) || ( $filterConditions['Comparecimento.date ='] == '')){
-				
+			if ( (! isset($filterConditions['Comparecimento.date ='])) || ( $filterConditions['Comparecimento.date ='] == '')){				
 				$filterConditions['Comparecimento.date ='] = $this->hoje;
-				
-
 			}else{				
-				$this->lifecareDataFuncs->formatDateToBD($filterConditions['Comparecimento.date =']);
-				
+				$this->lifecareDataFuncs->formatDateToBD($filterConditions['Comparecimento.date =']);				
 			}
+			
+			if($filterConditions['Comparecimento.date ='] < $this->hoje){
+				$this->request->data['filter']['data'] = $filterConditions['Comparecimento.date ='];
+				$dataTabela = 'passada';
+			}else if($filterConditions['Comparecimento.date ='] > $this->hoje){
+				$this->request->data['filter']['data'] = $filterConditions['Comparecimento.date ='];
+				$dataTabela = 'futuro';
+			}else{
+				$dataTabela = 'hoje';
 				$this->request->data['filter']['data'] = $this->hoje;
-				$this->lifecareDataFuncs->formatDateToView($this->request->data['filter']['data']);
+			}
+			
+			
+			$this->lifecareDataFuncs->formatDateToView($this->request->data['filter']['data']);
 
 			$this->Paginator->settings = array(
 				'Comparecimento' => array(
 					'conditions' => $filterConditions,
-					'order' => 'Comparecimento.status asc'
+					'order' => 'Comparecimento.status asc',
+					'recursive'=>2
 					)
 				);			
 			
 			//$this->Comparecimento->recursive = 0;
 
+			$this->set(compact('dataTabela'));
 			$this->set('registro', $this->Paginator->paginate());
 
 		}else{
