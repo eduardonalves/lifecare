@@ -35,7 +35,6 @@ class ComparecimentosController extends AppController {
 		if(!isset($_GET['ql'])){
 			    $_GET['ql']=0;
 			}
-
 	}
 	
 	public function index() {
@@ -114,7 +113,7 @@ class ComparecimentosController extends AppController {
 		$this->layout = 'rh';
 
 		if($id == null){
-
+			
 			$this->Filter->addFilters(
 					array(
 						'status' => array(
@@ -144,7 +143,6 @@ class ComparecimentosController extends AppController {
 					)
 				);
 			
-	
 			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
 			$this->Filter->setPaginate('limit', 30);              // optional
 			
@@ -155,11 +153,9 @@ class ComparecimentosController extends AppController {
 					'conditions' => $this->Filter->getConditions(),
 					'order' => 'Comparecimento.status asc'
 					)
-				);
-
+				);			
 			
-			
-			$this->Comparecimento->recursive = 0;
+			//$this->Comparecimento->recursive = 0;
 
 			$this->set('registro', $this->Paginator->paginate());
 
