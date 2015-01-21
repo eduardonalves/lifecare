@@ -153,12 +153,14 @@ class ComparecimentosController extends AppController {
 			if ( (! isset($filterConditions['Comparecimento.date ='])) || ( $filterConditions['Comparecimento.date ='] == '')){
 				
 				$filterConditions['Comparecimento.date ='] = $this->hoje;
-				$this->request->data['filter']['data'] = $this->hoje;
-
-			}else{
 				
+
+			}else{				
 				$this->lifecareDataFuncs->formatDateToBD($filterConditions['Comparecimento.date =']);
+				
 			}
+				$this->request->data['filter']['data'] = $this->hoje;
+				$this->lifecareDataFuncs->formatDateToView($this->request->data['filter']['data']);
 
 			$this->Paginator->settings = array(
 				'Comparecimento' => array(
