@@ -88,9 +88,9 @@ $cnpj='10619128000191';
 //informe apenas se precisar do certificado em outro local da sua preferência
 $certsDir='';
 //Nome do arquivo do certificado digital
-$certName='certificado_teste.pfx';
+$certName='certificado.pfx';
 //Senha da chave privada
-$keyPass='associacao';
+$keyPass='supertech';
 //Senha de decriptaçao da chave, normalmente não é necessaria
 $passPhrase='';
 

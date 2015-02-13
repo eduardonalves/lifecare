@@ -924,7 +924,7 @@ class SaidasController extends NotasController {
 		}
 		
 		if($saida['Procemi']['codigo']==''){
-			$saida['Procemi']['codigo']=3;
+			$saida['Procemi']['codigo']=0;
 		}
 		
 		if($saida['Saida']['numero_nota']==''){
@@ -932,7 +932,7 @@ class SaidasController extends NotasController {
 		}
 		
 		if($saida['Verproc']['codigo']==''){
-			$saida['Verproc']['codigo']='2.0';
+			$saida['Verproc']['codigo']='2.02';
 		}
 
 		if($saida['Indpag']['codigo']==''){
@@ -949,7 +949,7 @@ class SaidasController extends NotasController {
 			$empresa['Empresa']['cep']='26216111';
 		}
 		if($empresa['Empresa']['ie']==''){
-			$empresa['Empresa']['ie']='ISENTO';
+			$empresa['Empresa']['ie']='411403';
 		}
 		if($empresa['Empresa']['crt']==''){
 			$empresa['Empresa']['crt']='3';
@@ -983,32 +983,41 @@ class SaidasController extends NotasController {
 		            '@xmlns' =>'http://www.portalfiscal.inf.br/nfe',
 		            'infNFe' => array(
 		            	'@Id' => 'NFe'.$idnota,
-		            	'@versao' => '2.00',
+		            	'@versao' => '3.10',
 		            	'ide' => array(
 							'cUF'=> $saida['Cuf']['codigo'],
 							'cNF' => $saida['Saida']['codnota'],
 							'natOp' => $saida['Natop']['descricao'],
 							'indPag' =>  $saida['Indpag']['codigo'],
-							'mod' => $saida['Mod']['codigo'],
+							'mod' => 55,
 							'serie' => $saida['Serie']['codigo'],
 							'nNF' => $saida['Saida']['numero_nota'],
-							'dEmi' => $saida['Saida']['data'],
-							
-							//'dSaiEnt' => $saida['Saida']['data_saida'],
+							'dhEmi' => '2015-02-12T15:20:16-02:00',//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
 							'tpNF' =>  $saida['Tpnf']['codigo'],
+							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
+							//'dSaiEnt' => $saida['Saida']['data_saida'],
+							
 							'cMunFG' => $saida['Cmunfg']['codigo'],
 							'tpImp' =>  $saida['Tpimp']['codigo'],
 							'tpEmis' => $saida['Saida']['tpemis'],
 							'cDV' => $saida['Saida']['cdv'],
 							'tpAmb' => $saida['Tpamb']['codigo'],
 							'finNFe' => $saida['Finnfe']['codigo'],
+							'indFinal' => 0,
+							'indPres' => 9, //0=Não se aplica (por exemplo, Nota Fiscal complementar ou de ajuste);
+				               				//1=Operação presencial;
+				               				//2=Operação não presencial, pela Internet;
+				               				//3=Operação não presencial, Teleatendimento;
+				               				//4=NFC-e em operação com entrega a domicílio;
+				               				//9=Operação não presencial, outros.
 							'procEmi' => $saida['Procemi']['codigo'],
 							'verProc' => $saida['Verproc']['codigo'],	
 						),
 						
 							'emit' =>  array(
 								'CNPJ' => $empresa['Empresa']['cnpj'],
-								'xNome' => $empresa['Empresa']['razao'],	
+								'xNome' => $empresa['Empresa']['razao'],
+								'xFant' => $empresa['Empresa']['razao'],	//colocar o nome fantasia da empresa
 								'enderEmit' => array(
 									'xLgr' =>  $empresa['Empresa']['endereco'],
 									'nro' => $empresa['Empresa']['numero'],
@@ -1017,9 +1026,11 @@ class SaidasController extends NotasController {
 									'xMun' => $empresa['Empresa']['cidade'],
 									'UF' => $empresa['Empresa']['uf'],
 									'CEP' => $empresa['Empresa']['cep'],
-									'xPais' => 'Brasil',
+									'cPais' => '1058', //fazer dinamico
+									'xPais' => 'Brasil', //fazer dinamico
 									'fone' => $this->formataCnpj($empresa['Empresa']['telefone']),
 								),
+								
 								'IE' => $empresa['Empresa']['ie'],
 								//'IEST' => '91006340',
 								'CRT' => $empresa['Empresa']['crt'],
@@ -1038,6 +1049,19 @@ class SaidasController extends NotasController {
 									'cPais' => $endereco['Endereco']['cpais'],
 									'xPais' =>  $endereco['Endereco']['xpais'],
 								),
+								'indIEDest' => 9,/*
+									1=Contribuinte ICMS (informar a IE do destinatário);
+									2=Contribuinte isento de Inscrição no cadastro de
+									Contribuintes do ICMS;
+									9=Não Contribuinte, que pode ou não possuir Inscrição
+									Estadual no Cadastro de Contribuintes do ICMS;
+									Nota 1: No caso de NFC-e informar indIEDest=9 e não
+									informar a tag IE do destinatário;
+									Nota 2: No caso de operação com o Exterior informar
+									indIEDest=9 e não informar a tag IE do destinatário;
+									Nota 3: No caso de Contribuinte Isento de Inscrição
+									(indIEDest=2), não informar a tag IE do destinatário. 
+								*/
 								'IE' => $cliente['Parceirodenegocio']['ie'],
 								
 							),
@@ -1109,6 +1133,10 @@ class SaidasController extends NotasController {
 		);
 		if($saida['Saida']['infoadic']==''){
 			unset($xmlArray['NFe']['infNFe']['infAdic']);
+		}
+
+		if($cliente['Parceirodenegocio']['ie']=='ISENTO'){
+			unset($xmlArray['NFe']['infNFe']['dest']['IE']);
 		}
 		$i=1;
 		$varlorTotalBC=0;
@@ -1312,6 +1340,7 @@ class SaidasController extends NotasController {
 		$icmsTotal = array(
 			'vBC' => number_format($varlorTotalBC, 2, '.',''),
 			'vICMS' => number_format($valorTotalIcms, 2, '.',''),
+			'vICMSDeson' => '0.00',
 			'vBCST' => number_format($vbst, 2, '.',''),
 			'vST' => number_format($vst, 2, '.',''),
 			'vProd' => number_format($valorTotalProduto, 2, '.',''),
@@ -1324,7 +1353,7 @@ class SaidasController extends NotasController {
 			'vCOFINS' => number_format($vcofins, 2, '.',''),
 			'vOutro' => number_format($saida['Saida']['valor_outros'], 2, '.',''),
 			'vNF' => number_format($saida['Saida']['valor_total'], 2, '.',''),
-			'vTotTrib' => number_format($valorTotalProduto, 2, '.',''),
+			//'vTotTrib' => number_format($valorTotalProduto, 2, '.',''),
 		);	
 		
 		
@@ -1332,7 +1361,7 @@ class SaidasController extends NotasController {
 			$tranportadoraData = array(
 				'CNPJ' => $transportadora['Transportadore']['cnpj'],
 				'xNome' => $transportadora['Transportadore']['nome'],
-				'IE' => $transportadora['Transportadore']['ie'],
+				//'IE' => $transportadora['Transportadore']['ie'],
 				'xEnder' => $transportadora['Transportadore']['endereco'],
 				'xMun' => $transportadora['Transportadore']['cidade'],
 				'UF' => $transportadora['Transportadore']['uf']
@@ -1342,7 +1371,7 @@ class SaidasController extends NotasController {
 			$tranportadoraData = array(
 				'CNPJ' => '10619128000191',
 				'xNome' =>'teste',
-				'IE' => '78709375',
+				//'IE' => '78709375',
 				'xEnder' =>'tesges',
 				'xMun' => 'Nova Iguacu',
 				'UF' => 'RJ'
@@ -1353,8 +1382,13 @@ class SaidasController extends NotasController {
 		
 		$tranportadoraInfo = array(
 			'qVol' => '1000',
-			'pesoL' => '15690.000',
-			'pesoB' => '17520.000',
+			'esp' => 'caixa',
+			'nVol' => '12345',
+			'pesoL' => '123',
+			'pesoB' => '123',
+			'lacres' => array(
+				'nLacre'=> 'A1'
+			),
 		);
 		
 		$xmlArray['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
@@ -1367,7 +1401,7 @@ class SaidasController extends NotasController {
 		$xml = Xml::build($xmlArray);
 		$xmlString = $xml->asXML();
 		$xmlAssinada= $tools->signXML($xmlString, 'infNFe');
-		//debug($xmlAssinada);
+		debug($xmlAssinada);
 		
 
 		
