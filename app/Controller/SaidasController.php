@@ -1689,4 +1689,59 @@ class SaidasController extends NotasController {
 		flush();
 		*/
 	}
+
+	public function fatindex(){
+		$this->layout = 'faturamento';
+
+		$userid = $this->Session->read('Auth.User.id');
+		$saidas = $this->Saida->find('all', array('conditions'=>array('Saida.tipo'=>'SAIDA','Saida.status_estoque'=>'SEPARADO')));
+
+		$this->set(compact('userid','saidas'));
+	}
+	
+	public function fatview($id = null) {
+		$this->layout = 'faturamento';
+
+		if (!$this->Saida->exists($id)) {
+			throw new NotFoundException(__('Invalid saida'));
+		}
+		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 0);
+		$this->set('saida', $this->Saida->find('first', $options));
+		
+		$this->loadModel('Produtoiten');
+		$this->loadModel('Loteiten');
+		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
+		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+		
+		$findSaida= $this->Saida->find('first', array('conditions' => array('Saida.id' => $id)));
+		
+		$this->loadModel('Cliente');
+		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findSaida['Saida']['parceirodenegocio_id'])));
+		
+		$this->loadModel('Endereco');
+		$cliEndereco = $this->Endereco->find('first', array('conditions' => array('Endereco.parceirodenegocio_id' => $findSaida['Saida']['parceirodenegocio_id']),'recursive'=>-1));
+
+		$this->loadModel('Contato');
+		$cliContato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $findSaida['Saida']['parceirodenegocio_id']),'recursive'=>-1));
+
+
+		/** DADOS GERAIS DA NOTA **/
+		$this->loadModel('Empresa');
+		$emitente = $this->Empresa->find('first');
+
+
+		$this->loadModel('cuf');
+		$cufs = $this->cuf->find('all',array( 'recursive' => 0, 'order'=>'cuf.descricao asc'));
+
+		$this->loadModel('Indpag');
+		$indpags = $this->Indpag->find('all',array( 'recursive' => 0, 'order'=>'Indpag.descricao desc'));
+
+		$this->loadModel('Natop');
+		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
+
+		
+
+		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','indpags','natops'));
+
+	}
 }
