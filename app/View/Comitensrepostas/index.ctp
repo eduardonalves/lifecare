@@ -2,6 +2,8 @@
 	<h2><?php echo __('Comitensrepostas'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
+	
+	
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('comresposta_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('produto_id'); ?></th>
