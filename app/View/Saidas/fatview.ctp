@@ -424,11 +424,34 @@ Fiscal.'));?>
 				 ?>	
 			</div>
 		</div>
-	
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Mod. Frete:',array('class'=>'titulo','title'=>'Modalidade do Frete'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Saida']['modfrete'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+		
+		
 	</section>
 
 	<section class="coluna-central">
 
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Info. Adicional:',array('class'=>'titulo','title'=>'Modalidade do Frete'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Saida']['infoadic'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
 
 		<div class="conteudo-linha">
 			<div class="linha1">
@@ -572,22 +595,195 @@ Acesso da NF-e'));?>
 		</div>
 
 	</section>
-
-	<footer>
-		<?php 
-		/*	$saida['Cuf']['descricao']
-			$saida['Saida']['codnota']
-			$saida['Saida']['codnota']
-			$saida['Natop']['descricao']
-			$saida['Indpag']['descricao']*/
-		?>
-		<a href="add-completaNota" class="bt-showmodal">
-			<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
-		</a>
-	</footer>
 </section>
 
+<section style="clear:both;">
+
+	<a href="add-dadosNota" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+	</a>
+
+</section>
+
+<section>
+	<header>Dados da Transpotadora</header>
+
+	<section class="coluna-esquerda">
+		
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['nome'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','CNPJ:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['cnpj'],array('class'=>'valor'));
+				 ?>
+			</div>
+		</div>
+
+	</section>
+	<section class="coluna-central">
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','IE:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['ie'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Endereço:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['endereco'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+	</section>
+
+	<section class="coluna-direita">
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['cidade'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['uf'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+	</section>
+
+</section>
+
+<section style="clear:both;">
+
+	<a href="add-transportadora" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+	</a>
+
+</section>
+
+<section>
+	<header>Informações de Tranporte</header>
+
+	<section class="coluna-esquerda">
+		
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Qtd. Volume:',array('class'=>'titulo','title'=>'Quantidade de volumes transportados'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['qvol'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Peso Líquido:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['pesol'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+	</section>
 	
+
+	<section class="coluna-central">
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Peso Bruto:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['pesob'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Espécie:',array('class'=>'titulo','title'=>'Espécie dos volumes transportados'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['esp'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+	</section>
+
+	<section class="coluna-direita">
+		
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Numeração Volumes:',array('class'=>'titulo','title'=>'Numeração dos volumes transportados'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['nVol'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Lacres:',array('class'=>'titulo','title'=>'Lacres'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transp']['lacres'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+	</section>
+</section>
+
+<section style="clear:both;">
+
+	<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+	</a>
+
+</section>
+
+
 <!-- PRODUTOS DA NOTA -->
 <section>
 	<header>Itens da Nota</header>
@@ -697,11 +893,12 @@ Acesso da NF-e'));?>
 					}
 				?>
 			</table>	
+
 </section>
 
-<!-- MODAL PARA COMPLETAR OS CAMPOS DA NOTA FISCAL -->
+<!-- MODAL DADOS DA NOTA FISCAL -->
 
-	<div class="modal fade" id="myModal_add-completaNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="myModal_add-dadosNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-body">
 			<?php
 				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
@@ -715,3 +912,39 @@ Acesso da NF-e'));?>
 			
 		</div>
 	</div>
+
+
+<!-- MODAL DADOS DA TRANSPORTADORA -->
+
+	<div class="modal fade" id="myModal_add-transportadora" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Preencher Dados da Transportadora </h1>
+			</header>
+			
+		</div>
+	</div>	
+
+
+<!-- MODAL DADOS DO TRANSPORTE -->
+
+	<div class="modal fade" id="myModal_add-itensTransporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Preencher Itens do Transporte </h1>
+			</header>
+			
+		</div>
+	</div>	

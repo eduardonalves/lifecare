@@ -1738,8 +1738,7 @@ class SaidasController extends NotasController {
 
 		$this->loadModel('Natop');
 		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
-
-		
+	
 
 		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','indpags','natops'));
 
