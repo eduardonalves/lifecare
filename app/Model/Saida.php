@@ -138,13 +138,6 @@ class Saida extends Nota {
 			'fields' => '',
 			'order' => ''
 		),
-		'Transp' => array(
-			'className' => 'Transp',
-			'foreignKey' => 'transp_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
 		'Natop' => array(
 			'className' => 'Natop',
 			'foreignKey' => 'natop_id',
@@ -182,7 +175,21 @@ class Saida extends Nota {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'Transp' => array(
+			'className' => 'Transp',
+			'foreignKey' => 'nota_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		
 	);
 	
 	public $hasAndBelongsToMany = array(

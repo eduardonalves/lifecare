@@ -19,7 +19,22 @@ class Transp extends AppModel {
  *
  * @var array
  */
- 
+ 	public $belongsTo = array(
+		'Nota' => array(
+			'className' => 'Nota',
+			'foreignKey' => 'nota_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Saida' => array(
+			'className' => 'Saida',
+			'foreignKey' => 'nota_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
 	
 	public $hasMany = array(
 		'Nota' => array(
