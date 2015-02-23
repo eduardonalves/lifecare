@@ -155,7 +155,7 @@ class ComparecimentosController extends AppController {
 				);
 			
 			$this->Filter->setPaginate('order', 'Comparecimento.status ASC'); // optional
-			$this->Filter->setPaginate('limit', 30);              // optional
+			//$this->Filter->setPaginate('limit', 30);              // optional
 			
 			$filterConditions = $this->Filter->getConditions();
 
@@ -181,8 +181,11 @@ class ComparecimentosController extends AppController {
 
 			$this->Paginator->settings = array(
 				'Comparecimento' => array(
+					'fields' => array('DISTINCT Comparecimento.id', 'Comparecimento.*'),
+					'fields_toCount' => 'DISTINCT Comparecimento.id',
 					'conditions' => $filterConditions,
 					'order' => 'Comparecimento.status asc',
+					'limit' => $this->request['url']['limit'],
 					'recursive'=>2
 					)
 				);			
@@ -190,7 +193,7 @@ class ComparecimentosController extends AppController {
 			//$this->Comparecimento->recursive = 0;
 
 			$this->set(compact('dataTabela'));
-			$this->set('registro', $this->Paginator->paginate());
+			$this->set('registro', $this->Paginator->paginate('Comparecimento'));
 
 		}else{
 			

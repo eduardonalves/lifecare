@@ -75,11 +75,12 @@ $schemesCTe="PL_CTE_104";
 //###### EMPRESA EMITENTE #######
 //###############################
 //Nome da Empresa
-$empresa='Cirurgicas Simoes';
+$empresa='Life Care Comércio de Produtos Farmacêuticos Ltda.';
+
 //Sigla da UF
 $UF='RJ';
 //Número do CNPJ
-$cnpj='10619128000191';
+$cnpj='19105765000114';
 
 //##############################
 //#### CERTIFICADO DIGITAL #####

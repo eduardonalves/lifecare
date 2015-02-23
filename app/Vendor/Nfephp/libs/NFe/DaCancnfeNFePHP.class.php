@@ -49,7 +49,6 @@ if(!defined('NFEPHP_SITUACAO_EXTERNA_CANCELADA')) {
 	define('NFEPHP_SITUACAO_EXTERNA_DENEGADA', 2);
 	define('NFEPHP_SITUACAO_EXTERNA_NONE', 0);
 }
-//classe extendida da classe FPDF para montagem do arquivo pdf
 require_once('../Common/PdfNFePHP.class.php');
 //classe com as funções communs entre DANFE e DACTE
 require_once('../Common/CommonNFePHP.class.php');

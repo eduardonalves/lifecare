@@ -713,10 +713,10 @@ class SaidasController extends NotasController {
 		$cnpj =$emprasa['Empresa']['cnpj']; //cnpj do emitente 14 digitos ***buscar 
 		$cnpj=$this->formataCnpj($cnpj);
 		$mod= $saida['Mod']['codigo']; //Modelo do Documento Fiscal 2 digitos ***buscar 
-		$serie='1'; //Série do Documento Fiscal 3 digitos ***buscar 
+		$serie='001'; //Série do Documento Fiscal 3 digitos ***buscar 
 		$nNF =$saida['Saida']['numero_nota']; //Número do Documento Fiscal   9 digitos ***buscar 
 		$trans =1; // forma de emissão da NF-e 1 digito ***buscar 
-		$codigoacesso = mt_rand(100000000, 999999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
+		//$codigoacesso = mt_rand(100000000, 999999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
 		
 		$tamanhonf = strlen($nNF);
 		$restamanho = 9 -$tamanhonf;
@@ -725,10 +725,10 @@ class SaidasController extends NotasController {
 			$concZeros= $concZeros.'0';
 		}
 		$nNF=$concZeros.$nNF;
-		$auxChave=$uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso;
+		//$auxChave=$uf.$aamm.$cnpj.$mod.$serie.$nNF.$trans.$codigoacesso;
 		//$auxChave2 =(string)$auxChave;
 		
-		$auxChave2 = $this->criaChaveAcesso($uf,$aamm,$cnpj,$serie,$nNF,$trans);
+		$auxChave2 = $this->criaChaveAcesso($uf,$aamm,$cnpj,$serie,$nNF,$trans, $id);
 		
 		
 		
@@ -737,7 +737,7 @@ class SaidasController extends NotasController {
 		
 		
 	
-		$this->Saida->saveField('codnota', $codigoacesso);
+		
 		
 		
 		
@@ -770,7 +770,7 @@ class SaidasController extends NotasController {
     }
 	
 	
-	function criaChaveAcesso($cUF, $aamm, $cnpj, $serie, $numero, $tpEmis){
+	function criaChaveAcesso($cUF, $aamm, $cnpj, $serie, $numero, $tpEmis, $idSaida){
 	    $rNum = '';
 	    for( $x=0; $x<8; $x++ ){
 	        $rNum .= rand(0,9);
@@ -781,9 +781,11 @@ class SaidasController extends NotasController {
 	    $numero = str_pad($numero, 9, "0", STR_PAD_LEFT);
 	    
 	    $chave = $cUF.$aamm.$cnpj.$modelo.$serie.$numero.$tpEmis.$rNum;
+
 	    //         2 + 4 + 14 +2 + 3 + 9 + 9 = 43   
 	    $chave = $chave.$this->calcula_dv($chave);
-		
+	    $this->Saida->id= $idSaida;
+		$this->Saida->saveField('codnota', $rNum);
 	    return $chave;
 	    
 	}
@@ -810,6 +812,10 @@ class SaidasController extends NotasController {
 	    }
 	    return $dv;
 	}
+
+
+
+	//Função que gera e salva o xml da nota
 	
 	public function geraNotaXml($id = null) {
 	
@@ -851,7 +857,7 @@ class SaidasController extends NotasController {
 		
 		$idnota = $this->geraid($id);
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
-		
+		$this->Saida->id = $id;
 		$cliente = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $saida['Saida']['parceirodenegocio_id'])));
 		
 		$endereco = $this->Endereco->find('first', array('conditions' => array('AND' => array('Endereco.parceirodenegocio_id' => $cliente['Parceirodenegocio']['id']), array('Endereco.tipo' => 'FATURAMENTO'))));
@@ -974,6 +980,8 @@ class SaidasController extends NotasController {
 		$cliente['Parceirodenegocio']['ie']= $this->formataCnpj($cliente['Parceirodenegocio']['ie']);
 		
 		$this->loadModel('Loteiten');
+
+		
 		
 		$xmlArray = array(
 		   // 'nfeProc' => array(
@@ -992,7 +1000,7 @@ class SaidasController extends NotasController {
 							'mod' => 55,
 							'serie' => $saida['Serie']['codigo'],
 							'nNF' => $saida['Saida']['numero_nota'],
-							'dhEmi' => '2015-02-12T15:20:16-02:00',//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
+							'dhEmi' => '2015-02-18T15:20:16-02:00',//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
 							'tpNF' =>  $saida['Tpnf']['codigo'],
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
@@ -1016,8 +1024,8 @@ class SaidasController extends NotasController {
 						
 							'emit' =>  array(
 								'CNPJ' => $empresa['Empresa']['cnpj'],
-								'xNome' => $empresa['Empresa']['razao'],
-								'xFant' => $empresa['Empresa']['razao'],	//colocar o nome fantasia da empresa
+								'xNome' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL', //$empresa['Empresa']['razao'],
+								'xFant' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL',//$empresa['Empresa']['razao'],	//colocar o nome fantasia da empresa
 								'enderEmit' => array(
 									'xLgr' =>  $empresa['Empresa']['endereco'],
 									'nro' => $empresa['Empresa']['numero'],
@@ -1037,7 +1045,7 @@ class SaidasController extends NotasController {
 							),
 							'dest' => array(
 								'CNPJ' => $cliente['Parceirodenegocio']['cpf_cnpj'],
-								'xNome' => $cliente['Parceirodenegocio']['nome'],
+								'xNome' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL',//$cliente['Parceirodenegocio']['nome'],
 								'enderDest' => array(
 									'xLgr' => $endereco['Endereco']['logradouro'],
 									'nro' => $endereco['Endereco']['numero'],
@@ -1048,6 +1056,7 @@ class SaidasController extends NotasController {
 									'CEP' => $endereco['Endereco']['cep'],
 									'cPais' => $endereco['Endereco']['cpais'],
 									'xPais' =>  $endereco['Endereco']['xpais'],
+									'fone' => '2133458899', //pegar o telefone do cliente dinamicamente
 								),
 								'indIEDest' => 9,/*
 									1=Contribuinte ICMS (informar a IE do destinatário);
@@ -1353,7 +1362,7 @@ class SaidasController extends NotasController {
 			'vCOFINS' => number_format($vcofins, 2, '.',''),
 			'vOutro' => number_format($saida['Saida']['valor_outros'], 2, '.',''),
 			'vNF' => number_format($saida['Saida']['valor_total'], 2, '.',''),
-			//'vTotTrib' => number_format($valorTotalProduto, 2, '.',''),
+			'vTotTrib' => number_format($valorTotalProduto, 2, '.',''),
 		);	
 		
 		
@@ -1401,36 +1410,283 @@ class SaidasController extends NotasController {
 		$xml = Xml::build($xmlArray);
 		$xmlString = $xml->asXML();
 		$xmlAssinada= $tools->signXML($xmlString, 'infNFe');
+
+		$nomeArquivo =  $idnota.'-nfe.xml';
+		$enderecoArquivo = '../../app/webroot/xml/' . $nomeArquivo;
+		file_put_contents($enderecoArquivo, $xmlAssinada);
+
+		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
+		
 		debug($xmlAssinada);
 		
 
+		//Redirecionar para local desejado
+		//$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
+		//return $this->redirect(array('action' => 'index'));
+
 		
 		
-		$modSOAP = '2'; //usando cURL
-	
-		//use isso, este é o modo manual voce tem mais controle sobre o que acontece
-		$filename = '../../app/webroot/xml/33141210619128000191550010000000021687693071-nfe.xml';
-		//obter um numero de lote
-		$lote = substr(str_replace(',', '', number_format(microtime(true)*1000000, 0)), 0, 15);
-		// montar o array com a NFe
-		$sNFe = file_get_contents($filename);
 		
-		//enviar o lote
-		if ($aResp = $tools->autoriza($sNFe, $lote)) {
-		   	
-		    if ($aResp['bStat']) {
-		        echo "Numero do Recibo : " . $aResp['nRec'] .", use este numero para obter o protocolo ou informações de erro no xml com testaRecibo.php.";
-		    } else {
-		        echo "Houve erro 1 !! $nfe->errMsg";
-		    }
-		} else {
-		    echo "houve erro  2!!  $nfe->errMsg";
-			
-		}
-		echo '<BR><BR><h1>DEBUG DA COMUNICAÇÕO SOAP</h1><BR><BR>';
-		echo '<PRE>';
-		echo htmlspecialchars($tools->soapDebug);
-		echo '</PRE><BR>';
 	}
-	
+
+	//Função que envia o xml da nota/saída
+	public function enviaNotas($id = null){
+		//Importo as bibliotecas que preciso
+
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		App::uses('Folder', 'Utility');
+		App::uses('File', 'Utility');
+		App::uses('Xml', 'Utility');
+		$this->loadModel('Saida');
+
+		$saida = $this->Saida->find('first', array(
+			'conditions' => array(
+				'Saida.id' => $id)
+			,'recursive' => -1,
+
+		));
+
+
+		if(($saida['Saida']['protocolo_aprovacao'] == '') || ($saida['Saida']['protocolo_aprovacao'] == null)){
+			$this->Saida->id = $id;
+			$tools = new ToolsNFePHP();
+				
+			$modSOAP = '2'; //usando cURL
+		
+			//use isso, este é o modo manual voce tem mais controle sobre o que acontece
+			
+			$filename = $saida['Saida']['urlarquivo'];
+			//obter um numero de lote
+			$lote = substr(str_replace(',', '', number_format(microtime(true)*1000000, 0)), 0, 15);
+			// montar o array com a NFe
+			$sNFe = file_get_contents($filename);
+
+			 
+			
+			//enviar o lote
+			if ($aResp = $tools->autoriza($sNFe, $lote)) {
+			   	
+			    if ($aResp['bStat']) {
+			        echo "Numero do Recibo : " . $aResp['nRec'] .", use este numero para obter o protocolo ou informações de erro no xml com testaRecibo.php.";
+			        $this->Saida->saveField('recibo', $aResp['nRec']);
+			    } else {
+			        echo "Houve erro 1 !! $nfe->errMsg";
+			    }
+			   
+			   	$resposta = Xml::toArray(Xml::build($aResp));
+			   
+		     	
+
+		     	if(isset( $resposta['Envelope']['soap:Body']['nfeAutorizacaoLoteResult']['retEnviNFe']['protNFe']['infProt']['nProt'])){
+		     		
+		     		$reciboEntrega = $resposta['Envelope']['soap:Body']['nfeAutorizacaoLoteResult']['retEnviNFe']['protNFe']['infProt']['nProt'];
+		     		$this->Saida->saveField('protocolo_aprovacao', $reciboEntrega);
+
+					$dataHoraRecebimento = $resposta['Envelope']['soap:Body']['nfeAutorizacaoLoteResult']['retEnviNFe']['protNFe']['infProt']['dhRecbto']; 		     		
+		     		$this->Saida->saveField('data_recebimento', $dataHoraRecebimento);
+
+		     		$motivoReceita = $resposta['Envelope']['soap:Body']['nfeAutorizacaoLoteResult']['retEnviNFe']['protNFe']['infProt']['xMotivo']; 		     		
+		     		$this->Saida->saveField('motivo_receita', $motivoReceita);
+
+		     	}
+		     	
+			} else {
+			    echo "houve erro  2!!  $nfe->errMsg";
+				
+			}
+
+			debug($resposta);
+			/*echo '<BR><BR><h1>DEBUG DA COMUNICAÇÕO SOAP</h1><BR><BR>';
+			echo '<PRE>';
+			echo htmlspecialchars($tools->soapDebug);
+			echo '</PRE><BR>';*/
+
+
+			//Redirecionar para local desejado
+			//$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
+			//return $this->redirect(array('action' => 'index'));
+		}
+		
+	}
+
+
+	//Função que verifica os recibos dos envios das notas fiscais
+	public function verificaRecibos($id = null){
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		$this->loadModel('Saida');
+		$saida =  $this->Saida->find('first', array(
+			'conditions' => array(
+				'Saida.id' => $id
+			),
+			'recursive' => -1
+		));
+
+
+		$nfe = new ToolsNFePHP;
+		$modSOAP =2;
+		$meuRecibo= $saida['Saida']['protocolo_aprovacao'];
+		$chave = $saida['Saida']['chave'];
+		$tpAmb = 2;
+		
+		header('Content-type: text/xml; charset=UTF-8');
+		if ($aResp = $nfe->getProtocol($recibo, $meuRecibo, $tpAmb, $retorno)){
+		    //houve retorno mostrar dados
+		    debug($aResp);
+		    
+		} else {
+		    //não houve retorno mostrar erro de comunicação
+		    echo "Houve erro !! $nfe->errMsg";
+		   // $this->Session->setFlash(__('Houve um erro.'), 'default', array('class' => 'error-flash'));
+		}
+	}
+
+
+	//Função para cancelar a nota fiscal
+	public function cancelaNfe($id=null){
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		$this->loadModel('Saida');
+		$saida =  $this->Saida->find('first', array(
+			'conditions' => array(
+				'Saida.id' => $id
+			),
+			'recursive' => -1
+		));
+		if(($saida['Saida']['protocolo_cancelamento'] == '') || ($saida['Saida']['protocolo_cancelamento'] == null)){
+			$this->Saida->id = $saida['Saida']['id'];
+			$nfe = new ToolsNFePHP;
+			$chNFe =  $saida['Saida']['chave_acesso']; //Id da nota fiscal
+			$nProt = $saida['Saida']['protocolo_aprovacao']; // ID do protocolo de aprovação
+			$xJust = 'Cancelamento com fins de teste para verificacao do metodo de cancelamento';//$saida['Saida']['motivo_cancelamento']; //descrição do motivo de cancelamento
+			$tpAmb = '2';
+			$modSOAP = '2';
+
+			if ($resp = $nfe->cancelEvent($chNFe,$nProt,$xJust,$tpAmb,$modSOAP)){
+			    header('Content-type: text/xml; charset=UTF-8');
+			    //
+
+			    $resposta = Xml::toArray(Xml::build($resp));
+			    debug ($resposta);
+			    
+			    if(isset($resposta['procEventoNFe']['retEvento'])){
+			    	$protocoloCanc  = $resposta['procEventoNFe']['retEvento']['infEvento']['nProt'];
+			    	$this->saveField('protocolo_cancelamento', $protocoloCanc); 
+			    }
+			} else {
+			    header('Content-type: text/html; charset=UTF-8');
+			    echo '<BR>';
+			    echo $nfe->errMsg.'<BR>';
+			    echo '<PRE>';
+			    echo htmlspecialchars($nfe->soapDebug);
+			    echo '</PRE><BR>';
+			}
+		}
+		
+	}
+
+
+	//  Gerador monta danfe e salva o arquivo
+	public function geraDanfe($id=null){
+		// Passe para este script o arquivo da NFe
+		
+		
+		App::import('Vendor', 'DanfeNFePHP', array('file' => 'Nfephp/libs/NFe/DanfeNFePHP.class.php'));
+
+				
+		$this->loadModel('Saida');
+		$saida =  $this->Saida->find('first', array(
+			'conditions' => array(
+				'Saida.id' => $id
+			),
+			'recursive' => -1
+		));
+		
+
+		//$arq = $_GET['nfe'];
+		$arq = $saida['Saida']['urlarquivo'];
+
+		if (is_file($arq)) {
+		    $docxml = file_get_contents($arq);
+
+	    	$danfe = new DanfeNFePHP($docxml, 'P', 'A4', '../../images/logo.png', 'I', '');
+		 	
+
+		 	$id = $danfe->montaDANFE();
+	    	
+		  	$danfePDf = $danfe->printDANFE('../../app/webroot/pdf/'.$id.'.pdf', 'F');
+		
+		    
+		 	/* $enderecoArquivo = WWW_ROOT. DS . 'pdf' . DS . $id.'.pdf';
+		    $this->Saida->id = $saida['Saida']['id'];
+		    $this->Saida->saveField('url_danfe', $enderecoArquivo);
+			file_put_contents($enderecoArquivo, $danfePDf);*/
+		}
+
+
+
+	}
+
+	//Testa o status do servidor da receita federal
+	public function statusReceita(){
+		App::import('Vendor', 'ToolsNFePHP', array('file' => 'Nfephp/libs/NFe/ToolsNFePHP.class.php'));
+		$nfe = new ToolsNFePHP;
+		header('Content-type: text/html; charset=UTF-8');
+		$sUF = 'AC;AL;AM;AP;BA;CE;DF;ES;GO;MA;MG;MS;MT;PA;PB;PE;PI;PR;RJ;RN;RO;RR;RS;SC;SE;SP;TO';
+		$sUF = 'RJ';
+
+		//determina o ambiente 1-produção 2-homologação
+		$tpAmb= '2';
+		$aUF = explode(';', $sUF);
+		if ($tpAmb == 1) {
+		    $sAmb='Produção';
+		} else {
+		    $sAmb='Homologação';
+		}
+
+		foreach ($aUF as $UF) {
+		    echo '<BR><HR/><BR>';
+		    echo "$UF [ $sAmb ] ==> $UF <BR>";
+		    $resp = $nfe->statusServico($UF, $tpAmb, $retorno);
+		    echo print_r($retorno);
+		    echo '<BR>';
+		    echo $nfe->errMsg.'<BR>';
+		    echo '<PRE>';
+		    echo htmlspecialchars($nfe->soapDebug);
+		    echo '</PRE><BR>';
+		    echo $UF . '[' . $sAmb . '] - ' . $retorno['xMotivo'] . '<BR><BR><HR/><BR>';
+		    flush();
+		}
+
+		/*
+		//Contignecia SVCAN
+		$UF = 'SP';
+		$nfe->ativaContingencia('SVCAN');
+		$alias = 'SVCAN';
+		echo '<BR><HR/><BR>';
+		echo "$UF [ $sAmb ] ==> $alias <BR>";
+		$resp = $nfe->statusServico($UF, $tpAmb, $retorno);
+		echo print_r($retorno);
+		echo '<BR>';
+		echo $nfe->errMsg.'<BR>';
+		echo '<PRE>';
+		echo htmlspecialchars($nfe->soapDebug);
+		echo '</PRE><BR>';
+		echo $UF . '[' . $sAmb . '] - ' . $retorno['xMotivo'] . '<BR><BR><HR/><BR>';
+		flush();
+
+		//Contingecia SVCRS
+		$nfe->ativaContingencia('SVCRS');
+		$alias = 'SVCRS';
+		echo '<BR><HR/><BR>';
+		echo "$UF [ $sAmb ] ==> $alias <BR>";
+		$resp = $nfe->statusServico($UF, $tpAmb, $retorno);
+		echo print_r($retorno);
+		echo '<BR>';
+		echo $nfe->errMsg.'<BR>';
+		echo '<PRE>';
+		echo htmlspecialchars($nfe->soapDebug);
+		echo '</PRE><BR>';
+		echo $UF . '[' . $sAmb . '] - ' . $retorno['xMotivo'] . '<BR><BR><HR/><BR>';
+		flush();
+		*/
+	}
 }

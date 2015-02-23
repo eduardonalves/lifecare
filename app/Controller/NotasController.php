@@ -15,11 +15,6 @@ class NotasController extends AppController {
  */
 	public $components = array('Paginator', 'Session');
 
-
-	
-		
-	
-
 	//Before Render
 	
 		public function beforeFilter(){
