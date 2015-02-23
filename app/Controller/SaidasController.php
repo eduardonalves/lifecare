@@ -1086,6 +1086,7 @@ class SaidasController extends NotasController {
 								'vol' => array(),
 								
 							),
+							'cobr' => array(),
 							'infAdic' => array(
 								'infCpl' => $saida['Saida']['infoadic']
 							),
@@ -1399,11 +1400,18 @@ class SaidasController extends NotasController {
 				'nLacre'=> 'A1'
 			),
 		);
-		
+		$duplicata = array(
+			'dup' => array(
+				'nDup' => '00000488-01/01',
+				'dVenc'	=> '2010-12-02',
+				'vDup' => '11.11',
+			)
+		);
 		$xmlArray['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
 		
 		$xmlArray['NFe']['infNFe']['transp']['transporta'] = $tranportadoraData;
 		$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
+		$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
 		
 		
 
