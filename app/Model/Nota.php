@@ -230,7 +230,7 @@ class Nota extends AppModel {
 		),
 		'Duplicata' => array(
 			'className' => 'Duplicata',
-			'foreignKey' => 'nota_id',
+			'foreignKey' => 'notaduplicata_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',

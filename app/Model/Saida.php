@@ -189,6 +189,19 @@ class Saida extends Nota {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Duplicata' => array(
+			'className' => 'Duplicata',
+			'foreignKey' => 'notaduplicata_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		
 	);
 	

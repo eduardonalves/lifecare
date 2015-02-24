@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Transp Model
+ * Duplicata Model
  *
  * @property Produto $Produto
  * @property Modalidadebc $Modalidadebc
@@ -9,8 +9,9 @@ App::uses('AppModel', 'Model');
  * @property Situacaotribicm $Situacaotribicm
  * @property Motivodesoneracao $Motivodesoneracao
  */
-class Transp extends AppModel {
-	
+class Duplicata extends AppModel {
+	var $name = 'Duplicata';
+	public $useTable = 'notaduplicatas';  
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -36,32 +37,4 @@ class Transp extends AppModel {
 		),
 	);
 	
-	public $hasMany = array(
-		'Nota' => array(
-				'className' => 'Nota',
-				'foreignKey' => 'transportadore_id',
-				'dependent' => false,
-				'conditions' => '',
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'exclusive' => '',
-				'finderQuery' => '',
-				'counterQuery' => ''
-		),
-		'Saida' => array(
-				'className' => 'Saida',
-				'foreignKey' => 'transportadore_id',
-				'dependent' => false,
-				'conditions' => '',
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'exclusive' => '',
-				'finderQuery' => '',
-				'counterQuery' => ''
-		),
-	);
 }
