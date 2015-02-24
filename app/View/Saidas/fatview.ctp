@@ -700,6 +700,7 @@ Acesso da NF-e'));?>
 	<?php 
 		$i=0;
 		foreach ($saida['Transp'] as $infoTranp) {
+		$i++;
 	?>
 		<fieldset style="clear:both;margin-bottom:10px;">
 			<legend>Informação de Transporte nº <?php echo $i; ?></legend>
@@ -780,17 +781,70 @@ Acesso da NF-e'));?>
 
 			</section>
 		</fieldset>
-	<?php 
-		$i++;		
+	<?php 		
 		}
 	?>
 </section>
 
 <section style="clear:both;">
-
 	<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
 		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
 	</a>
+</section>
+
+<section>
+	<header>Duplicatas</header>
+
+	<?php
+		$j = 0;
+		foreach ($saida['Duplicata'] as $duplicata) {
+		$j++;
+	?>
+		<fieldset style="clear:both;">
+			<legend><?php echo "Duplicata Nº ".$j; ?></legend>
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Nº Duplicata:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['ndup'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Data Vencimento:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['dvenc'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Valor Duplicata:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['vdup'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+		</fieldset>
+	<?php	
+		}
+	?>
+
 
 </section>
 
