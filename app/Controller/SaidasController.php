@@ -1390,28 +1390,54 @@ class SaidasController extends NotasController {
 		}
 					
 		
-		$tranportadoraInfo = array(
-			'qVol' => '1000',
-			'esp' => 'caixa',
-			'nVol' => '12345',
-			'pesoL' => '123',
-			'pesoB' => '123',
-			'lacres' => array(
-				'nLacre'=> 'A1'
-			),
-		);
-		$duplicata = array(
-			'dup' => array(
-				'nDup' => '00000488-01/01',
-				'dVenc'	=> '2010-12-02',
-				'vDup' => '11.11',
-			)
-		);
+		
+		foreach ($saida['Transp'] as $transp) {
+				$tranportadoraInfo = array(
+				'qVol' => $transp['qVol'],
+				'esp' => $transp['esp'],
+				'nVol' => $transp['nVol'],
+				'pesoL' => $transp['pesoL'],
+				'pesoB' => $transp['pesoB'],
+				'lacres' => array(
+					'nLacre'=> $transp['lacres']
+				),
+			);
+			array_push($xmlArray['NFe']['infNFe']['transp']['vol'], $tranportadoraInfo);
+		}
+		if(isset($saida['Transp'])){
+			if(empty($saida['Transp'] )){
+				unset($xmlArray['NFe']['infNFe']['transp']['vol']);
+			}
+		}
+		
+		foreach ($saida['Duplicata'] as $duplicata) {
+			$dup = array(
+				'dup' => array(
+					'nDup' => $duplicata['nDup'],
+					'dVenc'	=> $duplicata['dVenc'],
+					'vDup' => $duplicata['vDup'],
+				)
+			);
+			array_push($xmlArray['NFe']['infNFe']['cobr'], $dup);
+		}
+
+		if(isset($saida['Duplicata'])){
+			if(empty($saida['Duplicata'])){
+				unset($xmlArray['NFe']['infNFe']['cobr']);
+			}
+		}
 		$xmlArray['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
 		
 		$xmlArray['NFe']['infNFe']['transp']['transporta'] = $tranportadoraData;
-		$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
-		$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
+		if(isset($saida['Transportadore'])){
+			if(empty($saida['Transportadore'])){
+				unset($xmlArray['NFe']['infNFe']['transp']['transporta']);
+			}
+		}
+		
+		
+		//$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
+		//$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
 		
 		
 
@@ -1425,7 +1451,7 @@ class SaidasController extends NotasController {
 
 		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
 		
-		debug($xmlAssinada);
+		debug($saida);
 		
 
 		//Redirecionar para local desejado
