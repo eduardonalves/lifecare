@@ -1390,28 +1390,36 @@ class SaidasController extends NotasController {
 		}
 					
 		
-		$tranportadoraInfo = array(
-			'qVol' => '1000',
-			'esp' => 'caixa',
-			'nVol' => '12345',
-			'pesoL' => '123',
-			'pesoB' => '123',
-			'lacres' => array(
-				'nLacre'=> 'A1'
-			),
-		);
-		$duplicata = array(
-			'dup' => array(
-				'nDup' => '00000488-01/01',
-				'dVenc'	=> '2010-12-02',
-				'vDup' => '11.11',
-			)
-		);
+		
+		foreach ($saida['Transp'] as $transp) {
+				$tranportadoraInfo = array(
+				'qVol' => $transp['qVol'],
+				'esp' => $transp['esp'],
+				'nVol' => $transp['nVol'],
+				'pesoL' => $transp['pesoL'],
+				'pesoB' => $transp['pesoB'],
+				'lacres' => array(
+					'nLacre'=> $transp['lacres']
+				),
+			);
+			array_push($xmlArray['NFe']['infNFe']['transp']['vol'], $tranportadoraInfo);
+		}
+
+		foreach ($saida['Duplicata'] as $duplicata) {
+			$dup = array(
+				'dup' => array(
+					'nDup' => $duplicata['nDup'],
+					'dVenc'	=> $duplicata['dVenc'],
+					'vDup' => $duplicata['vDup'],
+				)
+			);
+			array_push($xmlArray['NFe']['infNFe']['cobr'], $dup);
+		}
 		$xmlArray['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
 		
 		$xmlArray['NFe']['infNFe']['transp']['transporta'] = $tranportadoraData;
-		$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
-		$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
+		//$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
+		//$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
 		
 		
 
