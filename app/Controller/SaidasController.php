@@ -1404,7 +1404,12 @@ class SaidasController extends NotasController {
 			);
 			array_push($xmlArray['NFe']['infNFe']['transp']['vol'], $tranportadoraInfo);
 		}
-
+		if(isset($saida['Transp'])){
+			if(empty($saida['Transp'] )){
+				unset($xmlArray['NFe']['infNFe']['transp']['vol']);
+			}
+		}
+		
 		foreach ($saida['Duplicata'] as $duplicata) {
 			$dup = array(
 				'dup' => array(
@@ -1415,9 +1420,22 @@ class SaidasController extends NotasController {
 			);
 			array_push($xmlArray['NFe']['infNFe']['cobr'], $dup);
 		}
+
+		if(isset($saida['Duplicata'])){
+			if(empty($saida['Duplicata'])){
+				unset($xmlArray['NFe']['infNFe']['cobr']);
+			}
+		}
 		$xmlArray['NFe']['infNFe']['total']['ICMSTot'] = $icmsTotal ;
 		
 		$xmlArray['NFe']['infNFe']['transp']['transporta'] = $tranportadoraData;
+		if(isset($saida['Transportadore'])){
+			if(empty($saida['Transportadore'])){
+				unset($xmlArray['NFe']['infNFe']['transp']['transporta']);
+			}
+		}
+		
+		
 		//$xmlArray['NFe']['infNFe']['transp']['vol'] = $tranportadoraInfo;
 		//$xmlArray['NFe']['infNFe']['cobr']=$duplicata;
 		
@@ -1433,7 +1451,7 @@ class SaidasController extends NotasController {
 
 		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
 		
-		debug($xmlAssinada);
+		debug($saida);
 		
 
 		//Redirecionar para local desejado
