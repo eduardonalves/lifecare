@@ -1713,7 +1713,7 @@ class SaidasController extends NotasController {
 		if (!$this->Saida->exists($id)) {
 			throw new NotFoundException(__('Invalid saida'));
 		}
-		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 0);
+		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 1);
 		$this->set('saida', $this->Saida->find('first', $options));
 		
 		$this->loadModel('Produtoiten');

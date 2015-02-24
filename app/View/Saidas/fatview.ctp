@@ -697,82 +697,93 @@ Acesso da NF-e'));?>
 <section>
 	<header>Informações de Tranporte</header>
 
-	<section class="coluna-esquerda">
-		
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Qtd. Volume:',array('class'=>'titulo','title'=>'Quantidade de volumes transportados'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['qvol'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>	
+	<?php 
+		$i=0;
+		foreach ($saida['Transp'] as $infoTranp) {
+	?>
+		<fieldset style="clear:both;margin-bottom:10px;">
+			<legend>Informação de Transporte nº <?php echo $i; ?></legend>
+			<section class="coluna-esquerda">
+				
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Qtd. Volume:',array('class'=>'titulo','title'=>'Quantidade de volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['qvol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>	
 
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Peso Líquido:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['pesol'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Peso Líquido:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['pesol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
 
-	</section>
-	
+			</section>
+			
 
-	<section class="coluna-central">
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Peso Bruto:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['pesob'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
+			<section class="coluna-central">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Peso Bruto:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['pesob'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
 
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Espécie:',array('class'=>'titulo','title'=>'Espécie dos volumes transportados'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['esp'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
-	</section>
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Espécie:',array('class'=>'titulo','title'=>'Espécie dos volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['esp'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
 
-	<section class="coluna-direita">
-		
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Numeração Volumes:',array('class'=>'titulo','title'=>'Numeração dos volumes transportados'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['nVol'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
+			<section class="coluna-direita">
+				
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Numeração Volumes:',array('class'=>'titulo','title'=>'Numeração dos volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['nVol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
 
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Lacres:',array('class'=>'titulo','title'=>'Lacres'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Transp']['lacres'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Lacres:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['lacres'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
 
-	</section>
+			</section>
+		</fieldset>
+	<?php 
+		$i++;		
+		}
+	?>
 </section>
 
 <section style="clear:both;">
@@ -895,6 +906,13 @@ Acesso da NF-e'));?>
 			</table>	
 
 </section>
+
+<div style="clear:both;"></div>
+<pre>
+	<?php
+		print_r($saida);
+	?>
+</pre>
 
 <!-- MODAL DADOS DA NOTA FISCAL -->
 
