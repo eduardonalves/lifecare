@@ -396,23 +396,11 @@ pagamento.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Indpag']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['indpag'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
 
-
-		<div class="conteudo-linha">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Mod. Doc. Fiscal:',array('class'=>'titulo','title'=>'Código do Modelo do Documento 
-Fiscal.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', '55',array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
 
 		<div class="conteudo-linha" style="clear:both;">
 			<div class="linha1">
@@ -420,7 +408,7 @@ Fiscal.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Serie']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['serie'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -436,8 +424,7 @@ Fiscal.'));?>
 			</div>
 		</div>
 
-		
-		
+
 	</section>
 
 	<section class="coluna-central">
@@ -475,16 +462,7 @@ Fiscal.'));?>
 			</div>
 		</div>
 
-		<div class="conteudo-linha">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Tipo NF-e:',array('class'=>'titulo'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Tpnf']['descricao'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
+	
 
 		<div class="conteudo-linha">
 			<div class="linha1">
@@ -526,7 +504,7 @@ Ocorrência do Fato Gerador.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Tpimp']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['tpimp'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -535,7 +513,7 @@ Ocorrência do Fato Gerador.'));?>
 
 	<section class="coluna-direita">
 		
-			<div class="conteudo-linha">
+		<div class="conteudo-linha">
 			<div class="linha1">
 				<?php echo $this->Html->Tag('p','T. Emi. NF-e:',array('class'=>'titulo','title'=>'Tipo de Emissão da NF-e'));?>
 			</div>
@@ -565,7 +543,7 @@ Acesso da NF-e'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Tpamb']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['tpamb'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -577,29 +555,7 @@ Acesso da NF-e'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Finnfe']['descricao'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
-
-		<div class="conteudo-linha">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Proc. Emi. da NF-e:',array('class'=>'titulo','title'=>'Processo de Emissão da NF-e.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Procemi']['descricao'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
-
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Ver. Proc. Emi. da NF-e:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Verproc']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['finnfe'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -1016,18 +972,17 @@ Acesso da NF-e'));?>
 							</select>
 						</div>
 
+
 						<div style="clear:both;"> <!-- INDPAG ###################### -->
+							 <!-- INDPAG ###################### -->
 							<label>Ind. Forma Pgto.:</label>
-							<select name="data[Saida][indpag_id]">				
+							<select name="data[Saida][indpag]">				
 								<option></option>
-								<?php
-									foreach($indpags as $indpag){								
-										echo "<option value='".$indpag['Indpag']['id']."'>";
-											echo $indpag['Indpag']['descricao'];
-										echo "</option>";
-									}
-								?>
+								<option value="1">Pagamento à Vista</option>
+								<option value="2">Pagamento a Prazo</option>
+								<option value="3">Outros</option>							
 							</select>
+						
 						</div>
 
 						<div style="clear:both;"> <!-- NATOP ###################### -->
@@ -1044,29 +999,30 @@ Acesso da NF-e'));?>
 							</select>
 						</div>
 				<?php
-					echo $this->Form->input('Saida.serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
-					echo $this->Form->input('Saida.codnota',array('label'=>'Cód. Nota:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.numero_nota',array('label'=>'Nº Nota:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.data',array('label'=>'Data Emissão:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.data_entrada',array('label'=>'Data Entrada:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.data_saida',array('label'=>'Data Saída:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+						echo $this->Form->input('Saida.codnota',array('label'=>'Cód. Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.numero_nota',array('label'=>'Nº Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data',array('label'=>'Data Emissão:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data_entrada',array('label'=>'Data Entrada:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data_saida',array('label'=>'Data Saída:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.modfrete',array('label'=>'Mod. Frete:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.infoadic',array('label'=>'Info. Adicional:','type'=>'text','class'=>'tamanho-pequeno'));
 
-					echo $this->Form->input('Saida.cmunfg_id',array('label'=>'cmunfg_id:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.tpimp_id',array('label'=>'tpimp_id:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.tpEmis',array('label'=>'tpEmis:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.cmunfg_id',array('label'=>'cmunfg_id:','type'=>'text','class'=>'tamanho-pequeno'));
+						
+						echo $this->Form->input('Saida.tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));
+							
 
-					echo $this->Form->input('Saida.cdv',array('label'=>'cdv:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.tpamb',array('label'=>'Id. do Ambiente:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Produção','2'=>'Homologação')));
 
-					echo $this->Form->input('Saida.tpamb_id',array('label'=>'tpamb_id:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.finnfe_id',array('label'=>'finnfe_id:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.procemi_id',array('label'=>'procemi_id:','type'=>'text','class'=>'tamanho-pequeno'));
-					echo $this->Form->input('Saida.verproc_id',array('label'=>'verproc_id:','type'=>'text','class'=>'tamanho-pequeno'));
 
-					
-					
-					
-					
-					echo $this->Form->end();
+						echo $this->Form->input('Saida.tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
+
+						echo $this->Form->input('Saida.cdv',array('label'=>'Dígito Verificador:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'1'));
+
+						echo $this->Form->input('Saida.finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array(''=>'','1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
+
+					echo $this->Form->end('enviar');
 
 				?>
 			</section>

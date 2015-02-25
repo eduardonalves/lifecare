@@ -996,21 +996,21 @@ class SaidasController extends NotasController {
 							'cUF'=> $saida['Cuf']['codigo'],
 							'cNF' => $saida['Saida']['codnota'],
 							'natOp' => $saida['Natop']['descricao'],
-							'indPag' =>  $saida['Indpag']['codigo'],
+							'indPag' =>  $saida['Saida']['indpag'],
 							'mod' => 55,
-							'serie' => $saida['Serie']['codigo'],
+							'serie' => $saida['Saida']['serie'],
 							'nNF' => $saida['Saida']['numero_nota'],
 							'dhEmi' => '2015-02-18T15:20:16-02:00',//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
-							'tpNF' =>  $saida['Tpnf']['codigo'],
+							'tpNF' =>  1,
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
 							
 							'cMunFG' => $saida['Cmunfg']['codigo'],
-							'tpImp' =>  $saida['Tpimp']['codigo'],
+							'tpImp' =>  $saida['Saida']['tpimp'],
 							'tpEmis' => $saida['Saida']['tpemis'],
 							'cDV' => $saida['Saida']['cdv'],
-							'tpAmb' => $saida['Tpamb']['codigo'],
-							'finNFe' => $saida['Finnfe']['codigo'],
+							'tpAmb' => $saida['Saida']['tpamb'],
+							'finNFe' => $saida['Saida']['finnfe'],
 							'indFinal' => 0,
 							'indPres' => 9, //0=Não se aplica (por exemplo, Nota Fiscal complementar ou de ajuste);
 				               				//1=Operação presencial;
@@ -1018,8 +1018,8 @@ class SaidasController extends NotasController {
 				               				//3=Operação não presencial, Teleatendimento;
 				               				//4=NFC-e em operação com entrega a domicílio;
 				               				//9=Operação não presencial, outros.
-							'procEmi' => $saida['Procemi']['codigo'],
-							'verProc' => $saida['Verproc']['codigo'],	
+							'procEmi' => 0,
+							'verProc' => '2.02',	
 						),
 						
 							'emit' =>  array(
@@ -1767,14 +1767,11 @@ class SaidasController extends NotasController {
 		$this->loadModel('cuf');
 		$cufs = $this->cuf->find('all',array( 'recursive' => 0, 'order'=>'cuf.descricao asc'));
 
-		$this->loadModel('Indpag');
-		$indpags = $this->Indpag->find('all',array( 'recursive' => 0, 'order'=>'Indpag.descricao desc'));
-
 		$this->loadModel('Natop');
 		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
 	
 
-		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','indpags','natops'));
+		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','natops'));
 
 	}
 }
