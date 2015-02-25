@@ -488,6 +488,17 @@ Fiscal.'));?>
 
 		<div class="conteudo-linha">
 			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Data Entrada:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', formatDateToView($saida['Saida']['data_entrada']),array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+		<div class="conteudo-linha">
+			<div class="linha1">
 				<?php echo $this->Html->Tag('p','Data Saída:',array('class'=>'titulo'));?>
 			</div>
 			<div class="linha2">
@@ -497,7 +508,6 @@ Fiscal.'));?>
 			</div>
 		</div>
 
-		
 		<div class="conteudo-linha">
 			<div class="linha1">
 				<?php echo $this->Html->Tag('p','Cód. Muni. FG:',array('class'=>'titulo','title'=>'Código do Município de 
@@ -844,10 +854,13 @@ Acesso da NF-e'));?>
 	<?php	
 		}
 	?>
-
-
 </section>
 
+<section style="clear:both;">
+	<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+	</a>
+</section>
 
 <!-- PRODUTOS DA NOTA -->
 <section>
@@ -981,6 +994,82 @@ Acesso da NF-e'));?>
 				?>
 				<h1> Preencher Dados da Nota </h1>
 			</header>
+
+			<section>
+				<header></header>
+				<?php
+
+					echo $this->Form->create('Saida');
+				?>
+
+						<div style="clear:both;"> <!-- CÒDIGO UF cUF -->
+							<label>Código UF:</label>
+							<select name="data[Saida][cuf_id]">			
+								<option></option>
+								<?php
+									foreach($cufs as $cuf){								
+										echo "<option value='".$cuf['cuf']['id']."'>";
+											echo $cuf['cuf']['codigo'].' - '.$cuf['cuf']['descricao'];
+										echo "</option>";
+									}
+								?>
+							</select>
+						</div>
+
+						<div style="clear:both;"> <!-- INDPAG ###################### -->
+							<label>Ind. Forma Pgto.:</label>
+							<select name="data[Saida][indpag_id]">				
+								<option></option>
+								<?php
+									foreach($indpags as $indpag){								
+										echo "<option value='".$indpag['Indpag']['id']."'>";
+											echo $indpag['Indpag']['descricao'];
+										echo "</option>";
+									}
+								?>
+							</select>
+						</div>
+
+						<div style="clear:both;"> <!-- NATOP ###################### -->
+							<label>Natureza Operação:</label>
+							<select name="data[Saida][natop_id]">				
+								<option></option>
+								<?php
+									foreach($natops as $natop){								
+										echo "<option value='".$natop['Natop']['id']."'>";
+											echo $natop['Natop']['descricao'];
+										echo "</option>";
+									}
+								?>
+							</select>
+						</div>
+				<?php
+					echo $this->Form->input('Saida.serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+					echo $this->Form->input('Saida.codnota',array('label'=>'Cód. Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.numero_nota',array('label'=>'Nº Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.data',array('label'=>'Data Emissão:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.data_entrada',array('label'=>'Data Entrada:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.data_saida',array('label'=>'Data Saída:','type'=>'text','class'=>'tamanho-pequeno'));
+
+					echo $this->Form->input('Saida.cmunfg_id',array('label'=>'cmunfg_id:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.tpimp_id',array('label'=>'tpimp_id:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.tpEmis',array('label'=>'tpEmis:','type'=>'text','class'=>'tamanho-pequeno'));
+
+					echo $this->Form->input('Saida.cdv',array('label'=>'cdv:','type'=>'text','class'=>'tamanho-pequeno'));
+
+					echo $this->Form->input('Saida.tpamb_id',array('label'=>'tpamb_id:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.finnfe_id',array('label'=>'finnfe_id:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.procemi_id',array('label'=>'procemi_id:','type'=>'text','class'=>'tamanho-pequeno'));
+					echo $this->Form->input('Saida.verproc_id',array('label'=>'verproc_id:','type'=>'text','class'=>'tamanho-pequeno'));
+
+					
+					
+					
+					
+					echo $this->Form->end();
+
+				?>
+			</section>
 			
 		</div>
 	</div>
@@ -1020,3 +1109,21 @@ Acesso da NF-e'));?>
 			
 		</div>
 	</div>	
+
+
+<!-- MODAL DUPLICATAS -->
+
+	<div class="modal fade" id="myModal_add-notaDuplicata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Adicionar Duplicata </h1>
+			</header>
+			
+		</div>
+	</div>
