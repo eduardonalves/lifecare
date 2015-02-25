@@ -1769,9 +1769,11 @@ class SaidasController extends NotasController {
 
 		$this->loadModel('Natop');
 		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
-	
+		
+		$this->loadModel('Transportadore');
+		$transporadoras = $this->Transportadore->find('all',array('recursive' => -1, 'order'=>'Transportadore.nome asc'));
 
-		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','natops'));
+		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','natops','transporadoras'));
 
 	}
 }

@@ -582,11 +582,9 @@ Acesso da NF-e'));?>
 </section>
 
 <section style="clear:both;">
-
 	<a href="add-dadosNota" class="bt-showmodal" style="float:right;margin-top:15px;">
-		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
 	</a>
-
 </section>
 
 <section>
@@ -671,14 +669,12 @@ Acesso da NF-e'));?>
 </section>
 
 <section style="clear:both;">
-
 	<a href="add-transportadora" class="bt-showmodal" style="float:right;margin-top:15px;">
-		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
 	</a>
-
 </section>
 
-<section>
+<section style="clear:both;">
 	<header>Informações de Tranporte</header>
 
 	<?php 
@@ -772,11 +768,11 @@ Acesso da NF-e'));?>
 
 <section style="clear:both;">
 	<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
-		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
 	</a>
 </section>
 
-<section>
+<section style="clear:both;">
 	<header>Duplicatas</header>
 
 	<?php
@@ -832,7 +828,7 @@ Acesso da NF-e'));?>
 
 <section style="clear:both;">
 	<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
-		<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
 	</a>
 </section>
 
@@ -951,12 +947,8 @@ Acesso da NF-e'));?>
 <div style="clear:both;"></div>
 <pre>
 	<?php
-		print_r($cliContato);
-		if(empty($cliContato)){
-			echo 'vazio';
-		}else{
-			echo 'cheio';
-		}
+		print_r($saida);
+
 	?>
 </pre>
 
@@ -1068,6 +1060,53 @@ Acesso da NF-e'));?>
 				<h1> Preencher Dados da Transportadora </h1>
 			</header>
 			
+			<section>
+				<header></header>
+
+				<?php
+					echo $this->Form->create('Nota',array('url'=>array('controller'=>'Notas','action'=>'edit')));
+						echo $this->Form->input('Nota.id',array('type'=>'hidden','value'=>$saida['Saida']['id']));
+				?>
+					<div style="clear:both;"> 
+							<label>Transportadora:</label>
+							<select name="data[Saida][transportadore_id]" class="tamanho-medio">				
+								<option></option>
+								<?php
+									foreach($transporadoras as $transporta){								
+										echo "<option value='".$transporta['Transportadore']['id']."' data-cnpj='".$transporta['Transportadore']['cnpj']."'
+										data-nome='".$transporta['Transportadore']['nome']."' data-ie='".$transporta['Transportadore']['ie']."' data-endereco='".$transporta['Transportadore']['endereco']."' data-cidade='".$transporta['Transportadore']['cidade']."' data-uf='".$transporta['Transportadore']['uf']."'>";
+										echo $transporta['Transportadore']['nome'];
+										echo "</option>";
+									}
+								?>
+							</select>
+					</div>
+
+				<section>
+					<section>
+						<?php
+							echo $this->Form->input('vazio.cnpj',array('label'=>'CNPJ:','class'=>'tamanho-medio borderZero','id'=>'transporta-cnpj','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.nome',array('label'=>'Nome:','class'=>'tamanho-medio borderZero','id'=>'transporta-nome','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.ie',array('label'=>'Inscri. Estadual:','class'=>'tamanho-medio borderZero','id'=>'transporta-ie','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+						?>
+					</section>
+
+					<section>
+						<?php
+							echo $this->Form->input('vazio.endereco',array('label'=>'Endereço:','class'=>'tamanho-medio borderZero','id'=>'transporta-endereco','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.cidade',array('label'=>'Cidade:','class'=>'tamanho-medio borderZero','id'=>'transporta-cidade','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.uf',array('label'=>'UF:','class'=>'tamanho-medio borderZero','id'=>'transporta-uf','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+						?>
+					</section>
+				</section>
+
+				<footer>
+					<?php
+						echo $this->Form->end('enviar');
+					?>
+				</footer>
+			</section>
+
 		</div>
 	</div>	
 
