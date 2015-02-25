@@ -188,6 +188,26 @@ function convertMoeda(&$valorMoeda){
 
 	
 	<!-- ##### DADOS DO DESTINATÁRIO ##### -->
+
+	<?php
+		
+		if(empty($cliContato)){
+			$cliContato['Contato']['telefone1'] = '';
+			$cliContato['Contato']['email'] = '';
+		}
+
+		if(empty($cliEndereco)){
+			$cliEndereco['Endereco']['logradouro'] = '';
+	        $cliEndereco['Endereco']['numero'] = '';
+			$cliEndereco['Endereco']['complemento'] = '';
+			$cliEndereco['Endereco']['bairro'] = '';
+			$cliEndereco['Endereco']['cep'] = '';
+			$cliEndereco['Endereco']['uf'] = '';
+			$cliEndereco['Endereco']['cidade'] = '';
+		}
+
+
+	?>
 	
 <section>
 		<header>Dados do Destinatário</header>
@@ -305,8 +325,6 @@ function convertMoeda(&$valorMoeda){
 					 ?>	
 				</div>
 			</div>
-
-			
 		</section>
 
 		<section class="coluna-direita">
@@ -933,7 +951,12 @@ Acesso da NF-e'));?>
 <div style="clear:both;"></div>
 <pre>
 	<?php
-		print_r($saida);
+		print_r($cliContato);
+		if(empty($cliContato)){
+			echo 'vazio';
+		}else{
+			echo 'cheio';
+		}
 	?>
 </pre>
 
