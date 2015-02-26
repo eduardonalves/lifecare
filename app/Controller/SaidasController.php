@@ -1758,12 +1758,13 @@ class SaidasController extends NotasController {
 		$this->set(compact('userid','saidas'));
 	}
 	
-	public function eviaEmailFaturamento(&$destinatario, &$remetente, &$idSaida){
+	public function eviaEmailFaturamento($id =null){
 				
-			
-			$saida = $this->Saida->find('first', array('recursive' => 0,'conditions' => array('Saida.id' => $idSaida)));
+
+			$saida = $this->Saida->find('first', array('recursive' => 0,'conditions' => array('Saida.id' => $id)));
 			//test file for check attachment 
 			$this->loadModel('Empresa');
+			$this->loadModel('Contato');
 			$mensagem = array();
 			$mensagem = $saida;	 
 			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
@@ -1775,8 +1776,9 @@ class SaidasController extends NotasController {
 			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, sob o código: nfe-".$saida['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			
-			 
-			
+			$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $saida['Saida']['parceirodenegocio_id'])));
+			$remetente = 'eduardonascimento@techinmove.com.br';
+			$destinatario = $contato['Contato']['email'];
 			$file_name= APP."webroot/img/cake.icon.png";
 			$extraparams= $mensagem;
 			$this->Session->write('extraparams',$extraparams);
