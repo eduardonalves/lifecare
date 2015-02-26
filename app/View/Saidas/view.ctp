@@ -63,7 +63,13 @@
 	});
 </script>
 
-<h1 class="menuOption25"></h1>
+<?php
+	if(isset($telaAbas)){
+		echo '<h1 class="menuOption61"></h1>';
+	}else{
+		echo '<h1 class="menuOption25"></h1>';
+	}
+?>
 
 <div class="impressao" id="impressao">
 	<section>

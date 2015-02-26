@@ -9,7 +9,7 @@
 	$this->start('script');
 		echo $this->Html->script('separacao');
 	$this->end();
-	
+	  
 	function formatDateToView(&$data){
 		$dataAux = explode('-', $data);
 		if(isset($dataAux['2'])){

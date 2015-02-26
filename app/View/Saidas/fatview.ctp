@@ -1064,8 +1064,8 @@ Acesso da NF-e'));?>
 				<header></header>
 
 				<?php
-					echo $this->Form->create('Nota',array('url'=>array('controller'=>'Notas','action'=>'edit')));
-						echo $this->Form->input('Nota.id',array('type'=>'hidden','value'=>$saida['Saida']['id']));
+					echo $this->Form->create('Saida',array('url'=>array('controller'=>'Saidas','action'=>'edit',$saida['Saida']['id'])));
+						echo $this->Form->input('Saida.id',array('type'=>'hidden','value'=>$saida['Saida']['id']));
 				?>
 					<div style="clear:both;"> 
 							<label>Transportadora:</label>
