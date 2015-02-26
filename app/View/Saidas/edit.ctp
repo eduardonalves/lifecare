@@ -31,14 +31,6 @@
 
 <header>
 	<h1 class="menuOption61"></h1>
-
-	<?php
-		echo $saida['Saida']['created'];
-		echo "<br>";
-		echo date("c",strtotime($saida['Saida']['data']));
-		//'2015-02-18T15:20:16-02:00'
-	?>
-
 </header>
 
 <!-- ######### DADOS DO EMITENTE ######### -->
@@ -338,13 +330,10 @@
 			echo $this->Form->input('codnota',array('label'=>'Cod. Nota:','class'=>'tamanho-medio','type'=>'text'));
 			echo $this->Form->input('tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
 			
+			echo $this->Form->input('data',array('value'=>formatDateToView($saida['Saida']['data']),'label'=>'Data Emissão:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data_entrada',array('value'=>formatDateToView($saida['Saida']['data_entrada']),'label'=>'Data Entrada:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data_saida',array('value'=>formatDateToView($saida['Saida']['data_saida']),'label'=>'Data Saída:','class'=>'tamanho-medio','type'=>'text'));
 
-			//echo $this->Form->input('parceirodenegocio_id',array('label'=>'Cliente','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('data',array('label'=>'Data Emissão:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('data_entrada',array('label'=>'Data Entrada:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('data_saida',array('label'=>'Data Saída:','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('user_id',array('label'=>'User:','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('vendedor_id',array('label'=>'Vendedor:','class'=>'tamanho-medio','type'=>'text'));
 		?>
 			<!-- NATOP ###################### -->
 			<div style="clear:both;"> 
@@ -398,43 +387,21 @@
 			echo $this->Form->input('cmunfg_id',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
 			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
 			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
-			//echo $this->Form->input('procemi_id',array('label'=>'procemi_id','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('verproc_id',array('label'=>'verproc_id','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('descricao',array('label'=>'Descrição','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_total_produtos',array('label'=>'V. T. Produtos:','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_total',array('label'=>'V. Total:','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('vb_icms',array('label'=>'vb_icms','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_icms',array('label'=>'valor_icms','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('vb_cst',array('label'=>'vb_cst','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_st',array('label'=>'valor_st','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_frete',array('label'=>'valor_frete','class'=>'tamanho-medio','type'=>'text'));
+
 		?>
 	</section>
 	<section class="coluna-direita">
 		<?php
-			//echo $this->Form->input('valor_seguro',array('label'=>'valor_seguro','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_desconto',array('label'=>'valor_desconto','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('vii',array('label'=>'vii','class'=>'tamanho-medio','type'=>'text'));
-			// $this->Form->input('valor_ipi',array('label'=>'v. ipi:','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_pis',array('label'=>'valor_pis','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('v_cofins',array('label'=>'v_cofins','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('valor_outros',array('label'=>'valor_outros','class'=>'tamanho-medio','type'=>'text'));
+		
 			echo $this->Form->input('modfrete',array('label'=>'modfrete','class'=>'tamanho-medio','type'=>'text'));
 			//1 - proprio/emitente , 0 - outros
 
 			echo $this->Form->input('freteproprio',array('label'=>'freteproprio','class'=>'tamanho-medio','type'=>'text'));
 			// 1 se modfrete proprio/emitente, 0 se modfrete 0
 			echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('chave_acesso',array('label'=>'chave_acesso','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('parceiro',array('label'=>'parceiro','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('devolucao',array('label'=>'devolucao','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('obs',array('label'=>'obs','class'=>'tamanho-medio','type'=>'text'));
+			
 			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('status_estoque',array('label'=>'status_estoque','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('status_financeiro',array('label'=>'status_financeiro','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('status_faturamento',array('label'=>'status_faturamento','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('status_geral',array('label'=>'status_geral','class'=>'tamanho-medio','type'=>'text'));
-			//echo $this->Form->input('Produto',array('label'=>'Produto','class'=>'tamanho-medio','type'=>'text'));
+			
 		?>
 	</section>
 </section>

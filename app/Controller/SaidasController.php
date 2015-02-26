@@ -1025,7 +1025,7 @@ class SaidasController extends NotasController {
 							'mod' => 55,
 							'serie' => $saida['Saida']['serie'],
 							'nNF' => $saida['Saida']['numero_nota'],
-							'dhEmi' => $dhEmi,//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
+							'dhEmi' =>  date("c",strtotime($saida['Saida']['created'])),//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
 							'tpNF' =>  1,
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
