@@ -1451,7 +1451,7 @@ class SaidasController extends NotasController {
 
 		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
 		
-		debug($saida);
+		//debug($saida);
 		
 
 		//Redirecionar para local desejado
