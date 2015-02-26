@@ -1,119 +1,580 @@
-<div class="saidas form">
-<?php echo $this->Form->create('Saida'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Saida'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('tipo');
-		echo $this->Form->input('numero_nota');
-		echo $this->Form->input('codnota');
-		echo $this->Form->input('tpemis');
-		echo $this->Form->input('cdv');
-		echo $this->Form->input('parceirodenegocio_id');
-		echo $this->Form->input('data');
-		echo $this->Form->input('data_entrada');
-		echo $this->Form->input('data_saida');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('vendedor_id');
-		echo $this->Form->input('natop_id');
-		echo $this->Form->input('comoperacao_id');
-		echo $this->Form->input('cuf_id');
-		echo $this->Form->input('indpag_id');
-		echo $this->Form->input('mod_id');
-		echo $this->Form->input('serie_id');
-		echo $this->Form->input('tpnf_id');
-		echo $this->Form->input('cmunfg_id');
-		echo $this->Form->input('tpimp_id');
-		echo $this->Form->input('cdv_id');
-		echo $this->Form->input('tpamb_id');
-		echo $this->Form->input('finnfe_id');
-		echo $this->Form->input('procemi_id');
-		echo $this->Form->input('verproc_id');
-		echo $this->Form->input('descricao');
-		echo $this->Form->input('valor_total_produtos');
-		echo $this->Form->input('nota_fiscal');
-		echo $this->Form->input('valor_total');
-		echo $this->Form->input('vb_icms');
-		echo $this->Form->input('valor_icms');
-		echo $this->Form->input('vb_cst');
-		echo $this->Form->input('valor_st');
-		echo $this->Form->input('valor_frete');
-		echo $this->Form->input('valor_seguro');
-		echo $this->Form->input('valor_desconto');
-		echo $this->Form->input('vii');
-		echo $this->Form->input('valor_ipi');
-		echo $this->Form->input('valor_pis');
-		echo $this->Form->input('v_cofins');
-		echo $this->Form->input('valor_outros');
-		echo $this->Form->input('transp_id');
-		echo $this->Form->input('modfrete');
-		echo $this->Form->input('freteproprio');
-		echo $this->Form->input('transportadore_id');
-		echo $this->Form->input('origem');
-		echo $this->Form->input('chave_acesso');
-		echo $this->Form->input('forma_de_entrada');
-		echo $this->Form->input('parceiro');
-		echo $this->Form->input('devolucao');
-		echo $this->Form->input('obs');
-		echo $this->Form->input('infoadic');
-		echo $this->Form->input('status_estoque');
-		echo $this->Form->input('status_financeiro');
-		echo $this->Form->input('status_faturamento');
-		echo $this->Form->input('status_geral');
-		echo $this->Form->input('Produto');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+	echo $this->Html->css('rh.css');
+	echo $this->Html->css('saidas_view.css');
+	echo $this->Html->css('table.css');
+	echo $this->Html->css('PrintArea.css');
+	echo $this->Html->script('jquery.PrintArea.js');
+	//echo $this->Html->script('funcoes_entrada.js');
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Saida.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Saida.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Saidas'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Parceirodenegocios'), array('controller' => 'parceirodenegocios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parceirodenegocio'), array('controller' => 'parceirodenegocios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Transportadores'), array('controller' => 'transportadores', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Transportadore'), array('controller' => 'transportadores', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cufs'), array('controller' => 'cufs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cuf'), array('controller' => 'cufs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pedidovendas'), array('controller' => 'pedidovendas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pedidovenda'), array('controller' => 'pedidovendas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comoperacaos'), array('controller' => 'comoperacaos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comoperacao'), array('controller' => 'comoperacaos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Indpags'), array('controller' => 'indpags', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Indpag'), array('controller' => 'indpags', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Mods'), array('controller' => 'mods', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Mod'), array('controller' => 'mods', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Series'), array('controller' => 'series', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Serie'), array('controller' => 'series', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tpnfs'), array('controller' => 'tpnfs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tpnf'), array('controller' => 'tpnfs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cmunfgs'), array('controller' => 'cmunfgs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cmunfg'), array('controller' => 'cmunfgs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tpimps'), array('controller' => 'tpimps', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tpimp'), array('controller' => 'tpimps', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cdvs'), array('controller' => 'cdvs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cdv'), array('controller' => 'cdvs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tpambs'), array('controller' => 'tpambs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tpamb'), array('controller' => 'tpambs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Finnves'), array('controller' => 'finnves', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Finnfe'), array('controller' => 'finnves', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Procemis'), array('controller' => 'procemis', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Procemi'), array('controller' => 'procemis', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Verprocs'), array('controller' => 'verprocs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Verproc'), array('controller' => 'verprocs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Transps'), array('controller' => 'transps', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Transp'), array('controller' => 'transps', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Natops'), array('controller' => 'natops', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Natop'), array('controller' => 'natops', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Produtoitens'), array('controller' => 'produtoitens', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Produtoiten'), array('controller' => 'produtoitens', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Loteitens'), array('controller' => 'loteitens', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Loteiten'), array('controller' => 'loteitens', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Produtos'), array('controller' => 'produtos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Produto'), array('controller' => 'produtos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+	function convertMoeda(&$valorMoeda){
+		$valorMoedaAux = explode('.' , $valorMoeda);
+		if(isset ($valorMoedaAux[1])){
+			$valorMoeda= "R$ ".$valorMoedaAux[0].','.$valorMoedaAux[1];
+		}else{
+			$valorMoeda = "R$ ".$valorMoedaAux[0].','.'00';
+		}
+		return $valorMoeda;
+	}
+
+	function formatDateToView(&$data){
+		$dataAux = explode('-', $data);
+		if(isset($dataAux['2'])){
+			if(isset($dataAux['1'])){
+				if(isset($dataAux['0'])){
+					$data = $dataAux['2']."/".$dataAux['1']."/".$dataAux['0'];
+				}
+			}
+		}
+		return $data;
+	}
+?>
+
+<header>
+	<h1 class="menuOption61"></h1>
+
+	<?php
+		echo $saida['Saida']['created'];
+		echo "<br>";
+		echo date("c",strtotime($saida['Saida']['data']));
+		//'2015-02-18T15:20:16-02:00'
+	?>
+
+</header>
+
+<!-- ######### DADOS DO EMITENTE ######### -->
+<section>		
+	<header>Emitente</header>
+	<section class="coluna-esquerda">
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Razão:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['razao'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','CRT:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['crt'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['uf'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['bairro'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+	</section>
+
+	<section class="coluna-central">		
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Nome Fant.:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['nome_fantasia'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Inscri. Estadual:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['ie'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php echo $this->Html->Tag('p',$emitente['Empresa']['cep'],array('class'=>'valor'));?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','nº / Comple.:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					if($emitente['Empresa']['numero'] != '' && $emitente['Empresa']['complemento'] != ''){
+						$nComplemento = $emitente['Empresa']['numero'] . ', ' . $emitente['Empresa']['complemento'];
+					}else{
+						if($emitente['Empresa']['numero'] == ''){
+							$nComplemento = $emitente['Empresa']['complemento'];
+						}else if($emitente['Empresa']['complemento'] == ''){
+							$nComplemento = $emitente['Empresa']['numero'];
+						}
+					}
+					echo $this->Html->Tag('p', $nComplemento ,array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+	</section>
+
+	<section class="coluna-direita">		
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','CNPJ:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $emitente['Empresa']['cnpj'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Cod. Municipio:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $emitente['Cmunfg']['descricao'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $emitente['Empresa']['cidade'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+		<div class="conteudo-linha">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Endereço:',array('class'=>'titulo'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $emitente['Empresa']['endereco'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+	</section>
+</section>
+
+
+<!-- ##### DADOS DO DESTINATÁRIO ##### -->
+<section>
+	<?php		
+		if(empty($cliContato)){
+			$cliContato['Contato']['telefone1'] = '';
+			$cliContato['Contato']['email'] = '';
+		}
+
+		if(empty($cliEndereco)){
+			$cliEndereco['Endereco']['logradouro'] = '';
+	        $cliEndereco['Endereco']['numero'] = '';
+			$cliEndereco['Endereco']['complemento'] = '';
+			$cliEndereco['Endereco']['bairro'] = '';
+			$cliEndereco['Endereco']['cep'] = '';
+			$cliEndereco['Endereco']['uf'] = '';
+			$cliEndereco['Endereco']['cidade'] = '';
+		}
+	?>
+		<header>Dados do Destinatário</header>
+		<section class="coluna-esquerda">
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Destinatário:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $saida['Parceirodenegocio']['nome'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Nome Fantasia:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $saida['Parceirodenegocio']['nomeFantasia'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','CPF/CNPJ:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $saida['Parceirodenegocio']['cpf_cnpj'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Ins. Estadual:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $saida['Parceirodenegocio']['ie'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Telefone:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliContato['Contato']['telefone1'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+		</section>
+		<section class="coluna-central">
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','E-mail:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliContato['Contato']['email'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Logradouro:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['logradouro'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Número:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['numero'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Complemento:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['complemento'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Bairro:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['bairro'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+		</section>
+		<section class="coluna-direita">				
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','CEP:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['cep'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['uf'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+			<div class="conteudo-linha" style="clear:both;">
+				<div class="linha1">
+					<?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+				</div>
+				<div class="linha2">
+					<?php 
+						echo $this->Html->Tag('p', $cliEndereco['Endereco']['cidade'],array('class'=>'valor'));
+					 ?>	
+				</div>
+			</div>
+		</section>
+</section>
+
+<!-- ######### DADOS DA NOTA ######### -->
+<section>	
+	<header>Dados da Nota</header>
+<?php echo $this->Form->create('Saida'); ?>
+	<section class="coluna-esquerda">
+		<?php
+			echo $this->Form->input('id');
+			echo $this->Form->input('numero_nota',array('label'=>'Nº nota:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('codnota',array('label'=>'Cod. Nota:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
+			
+
+			//echo $this->Form->input('parceirodenegocio_id',array('label'=>'Cliente','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data',array('label'=>'Data Emissão:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data_entrada',array('label'=>'Data Entrada:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data_saida',array('label'=>'Data Saída:','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('user_id',array('label'=>'User:','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('vendedor_id',array('label'=>'Vendedor:','class'=>'tamanho-medio','type'=>'text'));
+		?>
+			<!-- NATOP ###################### -->
+			<div style="clear:both;"> 
+				<label>Natureza Operação:</label>
+				<select name="data[Saida][natop_id]" class="tamanho-medio">				
+					<option></option>
+					<?php
+						foreach($natops as $natop){								
+							echo "<option value='".$natop['Natop']['id']."'>";
+								echo $natop['Natop']['descricao'];
+							echo "</option>";
+						}
+					?>
+				</select>
+			</div>
+			<?php	
+				//echo $this->Form->input('comoperacao_id',array('label'=>'Comoperacao','class'=>'tamanho-medio','type'=>'text'));
+			?>
+			<!-- CÒDIGO UF cUF -->
+			<div style="clear:both;"> 
+				<label>Código UF:</label>
+				<select name="data[Saida][cuf_id]" class="tamanho-medio">			
+					<option></option>
+					<?php
+						foreach($cufs as $cuf){								
+							echo "<option value='".$cuf['cuf']['id']."'>";
+								echo $cuf['cuf']['codigo'].' - '.$cuf['cuf']['descricao'];
+							echo "</option>";
+						}
+					?>
+				</select>
+			</div>
+
+			<!-- INDPAG ###################### -->
+			<div style="clear:both;"> 
+				<label>Ind. Forma Pgto.:</label>
+				<select name="data[Saida][indpag]" class="tamanho-medio">				
+					<option></option>
+					<option value="1">Pagamento à Vista</option>
+					<option value="2">Pagamento a Prazo</option>
+					<option value="3">Outros</option>							
+				</select>			
+			</div>
+
+	</section>
+	<section class="coluna-central">
+		<?php
+	
+			echo $this->Form->input('serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+		
+			echo $this->Form->input('cmunfg_id',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
+			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
+			//echo $this->Form->input('procemi_id',array('label'=>'procemi_id','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('verproc_id',array('label'=>'verproc_id','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('descricao',array('label'=>'Descrição','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_total_produtos',array('label'=>'V. T. Produtos:','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_total',array('label'=>'V. Total:','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('vb_icms',array('label'=>'vb_icms','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_icms',array('label'=>'valor_icms','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('vb_cst',array('label'=>'vb_cst','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_st',array('label'=>'valor_st','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_frete',array('label'=>'valor_frete','class'=>'tamanho-medio','type'=>'text'));
+		?>
+	</section>
+	<section class="coluna-direita">
+		<?php
+			//echo $this->Form->input('valor_seguro',array('label'=>'valor_seguro','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_desconto',array('label'=>'valor_desconto','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('vii',array('label'=>'vii','class'=>'tamanho-medio','type'=>'text'));
+			// $this->Form->input('valor_ipi',array('label'=>'v. ipi:','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_pis',array('label'=>'valor_pis','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('v_cofins',array('label'=>'v_cofins','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('valor_outros',array('label'=>'valor_outros','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('modfrete',array('label'=>'modfrete','class'=>'tamanho-medio','type'=>'text'));
+			//1 - proprio/emitente , 0 - outros
+
+			echo $this->Form->input('freteproprio',array('label'=>'freteproprio','class'=>'tamanho-medio','type'=>'text'));
+			// 1 se modfrete proprio/emitente, 0 se modfrete 0
+			echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('chave_acesso',array('label'=>'chave_acesso','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('parceiro',array('label'=>'parceiro','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('devolucao',array('label'=>'devolucao','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('obs',array('label'=>'obs','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('status_estoque',array('label'=>'status_estoque','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('status_financeiro',array('label'=>'status_financeiro','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('status_faturamento',array('label'=>'status_faturamento','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('status_geral',array('label'=>'status_geral','class'=>'tamanho-medio','type'=>'text'));
+			//echo $this->Form->input('Produto',array('label'=>'Produto','class'=>'tamanho-medio','type'=>'text'));
+		?>
+	</section>
+</section>
+
+<!-- ######### VOLUMES DO TRANSPORTE ######### -->
+<section style="clear:both;">
+	<header>Volumes do Transporte</header>
+
+	<?php
+		echo $this->Form->input('transp_id',array('label'=>'transp_id','class'=>'tamanho-medio','type'=>'select'));
+	?>
+</section>
+
+<!-- ######### VOLUMES DO TRANSPORTE ######### -->
+<section style="clear:both;">
+	<header>Duplicatas</header>
+</section>
+
+<footer>
+<?php 
+	
+	if($saida['Saida']['status_completo'] == 0){
+		echo $this->Form->input('status_completo',array('type'=>'hidden','value'=>1));
+		echo $this->Form->end(__('Submit')); 
+	}
+
+?>
+</footer>
+<!-- PRODUTOS DA NOTA -->
+<section>
+	<header>Itens da Nota</header>
+
+	<table id="tabela-principal" cellpadding="0" cellspacing="0">
+
+				<?php
+					if($saida['Saida']['forma_de_entrada']==0){
+				?>
+
+					<tr>
+
+						<th><?php echo ('Cod.'); ?></th>
+						<th><?php echo ('Nome'); ?></th>
+						<th><?php echo ('Und.'); ?></th>
+						<th><?php echo ('Descrição'); ?></th>
+						<th><?php echo ('Qtd.'); ?></th>
+						<th class="valor"><?php echo ('V. Unit.'); ?></th>
+						<th class="valor"><?php echo ('V. Total'); ?></th>
+						<th class="imposto valor"><?php echo ('CFOP'); ?></th>
+						<th class="imposto valor"><?php echo ('ICMS'); ?></th>
+						<th class="imposto valor"><?php echo ('IPI'); ?></th>
+						<th><?php echo ('Lote'); ?></th>
+
+					</tr>
+
+				<?php
+					}else{
+				?>
+
+					<th><?php echo ('Cod.'); ?></th>
+					<th><?php echo ('Nome'); ?></th>
+					<th><?php echo ('Und.'); ?></th>
+					<th><?php echo ('Descrição'); ?></th>
+					<th><?php echo ('Qtd'); ?></th>
+					<th class="valor"><?php echo ('V. Unit.'); ?></th>
+					<th class="valor"><?php echo ('V. Total'); ?></th>
+					<th><?php echo ('Lote'); ?></th>
+				<?php 
+					}
+				?>
+
+				<?php
+					if($saida['Saida']['forma_de_entrada']==0){
+
+						foreach($itens as $prodIten){
+
+							$prodIten['Produtoiten']['valor_total']=convertMoeda($prodIten['Produtoiten']['valor_total']);
+							$prodIten['Produtoiten']['valor_unitario']=convertMoeda($prodIten['Produtoiten']['valor_unitario']);
+							$prodIten['Produto']['percentual_icms']=convertMoeda($prodIten['Produto']['percentual_icms']);
+							$prodIten['Produto']['percentual_ipi']=convertMoeda($prodIten['Produto']['percentual_ipi']);
+
+							echo '<tr class="valbtconfimar">';
+							echo "<td>".$prodIten['Produto']['id']."</td>";
+							echo "<td>".$prodIten['Produto']['nome']."</td>";
+							echo "<td>".$prodIten['Produto']['unidade']."</td>";
+							echo "<td>".$prodIten['Produto']['descricao']."</td>";
+							echo "<td>".$prodIten['Produtoiten']['qtde']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_unitario']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_total']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['cfop']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_icms']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['percentual_ipi']."</td>";
+
+							echo "<td>";
+							foreach($loteitens as $loteiten){
+
+									if( $loteiten['Loteiten']['produtoiten_id'] ==  $prodIten['Produtoiten']['id']){
+										$loteiten['Lote']['data_validade'] = converteData($loteiten['Lote']['data_validade']);
+										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['Loteiten']['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";
+									}
+							}
+							echo "</td>";
+							echo '</tr>';
+
+						}
+
+					}else{
+						foreach($itens as $prodIten){
+
+							$prodIten['Produtoiten']['valor_total']= convertMoeda($prodIten['Produtoiten']['valor_total']);
+							$prodIten['Produtoiten']['valor_unitario']= convertMoeda($prodIten['Produtoiten']['valor_unitario']);
+
+							echo '<tr class="valbtconfimar">';
+							echo "<td>".$prodIten['Produto']['id']."</td>";
+							echo "<td>".$prodIten['Produto']['nome']."</td>";
+							echo "<td>".$prodIten['Produto']['unidade']."</td>";
+							echo "<td>".$prodIten['Produto']['descricao']."</td>";
+							echo "<td>".$prodIten['Produtoiten']['qtde']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_unitario']."</td>";
+							echo "<td class='valor'>".$prodIten['Produtoiten']['valor_total']."</td>";
+							echo "<td>";
+							$j=0;
+							foreach($loteitens as $loteiten){
+									if($loteiten['Loteiten']['produtoiten_id'] ==  $prodIten['Produtoiten']['id']){
+
+										$loteiten['Lote']['data_validade'] = formatDateToView($loteiten['Lote']['data_validade']);
+										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['Loteiten']['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";
+									}
+							}
+							echo "</td>";
+							echo '</tr>';
+
+						}
+					}
+				?>
+			</table>	
+
+</section>
+<div style="clear:both;"></div>
+<pre>
+	<?php
+		print_r($saida);
+	?>
+</pre>

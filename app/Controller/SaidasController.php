@@ -178,6 +178,13 @@ class SaidasController extends NotasController {
  * @return void
  */
 	public function view($id = null) {
+		
+		if(isset($this->request->params['named']['layout'])){
+			$telaLayout = $this->request->params['named']['layout'];
+			$telaAbas = $this->request->params['named']['abas'];
+			$this->layout = $telaLayout;
+		}
+
 		if (!$this->Saida->exists($id)) {
 			throw new NotFoundException(__('Invalid saida'));
 		}
@@ -193,11 +200,7 @@ class SaidasController extends NotasController {
 		$this->loadModel('Cliente');
 		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findSaida['Saida']['parceirodenegocio_id'])));
 		
-		
-		$this->set(compact('findsaida','cliente','itens', 'loteitens'));
-		
-		
-		
+		$this->set(compact('findsaida','cliente','itens', 'loteitens','telaLayout','telaAbas'));		
 
 	}
 
@@ -308,6 +311,9 @@ class SaidasController extends NotasController {
  * @return void
  */
 	public function edit($id = null) {
+
+		$this->layout = 'faturamento';
+
 		if (!$this->Saida->exists($id)) {
 			throw new NotFoundException(__('Invalid saida'));
 		}
@@ -316,14 +322,34 @@ class SaidasController extends NotasController {
 				$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
+				debug($this->request->data);
 				$this->Session->setFlash(__('A saída não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
 		} else {
 			$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id));
 			$this->request->data = $this->Saida->find('first', $options);
+			$saida = $this->Saida->find('first', $options);
 		}
+
+		$this->loadModel('Empresa');
+		$emitente = $this->Empresa->find('first');
+
+		$this->loadModel('cuf');
+		$cufs = $this->cuf->find('all',array( 'recursive' => 0, 'order'=>'cuf.descricao asc'));
+
+		$this->loadModel('Natop');
+		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
+		
+		$this->loadModel('Transportadore');
+		$transporadoras = $this->Transportadore->find('all',array('recursive' => -1, 'order'=>'Transportadore.nome asc'));
+
+		$this->loadModel('Produtoiten');
+		$this->loadModel('Loteiten');
+		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
+		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
+
 		$parceirodenegocios = $this->Saida->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios'));
+		$this->set(compact('parceirodenegocios','itens','loteitens','saida','emitente','cufs','natops','transporadoras'));
 	}
 
 /**
@@ -423,7 +449,6 @@ class SaidasController extends NotasController {
 /**
  * upload
  *
-
  * 
  */
 	public function uploadxml_saida_resultado() {
@@ -982,7 +1007,6 @@ class SaidasController extends NotasController {
 		$this->loadModel('Loteiten');
 
 		
-		
 		$xmlArray = array(
 		   // 'nfeProc' => array(
 		    	//'@versao' => '2.00',
@@ -996,21 +1020,21 @@ class SaidasController extends NotasController {
 							'cUF'=> $saida['Cuf']['codigo'],
 							'cNF' => $saida['Saida']['codnota'],
 							'natOp' => $saida['Natop']['descricao'],
-							'indPag' =>  $saida['Indpag']['codigo'],
+							'indPag' =>  $saida['Saida']['indpag'],
 							'mod' => 55,
-							'serie' => $saida['Serie']['codigo'],
+							'serie' => $saida['Saida']['serie'],
 							'nNF' => $saida['Saida']['numero_nota'],
-							'dhEmi' => '2015-02-18T15:20:16-02:00',//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
-							'tpNF' =>  $saida['Tpnf']['codigo'],
+							'dhEmi' => $dhEmi,//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
+							'tpNF' =>  1,
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
 							
 							'cMunFG' => $saida['Cmunfg']['codigo'],
-							'tpImp' =>  $saida['Tpimp']['codigo'],
+							'tpImp' =>  $saida['Saida']['tpimp'],
 							'tpEmis' => $saida['Saida']['tpemis'],
 							'cDV' => $saida['Saida']['cdv'],
-							'tpAmb' => $saida['Tpamb']['codigo'],
-							'finNFe' => $saida['Finnfe']['codigo'],
+							'tpAmb' => $saida['Saida']['tpamb'],
+							'finNFe' => $saida['Saida']['finnfe'],
 							'indFinal' => 0,
 							'indPres' => 9, //0=Não se aplica (por exemplo, Nota Fiscal complementar ou de ajuste);
 				               				//1=Operação presencial;
@@ -1018,8 +1042,8 @@ class SaidasController extends NotasController {
 				               				//3=Operação não presencial, Teleatendimento;
 				               				//4=NFC-e em operação com entrega a domicílio;
 				               				//9=Operação não presencial, outros.
-							'procEmi' => $saida['Procemi']['codigo'],
-							'verProc' => $saida['Verproc']['codigo'],	
+							'procEmi' => 0,
+							'verProc' => '2.02',	
 						),
 						
 							'emit' =>  array(
@@ -1728,54 +1752,10 @@ class SaidasController extends NotasController {
 		$this->layout = 'faturamento';
 
 		$userid = $this->Session->read('Auth.User.id');
-		$saidas = $this->Saida->find('all', array('conditions'=>array('Saida.tipo'=>'SAIDA','Saida.status_estoque'=>'SEPARADO')));
+		$saidas = $this->Saida->find('all', array('conditions'=> array('AND' => array(array('Saida.tipo' => 'SAIDA'))),'order'=>array('Saida.id DESC')));
 
 		$this->set(compact('userid','saidas'));
 	}
 	
-	public function fatview($id = null) {
-		$this->layout = 'faturamento';
-
-		if (!$this->Saida->exists($id)) {
-			throw new NotFoundException(__('Invalid saida'));
-		}
-		$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id), 'recursive' => 0);
-		$this->set('saida', $this->Saida->find('first', $options));
-		
-		$this->loadModel('Produtoiten');
-		$this->loadModel('Loteiten');
-		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
-		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
-		
-		$findSaida= $this->Saida->find('first', array('conditions' => array('Saida.id' => $id)));
-		
-		$this->loadModel('Cliente');
-		$cliente = $this->Cliente->find('first', array('conditions' => array('Cliente.id' => $findSaida['Saida']['parceirodenegocio_id'])));
-		
-		$this->loadModel('Endereco');
-		$cliEndereco = $this->Endereco->find('first', array('conditions' => array('Endereco.parceirodenegocio_id' => $findSaida['Saida']['parceirodenegocio_id']),'recursive'=>-1));
-
-		$this->loadModel('Contato');
-		$cliContato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $findSaida['Saida']['parceirodenegocio_id']),'recursive'=>-1));
-
-
-		/** DADOS GERAIS DA NOTA **/
-		$this->loadModel('Empresa');
-		$emitente = $this->Empresa->find('first');
-
-
-		$this->loadModel('cuf');
-		$cufs = $this->cuf->find('all',array( 'recursive' => 0, 'order'=>'cuf.descricao asc'));
-
-		$this->loadModel('Indpag');
-		$indpags = $this->Indpag->find('all',array( 'recursive' => 0, 'order'=>'Indpag.descricao desc'));
-
-		$this->loadModel('Natop');
-		$natops = $this->Natop->find('all',array( 'recursive' => 0, 'order'=>'Natop.descricao desc'));
-
-		
-
-		$this->set(compact('findsaida','cliente','cliEndereco','cliContato','itens', 'loteitens','emitente','cufs','indpags','natops'));
-
-	}
+	
 }

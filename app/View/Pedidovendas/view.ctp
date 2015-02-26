@@ -53,46 +53,11 @@
 
 
 
-<div>
-	
-	
-<!-- 
 <section>
-	
-	<header>Dados da Empresa</header>
-	
-	<!-- INFORMAÇÕES DA EMPRESA-->
-	<!-- 	
-		<section class="coluna-esquerda" style="float: left;">
-			<?php
-				echo $this->Form->input('Vazio.nomeEmpresa',array('value'=>$empresa['Empresa']['nome_fantasia'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Nome da Empresa:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.telefone',array('value'=>$empresa['Empresa']['telefone'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Telefone:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.uf',array('value'=>$empresa['Empresa']['uf'],'disabled'=>'disabled','class'=>'tamanho-pequeno borderZero','label'=>'UF:','type'=>'text','id'=>''));
-			?>
-		</section>
-		
-		<section class="coluna-central" style="float: left;">
-			<?php
-				echo $this->Form->input('Vazio.cnpj',array('value'=>$empresa['Empresa']['cnpj'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'CNPJ:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.endereco',array('value'=>$empresa['Empresa']['endereco'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Endereço:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.cidade',array('value'=>$empresa['Empresa']['cidade'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Cidade:','type'=>'text','id'=>''));
-			?>
-		</section>
-		
-		<section class="coluna-direita" style="float: left;">
-			<?php
-				echo $this->Form->input('Vazio.razao',array('value'=>$empresa['Empresa']['razao'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Razão:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.complemento',array('value'=>$empresa['Empresa']['complemento'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Complemento:','type'=>'text','id'=>''));
-				echo $this->Form->input('Vazio.bairro',array('value'=>$empresa['Empresa']['bairro'],'disabled'=>'disabled','class'=>'tamanho-medio borderZero','label'=>'Bairro:','type'=>'text','id'=>''));
 
-			?>
-		</section>
--->
-	<section>
-<header>Dados do Cliente</header>
-	
-	<!-- INFORMAÇÕES DA FOrnecedor-->
-		
+	<section style="clear:both;">
+		<header>Dados do Cliente</header>
+			
 		<section  class="coluna-esquerda" style="float: left;">
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
@@ -132,14 +97,11 @@
 					echo $this->Form->input('Vazio.input',array('label'=>'CEP:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cep'],'disabled'=>'disabled'));	
 					echo $this->Form->input('Vazio.input',array('label'=>'Cidade:','type'=>'text','class'=>'tamanho-medio borderZero','value'=>$endereco['cidade'],'disabled'=>'disabled'));	
 
-				}
-				
-			
+				}			
 			?>
 		</section>
 		
-		<section  class="coluna-direita" style="float: left;">
-			
+		<section  class="coluna-direita" style="float: left;">			
 			<div class="segmento-esquerdo">
 				<div class="conteudo-linha">
 					<div class="linha"><?php echo $this->Html->Tag('p','Status:',array('class'=>'titulo'));?></div>
@@ -178,145 +140,145 @@
 				
 			?>
 		</section>
-		<?php
+	</section>
 
-		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));
-		
-		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
-
-		?>
-	
-	<?php echo ($isVendedor) ? '<!--' : ''; ?>
-
-	<header>Dados do Vendedor</header>
-		<section  class="coluna-esquerda">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-		
-		<section  class="coluna-central">
-			<div class="segmento-esquerdo">
-				<div class="conteudo-linha">
-					<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
-					<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
-				</div>
-			</div>
-		</section>		
-	<?php echo ($isVendedor) ? '-->' : ''; ?>
-			
-	<header>Dados da Venda</header>
-	
-	<!-- INICIO PEDIDOS -->
-	<fieldset>
-		<legend>Dados da Venda</legend>
-		<section class="coluna-esquerda" style="float: left;">
-			
-			<?php
-				//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
-
-				echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['forma_pagamento']),'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.prazo_pagamento',array('type'=>'text','label'=>'Prazo de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['prazo_pagamento']),'disabled'=>'disabled'));
-				
-				
-			?>
-			
-		</section>
-		
-		<section class="coluna-central" style="float: left;">
-			
-			<?php
-				if($pedidovenda['Pedidovenda']['tipo'] == "COTACAO"){
-					$tipoOperacao = "Cotação";
-				}else{
-					$tipoOperacao = "Pedidovenda";
-				}
-				
-				echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.prev',array('type'=>'text','label'=>'Previsão de Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['prev'])),'disabled'=>'disabled'));
-				if(isset($pedidovenda['Pedidovenda']['data_entrega'])){
-					echo $this->Form->input('Comoperacao.data_entrega',array('type'=>'text','label'=>'Data da Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['data_entrega'])),'disabled'=>'disabled'));
-				}
-			?>
-	
-		</section>
-		
-		<section class="coluna-direita" style="float: left;">
-			<?php
-				echo $this->Form->input('Comoperacao.status',array('label'=>'Status Faturamento:','class'=>'tamanho-medio borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_faturamento',array('label'=>'Status Faturamento:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_faturamento'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
-				echo $this->Form->input('Comoperacao.status_estoque',array('type'=>'text','label'=>'Status Estoque:','class'=>'tamanho-medio desabilita borderZero', 'value'=>$pedidovenda['Pedidovenda']['status_estoque'],'disabled'=>'disabled'));
-			?>
-
-		</section>
-	</fieldset>
-	
-	<!-- INICIO PRODUTOS -->
-				<table id="tbl_produtos" >
-					<thead>
-						<th>Nome do Produto</th>
-						<th>Quantidade</th>									
-						<th>Unidade</th>									
-						<th>Valor Produto</th>									
-						<th>Valor Venda</th>									
-						<th>Valor Total</th>									
-						<th>Observação</th>									
-					</thead>
-					
-					<?php 
-						foreach($itens as $produtos){
-							echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
-							echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
-							echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
-							echo '<td>';
-								echo converterMoeda($produtos['Produto']['preco_venda']);
-							echo '</td>';
-							echo '<td>';
-								echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
-							echo '</td>';
-							echo '<td>';
-								echo converterMoeda($produtos['Comitensdaoperacao']['valor_total']); 
-							echo '</td>';
-							echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
-						}
-					?>
-				</table>
-
-
-</section>
-</div>
-
-<footer>
 
 	<?php
+		$tipoUser = strtolower($this->Session->read('Auth.User.Role.alias'));	
+		$isVendedor = ($tipoUser == 'ven1' || $tipoUser == 'ven2' || $tipoUser == 'ven3') ? true : false;
+	?>
+	
+	<?php echo ($isVendedor) ? '<!--' : ''; ?>
+		<section style="clear:both;">
+			<header>Dados do Vendedor</header>
+				<section  class="coluna-esquerda">
+					<div class="segmento-esquerdo">
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['nome'],array('class'=>'valor'));?>	</div>
+						</div>
+					</div>
+				</section>						
+				<section  class="coluna-central">
+					<div class="segmento-esquerdo">
+						<div class="conteudo-linha">
+							<div class="linha"><?php echo $this->Html->Tag('p','CPF:',array('class'=>'titulo'));?></div>
+							<div class="linha2"><?php echo $this->Html->Tag('p',$pedidovenda['Vendedor']['cpf'],array('class'=>'valor'));?>	</div>
+						</div>
+					</div>
+				</section>		
+		</section>
+	<?php echo ($isVendedor) ? '-->' : ''; ?>
+	
+	<section style="clear:both;">
+		<header>Dados da Venda</header>
+	
+		<!-- INICIO PEDIDOS -->
+		<fieldset style="clear:both;">
+			<legend>Dados da Venda</legend>
+			<section class="coluna-esquerda" style="float: left;">
+				
+				<?php
+					//echo $this->Form->input('Comoperacao.user_id',array('type'=>'hidden','value'=>$userid));
+
+					echo $this->Form->input('Comoperacao.id',array('label'=>'Código:','class'=>'tamanho-medio borderZero','type'=>'text','value'=>$pedidovenda['Pedidovenda']['id'],'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.forma_pagamento',array('type'=>'text','label'=>'Forma de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['forma_pagamento']),'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.prazo_pagamento',array('type'=>'text','label'=>'Prazo de Pagamento:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h($pedidovenda['Pedidovenda']['prazo_pagamento']),'disabled'=>'disabled'));
+					
+					
+				?>
+				
+			</section>
+			
+			<section class="coluna-central" style="float: left;">
+				
+				<?php
+					if($pedidovenda['Pedidovenda']['tipo'] == "COTACAO"){
+						$tipoOperacao = "Cotação";
+					}else{
+						$tipoOperacao = "Pedidovenda";
+					}
+					
+					echo $this->Form->input('Comoperacao.total_venda',array('type'=>'text','label'=>'Total da Venda:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(converterMoeda($pedidovenda['Pedidovenda']['valor'])),'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.data_inici',array('label'=>'Data da Venda:','class'=>'tamanho-medio inputData borderZero','type'=>'text', 'value'=>h(formatDateToView($pedidovenda['Pedidovenda']['data_inici'])),'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.prev',array('type'=>'text','label'=>'Previsão de Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['prev'])),'disabled'=>'disabled'));
+					if(isset($pedidovenda['Pedidovenda']['data_entrega'])){
+						echo $this->Form->input('Comoperacao.data_entrega',array('type'=>'text','label'=>'Data da Entrega:','class'=>'tamanho-medio desabilita borderZero', 'value'=>h(formatDateToView ($pedidovenda['Pedidovenda']['data_entrega'])),'disabled'=>'disabled'));
+					}
+				?>
 		
+			</section>
+			
+			<section class="coluna-direita" style="float: left;">
+				<?php
+					echo $this->Form->input('Comoperacao.status',array('label'=>'Status Faturamento:','class'=>'tamanho-medio borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status'],'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.status_financeiro',array('label'=>'Status Financeiro:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_financeiro'],'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.status_faturamento',array('label'=>'Status Faturamento:','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_faturamento'],'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.status_gerencial',array('label'=>'Status Gerencial: ','class'=>'tamanho-medio  borderZero','type'=>'text', 'value'=>$pedidovenda['Pedidovenda']['status_gerencial'],'disabled'=>'disabled'));
+					echo $this->Form->input('Comoperacao.status_estoque',array('type'=>'text','label'=>'Status Estoque:','class'=>'tamanho-medio desabilita borderZero', 'value'=>$pedidovenda['Pedidovenda']['status_estoque'],'disabled'=>'disabled'));
+				?>
+			</section>
+		</fieldset>
+	</section>	
+
+	<!-- INICIO PRODUTOS -->
+	<section style="clear:both;">
+		<table id="tbl_produtos" >
+			<thead>
+				<th>Nome do Produto</th>
+				<th>Quantidade</th>									
+				<th>Unidade</th>									
+				<th>Valor Produto</th>									
+				<th>Valor Venda</th>									
+				<th>Valor Total</th>									
+				<th>Observação</th>									
+			</thead>
+			
+			<?php 
+				foreach($itens as $produtos){
+					echo '<tr><td>'. $produtos['Produto']['nome'] .'</td>';
+					echo '<td>'. $produtos['Comitensdaoperacao']['qtde'] .'</td>';
+					echo '<td>'. $produtos['Produto']['unidade'] .'</td>';
+					echo '<td>';
+						echo converterMoeda($produtos['Produto']['preco_venda']);
+					echo '</td>';
+					echo '<td>';
+						echo converterMoeda($produtos['Comitensdaoperacao']['valor_unit']);
+					echo '</td>';
+					echo '<td>';
+						echo converterMoeda($produtos['Comitensdaoperacao']['valor_total']); 
+					echo '</td>';
+					echo '<td>'. $produtos['Comitensdaoperacao']['obs'] .'</td></tr>';
+				}
+			?>
+		</table>
+	</section>
+</section>
+
+
+<footer>
+	<?php
 		
 		if($pedidovenda['Pedidovenda']['status'] != 'CANCELADO'){
-
-	
-			//echo $this->Html->image('bt-faturamento.png',array('id'=>'','style'=>'float:right;cursor:pointer;margin-right:5px;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda'));
-			echo $this->Form->postLink(
-				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' =>  $pedidovenda['Pedidovenda']['id'], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda')),
-				array('controller' => 'Pedidovendas', 'action' => 'cancelar',  $pedidovenda['Pedidovenda']['id']),
-				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar o pedido número %s?', $pedidovenda['Pedidovenda']['id']))
-			);
+			if ( $user['Role']['alias'] == 'admin' ){
+				echo $this->Form->postLink(
+					$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-pedido', 'data-pedido-id' =>  $pedidovenda['Pedidovenda']['id'], 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Venda','title' => 'Cancelar Venda')),
+					array('controller' => 'Pedidovendas', 'action' => 'cancelar',  $pedidovenda['Pedidovenda']['id']),
+					array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar o pedido número %s?', $pedidovenda['Pedidovenda']['id']))
+				);
+			}
 			
-		
-			echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
-				echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
-			echo "</a>";
+
+			if($pedidovenda['Pedidovenda']['status_faturamento'] != 'FATURADO'){
+				echo "<a href='myModal_add-faturar' class='bt-showmodal'>";
+					echo $this->Html->image('bt-faturamento.png',array('style'=>'float:right;cursor:pointer;margin-right:5px;','alt'=>'Visualizar Lista de Produtos','class' => 'bt-visualizarParcela img-lista','title'=>'Visualizar Lista de Produtos'));
+				echo "</a>";
+			}
 			
 			if ( $user['Role']['alias'] == 'admin' ){
-			
-				echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
-			
+				if($pedidovenda['Pedidovenda']['status_gerencial'] != 'OK'){	
+					echo $this->Form->postLink($this->Html->image('bt-autorizar.png',array('style'=>'float:right;margin-right:5px;cursor:pointer;','alt' =>__('Autorizar Venda'),'title' => __('Autorizar Venda'))), array('controller' => 'Pedidovendas','action' => 'setAutorizacaoPedido', $pedidovenda['Pedidovenda']['id']),array('escape' => false, 'confirm' => __('Tem certeza que deseja Autorizar esta Venda # %s?', $pedidovenda['Pedidovenda']['id'])));
+				}
 			}
 						
 			echo $this->html->image('botao-imprimir.png',array('alt'=>'Confirmar',
@@ -381,7 +343,7 @@
 						<section>
 							<header>Confirmar Impressão</header>
 							<div id="impressao" class="impressao">
-									<fieldset>
+									<fieldset style="clear:both;">
 										<legend>Dados da Empresa</legend>
 										<section>
 										<section class="coluna-esquerda">

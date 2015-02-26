@@ -188,6 +188,26 @@ function convertMoeda(&$valorMoeda){
 
 	
 	<!-- ##### DADOS DO DESTINATÁRIO ##### -->
+
+	<?php
+		
+		if(empty($cliContato)){
+			$cliContato['Contato']['telefone1'] = '';
+			$cliContato['Contato']['email'] = '';
+		}
+
+		if(empty($cliEndereco)){
+			$cliEndereco['Endereco']['logradouro'] = '';
+	        $cliEndereco['Endereco']['numero'] = '';
+			$cliEndereco['Endereco']['complemento'] = '';
+			$cliEndereco['Endereco']['bairro'] = '';
+			$cliEndereco['Endereco']['cep'] = '';
+			$cliEndereco['Endereco']['uf'] = '';
+			$cliEndereco['Endereco']['cidade'] = '';
+		}
+
+
+	?>
 	
 <section>
 		<header>Dados do Destinatário</header>
@@ -305,8 +325,6 @@ function convertMoeda(&$valorMoeda){
 					 ?>	
 				</div>
 			</div>
-
-			
 		</section>
 
 		<section class="coluna-direita">
@@ -396,23 +414,11 @@ pagamento.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Indpag']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['indpag'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
 
-
-		<div class="conteudo-linha">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Mod. Doc. Fiscal:',array('class'=>'titulo','title'=>'Código do Modelo do Documento 
-Fiscal.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', '55',array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
 
 		<div class="conteudo-linha" style="clear:both;">
 			<div class="linha1">
@@ -420,15 +426,37 @@ Fiscal.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Serie']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['serie'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
-	
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Mod. Frete:',array('class'=>'titulo','title'=>'Modalidade do Frete'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Saida']['modfrete'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+
 	</section>
 
 	<section class="coluna-central">
 
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Info. Adicional:',array('class'=>'titulo','title'=>'Modalidade do Frete'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Saida']['infoadic'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
 
 		<div class="conteudo-linha">
 			<div class="linha1">
@@ -452,13 +480,15 @@ Fiscal.'));?>
 			</div>
 		</div>
 
+	
+
 		<div class="conteudo-linha">
 			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Tipo NF-e:',array('class'=>'titulo'));?>
+				<?php echo $this->Html->Tag('p','Data Entrada:',array('class'=>'titulo'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Tpnf']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', formatDateToView($saida['Saida']['data_entrada']),array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -474,7 +504,6 @@ Fiscal.'));?>
 			</div>
 		</div>
 
-		
 		<div class="conteudo-linha">
 			<div class="linha1">
 				<?php echo $this->Html->Tag('p','Cód. Muni. FG:',array('class'=>'titulo','title'=>'Código do Município de 
@@ -493,7 +522,7 @@ Ocorrência do Fato Gerador.'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Tpimp']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['tpimp'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -502,7 +531,7 @@ Ocorrência do Fato Gerador.'));?>
 
 	<section class="coluna-direita">
 		
-			<div class="conteudo-linha">
+		<div class="conteudo-linha">
 			<div class="linha1">
 				<?php echo $this->Html->Tag('p','T. Emi. NF-e:',array('class'=>'titulo','title'=>'Tipo de Emissão da NF-e'));?>
 			</div>
@@ -532,7 +561,7 @@ Acesso da NF-e'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Tpamb']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['tpamb'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
@@ -544,50 +573,265 @@ Acesso da NF-e'));?>
 			</div>
 			<div class="linha2">
 				<?php 
-					echo $this->Html->Tag('p', $saida['Finnfe']['descricao'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
-
-		<div class="conteudo-linha">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Proc. Emi. da NF-e:',array('class'=>'titulo','title'=>'Processo de Emissão da NF-e.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Procemi']['descricao'],array('class'=>'valor'));
-				 ?>	
-			</div>
-		</div>
-
-		<div class="conteudo-linha" style="clear:both;">
-			<div class="linha1">
-				<?php echo $this->Html->Tag('p','Ver. Proc. Emi. da NF-e:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
-			</div>
-			<div class="linha2">
-				<?php 
-					echo $this->Html->Tag('p', $saida['Verproc']['descricao'],array('class'=>'valor'));
+					echo $this->Html->Tag('p', $saida['Saida']['finnfe'],array('class'=>'valor'));
 				 ?>	
 			</div>
 		</div>
 
 	</section>
-
-	<footer>
-		<?php 
-		/*	$saida['Cuf']['descricao']
-			$saida['Saida']['codnota']
-			$saida['Saida']['codnota']
-			$saida['Natop']['descricao']
-			$saida['Indpag']['descricao']*/
-		?>
-		<a href="add-completaNota" class="bt-showmodal">
-			<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'quick-salvar')); ?>
-		</a>
-	</footer>
 </section>
 
-	
+<section style="clear:both;">
+	<a href="add-dadosNota" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+	</a>
+</section>
+
+<section>
+	<header>Dados da Transpotadora</header>
+
+	<section class="coluna-esquerda">
+		
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Nome:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['nome'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','CNPJ:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['cnpj'],array('class'=>'valor'));
+				 ?>
+			</div>
+		</div>
+
+	</section>
+	<section class="coluna-central">
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','IE:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['ie'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Endereço:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['endereco'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>
+	</section>
+
+	<section class="coluna-direita">
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','Cidade:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['cidade'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+
+		<div class="conteudo-linha" style="clear:both;">
+			<div class="linha1">
+				<?php echo $this->Html->Tag('p','UF:',array('class'=>'titulo','title'=>'Versão do Processo de Emissão da NF-e.'));?>
+			</div>
+			<div class="linha2">
+				<?php 
+					echo $this->Html->Tag('p', $saida['Transportadore']['uf'],array('class'=>'valor'));
+				 ?>	
+			</div>
+		</div>	
+	</section>
+
+</section>
+
+<section style="clear:both;">
+	<a href="add-transportadora" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+	</a>
+</section>
+
+<section style="clear:both;">
+	<header>Informações de Tranporte</header>
+
+	<?php 
+		$i=0;
+		foreach ($saida['Transp'] as $infoTranp) {
+		$i++;
+	?>
+		<fieldset style="clear:both;margin-bottom:10px;">
+			<legend>Informação de Transporte nº <?php echo $i; ?></legend>
+			<section class="coluna-esquerda">
+				
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Qtd. Volume:',array('class'=>'titulo','title'=>'Quantidade de volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['qvol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>	
+
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Peso Líquido:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['pesol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+
+			</section>
+			
+
+			<section class="coluna-central">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Peso Bruto:',array('class'=>'titulo','title'=>'Peso Líquido'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['pesob'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Espécie:',array('class'=>'titulo','title'=>'Espécie dos volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['esp'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+
+			<section class="coluna-direita">
+				
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Numeração Volumes:',array('class'=>'titulo','title'=>'Numeração dos volumes transportados'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['nVol'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Lacres:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $infoTranp['lacres'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+
+			</section>
+		</fieldset>
+	<?php 		
+		}
+	?>
+</section>
+
+<section style="clear:both;">
+	<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+	</a>
+</section>
+
+<section style="clear:both;">
+	<header>Duplicatas</header>
+
+	<?php
+		$j = 0;
+		foreach ($saida['Duplicata'] as $duplicata) {
+		$j++;
+	?>
+		<fieldset style="clear:both;">
+			<legend><?php echo "Duplicata Nº ".$j; ?></legend>
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Nº Duplicata:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['ndup'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Data Vencimento:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['dvenc'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+
+			<section class="coluna-esquerda">
+				<div class="conteudo-linha" style="clear:both;">
+					<div class="linha1">
+						<?php echo $this->Html->Tag('p','Valor Duplicata:',array('class'=>'titulo','title'=>'Lacres'));?>
+					</div>
+					<div class="linha2">
+						<?php 
+							echo $this->Html->Tag('p', $duplicata['vdup'],array('class'=>'valor'));
+						 ?>	
+					</div>
+				</div>
+			</section>
+		</fieldset>
+	<?php	
+		}
+	?>
+</section>
+
+<section style="clear:both;">
+	<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
+		<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+	</a>
+</section>
+
 <!-- PRODUTOS DA NOTA -->
 <section>
 	<header>Itens da Nota</header>
@@ -697,11 +941,20 @@ Acesso da NF-e'));?>
 					}
 				?>
 			</table>	
+
 </section>
 
-<!-- MODAL PARA COMPLETAR OS CAMPOS DA NOTA FISCAL -->
+<div style="clear:both;"></div>
+<pre>
+	<?php
+		print_r($saida);
 
-	<div class="modal fade" id="myModal_add-completaNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	?>
+</pre>
+
+<!-- MODAL DADOS DA NOTA FISCAL -->
+
+	<div class="modal fade" id="myModal_add-dadosNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-body">
 			<?php
 				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
@@ -711,6 +964,183 @@ Acesso da NF-e'));?>
 					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
 				?>
 				<h1> Preencher Dados da Nota </h1>
+			</header>
+
+			<section>
+				<header></header>
+				<?php
+
+					echo $this->Form->create('Saida');
+				?>
+
+						<div style="clear:both;"> <!-- CÒDIGO UF cUF -->
+							<label>Código UF:</label>
+							<select name="data[Saida][cuf_id]">			
+								<option></option>
+								<?php
+									foreach($cufs as $cuf){								
+										echo "<option value='".$cuf['cuf']['id']."'>";
+											echo $cuf['cuf']['codigo'].' - '.$cuf['cuf']['descricao'];
+										echo "</option>";
+									}
+								?>
+							</select>
+						</div>
+
+
+						<div style="clear:both;"> <!-- INDPAG ###################### -->
+							 <!-- INDPAG ###################### -->
+							<label>Ind. Forma Pgto.:</label>
+							<select name="data[Saida][indpag]">				
+								<option></option>
+								<option value="1">Pagamento à Vista</option>
+								<option value="2">Pagamento a Prazo</option>
+								<option value="3">Outros</option>							
+							</select>
+						
+						</div>
+
+						<div style="clear:both;"> <!-- NATOP ###################### -->
+							<label>Natureza Operação:</label>
+							<select name="data[Saida][natop_id]">				
+								<option></option>
+								<?php
+									foreach($natops as $natop){								
+										echo "<option value='".$natop['Natop']['id']."'>";
+											echo $natop['Natop']['descricao'];
+										echo "</option>";
+									}
+								?>
+							</select>
+						</div>
+				<?php
+						echo $this->Form->input('Saida.serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+						echo $this->Form->input('Saida.codnota',array('label'=>'Cód. Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.numero_nota',array('label'=>'Nº Nota:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data',array('label'=>'Data Emissão:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data_entrada',array('label'=>'Data Entrada:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.data_saida',array('label'=>'Data Saída:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.modfrete',array('label'=>'Mod. Frete:','type'=>'text','class'=>'tamanho-pequeno'));
+						echo $this->Form->input('Saida.infoadic',array('label'=>'Info. Adicional:','type'=>'text','class'=>'tamanho-pequeno'));
+
+						echo $this->Form->input('Saida.cmunfg_id',array('label'=>'cmunfg_id:','type'=>'text','class'=>'tamanho-pequeno'));
+						
+						echo $this->Form->input('Saida.tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));
+							
+
+						echo $this->Form->input('Saida.tpamb',array('label'=>'Id. do Ambiente:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Produção','2'=>'Homologação')));
+
+
+						echo $this->Form->input('Saida.tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
+
+						echo $this->Form->input('Saida.cdv',array('label'=>'Dígito Verificador:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'1'));
+
+						echo $this->Form->input('Saida.finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array(''=>'','1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
+
+					echo $this->Form->end('enviar');
+
+				?>
+			</section>
+			
+		</div>
+	</div>
+
+
+<!-- MODAL DADOS DA TRANSPORTADORA -->
+
+	<div class="modal fade" id="myModal_add-transportadora" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Preencher Dados da Transportadora </h1>
+			</header>
+			
+			<section>
+				<header></header>
+
+				<?php
+					echo $this->Form->create('Saida',array('url'=>array('controller'=>'Saidas','action'=>'edit',$saida['Saida']['id'])));
+						echo $this->Form->input('Saida.id',array('type'=>'hidden','value'=>$saida['Saida']['id']));
+				?>
+					<div style="clear:both;"> 
+							<label>Transportadora:</label>
+							<select name="data[Saida][transportadore_id]" class="tamanho-medio">				
+								<option></option>
+								<?php
+									foreach($transporadoras as $transporta){								
+										echo "<option value='".$transporta['Transportadore']['id']."' data-cnpj='".$transporta['Transportadore']['cnpj']."'
+										data-nome='".$transporta['Transportadore']['nome']."' data-ie='".$transporta['Transportadore']['ie']."' data-endereco='".$transporta['Transportadore']['endereco']."' data-cidade='".$transporta['Transportadore']['cidade']."' data-uf='".$transporta['Transportadore']['uf']."'>";
+										echo $transporta['Transportadore']['nome'];
+										echo "</option>";
+									}
+								?>
+							</select>
+					</div>
+
+				<section>
+					<section>
+						<?php
+							echo $this->Form->input('vazio.cnpj',array('label'=>'CNPJ:','class'=>'tamanho-medio borderZero','id'=>'transporta-cnpj','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.nome',array('label'=>'Nome:','class'=>'tamanho-medio borderZero','id'=>'transporta-nome','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.ie',array('label'=>'Inscri. Estadual:','class'=>'tamanho-medio borderZero','id'=>'transporta-ie','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+						?>
+					</section>
+
+					<section>
+						<?php
+							echo $this->Form->input('vazio.endereco',array('label'=>'Endereço:','class'=>'tamanho-medio borderZero','id'=>'transporta-endereco','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.cidade',array('label'=>'Cidade:','class'=>'tamanho-medio borderZero','id'=>'transporta-cidade','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+							echo $this->Form->input('vazio.uf',array('label'=>'UF:','class'=>'tamanho-medio borderZero','id'=>'transporta-uf','readonly'=>'readonly','onfucus'=>'this.blur();','disabled'));
+						?>
+					</section>
+				</section>
+
+				<footer>
+					<?php
+						echo $this->Form->end('enviar');
+					?>
+				</footer>
+			</section>
+
+		</div>
+	</div>	
+
+
+<!-- MODAL DADOS DO TRANSPORTE -->
+
+	<div class="modal fade" id="myModal_add-itensTransporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Preencher Itens do Transporte </h1>
+			</header>
+			
+		</div>
+	</div>	
+
+
+<!-- MODAL DUPLICATAS -->
+
+	<div class="modal fade" id="myModal_add-notaDuplicata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Adicionar Duplicata </h1>
 			</header>
 			
 		</div>

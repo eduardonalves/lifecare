@@ -53,13 +53,23 @@
 				<tr>
 					<td>
 					<?php 
-						echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'fatview', $saida['Saida']['id']))); 
+						echo $this->Html->image('botao-tabela-visualizar.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'view', $saida['Saida']['id'],"layout"=>"faturamento","abas"=>"42"))); 
+						
 
+						//COMPLETAR TABELA
+						if($saida['Saida']['status_completo'] == 0){						
+							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'edit', $saida['Saida']['id']))); 
+						}else {
+							//GERAR NOTA
+							if($saida['Saida']['chave_acesso'] != 'NULL' || $saida['Saida']['chave_acesso'] != ''){
+								echo $this->Html->image('tabela-gerar-nota.png',array('alt'=>'Gerar Nota','title'=>'Gerar Nota'));
+							}
+						}
 						/*echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'faturar','alt' =>__('Faturar'),'title' => 'Faturar')), array('controller' => 'Saidas','action' => 'geraNotaXml', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Faturar essa Venda?'.$saida['Saida']['id'].'?')));*/
 						
 					 ?>
 					</td>
-					<td><?php echo $saida['Saida']['parceiro'] ?></td>
+					<td><?php echo $saida['Parceirodenegocio']['nome'] ?></td>
 					<td><?php echo $saida['Saida']['nota_fiscal'] ?></td>
 					<td><?php echo formatDateToView($saida['Saida']['data']) ?></td>
 					<td><?php echo number_format($saida['Saida']['valor_total'],5,',','.') ?></td>	
@@ -74,10 +84,3 @@
 	</table>
 
 </section>
-
-
-<pre>
-	<?php
-		print_r($saidas);
-	?>
-</pre>
