@@ -4,7 +4,7 @@
 	echo $this->Html->css('table.css');
 	echo $this->Html->css('PrintArea.css');
 	echo $this->Html->script('jquery.PrintArea.js');
-	//echo $this->Html->script('funcoes_entrada.js');
+	echo $this->Html->script('funcoes_faturamento.js');
 
 	function convertMoeda(&$valorMoeda){
 		$valorMoedaAux = explode('.' , $valorMoeda);
@@ -335,6 +335,16 @@
 			echo $this->Form->input('data_saida',array('value'=>formatDateToView($saida['Saida']['data_saida']),'label'=>'Data Saída:','class'=>'tamanho-medio','type'=>'text'));
 
 		?>
+	</section>
+	<section class="coluna-central">
+		<?php
+	
+			echo $this->Form->input('serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+		
+			echo $this->Form->input('cmunfg_id',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
+			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
+		?>
 			<!-- NATOP ###################### -->
 			<div style="clear:both;"> 
 				<label>Natureza Operação:</label>
@@ -349,9 +359,6 @@
 					?>
 				</select>
 			</div>
-			<?php	
-				//echo $this->Form->input('comoperacao_id',array('label'=>'Comoperacao','class'=>'tamanho-medio','type'=>'text'));
-			?>
 			<!-- CÒDIGO UF cUF -->
 			<div style="clear:both;"> 
 				<label>Código UF:</label>
@@ -366,29 +373,6 @@
 					?>
 				</select>
 			</div>
-
-			<!-- INDPAG ###################### -->
-			<div style="clear:both;"> 
-				<label>Ind. Forma Pgto.:</label>
-				<select name="data[Saida][indpag]" class="tamanho-medio">				
-					<option></option>
-					<option value="1">Pagamento à Vista</option>
-					<option value="2">Pagamento a Prazo</option>
-					<option value="3">Outros</option>							
-				</select>			
-			</div>
-
-	</section>
-	<section class="coluna-central">
-		<?php
-	
-			echo $this->Form->input('serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
-		
-			echo $this->Form->input('cmunfg_id',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
-			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
-
-		?>
 	</section>
 	<section class="coluna-direita">
 		<?php
@@ -400,9 +384,18 @@
 			// 1 se modfrete proprio/emitente, 0 se modfrete 0
 			echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
 			
-			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));
-			
+			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));	
 		?>
+			<!-- INDPAG ###################### -->
+			<div style="clear:both;"> 
+				<label>Ind. Forma Pgto.:</label>
+				<select name="data[Saida][indpag]" class="tamanho-medio">				
+					<option></option>
+					<option value="1">Pagamento à Vista</option>
+					<option value="2">Pagamento a Prazo</option>
+					<option value="3">Outros</option>							
+				</select>			
+			</div>
 	</section>
 </section>
 
@@ -410,9 +403,41 @@
 <section style="clear:both;">
 	<header>Volumes do Transporte</header>
 
+	<section class="row">
 	<?php
-		echo $this->Form->input('transp_id',array('label'=>'transp_id','class'=>'tamanho-medio','type'=>'select'));
+		//echo $this->Form->input('transp',array('label'=>'transp_id','class'=>'tamanho-medio','type'=>'select'));
+		
+		if(!empty($saida['Transp'])){
+			$i = 0;
+			foreach ($saida['Transp'] as $infoTransp) {
+				$i++;
+				echo "<fieldset class='span3'><legend>Volume ".$i."</legend>";
+					echo "<section class='row'>";
+						echo "<article class='span1'>
+							<br>Qvol:
+							<br>Pesol:
+							<br>PesoB:
+							<br>Esp:
+							<br>nVol:
+							<br>lacres:
+							</article>";
+
+						echo "<article class='span1'>";
+							echo '<br> 1231321' . $infoTransp['qvol']; 
+							echo '<br>' . $infoTransp['pesol']; 
+							echo '<br>' . $infoTransp['pesob']; 
+							echo '<br>' . $infoTransp['esp']; 
+							echo '<br>' . $infoTransp['nVol']; 
+							echo '<br>' . $infoTransp['lacres'];
+						echo "</article>";
+					
+					echo "</section>";
+				echo "</fieldset>";
+			}
+		}
+
 	?>
+	</section>
 </section>
 
 <!-- ######### VOLUMES DO TRANSPORTE ######### -->
@@ -421,15 +446,14 @@
 </section>
 
 <footer>
-<?php 
-	
+<?php 	
 	if($saida['Saida']['status_completo'] == 0){
 		echo $this->Form->input('status_completo',array('type'=>'hidden','value'=>1));
 		echo $this->Form->end(__('Submit')); 
 	}
-
 ?>
 </footer>
+
 <!-- PRODUTOS DA NOTA -->
 <section>
 	<header>Itens da Nota</header>
@@ -439,35 +463,30 @@
 				<?php
 					if($saida['Saida']['forma_de_entrada']==0){
 				?>
-
-					<tr>
-
+						<tr>
+							<th><?php echo ('Cod.'); ?></th>
+							<th><?php echo ('Nome'); ?></th>
+							<th><?php echo ('Und.'); ?></th>
+							<th><?php echo ('Descrição'); ?></th>
+							<th><?php echo ('Qtd.'); ?></th>
+							<th class="valor"><?php echo ('V. Unit.'); ?></th>
+							<th class="valor"><?php echo ('V. Total'); ?></th>
+							<th class="imposto valor"><?php echo ('CFOP'); ?></th>
+							<th class="imposto valor"><?php echo ('ICMS'); ?></th>
+							<th class="imposto valor"><?php echo ('IPI'); ?></th>
+							<th><?php echo ('Lote'); ?></th>
+						</tr>
+				<?php
+					}else{
+				?>
 						<th><?php echo ('Cod.'); ?></th>
 						<th><?php echo ('Nome'); ?></th>
 						<th><?php echo ('Und.'); ?></th>
 						<th><?php echo ('Descrição'); ?></th>
-						<th><?php echo ('Qtd.'); ?></th>
+						<th><?php echo ('Qtd'); ?></th>
 						<th class="valor"><?php echo ('V. Unit.'); ?></th>
 						<th class="valor"><?php echo ('V. Total'); ?></th>
-						<th class="imposto valor"><?php echo ('CFOP'); ?></th>
-						<th class="imposto valor"><?php echo ('ICMS'); ?></th>
-						<th class="imposto valor"><?php echo ('IPI'); ?></th>
 						<th><?php echo ('Lote'); ?></th>
-
-					</tr>
-
-				<?php
-					}else{
-				?>
-
-					<th><?php echo ('Cod.'); ?></th>
-					<th><?php echo ('Nome'); ?></th>
-					<th><?php echo ('Und.'); ?></th>
-					<th><?php echo ('Descrição'); ?></th>
-					<th><?php echo ('Qtd'); ?></th>
-					<th class="valor"><?php echo ('V. Unit.'); ?></th>
-					<th class="valor"><?php echo ('V. Total'); ?></th>
-					<th><?php echo ('Lote'); ?></th>
 				<?php 
 					}
 				?>
@@ -537,8 +556,9 @@
 					}
 				?>
 			</table>	
-
 </section>
+
+
 <div style="clear:both;"></div>
 <pre>
 	<?php
