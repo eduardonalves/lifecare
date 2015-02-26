@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Saidas Controller
  *
@@ -1757,5 +1758,62 @@ class SaidasController extends NotasController {
 		$this->set(compact('userid','saidas'));
 	}
 	
+	public function eviaEmailFaturamento(&$destinatario, &$remetente, &$mensagem){
+				
+				 //test file for check attachment 
+			$this->loadModel('Empresa');
+			
+				 
+			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
+			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
+			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
+			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
+			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
+			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
+			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, sob o código: nfe-".$mensagem['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
+			
+			
+			 
+			
+			$file_name= APP."webroot/img/cake.icon.png";
+			$extraparams= $mensagem;
+			$this->Session->write('extraparams',$extraparams);
+			 $this->set(compact('extraparams'));
+			 $this->pdfConfig = array(
+				 'orientation' => 'portrait',
+				 'filename' => 'Invoice_'. 3
+			 );
+			 
+			
+			 $xml = APP . 'webroot'. DS .'xml' . DS .$mensagem['Saida']['chave_acesso'].'-nfe.xml';
+			 
+			 //Writing external parameters in session
+		 	$extraparams =$mensagem;
+		 	
+			
+            $email = new CakeEmail('smtp');
+
+            $email->to($destinatario);
+		  	$email->from('cirurgica.simoes@gmail.com');
+            $email->subject($remetente);
+			//a linha abaixo só serve para o servidor da alemanha
+			$email->transport('Mail');
+			//$email->template = 'confirm';
+			$email->template('pedido','default');
+				$email->emailFormat('html');
+			
+			$email->attachments(array($xml));
+			
+			$mensagemHtml = array('mensagem' => 'teste de mensagem');
+			//$this->set('extraparams', $mensagem);
+            if($email->send($mensagem)){
+				return TRUE;
+            }else{
+            	
+			 	$this->set('extraparams', $mensagem);
+				return FALSE;	
+            }
+
+        }
 	
 }
