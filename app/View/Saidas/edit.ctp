@@ -3,8 +3,13 @@
 	echo $this->Html->css('saidas_view.css');
 	echo $this->Html->css('table.css');
 	echo $this->Html->css('PrintArea.css');
+	echo $this->Html->css('	faturamento-saida-edit.css');
+	echo $this->Html->css('jquery-ui/jquery.ui.all.css');
+	echo $this->Html->css('jquery-ui/custom-combobox.css');
 	echo $this->Html->script('jquery.PrintArea.js');
 	echo $this->Html->script('funcoes_faturamento.js');
+	echo $this->Html->script('jquery-ui/jquery.ui.button.js');
+
 
 	function convertMoeda(&$valorMoeda){
 		$valorMoedaAux = explode('.' , $valorMoeda);
@@ -323,10 +328,12 @@
 <section>	
 	<header>Dados da Nota</header>
 <?php echo $this->Form->create('Saida'); ?>
+<fieldset style="clear:both;padding-bottom:10px;">
+	<legend style="margin-bottom:10px;">Cabeção da Nota Fiscal</legend>
 	<section class="coluna-esquerda">
 		<?php
 			echo $this->Form->input('id');
-			echo $this->Form->input('numero_nota',array('label'=>'Nº nota:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('nota_fiscal',array('label'=>'Nº nota:','class'=>'tamanho-medio','type'=>'text'));
 			echo $this->Form->input('codnota',array('label'=>'Cod. Nota:','class'=>'tamanho-medio','type'=>'text'));
 			echo $this->Form->input('tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
 			
@@ -340,8 +347,11 @@
 		<?php
 	
 			echo $this->Form->input('serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
-		
-			echo $this->Form->input('cmunfg_id',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
+			
+			echo $this->Form->input('cep',array('type'=>'text','id'=>'cep','label'=>'Cep:','class'=>'tamanho-medio'));
+			echo $this->Form->input('cmunfg',array('type'=>'text','label'=>'Cód. Muni. FG:','id'=>'ibge','class'=>'borderZero tamanho-medio','readonly'=>'readonly','onfocus'=>'this.blur();'));
+			
+			echo $this->Form->input('',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
 			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
 			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
 		?>
@@ -373,6 +383,25 @@
 					?>
 				</select>
 			</div>
+
+			<!-- TRANSPORTADORA -->
+			<div class="input autocompleteTransportadoras contas">
+			    <span id="msgValidaTipoConta" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Tipo Conta</span>
+			    <label>Transportadora:</label>
+			    <select name="data[Saida][transportadore_id]" class="tamanho-medio" id="add-transportadora">
+				    <option id="optvazioForn"></option>
+				    <option value="add-transportadora">Cadastrar</option>
+				    <?php
+				       foreach($transporadoras as $transportadora){
+												
+							echo "<option value='".$transportadora['Transportadore']['id']."' >";
+								echo $transportadora['Transportadore']['nome'];
+							echo "</option>";
+						
+						}
+				    ?>
+			    </select>
+			</div>
 	</section>
 	<section class="coluna-direita">
 		<?php
@@ -382,10 +411,14 @@
 
 			echo $this->Form->input('freteproprio',array('label'=>'freteproprio','class'=>'tamanho-medio','type'=>'text'));
 			// 1 se modfrete proprio/emitente, 0 se modfrete 0
-			echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
+		
+			//echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
 			
 			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));	
 		?>
+		<div id="hidden-tranps"></div>
+		<div id="hidden-duplis"></div>		
+
 			<!-- INDPAG ###################### -->
 			<div style="clear:both;"> 
 				<label>Ind. Forma Pgto.:</label>
@@ -399,58 +432,87 @@
 	</section>
 </section>
 
+
+
 <!-- ######### VOLUMES DO TRANSPORTE ######### -->
 <section style="clear:both;">
 	<header>Volumes do Transporte</header>
-
-	<section class="row">
-	<?php
-		//echo $this->Form->input('transp',array('label'=>'transp_id','class'=>'tamanho-medio','type'=>'select'));
-		
+		<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
+			<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+		</a>
+	<section id="caixas-tranps" class="row" style="clear:both;margin:0 auto;">
+	<?php		
 		if(!empty($saida['Transp'])){
 			$i = 0;
 			foreach ($saida['Transp'] as $infoTransp) {
 				$i++;
-				echo "<fieldset class='span3'><legend>Volume ".$i."</legend>";
-					echo "<section class='row'>";
-						echo "<article class='span1'>
-							<br>Qvol:
-							<br>Pesol:
-							<br>PesoB:
-							<br>Esp:
-							<br>nVol:
-							<br>lacres:
+				echo "<fieldset class='caixa-volume'><legend>Volume ".$i."</legend>";
+						echo "<article class='span1 label-volume'>
+								<span>Qtd. Vol:</span>
+								<span>Peso Liq.:</span>
+								<span>Peso Bru.:</span>
+								<span>Espécie:</span>
+								<span>Nº Vol.:</span>
+								<span>Lacre:</span>
 							</article>";
-
-						echo "<article class='span1'>";
-							echo '<br> 1231321' . $infoTransp['qvol']; 
-							echo '<br>' . $infoTransp['pesol']; 
-							echo '<br>' . $infoTransp['pesob']; 
-							echo '<br>' . $infoTransp['esp']; 
-							echo '<br>' . $infoTransp['nVol']; 
-							echo '<br>' . $infoTransp['lacres'];
+						echo "<article class='span2 valor-volume'>";
+							echo '<p>' . $infoTransp['qvol'] . '</p>'; 
+							echo '<p>' . $infoTransp['pesol'] . '</p>'; 
+							echo '<p>' . $infoTransp['pesob'] . '</p>'; 
+							echo '<p>' . $infoTransp['esp'] . '</p>'; 
+							echo '<p>' . $infoTransp['nVol'] . '</p>'; 
+							echo '<p>' . $infoTransp['lacres'] . '</p>';
 						echo "</article>";
-					
-					echo "</section>";
-				echo "</fieldset>";
+				echo "</fieldset>";	
 			}
 		}
-
 	?>
 	</section>
 </section>
 
-<!-- ######### VOLUMES DO TRANSPORTE ######### -->
+
+<!-- ######### DUPLICATAS ######### -->
 <section style="clear:both;">
 	<header>Duplicatas</header>
+	<section style="clear:both;">
+		<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
+			<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+		</a>
+
+		<section id="caixas-duplicatas" class="row" style="clear:both;margin:0 auto;">
+		<?php		
+			if(!empty($saida['Duplicata'])){
+				$i = 0;
+				foreach ($saida['Duplicata'] as $duplicatas) {
+					$i++;
+					echo "<fieldset class='caixa-duplicata'><legend>Volume ".$i."</legend>";
+							echo "<article class='span1 label-duplicata'>
+									<span>Nº Dupli.:</span>
+									<span>Data Venc.:</span>
+									<span>Valor (R$):</span>
+								</article>";
+							echo "<article class='span2 valor-duplicata'>";
+								echo '<p>' . $duplicatas['ndup'] . '</p>'; 
+								echo '<p>' . formatDateToView($duplicatas['dvenc']) . '</p>'; 
+								echo '<p>' . number_format($duplicatas['vdup'],2,',','.') . '</p>'; 
+							echo "</article>";
+					echo "</fieldset>";	
+				}
+			}
+		?>
+		</section>
+	</section>
 </section>
 
+
+</fieldset>
 <footer>
 <?php 	
-	if($saida['Saida']['status_completo'] == 0){
+	//if($saida['Saida']['status_completo'] == 0){
 		echo $this->Form->input('status_completo',array('type'=>'hidden','value'=>1));
 		echo $this->Form->end(__('Submit')); 
-	}
+		
+	//}
 ?>
 </footer>
 
@@ -517,7 +579,7 @@
 							foreach($loteitens as $loteiten){
 
 									if( $loteiten['Loteiten']['produtoiten_id'] ==  $prodIten['Produtoiten']['id']){
-										$loteiten['Lote']['data_validade'] = converteData($loteiten['Lote']['data_validade']);
+										$loteiten['Lote']['data_validade'] = $loteiten['Lote']['data_validade'];
 										echo "N Lote: ".$loteiten['Lote']['numero_lote'].", Qtde: ".$loteiten['Loteiten']['qtde'].", Val: ".$loteiten['Lote']['data_validade']."<br />";
 									}
 							}
@@ -551,7 +613,6 @@
 							}
 							echo "</td>";
 							echo '</tr>';
-
 						}
 					}
 				?>
@@ -559,9 +620,103 @@
 </section>
 
 
-<div style="clear:both;"></div>
-<pre>
-	<?php
-		print_r($saida);
-	?>
-</pre>
+<!-- MODAL DADOS DO TRANSPORTE -->
+
+	<div class="modal fade" id="myModal_add-itensTransporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Preencher Itens do Transporte </h1>
+			</header>
+			
+			<section>
+				<header></header>
+			</section>
+			<section style="clear:both;left:50px;width:300px;">
+				<span id="msgCamposObrTransp" style="display:none;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
+
+				<?php
+					echo $this->Form->input('notaId',array('id'=>'input-nota_id','type'=>'hidden','value'=>$saida['Saida']['id']));
+					echo $this->Form->input('qvol',array('id'=>'input-qvol','label'=>'Qtde. Volume<span class="campo-obrigatorio">*</span>:','class'=>'valida tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('pesol',array('id'=>'input-pesol','label'=>'Peso Liquido<span class="campo-obrigatorio">*</span>:','class'=>'peso valida tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('pesob',array('id'=>'input-pesob','label'=>'Peso. Bruto<span class="campo-obrigatorio">*</span>:','class'=>'peso valida tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('esp',array('id'=>'input-esp','label'=>'Espécie<span class="campo-obrigatorio">*</span>:','class'=>'valida tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('nVol',array('id'=>'input-nVol','label'=>'Nº Volume<span class="campo-obrigatorio">*</span>:','class'=>'valida tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('lacres',array('id'=>'input-lacres','label'=>'Lacre<span class="campo-obrigatorio">*</span>:','class'=>'valida tamanho-pequeno','type'=>'text'));
+				?>
+				
+			</section>
+				<a id="adicionar-transp" class="" style="float:right;margin-top: 30px;margin-right: 30px;">
+					<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+				</a>
+		</div>
+	</div>	
+
+
+<!-- MODAL DUPLICATAS -->
+	<div class="modal fade" id="myModal_add-notaDuplicata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Adicionar Duplicata </h1>
+			</header>
+			
+			<section>
+				<header></header>
+			</section>
+			<section style="clear:both;left:50px;width:300px;">
+				<span id="msgCamposObrDuplicata" style="display:none;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
+				<?php
+					echo $this->Form->input('ndup',array('id'=>'input-ndup','label'=>'Nº Duplicata<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('dvenc',array('id'=>'input-dvenc','label'=>'Data Vencimento<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('vdup',array('id'=>'input-vdup','label'=>'Valor<span class="campo-obrigatorio">*</span>:','class'=>'peso validaDupli tamanho-pequeno','type'=>'text'));
+					
+				?>
+				
+			</section>
+				<a id="adicionar-duplicata" class="" style="cursor:pointer;float:right;margin-top: 30px;margin-right: 30px;">
+					<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+				</a>
+		</div>
+		</div>
+	</div>
+
+	<!-- MODAL ADD TRANSPORTADORA -->
+	<div class="modal fade" id="myModal_add-transportadora" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body">
+			<?php
+				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
+			?>
+			<header id="cabecalho">
+				<?php 
+					echo $this->Html->image('titulo-cadastrar.png', array('id' => 'cadastrar', 'alt' => 'Cadastrar', 'title' => 'Cadastrar'));
+				?>
+				<h1> Adicionar Transportadora </h1>
+			</header>
+			
+			<section>
+				<header></header>
+			</section>
+			<section style="clear:both;left:50px;width:300px;">
+			
+				<?php
+					
+				?>
+				
+			</section>
+				<a id="" class="" style="cursor:pointer;float:right;margin-top: 30px;margin-right: 30px;">
+					<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+				</a>
+		</div>
+		</div>
+	</div>

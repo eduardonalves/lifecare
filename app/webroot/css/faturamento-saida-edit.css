@@ -1,0 +1,135 @@
+	.caixa-volume{
+		width: auto;
+		float: left;
+		margin-left: 20px;
+		padding: 5px;
+		margin-top: 10px;	
+	}
+		.caixa-volume legend{
+			color: #000;
+		}
+	.label-volume{
+		width: 78px;
+		text-align: right;
+		font-size: 13px;
+		line-height: 20px;	
+		margin-left: 0px;
+	}
+	.label-volume span{
+		display: block;
+	}
+	.valor-volume{
+		margin-left: 10px;
+		margin-right: 10px;
+		width: auto;
+	}
+	.valor-volume p{
+		margin: 0;
+		padding: 0;
+		font-size: 13px;
+		line-height: 20px;
+		line-height: 20px;	
+	}
+	#myModal_add-itensTransporte{
+		width: 490px;
+	}
+	#myModal_add-itensTransporte .modal-body{
+		height: 300px;
+	}
+
+	.remove-transp{
+		border-radius: 50%;
+		display: block;
+		background: none repeat scroll 0% 0% #F00;
+		width: 17px;
+		height: 17px;
+		color: #FFF;
+		text-align: center;
+		font-weight: bold;
+		position: absolute;
+		top: 10px;
+		margin-left: 86px;
+		padding: 0;
+		cursor: pointer;
+	}
+
+	.remove-transp:hover{
+		background: none repeat scroll 0% 0% #FFF;
+		color: #F00;
+		border: 1px solid #F00;
+	}
+
+	.caixa-duplicata{
+		width: auto;
+		float: left;
+		margin-left: 20px;
+		padding: 5px;
+		margin-top: 10px;	
+	}
+		.caixa-duplicata legend{
+			color: #000;
+		}
+	.label-duplicata{
+		width: 78px;
+		text-align: right;
+		font-size: 13px;
+		line-height: 20px;	
+		margin-left: 0px;
+	}
+	.label-duplicata span{
+		display: block;
+	}
+	.valor-duplicata{
+		margin-left: 10px;
+		margin-right: 10px;
+		width: auto;
+	}
+	.valor-duplicata p{
+		margin: 0;
+		padding: 0;
+		font-size: 13px;
+		line-height: 20px;
+		line-height: 20px;	
+	}
+	#myModal_add-notaDuplicata{
+		width: 470px;
+	}
+	#myModal_add-notaDuplicata .modal-body{
+		height: 250px;
+	}
+
+	.remove-duplicata{
+		border-radius: 50%;
+		display: block;
+		background: none repeat scroll 0% 0% #F00;
+		width: 17px;
+		height: 17px;
+		color: #FFF;
+		text-align: center;
+		font-weight: bold;
+		position: absolute;
+		top: 10px;
+		margin-left: 86px;
+		padding: 0;
+		cursor: pointer;
+	}
+
+	.remove-duplicata:hover{
+		background: none repeat scroll 0% 0% #FFF;
+		color: #F00;
+		border: 1px solid #F00;
+	}
+	.msgValidaModal{
+		background-color: #FFD5D5;
+		border: 1px solid #D40000;
+		color: #D40000;
+		text-align: center;
+		border-radius: 3px;
+		display: block;
+		margin: 10px auto;
+		font-size: 14px;
+		width: 80%;
+	}
+	.ui-autocomplete{
+		max-height: 200px;
+	}
