@@ -324,13 +324,19 @@ class SaidasController extends NotasController {
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Saida']['data_entrada']);
 			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Saida']['data_saida']);
 			
+			if(isset($this->request->data['Duplicata'])){
+				foreach ($this->request->data['Duplicata'] as $i => $dupData) {
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Duplicata'][$i]['dvenc']);
+				}
+			}
+
 			if ($this->Saida->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
 				return $this->redirect(array('action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('A saída não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
-
+			
 		} else {
 			$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id));
 			$this->request->data = $this->Saida->find('first', $options);

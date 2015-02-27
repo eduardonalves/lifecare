@@ -327,39 +327,50 @@
 <!-- ######### DADOS DA NOTA ######### -->
 <section>	
 	<header>Dados da Nota</header>
-<?php echo $this->Form->create('Saida'); ?>
+	<span id="msgCamposTotal" style="display:none;clear:both;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
+<?php echo $this->Form->create('Saida',array('id'=>'formularioNota')); ?>
 <fieldset style="clear:both;padding-bottom:10px;">
 	<legend style="margin-bottom:10px;">Cabeção da Nota Fiscal</legend>
 	<section class="coluna-esquerda">
 		<?php
 			echo $this->Form->input('id');
-			echo $this->Form->input('nota_fiscal',array('label'=>'Nº nota:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('codnota',array('label'=>'Cod. Nota:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('tpEmis',array('label'=>'Tipo de Emi. NF-e:','type'=>'select','class'=>'tamanho-pequeno','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
+			echo $this->Form->input('nota_fiscal',array('label'=>'Nº nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text'));
+			echo $this->Form->input('codnota',array('label'=>'Cod. Nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text'));
+
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['tpemis'],'type'=>'hidden','id'=>'tpEmisHide'));
+			echo $this->Form->input('tpemis',array('id'=>'auxTpEmis','label'=>'Tipo de Emi. NF-e<span class="campo-obrigatorio">*</span>:','type'=>'select','class'=>'tamanho-medio validaNota','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
 			
-			echo $this->Form->input('data',array('value'=>formatDateToView($saida['Saida']['data']),'label'=>'Data Emissão:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('data_entrada',array('value'=>formatDateToView($saida['Saida']['data_entrada']),'label'=>'Data Entrada:','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('data_saida',array('value'=>formatDateToView($saida['Saida']['data_saida']),'label'=>'Data Saída:','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('data',array('value'=>formatDateToView($saida['Saida']['data']),'label'=>'Data Emissão<span class="campo-obrigatorio">*</span>:','class'=>'validaNota tamanho-medio inputData','type'=>'text'));
+			echo $this->Form->input('data_entrada',array('value'=>formatDateToView($saida['Saida']['data_entrada']),'label'=>'Data Entrada<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio inputData validaNota','type'=>'text'));
+			echo $this->Form->input('data_saida',array('value'=>formatDateToView($saida['Saida']['data_saida']),'label'=>'Data Saída<span class="campo-obrigatorio">*</span>:','class'=>'validaNota tamanho-medio inputData','type'=>'text'));
+				echo $this->Form->input('cep',array('type'=>'text','id'=>'cep','label'=>'Cep<span class="campo-obrigatorio">*</span>:','class'=>'validaNota tamanho-medio inputCep'));
+			echo $this->Form->input('cmunfg',array('type'=>'text','label'=>'Cód. Muni. FG<span class="campo-obrigatorio">*</span>:','id'=>'ibge','class'=>'validaNota borderZero tamanho-medio','readonly'=>'readonly','onfocus'=>'this.blur();'));
+				
 
 		?>
 	</section>
 	<section class="coluna-central">
 		<?php
 	
-			echo $this->Form->input('serie',array('label'=>'Série:','type'=>'text','class'=>'tamanho-pequeno','maxlength'=>'3'));
+			echo $this->Form->input('serie',array('label'=>'Série<span class="campo-obrigatorio">*</span>:','type'=>'text','class'=>'validaNota tamanho-pequeno','maxlength'=>'3'));
 			
-			echo $this->Form->input('cep',array('type'=>'text','id'=>'cep','label'=>'Cep:','class'=>'tamanho-medio'));
-			echo $this->Form->input('cmunfg',array('type'=>'text','label'=>'Cód. Muni. FG:','id'=>'ibge','class'=>'borderZero tamanho-medio','readonly'=>'readonly','onfocus'=>'this.blur();'));
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['tpimp'],'type'=>'hidden','id'=>'tpImpHide'));
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['finnfe'],'type'=>'hidden','id'=>'finNfeHide'));
 			
-			echo $this->Form->input('',array('label'=>'cmunfg_id','class'=>'tamanho-medio','type'=>'text'));
-			echo $this->Form->input('tpimp',array('label'=>'Impressão:','type'=>'select','class'=>'tamanho-pequeno','options'=>array(''=>'','1'=>'Retrato','2'=>'Paisagem')));
-			echo $this->Form->input('finnfe',array('label'=>'Fin. Emi. da NF-e:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-pequeno'));
+			echo $this->Form->input('tpimp',array('id'=>'auxTpImp','label'=>'Impressão<span class="campo-obrigatorio">*</span>:','type'=>'select','class'=>'validaNota tamanho-pequeno','options'=>array('1'=>'Retrato','2'=>'Paisagem')));
+			echo $this->Form->input('finnfe',array('id'=>'auxFinNfe','label'=>'Fin. Emi. da NF-e<span class="campo-obrigatorio">*</span>:',''=>'Finalidade de emissão da NF-e','type'=>'select','options'=>array('1'=>'NF-e normal','2'=>'NF-e complementar','3'=>'NF-e de ajuste'),'class'=>'tamanho-medio validaNota'));
+
+
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['natop_id'],'type'=>'hidden','id'=>'natopIdHide'));
+
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['cuf_id'],'type'=>'hidden','id'=>'cufidHide'));
 		?>
 			<!-- NATOP ###################### -->
+
+
 			<div style="clear:both;"> 
-				<label>Natureza Operação:</label>
-				<select name="data[Saida][natop_id]" class="tamanho-medio">				
-					<option></option>
+				<label>Natureza Operação<span class="campo-obrigatorio">*</span>:</label>
+				<select id="auxNatopId" name="data[Saida][natop_id]" class="tamanho-medio validaNota">		
 					<?php
 						foreach($natops as $natop){								
 							echo "<option value='".$natop['Natop']['id']."'>";
@@ -369,11 +380,11 @@
 					?>
 				</select>
 			</div>
-			<!-- CÒDIGO UF cUF -->
+
+			<!-- CÒDIGO UF cUF -->			
 			<div style="clear:both;"> 
-				<label>Código UF:</label>
-				<select name="data[Saida][cuf_id]" class="tamanho-medio">			
-					<option></option>
+				<label>Código UF<span class="campo-obrigatorio">*</span>:</label>
+				<select id="auxcufid" name="data[Saida][cuf_id]" class="tamanho-medio validaNota">			
 					<?php
 						foreach($cufs as $cuf){								
 							echo "<option value='".$cuf['cuf']['id']."'>";
@@ -385,12 +396,13 @@
 			</div>
 
 			<!-- TRANSPORTADORA -->
+			<input type="hidden" id="auxId" value="<?php echo $saida['Saida']['transportadore_id']; ?>">
 			<div class="input autocompleteTransportadoras contas">
 			    <span id="msgValidaTipoConta" class="Msg tooltipMensagemErroTopo" style="display:none">Preencha o campo Tipo Conta</span>
-			    <label>Transportadora:</label>
-			    <select name="data[Saida][transportadore_id]" class="tamanho-medio" id="add-transportadora">
+			    <label>Transportadora<span class="campo-obrigatorio">*</span>:</label>
+			    <select name="data[Saida][transportadore_id]" class="tamanho-medio validaNota" id="add-transportadora">
 				    <option id="optvazioForn"></option>
-				    <option value="add-transportadora">Cadastrar</option>
+				   <!-- <option value="add-transportadora">Cadastrar</option>-->
 				    <?php
 				       foreach($transporadoras as $transportadora){
 												
@@ -406,24 +418,25 @@
 	<section class="coluna-direita">
 		<?php
 		
-			echo $this->Form->input('modfrete',array('label'=>'modfrete','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('modfrete',array('id'=>'modFrete','label'=>'Mod. do Frete<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'select','options'=>array('1'=>'Próprio','0'=>'Outros')));
 			//1 - proprio/emitente , 0 - outros
 
-			echo $this->Form->input('freteproprio',array('label'=>'freteproprio','class'=>'tamanho-medio','type'=>'text'));
+			echo $this->Form->input('freteproprio',array('id'=>'freteProprio','label'=>'Frete:','class'=>'tamanho-medio','type'=>'hidden'));
 			// 1 se modfrete proprio/emitente, 0 se modfrete 0
 		
 			//echo $this->Form->input('transportadore_id',array('label'=>'transportadore_id','class'=>'tamanho-medio','type'=>'text'));
 			
-			echo $this->Form->input('infoadic',array('label'=>'infoadic','class'=>'tamanho-medio','type'=>'text'));	
+			echo $this->Form->input('infoadic',array('label'=>'Info. Adic.<span class="campo-obrigatorio">*</span>:','class'=>'validaNota','type'=>'textarea','style'=>'height: 105px;width:150px;margin-bottom:7px;'));	
+
+			echo $this->Form->input('ds',array('value'=>$saida['Saida']['indpag'],'type'=>'hidden','id'=>'indpagHide'));
 		?>
 		<div id="hidden-tranps"></div>
-		<div id="hidden-duplis"></div>		
+		<div id="hidden-duplis"></div>	
 
 			<!-- INDPAG ###################### -->
 			<div style="clear:both;"> 
-				<label>Ind. Forma Pgto.:</label>
-				<select name="data[Saida][indpag]" class="tamanho-medio">				
-					<option></option>
+				<label>Ind. Forma Pgto.<span class="campo-obrigatorio">*</span>:</label>
+				<select id="auxindpag" name="data[Saida][indpag]" class="tamanho-medio validaNota">			
 					<option value="1">Pagamento à Vista</option>
 					<option value="2">Pagamento a Prazo</option>
 					<option value="3">Outros</option>							
@@ -437,9 +450,11 @@
 <!-- ######### VOLUMES DO TRANSPORTE ######### -->
 <section style="clear:both;">
 	<header>Volumes do Transporte</header>
-		<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
-			<?php echo $this->Html->image('botao-adicionar2.png'); ?>
-		</a>
+		<?php if($saida['Saida']['status_completo'] == 0){ ?>
+			<a href="add-itensTransporte" class="bt-showmodal" style="float:right;margin-top:15px;">
+				<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+			</a>
+		<?php } ?>
 	<section id="caixas-tranps" class="row" style="clear:both;margin:0 auto;">
 	<?php		
 		if(!empty($saida['Transp'])){
@@ -475,10 +490,11 @@
 <section style="clear:both;">
 	<header>Duplicatas</header>
 	<section style="clear:both;">
-		<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
-			<?php echo $this->Html->image('botao-adicionar2.png'); ?>
-		</a>
-
+		<?php if($saida['Saida']['status_completo'] == 0){ ?>
+			<a href="add-notaDuplicata" class="bt-showmodal" style="float:right;margin-top:15px;">
+				<?php echo $this->Html->image('botao-adicionar2.png'); ?>
+			</a>
+		<?php } ?>
 		<section id="caixas-duplicatas" class="row" style="clear:both;margin:0 auto;">
 		<?php		
 			if(!empty($saida['Duplicata'])){
@@ -508,11 +524,16 @@
 </fieldset>
 <footer>
 <?php 	
-	//if($saida['Saida']['status_completo'] == 0){
+	if($saida['Saida']['status_completo'] == 0){
 		echo $this->Form->input('status_completo',array('type'=>'hidden','value'=>1));
-		echo $this->Form->end(__('Submit')); 
+		echo $this->Html->image('botao-salvar.png',array(
+							    'class'=>'',
+							    'alt'=>'Salvar',
+							    'title'=>'Salvar',
+							    'id'=>'subimitar'));
+		echo $this->Form->end(); 
 		
-	//}
+	}
 ?>
 </footer>
 
@@ -678,7 +699,7 @@
 				<span id="msgCamposObrDuplicata" style="display:none;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
 				<?php
 					echo $this->Form->input('ndup',array('id'=>'input-ndup','label'=>'Nº Duplicata<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno','type'=>'text'));
-					echo $this->Form->input('dvenc',array('id'=>'input-dvenc','label'=>'Data Vencimento<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('dvenc',array('id'=>'input-dvenc','label'=>'Data Vencimento<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno inputData','type'=>'text'));
 					echo $this->Form->input('vdup',array('id'=>'input-vdup','label'=>'Valor<span class="campo-obrigatorio">*</span>:','class'=>'peso validaDupli tamanho-pequeno','type'=>'text'));
 					
 				?>
