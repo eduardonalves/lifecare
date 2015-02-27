@@ -1763,23 +1763,27 @@ class SaidasController extends NotasController {
 		$this->set(compact('userid','saidas'));
 	}
 	
-	public function eviaEmailFaturamento(&$destinatario, &$remetente, &$mensagem){
+	public function eviaEmailFaturamento($id =null){
 				
-				 //test file for check attachment 
+
+			$saida = $this->Saida->find('first', array('recursive' => 0,'conditions' => array('Saida.id' => $id)));
+			//test file for check attachment 
 			$this->loadModel('Empresa');
-			
-				 
+			$this->loadModel('Contato');
+			$mensagem = array();
+			$mensagem = $saida;	 
 			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
 			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
-			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, sob o código: nfe-".$mensagem['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
+			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, sob o código: nfe-".$saida['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			
-			 
-			
+			$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $saida['Saida']['parceirodenegocio_id'])));
+			$remetente = 'eduardonascimento@techinmove.com.br';
+			$destinatario = $contato['Contato']['email'];
 			$file_name= APP."webroot/img/cake.icon.png";
 			$extraparams= $mensagem;
 			$this->Session->write('extraparams',$extraparams);
@@ -1790,7 +1794,7 @@ class SaidasController extends NotasController {
 			 );
 			 
 			
-			 $xml = APP . 'webroot'. DS .'xml' . DS .$mensagem['Saida']['chave_acesso'].'-nfe.xml';
+			 $xml = APP . 'webroot'. DS .'xml' . DS .$saida['Saida']['chave_acesso'].'-nfe.xml';
 			 
 			 //Writing external parameters in session
 		 	$extraparams =$mensagem;
