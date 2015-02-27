@@ -1760,25 +1760,27 @@ class SaidasController extends NotasController {
 	
 	public function eviaEmailFaturamento($id =null){
 				
-
+			$remetente = 'eduardonascimento@techinmove.com.br';
 			$saida = $this->Saida->find('first', array('recursive' => 0,'conditions' => array('Saida.id' => $id)));
 			//test file for check attachment 
 			$this->loadModel('Empresa');
 			$this->loadModel('Contato');
 			$mensagem = array();
-			$mensagem = $saida;	 
+			$extraparams = array();
+			//$mensagem = $saida;	 
 			$empresa = 	$this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 			$mensagem['Mensagem']['empresa']= $empresa['Empresa']['nome_fantasia']; 
 			$mensagem['Mensagem']['logo']=$empresa['Empresa']['logo'];
 			$mensagem['Mensagem']['endereco']=$empresa['Empresa']['endereco'].' '.$empresa['Empresa']['complemento'].', '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['bairro'].' - '.$empresa['Empresa']['cidade'].' - '.$empresa['Empresa']['uf']; 
 			$mensagem['Mensagem']['telefone']=$empresa['Empresa']['telefone'];
 			$mensagem['Mensagem']['site']= $empresa['Empresa']['site'];
-			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, sob o código: nfe-".$saida['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
+			$mensagem['Mensagem']['corpo']="Esta é um aviso de faturamento, segue a chave de acesso da sua nfe: ".$saida['Saida']['chave_acesso'].", caso receba este email por engano entre em contato com ".$remetente." "; 
 			
 			
 			$contato = $this->Contato->find('first', array('conditions' => array('Contato.parceirodenegocio_id' => $saida['Saida']['parceirodenegocio_id'])));
-			$remetente = 'eduardonascimento@techinmove.com.br';
-			$destinatario = $contato['Contato']['email'];
+			
+			//$destinatario = $contato['Contato']['email'];
+			$destinatario='eduardonalves@gmail.com';
 			$file_name= APP."webroot/img/cake.icon.png";
 			$extraparams= $mensagem;
 			$this->Session->write('extraparams',$extraparams);
@@ -1797,20 +1799,21 @@ class SaidasController extends NotasController {
 			
             $email = new CakeEmail('smtp');
 
-            $email->to($destinatario);
+            $email->to('eduardonalves@gmail.com');
 		  	$email->from('cirurgica.simoes@gmail.com');
             $email->subject($remetente);
 			//a linha abaixo só serve para o servidor da alemanha
 			$email->transport('Mail');
 			//$email->template = 'confirm';
-			$email->template('pedido','default');
+			$email->template('envionota','default');
 				$email->emailFormat('html');
 			
 			$email->attachments(array($xml));
 			
-			$mensagemHtml = array('mensagem' => 'teste de mensagem');
+			//$mensagemHtml = array('mensagem' => 'teste de mensagem');
 			//$this->set('extraparams', $mensagem);
             if($email->send($mensagem)){
+				
 				return TRUE;
             }else{
             	
