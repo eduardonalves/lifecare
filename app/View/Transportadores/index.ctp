@@ -5,12 +5,29 @@
 	$this->end();	
 
 ?>
-
+<style type="text/css">
+.paging {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+}
+.separador {
+    font-size: 13px;
+    line-height: 13px;
+    position: relative;
+    top: -3px;
+}
+.resultado-total {
+    float: right;
+    font-size: 13px;
+    margin: 4px 54px 0px 0px;
+}
+</style> 
 <header>
-
 	<img src="/lifecare/img/titulo-cadastrar.png" id="cadastrar-titulo" alt="Cadastrar" title="Cadastrar" />
 	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
-	 <h1 class="menuOption62">Transportadores</h1>    
+	<h1 class="menuOption62">Transportadores</h1>  
 </header>
 
 <section>
@@ -49,10 +66,10 @@
 		</section>
 
 	</section>
+
+	<div class="areaTabela">	
+		<?php echo $this->element('paginador_superior'); ?>
 	
-	<?php echo $this->element('paginador_superior'); ?>
-	
-	<section style="top:30px;">
 		<table>
 			<thead>
 				<th>Nome</th>
@@ -89,10 +106,12 @@
 			
 			?>
 		</table>
-	</section>
-	<?php echo $this->element('paginador_inferior'); ?>
+		
+		<?php echo $this->element('paginador_inferior'); ?>
+	</div>
 
 </section>
+
 <!--
 <div class="transportadores index">
 	<h2><?php echo __('Transportadores'); ?></h2>
