@@ -19,7 +19,7 @@ class TransportadoresController extends ParceirodenegociosController {
 
 	public function beforeRender(){
 		
-		//$this->layout = "faturamento";
+		$this->layout = "faturamento";
 	}
 
 	public function beforeFilter(){
