@@ -423,7 +423,7 @@ class SaidasController extends NotasController {
 				
 				
 				$this->Session->setFlash(__('A nota foi cancelada com sucesso.'),'default',array('class'=>'success-flash'));			
-
+				$this->cancelaNfe($id);
 
 			} catch (Exception $e) {
 			

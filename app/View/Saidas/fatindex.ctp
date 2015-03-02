@@ -63,23 +63,6 @@
 						if($saida['Saida']['status_completo'] == 0){						
 							//COMPLETA A NOTA
 							echo $this->Html->image('gerencia.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'edit', $saida['Saida']['id']))); 
-						}else {
-							//GERAR NOTA SE TIVER COMPLETA
-							if($saida['Saida']['chave_acesso'] == 'NULL' || $saida['Saida']['chave_acesso'] == ''){
-								//GERA O XML SE AINDA NÃO ESTIVER GERADO
-								echo $this->Form->postLink($this->Html->image('emitir.png',array('id'=>'emitir','alt' =>__('Gerar XML'),'title' => 'Gerar XML')), array('controller' => 'Saidas','action' => 'geraNotaXml', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Gerar essa Nota?'.$saida['Saida']['id'].'?')));
-							}else{
-								 if($saida['Saida']['protocolo_aprovacao'] == 'NULL' || $saida['Saida']['protocolo_aprovacao'] == ''){
-								 	//ENVIAR A NOTA SE JÀ TIVER FEITO O XML
-									echo $this->Form->postLink($this->Html->image('pedido-acao.png',array('id'=>'enviarNota','alt' =>__('Enviar Nota'),'title' => 'Enviar Nota')), array('controller' => 'Saidas','action' => 'enviaNotas', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Enviar essa Nota?'.$saida['Saida']['id'].'?')));
-								}else{
-									//PODE GERAR DANFE OU CANCELAR A NOTA
-
-									echo $this->Form->postLink($this->Html->image('estoque.png',array('id'=>'danfe','alt' =>__('Gerar Danfe'),'title' => 'Gerar Danfe')), array('controller' => 'Saidas','action' => 'geraDanfe', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Gerar Danfe dessa Nota?'.$saida['Saida']['id'].'?')));
-
-									echo $this->Form->postLink($this->Html->image('cancelar.png',array('id'=>'cancelar','alt' =>__('Cancelar Nota'),'title' => 'Cancelar Nota')), array('controller' => 'Saidas','action' => 'cancelaNfe', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Cancelar essa Nota?'.$saida['Saida']['id'].'?')));
-								}	
-							}
 						}
 						/*echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'faturar','alt' =>__('Faturar'),'title' => 'Faturar')), array('controller' => 'Saidas','action' => 'geraNotaXml', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Faturar essa Venda?'.$saida['Saida']['id'].'?')));*/
 						

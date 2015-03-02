@@ -352,19 +352,6 @@
 	</section>
 </div>
 <footer>
-
-	<?php
-		if (! strstr($saida['Saida']['tipo'], 'CANCELADA')){
-			echo $this->Form->postLink(
-				$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-saida', 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Nota','title' => 'Cancelar Nota')),
-				array('controller' => 'saidas', 'action' => 'cancelar',  $saida['Saida']['id']),
-				array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar a nota número %s?', $saida['Saida']['id']))
-			);
-		}
-
-	?>
-
-	<br />
 	<br />
 
 	<?php
@@ -384,6 +371,26 @@
 									'class'=>'bt-confirmar imprimirSem',
 									));
 
-	?>
+	//GERAR NOTA SE TIVER COMPLETA
+	if($saida['Saida']['chave_acesso'] == 'NULL' || $saida['Saida']['chave_acesso'] == ''){
+		//GERA O XML SE AINDA NÃO ESTIVER GERADO
+		echo $this->Form->postLink($this->Html->image('geraNota.png',array('id'=>'emitir','alt' =>__('Gerar XML'),'title' => 'Gerar XML')), array('controller' => 'Saidas','action' => 'geraNotaXml', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Gerar essa Nota?'.$saida['Saida']['id'].'?')));
+	}else{
+		 if($saida['Saida']['protocolo_aprovacao'] == 'NULL' || $saida['Saida']['protocolo_aprovacao'] == ''){
+		 	//ENVIAR A NOTA SE JÀ TIVER FEITO O XML
+			echo $this->Form->postLink($this->Html->image('enviarNota.png',array('id'=>'enviarNota','alt' =>__('Enviar Nota'),'title' => 'Enviar Nota')), array('controller' => 'Saidas','action' => 'enviaNotas', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Enviar essa Nota?'.$saida['Saida']['id'].'?')));
+		}else{
+			//PODE GERAR DANFE OU CANCELAR A NOTA
+			echo $this->Form->postLink($this->Html->image('gerarDanfe.png',array('id'=>'danfe','alt' =>__('Gerar Danfe'),'title' => 'Gerar Danfe')), array('controller' => 'Saidas','action' => 'geraDanfe', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Gerar Danfe dessa Nota?'.$saida['Saida']['id'].'?')));			
+		}
+	}	
 
+	if (! strstr($saida['Saida']['tipo'], 'CANCELADA')){
+		echo $this->Form->postLink(
+			$this->Html->image('bt-cancel.png',array('class'=>'bt-cancelar-saida', 'style'=>'float:right;cursor:pointer;','alt' =>'Cancelar Nota','title' => 'Cancelar Nota')),
+			array('controller' => 'saidas', 'action' => 'cancelar',  $saida['Saida']['id']),
+			array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar a nota número %s?', $saida['Saida']['id']))
+		);
+	}
+	?>
 </footer>

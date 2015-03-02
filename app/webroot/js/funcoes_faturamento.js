@@ -5,9 +5,11 @@ $(document).ready(function(){
 
 	$('.inputData').attr('placeholder','dd/mm/aaaa');
 	$('.inputData').mask('99/99/9999');
-		$(".inputCep").mask("00000-000");
+	$(".inputCep").mask("00000-000");
+	$(".cnpj").mask("99.999.999/9999-99");
+	$(".uf").mask("SS");
 	
-		$('.inputData').on("keypress",function(event){
+	$('.inputData').on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
 	    if (!((charCode > 47) && (charCode < 58) || (charCode == 8) || (charCode == 9))){return false;} else {return true}
@@ -340,6 +342,34 @@ $(document).ready(function(){
 			}
 		
 		});
+
+
+	//ADICIONAR TRANSPORTADORA
+	var flagTransportadora = 0;
+	$('#salvarTransportadora').click(function(){
+		$('.validaTransp').each(function(){
+			if($(this).val() != ''){
+				flagTransportadora++;
+				
+			}else{
+				flagTransportadora--;
+				$(this).addClass('shadow-vermelho');
+			}
+		});
+		if(flagNota < 6){
+			$('#msgCamposObrTransportadora').show();			
+		}else{
+			
+			/*
+				FAZER SALVAMENTO AQUI
+
+			*/
+
+			flagNota = 0;
+		}
+	
+	});
+	
 
 
 
