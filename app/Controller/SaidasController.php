@@ -1764,8 +1764,20 @@ class SaidasController extends NotasController {
 		$this->layout = 'faturamento';
 
 		$userid = $this->Session->read('Auth.User.id');
-		$saidas = $this->Saida->find('all', array('conditions'=> array('AND' => array(array('Saida.tipo' => 'SAIDA'))),'order'=>array('Saida.id DESC')));
 
+		//$saidas = $this->Saida->find('all', array('conditions'=> array('AND' => array(array('Saida.tipo' => 'SAIDA'))),'order'=>array('Saida.id DESC')));
+
+		$this->Paginator->settings = array(
+				'Saida' => array(
+					'limit' => $this->request['url']['limit'],
+					'conditions'=> array('AND' => array(array('Saida.tipo' => 'SAIDA'))),
+					'order'=>array('Saida.id DESC')
+				)
+			);			
+		
+		$saidas = $this->Paginator->paginate();		
+
+		echo $this->request->query['limit'];
 		$this->set(compact('userid','saidas'));
 	}
 	

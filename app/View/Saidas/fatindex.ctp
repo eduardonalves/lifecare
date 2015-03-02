@@ -34,6 +34,7 @@
 <section>
 	<header> Vendas Disponíveis</header>
 
+	<?php echo $this->element('paginador_superior'); ?>
 	<table class="areaTabela">
 		<thead>
 			<tr>
@@ -79,4 +80,7 @@
 			?>
 		</tbody>
 	</table>
+	
+	<?php echo $this->element('paginador_inferior'); ?>
+	
 </section>
