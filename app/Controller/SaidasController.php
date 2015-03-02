@@ -319,13 +319,24 @@ class SaidasController extends NotasController {
 			throw new NotFoundException(__('Invalid saida'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Saida->save($this->request->data)) {
+			
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Saida']['data']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Saida']['data_entrada']);
+			$this->lifecareDataFuncs->formatDateToBD($this->request->data['Saida']['data_saida']);
+			
+			if(isset($this->request->data['Duplicata'])){
+				foreach ($this->request->data['Duplicata'] as $i => $dupData) {
+					$this->lifecareDataFuncs->formatDateToBD($this->request->data['Duplicata'][$i]['dvenc']);
+				}
+			}
+
+			if ($this->Saida->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'view',$id));
 			} else {
-				debug($this->request->data);
 				$this->Session->setFlash(__('A saída não foi salva. Por favor, tente novamente.'), 'default', array('class' => 'error-flash'));
 			}
+			
 		} else {
 			$options = array('conditions' => array('Saida.' . $this->Saida->primaryKey => $id));
 			$this->request->data = $this->Saida->find('first', $options);
@@ -730,8 +741,8 @@ class SaidasController extends NotasController {
 			$uf=33;	
 		}
 		
-		if($saida['Saida']['numero_nota']==''){
-			$saida['Saida']['numero_nota']='00000001';
+		if($saida['Saida']['nota_fiscal']==''){
+			$saida['Saida']['nota_fiscal']='00000001';
 		}
 		$aamm =$this->formataCnpj($saida['Saida']['data']) ; //data da nota 4digitos
 		$aamm =substr($aamm, 2,4);
@@ -740,7 +751,7 @@ class SaidasController extends NotasController {
 		$cnpj=$this->formataCnpj($cnpj);
 		$mod= $saida['Mod']['codigo']; //Modelo do Documento Fiscal 2 digitos ***buscar 
 		$serie='001'; //Série do Documento Fiscal 3 digitos ***buscar 
-		$nNF =$saida['Saida']['numero_nota']; //Número do Documento Fiscal   9 digitos ***buscar 
+		$nNF =$saida['Saida']['nota_fiscal']; //Número do Documento Fiscal   9 digitos ***buscar 
 		$trans =1; // forma de emissão da NF-e 1 digito ***buscar 
 		//$codigoacesso = mt_rand(100000000, 999999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
 		
@@ -959,8 +970,8 @@ class SaidasController extends NotasController {
 			$saida['Procemi']['codigo']=0;
 		}
 		
-		if($saida['Saida']['numero_nota']==''){
-			$saida['Saida']['numero_nota'] = '000000001'; // deve conter 8 caracteres
+		if($saida['Saida']['nota_fiscal']==''){
+			$saida['Saida']['nota_fiscal'] = '000000001'; // deve conter 8 caracteres
 		}
 		
 		if($saida['Verproc']['codigo']==''){
@@ -1024,8 +1035,8 @@ class SaidasController extends NotasController {
 							'indPag' =>  $saida['Saida']['indpag'],
 							'mod' => 55,
 							'serie' => $saida['Saida']['serie'],
-							'nNF' => $saida['Saida']['numero_nota'],
-							'dhEmi' => $dhEmi,//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
+							'nNF' => $saida['Saida']['nota_fiscal'],
+							'dhEmi' =>  date("c",strtotime($saida['Saida']['created'])),//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
 							'tpNF' =>  1,
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
