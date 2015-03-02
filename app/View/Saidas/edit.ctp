@@ -731,7 +731,7 @@
 			<section style="clear:both;left:50px;width:330px;">
 			<span id="msgCamposObrTransportadora" style="display:none;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
 				<?php
-					echo $this->Form->create('Transportadore',array('id'=>'formTransportadora'));
+					echo $this->Form->create('Transportadore',array('id'=>'formTransportadora', 'url'=>array('controller'=>'Transportadores', 'action'=>'add')));
 						echo $this->Form->input('cnpj',array('label'=>'CNPJ<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio cnpj'));
 						echo $this->Form->input('nome',array('label'=>'Nome<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
 						echo $this->Form->input('ie',array('label'=>'Inscri. Estadual<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
