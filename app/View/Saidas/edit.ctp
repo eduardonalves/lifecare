@@ -700,7 +700,7 @@
 				<?php
 					echo $this->Form->input('ndup',array('id'=>'input-ndup','label'=>'Nº Duplicata<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno','type'=>'text'));
 					echo $this->Form->input('dvenc',array('id'=>'input-dvenc','label'=>'Data Vencimento<span class="campo-obrigatorio">*</span>:','class'=>'validaDupli tamanho-pequeno inputData','type'=>'text'));
-					echo $this->Form->input('vdup',array('id'=>'input-vdup','label'=>'Valor<span class="campo-obrigatorio">*</span>:','class'=>'peso validaDupli tamanho-pequeno','type'=>'text'));
+					echo $this->Form->input('vdup',array('id'=>'input-vdup','label'=>'Valor<span class="campo-obrigatorio">*</span>:','class'=>'dinheiro_duasCasas validaDupli tamanho-pequeno','type'=>'text'));
 					
 				?>
 				

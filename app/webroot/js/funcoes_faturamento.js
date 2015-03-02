@@ -8,6 +8,12 @@ $(document).ready(function(){
 	$(".inputCep").mask("00000-000");
 	$(".cnpj").mask("99.999.999/9999-99");
 	$(".uf").mask("SS");
+	$(".dinheiro_duasCasas").priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: '.',
+	    limit: 15
+	});
 	
 	$('.inputData').on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
