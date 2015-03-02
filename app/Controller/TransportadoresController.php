@@ -17,14 +17,56 @@ class TransportadoresController extends ParceirodenegociosController {
  */
 	public $components = array('Paginator');
 
+	public function beforeRender(){
+		
+		$this->layout = "faturamento";
+	}
+
+	public function beforeFilter(){
+
+		parent::beforeFilter();	
+			
+		//Verificamos a data para setarmos o semáfaro do lote
+			
+		//Inicio Cemáfaro
+		if(!isset($this->request->query['limit']))
+		{
+			$this->request->query['limit'] = 15;
+		}
+	}
+
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->Transportadore->recursive = 0;
-		$this->set('transportadores', $this->Paginator->paginate());
+
+		$this->Filter->addFilters(
+	        array(
+	            'transportadorNome' => array(
+	                'Transportadore.nome' => array(
+	                    'operator' => 'LIKE'
+
+	                )
+	            )
+	            ));
+
+			$conditions = $this->Filter->getConditions();
+
+			//$this->Transportadore->find('all',array('conditions'=>$conditions, 'recursive' => 1));
+
+			$this->Paginator->settings = array(
+				'Transportadore' => array(
+					'limit' => $this->request['url']['limit'],
+					'conditions' => $conditions,
+					'order' => 'Transportadore.nome asc'
+				)
+			);			
+
+			$transportadores = $this->Paginator->paginate('Transportadore');
+			$this->set(compact('transportadores'));
+
 	}
 
 /**
