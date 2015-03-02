@@ -1,3 +1,103 @@
+<?php
+	
+	$this->start('css');
+		echo $this->Html->css('table');
+	$this->end();	
+
+?>
+
+<header>
+
+	<img src="/lifecare/img/titulo-cadastrar.png" id="cadastrar-titulo" alt="Cadastrar" title="Cadastrar" />
+	<!-- menuOptionXY [X] = Menu Superior [Y] = Menu Lateral -->
+	 <h1 class="menuOption62">Transportadores</h1>    
+</header>
+
+<section>
+
+
+<header>Dados para Consulta</header>
+		
+	<section>
+		<section class="coluna-esquerda">
+			<fieldset>
+				<legend>Nome do Transportador:</legend>	
+
+				<?php echo $this->Form->create('Transpotadores', array('action' => 'index')); ?>
+
+				<?php 
+				
+					echo $this->Form->input('nome', array('label' => array('text'=>'Nome', 'style'=>'text-align:left; width:35px;')));
+					
+				?>
+					<div class="submit">
+						<input type="image" src="/lifecare/img/botao-filtrar.png"  class="salvarUnidade"/>
+					</div>
+
+				<?php echo $this->Form->end(); ?>
+
+			</fieldset>
+		</section>
+
+		<section class="coluna-direita" style="margin-left:30px; text-align:right;">
+			
+			<?php
+			
+			echo $this->Html->image("botao-adicionar2.png", array(
+				"alt" => "Adicionar Transportador",
+				"title" => "Adicionar Transportador",
+				'url' => array('controller' => 'transportadores', 'action' => 'add'),
+				'style' => 'margin-top:20px;'
+			));			
+			?>
+		</section>
+
+	</section>
+	
+	<?php echo $this->element('paginador_superior'); ?>
+	
+	<section style="top:30px;">
+		<table>
+			<thead>
+				<th>Nome</th>
+				<th>CNPJ</th>
+				<th>Insc. Estadual</th>
+				<th>Endereço</th>
+				<th>Cidade</th>
+				<th>UF</th>
+				<th>Editar</th>
+			</thead>
+
+			<?php
+			
+			foreach ($transportadores as $transportadore):
+			?>
+			<tr>
+				<td><?php echo $transportadore['Transportadore']['nome']; ?></td>
+				<td><?php echo $transportadore['Transportadore']['cnpj']; ?></td>
+				<td><?php echo $transportadore['Transportadore']['ie']; ?></td>
+				<td><?php echo $transportadore['Transportadore']['endereco']; ?></td>
+				<td><?php echo $transportadore['Transportadore']['cidade']; ?></td>
+				<td><?php echo $transportadore['Transportadore']['uf']; ?></td>
+
+				<td>
+					<?php
+					echo $this->Html->link($this->Html->image("botao-tabela-editar.png", array("title" => "Editar Transportador", "alt" => "Editar Transportador")), array('controller' => 'Transportadores', 'action' => 'edit', $transportadore['Transportadore']['id']), array('escape' => false));
+					?>
+					
+				</td>
+			</tr>
+			<?php
+			
+			endforeach;
+			
+			?>
+		</table>
+	</section>
+
+
+</section>
+<!--
 <div class="transportadores index">
 	<h2><?php echo __('Transportadores'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
@@ -36,3 +136,4 @@
 		<li><?php echo $this->Html->link(__('New Transportadore'), array('action' => 'add')); ?></li>
 	</ul>
 </div>
+-->

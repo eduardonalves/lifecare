@@ -17,6 +17,24 @@ class TransportadoresController extends ParceirodenegociosController {
  */
 	public $components = array('Paginator');
 
+	public function beforeRender(){
+		
+		$this->layout = "faturamento";
+	}
+
+	public function beforeFilter(){
+
+		parent::beforeFilter();	
+			
+		//Verificamos a data para setarmos o semáfaro do lote
+			
+		//Inicio Cemáfaro
+		if(!isset($this->request->query['limit']))
+		{
+			$this->request->query['limit'] = 15;
+		}
+	}
+
 /**
  * index method
  *

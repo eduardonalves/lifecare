@@ -108,6 +108,17 @@
 					</a>
 				</li>
 
+				<li class="item">
+					<a class="menuLink" href='<?php echo $this->Html->url(array("controller"=>"Transportadores","action"=>"index"),true);?>'>
+						
+						<?php 
+							echo $this->Html->image('transportadora.png', array('id' => 'transportadora-icon', 'alt' => 'Transportadores', 'title' => 'Transportadores'));
+						?>
+
+						<span class="label">Transp.</span>
+					</a>
+				</li>
+
 				
 			
 			</ul>
