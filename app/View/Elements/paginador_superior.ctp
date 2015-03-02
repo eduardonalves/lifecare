@@ -1,28 +1,20 @@
 <?php
-
 	$this->start('script');
 ?>
 	
 	<script type="text/javascript">
 	
-	$(document).ready( function () {
-	
+	$(document).ready( function () {	
 		$("#select-rpp").bind( "change" , function() {
-	
 			$("#PaginatorIndexForm").submit();
-			$("#PaginatorEditForm").submit();
-			
-		});
-		
+			$("#PaginatorEditForm").submit();			
+		});		
 	});
 	
 	
-	</script>
-	
-	<?php
-	
+	</script>	
+	<?php	
 	$this->end();
-
 ?>
 
 <section class="paging">

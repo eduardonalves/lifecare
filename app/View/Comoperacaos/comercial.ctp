@@ -173,7 +173,7 @@
 					<div class="informacoesParceiro">
 						<?php
 							echo $this->Search->input('nomeParceiro', array('label' => 'Nome:','class'=>'input-alinhamento tamanho-medio combo-autocomplete'));
-							echo $this->Search->input('status_operacao', array('type'=>'select','label' => array('text'=>'Status:', 'style'=>'display:block !important;'),'class'=>'tamanho-medio input-alinhamento'));
+							echo $this->Search->input('status_operacao', array('type'=>'select','label' => array('text'=>'Status:', 'style'=>'display:block !important;'),'class'=>'tamanho-medio input-alinhamento','id'=>'statusParceiro'));
 						?>
 					</div>
 					<div id="msgFiltroParceiro" class="msgFiltro">Habilite o filtro antes de pesquisar.</div>

@@ -1,0 +1,73 @@
+.areaTabela{
+	overflow:visible;
+	width:1090px;
+}
+
+.paging{
+	clear:both;
+	float:left;
+	width:100%;
+	margin-top:15px;
+}
+
+.separador{
+	font-size:13px;
+	line-height:13px;
+	position:relative;
+	top:-3px;
+}
+
+.paging-direito{
+	clear:both;
+	display:inline-flex;
+	float:right;
+	margin-bottom:2px;
+	position:relative;
+	width:436px;
+}
+
+.resultado-total{
+	float:right;
+	font-size:13px;
+	margin:4px 54px 0px 0px;
+}
+
+#paginatorFirst{
+	background-image:url(../img/botao-tabela-primeiro.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:16px;
+}
+
+#paginatorLast{
+	background-image:url(../img/botao-tabela-ultimo.png);
+	display:inline-block;
+	height:15px;
+	width:16px;
+}
+
+.paging-direito img{
+	display:block;
+	float: right;
+}
+
+.paging-direito label{
+	line-height:20px;
+}
+
+.prev a{
+	background-image:url(../img/botao-tabela-voltar.png);
+	display:inline-block;
+	height:15px;
+	margin-right:3px;
+	width:9px;
+}
+
+.next a{
+	background-image:url(../img/botao-tabela-adiantar.png);
+	display:inline-block;
+	width:9px;
+	height:15px;
+	margin-right:3px;
+}
