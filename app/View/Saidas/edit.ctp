@@ -734,7 +734,7 @@
 					echo $this->Form->create('Transportadore',array('id'=>'formTransportadora'));
 						echo $this->Form->input('cnpj',array('label'=>'CNPJ<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio cnpj'));
 						echo $this->Form->input('nome',array('label'=>'Nome<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
-						echo $this->Form->input('ie',array('label'=>'Inscri. Estadual<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
+						echo $this->Form->input('ie',array('label'=>'Inscri. Estadual<span class="campo-obrigatorio">*</span>:','class'=>'ieMask validaTransp tamanho-medio'));
 						echo $this->Form->input('endereco',array('label'=>'Endereço<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
 						echo $this->Form->input('cidade',array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
 						echo $this->Form->input('uf',array('label'=>'UF<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-pequeno uf','maxlength'=>2));
