@@ -2,6 +2,7 @@
 	$this->start('css');
 		echo $this->Html->css('table');
 	    echo $this->Html->css('compras');
+	    echo $this->Html->css('paginadores_estilo');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
 	$this->end();
@@ -24,25 +25,9 @@
 	}
 
 ?>
-<style type="text/css">
-	.paging {
-	    clear: both;
-	    float: left;
-	    width: 100%;
-	    margin-top: 15px;
-	}
-	.separador {
-	    font-size: 13px;
-	    line-height: 13px;
-	    position: relative;
-	    top: -3px;
-	}
-	.resultado-total {
-	    float: right;
-	    font-size: 13px;
-	    margin: 4px 54px 0px 0px;
-	}
-</style> 
+
+
+
 <header>
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
