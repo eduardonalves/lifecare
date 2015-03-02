@@ -1,5 +1,5 @@
 <?php
-	
+
 	$this->start('css');
 		echo $this->Html->css('table');
 	$this->end();	
@@ -23,18 +23,14 @@
 			<fieldset>
 				<legend>Nome do Transportador:</legend>	
 
-				<?php echo $this->Form->create('Transpotadores', array('action' => 'index')); ?>
+				<?php
 
-				<?php 
-				
-					echo $this->Form->input('nome', array('label' => array('text'=>'Nome', 'style'=>'text-align:left; width:35px;')));
-					
-				?>
-					<div class="submit">
-						<input type="image" src="/lifecare/img/botao-filtrar.png"  class="salvarUnidade"/>
-					</div>
+					echo $this->Search->create();
+				    echo $this->Search->input('transportadorNome', array('label' => array('text'=>'Nome', 'style'=>'text-align:left; width:35px;')));
+				    echo $this->Form->submit('botao-filtrar.png',array('id'=>'quick-filtrar', 'class'=>'salvarUnidade'));
+				    echo $this->Search->end();
 
-				<?php echo $this->Form->end(); ?>
+			   ?>
 
 			</fieldset>
 		</section>
@@ -94,7 +90,7 @@
 			?>
 		</table>
 	</section>
-
+	<?php echo $this->element('paginador_inferior'); ?>
 
 </section>
 <!--
