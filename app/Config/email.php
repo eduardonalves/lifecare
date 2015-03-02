@@ -47,7 +47,7 @@ class EmailConfig {
 	public $smtp = array(
 		'transport' => 'Smtp',
 		'from' => array('eduardonascimento@techinmove.com.br' => 'Ti Dev Team'),
-		'host' => 'ssl://smtp.techinmove.com',
+		'host' => 'srv116.prodns.com.br',
 		'port' => 465,
 		'timeout' => 30,
 		'username' => 'eduardonascimento@techinmove.com.br',

@@ -3,7 +3,7 @@
 	echo $this->Html->css('saidas_view.css');
 	echo $this->Html->css('table.css');
 	echo $this->Html->css('PrintArea.css');
-	echo $this->Html->css('	faturamento-saida-edit.css');
+	echo $this->Html->css('faturamento-saida-edit.css');
 	echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	echo $this->Html->css('jquery-ui/custom-combobox.css');
 	echo $this->Html->script('jquery.PrintArea.js');
@@ -402,7 +402,7 @@
 			    <label>Transportadora<span class="campo-obrigatorio">*</span>:</label>
 			    <select name="data[Saida][transportadore_id]" class="tamanho-medio validaNota" id="add-transportadora">
 				    <option id="optvazioForn"></option>
-				   <!-- <option value="add-transportadora">Cadastrar</option>-->
+				   <option value="add-transportadora">Cadastrar</option>
 				    <?php
 				       foreach($transporadoras as $transportadora){
 												
@@ -531,9 +531,9 @@
 							    'alt'=>'Salvar',
 							    'title'=>'Salvar',
 							    'id'=>'subimitar'));
-		echo $this->Form->end(); 
-		
+		echo $this->Form->end(); 		
 	}
+
 ?>
 </footer>
 
@@ -714,7 +714,7 @@
 
 	<!-- MODAL ADD TRANSPORTADORA -->
 	<div class="modal fade" id="myModal_add-transportadora" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-body">
+		<div class="modal-body" style="height:320px;">
 			<?php
 				echo $this->Html->image('botao-fechar.png', array('class'=>'close','aria-hidden'=>'true', 'data-dismiss'=>'modal', 'style'=>'position:relative;z-index:9;float:right')); 
 			?>
@@ -728,16 +728,24 @@
 			<section>
 				<header></header>
 			</section>
-			<section style="clear:both;left:50px;width:300px;">
-			
+			<section style="clear:both;left:50px;width:330px;">
+			<span id="msgCamposObrTransportadora" style="display:none;" class='msgValidaModal'>Todos os Campos são Obrigatórios!</span>	
 				<?php
-					
+					echo $this->Form->create('Transportadore',array('id'=>'formTransportadora'));
+						echo $this->Form->input('cnpj',array('label'=>'CNPJ<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio cnpj'));
+						echo $this->Form->input('nome',array('label'=>'Nome<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
+						echo $this->Form->input('ie',array('label'=>'Inscri. Estadual<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
+						echo $this->Form->input('endereco',array('label'=>'Endereço<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
+						echo $this->Form->input('cidade',array('label'=>'Cidade<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-medio'));
+						echo $this->Form->input('uf',array('label'=>'UF<span class="campo-obrigatorio">*</span>:','class'=>'validaTransp tamanho-pequeno uf','maxlength'=>2));
+					echo $this->Form->end();
+
 				?>
 				
 			</section>
-				<a id="" class="" style="cursor:pointer;float:right;margin-top: 30px;margin-right: 30px;">
-					<?php echo $this->Html->image('botao-adicionar2.png'); ?>
-				</a>
+				<div id="" class="" style="cursor:pointer;float:right;margin-top: 30px;margin-right: 30px;">
+					<?php echo $this->Html->image('botao-adicionar2.png',array('id'=>'salvarTransportadora')); ?>
+				</div>
 		</div>
 		</div>
 	</div>
