@@ -24,7 +24,25 @@
 	}
 
 ?>
-
+<style type="text/css">
+	.paging {
+	    clear: both;
+	    float: left;
+	    width: 100%;
+	    margin-top: 15px;
+	}
+	.separador {
+	    font-size: 13px;
+	    line-height: 13px;
+	    position: relative;
+	    top: -3px;
+	}
+	.resultado-total {
+	    float: right;
+	    font-size: 13px;
+	    margin: 4px 54px 0px 0px;
+	}
+</style> 
 <header>
     <?php echo $this->Html->image('titulo-consultar.png', array('id' => 'cadastrar-titulo', 'alt' => 'Cadastrar', 'title' => 'Cadastrar')); ?>
 
@@ -34,8 +52,9 @@
 <section>
 	<header> Vendas Disponíveis</header>
 
+	<div  class="areaTabela">
 	<?php echo $this->element('paginador_superior'); ?>
-	<table class="areaTabela">
+	<table>
 		<thead>
 			<tr>
 				<th>Ações</th>	
@@ -82,5 +101,5 @@
 	</table>
 	
 	<?php echo $this->element('paginador_inferior'); ?>
-	
+	</div>
 </section>
