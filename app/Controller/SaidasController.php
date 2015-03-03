@@ -1513,7 +1513,7 @@ class SaidasController extends NotasController {
 		$xmlAssinada= $tools->signXML($xmlString, 'infNFe');
 
 		$nomeArquivo =  $idnota.'-nfe.xml';
-		$enderecoArquivo = '../../app/webroot/xml/homologacao' . $nomeArquivo;
+		$enderecoArquivo = '../../app/webroot/xml/homologacao/' . $nomeArquivo;
 		file_put_contents($enderecoArquivo, $xmlAssinada);
 
 		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
@@ -1718,14 +1718,15 @@ class SaidasController extends NotasController {
 
 				
 		$this->loadModel('Saida');
+
 		$saida =  $this->Saida->find('first', array(
 			'conditions' => array(
 				'Saida.id' => $id
 			),
 			'recursive' => -1
 		));
-		
-
+		$this->Saida->id= $saida['Saida']['id']; 
+		$idVerdadeiro= $saida['Saida']['id']; 
 		//$arq = $_GET['nfe'];
 		$arq = $saida['Saida']['urlarquivo'];
 
@@ -1736,11 +1737,11 @@ class SaidasController extends NotasController {
 		 	
 
 		 	$id = $danfe->montaDANFE();
-	    	
-		  	$danfePDf = $danfe->printDANFE('../../app/webroot/pdf/homologacao'.$id.'.pdf', 'F');
-		
+	    	$url= '../../app/webroot/pdf/homologacao/'.$id.'.pdf';
+		  	$danfePDf = $danfe->printDANFE($url, 'F');
+			$this->Saida->saveField('ulr_danfe',$url);
 		    $this->Session->setFlash(__('A DANFE foi gerada com sucesso. Segue o protocolo de cancelamento'), 'default', array('class' => 'success-flash'));
-			return $this->redirect(array('action' => 'view', $id));
+			return $this->redirect(array('action' => 'view', $idVerdadeiro));
 		 	/* $enderecoArquivo = WWW_ROOT. DS . 'pdf' . DS . $id.'.pdf';
 		    $this->Saida->id = $saida['Saida']['id'];
 		    $this->Saida->saveField('url_danfe', $enderecoArquivo);
