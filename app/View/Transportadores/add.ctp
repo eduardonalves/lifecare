@@ -7,7 +7,13 @@
 
 <section>
 
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".cnpj").mask("99.999.999/9999-99");
+		$(".uf").mask("SS");
+		$(".ieMask").mask("999.999.999.999");
+	});
+</script>
 <header>Dados de Cadastro</header>
 		
 	<section>
@@ -18,15 +24,15 @@
 					
 					echo "<section class=\"coluna-esquerda\">";
 					echo $this->Form->input('Transportadore.nome', array('class'=>'tamanho-medio', 'label' => array('text'=>'Nome:')));
-					echo $this->Form->input('Transportadore.cnpj', array('class'=>'tamanho-medio', 'label' => array('text'=>'Cnpj:')));
+					echo $this->Form->input('Transportadore.cnpj', array('class'=>'cnpj tamanho-medio', 'label' => array('text'=>'Cnpj:')));
 					echo "</section>";
 					echo "<section class=\"coluna-central\">";
-					echo $this->Form->input('Transportadore.ie', array('class'=>'tamanho-medio', 'label' => array('text'=>'Inscrição Estadual:')));
+					echo $this->Form->input('Transportadore.ie', array('class'=>'tamanho-medio ieMask', 'label' => array('text'=>'Inscrição Estadual:')));
 					echo $this->Form->input('Transportadore.endereco', array('class'=>'tamanho-medio', 'label' => array('text'=>'Endereço:')));
 					echo "</section>";
 					echo "<section class=\"coluna-direita\">";
 					echo $this->Form->input('Transportadore.cidade', array('class'=>'tamanho-medio', 'label' => array('text'=>'Cidade:')));
-					echo $this->Form->input('Transportadore.uf', array('class'=>'tamanho-medio', 'label' => array('text'=>'UF:')));
+					echo $this->Form->input('Transportadore.uf', array('class'=>'uf tamanho-pequeno', 'label' => array('text'=>'UF:')));
 					echo "</section>";
 					
 				?>

@@ -130,6 +130,7 @@
 		font-size: 14px;
 		width: 80%;
 	}
-	.ui-autocomplete{
+	#ui-id-1{
 		max-height: 200px;
+		overflow: auto;
 	}

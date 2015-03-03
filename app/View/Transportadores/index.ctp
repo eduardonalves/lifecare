@@ -63,25 +63,21 @@
 			
 			foreach ($transportadores as $transportadore):
 			?>
-			<tr>
-				<td><?php echo $transportadore['Transportadore']['nome']; ?></td>
-				<td><?php echo $transportadore['Transportadore']['cnpj']; ?></td>
-				<td><?php echo $transportadore['Transportadore']['ie']; ?></td>
-				<td><?php echo $transportadore['Transportadore']['endereco']; ?></td>
-				<td><?php echo $transportadore['Transportadore']['cidade']; ?></td>
-				<td><?php echo $transportadore['Transportadore']['uf']; ?></td>
-
-				<td>
-					<?php
-					echo $this->Html->link($this->Html->image("botao-tabela-editar.png", array("title" => "Editar Transportador", "alt" => "Editar Transportador")), array('controller' => 'Transportadores', 'action' => 'edit', $transportadore['Transportadore']['id']), array('escape' => false));
-					?>
-					
-				</td>
-			</tr>
-			<?php
-			
-			endforeach;
-			
+				<tr>
+					<td><?php echo $transportadore['Transportadore']['nome']; ?></td>
+					<td><?php echo $transportadore['Transportadore']['cnpj']; ?></td>
+					<td><?php echo $transportadore['Transportadore']['ie']; ?></td>
+					<td><?php echo $transportadore['Transportadore']['endereco']; ?></td>
+					<td><?php echo $transportadore['Transportadore']['cidade']; ?></td>
+					<td><?php echo $transportadore['Transportadore']['uf']; ?></td>
+					<td>
+						<?php
+						echo $this->Html->link($this->Html->image("botao-tabela-editar.png", array("title" => "Editar Transportador", "alt" => "Editar Transportador")), array('controller' => 'Transportadores', 'action' => 'edit', $transportadore['Transportadore']['id']), array('escape' => false));
+						?>					
+					</td>
+				</tr>
+			<?php			
+			endforeach;			
 			?>
 		</table>
 		

@@ -8,7 +8,14 @@ $(document).ready(function(){
 	$(".inputCep").mask("00000-000");
 	$(".cnpj").mask("99.999.999/9999-99");
 	$(".uf").mask("SS");
-	
+	$(".ieMask").mask("999.999.999.999");
+	$(".dinheiro_duasCasas").priceFormat({
+	    prefix: '',
+	    centsSeparator: ',',
+	    thousandsSeparator: '.',
+	    limit: 15
+	});
+
 	$('.inputData').on("keypress",function(event){
 		var charCode = event.keyCode || event.which;
 
@@ -220,6 +227,7 @@ $(document).ready(function(){
 		if(valorCad=="Cadastrar"){
 			$(".autocompleteTransportadoras input").val('');
 			$("#myModal_add-transportadora").modal('show');
+			$('.validaTransp').val('');
 		}
     });
 
@@ -348,22 +356,40 @@ $(document).ready(function(){
 	var flagTransportadora = 0;
 	$('#salvarTransportadora').click(function(){
 		$('.validaTransp').each(function(){
-			if($(this).val() != ''){
+			if($(this).val() == ''){
 				flagTransportadora++;
-				
-			}else{
-				flagTransportadora--;
 				$(this).addClass('shadow-vermelho');
 			}
 		});
-		if(flagNota < 6){
-			$('#msgCamposObrTransportadora').show();			
+		if(flagTransportadora > 0){
+			$('#msgCamposObrTransportadora').show();
+			flagTransportadora = 0;
 		}else{
 			
-			/*
-				FAZER SALVAMENTO AQUI
+			var $formData =  $('#formTransportadora').serializeArray();
+			
+			$.ajax({
+				url: $('#formTransportadora').attr('action'),
+				type: 'POST',
+				data: $formData,
+				dataType: 'json',
+				success: function (data) {
 
-			*/
+					if (data.insertId !== false){
+					
+						$("#add-transportadora").append('<option value="'+ data.insertId +'">'+ data.text +'</option>');
+												$("#myModal_add-transportadora").modal('hide');
+
+					}else{
+						
+						alert('Erro ao cadastrar transportador. Tente novamente');
+
+					}
+
+				}
+
+			})
+			.fail(function( jqXHR, textStatus ) {  alert( "Request failed: " + textStatus );});
 
 			flagNota = 0;
 		}

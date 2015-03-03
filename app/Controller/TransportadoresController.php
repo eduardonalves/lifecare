@@ -15,11 +15,11 @@ class TransportadoresController extends ParceirodenegociosController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'RequestHandler');
 
 	public function beforeRender(){
 		
-		$this->layout = "faturamento";
+		//$this->layout = "faturamento";
 	}
 
 	public function beforeFilter(){
@@ -90,15 +90,40 @@ class TransportadoresController extends ParceirodenegociosController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
+
+		if ($this->request->is('post') || $this->request->is('ajax')) {
+			
 			$this->Transportadore->create();
+			
 			if ($this->Transportadore->save($this->request->data)) {
-				$this->Session->setFlash(__('The transportadore has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+
+				if($this->request->is('ajax')){
+
+					$ajax_return = array('insertId'=>$this->Transportadore->getLastInsertID(), 'text'=>$this->request->data['Transportadore']['nome']);
+					$this->set(compact('ajax_return'));
+
+				}else{
+
+					$this->Session->setFlash(__('Transportador adicionado com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'index'));
+				}
+				
 			} else {
-				$this->Session->setFlash(__('The transportadore could not be saved. Please, try again.'));
+
+				if($this->request->is('ajax')){
+
+					$ajax_return = array('insertId'=>false);
+					$this->set(compact('ajax_return'));
+
+				}else{
+
+					$this->Session->setFlash(__('Erro ao adicionar transportador.'), 'default', array('class' => 'error-flash'));
+					
+				}
 			}
 		}
+		
+	$this->set(compact('contenat'));
 	}
 
 /**

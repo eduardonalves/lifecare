@@ -1,7 +1,6 @@
 <?php
 	$this->start('css');
 		echo $this->Html->css('table');
-	    echo $this->Html->css('compras');
 	    echo $this->Html->css('paginadores_estilo');
 	    echo $this->Html->css('jquery-ui/jquery.ui.all.css');
 	    echo $this->Html->css('jquery-ui/custom-combobox.css');
@@ -51,7 +50,6 @@
 		</thead>
 
 		<tbody>
-			
 			<?php  
 				foreach ($saidas as $saida) {				
 			?>
@@ -67,7 +65,7 @@
 						
 						if($saida['Saida']['status_completo'] == 0){						
 							//COMPLETA A NOTA
-							echo $this->Html->image('gerencia.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'edit', $saida['Saida']['id']))); 
+							echo $this->Html->image('botao-tabela-editar.png',array('alt'=>'Visualizar Nota','title'=>'Visualizar Nota','url'=>array('controller' => 'Saidas','action' => 'edit', $saida['Saida']['id']))); 
 						}
 						/*echo $this->Form->postLink($this->Html->image('botao-quitar2.png',array('id'=>'faturar','alt' =>__('Faturar'),'title' => 'Faturar')), array('controller' => 'Saidas','action' => 'geraNotaXml', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Faturar essa Venda?'.$saida['Saida']['id'].'?')));*/
 						

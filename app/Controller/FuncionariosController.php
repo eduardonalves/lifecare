@@ -50,6 +50,7 @@ class FuncionariosController extends AppController {
  */
 	public function add() {
 		$this->layout = 'rh';
+		$this->id = null;
 		if ($this->request->is('post')) {
 			$this->Funcionario->create();
 			
