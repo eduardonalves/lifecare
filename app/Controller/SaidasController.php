@@ -357,11 +357,38 @@ class SaidasController extends NotasController {
 
 		$this->loadModel('Produtoiten');
 		$this->loadModel('Loteiten');
+		$flag = FALSE;	
+		$contId =0;
+		while ( $flag == FALSE) {
+			if($contId==0){
+				$ultimaNota = $this->Saida->find('first', array('order' => array('Saida.id' => 'desc'), 'recursive' =>-1));	
+			}else{
+				$ultimaNota = $this->Saida->find('first', array('conditions' => array('Saida.id' => $contId), 'recursive' =>-1));
+			}
+			
+			
+			$id = $ultimaNota['Saida']['id'];
+			$contId = (int) $ultimaNota['Saida']['id'] - 1;
+			$penultimaNota = $this->Saida->find('first', array('conditions' => array('Saida.id' => $contId), 'recursive' =>-1));
+			if($penultimaNota['Saida']['nota_fiscal'] !=''){
+				if($ultimaNota['Saida']['protocolo_aprovacao'] !=''){
+					$numeroNota = $ultimaNota['Saida']['nota_fiscal'] + 1 ;
+					$flag=TRUE;
+				}
+				
+			}
+			if($contId >= 0){
+				$flag=TRUE;
+				$numeroNota=1;
+			}
+		}
+		
+
 		$itens = $this->Produtoiten->find('all', array('conditions' => array('Produtoiten.nota_id' => $id)));
 		$loteitens = $this->Loteiten->find('all', array('conditions' => array('Loteiten.nota_id' => $id)));
 
 		$parceirodenegocios = $this->Saida->Parceirodenegocio->find('list');
-		$this->set(compact('parceirodenegocios','itens','loteitens','saida','emitente','cufs','natops','transporadoras'));
+		$this->set(compact('parceirodenegocios','itens','loteitens','saida','emitente','cufs','natops','transporadoras', 'numeroNota'));
 	}
 
 /**
@@ -726,6 +753,7 @@ class SaidasController extends NotasController {
 		$cnpj=str_replace('-', '', $cnpj);
 		$cnpj=str_replace('(', '', $cnpj);
 		$cnpj=str_replace(')', '', $cnpj);
+		$cnpj=str_replace(' ', '', $cnpj);
 		return $cnpj;
 	}
 	
@@ -736,7 +764,7 @@ class SaidasController extends NotasController {
 		$emprasa= $this->Empresa->find('first',array('recursive'=> -1,'conditions' => array('id' => 1)));	
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));		
 		$this->Saida->id = $id;
-		$uf = $saida['Cuf']['codigo']; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
+		$uf = $empresa['Empresa']['cuf']; // fazer buscar dinamicamente dentro da tabela da fgv 2 digitos
 		if($uf ==''){
 			$uf=33;	
 		}
@@ -750,7 +778,7 @@ class SaidasController extends NotasController {
 		$cnpj =$emprasa['Empresa']['cnpj']; //cnpj do emitente 14 digitos ***buscar 
 		$cnpj=$this->formataCnpj($cnpj);
 		$mod= $saida['Mod']['codigo']; //Modelo do Documento Fiscal 2 digitos ***buscar 
-		$serie='001'; //Série do Documento Fiscal 3 digitos ***buscar 
+		$serie=$saida['Saida']['serie']; //Série do Documento Fiscal 3 digitos ***buscar 
 		$nNF =$saida['Saida']['nota_fiscal']; //Número do Documento Fiscal   9 digitos ***buscar 
 		$trans =1; // forma de emissão da NF-e 1 digito ***buscar 
 		//$codigoacesso = mt_rand(100000000, 999999999); //8 digitos número único para acesso a nota gerado aletóriamente ***buscar 
@@ -884,7 +912,7 @@ class SaidasController extends NotasController {
 		$this->loadModel('Parceirodenegocio');
 		$this->loadModel('Endereco');
 		$this->loadModel('Transportadore');
-		
+		$this->loadModel('Contato');
 		$empresa = $this->Empresa->find('first', array('conditions' => array('Empresa.id' => 1)));
 		
 		$empresa['Empresa']['cnpj'] = str_replace("-","",$empresa['Empresa']['cnpj']);
@@ -895,9 +923,11 @@ class SaidasController extends NotasController {
 		$idnota = $this->geraid($id);
 		$saida= $this->Saida->find('first',(array('conditions' => array('Saida.id' => $id))));
 		$this->Saida->id = $id;
-		$cliente = $this->Parceirodenegocio->find('first', array('conditions' => array('Parceirodenegocio.id' => $saida['Saida']['parceirodenegocio_id'])));
+		$cliente = $this->Parceirodenegocio->find('first', array('recursive' => -1,'conditions' => array('Parceirodenegocio.id' => $saida['Saida']['parceirodenegocio_id'])));
 		
-		$endereco = $this->Endereco->find('first', array('conditions' => array('AND' => array('Endereco.parceirodenegocio_id' => $cliente['Parceirodenegocio']['id']), array('Endereco.tipo' => 'FATURAMENTO'))));
+		$endereco = $this->Endereco->find('first', array('recursive' => -1,'conditions' => array('AND' => array('Endereco.parceirodenegocio_id' => $cliente['Parceirodenegocio']['id']), array('Endereco.tipo' => 'FATURAMENTO'))));
+		$contato = $this->Contato->find('first', array('recursive' => -1,'conditions' => array('Contato.parceirodenegocio_id' => $cliente['Parceirodenegocio']['id'])));
+
 		$transportadora = $this->Transportadore->find('first', array('conditions' => array('Transportadore.id' => $saida['Saida']['transportadore_id'])));
 		
 		
@@ -934,8 +964,8 @@ class SaidasController extends NotasController {
 			$endereco = $this->Endereco->find('first', array('conditions' => array('AND' => array('Endereco.parceirodenegocio_id' => $cliente['Parceirodenegocio']['id']), array('Endereco.tipo' => 'PRINCIPAL'))));
 		}
 		
-		if($saida['Tpimp']['codigo']==''){
-			$saida['Tpimp']['codigo']=1;
+		if($saida['Saida']['tpimp']==''){
+			$saida['Saida']['tpimp']=1;
 		}
 		
 		if($saida['Cuf']['codigo'] ==''){
@@ -947,23 +977,23 @@ class SaidasController extends NotasController {
 			$saida['Mod']['codigo']  =55;	
 		}
 		
-		if($saida['Serie']['codigo']==''){
-			 $saida['Serie']['codigo']=1;
+		if($saida['Saida']['serie']==''){
+			 $saida['Saida']['serie']=1;
 		}
 		
 		if($saida['Saida']['data_saida']==''){
 			$saida['Saida']['data_saida']=$saida['Saida']['data'];
 		}
 
-		if($saida['Tpnf']['codigo']==''){
-			$saida['Tpnf']['codigo']=1;
+		if($saida['Saida']['tpnf']==''){
+			$saida['Saida']['tpnf']=1;
 		}
 		
-		if($saida['Tpamb']['codigo']==''){
-			$saida['Tpamb']['codigo']=2;
+		if($saida['Saida']['tpamb']==''){
+			$saida['Saida']['tpamb']=2;
 		}
-		if($saida['Finnfe']['codigo']==''){
-			$saida['Finnfe']['codigo']=1;
+		if($saida['Saida']['finnfe']==''){
+			$saida['Saida']['finnfe']=1;
 		}
 		
 		if($saida['Procemi']['codigo']==''){
@@ -978,15 +1008,15 @@ class SaidasController extends NotasController {
 			$saida['Verproc']['codigo']='2.02';
 		}
 
-		if($saida['Indpag']['codigo']==''){
-			$saida['Indpag']['codigo']=0;
+		if($saida['Saida']['indpag']==''){
+			$saida['Saida']['indpag']=0;
 		}
 		if($empresa['Empresa']['numero']==''){
 			$empresa['Empresa']['numero']='0000';
 		}
 		
-		if($empresa['Cmunfg']['codigo']==''){
-			$empresa['Cmunfg']['codigo']='3303500';
+		if($empresa['Empresa']['cmunfg']==''){
+			$empresa['Empresa']['cmunfg']='3303500';
 		}
 		if($empresa['Empresa']['cep']==''){
 			$empresa['Empresa']['cep']='26216111';
@@ -1029,23 +1059,23 @@ class SaidasController extends NotasController {
 		            	'@Id' => 'NFe'.$idnota,
 		            	'@versao' => '3.10',
 		            	'ide' => array(
-							'cUF'=> $saida['Cuf']['codigo'],
+							'cUF'=> $empresa['Empresa']['cuf'],
 							'cNF' => $saida['Saida']['codnota'],
 							'natOp' => $saida['Natop']['descricao'],
 							'indPag' =>  $saida['Saida']['indpag'],
 							'mod' => 55,
-							'serie' => $saida['Saida']['serie'],
+							'serie' => 1,
 							'nNF' => $saida['Saida']['nota_fiscal'],
 							'dhEmi' =>  date("c",strtotime($saida['Saida']['created'])),//$saida['Saida']['data'], //consertar o padrão colocar neste padrão 2015-02-12T15:20:16-02:00
-							'tpNF' =>  1,
+							'tpNF' =>  $saida['Saida']['tpnf'],
 							'idDest' => 1, //1=Operação interna; 2=Operação interestadual; 3=Operação com exterior.
 							//'dSaiEnt' => $saida['Saida']['data_saida'],
 							
-							'cMunFG' => $saida['Cmunfg']['codigo'],
+							'cMunFG' => $empresa['Empresa']['cmunfg'],
 							'tpImp' =>  $saida['Saida']['tpimp'],
 							'tpEmis' => $saida['Saida']['tpemis'],
 							'cDV' => $saida['Saida']['cdv'],
-							'tpAmb' => $saida['Saida']['tpamb'],
+							'tpAmb' => 2,//$saida['Saida']['tpamb'],
 							'finNFe' => $saida['Saida']['finnfe'],
 							'indFinal' => 0,
 							'indPres' => 9, //0=Não se aplica (por exemplo, Nota Fiscal complementar ou de ajuste);
@@ -1059,14 +1089,14 @@ class SaidasController extends NotasController {
 						),
 						
 							'emit' =>  array(
-								'CNPJ' => $empresa['Empresa']['cnpj'],
+								'CNPJ' => $this->formataCnpj($empresa['Empresa']['cnpj']),
 								'xNome' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL', //$empresa['Empresa']['razao'],
 								'xFant' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL',//$empresa['Empresa']['razao'],	//colocar o nome fantasia da empresa
 								'enderEmit' => array(
 									'xLgr' =>  $empresa['Empresa']['endereco'],
 									'nro' => $empresa['Empresa']['numero'],
 									'xBairro' => $empresa['Empresa']['bairro'],
-									'cMun' => $empresa['Cmunfg']['codigo'],
+									'cMun' => $empresa['Empresa']['cmunfg'],
 									'xMun' => $empresa['Empresa']['cidade'],
 									'UF' => $empresa['Empresa']['uf'],
 									'CEP' => $empresa['Empresa']['cep'],
@@ -1080,19 +1110,19 @@ class SaidasController extends NotasController {
 								'CRT' => $empresa['Empresa']['crt'],
 							),
 							'dest' => array(
-								'CNPJ' => $cliente['Parceirodenegocio']['cpf_cnpj'],
+								'CNPJ' => $this->formataCnpj($cliente['Parceirodenegocio']['cpf_cnpj']),
 								'xNome' => 'NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL',//$cliente['Parceirodenegocio']['nome'],
 								'enderDest' => array(
 									'xLgr' => $endereco['Endereco']['logradouro'],
 									'nro' => $endereco['Endereco']['numero'],
 									'xBairro' => $endereco['Endereco']['bairro'],
-									'cMun' => $endereco['Cmunfg']['codigo'],
+									'cMun' => $saida['Saida']['cmunfg'],
 									'xMun' => $endereco['Endereco']['cidade'],
 									'UF' =>$endereco['Endereco']['uf'],
 									'CEP' => $endereco['Endereco']['cep'],
 									'cPais' => $endereco['Endereco']['cpais'],
 									'xPais' =>  $endereco['Endereco']['xpais'],
-									'fone' => '2133458899', //pegar o telefone do cliente dinamicamente
+									'fone' => $this->formataCnpj($contato['Contato']['telefone1']), //pegar o telefone do cliente dinamicamente
 								),
 								'indIEDest' => 9,/*
 									1=Contribuinte ICMS (informar a IE do destinatário);
@@ -1405,7 +1435,7 @@ class SaidasController extends NotasController {
 		
 		if(!empty($transportadora)){
 			$tranportadoraData = array(
-				'CNPJ' => $transportadora['Transportadore']['cnpj'],
+				'CNPJ' => $this->formataCnpj($transportadora['Transportadore']['cnpj']),
 				'xNome' => $transportadora['Transportadore']['nome'],
 				//'IE' => $transportadora['Transportadore']['ie'],
 				'xEnder' => $transportadora['Transportadore']['endereco'],
@@ -1429,34 +1459,35 @@ class SaidasController extends NotasController {
 		
 		foreach ($saida['Transp'] as $transp) {
 				$tranportadoraInfo = array(
-				'qVol' => $transp['qVol'],
+				'qVol' => $transp['qvol'],
 				'esp' => $transp['esp'],
 				'nVol' => $transp['nVol'],
-				'pesoL' => $transp['pesoL'],
-				'pesoB' => $transp['pesoB'],
+				'pesoL' => $transp['pesol'],
+				'pesoB' => $transp['pesob'],
 				'lacres' => array(
 					'nLacre'=> $transp['lacres']
 				),
 			);
 			array_push($xmlArray['NFe']['infNFe']['transp']['vol'], $tranportadoraInfo);
 		}
-		if(isset($saida['Transp'])){
-			if(empty($saida['Transp'] )){
+		
+		if(!isset($saida['Transp'])){
+			
 				unset($xmlArray['NFe']['infNFe']['transp']['vol']);
-			}
+			
 		}
 		
 		foreach ($saida['Duplicata'] as $duplicata) {
 			$dup = array(
 				'dup' => array(
-					'nDup' => $duplicata['nDup'],
-					'dVenc'	=> $duplicata['dVenc'],
-					'vDup' => $duplicata['vDup'],
+					'nDup' => $duplicata['ndup'],
+					'dVenc'	=> $duplicata['dvenc'],
+					'vDup' => $duplicata['vdup'],
 				)
 			);
 			array_push($xmlArray['NFe']['infNFe']['cobr'], $dup);
 		}
-
+		
 		if(isset($saida['Duplicata'])){
 			if(empty($saida['Duplicata'])){
 				unset($xmlArray['NFe']['infNFe']['cobr']);
@@ -1482,17 +1513,17 @@ class SaidasController extends NotasController {
 		$xmlAssinada= $tools->signXML($xmlString, 'infNFe');
 
 		$nomeArquivo =  $idnota.'-nfe.xml';
-		$enderecoArquivo = '../../app/webroot/xml/' . $nomeArquivo;
+		$enderecoArquivo = '../../app/webroot/xml/homologacao' . $nomeArquivo;
 		file_put_contents($enderecoArquivo, $xmlAssinada);
 
 		$this->Saida->saveField('urlarquivo', $enderecoArquivo); 
 		
-		//debug($saida);
+		
 		
 
 		//Redirecionar para local desejado
-		//$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-		//return $this->redirect(array('action' => 'index'));
+		$this->Session->setFlash(__('A Nota foi gerada com sucesso.'), 'default', array('class' => 'success-flash'));
+		return $this->redirect(array('action' => 'view', $id));
 
 		
 		
@@ -1539,6 +1570,7 @@ class SaidasController extends NotasController {
 			    if ($aResp['bStat']) {
 			        echo "Numero do Recibo : " . $aResp['nRec'] .", use este numero para obter o protocolo ou informações de erro no xml com testaRecibo.php.";
 			        $this->Saida->saveField('recibo', $aResp['nRec']);
+			        
 			    } else {
 			        echo "Houve erro 1 !! $nfe->errMsg";
 			    }
@@ -1557,15 +1589,27 @@ class SaidasController extends NotasController {
 
 		     		$motivoReceita = $resposta['Envelope']['soap:Body']['nfeAutorizacaoLoteResult']['retEnviNFe']['protNFe']['infProt']['xMotivo']; 		     		
 		     		$this->Saida->saveField('motivo_receita', $motivoReceita);
+		     		$this->Session->setFlash(__('A Nota foi enviada com sucesso.'), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'view', $id));
 
 		     	}
+
 		     	
 			} else {
-			    echo "houve erro  2!!  $nfe->errMsg";
+			  		
+			  		
+				$debugnfe= $tools->soapDebug;
+				$xmlResp = explode('<xMotivo>', $debugnfe);
+				$respostaAux = $xmlResp[1];
+				$respostaAux2 = explode('</xMotivo>', $respostaAux);
+				$resposta = $respostaAux2[0];
+				
+				$this->Session->setFlash(__('Erro.'.$resposta), 'default', array('class' => 'error-flash'));
+				return $this->redirect(array('action' => 'view', $id));
 				
 			}
 
-			debug($resposta);
+			
 			/*echo '<BR><BR><h1>DEBUG DA COMUNICAÇÕO SOAP</h1><BR><BR>';
 			echo '<PRE>';
 			echo htmlspecialchars($tools->soapDebug);
@@ -1573,8 +1617,8 @@ class SaidasController extends NotasController {
 
 
 			//Redirecionar para local desejado
-			//$this->Session->setFlash(__('A saída foi salva com sucesso.'), 'default', array('class' => 'success-flash'));
-			//return $this->redirect(array('action' => 'index'));
+			//Redirecionar para local desejado
+			
 		}
 		
 	}
@@ -1601,12 +1645,16 @@ class SaidasController extends NotasController {
 		header('Content-type: text/xml; charset=UTF-8');
 		if ($aResp = $nfe->getProtocol($recibo, $meuRecibo, $tpAmb, $retorno)){
 		    //houve retorno mostrar dados
-		    debug($aResp);
+		    //debug($aResp);
+		    $this->Session->setFlash(__('A Nota foi enviada com sucesso.'), 'default', array('class' => 'success-flash'));
+			return $this->redirect(array('action' => 'view', $id));
 		    
-		} else {
+		}else {
 		    //não houve retorno mostrar erro de comunicação
-		    echo "Houve erro !! $nfe->errMsg";
+		    //echo "Houve erro !! $nfe->errMsg";
 		   // $this->Session->setFlash(__('Houve um erro.'), 'default', array('class' => 'error-flash'));
+			$this->Session->setFlash(__('A houve um erro.'), 'default', array('class' => 'success-error'));
+			return $this->redirect(array('action' => 'view', $id));
 		}
 	}
 
@@ -1640,14 +1688,21 @@ class SaidasController extends NotasController {
 			    if(isset($resposta['procEventoNFe']['retEvento'])){
 			    	$protocoloCanc  = $resposta['procEventoNFe']['retEvento']['infEvento']['nProt'];
 			    	$this->saveField('protocolo_cancelamento', $protocoloCanc); 
+			    	$this->Session->setFlash(__('A Nota foi Cancelada com sucesso. Segue o protocolo de cancelamento'.$protocoloCanc), 'default', array('class' => 'success-flash'));
+					return $this->redirect(array('action' => 'view', $id));
+			    }else{
+			    	$this->Session->setFlash(__('Houve um erro no cancelamento.'), 'default', array('class' => 'success-error'));
+					return $this->redirect(array('action' => 'view', $id));
 			    }
 			} else {
 			    header('Content-type: text/html; charset=UTF-8');
-			    echo '<BR>';
-			    echo $nfe->errMsg.'<BR>';
-			    echo '<PRE>';
-			    echo htmlspecialchars($nfe->soapDebug);
-			    echo '</PRE><BR>';
+			    //echo '<BR>';
+			    //echo $nfe->errMsg.'<BR>';
+			    //echo '<PRE>';
+			    //echo htmlspecialchars($nfe->soapDebug);
+			    //echo '</PRE><BR>';
+			    $this->Session->setFlash(__('Houve um erro no cancelamento.'), 'default', array('class' => 'success-error'));
+				return $this->redirect(array('action' => 'view', $id));
 			}
 		}
 		
@@ -1682,9 +1737,10 @@ class SaidasController extends NotasController {
 
 		 	$id = $danfe->montaDANFE();
 	    	
-		  	$danfePDf = $danfe->printDANFE('../../app/webroot/pdf/'.$id.'.pdf', 'F');
+		  	$danfePDf = $danfe->printDANFE('../../app/webroot/pdf/homologacao'.$id.'.pdf', 'F');
 		
-		    
+		    $this->Session->setFlash(__('A DANFE foi gerada com sucesso. Segue o protocolo de cancelamento'), 'default', array('class' => 'success-flash'));
+			return $this->redirect(array('action' => 'view', $id));
 		 	/* $enderecoArquivo = WWW_ROOT. DS . 'pdf' . DS . $id.'.pdf';
 		    $this->Saida->id = $saida['Saida']['id'];
 		    $this->Saida->saveField('url_danfe', $enderecoArquivo);

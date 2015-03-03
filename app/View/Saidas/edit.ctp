@@ -334,8 +334,8 @@
 	<section class="coluna-esquerda">
 		<?php
 			echo $this->Form->input('id');
-			echo $this->Form->input('nota_fiscal',array('label'=>'Nº nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text'));
-			echo $this->Form->input('codnota',array('label'=>'Cod. Nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text'));
+			echo $this->Form->input('nota_fiscal',array('label'=>'Nº nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text', 'value' => $numeroNota));
+			/*echo $this->Form->input('codnota',array('label'=>'Cod. Nota<span class="campo-obrigatorio">*</span>:','class'=>'tamanho-medio validaNota','type'=>'text')); */
 
 			echo $this->Form->input('ds',array('value'=>$saida['Saida']['tpemis'],'type'=>'hidden','id'=>'tpEmisHide'));
 			echo $this->Form->input('tpemis',array('id'=>'auxTpEmis','label'=>'Tipo de Emi. NF-e<span class="campo-obrigatorio">*</span>:','type'=>'select','class'=>'tamanho-medio validaNota','options'=>array('1'=>'Normal','2'=>'Contingência FS', '3'=>'Contingência SCAN','4'=>'Contingência DPEC','5'=>'Contingência FS - DA','6'=>'Contingência SVC - AN','7'=>'Contingência SVC - RS')));			
