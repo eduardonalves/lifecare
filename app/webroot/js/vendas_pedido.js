@@ -319,26 +319,27 @@ $(document).ready(function() {
 					valorTotal = '0,00';
 				}
 				
-				
+				valorVendaAux = valorVenda;
 				
 				//Adiciona os valores na tabela pra visualização
 				$('#tbl_produtos').append('<tr class="produtoTr_'+in_produto+'">\
 						\
 						<td class="whiteSpace">\
 								<span title="'+valorNome+'">'+valorNome+'</span>\
-								\<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
+								<input name="data[Comitensdaoperacao]['+in_produto+'][produto_id]" step="any" class="existe" value="'+valorId+'" type="hidden">\
 							\
 						</td>\
 						\
 						<td>\
 							<input name="data[Comitensdaoperacao]['+in_produto+'][qtde]" step="any" class="inputEditavel'+in_produto+' qtdE existe tamanho-pequeno borderZero" id="itenQtd'+in_produto+'" value="'+valorQtd+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
-						\	<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
+							<span id="msgValidaQtde'+in_produto+'" class="Msg-tooltipDireita" style="display:none;left: 350px;">Preencha a Quantidade do Produto</span>\
 						</td>\
 						\
-						\<td>'+valorUnid+'</td>\
+						<td>'+valorUnid+'</td>\
 						<td>\
-							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" step="any" class="valorUnit existe tamanho-medio borderZero" id="vU'+in_produto+'" value="'+valorUnit+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
-						\</td>\
+							<input step="any" id="vuVisible'+in_produto+'"  class="valorUnit existe tamanho-medio borderZero" value="'+valorVenda+'" type="text" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_unit]" id="vU'+in_produto+'" step="any" class="valorUnit existe tamanho-medio borderZero" value="'+valorVenda+'" type="hidden" readonly="readonly" onfocus="this.blur();" style="text-align:center;">\
+						</td>\
 						<td><span id="spanValTotal'+in_produto+'">R$ '+valorMoeda+'</span>\
 							<input name="data[Comitensdaoperacao]['+in_produto+'][valor_total]" step="any" class="existe TotalPedido" id="valorTotal'+in_produto+'" value="'+valorMoeda+'" type="hidden">\
 						</td>\
@@ -352,12 +353,19 @@ $(document).ready(function() {
 						</td>\
 					</tr>');
 					
-				$("#vU"+in_produto).priceFormat({
-					prefix: '',
-					centsSeparator: ',',
-					thousandsSeparator: '.',
-					limit: 15
-				});	
+					$("#vuVisible"+in_produto).priceFormat({
+						prefix: 'R$ ',
+						centsSeparator: ',',
+						thousandsSeparator: '.',
+						limit: 15
+					});
+					
+					$("#vU"+in_produto).priceFormat({
+						prefix: '',
+						centsSeparator: ',',
+						thousandsSeparator: '.',
+						limit: 15
+					});	
 				
 				//Limpa as Input's
 				$("#add-produtos").val('');
