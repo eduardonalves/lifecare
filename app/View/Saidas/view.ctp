@@ -382,6 +382,16 @@
 		}else{
 			//PODE GERAR DANFE OU CANCELAR A NOTA
 			echo $this->Form->postLink($this->Html->image('gerarDanfe.png',array('id'=>'danfe','alt' =>__('Gerar Danfe'),'title' => 'Gerar Danfe')), array('controller' => 'Saidas','action' => 'geraDanfe', $saida['Saida']['id']),array('escape' => false, 'confirm' => __('Deseja realmente Gerar Danfe dessa Nota?'.$saida['Saida']['id'].'?')));			
+			if(isset($saida['Saida']['ulr_danfe'])){
+				echo "<a href=".$saida['Saida']['ulr_danfe']." download>";
+					echo $this->Html->image('pdfdown.png',array('style'=>'float:right;cursor:pointer;','alt' =>'Baixar PDF Danfe','title' => 'Baixar PDF Danfe'));
+				echo "</a>";
+			}
+			if(isset($saida['Saida']['urlarquivo'])){
+				echo "<a href=".$saida['Saida']['urlarquivo']." download>";
+					echo $this->Html->image('xmldown.png',array('style'=>'float:right;cursor:pointer;','alt' =>'Baixar XML','title' => 'Baixar XML'));
+				echo "</a>";
+			}
 		}
 	}	
 
@@ -392,5 +402,6 @@
 			array('escape' => false, 'confirm' => __('Vocẽ realmente deseja cancelar a nota número %s?', $saida['Saida']['id']))
 		);
 	}
+
 	?>
 </footer>
