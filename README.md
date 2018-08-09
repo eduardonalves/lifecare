@@ -1,2 +1,2 @@
 # Lifecare 
-Sistema de Gerenciamento de vendas de produtos hospitalares.
+Sistema de Gerenciamento de vendas de produtos hospitalares. 
